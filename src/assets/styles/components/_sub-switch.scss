@@ -1,0 +1,41 @@
+.sub-switch{
+
+    label{ 
+        color:#005073;
+        font-size: rem(13);
+        letter-spacing: 0.025em;
+        margin-bottom: 0;
+        &.active{
+            color: #333333;
+        }
+    }
+    .switch{
+        background:rgba( #0E709E,0.4);
+        border-radius: 99px;
+        width:25px;
+        height:9px;
+        position: relative;
+        cursor:pointer;
+        margin: 0 10px;
+        align-self: center;
+        &:before{
+            content: "";
+            transition: all ease-in 3ms;
+            background: #005073;
+            box-shadow: 0px 4px 8px #D2D2D6, 0px 2px 4px #B4B4BB;
+            border-radius: 99px;
+            width:16px;height: 16px;
+            position: absolute;
+            position: absolute;
+            top: -4px;
+            
+        }
+        &.on {
+            &:before{ left: -5px;}
+        }
+        &.off {
+            &:before{ left: auto; right:-5px;}
+        }
+
+        }
+    }

@@ -1,0 +1,16 @@
+<div class="modal-header">
+  <h5 class="modal-title">Split Proposal Confirmation</h5>
+  <button aria-label="Close" class="icon-close-btn" (click)="close()" data-dismiss="modal" type="button"></button>
+</div>
+<div class="modal-body">
+  <div class="body-content info-alert-message">
+    <div class="info-txt">Selected proposal has multiple architectures. To modify this proposal, we need to first split
+      them into individual proposal by architecture. Are you sure you want to proceed?</div>
+  </div>
+</div>
+<div class="modal-footer" *ngIf="!disableSplit">
+  <button class="btn btn-primary mr-1" type="button" (click)="continue()">Continue</button>
+</div>
+<div class="modal-footer" *ngIf="disableSplit">
+  <button class="btn btn-primary mr-1" type="button" [disabled]="true" >Continue</button>
+</div>

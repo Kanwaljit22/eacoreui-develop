@@ -1,0 +1,43 @@
+<div class="col-wrapper tco-shadow">
+  <h3>{{this.localeService.getLocalizedString('tco.ANALYSIS')}}</h3>
+  <ul>
+    <li>
+      <span class="analysis-value">{{(tcoSummaryData?.benefitsPercent) ? this.utilitiesService.formatValue(this.utilitiesService.getFloatValue(tcoSummaryData?.benefitsPercent)) : 0.00 }}% <small>{{this.localeService.getLocalizedString('tco.BENEFITS')}}</small></span>
+      <span class="analysis-desc">{{this.localeService.getLocalizedString('tco.ANALYSIS_BENEFITS_MESSAGE_01')}}
+          {{(tcoSummaryData?.benefitsPercent) ? this.utilitiesService.formatValue(this.utilitiesService.getFloatValue(tcoSummaryData?.benefitsPercent)) : 0.00}}{{this.localeService.getLocalizedString('tco.ANALYSIS_BENEFITS_MESSAGE_02')}}
+        {{this.localeService.getLocalizedString('tco.list.BUSINESS_AS_USUAL')}}</span>
+    </li>
+    <hr class="dashed">
+    <li>
+      <span class="analysis-value"><span class="tco-price-list">{{tcoSummaryData?.currencyCode}}</span> {{(tcoSummaryData?.savings) ? this.utilitiesService.formatWithNoDecimalForDashboard(tcoSummaryData?.savings) : 0.00}} <small>{{this.localeService.getLocalizedString('tco.SAVINGS')}}</small></span>
+      <span class="analysis-desc">{{this.localeService.getLocalizedString('tco.ANALYSIS_SAVINGS_MESSAGE_01')}}
+        {{((tcoSummaryData?.savings) ? tcoSummaryData?.savings : 0.00 )| shortNumber}}
+        {{this.localeService.getLocalizedString('tco.ANALYSIS_SAVINGS_MESSAGE_02')}}
+        {{this.localeService.getLocalizedString('tco.list.ENT_AGREEMENT')}}</span>
+    </li>
+    <hr class="solid"/>
+  </ul>
+  <div class="tco-graph-wrapper" *ngIf="state === this.constantsService.TCO_MODELLING">
+    <div class="tco-graph-iconset text-right">
+        <!-- <hr class="solid"> -->
+      <a class="tco-graph-icon" href="javascript:void(0)" (click)="showBarGrph()"><span class="icon-graph" [ngClass]="{'active': !showStacked}"></span></a>
+      <a class="tco-graph-icon" href="javascript:void(0)" (click)="showStackedGrph()"><span class="icon-stack" [ngClass]="{'active': showStacked}"></span></a>
+    </div>
+    <div class="tco-graph-values mb-30">
+      <ul>
+        <li><span class="value-title">{{this.localeService.getLocalizedString('tco.list.BUSINESS_AS_USUAL')}}</span><span class="value">{{tcoSummaryData?.businessAsUsual?.totalTcoValue | shortNumber}}</span></li>
+        <li><span class="value-title">{{this.localeService.getLocalizedString('tco.list.ENT_AGREEMENT')}}</span><span class="value">{{tcoSummaryData?.enterpriseAgreement?.totalTcoValue | shortNumber}}</span></li>
+      </ul>
+    </div>
+    <app-bar-stacked-chart [data]="stackedBarData" [state]="state" *ngIf="showStacked"></app-bar-stacked-chart>
+    <app-bar-group-chart [data]="stackedBarData" *ngIf="!showStacked"></app-bar-group-chart>
+  </div>
+  <div class="tco-graph-values mb-30" *ngIf="state !== this.constantsService.TCO_MODELLING">
+    <ul>
+      <li><span class="value-title">{{this.localeService.getLocalizedString('tco.list.BUSINESS_AS_USUAL')}}</span><span class="value">{{tcoSummaryData?.businessAsUsual?.totalTcoValue | shortNumber}}</span></li>
+      <li><span class="value-title">{{this.localeService.getLocalizedString('tco.list.ENT_AGREEMENT')}}</span><span class="value">{{tcoSummaryData?.enterpriseAgreement?.totalTcoValue | shortNumber}}</span></li>
+    </ul>
+  </div>
+  <app-bar-stacked-chart class="tco-graph-wrapper" [data]="stackedBarData" [state]="state" *ngIf="state !== this.constantsService.TCO_MODELLING"></app-bar-stacked-chart>
+  <!-- <img src="assets/images/summary-graph.png"> -->
+</div>

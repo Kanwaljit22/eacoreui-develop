@@ -1,0 +1,10 @@
+{
+    "data": [
+        {
+            "id": "EA004",
+            "severity": "INFO",
+            "text":"Contact {0} already exist"
+        }
+    ]
+}
+    

@@ -1,0 +1,63 @@
+{
+    "rid": "68947219-72da-4bf8-9e4f-d1fb70639b74",
+    "user": "rbinwani",
+    "error": false,
+    "data": {
+        "Proposals": [
+            {
+                "proposalName": "Google Inc EA 3.0",
+                "active": false,
+                "objId": "60fab2ee81eef519decd30b1",
+                "id": 8885635,
+                "userId": "rbinwani",
+                "partnerType": "Cisco",
+                "statusDesc": "In Progress",
+                "enrollment": "Application , Security , Networking",
+                "eaTotalValue": "106,597.00",
+                "buyingProgram": "EA 3.0"
+            },
+            {
+                "proposalName": "Deal for Google LLC for 5 Years",
+                "active": false,
+                "objId": "6115950f8868137b21129a95",
+                "id": 8885638,
+                "userId": "rbinwani",
+                "partnerType": "Partner",
+                "statusDesc": "Completed",
+                "enrollment": "Application , Security , Networking",
+                "eaTotalValue": "106,597.00",
+                "buyingProgram": "EA 3.0"
+            },
+            {
+                "proposalName": "EA Deal for Deloitte & Touche LLP",
+                "active": false,
+                "objId": "6115339ef330ec16bdc2e6ed",
+                "id": 8885646,
+                "userId": "rbinwani",
+                "partnerType": "Cisco",
+                "statusDesc": "Completed",
+                "enrollment": "Application , Security , Networking",
+                "eaTotalValue": "106,597.00",
+                "buyingProgram": "EA 2.0"
+            },
+            {
+                "proposalName": "EA Deal for Deloitte & Touche LLP",
+                "active": false,
+                "objId": "6115339ef330ec16bdc2e6ed",
+                "id": 8885646,
+                "userId": "rbinwani",
+                "partnerType": "Cisco",
+                "statusDesc": "Completed",
+                "enrollment": "Application , Security , Networking",
+                "eaTotalValue": "106,597.00",
+                "buyingProgram": "EA 2.0"
+            }
+        ],
+        "page": {
+            "pageSize": 50,
+            "currentPage": 1,
+            "noOfPages": 1165,
+            "noOfRecords": 58245
+        }
+    }
+}

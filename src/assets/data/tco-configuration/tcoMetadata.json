@@ -1,0 +1,226 @@
+{
+    "data": {
+        "tcoMetaData":{
+            "pricing": {
+                "label": "Pricing",
+                "advancedModelingAllowed": false,
+                "childs": [
+                    {
+                        "name": "listPrice",
+                        "label": "List Price",
+                        "info": "Total Price included products as listed in the Cisco List Price Catalog",
+                        "referenceId": "listPrice",
+                        "isPercentageValue": false,
+                        "displaySeq": 1,
+                        "alc": {
+                            "sw": {
+                                "available": true,
+                                "enabled": true,
+                                "editable": true
+                            },
+                            "cx": {
+                                "available": true,
+                                "enabled": true,
+                                "editable": true
+                            }
+                        },
+                        "ea": {
+                            "sw": {
+                                "available": true,
+                                "enabled": true,
+                                "editable": true
+                            },
+                            "cx": {
+                                "available": true,
+                                "enabled": true,
+                                "editable": true
+                            }
+                        }
+                    },
+                    {
+                        "name": "residualValue",
+                        "label": "Residual Value",
+                        "info": "Remaining value of an existing contract or subscription",
+                        "referenceId": "residualCredit",
+                        "displaySeq": 2,
+                        "isPercentageValue": false,
+                        "alc": {
+                            "sw": {
+                                "available": true,
+                                "enabled": true,
+                                "editable": false
+                            },
+                            "cx": {
+                                "available": true,
+                                "enabled": true,
+                                "editable": false
+                            }
+                        },
+                        "ea": {
+                            "sw": {
+                                "available": true,
+                                "enabled": true,
+                                "editable": false
+                            },
+                            "cx": {
+                                "available": true,
+                                "enabled": true,
+                                "editable": false
+                            }
+                        }
+                    },
+                    {
+                        "name": "eaBundleDiscount",
+                        "label": "EA Bundle Discount",
+                        "info": "Program incentive for building multiple suites within a singal aggrement",
+                        "referenceId": "eaBundleDiscount",
+                        "displaySeq": 3,
+                        "alc": {
+                            "sw": {
+                                "available": true,
+                                "enabled": true,
+                                "editable": false
+                            },
+                            "cx": {
+                                "available": true,
+                                "enabled": true,
+                                "editable": false
+                            }
+                        },
+                        "ea": {
+                            "sw": {
+                                "available": true,
+                                "enabled": true,
+                                "editable": false
+                            },
+                            "cx": {
+                                "available": true,
+                                "enabled": true,
+                                "editable": false
+                            }
+                        }
+                    },
+                    {
+                        "name": "mydDiscount",
+                        "label": "Multi-Year Discount",
+                        "info": "Multi-Year Discount",
+                        "referenceId": "mydDiscount",
+                        "displaySeq": 3,
+                        "alc": {
+                            "sw": {
+                                "available": true,
+                                "enabled": true,
+                                "editable": false
+                            },
+                            "cx": {
+                                "available": true,
+                                "enabled": true,
+                                "editable": false
+                            }
+                        },
+                        "ea": {
+                            "sw": {
+                                "available": true,
+                                "enabled": true,
+                                "editable": false
+                            },
+                            "cx": {
+                                "available": true,
+                                "enabled": true,
+                                "editable": false
+                            }
+                        }
+                    },
+                    {
+                        "name": "discount",
+                        "label": "Discount",
+                        "info": "Discount",
+                        "referenceId": "eaDiscount",
+                        "displaySeq": 3,
+                        "alc": {
+                            "sw": {
+                                "available": true,
+                                "enabled": true,
+                                "editable": false
+                            },
+                            "cx": {
+                                "available": true,
+                                "enabled": true,
+                                "editable": false
+                            }
+                        },
+                        "ea": {
+                            "sw": {
+                                "available": true,
+                                "enabled": true,
+                                "editable": false
+                            },
+                            "cx": {
+                                "available": true,
+                                "enabled": true,
+                                "editable": false
+                            }
+                        }
+                    }
+                ]
+            },
+            "partnerMarkup": {
+                "label": "Partner Markup",
+                "advancedModelingAllowed": false,
+                "info": "Additional Premium charged by Partner to cover their cost"
+            },
+            "growthExpenses": {
+                "label": "Growth Expenses",
+                "advancedModelingAllowed": true,
+                "info": "Additional Premium charged by Partner to cover their cost"
+            },
+            "inflation": {
+                "label": "Time Value of Money",
+                "advancedModelingAllowed": true,
+                "info": "Esitmated Inflation Cost"
+            },
+            "additionalCosts": {
+                "label": "Additional Costs",
+                "advancedModelingAllowed": true,
+                "info": "Esitmated Inflation Cost"
+            }
+        },
+        "enrollmentsConfig": [
+            {
+                "id": 1,
+                "name": "Networking Infrastructure",
+                "displaySequence": 1
+            },
+            {
+                "id": 3,
+                "name": "Security",
+                "displaySequence": 4
+            },
+            {
+                "id": 2,
+                "name": "Applications Infrastructure",
+                "displaySequence": 2
+            },
+            {
+                "id": 5,
+                "name": "Services",
+                "displaySequence": 5
+            },
+            {
+                "id": 6,
+                "name": "Hybrid Work",
+                "displaySequence": 6
+            },
+            {
+                "id": 4,
+                "name": "Collaboration",
+                "displaySequence": 3
+            },
+            {
+                "id": 10,
+                "name": "Provider Connectivity",
+                "displaySequence": 5
+            }
+        ]
+    }
+}

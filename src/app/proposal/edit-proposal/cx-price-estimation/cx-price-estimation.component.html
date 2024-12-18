@@ -1,0 +1,313 @@
+<app-financial-summary [financialSummaryData]="proposalDataService.summaryData " [financialSummaryTotalData]="proposalDataService.pinnedResult"></app-financial-summary>
+<div id="filter-area" class="container-fluid mb-3">
+    <div class="row align-items-center">
+        <!-- <button [disabled]="disableRecalculate" class="btn btn-text mr-2" type="button" *ngIf="showRequestDocuments && !readonlyMode"
+                    (click)="openDownloadModal()">
+                    <span class="icon-request-doc mr-2"></span>
+                    {{localeService.getLocalizedString('price.est.REQUEST_DOCUMENT')}}</button> -->
+         
+            <button  class="btn btn-text seperator-left" type="button" [disabled]="!(this.proposalCxParams?.hardwareLinePricesInSync || proposalCxParams?.discountCascadePending) || (this.appDataService.userInfo.roSuperUser && !this.appDataService.isReadWriteAccess) || systematicIbRepullRequired" (click)="viewAndEditHardwareSupport()">
+                <span class="icon-edit-hardware mr-2"></span>View & Edit Hardware Support Details</button>
+        
+        <div class="col">
+            <ul class="qualify-btn">
+                <!-- <li class="viewProspect" *ngIf = "proposalDataService.relatedSoftwareProposalId">
+                    <a href="javascript:void()" (click)="openSoftwareProposal()" >Switch to SW-Proposal</a>
+                </li> -->
+                <li class="position-relative" *ngIf="!readonlyMode">
+                    <button *ngIf='eaStoreService.ibRepullFeatureFlag' [disabled]="(proposalCxParams?.awaitingResponse && !proposalCxParams?.lineInError) || (proposalCxParams?.discountCascadePending)" type="button" (click)="ibPull()" class="btn btn-text decoration-none"><span class="i-vNext-scanning mr-2"></span>Re-process IB assessment</button>
+                    <div class="ib-popup" *ngIf="ibPopups">
+                        <button type="button" class="icon-close-btn" (click)="closePopup()"></button>
+                        <h5 class="mb-2"><b>Re-process limit reached</b></h5>
+                        <p>You may reprocess every 24 hours. try again in:</p>
+                        <p>{{nextIbPullTimeStamp}}</p>
+                    </div>
+                </li>
+                <li *ngIf="!readonlyMode">
+                    <button type="button" class="btn btn-text decoration-none" (click)="showServiceModal()"><span class="icon-manage-team mr-2"></span>{{ (showServiceSpecialistMessage) ? localeService.getLocalizedString('common.MANAGE_SERVICE_SPECIALIST') : localeService.getLocalizedString('common.MANAGE_TEAM')}}</button>
+                </li>
+                <li *ngIf="this.proposalCxParams?.partnerEamsDeliveryEligible && !readonlyMode" [ngClass]="{'d-none': isChangeSubFlow && !proposalCxParams?.eamsDeliveryEditable && !proposalCxParams.partnerEamsDelivery}">
+                    <button type="button" class="btn btn-text seperator-left decoration-none"  (click)="openEamsDelivery()" ><span class="icon-EAMS-delivery mr-2"></span>EAMS Delivery <span class="cxEligibleSuites icon-alert-info1" placement="top" container="body"
+                        ngbTooltip="{{this.localeService.getLocalizedMessage('proposal.pe.CX_EMS_INFO')}}"></span></button>
+                </li>
+                <li *ngIf="!readonlyMode">
+                    <button type="button" class="btn btn-text seperator-left decoration-none" [disabled]="!proposalCxParams?.discountCascadePending || isCascadeApplied" (click)="cascadeDiscount()"><span class="icon-refresh mr-2"></span>Cascade Discount <span class="cxEligibleSuites icon-alert-info1" placement="top" container="body"
+                        ngbTooltip="{{this.localeService.getLocalizedMessage('proposal.pe.CX_CASCADE_INFO')}}"></span></button>
+                </li>
+                <li>
+                    <button type="button" class="btn btn-text seperator-left decoration-none" (click)="openProposalList()"> <span class="icon-prop-list  mr-2"></span>Proposal List</button>
+                </li>
+
+                <li class=" btn-sep">
+                    <button type="button" class="btn btn-secondary btn-back" (click)="back()"><span
+                            class="icon-btn-back"></span> <span class="mid-text">Back</span></button>
+                </li>
+                <li>
+                    <button type="button" [disabled]="isErrorPresent || proposalCxParams.awaitingResponse || isLineInError || (eaStoreService.ibRepullFeatureFlag && systematicIbRepullRequired && !readonlyMode)" class="btn btn-primary btn-continue" (click)="continue()"><span
+                            class="mid-text">Continue</span> <span class="icon-btn-continue"></span></button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div id="main-container" class="main-table summaryView-table container-fluid">
+    <div class="row" *ngIf='proposalCxParams?.awaitingResponse && !proposalCxParams?.lineInError && !readonlyMode'>
+        <div class="col">
+
+            <div class="alert alert--cx-info mt-2 pr-2">
+                <div class="cx-msg">
+                    <p class="msg">
+                     <span class="icon-reload">
+                     </span>   
+                     {{localeService.getLocalizedMessage('proposal.pe.CX_HARDWARE_IB_IN_PROGRESS')}}
+                    </p>
+                    <!-- <p class="msg bold">
+                        Estimated Loading Time: 22 Seconds
+                    </p> -->
+                </div>
+             </div>
+        </div>
+    </div>
+    <!-- <div class="row" *ngIf = "showServiceSpecialistMessage && !readonlyMode">
+    <div class="col">
+
+        <div class="alert alert--cx-info error mt-2 pr-2">
+           <div class="cx-msg">
+               <p class="msg">
+                <span class="icon-error-icon"></span>   
+                For a Services proposal you must have a Services Specialist in your team. Please click on  <a href="javascript:void(0);" (click)="openManageServiceModal()"> Manage Services Specialist </a> to add a Services Specialist.
+               </p>
+           </div>
+        </div>
+    </div>
+    </div> -->
+    <div class="row" *ngIf="proposalCxParams?.partnerEamsDeliveryEligible && !proposalCxParams.partnerEamsDelivery && !readonlyMode" [ngClass]="{'d-none': isChangeSubFlow && !proposalCxParams?.eamsDeliveryEditable && !proposalCxParams.partnerEamsDelivery}">
+        <div class="col">
+
+            <div class="alert alert--cx-info eligible mt-2 pr-2">
+               <div class="cx-msg">
+                   <p class="msg">
+                    <span class="icon-msg-Info">
+                        <span class="path1"></span>
+                        <span class="path2"></span>
+                        <span class="path3"></span>
+                    </span>   
+                    You are eligible to avail support services from your Partner. You can click on <a href="javascript:void(0);" (click)="openEamsDelivery()">EAMS Delivery</a> if you wish to switch to EA Management Support from Partner.
+                   </p>
+               </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Deal Assurer Message  -->
+    <div class="row" *ngIf="!qualService.qualification.cxDealAssurerTeams.length && proposalDataService.proposalDataObject.proposalData.status === constantsService.IN_PROGRESS_STATUS">
+        <div class="col">
+
+            <div class="alert alert--cx-info eligible mt-2 pr-2">
+               <div class="cx-msg">
+                   <p class="msg">
+                    <span class="icon-msg-Info">
+                        <span class="path1"></span>
+                        <span class="path2"></span>
+                        <span class="path3"></span>
+                    </span>   
+                    {{localeService.getLocalizedMessage('prposal.pe.CX_DEAL_ASSUERE')}}<a href="javascript:void(0);" (click)="openSmartsheet()" >Smartsheet</a>.
+                   </p>
+               </div>
+            </div>
+        </div>
+    </div>
+    <!-- Deal Assurer Message  -->
+    <!-- Info message from API -->
+    <div class="alert alert--cx-info eligible mt-2 pr-2" *ngIf='messageService.messagesObj.infos?.length === 1'>
+        <div class="cx-msg">
+            <p class="msg">
+             <span class="icon-msg-Info">
+                 <span class="path1"></span>
+                 <span class="path2"></span>
+                 <span class="path3"></span>
+             </span>   
+             {{messageService.messagesObj.infos[0].text}}
+            </p>
+        </div>
+     </div>
+    
+    <!-- message if dirty flag true starts -->
+    <div class="row" *ngIf="isDiscountDirty && isDiscountApplied && proposalCxParams?.discountCascadePending && !isCascadeApplied && !readonlyMode">
+        <div class="col">
+
+            <div class="alert alert--cx-info alert mt-2 pr-2">
+                <div class="cx-msg">
+                    <p class="msg">
+                     <span class="icon-warning1">
+                         <span class="path1"></span>
+                         <span class="path2"></span>
+                         <span class="path3"></span>
+                     </span>   
+                     {{localeService.getLocalizedMessage('proposal.pe.CX_DISCOUNT_APPLIED_1')}}<a href="javascript:void(0);" (click)="cascadeDiscount()">Cascade Discount</a>{{this.localeService.getLocalizedMessage('proposal.pe.CX_DISCOUNT_APPLIED_2')}}
+                    </p>
+                </div>
+             </div>
+        </div>
+    </div>
+    <!-- message if dirty flag true ends -->
+    <!-- message if lineInerror flag true starts -->
+    <div class="row" *ngIf = "isLineInError && !readonlyMode && !systematicIbRepullRequired">
+        <div class="col">
+    
+            <div class="alert alert--cx-info error mt-2 pr-2">
+               <div class="cx-msg">
+                   <p class="msg">
+                    <span class="icon-error-icon"></span>   
+                    <span>{{this.localeService.getLocalizedMessage('proposal.pe.CX_LINE_IN_ERROR1')}} <a href="javascript:void(0)" title="{{this.localeService.getLocalizedMessage('proposal.pe.CX_LINE_IN_ERROR2')}}" (click)="viewAndEditHardwareSupport()"> {{this.localeService.getLocalizedMessage('proposal.pe.CX_LINE_IN_ERROR2')}}</a> {{this.localeService.getLocalizedMessage('proposal.pe.CX_LINE_IN_ERROR3')}}</span>
+                   </p>
+               </div>
+            </div>
+        </div>
+        </div>
+    <!-- message if lineInerror flag true ends -->
+    <!-- message for delisted IB -->
+    <div class="row" *ngIf="proposalCxParams?.deListThresholdStatusInvalid && !readonlyMode && !systematicIbRepullRequired">
+        <div class="col">
+            <div class="alert alert--cx-info alert mt-2 pr-2">
+                <div class="cx-msg">
+                    <p class="msg">
+                        <span class="icon-warning1">
+                            <span class="path1"></span>
+                            <span class="path2"></span>
+                            <span class="path3"></span>
+                        </span>
+                        {{this.localeService.getLocalizedMessage('proposal.pe.CX_DELISTED_MSG1')}} <a
+                            href="javascript:void(0)"
+                            title="{{this.localeService.getLocalizedMessage('proposal.pe.CX_LINE_IN_ERROR2')}}"
+                            (click)="viewAndEditHardwareSupport()">{{this.localeService.getLocalizedMessage('proposal.pe.CX_LINE_IN_ERROR2')}}</a>{{this.localeService.getLocalizedMessage('proposal.pe.CX_DELISTED_MSG2')}}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- message for delisted -->
+    <!-- message if proposal reopened -->
+    <div class="row" *ngIf="proposalDataService.isProposalReopened && isShowDelistedThresholdLimitMsg && !systematicIbRepullRequired">
+        <div class="col">
+            <div class="alert alert--cx-info alert mt-2 pr-2">
+                <div class="cx-msg">
+                    <p class="msg">
+                        <span class="icon-warning1">
+                            <span class="path1"></span>
+                            <span class="path2"></span>
+                            <span class="path3"></span>
+                        </span>
+                        {{this.localeService.getLocalizedMessage('proposal.pe.CX_REOPEN_MSG1')}} <a
+                            href="javascript:void(0)"
+                            title="{{this.localeService.getLocalizedMessage('proposal.pe.CX_LINE_IN_ERROR2')}}"
+                            (click)="viewAndEditHardwareSupport()">{{this.localeService.getLocalizedMessage('proposal.pe.CX_LINE_IN_ERROR2')}}</a>{{this.localeService.getLocalizedMessage('proposal.pe.CX_REOPEN_MSG2')}}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- message if proposal reopened -->
+    <!-- message if cascade discount applied starts -->
+    <!-- <div class="row" *ngIf="isCascadeApplied">
+        <div class="col">
+            <div class="alert alert--success">
+                <span class="alert-icon">
+                        <span class="icon-done1"><span class="path1"></span><span class="path2"></span></span>
+                </span>
+                <span class="txt">{{this.localeService.getLocalizedMessage('proposal.pe.CX_CASCADE_APPLIED_MSG_1')}} <a href="javascript:void(0)" title="{{this.localeService.getLocalizedString('common.CONTINUE')}}" (click)="continue()" [ngClass]="{'disabled': appDataService.persistErrorOnUi || showServiceSpecialistMessage || proposalCxParams.awaitingResponse || isLineInError}"> {{this.localeService.getLocalizedString('common.CONTINUE')}}</a> {{this.localeService.getLocalizedMessage('proposal.pe.CX_CASCADE_APPLIED_MSG_2')}}</span> 
+            </div>
+        </div>
+    </div> -->
+    <!-- message if cascade discount applied ends -->
+    <!-- to show messages from API -->
+    
+    <div class="alert alert--danger alert-dismissable clearfix mt-2" *ngIf='messageService.messagesObj.errors?.length > 1'>
+        <span class="alert-icon">
+            <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span></span>
+        </span>
+        <span>There are <span class="import">{{messageService.messagesObj.errors.length}} Errors
+            <!-- <span *ngIf='appDataService.archName === constantsService.SECURITY && configStatus === constantsService.INVALID_STATUS && !readOnlyMode'>
+                {{messageService.messagesObj.errors.length + 1}} Errors</span>
+        <span *ngIf='appDataService.archName !== constantsService.SECURITY || configStatus !== constantsService.INVALID_STATUS || readOnlyMode'>
+                        {{messageService.messagesObj.errors.length}} Errors</span> -->
+
+        <div class="error-list alert-error">
+            <div class="alert alert--danger" *ngFor="let message of messageService.messagesObj.errors">
+                <span class="icon-alert-error-bg"></span>
+                <span>{{message.text}}</span>
+            </div>
+            <!-- <div *ngIf="appDataService.archName === constantsService.SECURITY && configStatus === constantsService.INVALID_STATUS && !readOnlyMode" class="alert alert--danger">
+                    <span class="icon-alert-error-bg"></span>
+                    <span>{{localeService.getLocalizedString('price.est.CONFIG_INVALID_STATUS_MESSAGE')}}
+                        <a href="javascript:void(0)" (click)="config()">here</a>
+                        {{localeService.getLocalizedString('price.est.CONFIGURE_SUITES')}}</span>
+                </div> -->
+
+        </div>
+        </span> in this proposal.</span>
+
+    </div>
+    <div *ngIf="messageService.messagesObj.errors?.length === 1" class="alert alert--danger alert-dismissable clearfix">
+        <span class="alert-icon">
+            <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span></span>
+        </span>
+        <span>{{messageService.messagesObj.errors[0].text}}
+        </span>
+    </div>   
+   <!-- warning messages from api starts -->
+    <div class="alert alert--warning alert-dismissable clearfix" *ngIf='messageService.messagesObj.warns?.length > 1'>
+        <span class="alert-icon">
+            <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span
+                    class="path3"></span></span>
+        </span>
+        <span>There are <span class="alert-warning-text">
+                <span style="text-decoration: underline;">{{messageService.messagesObj.warns.length}} Warnings</span>
+                <div class="error-list warning-list">
+                    <div class="custom-list-scroll">
+                        <div class="alert alert--warning" *ngFor="let message of messageService.messagesObj.warns">
+                            <span>{{message.text}}</span>
+                        </div>
+                    </div>
+                </div>
+            </span> in this proposal.</span>
+    </div>
+
+    <div *ngIf="messageService.messagesObj.warns?.length === 1" class="alert alert--warning alert-dismissable clearfix">
+        <span class="alert-icon">
+        <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+        </span>
+        <span>{{messageService.messagesObj.warns[0].text}}
+        </span>
+    </div>
+        
+    <div *ngIf='eaStoreService.ibRepullFeatureFlag && systematicIbRepullRequired && !readonlyMode &&  !( proposalCxParams?.awaitingResponse && !proposalCxParams?.lineInError) && !proposalCxParams?.discountCascadePending' class="alert alert--danger">
+        <span class="alert-icon">
+            <span class="icon-error-icon"></span>
+        </span>
+        <span>The IB Assessment for this proposal is more than {{diffInDaysForSystematicIbRepull}} days old. Please <a href="javascript:void();" (click)="ibPull()">click here</a> to re-process the IB assessment. This action will apply to all Services portfolios</span>
+        <span class="alert-action">
+            <button class="icon-close-btn mt-0" type="button"></button>
+        </span>
+    </div>
+    <!-- warning messages from api ends -->
+
+    <div class="d-flex w-100 justify-content-end align-items-center">
+        <div class="col-4 pr-0 text-right">
+            <ul class="tile-list d-inline-flex">
+                <li class="no-wrap">
+                    {{this.localeService.getLocalizedString('price.est.ALL_PRICES')}} {{constantsService.CURRENCY}}
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="eaProspect-table">
+        <ag-grid-angular id="ag-grid" style="width: 100%; height: 550px;" class="ag-fresh cx-price-estimation" #agGrid
+            [gridOptions]="gridOptions" [rowData]="rowData" [getNodeChildDetails]="getNodeChildDetails"
+            (cellClicked)="onCellClicked($event)"
+            (cellMouseOver)="onCellMouseOver($event)"
+            (cellMouseOut)="onCellMouseOut($event)" rowHeight="30">
+        </ag-grid-angular>
+    </div>
+</div>

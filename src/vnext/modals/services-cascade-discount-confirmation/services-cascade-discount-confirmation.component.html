@@ -1,0 +1,16 @@
+<div class="modal-body vNext modal-without-header">
+    <button class="icon-close-btn" type="button" attr.action-id="{{dataIdConstantsService.servicesCascaseDiscConfirm_button_close}}" (click)="close()"></button>
+    <h2 class="mb-5">{{localizationService.getLocalizedString('services-cascade-discount-confirmation.IMPORTANT_INFORMATION')}}</h2>
+    <!-- End of header -->
+    
+    <div class="vNext-lookup-desc pb-2 px-5">
+        <p class="mb-4">
+        {{localizationService.getLocalizedString('services-cascade-discount-confirmation.CASCADE_DISCOUNT')}}
+        </p>
+        <p class="mb-4">{{localizationService.getLocalizedString('services-cascade-discount-confirmation.PRICES_REVISE')}}</p>
+    </div>
+
+    <div class="text-center d-block pb-4">
+        <button class="btn btn-primary ml-1" type="button" attr.action-id="{{dataIdConstantsService.servicesCascaseDiscConfirm_button_ok}}" (click)="accept()">{{localizationService.getLocalizedString('common.OK')}}</button>
+    </div>
+</div>

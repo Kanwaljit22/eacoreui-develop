@@ -1,0 +1,36 @@
+<div id="filter-area" class="container-fluid mb-2">
+    <div class="row clearfix">
+        <div class="col-12">
+            <ul class="qualify-btn">
+                <li class="btn-sep"><button [id]="appDataService.createUniqueId('BACK',appDataService.pageContext)"
+                        class="btn btn-secondary btn-back" (click)="backToSubscription()" type="button"><span class="icon-btn-back"></span> <span
+                            class="mid-text">{{localeService.getLocalizedString('common.BACK')}}</span></button></li>
+                <li><button [id]="appDataService.createUniqueId('CONTINUE',appDataService.pageContext)"
+                        class="btn btn-primary btn-continue" type="button" (click)="continueToReview()"><span
+                            class="mid-text">{{localeService.getLocalizedString('common.CONTINUE')}}</span> <span
+                            class="icon-btn-continue"></span></button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- start of proposal parameters to save country of transaction, billing modal, price list, RSD, End Date, EA Term in Months, Primary Partner Name, coterm/ change sub -->
+<div class="container-fluid clearfix">
+    <message></message>
+    
+
+    <app-proposal-parameters [flow]="'renewal'" [displayErrorMsg] = 'false' (renewalParametersSaved)="continue($event)"></app-proposal-parameters>
+
+<!-- start of qna for renewal flow -->
+    <div class="row mb-4" *ngIf="displayQuestionnaires">
+        <div class="col-12">
+            <div class="card">
+                <h5 class="card-header">Architecture</h5>
+                <div class="card-body">
+                    <app-proposal-architecture [subRefId]="qualService.subRefID" [qualId]="qualService.qualification.qualID" [architectureShow]="architectureShow" [type]="'create'" [isRenewalFlow]="true"></app-proposal-architecture>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

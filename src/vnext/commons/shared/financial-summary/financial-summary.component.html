@@ -1,0 +1,66 @@
+<div class="custom-flyout-overlay"></div>
+<div class="custom-flyout vNext cust-md w-1140">
+    <div class="heading">
+        <div class="d-flex justify-content-between align-items-top">
+            <div class="heading-title">
+                <h2 class="heading--h2">{{localizationService.getLocalizedString('financial-summary.FINANCIAL_SUMMARY')}}</h2>
+            </div>
+            <div>
+                <!--a class="mr-4" href="javascript:void(0)"><span class="i-vNext-enlarge mr-0"></span></a-->
+                <button class="icon-close-btn" (click)="proposalStoreService.showFinancialSummary = false;" attr.action-id="{{dataIdConstantsService.financialSummary_button_close}}"  type="button"></button>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="body">
+        <div class="col-12 px-0">
+            <table class="primary-table">
+                <thead>
+                    <tr>
+                        <th rowspan="2">{{localizationService.getLocalizedString('common.PORTFOLIO')}}</th>
+                        <th rowspan="2" class="text-right" width="13%">{{localizationService.getLocalizedString('common.TOTAL_LIST_PRICE')}} ({{proposalStoreService.proposalData?.currencyCode}})</th>
+                        <th rowspan="2" class="text-right" width="13%">{{localizationService.getLocalizedString('financial-summary.TOTAL_DISCOUNT_AMOUNT')}} ({{proposalStoreService.proposalData?.currencyCode}})</th>
+                        <th rowspan="2" class="text-right" width="13%">{{localizationService.getLocalizedString('common.TOTAL_OTD')}} ({{proposalStoreService.proposalData?.currencyCode}})</th>
+                        <th colspan="3" class="text-center" width="39%">{{localizationService.getLocalizedString('common.TOTAL_CONTRACT_VALUE')}} {{'common.POST_OTD' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                    </tr>
+                    <tr>
+                        <th width="13%" class="text-right colspan-border--top colspan-border--left">
+                            {{localizationService.getLocalizedString('financial-summary.NET_SOFTWARE_AMOUNT')}} ({{proposalStoreService.proposalData?.currencyCode}})
+                        </th>
+
+                        <th width="13%" class="text-right colspan-border--top colspan-border--left">
+                            {{localizationService.getLocalizedString('financial-summary.NET_SERVICE_AMOUNT')}} ({{proposalStoreService.proposalData?.currencyCode}})
+                        </th>
+
+                        <th width="13%" class="text-right colspan-border--top colspan-border--left">
+                            {{localizationService.getLocalizedString('financial-summary.TOTAL_NET_AMOUNT')}} ({{proposalStoreService.proposalData?.currencyCode}})
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor = "let enrollment of financialSummaryData?.enrollments">
+                        <td>{{enrollment.name}}</td>
+                        <td class="text-right">{{enrollment.extendedList ? utilitiesService.formatValue(utilitiesService.getFloatValue(enrollment.extendedList)) : '--'}}</td>
+                        <td class="text-right">{{enrollment.discountedAmount ? utilitiesService.formatValue(utilitiesService.getFloatValue(enrollment.discountedAmount)) : '--'}}</td>
+                        <td class="text-right">{{enrollment.purchaseAdjustment ? '-' + utilitiesService.formatValue(utilitiesService.getFloatValue(enrollment.purchaseAdjustment)) : '--'}}</td>
+                        <td class="text-right">{{enrollment.totalSwNet ? utilitiesService.formatValue(utilitiesService.getFloatValue(enrollment.totalSwNet)) : '--'}}</td>
+                        <td class="text-right">{{enrollment.totalSrvcNet ? utilitiesService.formatValue(utilitiesService.getFloatValue(enrollment.totalSrvcNet)) : '--'}}</td>
+                        <td class="text-right">{{enrollment.totalNet ? utilitiesService.formatValue(utilitiesService.getFloatValue(enrollment.totalNet)) : '--'}}</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td>{{localizationService.getLocalizedString('common.TOTAL')}}</td>
+                        <td class="text-right">{{financialSummaryData?.extendedList ? utilitiesService.formatValue(utilitiesService.getFloatValue(financialSummaryData.extendedList)) : '--'}}</td>
+                        <td class="text-right">{{financialSummaryData?.discountedAmount ? utilitiesService.formatValue(utilitiesService.getFloatValue(financialSummaryData.discountedAmount)) : '--'}}</td>
+                        <td class="text-right">{{financialSummaryData?.purchaseAdjustment ? '-' + utilitiesService.formatValue(utilitiesService.getFloatValue(financialSummaryData.purchaseAdjustment)) : '--'}}</td>
+                        <td class="text-right">{{financialSummaryData?.totalSwNet ? utilitiesService.formatValue(utilitiesService.getFloatValue(financialSummaryData.totalSwNet)) : '--'}}</td>
+                        <td class="text-right">{{financialSummaryData?.totalSrvcNet ? utilitiesService.formatValue(utilitiesService.getFloatValue(financialSummaryData.totalSrvcNet)) : '--'}}</td>
+                        <td class="text-right">{{financialSummaryData?.totalNet ? utilitiesService.formatValue(utilitiesService.getFloatValue(financialSummaryData.totalNet)) : '--'}}</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>

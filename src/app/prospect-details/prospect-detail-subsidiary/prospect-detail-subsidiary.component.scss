@@ -1,0 +1,39 @@
+.main-table {
+    float: left;
+    width: 100%;
+}
+
+.startQual .btn {
+    cursor  : pointer;
+    position: relative;
+    top     : -5px;
+}
+
+.startQual .btn:focus,
+.startQual .btn:active {
+    box-shadow: none;
+}
+
+.fullScreenBtn {
+    margin-right: 10px;
+}
+
+.customText {
+    min-width    : 180px;
+    overflow     : hidden;
+    text-overflow: ellipsis;
+    white-space  : nowrap;
+    width        : 100%;
+}
+
+.startQualBtn {
+    width      : 105px;
+    display    : inline;
+    text-indent: 0;
+}
+
+.startQualBtn .btn.btn-primary {
+    border    : 0 !important;
+    box-shadow: none !important;
+    top       : 0 !important;
+}

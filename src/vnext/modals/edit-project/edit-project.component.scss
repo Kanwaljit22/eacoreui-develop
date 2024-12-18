@@ -1,0 +1,58 @@
+$browser-context:16;
+@function rem($pixels, $context: $browser-context) {
+    @return #{$pixels/$context}rem;
+}
+.vNext-lookup-desc {
+    p {
+        font-size: rem(16);
+        color: #394454;
+    } 
+    .alert {
+        font-size: rem(14);
+        &.alert--warning {
+            .info-text {
+                color: #fbab18;
+            }
+        }
+        ul {
+            li {
+                font-size: rem(14);
+                line-height: 1.2;
+                color: #5d656c;
+            }
+        }
+    }
+    
+}
+
+.warning-text {
+    color: #fbab18;
+}
+
+/*---------- Responsive CSS ----------*/
+
+@media screen and (min-width:1600px){
+    .vNext-lookup-desc p {
+        font-size: rem(17);
+    }
+    .vNext-lookup-desc .alert ul li {
+        font-size: rem(15);
+    }
+    .acknowldge-div span {
+        font-size: rem(15);
+        line-height: rem(20);
+    }
+}
+
+@media screen and (min-width:1920px){
+    .vNext-lookup-desc p {
+        font-size: rem(18);
+    }
+    .vNext-lookup-desc .alert ul li {
+        font-size: rem(16);
+    }
+    .acknowldge-div span {
+        font-size: rem(16);
+        line-height: rem(21);
+    }
+}

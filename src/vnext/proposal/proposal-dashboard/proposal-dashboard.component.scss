@@ -1,0 +1,346 @@
+.dashboad-tile {
+    border: 1px solid #e4e4e4;
+    border-radius: 4px;
+    padding: 15px;
+    color: #394454;
+}
+
+.dashboard-sub-tiles {
+    .heading--h4 {
+        line-height: 1;
+        font-size: 1.25rem;
+        small {
+            font-size: 0.688rem;
+        }
+    }
+    .heading--h2 {
+        font-size: 1.75rem;
+        line-height: 1;
+        font-weight: 600;
+    }
+
+    .total-value {
+        font-size: 1.25rem;
+        line-height: 1;
+
+        small {
+            font-size: 0.813rem;
+        }
+    }
+
+    &.total {
+        .total-value {
+            font-weight: 600;
+            font-size: 1.75rem;
+        }
+        .total-small-value {
+            font-size: 60%;
+        }
+    }
+}
+
+
+/*  Roadmap Styling -- Sarts Here  */
+.dashboard-roadmap {
+
+    .roadmap-steps {
+        &.vNext {
+            max-width: 100%;
+            text-align: left;
+            width: 100%;
+            padding-left: 60px;
+            .step {
+                &.active {
+                    &:first-child {
+                        &::before {
+                            width: 30px !important;
+                            left: -10px !important;
+                            border-radius: 10px;
+                        }
+                    }
+                }
+                &:last-child {
+                    &::before {
+                        width: calc(100% + 15px);
+                        border-radius: 0 10px 10px 0;
+                    }
+                }
+                &::before {
+                    top: 2px;
+                    display: block;
+                    position: absolute;
+                    content: "";
+                    width: 100%;
+                    height: 14px;
+                    left: -100%;
+                    background: #f4f6f8;
+                }
+                &.active {
+                    &:nth-child(4) {
+                        &::before {
+                            left: -103%;
+                            width: calc(100% + 8px);
+                        }
+                    }
+                    &::before {
+                        background-color: #00bceb;
+                        width: 100%;
+                        z-index: 1;
+                        left: -98%;
+                    }
+                    .step--icon {
+                        background-color: #fff;
+                        box-shadow: 0px 0px 0px 3px #00bceb;
+                    }
+                }
+                .step--icon {
+                    border: none;
+                    height: 8px;
+                    width: 8px;
+                    outline: none !important;
+                    background-color: #bdc5cf;
+                    position: relative;
+                    z-index: 99;
+                }
+                .step--label {
+                    display: flex;
+                    flex-wrap: wrap;
+                    padding-left: 8px;
+                    font-size: 0.688rem;
+                    font-weight: 600 !important;
+                    color: #394454;
+                    position: relative;
+
+                    .on-active {
+                        font-weight: 400 !important;
+                        white-space: nowrap;
+                        display: none;
+                        width: 100%;
+                    }
+                }
+
+                &.active {
+                    .step--icon {
+                        background-color: #fff;
+                    }
+
+                    .step--label {
+                        color: #00bceb;
+                        &::before {
+                            content: "";
+                            height: 22px;
+                            width: 1px;
+                            background-color: #00bceb;
+                            position: absolute;
+                            left: 3px;
+                            top: -8px;
+                        }
+                        .on-active {
+                            display: block;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+/*  Roadmap Styling -- Ends Here  */
+
+
+.vNext-actions--outer {
+    .vNext-actions-initiate {
+        border:1px solid #d2d2d6;
+        border-radius: 3px;
+        padding: 20px;
+        text-align: center;
+
+        .vNext-action-icon-wrap {
+            margin-bottom: 20px;
+            font-size: 3.375rem;
+        }
+
+        p {
+            font-size: 0.75rem;
+            color: #4a4b57;
+        }
+
+        .vNext-action-listing {
+            text-align: left;
+            padding-left: 20px;
+            li {
+                color: #333;
+                position: relative;
+                padding-left: 20px;
+                line-height: 1.25;
+                padding-bottom: 10px;
+                font-size: 0.75rem;
+
+                &::before {
+                    content:"";
+                    height: 15px;
+                    width: 15px;
+                    border:2px solid #3a3a44;
+                    position: absolute;
+                    border-radius: 15px;
+                    left: 0;
+                    top: -2px;
+                }
+
+                &.active {
+                    &::before {
+                        content: "\e96e";
+                        font-family: 'enterpriseAgreement' !important;
+                        background-color: #6abf4b;
+                        color: #fff;
+                        font-size: 0.438rem;
+                        text-align: center;
+                        line-height: 1;
+                        padding: 4px 0 0 0;
+                        border:0;
+                    } 
+                }
+
+            }
+        }
+    }    
+}
+
+/*  Next Best Action -- Starts Here  */
+.vNext-actions {
+    border:1px solid #e4e4e4;
+    border-radius: 3px;
+    padding: 20px;
+    position: relative;
+    background-color: #fff;
+
+    .heading--h5 {
+        color: #000;
+    }
+
+    .vNext-actions-inner {
+        padding: 8px 12px;
+        background-color: #fff;
+        border:1px solid #e4e4e4;
+        margin-bottom: 10px;
+        border-radius: 3px;
+        cursor: pointer;
+        transition: all 0.5s ease 0s;
+        -webkit-transition: all 0.5s ease 0s;
+
+        &.highlight {
+            border-color: #e5f2ff;
+            background-color: #e5f2ff;
+        }
+
+        &:hover {
+            background-color: #e5f2ff;
+            border-color: #e5f2ff;
+            box-shadow: 0 2px 8px 0 rgba(0,0,0, 0.15);
+            -webkit-box-shadow: 0 2px 8px 0 rgba(0,0,0, 0.15);
+            .text-wrap{
+                .heading--h6{
+                    color: #227BB1;
+                }
+            }
+        }
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+        .img-wrap {
+            flex-basis: 48px;
+            flex-shrink: 0;
+            height: 48px;
+            border-radius: 3px;
+            background-color: #fff;
+            margin-right: 10px;
+            font-size: 1.875rem;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .text-wrap {
+            .heading--h6 {
+                font-size: 0.875rem;
+                color: #000;
+                margin-bottom: 3px;
+                transition: all 0.5s ease 0;
+                -webkit-transition: all 0.5s ease 0;
+            }
+            p {
+                font-size: 0.75rem;
+                color: #5a5b6a;
+                line-height: 16px;
+
+                a {
+                    color: #059fd9;
+                }
+            }
+        }
+
+        &.footer {
+            background-color: #ffe9cf;
+            cursor: default;
+        }
+    }
+}
+.overlay-blur {
+    z-index: 1;
+    -webkit-filter: blur(4px);
+    -moz-filter: blur(4px);
+    -o-filter: blur(4px);
+    -ms-filter: blur(4px);
+    filter: blur(4px);
+    /* For Blur the Div Content */
+
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+    /* To Disable Div Content from Copying */
+
+    opacity: 0.65;
+    border: 2px solid #e4e4e4 !important;
+}
+/*  Next Best Actions -- Ends Here */
+
+.info-alert-blue {
+    background-color: #eff8fe;
+    font-size: 0.875rem;
+    font-weight: 400;
+    color: #394454;
+    padding: 10px 20px 10px 16px;
+    line-height: 1.2;
+    &.bl-3 {
+        border-left: 4px solid #00bceb;
+    }
+    .icon-msg-Info {
+        font-size: 1.25rem;
+        .path1 {
+            &::before {
+                color: #00bceb;
+            }
+        }
+        .path2, .path3 {
+            &::before {
+                color: #fff;
+            }
+        }
+    }
+    .icon-close-btn {
+        font-size: 0.75rem;
+        position: relative;
+        top: 1px;
+    }
+    .pos-rel {
+        position: relative;
+        &.t-1 {
+            top: 1px;
+        }
+    }
+}

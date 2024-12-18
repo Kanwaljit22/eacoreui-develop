@@ -1,0 +1,44 @@
+{
+  "data": {
+    "subscriptions": [
+      {
+        "subRefId": "Sub960753",
+        "startDate": "2021-12-06",
+        "endDate": "2024-12-05",
+        "ea2Suites": [
+          "DNA Switching",
+          "DNA Wireless"
+        ],
+        "offerType": "ELA2-M",
+        "ea2ArchName": "Cisco DNA",
+        "billingModel": "Prepaid Term",
+        "smartAccountName": "Google Inc",
+        "smartAccountId": "307798",
+        "type": "Early",
+        "partnerName": "CDW",
+        "status": "expired",
+        "hasCollab": true,
+        "dealPartnerMismatch": true
+      },
+	  {
+        "subRefId": "Sub960754",
+        "startDate": "2021-12-06",
+        "endDate": "2024-12-05",
+        "ea2Suites": [
+          "DNA Switching",
+          "DNA Wireless"
+        ],
+        "offerType": "ELA2-M",
+        "ea2ArchName": "Cisco DNA",
+        "billingModel": "Prepaid Term",
+        "smartAccountName": "Google Inc",
+        "smartAccountId": "307798",
+        "type": "Early",
+        "partnerName": "CDW",
+        "status": "ACTIVE",
+        "hasCollab": true,
+        "dealPartnerMismatch": true
+      }
+    ]
+  }
+}

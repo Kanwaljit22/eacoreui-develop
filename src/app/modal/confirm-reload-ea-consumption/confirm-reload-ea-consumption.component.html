@@ -1,0 +1,15 @@
+<div class="modal-body">
+    <div class="body-content info-alert-message">
+      <button class="icon-close-btn" data-dismiss="modal" type="button"
+        (click)="cancel()"></button>
+      <span class="icon-alert-info">
+        <span class="path1"></span><span class="path2"></span><span class="path3"></span>
+      </span>
+      <div class="info-txt">This action will reload EA Consumption and IB data and reset any Qty changes done. Are you sure you want to proceed?
+      </div>
+      <button type="button" class="btn btn-secondary" data-dismiss="modal"
+        (click)="cancel()">Cancel</button>
+        <button type="button" class="btn btn-primary marginL10 btn-continue"
+        (click)="continue()"><span class="mid-text">OK</span> <span class="icon-btn-continue"></span></button>
+    </div>
+  </div>

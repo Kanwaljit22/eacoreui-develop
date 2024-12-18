@@ -1,0 +1,193 @@
+[
+    {
+        "headerName": "SERIAL NUMBER",
+        "field": "serialNumber",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 150,
+        "pinned": true,
+        "minWidth": 60,
+        "suppressMenu": true
+    },
+    {
+        "headerName": "Install Date",
+        "field": "installDate",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 170,
+        "minWidth": 60,
+        "suppressMenu": true
+    },
+    {
+        "headerName": "Instance Number",
+        "field": "instanceNumber",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 190,
+        "minWidth": 60,
+        "suppressMenu": true
+    },
+    {
+        "headerName": "Install Location  (Install Site ID)",
+        "field": "installLocation",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 190,
+        "minWidth": 60,
+        "suppressMenu": true
+    },
+    {
+        "headerName": "Sales Order",
+        "field": "salesOrder",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 220,
+        "minWidth": 60,
+        "suppressMenu": true
+    },
+    {
+        "headerName": "Item Type (HW/SW)",
+        "field": "itemType",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 160,
+        "minWidth": 60,
+        "suppressMenu": true
+    },
+    {
+        "headerName": "Contract Number",
+        "field": "contractNumber",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 160,
+        "minWidth": 60,
+        "suppressMenu": true
+    },
+    {
+        "headerName": "ARCHITECTURE",
+        "field": "architecture",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 190,
+        "minWidth": 60,
+        "suppressMenu": true
+    },
+    {
+        "headerName": "Suite",
+        "field": "suiteSerial",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 190,
+        "minWidth": 60,
+        "suppressMenu": true
+    },
+    {
+        "headerName": "HW Model",
+        "field": "hwModel",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 190,
+        "minWidth": 60,
+        "suppressMenu": true
+    },
+    {
+        "headerName": "DEVICE NAME (Product Description)",
+        "field": "deviceName",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 200,
+        "minWidth": 60,
+        "suppressMenu": true
+    },
+    {
+        "headerName": "PRODUCT ID (SKU)",
+        "field": "productId",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 180,
+        "minWidth": 60,
+        "suppressMenu": true
+    },
+    {
+        "headerName": "Service Level",
+        "field": "serviceLevel",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 190,
+        "minWidth": 60,
+        "suppressMenu": true
+    },
+    {
+        "headerName": "CR Party ID",
+        "field": "crPartyId",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 190,
+        "minWidth": 60,
+        "suppressMenu": true
+    },
+    {
+        "headerName": "CR Party Name",
+        "field": "crPartyName",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 190,
+        "minWidth": 60,
+        "suppressMenu": true
+    },
+    {
+        "headerName": "HQ ID",
+        "field": "hqId",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 190,
+        "minWidth": 60,
+        "suppressMenu": true
+    },
+    {
+        "headerName": "HQ Name",
+        "field": "hqName",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 190,
+        "minWidth": 60,
+        "suppressMenu": true
+    },
+    {
+        "headerName": "GU ID",
+        "field": "guId",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 190,
+        "minWidth": 60,
+        "suppressMenu": true
+    },
+    {
+        "headerName": "GU Name",
+        "field": "guName",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 190,
+        "minWidth": 60,
+        "suppressMenu": true
+    }
+]

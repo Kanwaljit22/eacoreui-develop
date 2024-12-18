@@ -1,0 +1,26 @@
+.cs-collapse.expanded:before {
+    transform: rotate(180deg);
+    transition: transform 0.2s;
+  }
+  
+.i-vNext-edit-filled {
+    font-size: .9375rem;
+    cursor: pointer;
+}
+
+.expandIcon {
+    transform: rotate(180deg) !important;
+}
+
+.saveName {
+    padding-right: 2px !important;
+}
+
+.cancelSaveName {
+    padding-right: 8px !important;
+    padding-left: 2px !important;
+}
+
+.cs-info {
+    cursor: pointer;
+}

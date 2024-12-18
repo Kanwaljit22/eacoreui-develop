@@ -1,0 +1,65 @@
+<div class="clearfix"></div>
+<!-- End of Conatiner Fluid -->
+<app-sub-header [subHeaderData]="summaryData"></app-sub-header>
+<div class="sub-header-level-2" >
+    <div class="container-fluid">
+        <div class="flexible-div align-items-center topActionsBar">
+            <div class="col-xs-12 col-sm-6 col-md-6 pr-0 pl-0">
+                <!--h3>{{localeService.getLocalizedString('prospectdetails.VIEW_PROSPECT_BY')}}</h3-->
+                <div class="line-level-list">{{localeService.getLocalizedString('prospectdetails.VIEW_PROSPECT')}}</div>
+                <div class="bottomActionsTab">
+                    <ul class="nav">
+                        <li class="nav-item">
+                            <a [id]="appDataService.createUniqueId('GEOGRAPHY',appDataService.pageContext)" class="nav-link" (click)="geographyNav()" routerLinkActive="active" (click)="showCleanCoreButton = false" routerLink="prospect-details-region" href="javascript:void(0)" >{{localeService.getLocalizedString('prospectdetails.GEOGRAPHY')}}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a [id]="appDataService.createUniqueId('SUBSIDIARY',appDataService.pageContext)" class="nav-link" (click)="subsidiaryNav()" routerLinkActive="active" routerLink="prospect-details-subsidiary" href="javascript:void(0)">{{localeService.getLocalizedString('prospectdetails.SUBSIDIARY')}}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a [id]="appDataService.createUniqueId('SUITES',appDataService.pageContext)" class="nav-link" (click)="suiteNav()" routerLinkActive="active" (click)="showCleanCoreButton = false" routerLink="prospect-details-suites" href="javascript:void(0)">{{localeService.getLocalizedString('prospectdetails.SUITES')}}</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="line-level-list ml-2 pr-0">{{localeService.getLocalizedString('prospectdetails.FOR')}}
+                <span class="custom-select-list">{{this.selectedArchitecture}} <span class="icon-arow-down"></span>
+                        <div class="dropdown-menu" [hidden]="showArchDrop"><span class="icon-arrow-up"><span class="path1"></span><span class="path2"></span></span>
+                            <ul *ngFor="let arch of this.architecture?.answers">
+                             <li  (click)="onArchitectureChange(arch)">
+                                 <a href="javascript:void(0)">{{arch.description}}</a></li>
+                             <!-- <li><a href="javascript:void(0)">Cisco DNA 2</a></li>  
+                             <li><a href="javascript:void(0)">Cisco DNA 3</a></li>  -->
+                            </ul></div>
+                </span>
+            </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-6 col-md-6 pr-0 pl-0">
+                <ul class="qualify-btn float-right" style="top: 5px;">
+                    <li>
+                        <a href="javascript:" (click)="headerService.toggleFullScreenView()">
+                            <span *ngIf="!headerService.fullScreen" class="icon-full-screen icon"></span>
+                            <span *ngIf="headerService.fullScreen" class="icon-exit-full-screen icon"></span>
+
+                        </a>
+                    </li>
+                    <li class="startQual" *ngIf="showCleanCoreButton" (click)="redirectToCleanCore()">
+                        <button type="button" class="btn btn-secondary">{{localeService.getLocalizedString('prospectdetails.MANAGE_LOCATIONS')}}</button>
+                    </li>
+                    <li *ngIf="appDataService.archName !== constantsService.SECURITY "  class="startQual" (click)="goToSummary()">
+                        <button [id]="appDataService.createUniqueId('VIEW_IB_SUMM',appDataService.pageContext)" type="button" class="btn btn-secondary">{{localeService.getLocalizedString('common.VIEW_IB_SUMM')}}</button>
+                    </li>
+                    <li *ngIf="appDataService.archName === constantsService.SECURITY " class="startQual" (click)="goToSummary()">
+                        <button [id]="appDataService.createUniqueId('VIEW_BOOKING_SUMM',appDataService.pageContext)" type="button" class="btn btn-secondary">{{localeService.getLocalizedString('common.VIEW_BOOKING_SUMM')}}</button>
+                    </li>
+                    <li class="startQual startQualDropdown">
+                        <button [id]="appDataService.createUniqueId('START_QUAL',appDataService.pageContext)" type="button"  class="btn btn-primary" (click)="startQualification(toStartQualNew)">{{localeService.getLocalizedString('common.START_QUAL')}}</button>
+                    </li>
+                </ul>
+                
+            </div>
+            <message></message>
+        </div>
+        
+    </div>
+</div>
+<router-outlet></router-outlet>

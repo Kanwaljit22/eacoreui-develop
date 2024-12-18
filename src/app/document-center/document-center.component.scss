@@ -1,0 +1,769 @@
+.bs-tooltip-top .arrow,
+.bs-tooltip-bottom .arrow {
+    left: calc(50% - 0.15rem) !important;
+}
+
+.tooltip.bs-tooltip-auto[x-placement^=top] .arrow::before,
+.tooltip.bs-tooltip-top .arrow::before {
+    margin-left: 1px !important;
+}
+
+.doc-header .flex-elem {
+    display     : flex;
+    align-items : center;
+    padding-left: 50px;
+}
+
+.doc-header .flex-elem .inner-flex {
+    display       : flex;
+    flex-direction: column;
+    align-items   : center;
+    flex-flow     : wrap;
+}
+
+.doc-header .flex-elem h4 {
+    flex: 0 1 100%;
+}
+
+.doc-header .flex-elem span[class^='icon-'] {
+    position   : absolute;
+    left       : -30px;
+    top        : 50%;
+    margin-top : -15px;
+    font-size  : 27px;
+    text-shadow: 0px 0px;
+    background : transparent;
+}
+
+.doc-header .flex-elem span.icon-tco {
+    font-size: 33px;
+}
+
+.doc-header .flex-elem span.icon-view {
+    font-size   : 11px;
+    position    : inherit;
+    margin-right: 5px;
+}
+
+.sep-list {
+    border-right  : 1px solid #ccc;
+    line-height   : 1;
+    vertical-align: middle;
+    display       : inline-block;
+    padding-left  : 8px;
+    height        : 14px;
+    margin-right  : 5px;
+    position      : relative;
+    top           : -1px;
+}
+
+.docu-description {
+    width: 100%;
+}
+
+.lbl-desc {
+    color         : #999999;
+    font-size     : 12px;
+    width         : 100%;
+    padding-top   : 7px;
+    clear         : both;
+    padding-bottom: 10px;
+}
+
+.lbl-desc span {
+    color: #58585b;
+}
+
+.action-list {
+    margin-top: 4px;
+}
+
+.action-list li {
+    text-align: center;
+    float     : right;
+    padding   : 9px 12px;
+}
+
+.action-list li a.icon-more-link {
+    color  : #58585b;
+    padding: 11px 0 9px;
+    display: inline-block;
+}
+
+.action-list li .icon-request1,
+.action-list li .icon-download {
+    /*font-size   : 20px;*/
+    vertical-align: middle;
+}
+
+/* .action-list li:first-child { border-left:1px solid #d8d8d8; padding-left:20px; margin-left: 8px; } */
+.nav-link {
+    font-size    : 12px;
+    color        : #aaaaaa;
+    font-weight  : 700;
+    border-radius: 0;
+    padding      : 8px 20px;
+}
+
+.nav-tabs .nav-item.show .nav-link,
+.nav-tabs .nav-link.active {
+    background  : #ffffff;
+    border-color: #ffffff #cccccc #ffffff #ffffff;
+}
+
+.nav-tabs .nav-item.show:last-child .nav-link,
+.nav-tabs .nav-item:last-child .nav-link.active {
+    background  : #ffffff;
+    border-color: #ffffff #cccccc #ffffff #cccccc;
+}
+
+.nav-tabs .nav-link:hover {
+    background  : #ffffff;
+    border-color: #ffffff #cccccc #cccccc #ffffff;
+    color       : #58585b;
+}
+
+.nav-tabs {
+    border-bottom: 1px solid #d6d6d6;
+    border-top   : 1px solid #d6d6d6;
+}
+
+.tab-content {
+    background: #ffffff;
+}
+
+.confirmation,
+.preview-doc {
+    padding: 0 20px 20px 40px;
+}
+
+.confirmation .icon-success-01,
+.confirmation .icon-watch {
+    vertical-align: middle;
+    margin-right  : 10px;
+    font-size     : 30px;
+}
+
+.signed .icon-tick-01 {
+    font-size   : 8px;
+    margin-right: 5px;
+}
+
+.status {
+    font-size: 14px;
+    color    : #999999;
+}
+
+.status strong,
+.status span {
+    color: #58585b;
+}
+
+.file-wrap-container {
+    padding   : 25px 35px 10px 20px;
+    text-align: left;
+}
+
+.file-wrap {
+    background   : #FBFBFB;
+    border       : 1px solid #cccccc;
+    border-radius: 5px;
+    padding      : 10px 77px 10px 10px;
+    position     : relative;
+    margin-bottom: 15px;
+}
+
+.d-block {
+    text-align: left;
+}
+
+.tab-footer {
+    border-top: 1px dashed #cccccc;
+    padding   : 20px;
+}
+
+.bg-blue {
+    background: #edfafe;
+}
+
+.upload-section {
+    display: inline-block;
+    margin : -20px;
+    padding: 20px;
+}
+
+.tab-footer ul li {
+    float        : left;
+    margin-right : 20px;
+    height       : 30px;
+    padding-right: 20px;
+    border-right : 1px solid #cccccc;
+}
+
+.tab-footer ul li:first-child {
+    padding-top: 5px;
+}
+
+.tab-footer ul li .label-check {
+    margin-top: 4px;
+}
+
+.tab-footer ul li:first-child {
+    max-width: 160px;
+}
+
+.tab-footer ul li:last-child {
+    padding-right: 0px;
+    margin-right : 0px;
+}
+
+.tab-footer button {
+    margin: 10px 20px 10px 0;
+}
+
+.mandatory-info {
+    font-weight   : 400;
+    font-size     : 12px;
+    padding       : 18px 0 18px 40px;
+    display       : inline-block;
+    vertical-align: middle;
+}
+
+.caret {
+    padding: 10px;
+}
+
+.uploaded-file-info {
+    padding: 0;
+}
+
+.uploaded-file-info ul {
+    padding: 15px 20px;
+}
+
+.uploaded-file-info button {
+    margin: 13px 20px 13px 0;
+}
+
+.file-wrap .lbl-desc {
+    font-size: 11px;
+}
+
+.file-wrap .icon-wrap {
+    position    : absolute;
+    right       : 20px;
+    top         : 0;
+    bottom      : 0;
+    border-left : 1px solid #cccccc;
+    padding-left: 20px;
+    padding-top : 20px;
+}
+
+.file-wrap .icon-delete,
+.file-wrap .icon-download {
+    cursor   : pointer;
+    font-size: 16px;
+}
+
+.file-wrap .icon-pdf-2,
+.file-wrap .icon-xls-2,
+.file-wrap .icon-ppt-2 {
+    font-size   : 30px;
+    float       : left;
+    margin-right: 10px;
+    margin-top  : 3px;
+}
+
+.file-name {
+    font-size     : 14px;
+    font-weight   : 300;
+    max-width     : 150px;
+    overflow      : hidden;
+    text-overflow : ellipsis;
+    white-space   : nowrap;
+    display       : inline-block;
+    vertical-align: middle;
+}
+
+.badge {
+    font-size     : 11px;
+    font-weight   : 400;
+    width         : auto;
+    height        : auto;
+    padding       : 3px 4px;
+    vertical-align: middle;
+    text-transform: uppercase;
+    max-width     : 195px;
+    overflow      : hidden;
+    text-overflow : ellipsis;
+    white-space   : nowrap;
+}
+
+.badge-info {
+    background: #e74c3c;
+}
+
+.doc-header .icon-pdf-2,
+.doc-header .icon-xls-2,
+.doc-header .icon-ppt-2 {
+    background   : #FBFBFB;
+    border-radius: 50%;
+    float        : left;
+    margin-right : 15px;
+    font-size    : 20px;
+    width        : 30px;
+    height       : 30px;
+    text-align   : center;
+    padding-top  : 5px;
+}
+
+.noFilesUploaded {
+    color     : #aaaaaa;
+    padding   : 0 10px 10px 10px;
+    text-align: center;
+}
+
+
+
+.tab-head {
+    font-size    : 16px;
+    color        : #333;
+    padding      : 20px 0 0px;
+    margin-bottom: 5px;
+}
+
+.tab-head .info {
+    color: #e89400;
+}
+
+.tab-head .completed {
+    color: #129e12;
+}
+
+.steps {
+    float         : right;
+    font-size     : 12px;
+    font-weight   : 300;
+    text-transform: none;
+}
+
+.steps span {
+    color: #58585b;
+}
+
+.doc-info {
+    padding: 0 20px 0 40px;
+}
+
+.doc-info>span {
+    font-size  : 13px;
+    font-weight: 400;
+    color      : #999999;
+    display    : inline-block;
+    padding-top: 0px;
+}
+
+.doc-info .label-check {
+    margin-right : 80px;
+    margin-bottom: 15px;
+}
+
+.tab-description {
+    font-size  : 11px;
+    line-height: 15px;
+    color      : #999;
+}
+
+.doc-info i.arrow {
+    left: 102px;
+}
+
+/*ALert Popover
+============================*/
+.approve-disapprove {
+    border-color: #ff8a00;
+    display     : inline-block;
+    padding-left: 10px;
+}
+
+.approve-disapprove .icon-warning {
+    font-size   : 24px;
+    margin-right: 10px;
+}
+
+.approve-disapprove span.infoTxt {
+    width      : auto;
+    line-height: 25px;
+}
+
+i.arrow {
+    border      : solid #ff8a00;
+    border-width: 0 1px 1px 0;
+    display     : inline-block;
+    padding     : 3px;
+    position    : absolute;
+    top         : -4px;
+    left        : 97px;    
+    background-color: #fef1e8;
+}
+
+.arrow.up {
+    transform        : rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+}
+
+.refine-search li {
+    margin-right: 13px;
+    list-style  : none;
+}
+
+li.editRepInfoBtn {
+    float        : right;
+    margin-bottom: 5px;
+}
+
+/*Header Css
+============================*/
+.docCenter-headerWrapper .icon-info-line-level-fill {
+    position : absolute;
+    right    : 0px;
+    top      : 0px;
+    font-size: 17px
+}
+
+.docCenter-headerWrapper .icon-info-line-level-fill:before {
+    color: #58585b
+}
+
+.docCenter-headerWrapper {
+    padding      : 20px 15px;
+    border       : 1px solid #d6d6d6;
+    border-radius: 5px;
+    box-shadow   : 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.docCenter-headerWrapper .card-text,
+.docCenter-headerWrapper p {
+    font-size: 14px;
+    color    : #666;
+}
+
+.docCenter-headerWrapper .card-title {
+    font-weight: 400;
+    color      : #333;
+    font-size  : 16px;
+}
+
+.docCenter-headerWrapper .card-title small {
+    display     : inline-block;
+    padding-left: 10px;
+}
+
+.docCenter-headerWrapper .btn {
+    padding  : 10px 20px;
+    font-size: 13px;
+}
+
+.docCenter-headerWrapper .col-4 {
+    border-left: 1px solid #d6d6d6;
+}
+.docCenter-headerWrapper .col-5 {
+    border-left: 1px solid #d6d6d6;
+}
+
+.docCenter-headerWrapper .col-4:first-child {
+    border-left: 0px;
+}
+
+.file-exe {
+    margin-top: 15px;
+    width     : 100%;
+    text-align: left;
+}
+
+.file-exe .icon-pdf1 {
+    font-size     : 28.53px;
+    display       : inline-block;
+    vertical-align: middle;
+}
+
+.file-exe .exe {
+    display       : inline-block;
+    overflow      : hidden;
+    white-space   : nowrap;
+    max-width     : calc(100% - 50px);
+    text-align    : left;
+    line-height   : 20px;
+    text-overflow : ellipsis;
+    vertical-align: middle;
+    padding-left  : 5px;
+}
+
+.info-block {
+    width        : 80%;
+    font-size    : 13px;
+    display      : table;
+    float        : right;
+    margin-top   : 10px;
+    margin-bottom: 0px;
+}
+
+.base-report-info {
+    clear       : both;
+    background  : #fff;
+    padding-left: 65px;
+}
+
+.base-report-action {
+    position: absolute;
+    top     : 9px;
+    bottom  : 7px;
+    right   : -5px;
+}
+
+.base-report-list {
+    position     : relative;
+    padding      : 13px 0px;
+    padding-right: 185px;
+    margin-right : 20px;
+    border-bottom: 1px dashed #ccc;
+}
+
+.base-report-list:last-child {
+    border-bottom: 0px;
+}
+
+.doc-list li {
+    list-style-type: disc;
+    margin-left    : 15px;
+    line-height    : 19px;
+    padding-bottom : 3px;
+    padding-top    : 2px;
+}
+
+/*Drag & Drop
+============================*/
+.my-drop-zone {
+    border       : dashed 1px #0E709E;
+    padding      : 21px 25px;
+    border-radius: 3px;
+    margin       : 0px 30px 0px 25px;
+    background   : #F2FBFD;
+    font-size    : 16px;
+}
+
+.my-drop-zone .icon-close-btn {
+    margin-left: 8px;
+    position   : relative;
+    right      : 0;
+    top        : -4px;
+    width      : 20px;
+}
+
+.my-drop-zone div {
+    line-height: 10px;
+}
+
+.my-drop-zone div>div>span {
+    position    : relative;
+    padding-left: 35px;
+    margin-top  : 0;
+    display     : inline-block;
+    top         : 5px;
+    width       : 100%
+}
+
+.my-drop-zone div>div>span .icon-pdf1 {
+    position : absolute;
+    left     : 0px;
+    top      : 0;
+    font-size: 21px;
+}
+
+.my-drop-zone .wrap-text {
+    width     : 100%;
+    text-align: left;
+}
+
+.drag-drop-text {
+    display      : inline-block;
+    overflow     : hidden;
+    white-space  : nowrap;
+    max-width    : calc(100% - 35px);
+    text-align   : left;
+    line-height  : 20px;
+    text-overflow: ellipsis;
+}
+
+
+.dragDropRemove {
+    background: transparent;
+    padding   : 0px;
+    border    : 0px;
+}
+
+.fileUploadWrap {
+    display: none;
+}
+
+.nv-file-over {
+    border          : dashed 1px #6cc04a;
+    background-color: #6cc04a1a;
+    margin-bottom   : 10px;
+    padding-right   : 50px;
+    position        : relative;
+}
+
+.my-drop-zone.file-format-error {
+    border-color    : #c82439;
+    background-color: #fdf4f5;
+    margin-bottom   : 10px;
+}
+
+.my-drop-zone.file-format-error .icon-close-btn {
+    position: relative;
+    top     : 2px;
+    left    : 10px;
+}
+
+.my-drop-zone.file-format-error .file-name {
+    font-size      : 13px;
+    max-width      : 280px;
+    overflow       : hidden;
+    /*text-overflow: ellipsis;*/
+    display        : inline-block;
+    position       : relative;
+    padding-right  : 25px;
+}
+
+.my-drop-zone.file-format-error .icon-file {
+    font-size: 40px;
+    display  : block;
+    margin   : 0px auto 15px;
+    width    : 30px;
+}
+
+.my-drop-zone.file-format-error .file-name button {
+    position: absolute;
+    top     : 2px;
+    right   : 2px;
+}
+
+.my-drop-zone.file-format-error .incorrect-format {
+    font-size: 13px;
+    color    : #58585b;
+    display  : block;
+}
+
+.recommended-button {
+    border-top: 1px solid rgba(214, 214, 214, 0.5);
+    margin-top: 10px;
+}
+
+.recommended-button button {
+    border    : 0;
+    background: none;
+    padding   : 5px 5px 5px 30px;
+}
+
+recommended-proposal .border-left {
+    border-color: #e7e7e7;
+}
+
+.recommended-button.proposal-button button i {
+    left: 0px;
+}
+
+.recommended-left {
+    background   : #FFFFFF;
+    border       : 1px solid rgba(214, 214, 214, 0.5);
+    box-shadow   : 0px 0px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    padding      : 15px 20px 5px 20px;
+    margin-bottom: 10px !important;
+}
+
+.recommended-right {
+    background   : #f8f8f8;
+    border       : 1px solid rgba(214, 214, 214, 0.5);
+    box-shadow   : 0px 0px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    padding      : 15px 20px 5px 20px;
+    margin-bottom: 10px;
+}
+
+.recommended-right h3 {
+    font-size  : 16px;
+    line-height: 22px
+}
+
+.recommended-right h3 .sales-title {
+    color        : #333333;
+    display      : block;
+    width        : calc(100% - 25px);
+    float        : left;
+    overflow     : hidden;
+    text-overflow: ellipsis;
+    white-space  : nowrap;
+}
+
+.recommended-icons {
+    font-size  : 32px;
+    float      : right;
+    padding    : 10px 0 10px 10px;
+    border-left: 1px solid rgba(214, 214, 214, 0.5);
+}
+
+.recommended-right p,
+.recommended-right li,
+.recommended-left p,
+.recommended-left li {
+    font-size: 12px;
+}
+
+ul.disc-type li+li::before {
+    content      : '';
+    width        : 6px;
+    height       : 6px;
+    display      : block;
+    background   : #999999;
+    position     : absolute;
+    left         : 0;
+    border-radius: 100%;
+    top          : 3px;
+}
+
+ul.disc-type li+li {
+    border  : none !important;
+    position: relative;
+    padding : 0 10px;
+}
+
+.recommended-tabs {
+    border-bottom: 1px solid #d8d8d8;
+}
+
+.recommended-tabs li img {
+    width         : 25px;
+    height        : 25px;
+    vertical-align: text-bottom;
+}
+
+.recommended-tabs li {
+    float         : left;
+    margin-right  : 25px;
+    padding-bottom: 4px;
+}
+
+.recommended-tabs li.active {
+    border-bottom: 3px solid #005073;
+}
+
+.recommended-tabs li.active a {
+    color: #005073;
+}
+
+.recommended-tabs li a {
+    font-size: 16px;
+    color    : #333;
+}

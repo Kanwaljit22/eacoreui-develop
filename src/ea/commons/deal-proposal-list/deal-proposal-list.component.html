@@ -1,0 +1,38 @@
+<div class="custom-flyout-overlay"></div>
+<div class="custom-flyout cust-md vNext">
+    <div class="heading">
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="heading-title  w-100">
+                <h2 class="heading--h2 d-flex no-wrap">{{'ea_dashboard.DEAL_PROPOSAL_LIST_LABEL_1' | localizationPipe : localizationService.localizedkeySet.size}}&nbsp;<strong class="ellipsis" placement="bottom" ngbTooltip="{{'ea_dashboard.DEAL_PROPOSAL_LIST_LABEL_2' | localizationPipe : localizationService.localizedkeySet.size}} {{eaStoreService.selectedDealData?.dealName}}">{{'ea_dashboard.DEAL_PROPOSAL_LIST_LABEL_2' | localizationPipe : localizationService.localizedkeySet.size}} {{eaStoreService.selectedDealData?.dealName}}</strong></h2>
+            </div>
+    
+            <div>
+                <button class="icon-close-btn" attr.action-id="{{dataIdConstantsService.dashboardProposalist_button_closeFlyOut}}" type="button" (click)="closeFlyout()"></button>
+            </div>
+        </div>
+        <div class="d-flex justify-content-between align-items-center" style="display: none;">
+            <div class="">
+                <!-- show any sub heading -->
+            </div>
+    
+        </div>
+    </div>
+    
+    <div class="body">
+        <div *ngIf="globalDealScope" class="alert alert--danger alert-dismissable mt-2">
+            <span class="alert-icon">
+                <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+            </span>
+            <span>{{'common.GLOBAL_DEAL_PROPOSAL_ERROR_MSG' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+        </div>
+        <div class="col-12 d-flex align-items-center justify-content-between mb-4">
+            <h5 class="heading--h5">Customer: <b>{{eaStoreService.selectedDealData?.endCustNm}}</b></h5>
+            <div>
+                <button type="button" class="btn btn-secondary" attr.action-id="{{dataIdConstantsService.dashboardProposalist_button_goToProject}}" (click)="goToProject()" id="{{elementIdConstantsService.DEAL_PROPOSAL_LIST_GO_TO_PROJECT}}" *ngIf="eaStoreService.selectedDealData?.projectObjId">{{'common.GO_TO_PROJECT' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                <button *ngIf='!hideCreateProposalButton' [disabled]="globalDealScope" id="{{elementIdConstantsService.DEAL_PROPOSAL_LIST_CREATE_NEW_PROPOSAL}}" attr.action-id="{{dataIdConstantsService.dashboardProposalist_button_createProposal}}" type="button" class="btn btn-primary ml-2" (click)="createProposal()">{{'common.CREATE_PROPOSAL' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+            </div>
+        </div>
+        <app-dashboard-proposal-list (hideCreateProposalButton)='hideCreateProposal($event)' (globalDealScope)="checkGlobalDealScope($event)"></app-dashboard-proposal-list>
+    </div>
+    <!-- End of Flyout Body -->
+</div> 

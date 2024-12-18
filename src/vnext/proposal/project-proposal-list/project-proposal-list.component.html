@@ -1,0 +1,38 @@
+<section class="vNext">
+    <div class="container-fluid">
+        <div class="row align-items-center">
+            <div class="col-12">
+                <div *ngIf="projectStoreService.projectData.dealInfo?.globalDealScope" class="alert alert--danger alert-dismissable mt-2">
+                    <span class="alert-icon">
+                        <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                    </span>
+                    <span>{{'common.GLOBAL_DEAL_PROPOSAL_ERROR_MSG' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                </div>
+                <div *ngIf="projectStoreService.projectData?.scopeChangeInProgress && eaService.features.EDIT_EAID_REL" class="alert alert--warning alert-dismissable mt-2">
+                    <span class="alert-icon d-flex">
+                    <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                    </span>
+                   <span>{{'common.CUSTOMER_SCOPE_CHANGE_INPROGRESS_MSG' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                </div>
+                <div id="filter-area" class="vNext">
+                    <div class="row align-items-center">
+                        <div class="col-md-5">
+                            <h2>{{'project-proposal-list.PROPOSAL_FOR' | localizationPipe : localizationService.localizedkeySet.size}} {{projectStoreService?.projectData?.customerInfo?.preferredLegalName}}</h2>
+                        </div>
+                        <div class="col-md-7 d-flex justify-content-end">
+                            <button class="btn btn-secondary" (click)="goToProject()" attr.action-id="{{dataIdConstantsService.projectProposalList_button_goToProject}}" type="button" id="{{elementIdConstantsService.PROJECT_PROPOSAL_LIST_GO_TO_PROJECT}}">{{'common.GO_TO_PROJECT' | localizationPipe : localizationService.localizedkeySet.size}}</button>  
+                            <button class="btn btn-primary ml-2" *ngIf="!(!projectStoreService.projectData.dealInfo?.partnerDeal && isPartnerLoggedIn)" (click)="createNew()" attr.action-id="{{dataIdConstantsService.projectProposalList_button_createProposal}}" type="button" [disabled]="!(projectStoreService.projectData.status === 'COMPLETE' && projectStoreService.projectEditAccess) || ((eaService.isDistiOpty && eaService.isResellerLoggedIn) || (eaService.isDistiLoggedIn && eaService.isResellerOpty)) || (eaService.features?.PARTNER_SUPER_USER_REL && !projectStoreService.proposalCreateAccess) || projectStoreService.projectData.dealInfo?.globalDealScope" id="{{elementIdConstantsService.PROJECT_PROPOSAL_LIST_CREATE_PROPOSAL}}">{{'common.CREATE_PROPOSAL' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End of Filter Row -->
+    </div>
+</section>
+
+<section class="vNext">
+    <div class="container-fluid">
+        <app-ng-proposal-list></app-ng-proposal-list>  
+    </div>
+</section>

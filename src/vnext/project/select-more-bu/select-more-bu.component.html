@@ -1,0 +1,343 @@
+<!-- Meraki's organisation ID's HTML starts-->
+<div class="container-fluid">
+    <div id="filter-area" class="vNext mb-3">
+        <div class="row align-items-center">
+            <div class="col-md-5">
+                <ul class="inline-listing nav-tabs" *ngIf="!eaService.isSpnaFlow">
+                    <li [ngClass]="{'active': toggle}">
+                        <a class="px-0" href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.selectMoreBu_link_subsidiaries}}" (click)="toggle = true">{{localizationService.getLocalizedString('common.SUBSIDIARY')}}</a>
+                    </li>
+                    <li [ngClass]="{'active': !toggle}">
+                        <a class="px-0" href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.selectMoreBu_link_orgId}}" (click)="toggle = false">{{localizationService.getLocalizedString('select-more-bu.ORG_ID')}}</a>
+                    </li>
+                </ul>
+                <ul class="inline-listing nav-tabs" *ngIf="eaService.isSpnaFlow">
+                    <li class="active">
+                        <a class="px-0" href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.selectMoreBu_link_subsidiaries}}">{{localizationService.getLocalizedString('common.SUBSIDIARY')}}</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- <div class="col-md-7">
+                <ul class="qualify-btn">
+                    <li (click)="backToProject(true)"><button type="button" class="btn btn-secondary sm">Back</button></li>
+                    <li *ngIf='!projectStoreService.lockProject && !projectService.isReturningCustomer(projectStoreService.projectData?.scopeInfo)'><button
+                            type="button" (click)="save()" class="btn btn-primary" [disabled]="!selectedBuMap.size && !partiesSelectionMap.size">Save
+                            & Continue</button></li>
+                </ul>
+            </div> -->
+            <div class="col-md-7">
+            <ul class="d-flex justify-content-end">
+                <li id="{{elementIdConstantsService.Project_Subsidiaries_EngageSupportTeam}}" (click)="redirectToCustomerServiceHub()"><button type="button" attr.action-id="{{dataIdConstantsService.selectMoreBu_button_redirectToCustomerServiceHub}}" class="btn btn-primary active" [ngClass]="{'disabled': !projectStoreService.projectEditAccess}">{{localizationService.getLocalizedString('select-more-bu.ENGAGE_SUPPORT_TEAM')}}</button></li>
+            </ul>
+            </div>
+        </div>
+    </div>
+    <app-select-meraki *ngIf="!toggle"></app-select-meraki>
+</div>
+<!-- Meraki's organisation ID's HTML ends-->
+<div class="container-fluid vNext" [hidden]="!toggle">
+    <!-- <div class="container-fluid vNext" *ngIf="toggle"> -->
+    <div class="row align-items-center">
+        <div class="col-12">
+            <div  class="alert alert--info alert-dismissable" [hidden]="projectStoreService.lockProject || !projectStoreService.projectEditAccess">
+                <span class="alert-icon">
+                    <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                </span>
+                <span>{{'select-more-bu.CUSTOMER_ASSETS_MSG_2' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                <!-- <a class="close" style="cursor: pointer;" (click)="removeAlert(message)">&times;</a> -->
+            </div>
+            <div id="filter-area" class="vNext mb-0">
+                <h2>{{localizationService.getLocalizedString('common.SELECT_SUBSIDIARY')}}</h2>
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex flex-row align-items-center">
+                            <a *ngIf = "!projectStoreService.lockProject && !projectService.isReturningCustomer(projectStoreService.projectData?.scopeInfo)"  href="javascript:void(0);" [ngClass]="{'disabled': (eaService.isDistiLoggedIn && eaService.isResellerOpty)}" class="filters" (click)="showFilters()" attr.action-id="{{dataIdConstantsService.selectMoreBu_link_geographyFilter}}"><span class="i-vNext-filter mr-2"></span>{{localizationService.getLocalizedString('common.DEFINE_GEOGRAPHY_LABEL')}}</a> 
+                    
+                            <div [ngClass]="{'disabled':advanceSearchApplied}">
+                                <app-search-dropdown [searchDropdown]="searchDropdownArray" [exactPartySearch]="exactSearch" [searchPlaceHolder]="searchPlaceHolder" (searchSelectedDrop)="searchParties($event)"></app-search-dropdown>
+                             </div>
+                             <div [ngClass]="{'disabled':advanceSearchApplied}" class="ml-4">
+                                <input id="{{elementIdConstantsService.Project_Subsidiaries_Exact_Search_Parties}}"  (click)="useExactSearch()" class="form-check-input mt-1" [checked]="exactSearch" type="checkbox" attr.action-id="{{dataIdConstantsService.selectMoreBu_checkbox_exactSearch}}">
+                                <span  class="filters" style="width: 130px;" >Use Exact Search</span> 
+                             </div>
+                             <div *ngIf="!advanceSearchApplied">
+                                <a id="{{elementIdConstantsService.Project_Subsidiaries_Search_Parties}}"  href="javascript:void(0);"  class="filters" [ngClass]="{'disabled': isSearchedApplied}" (click)="openAdvanceSearch()" >{{'common.ADVANCE_SELECTION' | localizationPipe : localizationService.localizedkeySet.size}}</a> 
+                             </div>
+                        </div>
+                    <div class="d-flex justify-content-end align-items-center">
+                         
+                        <ul class="qualify-btn">
+                           
+                            <li id="{{elementIdConstantsService.Project_Subsidiaries_Back_To_Project}}" (click)="backToProject(true)"><button type="button" attr.action-id="{{dataIdConstantsService.selectMoreBu_button_backToProject}}" class="btn btn-secondary sm">{{localizationService.getLocalizedString('common.BACK')}}</button></li>
+                            <!-- <ng-container  *ngIf="!eaService.features?.MULTI_PARTNER_FLOW_FEB_REL">
+                                <li *ngIf="!eaService.isPartnerUserLoggedIn()" (click)="downloadExcel()">
+                                    <button type="button" [disabled]="eaService.isDistiLoggedIn && eaService.isResellerOpty" class="btn btn-secondary"><span class="i-vNext-download mr-2"></span>{{localizationService.getLocalizedString('select-more-bu.DOWNLOAD_EXCEL_LABEL')}}</button>
+                                </li>
+                            </ng-container> -->
+                            <ng-container >
+                            <li>
+                                <a #downloadZipLink [hidden]="true"></a>
+                                <button type="button" id="{{elementIdConstantsService.Project_Subsidiaries_Download_Excel}}"  (click)="downloadExcel()" attr.action-id="{{dataIdConstantsService.selectMoreBu_button_downloadExcel}}" [disabled]="eaService.isDistiLoggedIn && eaService.isResellerOpty" class="btn btn-secondary"><span class="i-vNext-download mr-2"></span>{{localizationService.getLocalizedString('select-more-bu.DOWNLOAD_EXCEL_LABEL')}}</button>
+                            </li></ng-container>
+                            <li *ngIf= '!projectStoreService.lockProject && !projectService.isReturningCustomer(projectStoreService.projectData?.scopeInfo)'><button type="button" attr.action-id="{{dataIdConstantsService.selectMoreB_button_saveContinue}}" (click)="save(true)" class="btn btn-primary" [disabled]="(!selectedBuMap.size && !partiesSelectionMap.size) || (!isAnyBuSelected && projectService.isNewEaIdCreatedForProject)">{{localizationService.getLocalizedString('select-more-bu.SAVE_CONTINUE')}}</button></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- show error message if no bu selected for new eaid project -->
+                <div class="col-12" *ngIf="!isAnyBuSelected && projectService.isNewEaIdCreatedForProject">
+                    <div class="d-flex alert alert--danger alert-dismissable mt-2">
+                        <span class="alert-icon">
+                            <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                        </span>
+                        <span>{{'common.SELECT_ATLEAST_ONE_BU_AND_PARIES' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!--new advance filter clear -->
+            <div class="advancedFilters mb-3" *ngIf="advanceSearchApplied">
+                <div class="d-flex align-items-center">
+                    <div class="">
+                        <h4>{{'common.ADVANCE_SELECTION_FILTER' | localizationPipe : localizationService.localizedkeySet.size}}</h4> 
+                    </div>
+                    <div class="d-flex ml-2 tags">
+                        {{totalIdSearched}} Party IDs
+                    </div>
+                    <div class="d-flex ml-2">
+                        <a   href="javascript:void(0);" (click)="clearAdvanceSearch()" >Clear Search</a> 
+                    </div>
+                </div>
+            </div>
+            <!--new advance filter clear-->
+        </div>
+        <!-- <div *ngIf='isPartialBuPresent' class="alert alert--warning alert-dismissable">
+
+            <span class="alert-icon">
+                <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+            </span>
+            <span>Since there are Partial BU IDs in below Subsidiaries, they will not be considered in subsequent transactions</span>
+        </div> -->
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-12 d-flex align-items-center justify-content-between">
+           
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-5 border--right solid weight-2 col-5-scalable">
+            <h6 class="heading--h6 mb-1">{{localizationService.getLocalizedString('select-more-bu.ALL_BU_IDS')}}</h6>
+            <table class="primary-table">
+                <thead>
+                    <tr>
+                        <th>
+                            
+                            <label class="label-check" style="padding-right: 4px;">
+                                <input id="{{elementIdConstantsService.Project_Subsidiaries_Select_All_Bu}}" (click)="selectAllCustomerBu()" [disabled]="subsidiariesData.length === 1 ||projectStoreService.lockProject || projectService.isReturningCustomer(projectStoreService.projectData?.scopeInfo) || (eaService.isDistiLoggedIn && eaService.isResellerOpty) || (!projectStoreService.projectData.dealInfo?.partnerDeal && isPartnerUserLoggedIn)"
+                                    class="form-check-input" [checked]="allCustomerCheck" type="checkbox" attr.action-id="{{dataIdConstantsService.selectMoreBu_checkbox_selectAllCustomerBu}}">
+                                <span class="custom-checkbox-btn i-vNext-fonts">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                    <span class="path3"></span>
+                                </span>
+                                <span></span>
+                                <span> {{localizationService.getLocalizedString('common.CUSTOMER_BU')}}</span>
+                            </label>
+                        </th>
+                        <th width="100px">{{localizationService.getLocalizedString('common.ACTION')}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let bu of subsidiariesData; let index = index" [ngClass]="{'active': bu.showSites}">
+                        <td> 
+                            <div class="d-flex w-100 justify-content-between align-items-center">
+                                <label class="label-check" style="width: 96%;">
+                              <input [disabled]="projectStoreService.lockProject || (bu.dealCrPartyBU && !projectService.isNewEaIdCreatedForProject) || projectService.isReturningCustomer(projectStoreService.projectData?.scopeInfo) || bu.disabled || (eaService.isDistiLoggedIn && eaService.isResellerOpty) || (!projectStoreService.projectData.dealInfo?.partnerDeal && isPartnerUserLoggedIn)"
+                               class="form-check-input" attr.data-id="{{dataIdConstantsService.selectMoreBu_checkbox_buSelection}}{{bu.buId}}" [checked]="isBuSelected(bu)" type="checkbox" (change)="changeBuStatus(bu,$event)">
+                                <span class="custom-checkbox-btn i-vNext-fonts">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                    <span class="path3"></span>
+                                </span>
+                                <span class="d-flex w-100 justify-content-between">
+                                    <span class="with-pro-type">
+                                        <span class="ellipsis bu-name" ngbTooltip="{{bu.buName}}">{{bu.buName}}</span>
+                                        ({{bu.buId}})
+                                        <span *ngIf="(bu.dealCrPartyBU && !projectService.isNewEaIdCreatedForProject)" class="i-vNext-help-filled ml-1" [ngbTooltip]="(eaService.isSpnaFlow) ? localizationService.getLocalizedString('common.BU_PARTIES_INFO_TOOLTIP_SPNA') :  localizationService.getLocalizedString('common.BU_PARTIES_INFO_TOOLTIP')"></span>
+                                        <!-- <span *ngIf='bu.selected && bu.selected === "F"'>Full</span>
+                                        <span *ngIf='bu.selected && bu.selected === "P"'>Par</span> -->
+                                    </span>
+                                    <!-- Partial Tag is Added Here -- Remove d-none class to show -->
+                                    <span class="proposal-type ml-0 d-none" ngbTooltip="Partial Sites Selected">{{localizationService.getLocalizedString('select-more-bu.PARTIAL')}}</span>
+                                </span>
+                            </label>
+                            <div style="width: 16px;">
+                                <svg class="cursor-pointer" *ngIf='bu.selected && bu.selected === "F"' attr.data-id="{{dataIdConstantsService.selectMoreBu_icon_fullBU}}{{bu.buId}}"
+                                    ngbTooltip="{{'common.FULL_BU_SELECTION' | localizationPipe : localizationService.localizedkeySet.size}}"
+                                    placement="top" container="body" xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 16 15"
+                                    fill="none">
+                                    <path
+                                        d="M15 7.49402C15 11.3563 11.8664 14.4879 8 14.4879C4.13362 14.4879 1 11.3563 1 7.49402C1 3.63178 4.13362 0.500122 8 0.500122C11.8664 0.500122 15 3.63178 15 7.49402Z"
+                                        fill="white" stroke="#6A80A5" />
+                                    <ellipse cx="8" cy="7.49402" rx="4.6875" ry="4.68369" fill="#6A80A5" />
+                                </svg>
+                                <svg class="cursor-pointer" *ngIf='bu.selected && bu.selected === "P"' attr.data-id="{{dataIdConstantsService.selectMoreBu_icon_partialBU}}{{bu.buId}}"
+                                    ngbTooltip="{{'common.PARTIAL_BU_SELECTION' | localizationPipe : localizationService.localizedkeySet.size}}"
+                                    xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 16 15" fill="none">
+                                    <path
+                                        d="M15 7.49402C15 11.3563 11.8664 14.4879 8 14.4879C4.13362 14.4879 1 11.3563 1 7.49402C1 3.63178 4.13362 0.500122 8 0.500122C11.8664 0.500122 15 3.63178 15 7.49402Z"
+                                        fill="white" stroke="#6A80A5" />
+                                    <path
+                                        d="M8 12.1777C9.2432 12.1777 10.4355 11.6843 11.3146 10.8059C12.1936 9.92753 12.6875 8.73621 12.6875 7.49402C12.6875 6.25183 12.1936 5.06052 11.3146 4.18215C10.4355 3.30379 9.2432 2.81033 8 2.81033L8 7.49402L8 12.1777Z"
+                                        fill="#6A80A5" />
+                                </svg>
+                            </div>
+                            </div>
+                        
+                        </td>
+                        <!-- <td><a href="javascript:void(0);" [class.active-border-arrow]="bu.showSites" (click)="showSites(bu)">View Sites</a></td> -->
+                        <td id='abcd' *ngIf=" bu.selected === 'P'|| bu.selected === 'F' || bu.checked;else disabledViewSites"><a
+                                href="javascript:void(0);"  attr.action-id="{{dataIdConstantsService.selectMoreBu_link_viewParties}}{{bu.buId}}" [class.active-border-arrow]="bu.showSites" (click)="showSites(bu)" id="{{elementIdConstantsService.PROJECT_SUBSIDIARIES_VIEW_PARTIES}}">{{localizationService.getLocalizedString('common.VIEW_SITES')}}</a></td>
+                        <ng-template #disabledViewSites>
+                            <td><a class='disabled' href="javascript:void(0);">{{localizationService.getLocalizedString('common.VIEW_SITES')}}</a></td>
+                        </ng-template>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-7 col-7-scalable">
+            <!-- <ng-container *ngIf="advanceSearchApplied">
+                <div class="alert alert--info alert-dismissable">
+                    <span class="alert-icon">
+                        <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                    </span>
+                    <span>{{paginationObject?.noOfRecords ? paginationObject.noOfRecords : 0}} {{'select-more-bu.SEARCH_ID_COUNT_MSG' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                </div>
+            </ng-container> -->
+
+            <ng-container *ngIf="isSearchedApplied && exactSearch">
+                <div class="alert alert--info alert-dismissable">
+                    <span class="alert-icon">
+                        <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                    </span>
+                    <span>{{paginationObject?.noOfRecords ? paginationObject.noOfRecords : 0}}
+                         {{'select-more-bu.EXACT_SEARCH_1' | localizationPipe : localizationService.localizedkeySet.size}}
+                          '{{exactSearchValue}}'{{'select-more-bu.EXACT_SEARCH_2' | localizationPipe : localizationService.localizedkeySet.size}}
+                        <a   href="javascript:void(0);" (click)="searchParties(false)" >Clear Search</a> 
+                    </span>
+                </div>
+            </ng-container>
+            <div class="alert alert--info alert-dismissable more--actions" *ngIf="advanceSearchApplied && !projectStoreService.lockProject">
+                <span class="alert-icon">
+                    <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                </span>
+                <span class="col-10">{{paginationObject?.noOfRecords ? paginationObject.noOfRecords : 0}} {{'select-more-bu.AFTER_ADVANCE_SEARCH_MSG' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                <div class="alert--actions">
+                    <button class="btn btn-primary sm" [disabled]="!paginationObject?.noOfRecords" type="button" (click)="addToExisting()" attr.action-id="{{dataIdConstantsService.selectMoreBu_button_addToExisting}}">{{'common.ADD_TO_EXISTING' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                    <button class="btn btn-primary sm ml-2" [disabled]="!paginationObject?.noOfRecords" type="button" (click)="selectOnlyThese()" attr.action-id="{{dataIdConstantsService.selectMoreBu_button_selectOnlyThese}}">{{'common.SELECT_ONLY_THESE' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                </div>
+            </div> 
+            
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h6 class="heading--h6 mb-1">{{localizationService.getLocalizedString('select-more-bu.ASSOCIATED_SITES')}} ({{paginationObject?.noOfRecords}})</h6>
+                <div class="tabs-block">
+                    <ul>
+                        <li [ngClass]="{'active': partyFilter === ''}">
+                            <a href="javascript:void(0)" (click)="updatePartyFilter('')" id="{{elementIdConstantsService.Project_Subsidiaries__All_Associated_parties}}"  attr.action-id="{{dataIdConstantsService.selectMoreBu_button_filter_all}}">{{localizationService.getLocalizedString('common.ALL_FILTER')}}</a>
+                        </li>
+                        <li [ngClass]="{'active': partyFilter === 'selected'}">
+                            <a href="javascript:void(0)" id="{{elementIdConstantsService.Project_Subsidiaries_Selected_Associated_parties}}" (click)="updatePartyFilter('selected')" attr.action-id="{{dataIdConstantsService.selectMoreBu_button_filter_selected}}">{{localizationService.getLocalizedString('common.SELECTED')}}</a>
+                        </li>
+                        <li [ngClass]="{'active': partyFilter === 'unselected'}">
+                            <a href="javascript:void(0)" id="{{elementIdConstantsService.Project_Subsidiaries_Unselected__Associated_parties}}" (click)="updatePartyFilter('unselected')" attr.action-id="{{dataIdConstantsService.selectMoreBu_button_filter_unselected}}">{{localizationService.getLocalizedString('common.UNSELECTED')}}</a>
+                        </li>
+                    </ul>
+                </div>
+    
+            </div>   
+
+            <table class="primary-table" *ngIf="showAssociatedSites">
+                <thead>
+                    <tr>
+                        <th width="47%">
+                            <label class="label-check" style="padding-right: 4px;">
+                                    <input id="{{elementIdConstantsService.Project_Subsidiaries_Select_All_Associated_parties}}"  (click)="selectAllSites()" [disabled]="projectStoreService.lockProject || projectService.isReturningCustomer(projectStoreService.projectData?.scopeInfo) || (eaService.isDistiLoggedIn && eaService.isResellerOpty) || (!projectStoreService.projectData.dealInfo?.partnerDeal && isPartnerUserLoggedIn)"
+                                    class="form-check-input" [checked]="allSitesCheck" type="checkbox" attr.action-id="{{dataIdConstantsService.selectMoreBu_checkbox_selectAllSites}}"> 
+                                <span class="custom-checkbox-btn i-vNext-fonts">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                    <span class="path3"></span>
+                                </span>
+                                <span></span>
+                                <span>{{localizationService.getLocalizedString('select-more-bu.SITE_NAME_ID')}}</span>
+                            </label>
+                        </th>
+                        <th width="53%">{{localizationService.getLocalizedString('select-more-bu.SITE_ADDRESS')}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngIf="!(!projectStoreService.projectData.dealInfo?.partnerDeal && isPartnerUserLoggedIn)">
+                        <tr class="info-tile" *ngIf="allSitesCheck && isSearchedApplied && associatedSiteArr.length && !selectEntireBu">
+                            <td colspan="2">
+                                <div class="site-info__area">
+                                    {{localizationService.getLocalizedString('common.ALL_LABEL')}}
+                                    <span *ngIf="paginationObject?.noOfPages > 1; else noPages">&nbsp;{{paginationObject?.pageSize}}&nbsp;</span>
+                                    <ng-template #noPages>{{paginationObject?.noOfRecords}}</ng-template>
+                                    {{localizationService.getLocalizedString('common.ALL_SITES_SELECTED_PAGE')}}
+                                    <a href="javascript:void(0);" (click)="selectDeselectEntireBU()" attr.action-id="{{dataIdConstantsService.selectMoreBu_link_selectDeselectEntireBu}}">{{localizationService.getLocalizedString('common.SELECT_ALL_LABEL')}}
+                                        {{paginationObject?.noOfRecords}}{{localizationService.getLocalizedString('common.ALL_SITES_BU')}}</a>
+                                </div>
+                                <!-- <div class="site-info__area" *ngIf="selectEntireBu">{{localizationService.getLocalizedString('common.ALL_LABEL')}}{{paginationObject?.noOfRecords}}{{localizationService.getLocalizedString('common.ALL_SITES_SELECTED_BU')}} <a
+                                        href="javascript:void(0);" (click)="selectDeselectEntireBU()">{{localizationService.getLocalizedString('common.UNDO')}}</a></div> -->
+                            </td>
+                        </tr>
+                    </ng-container>
+                    <tr *ngFor="let party of associatedSiteArr; let index = index">
+                        <td>
+                            <div class="d-flex w-100 justify-content-between align-items-center">
+                                <label class="label-check" style="max-width: calc(100% - 35px);">
+                                        <input [disabled]="projectStoreService.lockProject || projectService.checkAndSetSelectedCrPartyFromDeal(viewSitesForBu, party) || projectService.isReturningCustomer(projectStoreService.projectData?.scopeInfo) || (eaService.isDistiLoggedIn && eaService.isResellerOpty) || (!projectStoreService.projectData.dealInfo?.partnerDeal && isPartnerUserLoggedIn)"
+                                            class="form-check-input" [checked]="party?.selected || projectService.checkAndSetSelectedCrPartyFromDeal(viewSitesForBu, party)"
+                                            type="checkbox" attr.data-id="{{dataIdConstantsService.selectMoreBu_checkbox_partySelection}}{{index}}" (change)="changePartyStatus(party,$event.target.checked)">
+                                    <span class="custom-checkbox-btn i-vNext-fonts">
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                        <span class="path3"></span>
+                                    </span>
+                                    <span class="d-flex w-100"><span class="ellipsis cr-name" ngbTooltip="{{party?.CR_PARTY_NAME}}">{{party?.CR_PARTY_NAME}}</span>
+                                        <span class="no-wrap">({{party?.CR_PARTY_ID}})</span>
+                                        <span *ngIf="projectService.checkAndSetSelectedCrPartyFromDeal(viewSitesForBu, party)" class="i-vNext-help-filled ml-1" [ngbTooltip]="(eaService.isSpnaFlow) ? localizationService.getLocalizedString('common.BU_PARTIES_INFO_TOOLTIP_SPNA') :  localizationService.getLocalizedString('common.BU_PARTIES_INFO_TOOLTIP')"></span>
+                                    </span>
+                                </label>
+                                <span class="badge fill hq" [ngClass]="{'hq': party?.HQ_BRANCH_IND === 'HQ', 'br': party?.HQ_BRANCH_IND === 'BR'}">{{party?.HQ_BRANCH_IND}}</span>
+                            </div>
+                        </td>
+                        <td><span class="ellipsis" ngbTooltip="{{projectService.getCompleteAddressforParty(party)}}">{{projectService.getCompleteAddressforParty(party)}}</span></td>
+                    </tr>
+                    <tr *ngIf="!associatedSiteArr.length && isSearchedApplied">
+                        <td colspan="2">
+                            <div class="alert alert--info alert-dismissable">
+                                <span class="alert-icon">
+                                    <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                                </span>
+                                <span>{{'common.NO_RECORDS_FOUND' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="d-flex w-100 align-items-center justify-content-center empty-enrollment flex-column" *ngIf="!showAssociatedSites">
+                <img src="../../../../assets/images/icons/empty-enrollment.svg">
+                <h4 class="heading--h4">{{localizationService.getLocalizedString('select-more-bu.VIEW_SITES_ASSOCIATED_SITES')}}</h4>
+            </div>
+            <div *ngIf='paginationObject?.noOfRecords && showAssociatedSites' class="row">
+                <div class="col-12 pr-0">
+                    <app-ng-pagination [paginationObject]="paginationObject" (updatedPaginationObject)="paginationUpdated($event)"  [isSelectMoreBu]=true></app-ng-pagination>
+                </div>
+            </div>
+        </div> 
+    </div> 
+</div>
+<app-geography-filter *ngIf="projectStoreService.showHideFilterMenu" (updateSiteList)='updateSiteList()'></app-geography-filter> 
+<app-advance-search-parties *ngIf="projectStoreService.showHideAdvanceSearch" [cavId]="subsidiariesStoreService.subsidiariesData[0].cavId" [buId]="viewSitesForBu.buId" (searchPartyIds)="searchPartyIds($event)" (downloadPartyId) = 'downloadExcel()'></app-advance-search-parties>

@@ -1,0 +1,74 @@
+<div class="row">
+    <div class="col-12 mb-2 d-flex">
+        <div class="col-8">
+            <h5 class="heading--h5 light">{{localizationService.getLocalizedString('common.CUSTOMER')}}</h5> 
+        </div>
+        <div class="col-4 text-right" *ngIf="eaService.features?.RENEWAL_SEPT_REL && (projectStoreService.projectData?.scopeInfo?.returningCustomer || projectStoreService.projectData?.scopeInfo?.newEaidCreated) && !projectStoreService.projectData?.scopeInfo?.eaidSelectionLocked && !projectStoreService.blurSubsidiaries && projectStoreService.projectData?.status !== 'COMPLETE'">
+            <button class="btn btn-secondary sm" (click)="modifyBpid()">Modify BPID/Scope selection</button>
+        </div>  
+    </div>
+    <div class="col-auto mw-100 pb-3" [ngClass]="{'mb-2': !isShowAtrLink }">
+        <div class="contact-block">
+            <div class="contact-block-heading mb-1">
+                <!-- <h6 class="heading--h6">Name & Address</h6> -->
+                <!-- <span class="customer-logo"><img src="assets/images/icons/location.svg"></span> -->
+                <span *ngIf='projectStoreService.projectData?.customerInfo?.federalCustomer' class="fed-badge">{{localizationService.getLocalizedString('common.FEDERAL')}}</span>
+            </div>
+            <!-- Add (placement="top" container="body" ngbTooltip="{{projectStoreService.projectData?.customerInfo?.preferredLegalName}}") in h3 tag.. for showing Tooltip-->
+            <h3 class="heading--h3 pt-1" [class.pr-70]="projectStoreService.projectData?.customerInfo?.federalCustomer" attr.data-id="{{dataIdConstantsService.customerDetails_header_preferredLegalName}}">{{projectStoreService.projectData?.customerInfo?.preferredLegalName}}</h3>
+            <p class="mt-1">{{projectStoreService.projectData?.customerInfo?.preferredLegalAddress?.addressLine1}} <span *ngIf="projectStoreService.projectData?.customerInfo?.preferredLegalAddress?.addressLine2">{{projectStoreService.projectData?.customerInfo?.preferredLegalAddress?.addressLine2}} </span><br/> {{projectStoreService.projectData?.customerInfo?.preferredLegalAddress?.city}}, {{projectStoreService.projectData?.customerInfo?.preferredLegalAddress?.state}} {{projectStoreService.projectData?.customerInfo?.preferredLegalAddress?.zip}}<br/>{{projectStoreService.projectData?.customerInfo?.preferredLegalAddress?.country}}</p>
+        </div>
+            
+        <div class="mt-4" *ngIf="!partnerLoggedIn && isShowAtrLink">
+            <a href="javascript:void(0);" id="{{elementIdConstantsService.PROJECT_VIEW_ATR}}" (click)="viewAtr()">{{'common.VIEW_ATR' | localizationPipe : localizationService.localizedkeySet.size}}  <span class="i-vNext-square-arrow ml-1" action-id="project.icon.viewAtr"><span class="path1"></span><span class="path2"></span><span class="path3 softwarePaBreakup"></span></span></a>
+        </div>
+    </div>
+
+    <!-- <div class="col-4">
+        <div class="contact-block">
+            <div class="contact-block-heading mb-20">
+                <h6 class="heading--h6">Customer Representative </h6>
+                <span class="customer-logo"><img src="assets/images/icons/cr-logo.svg"></span>
+            </div>
+            <div class="form-group mt-0 marginB15">
+                <label class="customer-label">Name<sup>*</sup></label>
+                <input class="form-control" formcontrolname="" id="" value="Charlize Theron" required="" type="text">
+                <small class="text-danger d-none"><i class="icon-error-icon"></i>
+                <span>This field is required</span></small>
+            </div>
+
+            <div class="form-group mt-0 mb-0">
+                <label class="customer-label">Email<sup>*</sup></label>
+                <input class="form-control" formcontrolname="" id="" value="char.theron@googleinc.com" required="" type="text">
+                <small class="text-danger d-none"><i class="icon-error-icon"></i>
+                <span>This field is required</span></small>
+            </div>
+        </div>
+    </div> -->
+</div>
+<!-- End of Row -->
+
+<!-- <div class="row my-3">
+    <div class="col-12">
+        <h4 class="heading--h4">Is this a federal customer?<sup>*</sup></h4>
+        <div class="clearfix"></div>
+        <span class="line-level-info mt-0 mb-2"><span class="bold-txt">Note:</span> Legal Documents and Program Terms will be signed as per Federal Customer.</span>
+        <div class="clearfix"></div>
+        <div class="card-title custom-card-title radio-custom">
+            <input #fedcustyes id="fedcustyes" type="radio" checked>
+        <label for="fedcustyes">
+            <span class="custom-radio-btn"><span class="path1"></span><span class="path2"></span></span>
+            <span><span></span></span> Yes
+        </label>
+    </div>
+
+    <div class="card-title custom-card-title radio-custom ml-3">
+            <input #fedcustyesno id="fedcustyesno" type="radio">
+            <label for="fedcustyesno">
+                <span class="custom-radio-btn"><span class="path1"></span><span class="path2"></span></span>
+                <span><span></span></span> No
+            </label>
+        </div>
+    </div>
+</div> -->
+<!-- End of Row -->

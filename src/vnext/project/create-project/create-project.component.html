@@ -1,0 +1,109 @@
+<div class="vNext" attr.page-id="{{dataIdConstantsService.project_page_projectPage}}"><div class="container-fluid"><app-message class="project-alert"></app-message></div></div>
+<div class="vNext" *ngIf='projectStoreService.projectData.id' attr.page-id="{{dataIdConstantsService.project_page_projectPage}}">
+    <!-- vNext - Create Project -- Starts Here -->
+    <div class="container-fluid" *ngIf="!projectService.selectMoreBuId">
+
+        <div class="row align-items-center">
+            <div class="col-12">
+                <div *ngIf="projectStoreService.projectData.dealInfo?.globalDealScope && projectStoreService.projectData.status === 'COMPLETE'" class="alert alert--danger alert-dismissable mt-2">
+                    <span class="alert-icon">
+                        <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                    </span>
+                    <span>{{'common.GLOBAL_DEAL_PROPOSAL_ERROR_MSG' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                </div>
+                <div *ngIf="projectStoreService.projectData?.scopeChangeInProgress && eaService.features.EDIT_EAID_REL" class="alert alert--warning alert-dismissable mt-2">
+                    <span class="alert-icon d-flex">
+                    <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                    </span>
+                   <span>{{'common.CUSTOMER_SCOPE_CHANGE_INPROGRESS_MSG' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                </div>
+                <div id="filter-area" class="vNext">
+                    <div class="row align-items-center">
+                        <div class="col-md-5">
+                            <h2 *ngIf="!projectStoreService.lockProject" attr.data-id="{{projectStoreService.isClickedEditProject ? dataIdConstantsService.project_label_editProject : dataIdConstantsService.project_label_createProject}}">{{projectStoreService.isClickedEditProject ? ('common.EDIT' | localizationPipe : localizationService.localizedkeySet.size) : ('common.CREATE' | localizationPipe : localizationService.localizedkeySet.size)}} {{'common.PROJECT' | localizationPipe : localizationService.localizedkeySet.size}}</h2>
+                            <h2 *ngIf="projectStoreService.lockProject" attr.data-id="{{dataIdConstantsService.project_label_projectDetails}}">{{'create-project.PROJECT_DETAILS' | localizationPipe : localizationService.localizedkeySet.size}}</h2>
+                            
+                        </div>
+                        <div class="col-md-7 d-none">
+                            <ul class="qualify-btn">
+                                <li><button type="button" attr.data-id="{{dataIdConstantsService.project_button_continue}}" class="btn btn-primary">{{'common.CONTINUE' | localizationPipe : localizationService.localizedkeySet.size}}</button></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End of Filter Row -->
+
+        <div class="row">
+            <div class="section-content"> 
+
+    <!--Start Disti flow for sept release-->
+    
+        <app-locc *ngIf="(projectStoreService.projectData.dealInfo.distiDeal || projectStoreService.projectData.dealInfo.partnerDeal) && projectService.showLocc"></app-locc>
+     <!--End Disti flow for sept release-->
+            
+            <div *ngIf="projectService.isToShowProject()">
+                <div class="row" *ngIf="!projectStoreService.lockProject">
+                    <div class="col-12 marginB20" *ngIf="projectStoreService.isClickedEditProject && isShowEditMessage">
+                        <div class="d-flex justify-content-between align-items-center info-alert-blue bl-3">
+                            <span class="d-flex align-items-center">
+                                <span class="icon-msg-Info mr-3"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                                <span class="pos-rel t-1">{{'create-project.PROJECT_EDIT MODE' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                            </span>
+                            <a href="javascript:void(0);" class="lh-1" (click)="closeEditModeMsg()" attr.action-id="{{dataIdConstantsService.project_link_projectEditMessageClose}}"><span class="icon-close-btn"></span></a>
+                        </div>
+                    </div>
+                    <!-- End of alert message -->
+                    <div class="col-6">
+                        <div class="form-group mb-4 pb-3 text-left project-name_input">
+                            <label class="customer-label bold-txt mb-1">{{'create-project.PROJECT_NAME' | localizationPipe : localizationService.localizedkeySet.size}}<sup>*</sup></label>
+                            <input class="form-control" [(ngModel)]='projectName' maxlength="250" (blur)='updateProjectName()' required="" type="text" attr.data-id="{{dataIdConstantsService.project_text_projectName}}">
+                            <small class="text-danger d-none"><i class="icon-error-icon"></i>
+                            <span>{{'common.FIELD_REQUIRED' | localizationPipe : localizationService.localizedkeySet.size}}</span></small>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group mb-4 pb-3 text-left smart_account_button">
+                            <label class="customer-label bold-txt mb-1 d-block" attr.data-id="{{dataIdConstantsService.project_label_smartAccount}}">{{'common.SAMRT_ACCOUNT' | localizationPipe : localizationService.localizedkeySet.size}}<sup>*</sup></label>
+                            <button *ngIf="!projectStoreService.projectData?.smartAccount?.smrtAccntName && !isChangeSubFlow && ((isPartnerAccessingSfdcDeal && projectStoreService.projectSmartAccountEditAccess) || (!isPartnerAccessingSfdcDeal && projectStoreService.projectEditAccess))"  [hidden]="isDistiLoggedInSfdcDeal && !eaService.features?.PARTNER_SUPER_USER_REL" type="button" attr.action-id="{{dataIdConstantsService.project_button_smrtAccntName}}" class="btn btn-primary" (click)="openAssignModal()">{{'common.ASSIGN_SMART_ACCOUNT' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                            <div class="d-flex align-items-center" *ngIf="projectStoreService.projectData?.smartAccount?.smrtAccntName">
+                                <span class="smart-account-name mr-3" attr.data-id="{{dataIdConstantsService.project_data_smartAccountName}}{{projectStoreService.projectData?.smartAccount?.smrtAccntName}}">
+                                    {{projectStoreService.projectData?.smartAccount?.smrtAccntName}}
+                                </span>
+                                <button  type="button" id="{{elementIdConstantsService.PROJECT_EDIT_SMART_ACCOUNT}}" class="btn btn-primary" attr.action-id="{{dataIdConstantsService.project_button_smrtAccntNameEdit}}" (click)="openAssignModal()" *ngIf="!isChangeSubFlow && ((isPartnerAccessingSfdcDeal && projectStoreService.projectSmartAccountEditAccess) || (!isPartnerAccessingSfdcDeal && projectStoreService.projectEditAccess))" [hidden]="isDistiLoggedInSfdcDeal && !eaService.features?.PARTNER_SUPER_USER_REL">{{'common.EDIT' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="col-12 mb-3">
+                        <div class="desc-info">We randomly selected a default name for your project. But you can change/select another project name by typing in project name in the box.</div>
+                    </div> -->
+                </div>
+                <!-- End of Project Name -- Row -->
+
+                <app-contact-details></app-contact-details>
+
+                <app-subsidiaries [isChangeSubFlow]="isChangeSubFlow" (onClose)="reloadProject($event, true)" [isBpIdSwitchComplete]="isBpIdSwitchComplete" [isPartnerAccessingSfdcDeal]="isPartnerAccessingSfdcDeal"></app-subsidiaries>
+
+                <app-cisco-team [isPartnerAccessingSfdcDeal]="isPartnerAccessingSfdcDeal"></app-cisco-team>
+                
+                <app-ng-partner-team [teamData] = "partnerObject"></app-ng-partner-team>
+            </div>
+
+                
+            
+            </div>
+
+
+            <div class="section-sidebar">
+                <app-next-best-action [showActions]="projectStoreService.projectData.status === 'COMPLETE'"></app-next-best-action>
+            </div> 
+        </div>
+    </div>
+
+    <app-view-sites *ngIf="projectService.showSitesAssociated"></app-view-sites>  
+    <app-select-more-bu *ngIf="projectService.selectMoreBuId"></app-select-more-bu>
+    <app-create-buying-program-id *ngIf="projectService.createBPId" (onClose)="reloadProject($event)"></app-create-buying-program-id>
+    <app-bp-id-details *ngIf="projectService.showBpIdDetails"></app-bp-id-details>
+    <!-- vNext - Create Project -- Ends Here -->
+</div>

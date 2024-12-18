@@ -1,0 +1,5 @@
+{{params?.value}}<span *ngIf="params?.colDef.field === 'subsidiaryName' && isPartialSelection(params?.data)"  class="ml-1 node-icon batch partial-text"></span>
+<span *ngIf="params?.colDef.field === 'countriesCount'" class="ml-1 node-icon down-arrow"></span>
+<span *ngIf="params?.colDef.field === 'nodeType' && params.value === 'GU'" class="ml-1 node-icon icon-GU"></span>
+<span *ngIf="params?.colDef.field === 'nodeType' && params.value === 'HQ'" class="ml-1 node-icon icon-HQ"></span>
+<span *ngIf="params?.colDef.field === 'nodeType' && params.value === 'BR'" class="ml-1 node-icon icon-branch"></span>

@@ -1,0 +1,35 @@
+<div class="modal-header">
+  <h5 class="modal-title">Choose Your Role</h5>
+  <!--<button class="icon-close-btn" type="button"></button>-->
+</div>
+<div class="modal-body">
+  <div class="choose-role row m-0">
+    <div class="col-6"><label>Name</label>
+    <h4>{{appDataService.userInfo.firstName}} {{appDataService.userInfo.lastName}}</h4>
+    </div>
+    <div class="col-6"><label>CEC ID</label>
+    <h4 class="label-name">{{appDataService.userInfo.userId}}</h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="custom-dropdown">
+        <div ngbDropdown class="select-items" #myDropsearch="ngbDropdown" (click)="$event.stopPropagation(); myDropsearch.open();" >
+          <span class="dropdown--typeAhead__arrow-management">
+              <button type="button" appElementFocus class="btn--text drop-button" id="dropdownManual" ngbDropdownAnchor dropdownManual>
+                  {{selectedRole}}</button>
+          </span>
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <ul *ngFor="let a of appDataService.userRoles">
+                  <li class="dropdown-item" (click)="changeRole(a)">{{a}}</li>
+              </ul>
+          </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <!--<button class="btn btn-secondary" type="button" (click)="close()">Cancel</button>-->
+  <button class="btn btn-primary" [disabled]="!enableProceed" type="button" (click)="proceed()">Proceed</button>
+</div>

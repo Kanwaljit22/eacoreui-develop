@@ -1,0 +1,163 @@
+<div class="modal-header">
+  <h5 class="modal-title">
+      Search for a Partner Contact
+    <!--span class="info-icon">i</span-->
+  </h5>
+  <button type="button" class="icon-close-btn" data-dismiss="modal" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+<!-- Bug #331 Fixed with style property in class="modal-body" -->
+<div class="modal-body">
+  <div class="body-content">
+    <div class="row">
+      <div class="col-4">
+          <div class="position-relative mb-3">
+              <input appElementFocus type="text" class="form-control"  [(ngModel)]="firstName" (keyup)="checkPartnerValidation(firstName)">
+              <label class="form_label form-control-placeholder">FIRST NAME</label>
+              <show-errors [control]="proposalName"></show-errors>
+          </div>
+      </div>
+      <div class="col-4">
+          <div class="position-relative mb-3">
+              <input appElementFocus type="text" class="form-control"  [(ngModel)]="lastName"  (keyup)="checkPartnerValidation(lastName)">
+              <label class="form_label form-control-placeholder">LAST NAME</label>
+              <show-errors [control]="proposalName"></show-errors>
+          </div>
+      </div>
+      <div class="col-4">
+          <div class="position-relative mb-3">
+              <div class="custom-dropdown">
+                <select class="custom-select mb-2 mr-sm-2 mb-sm-0 col myCustomSelect"  [(ngModel)]="countryData"  name="state" appElementFocus  id="priceList" (change)="selectedValueCountry($event)">
+                    <option value="United States">United States</option>
+                    <option *ngFor="let itr of billingModels" [value]="itr">{{itr}}</option>
+                </select>
+                <span class="icon-down-arrow" (click)="focusElement()"></span>
+                <label class="form_label form-control-placeholder custom-select-lbl">Country</label>
+            </div>
+        </div>
+      </div>
+      <div class="col-4">
+          <div class="position-relative mb-3">
+              <input appElementFocus type="text" class="form-control"  [(ngModel)]="cityName" (keyup)="checkPartnerValidation(cityName)"  >
+              <label class="form_label form-control-placeholder">CITY</label>
+              <show-errors [control]="proposalName"></show-errors>
+          </div>
+      </div>
+      <div class="col-4">
+          <div class="position-relative mb-3">
+              <input appElementFocus type="text" class="form-control"  [(ngModel)]="stateName" (keyup)="checkPartnerValidation(stateName)" >
+              <label class="form_label form-control-placeholder">STATE/PROVINCE</label>
+              <show-errors [control]="proposalName"></show-errors>
+          </div>
+      </div>
+    </div>
+    <div class="dashed-border-box">
+      <div class="row">
+          <div class="col-6">
+              <div class="position-relative mt-25 mb-30">
+                  <input appElementFocus type="text" class="form-control" [(ngModel)]="partnerId" (keyup)="checkPartnerValidation(partnerId)" >
+                  <label class="form_label form-control-placeholder">CISCO.COM ID</label>
+                  <show-errors [control]="proposalName"></show-errors>
+              </div>
+          </div> 
+          <div class="col-6">
+              <div class="position-relative mt-25 mb-30">
+                  <input appElementFocus type="text" class="form-control"  [(ngModel)]="partnerEmail" (keyup)="checkPartnerValidation(partnerEmail)">
+                  <label class="form_label form-control-placeholder">EMAIL</label>
+                  <show-errors [control]="proposalName"></show-errors>
+              </div>
+              <span class="note">Note: These following fields must match exactly in order to return any results.</span>
+          </div>
+      </div>
+    </div>
+    <div class="clearfix">
+      <button type="button" class="btn btn-secondary float-right mb-2" [disabled]="searchBtn" (click)="showFilterResults()">Search</button>
+    </div>
+    <h6 class="table-head">Contact Search Results</h6>
+    <div class="scroll-table" [ngClass]="{'zero-state':showScroll}">
+    <table class="primary-table">
+        <thead>
+          <tr>
+            <th width="250">CONTACT NAME</th>
+            <th width="200">TITLE</th>
+            <th width="200">CISCO.COM ID</th>
+            <th width="200">E-MAIL ADDRESS</th>
+            <th width="200">PHONE NUMBER</th>
+            <th width="200">CITY</th>        
+            <th width="200">STATE</th>
+            <th width="200">COUNTRY</th>  
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of searchData; let i = index">
+            <td>
+              <label class="label-check">
+                <input class="form-check-input" type="checkbox" [(ngModel)]="data.contactSearchChecked" (change)="contactCheckbox(searchData,data)"><span></span><span>{{data.contactName}}</span>
+                <span class="custom-checkbox-btn">
+                  <span class="path1"></span>
+                  <span class="path2"></span>
+              </span>
+              </label>
+            </td>
+            <td>{{data.title}}</td>
+            <td>{{data.ciscoId}}</td>
+            <td>{{data.emailId}}john@cisco.com</td>
+            <td>{{data.phoneNumber}}</td>
+            <td>{{data.city}}</td>
+            <td>{{data.state}}
+            <td>{{data.country}}</td>
+
+          </tr>
+          <tr *ngIf="searchDataNoRecords" class="empty-row"><td colspan="4" class="text-center">No Records</td></tr>
+          <tr class="empty-row info" *ngIf="cantFindContact">
+            <td colspan="4" class="text-center">Partner contact not found <span class="icon-info-cr" ngbTooltip="It's possible that partner contact you are looking for hasn't been associated with a partner company in the ask your contact to log in and make sure they are linked to the right company." container="body"></span><br><span>Visit <a href="https://pss.cloudapps.cisco.com/WWChannels/GETLOG/welcome.do">Cisco Partner Self Service Tool</a> to add a Contact.</span></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="clearfix">
+
+      <button type="button" class="btn btn-secondary float-right mb-3" [disabled]="addPartnerBtn" (click)="selectedPartnersData()">Add Partner Contact</button>
+  </div>
+
+  <div class="scroll-table" [hidden]="selectedPartnerTable">
+  <table class="primary-table">
+        <thead>
+          <tr>
+            <th width="250">CONTACT NAME</th>
+            <th width="200">TITLE</th>
+            <th width="200">CISCO.COM ID</th>
+            <th width="200">E-MAIL ADDRESS</th>
+            <th width="200">PHONE NUMBER</th>
+            <th width="200">CITY</th>
+            <th width="200">STATE</th>
+            <th width="200">COUNTRY</th>          
+          </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of contactSearchedContainer; let i = index">
+                <td>
+                  <label class="label-check">
+                    <input class="form-check-input" type="checkbox" [(ngModel)]="data.checked" (change)="addPartnerCheckbox(contactSearchedContainer,data)"><span></span><span>{{data.contactName}}</span>
+                    <span class="custom-checkbox-btn">
+                      <span class="path1"></span>
+                      <span class="path2"></span>
+                  </span>
+                  </label>
+                </td>
+                <td>{{data.title}}</td>
+                <td>{{data.ciscoId}}</td>
+                <td>{{data.emailId}}john@cisco.com</td>
+                <td>{{data.phoneNumber}}</td>
+                <td>{{data.city}}</td>
+                <td>{{data.state}}
+                <td>{{data.country}}</td>
+              </tr>
+        </tbody>
+      </table>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss('Cross click')">Cancel</button>
+    <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="addContact()" [disabled]="toggleDoneBtn">Done</button>
+</div>

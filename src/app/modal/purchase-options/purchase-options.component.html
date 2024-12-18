@@ -1,0 +1,35 @@
+<div class="modal-header">
+  <h5 class="modal-title">Your Cisco EA Authorizations</h5>
+  <button (click)="close()" aria-label="Close" class="icon-close-btn" data-dismiss="modal" type="button"></button>
+</div>
+<div class="modal-body py-2">
+  <div *ngIf='purchaseAuthData.length' class="mb-3">
+    <h5 class="card-header-title pt-2 pb-1 bold-txt border-bottom mx--25 darkgrey-text">Authorized</h5>
+  <div *ngFor="let a of purchaseAuthData">    
+  <h6 class="border-bottom dotted py-2">
+    <a href="javascript:void(0);"><span class="mr-2" [ngClass]="{'icon-minus': a.expanded, 'icon-plus': !a.expanded}" (click)="expand(a)"></span>{{a.name}} <span *ngIf='a.temporaryAuth'>(Temporarily Authorized)</span></a>
+  </h6>
+  <ul class="border-bottom row w-100 py-2 m-0" *ngIf="a.expanded">
+    <li class="col-6 px-0 pb-1" *ngFor="let b of a.suites">{{b.name}}</li>
+  </ul>
+</div>
+</div>
+<div class="py-2" *ngIf='purchaseTempAuthData.length'>
+  <h5 class="card-header-title pt-2 pb-1 bold-txt border-bottom mx--25 darkgrey-text">Unauthorized</h5>
+<div *ngFor="let a of purchaseTempAuthData">    
+<h6 class="border-bottom dotted py-2">
+  <a href="javascript:void(0);"><span class="mr-2" [ngClass]="{'icon-minus': a.expanded, 'icon-plus': !a.expanded}" (click)="expand(a)"></span>{{a.name}}<span *ngIf='a.temporaryAuth'> (Temporarily Authorized)</span></a>
+</h6>
+<ul class="border-bottom row w-100 py-2 m-0" *ngIf="a.expanded">
+  <li class="col-6 px-0 pb-1" *ngFor="let b of a.suites">{{b.name}}</li>
+</ul>
+</div>
+</div>
+<div *ngIf="!purchaseTempAuthData.length && !purchaseAuthData.length">
+  <span> <h5>{{localeService.getLocalizedString('proposal.create.NO_CISCO_AUTH')}} </h5></span>
+</div>
+
+<ul class="pt-2">
+    <li><a (click)="enrollAdditionalAuthorization()" href="javascript:void(0)">Click here</a> to enroll for additional authorizations</li>
+  </ul>
+</div>

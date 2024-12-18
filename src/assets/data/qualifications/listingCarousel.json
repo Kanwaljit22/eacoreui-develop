@@ -1,0 +1,36 @@
+[
+    [
+            {
+                "heading": "1/3 Active Architectures",
+                "value": "Initiate qual. with Security architecture",
+                "bValue": "Initiate",
+                "class": "icon-tree-menu-stroke"
+            },
+            {
+                "heading": "1/3 Active Architectures",
+                "value": "Initiate qual. with Collaboration architectures",
+                "bValue": "Initiate",
+                "class": "icon-tree-menu-stroke"
+            },
+            {
+                "heading": "1/3 Active Architectures",
+                "value": "Initiate qual. with 3 additional suites",
+                "bValue": "Initiate",
+                "class": "icon-checklist"
+            },
+            {
+                "heading": "1/3 Active Architectures",
+                "value": "Initiate qual. with Security architecturex",
+                "bValue": "Initiate",
+                "class": "icon-checklist"
+            }
+        ],
+        [
+            {
+                "heading": "1/3 Active Architectures",
+                "value": "Initiate qual. with Security architecture",
+                "bValue": "Initiate",
+                "class": "icon-tree-menu-stroke"
+            }
+        ]
+]

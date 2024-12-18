@@ -1,0 +1,34 @@
+
+    <div class="container-fluid mb-3" id="filter-area">
+        <div class="row">
+            <div class="col-md-5">
+                <!--h2>TCO Comparison</h2-->
+            </div>
+            <div class="col-md-7">
+                <ul class="qualify-btn">
+                    <li>
+                        <button type="button" class="btn btn-secondary" (click)="viewProposal()">{{localeService.getLocalizedString('common.PROPOSAL_LIST')}}</button>
+                    </li> 
+
+
+                    <li class="btn-sep">
+                            <button type="button" class="btn btn-secondary btn-back" (click)="back()"><span class="icon-btn-back"></span> <span class="mid-text">{{localeService.getLocalizedString('common.BACK')}}</span></button>
+                        </li>
+                    <li>
+                        <button type="button" class="btn btn-primary btn-continue" (click)="continue()"><span class="mid-text">{{localeService.getLocalizedString('common.CONTINUE')}}</span> <span class="icon-btn-continue"></span></button>
+                    </li>
+                </ul>
+            </div>
+            <!--bindings={}-->
+        </div>
+    </div>
+
+<div class="block-section pt-0" *ngIf="!showParam">    
+    <div class="sub--title__select">
+         <label  class="lbl-head">HW Refresh Rate: </label>
+        <ss-multiselect-dropdown class="tcoBreakDropdown" [options]="hardwareRefresh" [(ngModel)]="tcoConfigurationService.hwRefreshRate" [settings]="mySettings" name="selectedReasonCode" [texts]="myTextsHw" (ngModelChange)="changeHWRefresh($event)"></ss-multiselect-dropdown> 
+         <div class="price-usd no-border">All prices are shown in {{constantsService.CURRENCY}}</div>
+    </div> 
+	<message class="tco-error"></message>
+    <app-parameter-table></app-parameter-table>
+</div>

@@ -1,0 +1,20 @@
+<div class="modal-body vNext modal-without-header">
+    <h2 *ngIf="isCancelScope" attr.data-id="{{dataIdConstantsService.cancelScope_header_cancelScopeChange}}">{{'cancel-scope-change.CANCEL_SCOPE_CHANGE' | localizationPipe: localizationService.localizedkeySet.size}}</h2>
+    <h2 *ngIf="!isCancelScope" attr.data-id="{{dataIdConstantsService.cancelScope_header_restoreOriginalScope}}">{{'cancel-scope-change.RESTORE_ORIGINAL_SCOPE' | localizationPipe: localizationService.localizedkeySet.size}}</h2>
+</div>
+<div class="modal-body vNext modal-without-header">
+    <div class="row">
+        <div class="col-12">
+            <div class="label-text-info" *ngIf="isCancelScope"  attr.data-id="{{dataIdConstantsService.cancelScope_label_cancelScopeChange_msg}}">
+                {{'cancel-scope-change.CANCEL_SCOPE_CHANGE_MSG' | localizationPipe: localizationService.localizedkeySet.size}}
+            </div>
+            <div class="label-text-info" *ngIf="!isCancelScope"  attr.data-id="{{dataIdConstantsService.cancelScope_header_restoreOriginalScope_msg}}">
+                {{'cancel-scope-change.RESTORE_ORIGINAL_SCOPE_MSG' | localizationPipe: localizationService.localizedkeySet.size}}
+             </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer justify-content-center vNext">
+    <button type="button" class="btn btn-secondary sm cancel-btn" attr.action-id="{{dataIdConstantsService.cancelScope_button_cancel}}" (click)="close()" id="{{elementIdConstantsService.CancelScopeChange_Cancel}}">{{'common.CANCEL' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+    <button class="btn btn-primary ml-2" type="button" attr.action-id="{{dataIdConstantsService.cancelScope_button_confirm}}"  (click)="confirm()">{{'common.CONFIRM' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+</div>

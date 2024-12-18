@@ -1,0 +1,42 @@
+[{
+        "headerName": "Buying Models",
+        "field": "buyingModel",
+        "suppressMenu": true,
+        "cellRenderer": "group",
+        "cellClass": "expandable-header"
+    },
+    {
+        "headerName": "Net Price",
+        "children": [{
+                "headerName": "HW",
+                "field": "hw",
+                "suppressMenu": true,
+                "cellClass": "text-right"
+            },
+            {
+                "headerName": "HW Services",
+                "field": "hwService",
+                "suppressMenu": true,
+                "cellClass": "text-right"
+            },
+            {
+                "headerName": "SW",
+                "field": "sw",
+                "suppressMenu": true,
+                "cellClass": "text-right"
+            },
+            {
+                "headerName": "SW Services",
+                "field": "swService",
+                "suppressMenu": true,
+                "cellClass": "text-right"
+            },
+            {
+                "headerName": "Total",
+                "field": "totalValue",
+                "suppressMenu": true,
+                "cellClass": "text-right"
+            }
+        ]
+    }
+]

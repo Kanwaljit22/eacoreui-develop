@@ -1,0 +1,56 @@
+<ng-container *ngIf="simpleSlider">
+        <div class="pos-relative" style="min-height: auto;" *ngIf="simpleSlider.slider.name !== 'ramp Promo'"><label class="{{simpleSlider.slider.class}} upper mb-0 mt-1">{{simpleSlider.slider.name}} </label>
+        <span class="info-note-txt" *ngIf="simpleSlider.slider.name === constantsService.SW_SERVICE_DISC && proposalDataService.proposalDataObject.proposalData.billingModel === constantsService.PREPAID_TERM ">{{localeService.getLocalizedMessage('price.est.PREPAID_MULTI_YEAR_DISC')}}</span>
+</div>
+<!-- for Dial Down Ramp promo modal -->
+<div class="pos-relative" style="min-height: auto; padding-top: 7px;" *ngIf="simpleSlider.slider.name === 'ramp Promo'"><label class="{{simpleSlider.slider.class}} upper mb-0 mt-3">Please select the RAMP Discount % to be applied to your proposal</label>
+        <span class="info-note-txt" *ngIf="simpleSlider.slider.name === constantsService.SW_SERVICE_DISC && proposalDataService.proposalDataObject.proposalData.billingModel === constantsService.PREPAID_TERM ">{{localeService.getLocalizedMessage('price.est.PREPAID_MULTI_YEAR_DISC')}}</span>
+</div>
+        <div class="radio-wrap select-scale" *ngIf="simpleSlider.slider.tab">
+                <div class="float-left mr-50 radio-custom">
+                <input id="no" type="radio" name="durationRadio" [checked]="!simpleSlider.slider.selected" [value]="no" (change)="checkDurationsSelected($event)">
+                <label for="no" class="no-arrow">
+                        <span class='custom-radio-btn'>
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                            </span>
+                            <span><span></span></span>{{localeService.getLocalizedString('common.NO')}}</label>
+                </div>
+                <div class="float-left mr-50 radio-custom">
+                <input id="yes" type="radio" name="durationRadio" [checked]="simpleSlider.slider.selected" [value]="yes" (change)="checkDurationsSelected($event)">
+                <label for="yes">
+                        <span class='custom-radio-btn'>
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                            </span>
+                        <span>
+                        <span></span>
+                        </span>{{localeService.getLocalizedString('common.YES')}}</label>
+                </div>
+        </div>
+        <div class="clearfix"></div>
+<!-- <label>{{simpleSlider.slider.name}}</label>
+<div class="clearfix"></div> -->
+<span class="discount-info mb-3">{{simpleSlider.slider.discountYr}}</span>
+<div class="clearfix position-relative mb-15" [ngClass]="{'tab-panel': simpleSlider.slider.tab && showTab } ">
+        <div class="change" *ngIf="showTab || hasCategoriesSelected(simpleSlider.slider);">
+                <ion-range-slider #sliderElement
+                                [from]= "simpleSlider.slider.from" 
+                                [min]="simpleSlider.slider.min"
+                                [max]="simpleSlider.slider.max" 
+                                [grid]="simpleSlider.slider.grid" 
+                                [grid_num]="simpleSlider.slider.grid_num" 
+                                (onChange)="sliderChange($event,simpleSlider.slider.name,simpleSlider.slider.id)">
+                </ion-range-slider>
+                <span class="selected-val pos-rel-t5">{{localeService.getLocalizedString('proposal.create.SELECTED_VALUE')}} </span>
+                <input class="form-control" [value]="simpleSlider.slider.from" #inputSelected 
+                (keyup)="inputValueChange($event,simpleSlider.slider.name,simpleSlider.slider.id)" (blur)="onBlur($event,simpleSlider.slider.name,simpleSlider.slider.id)">
+                
+        </div>
+</div>
+
+
+<ng-container *ngIf="simpleSlider.appliedDiscount">
+        Applicable Discount: 23
+</ng-container>
+</ng-container>

@@ -1,0 +1,140 @@
+<div class="container-fluid" attr.page-id="{{dataIdConstantsService.proposalSummary_page_proposalSummaryPage}}">
+    <div class="row align-items-center">
+        <div class="col-12">
+            <div *ngIf="proposalStoreService.proposalData?.scopeChangeInProgress && eaService.features.EDIT_EAID_REL" class="alert alert--warning alert-dismissable mt-2">
+                <span class="alert-icon d-flex">
+                <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                </span>
+               <span>{{'common.CUSTOMER_SCOPE_CHANGE_INPROGRESS_MSG' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+            </div>
+         <div *ngIf="proposalStoreService.proposalData?.originalProposalId && (!eaService.features?.PARTNER_SUPER_USER_REL || !proposalStoreService.proposalData?.cloned)" class="alert alert--info alert-dismissable mt-1">
+                <span class="alert-icon">
+                    <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                </span>
+                <span>{{'common.COPIED_PROPOSAL' | localizationPipe : localizationService.localizedkeySet.size}} <a class="d-inline" href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.proposalSummary_link_openOriginalProposal}}" (click)="propsoalService.openOriginalProposal()">{{'common.HERE' | localizationPipe : localizationService.localizedkeySet.size}}</a> {{'common.ORIGINAL_PROPOSAL' | localizationPipe : localizationService.localizedkeySet.size}} ({{proposalStoreService.proposalData?.originalProposalId}})</span>
+            </div>
+            <div *ngIf="proposalStoreService.proposalData?.originalProposalId && eaService.features?.PARTNER_SUPER_USER_REL && proposalStoreService.proposalData?.cloned" class="alert alert--info alert-dismissable mt-1">
+                <span class="alert-icon">
+                    <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                </span>
+                <span>{{'common.CLONED_PROPOSAL_NEW_MSG' | localizationPipe : localizationService.localizedkeySet.size}} <a class="d-inline" href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.proposalSummary_link_openOriginalProposal}}" (click)="proposalService.openOriginalProposal()">{{'common.HERE' | localizationPipe : localizationService.localizedkeySet.size}}</a> {{'common.ORIGINAL_PROPOSAL' | localizationPipe : localizationService.localizedkeySet.size}} ({{proposalStoreService.proposalData?.originalProposalId}})</span>
+            </div>
+            <div *ngIf="isPilotPartnerExceptionPresent" class="alert alert--info alert-dismissable mt-1">
+                <span class="alert-icon">
+                    <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                </span>
+                <span>{{'proposalSummary.ONLY_A_LIMITED_NUMBER_OF_OPPORTUNITIES' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+            </div> 
+            <div *ngIf="isSelectedPaRequestException" class="mt-1">
+                <div class="alert alert--success alert-dismissable more--actions">
+                    <span class="alert-icon">
+                        <span class="icon-done1"><span class="path1"></span><span class="path2"></span></span>
+                    </span>
+                    <span>{{'proposalSummary.SUCCESSFULLY_CLAIMED_THIS_PROPOSAL' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                    <div class="alert--actions">
+                        <button class="btn btn-primary sm" type="button" attr.action-id="{{dataIdConstantsService.proposalSummary_button_backToPe}}" (click)="backToPe()">{{'proposalSummary.GO_TO_PRICE_ESTIMATION_PAGE' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                        <!-- <span class="icon-close-btn lh-1 ml-2" (click)="isShowPaMsg = false"></span> -->
+                    </div>
+                </div>
+            </div>
+
+                <div class="alert alert--warning alert-dismissable mt-2" *ngIf='!proposalStoreService.isReadOnly && displayException && !isApproverFlow && !proposalStoreService.proposalData?.exception?.allowWithdrawl && proposalStoreService.proposalData?.exception?.exceptionActivities.length && isExceptionStatusNew'>
+                    <span class="alert-icon">
+                        <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                    </span>
+                    <span> {{'proposalSummary.STATUS_OF_YOUR_REQUESTED_EXCEPTION_REVISED_NEW' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                </div>
+                <div class="alert alert--danger alert-dismissable mt-2" *ngIf='!proposalStoreService.isReadOnly  && !isApproverFlow && eaService.features.WIFI7_REL && proposalStoreService.proposalData.gtcChinaQuestionnaireNeeded && !isJustificationAdded'>
+                    <span class="alert-icon">
+                        <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                    </span>
+                    <span>{{'proposalSummary.GTC_VALIDATION_MSG' | localizationPipe : localizationService.localizedkeySet.size : {value:proposalStoreService.proposalData?.nonStandardTermDetails?.threshold} }} <a href="javascript:void(0);" (click)="gtcJustification()">{{'common.CLICK_HERE' | localizationPipe : localizationService.localizedkeySet.size}}</a></span>
+                </div>
+                <div class="alert alert--warning alert-dismissable mt-2" *ngIf='!proposalStoreService.isReadOnly  && !isApproverFlow && eaService.features.WIFI7_REL && proposalStoreService.proposalData.gtcChinaQuestionnaireNeeded && isJustificationAdded'>
+                    <span class="alert-icon">
+                        <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                    </span>
+                    <span>{{'proposalSummary.GTC_VALIDATION_MSG_PERCENTAGE' | localizationPipe : localizationService.localizedkeySet.size : {value:proposalStoreService.proposalData?.nonStandardTermDetails?.threshold, percentage: proposalStoreService.proposalData.nonStandardTermDetails.ruleBusinessJustification} }} <a href="javascript:void(0);" (click)="gtcJustification()">{{'common.CLICK_HERE' | localizationPipe : localizationService.localizedkeySet.size}}</a></span>
+                </div>
+                <!-- <div class="alert alert--warning alert-dismissable mt-2" *ngIf='isMerakiPaExceptionPresent && !proposalStoreService.isReadOnly && displayException && !isApproverFlow && !proposalStoreService.proposalData?.exception?.allowWithdrawl'>
+                    <span class="alert-icon">
+                        <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                    </span>
+                    <span>{{'proposalSummary.MERAKI_PA_EXCEPTION' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                </div> -->
+                <div class="alert alert--warning alert-dismissable mt-2" *ngIf='delistingCxException && !proposalStoreService.isReadOnly && displayException && !isApproverFlow && !proposalStoreService.proposalData?.exception?.allowWithdrawl && proposalStoreService.proposalData?.exception?.exceptionActivities.length && isExceptionStatusNew'>
+                    <span class="alert-icon">
+                        <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                    </span>
+                    <span>{{'proposalSummary.THRESHOLD_LIMIT' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                </div>
+                <div class="alert alert--warning alert-dismissable mt-2" *ngIf='showExclusionExceptionWarningMessage && !proposalStoreService.isReadOnly && displayException && !isApproverFlow && !proposalStoreService.proposalData?.exception?.allowWithdrawl && proposalStoreService.proposalData?.exception?.exceptionActivities.length && isExceptionStatusNew'>
+                    <span class="alert-icon">
+                        <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                    </span>
+                    <span>{{'proposalSummary.EXCEPTION_EXCLUSION_WARNING_MESSAGE' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                </div>
+
+            <div id="filter-area" class="vNext mb-3">
+                <div class="row align-items-center">
+                    <div class="col-md-5">
+                        <h2>{{'common.PROPOSAL_SUMMARY' | localizationPipe : localizationService.localizedkeySet.size}}</h2>
+                    </div>
+                    <div *ngIf='proposalStoreService.proposalEditAccess' class="col-md-7 d-flex justify-content-end">
+                        <button *ngIf='showSubmitButton()' [disabled]="!proposalStoreService.isReadOnly  && !isApproverFlow && eaService.features.WIFI7_REL && proposalStoreService.proposalData.gtcChinaQuestionnaireNeeded && !isJustificationAdded" class="btn btn-primary" type="button" attr.action-id="{{dataIdConstantsService.proposalSummary_button_submit}}" (click)="submit()">{{'common.SUBMIT' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                        <button *ngIf='showSubmitForApproval()' class="btn btn-primary ml-2" type="button" attr.action-id="{{dataIdConstantsService.proposalSummary_button_submitForApproval}}" (click)="submitForApproval()">{{'proposalSummary.SUBMIT_FOR_APPROVAL' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                        <button *ngIf='!isApproverFlow && proposalStoreService.proposalData?.exception?.allowWithdrawl' class="btn btn-primary ml-2" type="button" attr.action-id="{{dataIdConstantsService.proposalSummary_button_withdrawApproval}}" (click)="withdrawApproval()">{{ isOnlyPaExceptionPresent ? ('proposalSummary.WITHDRAW_OTD_EXCEPTION' | localizationPipe : localizationService.localizedkeySet.size) : ('proposalSummary.WITHDRAW_APPROVAL_REQUEST' | localizationPipe : localizationService.localizedkeySet.size)}}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End of Filter Row -->
+</div>
+<!-- End of PageTitle Area -->
+
+<section class="" attr.page-id="{{dataIdConstantsService.eaLanding_page_eaLandingPage}}">
+    <div class="container-fluid">
+        <div class="row mb-3 mt-2">
+            <div class="col-12 mb-1 d-flex align-items-end justify-content-between">
+                <h5 class="heading--h5">
+                    {{'proposalSummary.PRICE_ESTIMATE_OF_SELECTED_PORTFOLIO' | localizationPipe : localizationService.localizedkeySet.size}}
+                </h5>
+                <p><small>{{'common.ALL_PRICES_SHOW' | localizationPipe : localizationService.localizedkeySet.size}} {{proposalStoreService.proposalData.currencyCode}}</small></p>
+            </div>
+            <div class="col-12">
+                <table class="primary-table">
+                    <thead>
+                        <tr>
+                            <th>{{'common.PORTFOLIO' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                            <th width="240"  class="text-right">{{'common.TOTAL_CONTRACT_VALUE' | localizationPipe : localizationService.localizedkeySet.size}} <br>{{'common.PRE_OTD' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                            <th width="240"  class="text-right">{{'common.TOTAL_OTD' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                            <th width="240"  class="text-right">{{'common.TOTAL_CONTRACT_VALUE' | localizationPipe : localizationService.localizedkeySet.size}} <br>{{'common.POST_OTD' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf='proposalSummaryData?.enrollments'>
+                        <tr *ngFor="let enrollment of proposalSummaryData.enrollments">
+                            <td>{{enrollment.name}}</td>
+                            <td class="text-right" attr.data-id="{{dataIdConstantsService.proposalSummary_enorllment_TcvPreOtd}}{{enrollment?.id}}">{{getTCVPrePurchaseAdjustment(enrollment)}}</td>
+                            <td class="text-right" attr.data-id="{{dataIdConstantsService.proposalSummary_enorllment_otd}}{{enrollment?.id}}">{{getTCV(enrollment)}}</td>
+                            <td class="text-right" attr.data-id="{{dataIdConstantsService.proposalSummary_enorllment_TcvPostOtd}}{{enrollment?.id}}">{{getTCVPostPurchaseAdjustment(enrollment)}}</td>
+                        </tr>
+                    </tbody>
+                    <tfoot *ngIf='proposalSummaryData?.proposal'>
+                        <tr>
+                            <td>{{'common.TOTAL' | localizationPipe : localizationService.localizedkeySet.size}}</td>
+                            <td class="text-right" attr.data-id="{{dataIdConstantsService.proposalSummary_enorllment_TcvPreOtdTotal}}">{{getTCVPrePurchaseAdjustment(proposalSummaryData.proposal)}}</td>
+                            <td class="text-right" attr.data-id="{{dataIdConstantsService.proposalSummary_enorllment_ottdTotal}}">{{getTCV(proposalSummaryData.proposal, 'proposal')}}</td>
+                            <td class="text-right" attr.data-id="{{dataIdConstantsService.proposalSummary_enorllment_TcvPostOtdTotal}}">{{getTCVPostPurchaseAdjustment(proposalSummaryData.proposal)}}</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <app-exception *ngIf='displayException' [isApprovalFlow]="isApproverFlow" [isExceptionStatusNew]="isExceptionStatusNew" (isBecomeApprover)='becomeApprover($event)' [exceptionActivities]="proposalStoreService.proposalData.exception.exceptionActivities" [displayApprovalHistory]="displayApprovalHistory" (isSummaryReloadEmitter)="reloadSummaryForExceptions($event)" [groupExceptionApproverHistory] = "exceptionApprovalHistory" ></app-exception>
+            </div>
+        </div>
+    </div>
+</section>

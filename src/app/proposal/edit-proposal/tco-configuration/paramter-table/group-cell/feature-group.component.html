@@ -1,0 +1,7 @@
+<div class="feature">
+    <span class="name-tag" *ngFor="let item of showArr; let isLast=last;">
+        {{item}}{{isLast && !arrLength > 0 ? '' : ', '}}
+        <!-- <span class="icon-close-btn" (click)="removeSelected(item, showArr)"></span> -->
+    </span>
+    <a href="javascript:void(0);" class="view-more" *ngIf="arrLength > 0" (click)="showAll()">{{arrLength}} More</a>
+</div>

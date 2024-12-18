@@ -1,0 +1,29 @@
+.disclaimer {
+    font-size : 12px;
+    font-style: italic;
+    clear     : both;
+    padding   : 15px 0px;
+}
+
+.scenario-options {
+    position: fixed;
+    bottom  : 35px;
+    right   : 85px;
+}
+
+.scenario-options .toggle-btn {
+    background   : #005073;
+    border-radius: 4px;
+    font-size    : 14px;
+    color        : #fff;
+    padding      : 9px 20px;
+    border       : 0px;
+    line-height  : 1;
+    cursor       : pointer;
+}
+
+.scenario-options .toggle-btn.disable {
+    background: #DEDEDE !important;
+    color     : #BDBDBD !important;
+    cursor    : text;
+}

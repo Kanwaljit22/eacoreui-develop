@@ -1,0 +1,341 @@
+  <!-- Locc Component -- Starts Here -->
+  <div class="row">
+    <div class="col-12">
+        <app-message></app-message>
+        <div class="vNext-locc">
+            <div class="d-flex align-items-top">
+                <span class="severity-badge bg-green" container="body" ngbTooltip="{{'common.CISCO_CONFIDENTIAL' | localizationPipe : localizationService.localizedkeySet.size}}" placement="top-left">C</span>
+                <div class="pdf-icon-wrap">
+                    <span class="icon-pdf1 mr-3"><span class="path1"></span><span class="path2"></span><span
+                    class="path3"></span><span class="path4"></span><span class="path5"></span><span
+                    class="path6"></span><span class="path7"></span><span class="path8"></span><span
+                    class="path9"></span><span class="path10"></span><span class="path11"></span><span
+                    class="path12"></span>
+                    </span>
+                </div>
+            
+                <div class="description-box">
+                    <div class="d-flex justify-content-between">
+                        <h4 class="sm-heading">{{'common.LOCC' | localizationPipe : localizationService.localizedkeySet.size}}</h4>
+                        <ul class="qualService">
+                            <li>
+                                <a #downloadZipLink [hidden]="true"></a>
+                                <a href="javascript:void(0);" (click)="downloadLoccFile()" attr.action-id="{{dataIdConstantsService.locc_link_downloadLoccFile}}" ><span class="icon-download mr-2"></span>{{'common.locc.DOWNLOAD_LOCC' | localizationPipe : localizationService.localizedkeySet.size}}</a></li>
+                            <li class="pr-0" *ngIf="!vnextStoreService.loccDetail?.loccSigned && !vnextStoreService.loccDetail?.loccInitiated"><span class="badge badge-in-progress">{{'common.locc.NOT_SIGNED' | localizationPipe : localizationService.localizedkeySet.size}}</span></li>
+                            <li class="pr-0" *ngIf="vnextStoreService.loccDetail?.loccSigned && !vnextStoreService.loccDetail?.loccInitiated"><span class="badge badge-valid">{{'common.SIGNED' | localizationPipe : localizationService.localizedkeySet.size}}</span></li>
+                            <li class="pr-0" *ngIf="!vnextStoreService.loccDetail?.loccSigned && vnextStoreService.loccDetail?.loccInitiated"><span class="badge badge-in-progress">{{'common.PENDING_SIGNATURE' | localizationPipe : localizationService.localizedkeySet.size}}</span></li>
+                        </ul>
+                    </div>
+                    
+                    <p class="secondary-text">{{'common.CUSTOMER_CONCENT_REQUIRED' | localizationPipe : localizationService.localizedkeySet.size}}</p>
+            
+                <div class="d-flex">
+                        <div class="radio-custom mr-4 mb-0">
+                            <input [checked]="selectedConsent === 'intitateSig'" attr.data-id="{{dataIdConstantsService.locc_radio_intitateSig}}" (change)="chooseCusConsent($event)" id="locc1" type="radio" name="locc" [disabled]="signatureSigned || vnextStoreService.loccDetail?.loccSigned">
+                            <label for="locc1">
+                                <span class="custom-radio-btn"><span class="path1"></span><span class="path2"></span></span>
+                                <span><span></span></span> 
+                                {{'common.E-SIGNATURE' | localizationPipe : localizationService.localizedkeySet.size}} </label>
+                        </div>
+            
+                        <div class="radio-custom mr-4 mb-0">
+                            <input id="locc2" type="radio" (change)="chooseCusConsent($event)" attr.data-id="{{dataIdConstantsService.locc_radio_uploadLocc}}"  [checked]="selectedConsent === 'uploadLocc'"  name="locc" [disabled]="signatureSigned || vnextStoreService.loccDetail?.loccSigned">
+                            <label for="locc2">
+                                <span class="custom-radio-btn"><span class="path1"></span><span class="path2"></span></span>
+                                <span><span></span></span> 
+                                {{'common.UPLOAD_SIGNED_DOCUMENT' | localizationPipe : localizationService.localizedkeySet.size}} </label>
+                        </div>
+            
+                        <div class="radio-custom mb-0" *ngIf="!proposalStoreService.proposalData?.objId">
+                            <input id="locc3" type="radio" (change)="chooseCusConsent($event)" [checked]="selectedConsent === 'deferLocc'" attr.data-id="{{dataIdConstantsService.locc_radio_deferLocc}}"  name="locc" [disabled]="signatureSigned || vnextStoreService.loccDetail?.loccSigned || vnextStoreService.loccDetail?.loccInitiated">
+                            <label for="locc3">
+                                <span class="custom-radio-btn"><span class="path1"></span><span class="path2"></span></span>
+                                <span><span></span></span> 
+                                {{'common.locc.DEFER_LOCC' | localizationPipe : localizationService.localizedkeySet.size}} </label>
+                        </div>
+                </div>
+            
+                </div>
+            </div>
+
+            <div class="vNext-locc-dropdown">  
+                <ng-container *ngIf="selectedConsent === 'intitateSig' && !vnextStoreService.loccDetail?.loccSigned && !vnextStoreService.loccDetail?.loccInitiated">              
+                <div class="inner-locc-wrap" id="initiateStep1" *ngIf="customerReadyStep">
+                    <div class="d-flex justify-content-between">
+                        <div class="locc-dropdown-heading">
+                            <h4 class="heading--h4">{{'common.locc.CUSTOMER_READINESS' | localizationPipe : localizationService.localizedkeySet.size}}</h4>
+                            <p>{{'common.locc.LETTER_OF_CUSTOMER_CONSENT' | localizationPipe : localizationService.localizedkeySet.size}}</p>
+                        </div>
+
+                        <div class="steps-count">
+                            <span>{{'common.locc.STEP_1' | localizationPipe : localizationService.localizedkeySet.size}} <span class="total-count">{{'common.OF_3' | localizationPipe : localizationService.localizedkeySet.size}}</span></span>
+                        </div>
+                    </div>                    
+
+                    <div class="d-flex justify-content-between mt-2 align-items-end">
+                        <div class="radio-wrap">
+                            <div class="radio-custom mr-4 mb-0">
+                                <input id="locc2" type="radio" attr.data-id="{{dataIdConstantsService.locc_radio_yes}}" name="customerReadiness" value="yes" [checked]="!disableContinue" (change)="isCustomerReady($event)">
+                                <label for="locc2">
+                                    <span class="custom-radio-btn"><span class="path1"></span><span class="path2"></span></span>
+                                    <span><span></span></span> 
+                                    {{'common.Yes' | localizationPipe : localizationService.localizedkeySet.size}} </label>
+                            </div>
+                
+                            <div class="radio-custom mb-0">
+                                <input id="locc3" type="radio" attr.data-id="{{dataIdConstantsService.locc_radio_no}}" name="customerReadiness" value="no" [checked]="disableContinue" (change)="isCustomerReady($event)">
+                                <label for="locc3">
+                                    <span class="custom-radio-btn"><span class="path1"></span><span class="path2"></span></span>
+                                    <span><span></span></span> 
+                                    {{'common.No' | localizationPipe : localizationService.localizedkeySet.size}} </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center mt-3">            
+                        <div class="form-group my-0 w-50">
+                            <label class="customer-label mb-1">{{'common.SELECT_LANGUAGE' | localizationPipe : localizationService.localizedkeySet.size}}</label>
+                            <div class="select-items dropdown w-325" (clickOutside)="displayLanguages = false;">
+                                <span class="dropdown--typeAhead__arrow-management">
+                                    <button class="btn--text drop-button dropdown-toggle" attr.action-id="{{dataIdConstantsService.locc_button_loccDocLanguage}}" (click)='displayLanguages = true;' type="button">{{selectedDocLanguage?.displayName ? selectedDocLanguage.displayName : 'Select Language'}}</button>
+                                </span>
+                                <div class="dropdown-menu" [class.show]="displayLanguages">
+                                    <ul>
+                                        <li *ngFor='let language of supportedLanguages; let index = index;' (click)="selectLanguage(language)" attr.action-id="{{dataIdConstantsService.locc_dropdown_selectLanguage}}{{index}}">{{language.displayName}}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <small class="text-danger d-none"><i class="icon-error-icon"></i><span>{{'common.FIELD_REQUIRED' | localizationPipe : localizationService.localizedkeySet.size}}</span></small>
+                        </div>
+
+                        <div>
+                            <button class="btn btn-primary sm ml-2" (click)="continue()" id="{{elementIdConstantsService.LOCC_CONTINUE}}" attr.action-id="{{dataIdConstantsService.locc_button_continue}}" [disabled]="disableContinue">{{'common.CONTINUE' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="inner-locc-wrap" id="initiateStep2" *ngIf="customerRepInfoStep">
+                    <div class="d-flex justify-content-between">
+                        <div class="locc-dropdown-heading">
+                            <h4 class="heading--h4">{{'common.common.CUSTOMER_REPRESENTATIVE_INFO' | localizationPipe : localizationService.localizedkeySet.size}}</h4>
+                        </div>
+
+                        <div class="steps-count">
+                            <span>{{'common.locc.STEP_2' | localizationPipe : localizationService.localizedkeySet.size}} <span class="total-count">{{'common.OF_3' | localizationPipe : localizationService.localizedkeySet.size}}</span></span>
+                        </div>
+                    </div>                    
+
+                    <div class="d-flex justify-content-between mt-2 align-items-end">
+                        <ul class="d-flex vNext-locc-ul">
+                            <li class="">
+                                <div class="rep-info-warp" [ngClass]="{'spacing-legalName': projectStoreService.isLoccCustomerContactDetailInconsistent}">
+                                    <h6 class="heading--h6">{{'common.PREFERRED_LEGAL_NAME' | localizationPipe : localizationService.localizedkeySet.size}} <a href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.locc_link_editPreferred}}"><span class="i-vNext-edit-filled" (click)="editPreferred()"></span></a></h6>
+                                    <h5 class="heading--h5">{{vnextStoreService.loccDetail?.customerContact?.preferredLegalName ? vnextStoreService.loccDetail?.customerContact?.preferredLegalName : '--'}}</h5>
+                                    <p>{{vnextStoreService.loccDetail?.customerContact?.preferredLegalAddress ? vnextStoreService.loccDetail?.customerContact?.preferredLegalAddress.addressLine1 : '--'}}, 
+                                    <span *ngIf="vnextStoreService.loccDetail?.customerContact?.preferredLegalAddress?.addressLine2">{{vnextStoreService.loccDetail.customerContact.preferredLegalAddress.addressLine2}}, </span> 
+                        {{vnextStoreService.loccDetail?.customerContact?.preferredLegalAddress ? vnextStoreService.loccDetail?.customerContact?.preferredLegalAddress.city : '--'}}, {{vnextStoreService.loccDetail?.customerContact?.preferredLegalAddress ? vnextStoreService.loccDetail?.customerContact?.preferredLegalAddress.state : '--'}} {{vnextStoreService.loccDetail?.customerContact?.preferredLegalAddress ? vnextStoreService.loccDetail?.customerContact?.preferredLegalAddress.zip : '--'}} <br>{{vnextStoreService.loccDetail?.customerContact?.preferredLegalAddress ? vnextStoreService.loccDetail?.customerContact?.preferredLegalAddress.country : '--'}}</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="rep-info-warp">
+                                    <h6 class="heading--h6">{{'common.CUSTOMER_REPRESENTATIVE' | localizationPipe : localizationService.localizedkeySet.size}} <a href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.locc_link_editInfo}}" (click)="editInfo()"><span class="i-vNext-edit-filled"></span></a></h6>
+                                    <h5 class="heading--h5">{{vnextStoreService.loccDetail?.customerContact?.repName ? vnextStoreService.loccDetail?.customerContact?.repName : '--'}}</h5>
+                                    <p>{{vnextStoreService.loccDetail?.customerContact?.repTitle ? vnextStoreService.loccDetail?.customerContact?.repTitle : '--'}}</p>
+                                    <p>{{vnextStoreService.loccDetail?.customerContact?.repEmail ? vnextStoreService.loccDetail?.customerContact?.repEmail : '--'}}</p>
+                                </div>
+                                <small class="text-danger" *ngIf="projectStoreService.isLoccCustomerContactDetailInconsistent"><i class="icon-error-icon"></i><span>{{'common.CUSTOMER_REP_MANDATORY_FIELDS_MISSING' | localizationPipe : localizationService.localizedkeySet.size}}</span></small>
+                            </li>
+                        </ul>
+
+                        <div class="btn-steps-container">
+                            <button class="btn btn-primary sm ml-2 d-none" attr.action-id="{{dataIdConstantsService.locc_button_loccImport}}">{{'common.IMPORT' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                            <button class="btn btn-secondary sm ml-2" attr.action-id="{{dataIdConstantsService.locc_button_back}}" (click)="back()">{{'common.BACK' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                            <button class="btn btn-primary sm ml-2" (click)="continue()" attr.action-id="{{dataIdConstantsService.locc_button_continue}}" id="{{elementIdConstantsService.LOCC_CONTINUE}}" [disabled]="projectStoreService.isLoccCustomerContactDetailInconsistent">{{'common.CONTINUE' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="inner-locc-wrap" id="initiateStep" *ngIf="reviewLoccStep">
+                    <div class="d-flex justify-content-between">
+                        <div class="locc-dropdown-heading">
+                            <h4 class="heading--h4">{{'common.locc.PREVIEW_DOCUMENT' | localizationPipe : localizationService.localizedkeySet.size}}</h4>
+                            <p>{{'common.locc.CUSTOMER_REPRESENTATIVE' | localizationPipe : localizationService.localizedkeySet.size}} </p>
+                        </div>
+
+                        <div class="steps-count">
+                            <span>{{'common.locc.STEP_3' | localizationPipe : localizationService.localizedkeySet.size}} <span class="total-count">{{'common.OF_3' | localizationPipe : localizationService.localizedkeySet.size}}</span></span>
+                        </div>
+                    </div>
+
+                    <h4 class="heading--h4 mt-2 mb-0">{{'common.locc.WHAT’S_INCLUDED' | localizationPipe : localizationService.localizedkeySet.size}}</h4>
+                    <div class="d-flex justify-content-between align-items-end">
+                        <ul class="d-flex vNext-locc-ul">
+                            <li>{{'common.LOCC' | localizationPipe : localizationService.localizedkeySet.size}}</li>
+                            <li><a #downloadZipLink [hidden]="true"></a>
+                                <a href="javascript:void(0)" (click)="downloadLoccFile()" attr.action-id="{{dataIdConstantsService.locc_link_downloadLoccFile}}">{{'common.CLICK_HERE' | localizationPipe : localizationService.localizedkeySet.size}}</a> {{'common.locc.TO_DOWNLOAD' | localizationPipe : localizationService.localizedkeySet.size}}</li>
+                        </ul>
+                        <div>
+                            <button class="btn btn-secondary sm" attr.action-id="{{dataIdConstantsService.locc_button_back}}" (click)="back()">{{'common.BACK' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                            <button class="btn btn-primary sm ml-2" attr.action-id="{{dataIdConstantsService.locc_button_initiateLocc}}" (click)="initiate()">{{'common.E-SIGNATURE' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                        </div>
+                    </div>
+                </div>
+                </ng-container>
+
+                <ng-container
+                    *ngIf="selectedConsent === 'intitateSig' && (vnextStoreService.loccDetail?.loccSigned || vnextStoreService.loccDetail?.loccInitiated)">
+                    <div class="inner-locc-wrap" id="initiateStepInitiate"
+                        *ngIf="(vnextStoreService.loccDetail?.loccSigned || vnextStoreService.loccDetail?.loccInitiated)">
+                        <div class="d-flex justify-content-between">
+                            <div class="locc-dropdown-heading">
+                                <h4 class="heading--h4 mb-3">{{'common.locc.E_SIGN_INITIATED' | localizationPipe : localizationService.localizedkeySet.size}}</h4>
+                            </div>
+                
+                            <div class="steps-count">
+                                <span>{{'common.locc.STEP_3' | localizationPipe : localizationService.localizedkeySet.size}} <span class="total-count">{{'common.OF_3' | localizationPipe : localizationService.localizedkeySet.size}}</span></span>
+                            </div>
+                        </div>
+                
+                        <div class="d-flex align-items-center">
+                            <div class="paddingR40">
+                                <img src="assets/images/icons/signature-initiated.svg">
+                            </div>
+                            <div>
+                                <div class="mb-2">
+                                    {{'common.STATUS' | localizationPipe : localizationService.localizedkeySet.size}} <span class="badge badge-in-progress"
+                                        *ngIf="vnextStoreService.loccDetail?.loccInitiated">{{'common.PENDING_SIGNATURE' | localizationPipe : localizationService.localizedkeySet.size}}</span><span class="badge badge-valid"
+                                        *ngIf="vnextStoreService.loccDetail?.loccSigned">{{'common.SIGNED' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                                </div>
+                                <ul class="inline-listing full-width-listing disc">
+                                    <li>{{'common.ELECTRONIC_COPIES_OF_THE' | localizationPipe : localizationService.localizedkeySet.size}} <a #downloadZipLink [hidden]="true"></a>
+                                        <a href="javascript:void(0);" (click)="downloadLoccFile()" attr.action-id="{{dataIdConstantsService.locc_link_downloadLoccFile}}">{{'common.LOCC' | localizationPipe : localizationService.localizedkeySet.size}}</a>
+                                        {{'common.locc.HAVE_BEEN_REQUESTED_TO_BE_SENT_TO' | localizationPipe : localizationService.localizedkeySet.size}} <span
+                                            class="bold-txt">{{vnextStoreService.loccDetail?.customerContact?.repName}}
+                                            ({{vnextStoreService.loccDetail?.customerContact?.repEmail}})</span>
+                                    </li>
+                                    <li>{{'common.locc.SIGN_THE_DOCUMENTS' | localizationPipe : localizationService.localizedkeySet.size}}
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                
+                        <div class="d-flex justify-content-end mt-2 align-items-end">
+                            <div>
+                                <button class="btn btn-secondary ml-2" type="button" (click)="sendAgain()" attr.action-id="{{dataIdConstantsService.locc_button_sendAgain}}">{{'common.locc.SEND_AGAIN' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                                <button class="btn btn-primary ml-2" type="button" attr.action-id="{{dataIdConstantsService.locc_button_continue}}" id="{{elementIdConstantsService.LOCC_CONTINUE_TO_PROJECT}}" (click)="continueToProject()">{{'common.CONTINUE' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+
+                <!-- End of e-signature initiated -->
+              <ng-container *ngIf="selectedConsent === 'uploadLocc'">
+                <div class="inner-locc-wrap" id="upload">
+                    <div class="locc-dropdown-heading">
+                        <h4 class="heading--h4">{{'common.CUSTOMER_REPRESENTATIVE_INFO' | localizationPipe : localizationService.localizedkeySet.size}}</h4>
+                    </div>
+                    <div class="d-flex justify-content-between mt-2 align-items-end">
+                        <ul class="d-flex vNext-locc-ul">
+                            <li class="paddingR40">
+                                <div class="rep-info-warp">
+                                    <h6 class="heading--h6">{{'common.PREFERRED_LEGAL_NAME' | localizationPipe : localizationService.localizedkeySet.size}} <a href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.locc_link_editPreferred}}"><span class="i-vNext-edit-filled" (click)="editPreferred()"></span></a></h6>
+                                    <h5 class="heading--h5">{{vnextStoreService.loccDetail?.customerContact?.preferredLegalName ? vnextStoreService.loccDetail?.customerContact?.preferredLegalName : '--'}}</h5>
+                                    <p>{{vnextStoreService.loccDetail?.customerContact?.preferredLegalAddress ? vnextStoreService.loccDetail?.customerContact?.preferredLegalAddress.addressLine1 : '--'}}, 
+                                    <span *ngIf="vnextStoreService.loccDetail?.customerContact?.preferredLegalAddress.addressLine2">{{vnextStoreService.loccDetail?.customerContact?.preferredLegalAddress.addressLine2}}, </span> 
+                        {{vnextStoreService.loccDetail?.customerContact?.preferredLegalAddress ? vnextStoreService.loccDetail?.customerContact?.preferredLegalAddress.city : '--'}}, {{vnextStoreService.loccDetail?.customerContact?.preferredLegalAddress ? vnextStoreService.loccDetail?.customerContact?.preferredLegalAddress.state : '--'}} {{vnextStoreService.loccDetail?.customerContact?.preferredLegalAddress ? vnextStoreService.loccDetail?.customerContact?.preferredLegalAddress.zip : '--'}} <br>{{vnextStoreService.loccDetail?.customerContact?.preferredLegalAddress ? vnextStoreService.loccDetail?.customerContact?.preferredLegalAddress.country : '--'}}</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="rep-info-warp">
+                                    <h6 class="heading--h6">{{'common.CUSTOMER_REPRESENTATIVE' | localizationPipe : localizationService.localizedkeySet.size}} <a href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.locc_link_editInfo}}" (click)="editInfo()"><span class="i-vNext-edit-filled"></span></a></h6>
+                                    <h5 class="heading--h5">{{vnextStoreService.loccDetail?.customerContact?.repName ? vnextStoreService.loccDetail?.customerContact?.repName : '--'}}</h5>
+                                    <p>{{vnextStoreService.loccDetail?.customerContact?.repTitle ? vnextStoreService.loccDetail?.customerContact?.repTitle : '--'}}</p>
+                                    <p>{{vnextStoreService.loccDetail?.customerContact?.repEmail ? vnextStoreService.loccDetail?.customerContact?.repEmail : '--'}}</p>
+                                </div>
+                                
+                            </li>
+                        </ul>
+                    </div>
+                    <hr class="weight-1">
+                    <div class="d-flex justify-content-between" *ngIf="!filesUploadedData.length">
+                        <div class="locc-dropdown-heading">
+                            <h4 class="heading--h4 mb-3">{{'common.UPLOAD_SIGNED_DOCUMENT' | localizationPipe : localizationService.localizedkeySet.size}}</h4>
+                            <p>{{'common.locc.CUSTOMER_REPRESENTATIVE_SPACE_MSG' | localizationPipe : localizationService.localizedkeySet.size}}</p>
+                        </div>
+                    </div>
+                    <!-- Drag and drop -- Starts here -->
+                    <div class="d-flex" *ngIf="!filesUploadedData.length">
+                        <div class="my-drop-zone drag-drop" ng2FileDrop (fileOver)="fileOverBase($event)" (onFileDrop)="dropped($event)" [uploader]="uploader">
+                            <input type="file" attr.data-id="{{dataIdConstantsService.locc_file_dropFile}}" id="file" #file ng2FileSelect [uploader]="uploader" (change)="onFileChange($event)" hidden />
+                            <span class="signature-icon-wrap"><img src="assets/images/icons/signature-initiated.svg"></span>
+                            <span>{{'common.locc.DRAG_&_DROP_FILE_HERE_OR' | localizationPipe : localizationService.localizedkeySet.size}} <a href="javascript:void(0)" attr.action-id="{{dataIdConstantsService.locc_link_browse}}" (click)="file.click()">{{'common.BROWSE' | localizationPipe : localizationService.localizedkeySet.size}}</a> {{'common.TO_UPLOAD' | localizationPipe : localizationService.localizedkeySet.size}} </span>
+                        </div>
+                    </div>
+                    <!-- Drag and drop -- Ends here -->
+
+                    <!-- File Upload Progress Section -- Starts Here -->
+                    <div class="d-flex justify-content-between align-items-center mt-3" *ngIf="filesUploadedData.length">
+                        <div class="w-50 mr-3" *ngFor="let uploadedFile of filesUploadedData">
+                            <div class="d-flex justify-content-between align-items-center uploadFile-wrap">
+                                <span class="d-flex align-items-center">
+                                    <span class="icon-wrap">
+                                        <span class="icon-pdf1 mr-3"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span><span class="path8"></span><span class="path9"></span><span class="path10"></span><span class="path11"></span><span class="path12"></span></span>
+                                    </span>
+                                    {{uploadedFile}}
+                                </span>
+
+                                <span class="action-wrap">
+                                    <span class="icon-tick d-none"></span>
+                                    <span class="icon-delete" (click)="removeFile(uploadedFile)"></span>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="w-50 locc-file-desc-wrap">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="form-group my-0">
+                                    <label class="customer-label mb-1">{{'common.locc.DOCUMENT_SIGN_DATE' | localizationPipe : localizationService.localizedkeySet.size}}</label>
+                                    <div class="position-relative w-100 d-flex">
+                                        <input appElementFocus readonly="true" type="text" attr.data-id="{{dataIdConstantsService.locc_text_datePicker}}" class="form-control paddingR35" #dpFull="bsDatepicker"
+                                        [(ngModel)]="signedDate" placement="bottom left" [minDate]="minDate" [maxDate]="todaysDate" bsDatepicker
+                                        (bsValueChange)="onDateSelection($event)"
+                                        [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY', showWeekNumbers: false }" [bsConfig]="{containerClass:'theme-vNext'}">
+                                        <span class="cal-wrap" (click)="dpFull.toggle()"
+                                            [attr.aria-expanded]="dpFull.isOpen"><span class="i-vNext-calendar"></span></span>
+                                    </div>
+                                    <small class="text-danger d-none"><i class="icon-error-icon"></i><span>{{'common.FIELD_REQUIRED' | localizationPipe : localizationService.localizedkeySet.size}}</span></small>
+                                </div>
+
+                                <div class="form-group my-0 ml-3 w-50">
+                                    <label class="customer-label mb-1">{{'common.locc.VALID_UPTO' | localizationPipe : localizationService.localizedkeySet.size}}</label>
+                                    <div class="select-items dropdown" (clickOutside)="showValidDrop = false;">
+                                        <span class="dropdown--typeAhead__arrow-management">
+                                            <button (click)="showValidDrop = true;" attr.action-id="{{dataIdConstantsService.locc_button_validMonths}}" class="btn--text drop-button dropdown-toggle" type="button">{{valid}} {{'common.MONTHS' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                                        </span>
+                                        <div class="dropdown-menu" [class.show]="showValidDrop">
+                                            <ul>
+                                                <li (click)="selectValid(a)" *ngFor="let a of validArr; let index = index;"  attr.action-id="{{dataIdConstantsService.locc_dropdown_selectValidMonth}}{{index}}">{{a}} {{'common.MONTHS' | localizationPipe : localizationService.localizedkeySet.size}}</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <small class="text-danger d-none"><i class="icon-error-icon"></i><span>{{'common.FIELD_REQUIRED' | localizationPipe : localizationService.localizedkeySet.size}}</span></small>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-end mt-3" >
+                                <button *ngIf="!isShowContinue" class="btn btn-primary sm ml-2" [disabled]="!isSelectedValidMonths" type="button" attr.action-id="{{dataIdConstantsService.locc_button_importLocc}}" (click)="importLocc()">{{'common.IMPORT' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                                <button *ngIf="isShowContinue" class="btn btn-primary sm ml-2"  type="button" attr.action-id="{{dataIdConstantsService.locc_button_continue}}" id="{{elementIdConstantsService.LOCC_CONTINUE_TO_PROJECT}}" (click)="continueToProject()">{{'common.CONTINUE' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- File Upload Progress Section -- Ends Here -->
+
+                    <hr class="weight-1">
+                </div>
+            </ng-container>
+                <!-- End of LoCC -- File Upload Section -->
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Locc Component -- Ends Here -->

@@ -1,0 +1,160 @@
+{
+    "data": {
+        "page": {
+            "pageSize": 50,
+            "currentPage": 0,
+            "noOfPages": 2,
+            "noOfRecords": 94
+        },
+        "parties": [
+            {
+                "guName": "HELSE NORD RHF",
+                "address": {
+                    "city": "TROMSOE",
+                    "countryCode": "NO",
+                    "postalCode": "9019",
+                    "addressLine1": "SYKEHUSVEGEN 38",
+                    "state": "TROMS"
+                },
+                "hqPartyName": "HELSE NORD RHF",
+                "partyName": "HELSE NORD RHF",
+                "hqbrFlag": "BR",
+                "guId": "7021213",
+                "parentPartyName": "HELSE NORD RHF",
+                "partyId": "41027315",
+                "parentPartyId": "7021213",
+                "hqPartyId": "7021213"
+            },
+            {
+                "guName": "HELSE NORD RHF",
+                "address": {
+                    "city": "BODOE",
+                    "countryCode": "NO",
+                    "postalCode": "8014",
+                    "addressLine1": "AMTMANWORSESGATE 8",
+                    "state": "NORDLAND"
+                },
+                "hqPartyName": "HELSE NORD IKT",
+                "partyName": "HELSE NORD IKT",
+                "hqbrFlag": "BR",
+                "guId": "7021213",
+                "parentPartyName": "HELSE NORD IKT",
+                "partyId": "172687688",
+                "parentPartyId": "247996301",
+                "hqPartyId": "247996301"
+            },
+            {
+                "guName": "HELSE NORD RHF",
+                "address": {
+                    "city": "LEVANGER",
+                    "countryCode": "NO",
+                    "postalCode": "7600",
+                    "addressLine1": "EMENTOR",
+                    "state": "TROENDELAG"
+                },
+                "hqPartyName": "SYKEHUSET LEVANGER",
+                "partyName": "SYKEHUSET LEVANGER",
+                "hqbrFlag": "HQ",
+                "guId": "7021213",
+                "parentPartyName": "HELSE NORD RHF",
+                "partyId": "11056812",
+                "parentPartyId": "7021213",
+                "hqPartyId": "11056812"
+            },
+            {
+                "guName": "HELSE NORD RHF",
+                "address": {
+                    "city": "MO I RANA",
+                    "countryCode": "NO",
+                    "postalCode": "8607",
+                    "addressLine1": "HELGELANDSSYKEHUSET HF",
+                    "state": "NORDLAND"
+                },
+                "hqPartyName": "HELSE NORD IKT",
+                "partyName": "HELSE NORD IKT",
+                "hqbrFlag": "BR",
+                "guId": "7021213",
+                "parentPartyName": "HELSE NORD IKT",
+                "partyId": "150821240",
+                "parentPartyId": "247996301",
+                "hqPartyId": "247996301"
+            },
+            {
+                "guName": "HELSE NORD RHF",
+                "address": {
+                    "city": "NARVIK",
+                    "countryCode": "NO",
+                    "postalCode": "8516",
+                    "addressLine1": "SYKEHUSVEIEN 3",
+                    "state": "NORDLAND"
+                },
+                "hqPartyName": "HELSE NORD IKT",
+                "partyName": "HELSE NORD IKT",
+                "hqbrFlag": "BR",
+                "guId": "7021213",
+                "parentPartyName": "HELSE NORD IKT",
+                "partyId": "116943871",
+                "parentPartyId": "247996301",
+                "hqPartyId": "247996301"
+            },
+            {
+                "guName": "HELSE NORD RHF",
+                "address": {
+                    "city": "TROMSOE",
+                    "countryCode": "NO",
+                    "postalCode": "9038",
+                    "addressLine1": "RITO",
+                    "addressLine2": "AVD AFI",
+                    "state": "TROMS"
+                },
+                "hqPartyName": "REGIONSYKEHUSET I TROMSO",
+                "partyName": "REGIONSYKEHUSET I TROMSO",
+                "hqbrFlag": "BR",
+                "guId": "7021213",
+                "parentPartyName": "REGIONSYKEHUSET I TROMSO",
+                "partyId": "140245584",
+                "parentPartyId": "38359682",
+                "hqPartyId": "38359682"
+            },
+            {
+                "guName": "HELSE NORD RHF",
+                "address": {
+                    "city": "KIRKENES",
+                    "countryCode": "NO",
+                    "postalCode": "9900",
+                    "addressLine1": "SYKEHUSET KIRKENES",
+                    "state": "FINNMARK"
+                },
+                "hqPartyName": "HELSE NORD IKT",
+                "partyName": "HELSE NORD IKT",
+                "hqbrFlag": "BR",
+                "guId": "7021213",
+                "parentPartyName": "HELSE NORD IKT",
+                "partyId": "45133887",
+                "parentPartyId": "247996301",
+                "hqPartyId": "247996301"
+            },
+            {
+                "guName": "HELSE NORD RHF",
+                "address": {
+                    "city": "GRAVDAL",
+                    "countryCode": "NO",
+                    "postalCode": "8372",
+                    "addressLine1": "SYKEHUSBAKKEN 23",
+                    "state": "NORDLAND"
+                },
+                "hqPartyName": "HELSE NORD IKT",
+                "partyName": "HELSE NORD IKT LOFOTEN",
+                "hqbrFlag": "BR",
+                "guId": "7021213",
+                "parentPartyName": "HELSE NORD IKT",
+                "partyId": "116216312",
+                "parentPartyId": "247996301",
+                "hqPartyId": "247996301"
+            }
+        ],
+        "selectedParties": [
+            116216312, 41027315
+        ]
+    }
+}

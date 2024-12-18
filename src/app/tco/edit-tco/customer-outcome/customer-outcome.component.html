@@ -1,0 +1,80 @@
+<div id="filter-area" class="mb-3">
+    <div class="container-fluid">
+        <div class="row align-items-center">
+          <div class="col-md-4"><ng-template #tipContent >{{tcoName}}</ng-template>
+            <h2 class="ellipsis" #value [ngbTooltip]="tipContent"  triggers="manual" #t="ngbTooltip" (mouseenter)="open(t, tcoName)"
+            (mouseleave)="t.close()">{{tcoName}}</h2>
+          </div>
+          <div class="col-md-8">
+            <ul class="qualify-btn">
+              <li><button class="btn btn-secondary" (click)='goToDocCenter()'>Document Center</button></li>
+              <li><button class="btn btn-secondary" (click)='goToBom()'>Preview Quote</button></li>
+              <li><button class="btn btn-secondary" (click)='goToProposalList()'>Proposal List</button></li>
+              <li><button class="btn btn-secondary" (click)="gotToListPage()">{{this.localeService.getLocalizedString('tco.VIEW_TCO_PROPOSALS')}}</button></li>
+              <li class="btn-sep"><button class="btn btn-secondary btn-back" (click)="back()" type="button"><span class="icon-btn-back"></span> <span class="mid-text">{{this.localeService.getLocalizedString('common.BACK')}}</span></button></li>
+              <li><button class="btn btn-primary btn-continue" type="button" [disabled]="disableContinue" (click)="continue()"><span class="mid-text">Continue</span> <span class="icon-btn-continue"></span></button></li>
+            </ul>
+            </div>
+          <div class="col-12">
+              <hr class="hr"/>
+              <div *ngIf="disableContinue" class="alert alert--danger alert-dismissable clearfix mb-3" style="width: 100%;">
+                <span class="alert-icon">
+                  <span class="icon-alert-error"></span>
+                </span>
+                <span>Number of customer outcomes selection is limited to 6
+                  </span>
+              </div>
+            <p>Add Sales Plays, Architecture Enrollments and Architecture Solutions with their outcomes for the TCO proposal.</p>
+          </div>
+          </div>
+      </div>
+    </div>
+  
+<section id="proposal-outcomes" class="clearfix">
+    <div class="container-fluid bg-grey">
+      <ul class="nav nav-tabs paddingT5">
+         <li class="nav-item" *ngFor="let tab of catalogues" [ngClass]="{'active': tab.active}" (click)="changeTab(tab)">
+          <a class="nav-link" href="javascript:void(0);" role="tab" aria-controls="sales"
+            aria-selected="true"><span class="{{tab.class}} tab-icons"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span></span>{{tab.displayName}}<span>({{tab.selectedCount}}/{{tab.outcomes.length}})</span></a>
+        </li>
+      </ul>
+    </div>
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane active" id="solutions" role="tabpanel" aria-labelledby="solutions-tab">
+          <div class="row row-tile" *ngFor="let val of catalogList?.outcomes" [ngClass]="{'active': val.selected}">
+            <div class="col-3 d-flex align-items-center">
+              <label class="label-check">
+                <input class="form-check-input" type="checkbox" value=""
+                  [(ngModel)]="val.selected" #selected (change)="onSelectionChange(selected.checked,val,catalogList)">
+                  <span class="custom-checkbox-btn">
+                    <span class="path1"></span>
+                    <span class="path2"></span>
+                </span>
+                <span></span>
+              </label>
+              <span class="proposal-title">{{val.name}}</span>
+            </div>
+            <div class="col-7">
+              <span class="value-title">Outcome</span>
+              <!-- <span class="value-desc">{{val.desc}}{{val.desc.length}}<a href="javascript:void(0);" class="ellipsis-dots">See more</a></span> -->
+              <div class="value-desc visible-more" ReadMoreToggle >
+                <div class="content-more"><span>{{val.desc}}</span>
+                </div>
+                <span class="d-inline-block" *ngIf="val.desc.length > 220">
+                  <div class="see more">See more <i class="icon-arrow-stroke"></i></div>
+                  <div class="see less">See less <i class="icon-arrow-stroke"></i></div>
+              </span>
+            </div>
+            </div>
+            <div class="col-2">
+              <span class="value-title">Relevant Documents</span>
+              <a href="javascript:void(0);" (click) = "openSalesConnect(val.scLink)"><span class="icon-sales-connect">
+                  <span class="path1"></span><span class="path2"></span><span class="path3"></span><span
+                    class="path4"></span><span class="path5"></span>
+                </span> Go to SalesConnect</a>
+            </div>
+          </div>
+  
+        </div>
+      </div>
+  </section>

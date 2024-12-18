@@ -1,0 +1,92 @@
+.modal-body {
+    padding: 20px 50px;
+}
+
+table.primary-table thead tr.text-class{
+    color: #6c757d !important;
+}
+
+table thead th span.plain-txt{
+    font-weight: 300 !important;
+}
+
+.heading--h5 {
+    font-size: 1.125rem;
+}
+
+.up_Summ_first{
+    padding-left:45px !important;
+}
+
+
+
+h6 {
+    font-size: 0.813rem;
+}
+
+ul {
+    &.auth-lisiting {
+        max-height: 175px;
+        overflow: auto;
+        position: relative;
+        li {
+            width: 16%;
+            display: inline-block;
+            padding: 8px 0 8px 32px !important;
+            line-height: 1;
+            &.border-bottom {
+                &:last-child {
+                    border-bottom: 0;
+                }
+            }
+            &.width {
+                &:first-child {
+                    width: 20%;
+                }
+            }
+        }
+        .scroll-indicator {
+            background-color: #f4f6f8;
+            color: #227bb1;
+            padding: 9px 30px;
+            line-height: 1;
+            display: none;
+            width: 100%;
+            height: 30px;
+            position: sticky;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+    }
+}
+
+
+
+.expCol-wrap {
+    position: relative;
+    top: 2px;
+    margin-right: 10px;
+    cursor: pointer;
+    font-size: 1rem;
+    span {
+        &::before {
+            color: #227bb1;
+        }
+    }
+}
+
+
+a {
+    color: #227bb1;
+}
+
+.upg_summary{
+    overflow-y: scroll;
+}
+
+.inline-listing {
+    text-align: end;
+    padding-right: 0;
+}
+

@@ -1,0 +1,87 @@
+<div >
+<div class="modal-header">
+  <h5 class="modal-title">Engage Support Team</h5>
+  <button type="button" class="icon-close-btn" data-dismiss="modal" aria-label="Close" (click)="cancel()"></button>
+</div>
+
+<div class="modal-body">
+
+
+  <div class="row">
+    <div class="col-12">
+  <h6> I have review the details and would like to engage the support team to address a possible issue with the Install Base (IB) Adjustment.</h6>
+
+      <div class="row" *ngIf="!proposalDataService.cxProposalFlow">
+      <div class="col-12 same-order card border-0" *ngFor="let data of exceptionsData; let i=index">
+      <div class="position-relative marginB15 form-group exception-model element-hasvalue" *ngIf="i===0">
+          <span class="customer-label">Select a Reason  <sup> *</sup></span>
+        <div class="custom-dropdown dropdown-with-checkbox">
+          <div ngbDropdown class="select-items " ngbDropdownToggle>
+            <span class="dropdown--typeAhead__arrow-management">
+              <button appElementFocus class="btn--text drop-button txt-placeholder" id="dropdownManual" ngbDropdownAnchor dropdownManual *ngIf="!data.selectedReasons || (data.selectedReasons && data.selectedReasons.length === 0)"> 
+              {{selectedReason}}</button>
+              <button appElementFocus class="btn--text drop-button" id="dropdownManual" ngbDropdownAnchor dropdownManual *ngIf="data.selectedReasons && data.selectedReasons.length > 0"> 
+              <span class="drop-selected" *ngFor="let reason of data?.selectedReasons ; let i = index;">{{reason}}
+                <span *ngIf='data?.selectedReasons.length > (i+1)'>, </span>
+            </span>
+          </button>
+            </span>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <ul>
+                <li class="dropdown-item" *ngFor="let item of data?.reasons;" (click)="$event.stopPropagation(); $event.preventDefault(); selectExceptionsReason(item, data?.exceptionType, data)">
+                  <label class="label-check ellipsis">
+                    <input class="form-check-input ng-cloak" type="checkbox" value=""
+                        [checked]="checkSelectedReasons(item)"/>
+                        <span class="custom-checkbox-btn">
+                            <span class="path1"></span>
+                            <span class="path2"></span>
+                        </span>
+                    <span class="drop-selected">{{item}}</span>
+                    
+                </label>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+
+
+
+
+<!-- 
+        <div class="custom-dropdown">
+          <div ngbDropdown class="select-items " ngbDropdownToggle>
+            <span class="dropdown--typeAhead__arrow-management">
+              <button appElementFocus class="btn--text drop-button" id="dropdownManual" ngbDropdownAnchor dropdownManual> 
+              {{(data.selectedReason) ? (data.selectedReason) : selectedReason}}</button>
+            </span>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <ul>
+                <li class="dropdown-item" *ngFor="let item of data?.reasons" (click)="selectExceptionsReason(item, data?.exceptionType)">{{item}}</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div> -->
+<div class="card border-0">
+      <div class="position-relative mt-1 marginB20 element-hasvalue form-group">
+        <span class="customer-label">{{localeService.getLocalizedString('common.JUSTIFICATION_DETAIL')}} <sup> *</sup></span> 
+          <textarea type="text" class="form-control active engage-textarea"  [(ngModel)]="exceptionComment" (ngModelChange) = "isExceptionCommentChanged()" placeholder="Justification/Details" ></textarea>
+          
+      </div>
+   </div>
+</div>
+
+<div class="col-12 modal-footer">
+  <button type="button" class="btn btn-secondary" (click)="cancel()">{{localeService.getLocalizedString('common.CANCEL')}}</button>
+  <button type="button" *ngIf="!proposalDataService.cxProposalFlow" class="btn btn-primary" (click)="submit(false)" [disabled]="!enableSubmit">{{localeService.getLocalizedString('common.SAVE_AND_GO_CREDIT_OVERVIEW')}}</button>
+  <button type="button" *ngIf="!proposalDataService.cxProposalFlow" class="btn btn-primary" (click)="submit(true)" [disabled]="!enableSubmit">{{localeService.getLocalizedString('common.SAVE_AND_GO_PRICE_EST')}}</button>
+  <button type="button" *ngIf="proposalDataService.cxProposalFlow" class="btn btn-primary" (click)="submit(false)" [disabled]="!enableSubmit">{{localeService.getLocalizedString('common.SUBMIT')}}</button>
+</div>
+</div>

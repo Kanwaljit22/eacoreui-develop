@@ -1,0 +1,75 @@
+{
+    "data": [
+        {
+            "headerName": "Agreement Name",
+            "field": "name",
+            "colId": "name",
+            "width": 300,
+            "minWidth": 300,
+            "pinned": true,
+            "suppressMenu": true,
+            "suppressSorting": true
+        }, 
+        {
+            "headerName": "Status",
+            "field": "status",
+            "colId": "status",
+            "width": 160,
+            "minWidth": 160,
+            "pinned": false,
+            "suppressMenu": true,
+            "suppressSorting": true
+        }, 
+        {
+            "headerName": "Start Date",
+            "field": "startDate",
+            "colId": "startDate",
+            "width": 150,
+            "minWidth": 150,
+            "pinned": false,
+            "suppressMenu": true,
+            "suppressSorting": true
+        },
+        {
+            "headerName": "End Date",
+            "field": "endDate",
+            "colId": "endDate",
+            "width": 150,
+            "minWidth": 150,
+            "pinned": false,
+            "suppressMenu": true,
+            "suppressSorting": true
+        },
+        {
+            "headerName": "Number of Suites",
+            "field": "numberOfSuites",
+            "colId": "numberOfSuites",
+            "width": 160,
+            "minWidth": 160,
+            "pinned": false,
+            "suppressMenu": true,
+            "suppressSorting": true
+        },
+        {
+            "headerName": "Total Purchased Entitlements",
+            "field": "totalEntitlements",
+            "colId": "totalEntitlements",
+            "width": 250,
+            "minWidth": 250,
+            "pinned": false,
+            "suppressMenu": true,
+            "suppressSorting": true
+        },
+        {
+            "headerName": "Total Consumption",
+            "field": "totalConsumption",
+            "colId": "totalConsumption",
+            "width": 200,
+            "minWidth": 200,
+            "pinned": false,
+            "suppressMenu": true,
+            "suppressSorting": true
+        }
+        
+    ]
+}

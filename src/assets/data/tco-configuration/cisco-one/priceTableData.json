@@ -1,0 +1,150 @@
+[
+    {
+        "buyingModel": "Access - Switching (Perpetual)",
+        "hw": 22208,
+        "hwService": 11491,
+        "sw": 22117,
+        "swService": 21117,
+        "children": [
+            {
+                "buyingModel": "ALC",
+                "hw": 2208,
+                "hwService": 1491,
+                "sw": 2117,
+                "swService": 2117
+            },
+            {
+                "buyingModel": "BAU",
+                "hw": 2208,
+                "hwService": 1491,
+                "sw": 2117,
+                "swService": 2117
+            },
+            {
+                "buyingModel": "C1",
+                "hw": 2208,
+                "hwService": 1491,
+                "sw": 2117,
+                "swService": 2117
+            },
+            {
+                "buyingModel": "EA",
+                "hw": 2208,
+                "hwService": 1491,
+                "sw": 2117,
+                "swService": 2117
+            }
+        ]
+    },
+    {
+        "buyingModel": "Access Wireless",
+        "hw": 12431,
+        "hwService": 12075,
+        "sw": 21106,
+        "swService": 12500,
+        "children": [
+            {
+                "buyingModel": "ALC",
+                "hw": 2208,
+                "hwService": 1491,
+                "sw": 2117,
+                "swService": 2117
+            },
+            {
+                "buyingModel": "BAU",
+                "hw": 2208,
+                "hwService": 1491,
+                "sw": 2117,
+                "swService": 2117
+            },
+            {
+                "buyingModel": "C1",
+                "hw": 2208,
+                "hwService": 1491,
+                "sw": 2117,
+                "swService": 2117
+            },
+            {
+                "buyingModel": "EA",
+                "hw": 2208,
+                "hwService": 1491,
+                "sw": 2117,
+                "swService": 2117
+            }
+        ]
+    },
+    {
+        "buyingModel": "Data Center Networking",
+        "hw": 11110,
+        "hwService": 11980,
+        "sw": 11986,
+        "swService": 13000,
+        "children": [
+            {
+                "buyingModel": "ALC",
+                "hw": 2208,
+                "hwService": 1491,
+                "sw": 2117,
+                "swService": 2117
+            },
+            {
+                "buyingModel": "BAU",
+                "hw": 2208,
+                "hwService": 1491,
+                "sw": 2117,
+                "swService": 2117
+            },
+            {
+                "buyingModel": "C1",
+                "hw": 2208,
+                "hwService": 1491,
+                "sw": 2117,
+                "swService": 2117
+            },
+            {
+                "buyingModel": "EA",
+                "hw": 2208,
+                "hwService": 1491,
+                "sw": 2117,
+                "swService": 2117
+            }
+        ]
+    },
+    {
+        "buyingModel": "WAN",
+        "hw": 11000,
+        "hwService": 12239,
+        "sw": 12200,
+        "swService": 12900,
+        "children": [
+            {
+                "buyingModel": "ALC",
+                "hw": 2208,
+                "hwService": 1491,
+                "sw": 2117,
+                "swService": 2117
+            },
+            {
+                "buyingModel": "BAU",
+                "hw": 2208,
+                "hwService": 1491,
+                "sw": 2117,
+                "swService": 2117
+            },
+            {
+                "buyingModel": "C1",
+                "hw": 2208,
+                "hwService": 1491,
+                "sw": 2117,
+                "swService": 2117
+            },
+            {
+                "buyingModel": "EA",
+                "hw": 2208,
+                "hwService": 1491,
+                "sw": 2117,
+                "swService": 2117
+            }
+        ]
+    }
+]

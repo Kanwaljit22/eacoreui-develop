@@ -1,0 +1,222 @@
+<div class="modal-header">
+  <h5 class="modal-title" [hidden]="deLinkProposal">{{localeService.getLocalizedString('proposal.list.LINK_PROPOSAL')}}
+  </h5>
+  <h5 class="modal-title" [hidden]="!deLinkProposal">
+    {{localeService.getLocalizedString('proposal.list.DE-LINK_PROPOSAL')}}</h5>
+  <button aria-label="Close" class="icon-close-btn" data-dismiss="modal" type="button" (click)="close()"></button>
+</div>
+<div class="modal-body">
+  <!-- <message></message> -->
+  <!--BEGIN DLINK Content-->
+  <div *ngIf="deLinkProposal">
+      <div class="alert alert--info alert-dismissable">
+        <span class="alert-icon">
+          <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+        </span>
+          <span class="infoTxt">
+              {{proposalDataService.proposalDataObject.proposalData.name}} is linked to the below proposal(s). Are you sure to want to de-link the proposals?
+          </span>
+      </div>
+    <table class="primary-table customHeightScroll" >
+        <thead>
+            <tr>
+              <th width="58.8%" class="text-left"><span class="" [ngClass]="{'icon-collapse-all': showExpandAll, 'icon-expand-all': !showExpandAll}" (click)="expandAll('Delink')"></span>{{localeService.getLocalizedString('common.PROPOSAL')}}
+                {{localeService.getLocalizedString('qual.whoinvolved.NAME')}}</th>
+              <th width="22.6%">{{localeService.getLocalizedString('qualproposallist.TOTAL_NET_PRICE')}}</th>
+              <th width="14.8%">{{localeService.getLocalizedString('common.STATUS')}}</th>
+            </tr>
+          </thead>
+          <tbody  class="customTbodyScroll">
+            <ng-conatiner *ngFor='let linkedProposal of linkedProposalData'>
+            <tr> 
+              <td width="59.8%" class="arc-line-header"><span class="" [ngClass]="{'icon-minus': linkedProposal.expand, 'icon-plus': !linkedProposal.expand}" (click)="expandRows(linkedProposal, 'Delink')"></span><span class="arc-category">{{linkedProposal.architecture}}</span></td>
+            <td width="23%" class="arc-line-header"></td>
+            <td width="15%" class="arc-line-header"></td>
+            </tr>
+            <ng-conatiner [hidden]="!linkedProposal.expand">
+            <tr>
+                <td width="59.8%"><div class="arc-description">
+                  <div class="arc-text">{{linkedProposal.name}} ({{linkedProposal.id}})</div></div></td>
+                <td *ngIf="linkedProposal.totalNetPrice"  class="text-right" width="23%">{{linkedProposal.currencyCode}}
+                    {{utilitiesService.formatWithNoDecimal(linkedProposal.totalNetPrice)}} </td>
+                    <td *ngIf="!linkedProposal.totalNetPrice"  class="text-right" width="23%">{{linkedProposal.currencyCode}}
+                        {{this.constantsService.ZERO_VALUE}}</td>
+                <td width="15%"><span [ngClass]="{'status--completed': (linkedProposal.status === this.constantsService.QUALIFICATION_COMPLETE), 'status--inprogress': (linkedProposal.status !== this.constantsService.QUALIFICATION_COMPLETE)}">{{linkedProposal.status}}</span></td>
+            </tr>
+            </ng-conatiner>
+            </ng-conatiner>
+          </tbody>
+    </table>
+  </div>
+
+  <!--END DLINK Content-->
+
+  <!--BEGIN LINK Content-->
+  <div class="link-modal" [hidden]="deLinkProposal">
+    <div *ngIf="!showMessage">
+      <div class="architecture-details">
+        <div class="grid-block">
+            <div class="row">
+              <div class="col-8 pl-0">
+                  <label *ngIf='linkingForGroup'>{{localeService.getLocalizedString('header.proposal.CROSS_ARCHITECTURE')}}</label>
+                <label>{{localeService.getLocalizedString('common.PROPOSAL')}}
+                  {{localeService.getLocalizedString('qual.whoinvolved.NAME')}}</label>
+                <h4 class="label-name">
+                  <span class="ellipsis" container="body"
+                    placement="top">{{this.proposalDataService.proposalDataObject.proposalData.name}}
+                    ({{this.proposalDataService.proposalDataObject.proposalId}})</span>
+                </h4>
+              </div>
+              <div class="col-4 border-left">
+                <label>{{localeService.getLocalizedString('common.ARCH')}}</label>
+                <h4>{{this.proposalDataService.proposalDataObject.proposalData.architecture}}</h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Matching Proposal Data Starts -->
+      <div class="view-box pt-4 pb-3"><label class="ml-0">{{localeService.getLocalizedString('common.LINK_PROPOSAL_VIEW')}}</label><div class="btn-group view-by" role="group"><button class="btn btn-secondary" [ngClass]="{'active': eligible}" (click)="showEligible()" type="button">Eligible</button><button class="btn btn-secondary" (click)="showEligible()" [ngClass]="{'active': !eligible}" type="button">Ineligible</button></div></div>
+      <div  *ngIf='linkProposalArchitectureService.selectedProposals.length > 0 && disableProposalMsg && eligible'>
+          <div class="alert alert--info alert-dismissable mb-3 mt-2">
+            <span class="alert-icon">
+              <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+            </span>
+              <span class="infoTxt">
+                  {{localeService.getLocalizedMessage('linking.SELECTION_MSG')}}
+              </span>
+          </div>
+        
+      </div>
+
+    <div class="alert alert--warning" *ngIf = "showMSPError">
+      <i class="arrow up"></i>
+      <span class="alert-icon">
+        <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+      </span>
+      <span class="infoTxt">{{localeService.getLocalizedMessage('linking.MSP_WARNING')}}</span>
+    </div>
+
+      <!-- <h3>{{localeService.getLocalizedString('proposal.list.MATCHED_PROPOSALS')}}</h3> -->
+      <div *ngIf="linkMatchProposalData.length > 0 && eligible" class="clearfix pb-3">
+        <table class="primary-table customHeightScroll" >
+            <thead>
+                <tr>
+                  <th width="58.8%" class="text-left"><span class="" [ngClass]="{'icon-collapse-all': showExpandAll, 'icon-expand-all': !showExpandAll}" (click)="expandAll('Eligible')"></span>{{localeService.getLocalizedString('common.PROPOSAL')}}
+                    {{localeService.getLocalizedString('qual.whoinvolved.NAME')}}</th>
+                  <th width="22.6%">{{localeService.getLocalizedString('qualproposallist.TOTAL_NET_PRICE')}}</th>
+                  <th width="14.8%">{{localeService.getLocalizedString('common.STATUS')}}</th>
+                </tr>
+              </thead>
+              <tbody  class="customTbodyScroll">
+                <ng-conatiner *ngFor='let matchedProposal of linkMatchProposalData'>
+                <tr> 
+                  <td width="59.8%" class="arc-line-header"><span class="" [ngClass]="{'icon-minus': matchedProposal.expand, 'icon-plus': !matchedProposal.expand}" (click)="expandRows(matchedProposal, 'Eligible')"></span><span class="arc-category">{{matchedProposal.architecture}}</span><span *ngIf='matchedProposal.architecture !=="Cross Architecture"' class="icon-single-arch"></span><span *ngIf='matchedProposal.architecture ==="Cross Architecture"' class="float-right icon-cross-arch"></span></td>
+                <td width="23%" class="arc-line-header"></td>
+                <td width="15%" class="arc-line-header"></td>
+                </tr>
+                <ng-conatiner [hidden]="!matchedProposal.expand">
+                <tr *ngFor='let proposal of matchedProposal.proposals'>
+                    <td width="59.8%"><div class="arc-description">
+                      <!-- <div class="label-radio"><input id="{{proposal.architecture}}" name="{{proposal.architecture}}" type="radio" value="proposal.checked" (change)="onChange(proposal)"><label for="{{proposal.architecture}}"><span><span></span></span></label></div> -->
+                      <label class="label-check">
+                          <input class="form-input" type="checkbox" value="" [checked]='proposal.selected' [disabled]="proposal.disabled" #proposalTolink (change)="selectProposal(proposalTolink.checked,$event,proposal)">
+                          <span class="custom-checkbox-btn">
+                            <span class="path1"></span>
+                            <span class="path2"></span>
+                        </span>
+                      <span>{{proposal.name}} ({{proposal.id}})</span>
+                        </label></div></td>
+                    <td *ngIf="proposal.totalNetPrice"  class="text-right" width="23%">{{proposal.currencyCode}}
+                        {{utilitiesService.formatWithNoDecimal(proposal.totalNetPrice)}} </td>
+                        <td *ngIf="!proposal.totalNetPrice && matchedProposal.architecture !== 'Cross Architecture'"  class="text-right" width="23%">{{proposal.currencyCode}}
+                            {{this.constantsService.ZERO_VALUE}}</td>
+                            <td *ngIf="!proposal.totalNetPrice && matchedProposal.architecture === 'Cross Architecture'"  class="text-right" width="23%">--</td>
+                    <td *ngIf='matchedProposal.architecture !== "Cross Architecture"' width="15%"><span [ngClass]="{'status--completed': (proposal.status === this.constantsService.QUALIFICATION_COMPLETE), 'status--inprogress': (proposal.status !== this.constantsService.QUALIFICATION_COMPLETE)}">{{proposal.status}}</span></td>
+                    <td *ngIf='matchedProposal.architecture === "Cross Architecture"' width="15%"><span >--</span></td>
+                </tr>
+                </ng-conatiner>
+                </ng-conatiner>
+              </tbody>
+        </table>
+      </div>
+      <div *ngIf="matchingProposalsMsg && eligible && !showMessage" class="no-data">
+        <div class="alert alert--info clearfix">
+          <span class="alert-icon">
+            <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+          </span>
+          <span>
+            {{localeService.getLocalizedString('proposal.list.NO_MATCHED_DATA')}}
+          </span>
+        </div>
+      </div>
+      <!-- Matching Proposal Data Ends -->
+
+      <!-- NON Matching Proposal Data Starts -->
+      <div *ngIf="linkUnMatchProposalData.length > 0 && !eligible">
+        <table class="primary-table customHeightScroll" >
+            <thead>
+                <tr>
+                  <th width="58.8%" class="text-left"><span class="" [ngClass]="{'icon-collapse-all': showExpandAll, 'icon-expand-all': !showExpandAll}" (click)="expandAll('Ineligible')"></span>{{localeService.getLocalizedString('common.PROPOSAL')}}
+                    {{localeService.getLocalizedString('qual.whoinvolved.NAME')}}</th>
+                  <th width="22.6%">{{localeService.getLocalizedString('qualproposallist.TOTAL_NET_PRICE')}}</th>
+                  <th width="14.8%">{{localeService.getLocalizedString('common.STATUS')}}</th>
+                </tr>
+              </thead>
+              <tbody  class="customTbodyScroll">
+                <ng-conatiner *ngFor='let unmatchedProposal of linkUnMatchProposalData'>
+                <tr> 
+                  <td width="59.8%" class="arc-line-header"><span class="" [ngClass]="{'icon-minus': unmatchedProposal.expand, 'icon-plus': !unmatchedProposal.expand}" (click)="expandRows(unmatchedProposal, 'Ineligible')"></span><span class="arc-category">{{unmatchedProposal.architecture}}</span><span class="icon-single-arch"></span></td>
+                <td width="23%" class="arc-line-header"></td>
+                <td width="15%" class="arc-line-header"></td>
+                </tr>
+                <ng-conatiner [hidden]="!unmatchedProposal.expand">
+                <tr *ngFor='let proposal of unmatchedProposal.proposals'>
+                    <td width="59.8%"><div class="arc-description">
+                      <div class="arc-text">{{proposal.name}} ({{proposal.id}})</div></div></td>
+                    <td *ngIf="proposal.totalNetPrice"  class="text-right" width="23%">{{proposal.currencyCode}}
+                        {{utilitiesService.formatWithNoDecimal(proposal.totalNetPrice)}} </td>
+                        <td *ngIf="!proposal.totalNetPrice && unmatchedProposal.architecture !== 'Cross Architecture'"  class="text-right" width="23%">{{proposal.currencyCode}}
+                            {{this.constantsService.ZERO_VALUE}}</td>
+                        <td *ngIf="!proposal.totalNetPrice && unmatchedProposal.architecture === 'Cross Architecture'"  class="text-right" width="23%">--</td>
+                    <td *ngIf='unmatchedProposal.architecture !== "Cross Architecture"' width="15%"><span [ngClass]="{'status--completed': (proposal.status === this.constantsService.QUALIFICATION_COMPLETE), 'status--inprogress': (proposal.status !== this.constantsService.QUALIFICATION_COMPLETE)}">{{proposal.status}}</span></td>
+                    <td *ngIf='unmatchedProposal.architecture === "Cross Architecture"' width="15%"><span>--</span></td>
+                </tr>
+                </ng-conatiner>
+                </ng-conatiner>
+              </tbody>
+        </table>
+      </div>
+      <div *ngIf="unmatchedProposalsMsg && !eligible && !showMessage" class="no-data">
+        <div class="alert alert--info clearfix">
+          <span class="alert-icon">
+            <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+          </span>
+          <span>
+            {{localeService.getLocalizedString('proposal.list.NO_NON_MATCHED_DATA')}}
+          </span>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="showMessage" class="no-proposals">
+      <div class="alert alert--info">
+        <span class="alert-icon">
+          <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+        </span>
+        <span>
+          {{localeService.getLocalizedString('proposal.list.NO_LINKING_DATA')}}
+        </span>
+      </div>
+    </div>
+  <!-- Non Matching Proposal Data Ends -->
+<div class="clearfix"></div>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-secondary" type="button"
+    (click)="close()">{{localeService.getLocalizedString('common.CLOSE')}}</button>
+  <button *ngIf="!deLinkProposal && eligible" [disabled]="linkProposalArchitectureService.selectedProposals.length === 0"
+    class="btn btn-primary mr-1" type="button"
+    (click)="continue()">{{localeService.getLocalizedString('common.PROCEED')}}</button>
+  <button *ngIf="deLinkProposal" class="btn btn-primary mr-1" type="button"
+    (click)="continue()">{{localeService.getLocalizedString('common.PROCEED')}}</button>
+</div>

@@ -1,0 +1,16 @@
+<div class="edit-box--input" (clickOutside)="onClickedOutside(params, data)" [attachOutsideOnClick]=true
+  (click)="onClick(params)">
+
+  <input class="ag-cell-edit-input text-right" (keydown)="keyDown($event)" [(ngModel)]="data" name="data" type="text" id="data" [hidden]="!editing"
+    (input)="onChange(params)" />
+
+  <span [hidden]="editing">{{data}}</span>
+
+</div>
+
+<div class='editableDropdown' [ngClass]="{'d-none': !showRestore}">
+  <div class='dropdown-menu' aria-labelledby='mainDropdown'>
+    <span class="editableContent-wrap" (click)="onRestore(params)">
+      <span class="ico-item icon-restore"></span>Restore</span>
+  </div>
+</div>

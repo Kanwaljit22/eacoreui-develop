@@ -1,0 +1,194 @@
+<div *ngIf="errorMessage && !displayPopup && apiCalled" class="vNext col-12" attr.page-id="{{dataIdConstantsService.eaLanding_page_eaLandingPage}}">
+    <div class="alert alert--danger alert-dismissable mt-3">
+        <span class="alert-icon">
+            <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span></span>
+        </span>
+        <span>{{errorMessage}}</span>
+    </div>
+</div>
+
+<div class="col-12 mt-3" attr.page-id="{{dataIdConstantsService.eaLanding_page_eaLandingPage}}">
+    <div class="alert alert--info alert-dismissable">
+        <span class="alert-icon">
+            <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+        </span>
+        <span>{{'common.EOS_BANNER_NEW_MSG' | localizationPipe : localizationService.localizedkeySet.size}}<a href="https://salesconnect.cisco.com/softwarebuyingprograms/s/enterprise-agreement-20" 
+            target="_blank" class="text--link">
+            <b>{{'eaLanding.EOS_SALES_CONNECT_LINK' | localizationPipe : localizationService.localizedkeySet.size}}</b></a></span>
+    </div>
+</div>
+
+<div class="smart-acc-page" *ngIf='displayPopup' attr.page-id="{{dataIdConstantsService.eaLanding_page_eaLandingPage}}">
+    <div class="page-wrapper" [class.isSpna-tile]="eaService.features.SPNA_REL">
+        <div>
+            <img src="../assets/images/smart-account-bg_new.svg" class="w-100">
+            <!-- <img src="../assets/images/smart-account-bg.svg" class="w-100"> -->
+        </div>
+        <div class="modal-body vNext modal-without-header paddingT20">
+            <!-- <h2 class="heading--h2">Your customer looks new, select the Smart Account & proceed.</h2>
+            <h5 class="text-center">Please assign smart account.</h5> -->
+            
+            <!-- New -- Heading and 2 Tile -- Starts here -->
+            <h5 class="heading--h5 center bold-txt" attr.data-id="{{dataIdConstantsService.eaLanding_label_selectBuyingProgram}}">{{'eaLanding.SELECT_BUYING_PROGRAM' | localizationPipe : localizationService.localizedkeySet.size}} <sup>*</sup></h5>
+            <div class="d-flex w-100 mb-4 justify-content-center">
+                
+                <!-- <figure class="figure d-flex align-items-start paddingT15" [ngClass]="{'disabled': eaService.features.SPNA_REL && (spnaProjectId || ea3ProjectId)}" [class.active]="showEa2 && !showEa3 && !disableEa2" attr.data-id="{{dataIdConstantsService.eaLanding_figure_selectEa2}}" (click)="selectView(true)">
+                    <span class="icon-tick-check"><span class="path1"></span><span class="path2"></span></span>
+                    <figcaption class="figure-caption w-100">
+                        <h5 class="heading--h5 bolder marginB10">{{'eaLanding.EA2_LABEL' | localizationPipe : localizationService.localizedkeySet.size}}</h5>
+                        <div class="alert alert--danger" *ngIf="disableEa2">
+                            <span class="alert-icon">
+                                <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span
+                                        class="path3"></span></span>
+                            </span>
+                            <span >{{'eaLanding.EA_2_0_CARD_NOT_AVAILABLE_1' | localizationPipe : localizationService.localizedkeySet.size}} 
+                                </span>
+                             
+                        </div>
+                        <p>{{'eaLanding.LAUNCHED' | localizationPipe : localizationService.localizedkeySet.size}}</p>
+                        <ng-container *ngIf="eaService.features.SPNA_REL">
+                        <button [disabled]="disableEa2 && showEa2" *ngIf="!qualificationId && showEa2" type="button" (click)="goToEamp()" attr.action-id="{{dataIdConstantsService.eaLanding_button_ea2CreateQual}}" class="btn btn-secondary">{{'common.CREATE_NEW_QUAL' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                        <button *ngIf="qualificationId && showEa2" type="button" (click)="loadQual()" attr.action-id="{{dataIdConstantsService.eaLanding_button_ea2GoToQual}}" class="btn btn-secondary">{{'common.GO_TO_QUAL' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                    </ng-container>
+                    </figcaption>
+                </figure> -->
+
+                <figure class="figure d-flex paddingT15" [ngClass]="{'disabled':  ( eaService.features.SPNA_REL && qualificationId), 'align-items-center' : !eaService.features.SPNA_REL}" [class.active]="!showEa2 && showEa3 && !pilotPartnerCheckFailed" attr.data-id="{{dataIdConstantsService.eaLanding_figure_selectEa3}}" (click)="selectView(false, 'BUYING_PGRM_3')">
+                    <span class="icon-tick-check"><span class="path1"></span><span class="path2"></span></span>
+                    <figcaption class="figure-caption w-100">
+                        <!-- <h4 class="heading--h4 bolder">{{common.EA3_LABEL | localizationPipe : localizationService.localizedkeySet.size}}</h4>
+                        <p>{{eaLanding.PILOT_DESCRIPTION | localizationPipe : localizationService.localizedkeySet.size}}</p> -->
+                    <ng-container *ngIf="!eaService.features.SPNA_REL">
+                        <h5 class="heading--h5 bolder  marginB10">{{'common.EA3_LABEL' | localizationPipe : localizationService.localizedkeySet.size}}</h5>
+                    </ng-container>
+                    <ng-container *ngIf="eaService.features.SPNA_REL">
+                        <div class="d-flex flex-row marginB10 align-items-center" style="justify-content: space-between;">
+                            <h5 class="heading--h5 bolder marginB0">{{'common.EA3_LABEL' | localizationPipe : localizationService.localizedkeySet.size}}</h5>
+                            <span class="badge badge-recommended mt-0 mr-4">Renewal <!--{{'eaLanding.RECOMMENDED_FOR_RENEWAL' | localizationPipe : localizationService.localizedkeySet.size}} -->
+                                <span class="i-vNext-help-filled ml-1" #tooltip="ngbTooltip"
+                                [ngbTooltip]="tipContent" placement='top'></span>
+                                <ng-template #tipContent>
+                                    <span><b class="d-block mb-1">{{'eaLanding.MORE_INFO_RENEWAL' | localizationPipe : localizationService.localizedkeySet.size}}</b>
+                                       <span class="d-block mb-3">{{'eaLanding.EXISTING_SUB_MSG' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                                       {{'eaLanding.LIMITED_TIME_MSG' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                                </ng-template>
+                            </span>
+                        </div>
+                    </ng-container>
+                        <!-- <p>{{eaLanding.PILOT_DESCRIPTION | localizationPipe : localizationService.localizedkeySet.size}}</p> -->
+                        <div class="alert alert--danger" *ngIf="disableEA3">
+                            <span class="alert-icon">
+                                <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span
+                                        class="path3"></span></span>
+                            </span>
+                            <span  *ngIf="!pilotPartnerCheckFailed">{{'eaLanding.EA_3_0_Card_NOT_AVAILABLE' | localizationPipe : localizationService.localizedkeySet.size}} 
+                                <a href="javascript:void(0)" (click)="openCavSupport()" attr.action-id="{{dataIdConstantsService.eaLanding_link_openCasewithCav}}" *ngIf="!(eaService.isPartnerUserLoggedIn() || eaService.isDistiLoggedIn)">{{'eaLanding.OPEN_CASE_WITH_CAV' | localizationPipe : localizationService.localizedkeySet.size}}</a> 
+                                <a href="javascript:void(0)" attr.action-id="{{dataIdConstantsService.eaLanding_link_involveAm}}" *ngIf="eaService.isPartnerUserLoggedIn() || eaService.isDistiLoggedIn">{{'eaLanding.INVOLVE_AM' | localizationPipe : localizationService.localizedkeySet.size}}</a> {{'eaLanding.GET_MAPPING_COMPLETED' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                            <span *ngIf="pilotPartnerCheckFailed">{{'eaLanding.NEED_ACCESS_TO_EAMP' | localizationPipe : localizationService.localizedkeySet.size}}</span>    
+                        </div>
+                        <div class="alert alert--danger" *ngIf="globalDealScope && !ea3ProjectId && !showEa2 && showEa3 && !pilotPartnerCheckFailed">
+                            <span class="alert-icon">
+                                <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span
+                                        class="path3"></span></span>
+                            </span>
+                            <span >{{'common.GLOBAL_DEAL_PROJECT_ERROR_MSG' | localizationPipe : localizationService.localizedkeySet.size}} 
+                               </span>
+                              
+                        </div>
+
+                        <p>{{'eaLanding.LAUNCHED_2021' | localizationPipe : localizationService.localizedkeySet.size}}</p>
+                        <ng-container *ngIf="!eaService.features.SPNA_REL">
+                        <span class="badge badge-recommended">{{'eaLanding.RECOMMENDED_FOR_RENEWAL' | localizationPipe : localizationService.localizedkeySet.size}}
+                            <span class="i-vNext-help-filled ml-1" #tooltip="ngbTooltip"
+                            [ngbTooltip]="tipContent" placement='top'></span>
+                            <ng-template #tipContent>
+                                <span><b class="d-block mb-1">{{'eaLanding.MORE_INFO_RENEWAL' | localizationPipe : localizationService.localizedkeySet.size}}</b>
+                                   <span class="d-block mb-3">{{'eaLanding.EXISTING_SUB_MSG' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                                   {{'eaLanding.LIMITED_TIME_MSG' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                            </ng-template>
+                        </span>
+                    </ng-container>
+                        <ng-container *ngIf="eaService.features.SPNA_REL">
+                        <button type="button" *ngIf="!ea3ProjectId && !showEa2 && showEa3 && !pilotPartnerCheckFailed" attr.action-id="{{dataIdConstantsService.eaLanding_button_ea3CreateProject}}" (click)="goToVnext()" [disabled]="globalDealScope" class="btn btn-secondary">{{'common.CREATE_NEW_PROJECT' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                        <button type="button" *ngIf="ea3ProjectId" attr.action-id="{{dataIdConstantsService.eaLanding_button_ea3GoToProject}}" (click)="loadProject(ea3ProjectId)" class="btn btn-secondary">{{'common.GO_TO_PROJECT' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                        </ng-container>
+
+                    </figcaption>
+                </figure>
+                <!--SPNA block Start--> 
+                <ng-container *ngIf="eaService.features.SPNA_REL && !partnerDeal && eaService.features.SPNA_BP_ENABLEMENT_REL">
+                    <figure class="figure d-flex paddingT15"  [ngClass]="{'disabled':  qualificationId}" [class.active]="!showEa2 && !showEa3 && !pilotPartnerCheckFailed" attr.data-id="{{dataIdConstantsService.eaLanding_figure_selectEa3}}" (click)="selectView(false, 'BUYING_PGRM_SPNA')">
+                        <span class="icon-tick-check"><span class="path1"></span><span class="path2"></span></span>
+                        <figcaption class="figure-caption w-100">
+                           
+
+                            <div class="d-flex flex-row marginB10 align-items-center justify-content-between">
+                                <h5 class="heading--h5 bolder marginB0">{{'common.SPNA' | localizationPipe : localizationService.localizedkeySet.size}}</h5>
+                                <span class="limited-availability mr-4">Limited Availability</span>
+                            </div>
+
+                            <div class="alert alert--danger" *ngIf="disableSpna">
+                                <span class="alert-icon">
+                                    <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span
+                                            class="path3"></span></span>
+                                </span>
+                                <span  *ngIf="!pilotPartnerCheckFailed">{{'eaLanding.SPNA_3_0_Card_NOT_AVAILABLE' | localizationPipe : localizationService.localizedkeySet.size}} 
+                                    <a href="javascript:void(0)" (click)="openCavSupport()" attr.action-id="{{dataIdConstantsService.eaLanding_link_openCasewithCav_spna}}" *ngIf="!(eaService.isPartnerUserLoggedIn() || eaService.isDistiLoggedIn)">{{'eaLanding.OPEN_CASE_WITH_CAV' | localizationPipe : localizationService.localizedkeySet.size}}</a> 
+                                    <a href="javascript:void(0)" attr.action-id="{{dataIdConstantsService.eaLanding_link_involveAm_spna}}" *ngIf="eaService.isPartnerUserLoggedIn() || eaService.isDistiLoggedIn">{{'eaLanding.INVOLVE_AM' | localizationPipe : localizationService.localizedkeySet.size}}</a> {{'eaLanding.GET_MAPPING_COMPLETED_SPNA' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                                <span *ngIf="pilotPartnerCheckFailed">{{'eaLanding.NEED_ACCESS_TO_EAMP' | localizationPipe : localizationService.localizedkeySet.size}}</span>    
+                            </div>
+
+                            <p>{{'eaLanding.LAUNCHED_2023' | localizationPipe : localizationService.localizedkeySet.size}}</p>
+                            <button type="button" *ngIf="!spnaProjectId && !showEa2 && !showEa3 && !pilotPartnerCheckFailed" attr.action-id="{{dataIdConstantsService.eaLanding_button_spnaCreateProject}}" (click)="goToVnext()" class="btn btn-secondary">{{'common.CREATE_NEW_PROJECT' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                            <button type="button" *ngIf="spnaProjectId" attr.action-id="{{dataIdConstantsService.eaLanding_button_spnaGoToProject}}" (click)="loadProject(spnaProjectId)" class="btn btn-secondary">{{'common.GO_TO_PROJECT' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                        </figcaption>
+                    </figure>
+                </ng-container>
+                 <!--SPNA block End-->
+            </div>
+            <h6 class="text-center mt-5 mb-3"><b>{{'eaLanding.DISCLAIMER' | localizationPipe : localizationService.localizedkeySet.size}}</b> {{'eaLanding.BUYING_PRG_UNDONE_MSG' | localizationPipe : localizationService.localizedkeySet.size}}<br/>{{'eaLanding.PLZ_REVIEW_MSG' | localizationPipe : localizationService.localizedkeySet.size}}</h6>
+            <!-- New -- Heading and 2 Tile -- Ends here -->
+
+            <div class="form-group marginB15 d-none">
+                <label class="customer-label">{{'common.ASSIGN_SMART_ACCOUNT' | localizationPipe : localizationService.localizedkeySet.size}}</label>
+                <!-- <label class="customer-label">Smart Account</label> -->
+                <div class="select-items dropdown" (clickOutside)="showSmartAccounts = false;">
+                    <span class="dropdown--typeAhead__arrow-management">
+                        <button type="button" class="btn--text drop-button dropdown-toggle" attr.action-id="{{dataIdConstantsService.eaLanding_button_selectSmartAccount}}"
+                            (click)="showSmartAccounts = !showSmartAccounts">{{selectedSmartAccount?.smrtAccntName ? selectedSmartAccount.smrtAccntName : ('eaLanding.CHOOSE_SMART_ACCOUNT' | localizationPipe : localizationService.localizedkeySet.size)}}</button>
+                    </span>
+                    <div class="dropdown-menu" [class.show]="showSmartAccounts">
+                       
+                        <div class="list-header" *ngIf='smartAccountsData.length'>
+                            <span>{{'common.sub-header.SMART_ACCOUNT_NAME' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                            <span>{{'common.sub-header.ACCOUNT_DOMAIN_IDENTIFIER' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                        </div>
+                        <ul>
+                            <li *ngFor="let smartAccount of smartAccountsData; let index = index;" (click)="setSmartAccount(smartAccount)" attr.action-id="{{dataIdConstantsService.eaLanding_dropdown_smartAccount}}{{index}}">
+                                    <span>{{smartAccount?.smrtAccntName}}</span>
+                                    <span>{{smartAccount?.domain}}</span>
+                            </li>
+                        </ul>
+                        <div class="list-footer">
+                            <a href="javascript:void();" attr.action-id="{{dataIdConstantsService.eaLanding_link_requestNewSmartAccount}}" (click)='requestNewSmartAccount()'>{{'common.sub-header.CREATE_SMART_ACCOUNT' | localizationPipe : localizationService.localizedkeySet.size}}</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- New - Description Added -->
+                <!--p class="desc-text">The selection of the Smart Account is only required for 3.0.</p-->
+                <div class="alert alert--info flex-wrap alert-dismissable mt-50 paddingR15">
+                    <span class="d-flex w-100">{{'eaLanding.DISCLAIMER' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                    <ul class="ml-3">
+                        <li style="list-style-type: none;">{{'eaLanding.DISCLAIMER_DESCRIPTION' | localizationPipe : localizationService.localizedkeySet.size}}</li>
+                    </ul>
+                </div>
+            </div>
+            <div *ngIf="!eaService.features.SPNA_REL" class="text-center d-block marginB30">
+                <button [disabled]="disableEa2 && showEa2" class="btn btn-primary" attr.action-id="{{dataIdConstantsService.eaLanding_button_goToEamp}}" (click)="goToEamp()">{{'common.CONTINUE' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+              
+            </div>
+
+            
+        </div>
+    </div>
+</div>

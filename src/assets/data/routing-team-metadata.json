@@ -1,0 +1,56 @@
+[
+    {
+        "colId": "teamName",
+        "headerName": "Team Name",
+        "field": "teamName",
+        "pinned": "left",
+        "suppressMenu": true,
+        "suppressSorting": true
+    },
+    {
+        "colId": "description",
+        "headerName": "Team Description",
+        "field": "description",
+        "suppressMenu": true,
+        "suppressSorting": true
+    },
+    {
+        "colId": "members",
+        "headerName": "Team Members",
+        "field": "members",
+        "suppressMenu": true,
+        "suppressSorting": true
+    },
+    {
+        "colId": "createdOn",
+        "headerName": "Created On",
+        "field": "createdOn",
+        "suppressMenu": true,
+        "suppressSorting": true
+    },
+    {
+        "colId": "createdBy",
+        "headerName": "Created By",
+        "field": "createdBy",
+        "suppressMenu": true,
+        "suppressSorting": true
+    },
+    {
+        "colId": "updatedAt",
+        "headerName": "Last Updated On",
+        "field": "updatedAt",
+        "suppressMenu": true,
+        "suppressSorting": true
+    },
+    {
+        "colId": "updatedBy",
+        "headerName": "Last Updated By",
+        "field": "updatedBy",
+        "suppressMenu": true,
+        "suppressSorting": true
+    },
+    {
+        "colId": "delete",
+        "headerName": "Delete Team"
+    }
+]

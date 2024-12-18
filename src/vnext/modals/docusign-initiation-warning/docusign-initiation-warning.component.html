@@ -1,0 +1,15 @@
+<div class="modal-body vNext modal-without-header">
+    
+        <button class="icon-close-btn" type="button" attr.action-id="{{dataIdConstantsService.docuSignInititateWarning_button_close}}"  (click)="cancel()"></button>
+
+        <div class="vNext-lookup-desc pb-2">
+            <span class="reminder-text">{{'docusign-initiation-warning.E_SIGNATURE_REQUEST' | localizationPipe : localizationService.localizedkeySet.size}} <span
+                    class="bold-txt d-inline">{{'docusign-initiation-warning.ARE_YOU_SURE_YOU_WANT_TO_CONTINUE' | localizationPipe : localizationService.localizedkeySet.size}}</span></span>
+        </div>
+        <div class="text-center d-block pb-4">
+        
+            <button type="button" class="btn btn-secondary" attr.action-id="{{dataIdConstantsService.docuSignInititateWarning_button_cancel}}" data-dismiss="modal" (click)="cancel()" id="{{elementIdConstantsService.DocuSignInitiate_Cancel}}">{{'common.CANCEL' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+            <button type="button" class="btn btn-primary ml-3" attr.action-id="{{dataIdConstantsService.docuSignInititateWarning_button_confirm}}" (click)="continue()">{{'common.CONFIRM' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+        </div>
+</div>
+  

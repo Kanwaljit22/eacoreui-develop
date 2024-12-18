@@ -1,0 +1,141 @@
+[
+    {
+        "headerName": "Suite",
+        "field": "suiteName",
+        "cellRenderer": "group",
+        "pinned": true,
+        "width": 180,
+        "lockPosition": true,
+        "minWidth": 60,
+        "suppressMenu": true
+    },
+    {
+        "headerName": "",
+        "field": "parameterIcon",
+        "pinned": true,
+        "lockPosition": true,
+        "width": 120,
+        "minWidth": 60,
+        "suppressMenu": true
+    },
+    {
+        "headerName": "Support Type",
+        "field": "description",
+        "lockPosition": true,
+        "width": 280,
+        "minWidth": 60,
+        "suppressMenu": true
+    },
+    {
+        "headerName": "No. Of Product Families",
+        "field": "productFamiltyCount",
+        "width": 120,
+        "lockPosition": true,
+        "minWidth": 60,
+        "suppressMenu": true,
+        "cellClass": "text-right"
+    },
+    {
+        "headerName": "Quantity Found in IB",
+        "children": [
+            {
+                "headerName": "Uncovered",
+                "field": "uncoveredQty",
+                "lockPosition": true,
+                "width": 100,
+                "minWidth": 60,
+                "suppressMenu": true,
+                "cellClass": "text-right"
+            },
+            {
+                "headerName": "Covered",
+                "field": "coveredQty",
+                "lockPosition": true,
+                "width": 90, 
+                "columnGroupShow": "open",
+                "minWidth": 60,
+                "suppressMenu": true,
+                "cellClass": "text-right"
+            },
+            {
+                "headerName": "TakeOver",
+                "field": "takeoverQty",
+                "lockPosition": true,
+                "columnGroupShow": "open",
+                "width": 100,
+                "minWidth": 60,
+                "suppressMenu": true,
+                "cellClass": "text-right"
+            },
+            {
+                "headerName": "Total",
+                "field": "totalQty",
+                "lockPosition": true,
+                "columnGroupShow": "open",
+                "width": 60,
+                "minWidth": 60,
+                "suppressMenu": true,
+                "cellClass": "text-right"
+            }
+        ]
+    },
+    {
+        "headerName": "Billing SKU Quantity",
+        "field": "qty",
+        "width": 100,
+        "lockPosition": true,
+        "minWidth": 60,
+        "suppressMenu": true,
+        "cellClass": "text-right"
+    },
+    {
+        "headerName": "Extended List Price",
+        "field": "extendedListPrice",
+        "width": 100,
+        "lockPosition": true,
+        "minWidth": 60,
+        "suppressMenu": true,
+        "cellClass": "text-right"
+    },
+    {
+        "headerName": "Discount (%)",
+        "field": "discount",
+        "width": 110,
+        "lockPosition": true,
+        "minWidth": 60,
+        "suppressMenu": true,
+        "cellClass": "text-right"
+    },
+    {
+        "headerName": "Purchase Adjustment",
+        "children": [
+            {
+                "headerName": "Residual Credit",
+                "field": "residualCredit",
+                "lockPosition": true,
+                "width": 100,
+                "minWidth": 60,
+                "suppressMenu": true,
+                "cellClass": "text-right"
+            },
+            {
+                "headerName": "Uncovered Asset Credit",
+                "field": "uncoveredAssetCredit",
+                "width": 120,
+                "minWidth": 60,
+                "lockPosition": true,
+                "suppressMenu": true,
+                "cellClass": "text-right"
+            }
+        ]
+    },
+    {
+        "headerName": "Total Contract Value (Post-Purchase Adjustment)",
+        "field": "postPurchaseAdjustmentTcv",
+        "width": 200,
+        "lockPosition": true,
+        "minWidth": 60,
+        "suppressMenu": true,
+        "cellClass": "text-right"
+    }
+]

@@ -1,0 +1,132 @@
+<div [ngClass]="{'slide-flyout--overlay':show}" (click)="closeDebugger()"></div>
+<div class="slide-flyout sm" [ngClass]="{'open':show}">
+    <div class="debug__button"  (click)="openDebugger()">
+        <i class="icon-debugger"></i>
+    </div>
+    <!-- <div class="admin-grid-list">  -->
+    <div class="slide-flyout--header">
+        <h1 class="mb-0">Debugger
+            <span class="close" (click)="closeDebugger()"> <i class="icon-close-btn"></i></span>
+        </h1>
+    </div>
+    <!-- End of Slide Flyout Header -->
+
+    <div class="slide-flyout--body">
+        <div class="container-fluid p-0">
+            <div class="row mb-2">
+                <div class="list-item--val col-5">
+                    <label class="mb-0">Name</label>
+                    <h3 class="label-name ellipsis" placement="top" container="body" ngbTooltip="{{this.appDataService.userInfo.firstName}} {{this.appDataService.userInfo.lastName}} ({{this.appDataService.userInfo.userId}})">{{this.appDataService.userInfo.firstName}} {{this.appDataService.userInfo.lastName}} ({{this.appDataService.userInfo.userId}})</h3>
+                </div>
+                <div class="list-item--val col-4">
+                    <label class="mb-0">Email ID</label>
+                    <h3 class="label-name">{{this.appDataService.userInfo.emailId}}</h3>
+                </div>
+                <div class="list-item--val col-3">
+                    <label class="mb-0">Access Level</label>
+                    <h3 class="label-name">{{this.appDataService.userInfo.accessLevel}}</h3>
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-12">
+                    <h6 class="">Roles : {{this.userRoles}}</h6>
+                </div>
+            </div>
+
+            <div class="row mb-2" *ngIf = "isProposalPermission || isQualificationPermission">
+                <div class="list-item--val col-5">
+                    <label class="mb-0">{{this.isProposalPermission ? "Proposal Name" : "Qualification Name"}}  </label>
+                    <h3 class="label-name ellipsis" placement="top" container="body" ngbTooltip="{{this.name}} ({{this.id}})">{{this.name}} ({{this.id}})</h3>
+                </div>
+                <div class="list-item--val col-7">
+                    <label class="mb-0">Status</label>
+                    <h3 class="label-name">{{this.status}}</h3>
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-12 text-center">
+                    <div class="tab-style d-inline-block">
+                        <ul class="nav">
+                            <li class="nav-item">
+                                <a [ngClass]="{'active':isGlobalSelected}" class="nav-link active" (click)="showGlobalPermission()">{{'Global Permission'}}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a [ngClass]="{'active':isLocalSelected}" class="nav-link" (click)="showLocalPermission()" >{{'Local Permission'}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="clearfix mb-2" style="height:calc(100vh - 250px); overflow: auto;" *ngIf = "!((isProposalList || isQualList) && !isGlobalSelected)">
+                        <table class="primary-table">
+                            <thead>
+                                <tr>
+                                    <th width="40%">{{'Name'}}</th>
+                                    <th width="60%">{{'Description'}}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let permission of permissionObject">
+                                    <td>{{permission.name}}</td>
+                                    <td>{{permission.description}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf = "(isProposalList || isQualList) && !isGlobalSelected" style="height: 550px;width: 530px; overflow-y: auto;overflow-x: hidden;">
+                <div *ngFor="let proposalData of data" style="padding-top:5px">
+                <!-- <div class="grid-block" style="border-style: solid;"> -->
+                    <div class="row mb-3" style="border-style: solid;border-width: thin;border-bottom-style: none;padding-bottom:4px;padding-top:4px;" (click)="expandCollapse(proposalData)">
+                        <div class="list-item--val col-sm-9">
+                            <label class="debugger--table--item">{{this.isProposalList ? "Proposal Name" : "Qualification Name"}}  </label>
+                            <h3 lass="label-name">{{proposalData.name}} ({{proposalData.id}})</h3>
+                        </div>
+                        <div class="list-item--val col-sm-3">
+                            <label class="debugger--table--item">Status</label>
+                            <h3 lass="label-name">{{proposalData.status}}</h3>
+                        </div>
+                    </div>
+                <!-- </div> -->
+
+
+                    <table class="primary-table" *ngIf = "proposalData.expand">
+                        <thead>
+                            <tr>
+                                <th width="40%">{{'Name'}}</th>
+                                <th width="60%">{{'Description'}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let permission of proposalData.permissions.featureAccess">
+                                <td>{{permission.name}}</td>
+                                <td>{{permission.description}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div> 
+            </div>
+        </div>
+        
+
+        <!-- <h1 *ngIf = "isGlobalSelected" >{{'Global Permission'}}</h1>
+        <h1 *ngIf = "isLocalSelected">{{'Local Permission'}}</h1> -->
+
+        
+        <!-- <div class="admin-grid-list">  -->
+        <!-- <ul class="guide-me__list scroll-list--GuideMe">
+            <li class="debug__list--item" *ngFor="let permission of permissionObject">
+                <label>{{permission.name}}</label>
+                <label>{{permission.description}}</label>
+            </li>
+        </ul> -->
+    </div>
+    <!-- End of Slide Flyout Body -->
+</div>

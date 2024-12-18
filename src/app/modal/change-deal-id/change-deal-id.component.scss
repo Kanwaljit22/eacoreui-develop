@@ -1,0 +1,86 @@
+/*Checkbox styling
+============================*/
+
+.lookingFor {
+    background: #fff;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-top: 0 !important;
+    border-radius: 0;
+    width: calc(100%);
+    position: relative;
+    left: 0px;
+    margin-bottom: 40px;
+}
+
+.architecture-icon {
+    font-size: 28px;
+    margin-right: 5px;
+}
+
+table tbody tr td.status-success {
+    color: #6cc04a;
+}
+
+table tbody tr td.status-warning {
+    color: #f49138;
+}
+
+.status-modal {
+    max-width: 420px;
+    margin: auto;
+    text-align: center;
+}
+
+.status-modal .status--success {
+    background: #D4F5D7;
+    color: #6CC04A;
+    width: 114px;
+    height: 114px;
+    display: block;
+    margin: auto;
+    text-align: center;
+    line-height: 114px;
+    border-radius: 100%;
+    font-size: 40px;
+    margin-bottom: 15px;
+}
+
+.status-modal .status--success::before {
+    color: #6CC04A;
+}
+
+.status-modal .status--warning {
+    background: rgba(251, 171, 24, 0.2);
+    width: 114px;
+    height: 114px;
+    display: block;
+    margin: auto;
+    text-align: center;
+    line-height: 114px;
+    border-radius: 100%;
+    font-size: 40px;
+    margin-bottom: 15px;
+}
+
+.status-modal .status--warning::before {
+    color: #fff;
+}
+
+.status--message {
+    font-size: 22px;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.qualEAQualificationNameResult.activeDeal {
+    margin-bottom: 30px;
+}
+
+.float-left-proposal {
+    margin-right: 763px !important;
+}
+
+.float-left-summary {
+    margin-right: 720px !important;
+}

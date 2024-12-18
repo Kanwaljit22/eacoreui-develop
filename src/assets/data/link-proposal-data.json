@@ -1,0 +1,56 @@
+{
+    "data": {
+      "matchingProposal": [
+        {
+          "id": 1,
+          "name": "SFDC_Proposals_All_Suites",
+          "currencyCode": "USD",
+          "totalNetPrice": 544686395,
+          "status": "Complete",
+          "architecture": "Cisco DC"
+        },
+        {
+          "id": 2,
+          "name": "SFDC_Proposals_All_Suites",
+          "currencyCode": "USD",
+          "totalNetPrice": 7946383,
+          "status": "Complete",
+          "architecture": "Security"
+        },
+        {
+          "id": 3,
+          "name": "SFDC_Proposals_All_Suites",
+          "currencyCode": "USD",
+          "totalNetPrice": 544686395,
+          "status": "Complete",
+          "architecture": "Cisco DC"
+        },
+        {
+          "id": 4,
+          "name": "SFDC_Proposals_All_Suites",
+          "currencyCode": "USD",
+          "totalNetPrice": 7946383,
+          "status": "Complete",
+          "architecture": "Security"
+        }
+      ],
+      "nonMatchingProposal": [
+        {
+          "id": 1,
+          "name": "Aerojet C1 - 3YR",
+          "currencyCode": "USD",
+          "totalNetPrice": 5485612,
+          "status": "Complete",
+          "architecture": "Cisco DC"
+        },
+        {
+          "id": 2,
+          "name": "Aerojet C1 - 3YR",
+          "currencyCode": "USD",
+          "totalNetPrice": 3265861,
+          "status": "Complete",
+          "architecture": "Cisco DC"
+        }
+      ]
+    }
+  }

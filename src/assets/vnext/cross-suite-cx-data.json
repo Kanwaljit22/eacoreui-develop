@@ -1,0 +1,1091 @@
+{
+    "rid": "EAMP1716062117365",
+    "user": "shashwpa",
+    "error": false,
+    "data": {
+        "billToInfo": {
+            "name": "COMPUNET INC",
+            "address1": "505 SOUTH FLORENCE STREET",
+            "city": "GRANGEVILLE",
+            "state": "ID",
+            "countryName": "US",
+            "postalCode": "83530-2324",
+            "customerNumber": "401458104",
+            "orgId": 161,
+            "orgName": "CISCO US OPERATING UNIT",
+            "siteUseId": "413881099",
+            "isFlooringBid": false
+        },
+        "enrollments": [
+            {
+                "id": 3,
+                "name": "Security",
+                "primary": false,
+                "enrolled": false,
+                "displayQnA": true,
+                "displaySeq": 4,
+                "billingTerm": {
+                    "rsd": "20240423",
+                    "billingModel": "Annual",
+                    "billingModelName": "Annual Billing",
+                    "term": 34.5903225806452,
+                    "coterm": {
+                        "endDate": "20270310",
+                        "subRefId": "SR104401",
+                        "billDayInMonth": -1
+                    },
+                    "eaEndDate": 1803283200000,
+                    "eaEndDateStr": "20270222"
+                },
+                "commitInfo": {
+                    "committed": false,
+                    "fcSuiteCount": 0,
+                    "pcSuiteCount": 0
+                },
+                "pools": [
+                    {
+                        "name": "Security Platform and Response",
+                        "desc": "Security Platform and Response",
+                        "displaySeq": 8365,
+                        "display": true,
+                        "suites": [
+                            {
+                                "name": "Secure Endpoint",
+                                "desc": "Secure Endpoint",
+                                "ato": "E3-SEC-EP-PRM",
+                                "inclusion": true,
+                                "autoSelected": false,
+                                "displaySeq": 8050,
+                                "qtyUnit": "User",
+                                "groups": [
+                                    {
+                                        "id": "Support Options",
+                                        "name": "Support Options",
+                                        "displaySeq": 2
+                                    },
+                                    {
+                                        "id": "Secure Endpoint",
+                                        "name": "Secure Endpoint",
+                                        "displaySeq": 1
+                                    }
+                                ],
+                                "tiers": [],
+                                "displayGroup": true,
+                                "disabled": false,
+                                "notAllowedHybridRelated": false,
+                                "hasBfRelatedMigratedAto": false,
+                                "active": true,
+                                "cxOptIn": false,
+                                "cxHwSupportAvailable": true,
+                                "cxHwSupportOptional": true,
+                                "displayDiscount": true,
+                                "includedInEAID": false,
+                                "consentRequired": false,
+                                "incompatibleAtos": [
+                                    "E3-SEC-EP-ADV",
+                                    "E3-SEC-EP-ADV-EDU",
+                                    "E3-SEC-EP-PRM-EDU",
+                                    "E3-SEC-EP-PRM",
+                                    "E3-SEC-EP-ESS-EDU"
+                                ],
+                                "incompatibleSuites": [
+                                    "User & Breach Protection (Combination)",
+                                    "Breach Protection",
+                                    "User Protection"
+                                ]
+                            },
+                            {
+                                "name": "Cisco XDR",
+                                "desc": "Cisco XDR",
+                                "ato": "E3-SEC-XDR-E",
+                                "inclusion": true,
+                                "autoSelected": true,
+                                "displaySeq": 8320,
+                                "qtyUnit": "User",
+                                "groups": [
+                                    {
+                                        "id": "Cisco XDR Essentials",
+                                        "name": "Cisco XDR Essentials",
+                                        "displaySeq": 1
+                                    },
+                                    {
+                                        "id": "Support Options",
+                                        "name": "Support Options",
+                                        "displaySeq": 2
+                                    }
+                                ],
+                                "tiers": [],
+                                "displayGroup": true,
+                                "disabled": false,
+                                "active": true,
+                                "cxOptIn": false,
+                                "cxHwSupportAvailable": false,
+                                "displayDiscount": true,
+                                "includedInEAID": false,
+                                "consentRequired": false,
+                                "incompatibleAtos": [
+                                    "E3-SEC-XDR-P",
+                                    "E3-SEC-XDR-A"
+                                ],
+                                "incompatibleSuites": [
+                                    "User & Breach Protection (Combination)",
+                                    "Breach Protection"
+                                ]
+                            },
+                            {
+                                "name": "Secure Network & Cloud Analytics",
+                                "desc": "Secure Network & Cloud Analytics",
+                                "ato": "E3-SEC-NWCLDA",
+                                "inclusion": true,
+                                "autoSelected": true,
+                                "displaySeq": 8350,
+                                "qtyUnit": "Flows",
+                                "groups": [
+                                    {
+                                        "id": "Others",
+                                        "name": "Others",
+                                        "displaySeq": 2147483647
+                                    },
+                                    {
+                                        "id": "Secure Network and Cloud Analytics",
+                                        "name": "Secure Network and Cloud Analytics",
+                                        "displaySeq": 1
+                                    },
+                                    {
+                                        "id": "Support Options",
+                                        "name": "Support Options",
+                                        "displaySeq": 2
+                                    }
+                                ],
+                                "tiers": [],
+                                "displayGroup": true,
+                                "disabled": false,
+                                "active": true,
+                                "cxOptIn": false,
+                                "cxHwSupportAvailable": true,
+                                "cxHwSupportOptional": true,
+                                "cxTierOptions": [],
+                                "displayDiscount": true,
+                                "includedInEAID": false,
+                                "consentRequired": false,
+                                "atoTierOptions": []
+                            },
+                            {
+                                "name": "Cisco Vulnerability Management",
+                                "desc": "Cisco Vulnerability Management",
+                                "ato": "E3-SEC-KENNA",
+                                "inclusion": true,
+                                "autoSelected": false,
+                                "displaySeq": 8365,
+                                "qtyUnit": "User",
+                                "groups": [
+                                    {
+                                        "id": "Kenna Vulnerability Intelligence",
+                                        "name": "Kenna Vulnerability Intelligence",
+                                        "displaySeq": 2
+                                    },
+                                    {
+                                        "id": "Support",
+                                        "name": "Support",
+                                        "displaySeq": 5
+                                    },
+                                    {
+                                        "id": "Kickstart OnBoarding Support",
+                                        "name": "Kickstart OnBoarding Support",
+                                        "displaySeq": 4
+                                    },
+                                    {
+                                        "id": "Cisco Vulnerability Management - Advantage SaaS",
+                                        "name": "Cisco Vulnerability Management - Advantage SaaS",
+                                        "displaySeq": 1
+                                    },
+                                    {
+                                        "id": "Add Ons",
+                                        "name": "Add Ons",
+                                        "displaySeq": 3
+                                    }
+                                ],
+                                "tiers": [],
+                                "displayGroup": true,
+                                "disabled": false,
+                                "active": true,
+                                "cxOptIn": false,
+                                "cxHwSupportAvailable": false,
+                                "displayDiscount": true,
+                                "includedInEAID": false,
+                                "consentRequired": false,
+                                "incompatibleAtos": [
+                                    "E3-SEC-KENNA-PRE"
+                                ],
+                                "incompatibleSuites": [
+                                    "Cloud Protection"
+                                ]
+                            },
+                            {
+                                "name": "Secure Email",
+                                "desc": "Secure Email",
+                                "ato": "E3-SEC-ES-ADV",
+                                "inclusion": true,
+                                "autoSelected": true,
+                                "displaySeq": 4910,
+                                "qtyUnit": "User",
+                                "groups": [
+                                    {
+                                        "id": "Others",
+                                        "name": "Others",
+                                        "displaySeq": 2147483647
+                                    },
+                                    {
+                                        "id": "Secure Email Gateway – Advantage",
+                                        "name": "Secure Email Gateway – Advantage",
+                                        "displaySeq": 2
+                                    },
+                                    {
+                                        "id": "Secure Email Cloud – Advantage",
+                                        "name": "Secure Email Cloud – Advantage",
+                                        "displaySeq": 1
+                                    },
+                                    {
+                                        "id": "Support Options",
+                                        "name": "Support Options",
+                                        "displaySeq": 4
+                                    }
+                                ],
+                                "tiers": [],
+                                "displayGroup": true,
+                                "disabled": false,
+                                "active": true,
+                                "cxOptIn": false,
+                                "cxHwSupportAvailable": true,
+                                "cxHwSupportOptional": true,
+                                "displayDiscount": true,
+                                "includedInEAID": false,
+                                "consentRequired": false,
+                                "incompatibleAtos": [
+                                    "E3-SEC-ES-ESS"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Zero Trust",
+                        "desc": "Zero Trust",
+                        "displaySeq": 4300,
+                        "display": true,
+                        "suites": [
+                            {
+                                "name": "Duo",
+                                "desc": "Duo",
+                                "ato": "E3-SEC-DUO-ESS",
+                                "inclusion": true,
+                                "autoSelected": true,
+                                "displaySeq": 4295,
+                                "qtyUnit": "User",
+                                "groups": [
+                                    {
+                                        "id": "Duo Subaccount",
+                                        "name": "Duo Subaccount",
+                                        "displaySeq": 2
+                                    },
+                                    {
+                                        "id": "Support Options",
+                                        "name": "Support Options",
+                                        "displaySeq": 3
+                                    },
+                                    {
+                                        "id": "Duo",
+                                        "name": "Duo",
+                                        "displaySeq": 1
+                                    }
+                                ],
+                                "tiers": [],
+                                "displayGroup": true,
+                                "disabled": false,
+                                "notAllowedHybridRelated": false,
+                                "hasBfRelatedMigratedAto": false,
+                                "active": true,
+                                "cxOptIn": false,
+                                "cxHwSupportAvailable": false,
+                                "displayDiscount": true,
+                                "includedInEAID": false,
+                                "consentRequired": false,
+                                "incompatibleAtos": [
+                                    "E3-SEC-DUO-EAD-F",
+                                    "E3-SEC-DUO-EES-FS",
+                                    "E3-SEC-DUO-EDUBYD",
+                                    "E3-SEC-DUO-FEDMFA",
+                                    "E3-SEC-DUO-ACS",
+                                    "E3-SEC-DUO-EAD-FS",
+                                    "E3-SEC-DUO-EES-HC",
+                                    "E3-SEC-DUO-EPR-F",
+                                    "E3-SEC-DUO-EPR-FS",
+                                    "E3-SEC-DUO-EDUACS",
+                                    "E3-SEC-DUO-BYD",
+                                    "E3-SEC-DUO-FEDACS",
+                                    "E3-SEC-DUO-MFA",
+                                    "E3-SEC-DUO-PRE",
+                                    "E3-SEC-DUO-EDUMFA",
+                                    "E3-SEC-DUO-ESS",
+                                    "E3-SEC-DUO-EES-F",
+                                    "E3-SEC-DUO-EPR-HC",
+                                    "E3-SEC-DUO-EAD-HC"
+                                ],
+                                "incompatibleSuites": [
+                                    "User & Breach Protection (Combination)",
+                                    "User Protection"
+                                ]
+                            },
+                            {
+                                "name": "Secure Workload",
+                                "desc": "Secure Workload",
+                                "ato": "E3-SEC-WKLD",
+                                "inclusion": true,
+                                "autoSelected": false,
+                                "displaySeq": 4300,
+                                "qtyUnit": "Workloads",
+                                "groups": [
+                                    {
+                                        "id": "Secure Workload On-Prem",
+                                        "name": "Secure Workload On-Prem",
+                                        "displaySeq": 2
+                                    },
+                                    {
+                                        "id": "Support Options",
+                                        "name": "Support Options",
+                                        "displaySeq": 3
+                                    },
+                                    {
+                                        "id": "Secure Workload Cloud",
+                                        "name": "Secure Workload Cloud",
+                                        "displaySeq": 1
+                                    }
+                                ],
+                                "tiers": [],
+                                "displayGroup": true,
+                                "disabled": false,
+                                "active": true,
+                                "cxOptIn": false,
+                                "cxHwSupportAvailable": true,
+                                "cxHwSupportOptional": true,
+                                "cxTierOptions": [],
+                                "displayDiscount": true,
+                                "includedInEAID": false,
+                                "consentRequired": false,
+                                "incompatibleSuites": [
+                                    "Cloud Protection"
+                                ],
+                                "atoTierOptions": []
+                            },
+                            {
+                                "name": "Identity Services Engine (ISE)",
+                                "desc": "Identity Services Engine (ISE)",
+                                "ato": "E3-SEC-ISE",
+                                "inclusion": true,
+                                "autoSelected": true,
+                                "displaySeq": 4100,
+                                "qtyUnit": "Sessions",
+                                "groups": [
+                                    {
+                                        "id": "Identity Services Engine 3.0 (ISE)",
+                                        "name": "Identity Services Engine 3.0 (ISE)",
+                                        "displaySeq": 1
+                                    },
+                                    {
+                                        "id": "Support Options",
+                                        "name": "Support Options",
+                                        "displaySeq": 3
+                                    }
+                                ],
+                                "tiers": [],
+                                "displayGroup": true,
+                                "disabled": false,
+                                "active": true,
+                                "cxOptIn": false,
+                                "cxHwSupportAvailable": true,
+                                "cxHwSupportOptional": true,
+                                "cxTierOptions": [],
+                                "displayDiscount": true,
+                                "includedInEAID": false,
+                                "consentRequired": false,
+                                "atoTierOptions": []
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Protection",
+                        "desc": "Protection",
+                        "displaySeq": 4087,
+                        "display": true,
+                        "suites": [
+                            {
+                                "name": "User & Breach Protection (Combination)",
+                                "desc": "User & Breach Protection (Combination)",
+                                "ato": "E3-SEC-S-CBPEUPE",
+                                "inclusion": true,
+                                "autoSelected": true,
+                                "displaySeq": 4087,
+                                "qtyUnit": "User",
+                                "groups": [
+                                    {
+                                        "id": "Breach Essentials & User Essentials Protection",
+                                        "name": "Breach Essentials & User Essentials Protection",
+                                        "displaySeq": 1
+                                    }
+                                ],
+                                "tiers": [],
+                                "displayGroup": true,
+                                "disabled": false,
+                                "active": true,
+                                "cxOptIn": false,
+                                "cxHwSupportAvailable": true,
+                                "cxHwSupportOptional": true,
+                                "serviceAttachMandatory": true,
+                                "displayDiscount": true,
+                                "includedInEAID": false,
+                                "consentRequired": false,
+                                "incompatibleAtos": [
+                                    "E3-SEC-S-CBPPUPE",
+                                    "E3-SEC-S-CBPAUPA",
+                                    "E3-SEC-S-CBPPUPA",
+                                    "E3-SEC-S-CBPAUPE",
+                                    "E3-SEC-S-CBPEUPA"
+                                ],
+                                "incompatibleSuites": [
+                                    "Cisco XDR",
+                                    "Cisco Email Threat Defense",
+                                    "Breach Protection",
+                                    "User Protection",
+                                    "Secure Endpoint",
+                                    "Cisco Secure Access",
+                                    "Duo"
+                                ],
+                                "alreadySelectedIncompatibleSuites": [
+                                    "Cisco XDR",
+                                    "Secure Endpoint",
+                                    "Duo"
+                                ]
+                            },
+                            {
+                                "name": "Cloud Protection",
+                                "desc": "Cloud Protection",
+                                "ato": "E3-SEC-S-CPE",
+                                "inclusion": true,
+                                "autoSelected": true,
+                                "displaySeq": 4005,
+                                "qtyUnit": "Workloads",
+                                "groups": [
+                                    {
+                                        "id": "Cloud Protection Essentials",
+                                        "name": "Cloud Protection Essentials",
+                                        "displaySeq": 1
+                                    }
+                                ],
+                                "tiers": [],
+                                "displayGroup": true,
+                                "disabled": false,
+                                "active": true,
+                                "cxOptIn": false,
+                                "cxHwSupportAvailable": false,
+                                "serviceAttachMandatory": true,
+                                "displayDiscount": true,
+                                "includedInEAID": false,
+                                "consentRequired": false,
+                                "incompatibleAtos": [
+                                    "E3-SEC-S-CPA"
+                                ],
+                                "incompatibleSuites": [
+                                    "Secure Workload",
+                                    "Cisco Vulnerability Management"
+                                ]
+                            },
+                            {
+                                "name": "User Protection",
+                                "desc": "User Protection",
+                                "ato": "E3-SEC-S-UPE",
+                                "inclusion": true,
+                                "autoSelected": false,
+                                "displaySeq": 4015,
+                                "qtyUnit": "User",
+                                "groups": [
+                                    {
+                                        "id": "User Protection Essentials",
+                                        "name": "User Protection Essentials",
+                                        "displaySeq": 1
+                                    }
+                                ],
+                                "tiers": [],
+                                "displayGroup": true,
+                                "disabled": false,
+                                "active": true,
+                                "cxOptIn": false,
+                                "cxHwSupportAvailable": false,
+                                "serviceAttachMandatory": true,
+                                "displayDiscount": true,
+                                "includedInEAID": false,
+                                "consentRequired": false,
+                                "incompatibleAtos": [
+                                    "E3-SEC-S-UPA"
+                                ],
+                                "incompatibleSuites": [
+                                    "User & Breach Protection (Combination)",
+                                    "Cisco Email Threat Defense",
+                                    "Breach Protection",
+                                    "Cisco Secure Access",
+                                    "Secure Endpoint",
+                                    "Duo"
+                                ],
+                                "alreadySelectedIncompatibleSuites": [
+                                    "Secure Endpoint",
+                                    "Duo"
+                                ]
+                            },
+                            {
+                                "name": "Breach Protection",
+                                "desc": "Breach Protection",
+                                "ato": "E3-SEC-S-BPE",
+                                "inclusion": true,
+                                "autoSelected": false,
+                                "displaySeq": 4046,
+                                "qtyUnit": "User",
+                                "groups": [
+                                    {
+                                        "id": "Breach Protection Essentials",
+                                        "name": "Breach Protection Essentials",
+                                        "displaySeq": 1
+                                    }
+                                ],
+                                "tiers": [],
+                                "displayGroup": true,
+                                "disabled": false,
+                                "active": true,
+                                "cxOptIn": false,
+                                "cxHwSupportAvailable": false,
+                                "serviceAttachMandatory": true,
+                                "displayDiscount": true,
+                                "includedInEAID": false,
+                                "consentRequired": false,
+                                "incompatibleAtos": [
+                                    "E3-SEC-S-BPP",
+                                    "E3-SEC-S-BPEUPE",
+                                    "E3-SEC-S-BPA",
+                                    "E3-SEC-S-BPAUPE",
+                                    "E3-SEC-S-BPEUPA",
+                                    "E3-SEC-S-BPAUPA"
+                                ],
+                                "incompatibleSuites": [
+                                    "User & Breach Protection (Combination)",
+                                    "Cisco XDR",
+                                    "Cisco Email Threat Defense",
+                                    "User Protection",
+                                    "Secure Endpoint"
+                                ],
+                                "alreadySelectedIncompatibleSuites": [
+                                    "Cisco XDR",
+                                    "Secure Endpoint"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Cloud and Network Security",
+                        "desc": "Cloud and Network Security",
+                        "displaySeq": 4800,
+                        "display": true,
+                        "suites": [
+                            {
+                                "name": "Umbrella",
+                                "desc": "Umbrella",
+                                "ato": "E3-SEC-UMBSIGE",
+                                "inclusion": true,
+                                "autoSelected": true,
+                                "displaySeq": 4450,
+                                "qtyUnit": "User",
+                                "groups": [
+                                    {
+                                        "id": "Umbrella Investigate API & Console",
+                                        "name": "Umbrella Investigate API & Console",
+                                        "displaySeq": 2
+                                    },
+                                    {
+                                        "id": "Umbrella SIG Optional License",
+                                        "name": "Umbrella SIG Optional License",
+                                        "displaySeq": 3
+                                    },
+                                    {
+                                        "id": "Umbrella",
+                                        "name": "Umbrella",
+                                        "displaySeq": 1
+                                    },
+                                    {
+                                        "id": "Umbrella Multi-Org",
+                                        "name": "Umbrella Multi-Org",
+                                        "displaySeq": 4
+                                    }
+                                ],
+                                "tiers": [
+                                    {
+                                        "name": "E3-SEC-UMB-EDU",
+                                        "desc": "DNS Education",
+                                        "cxOptIn": false,
+                                        "cxTierOptions": [],
+                                        "educationInstituteOnly": true,
+                                        "displaySeq": 4420
+                                    },
+                                    {
+                                        "name": "E3-SEC-UMBDNSA",
+                                        "desc": "DNS Advantage",
+                                        "cxOptIn": false,
+                                        "cxTierOptions": [],
+                                        "displaySeq": 4410
+                                    },
+                                    {
+                                        "name": "E3-SEC-UMBDNSE",
+                                        "desc": "DNS Essentials",
+                                        "cxOptIn": false,
+                                        "cxTierOptions": [],
+                                        "displaySeq": 4400
+                                    },
+                                    {
+                                        "name": "E3-SEC-UMBSIGE",
+                                        "desc": "SIG Essentials",
+                                        "cxOptIn": false,
+                                        "cxTierOptions": [
+                                            {
+                                                "name": "E3-UMBSIGE-SVS3",
+                                                "desc": "Services Tier 3",
+                                                "cxOptIn": false,
+                                                "displaySeq": 6620
+                                            },
+                                            {
+                                                "name": "E3-UMBSIGE-SVS2",
+                                                "desc": "Services Tier 2",
+                                                "cxOptIn": false,
+                                                "displaySeq": 6615
+                                            }
+                                        ],
+                                        "displaySeq": 4430
+                                    },
+                                    {
+                                        "name": "E3-SEC-UMBSIGA",
+                                        "desc": "SIG Advantage",
+                                        "cxOptIn": false,
+                                        "cxTierOptions": [
+                                            {
+                                                "name": "E3-UMBSIGA-SVS2",
+                                                "desc": "Services Tier 2",
+                                                "cxOptIn": false,
+                                                "displaySeq": 6625
+                                            },
+                                            {
+                                                "name": "E3-UMBSIGA-SVS3",
+                                                "desc": "Services Tier 3",
+                                                "cxOptIn": false,
+                                                "displaySeq": 6630
+                                            },
+                                            {
+                                                "name": "E3-UMBSIGA-SVS1",
+                                                "desc": "Services Tier 1",
+                                                "cxOptIn": false,
+                                                "cxUpgradeDefaultTier": true,
+                                                "displaySeq": 6560
+                                            }
+                                        ],
+                                        "displaySeq": 4440
+                                    },
+                                    {
+                                        "name": "E3-SEC-SIG-EDU",
+                                        "desc": "SIG Education",
+                                        "cxOptIn": false,
+                                        "cxTierOptions": [],
+                                        "educationInstituteOnly": true,
+                                        "displaySeq": 4450
+                                    }
+                                ],
+                                "displayGroup": true,
+                                "disabled": false,
+                                "notAllowedHybridRelated": false,
+                                "hasBfRelatedMigratedAto": false,
+                                "active": true,
+                                "cxOptIn": false,
+                                "cxHwSupportAvailable": false,
+                                "serviceAttachMandatory": true,
+                                "displayDiscount": true,
+                                "includedInEAID": true,
+                                "includedInSubscription": true,
+                                "consentRequired": false,
+                                "lowerTierAto": {
+                                    "name": "E3-UMBSIGE-SVS1",
+                                    "desc": "Services Tier 1"
+                                },
+                                "incompatibleAtos": [
+                                    "E3-SEC-UMB-EDU",
+                                    "E3-SEC-UMBDNSA",
+                                    "E3-SEC-UMBSIGA",
+                                    "E3-SEC-UMBSIGE",
+                                    "E3-SEC-SIG-EDU"
+                                ]
+                            },
+                            {
+                                "name": "Secure Firewall",
+                                "desc": "Secure Firewall",
+                                "ato": "E3-SEC-SFW",
+                                "inclusion": true,
+                                "autoSelected": true,
+                                "displaySeq": 4800,
+                                "qtyUnit": "Commit Value(USD)",
+                                "groups": [
+                                    {
+                                        "id": "Secure Firewall on FPR 3K",
+                                        "name": "Secure Firewall on FPR 3K",
+                                        "displaySeq": 4
+                                    },
+                                    {
+                                        "id": "Secure Firewall on ASA",
+                                        "name": "Secure Firewall on ASA",
+                                        "displaySeq": 1
+                                    },
+                                    {
+                                        "id": "Others",
+                                        "name": "Others",
+                                        "displaySeq": 2147483647
+                                    },
+                                    {
+                                        "id": "Secure Firewall on FPR 2K",
+                                        "name": "Secure Firewall on FPR 2K",
+                                        "displaySeq": 3
+                                    },
+                                    {
+                                        "id": "Secure Firewall on FPR 4K",
+                                        "name": "Secure Firewall on FPR 4K",
+                                        "displaySeq": 5
+                                    },
+                                    {
+                                        "id": "Secure Firewall",
+                                        "name": "Secure Firewall",
+                                        "displaySeq": 7
+                                    },
+                                    {
+                                        "id": "Secure Firewall on FPR 1K",
+                                        "name": "Secure Firewall on FPR 1K",
+                                        "displaySeq": 2
+                                    },
+                                    {
+                                        "id": "Secure Firewall on ISR",
+                                        "name": "Secure Firewall on ISR",
+                                        "displaySeq": 8
+                                    },
+                                    {
+                                        "id": "Support Options",
+                                        "name": "Support Options",
+                                        "displaySeq": 10
+                                    },
+                                    {
+                                        "id": "Secure Firewall on FPR 9K",
+                                        "name": "Secure Firewall on FPR 9K",
+                                        "displaySeq": 6
+                                    },
+                                    {
+                                        "id": "Secure Firewall on FTD Virtual",
+                                        "name": "Secure Firewall on FTD Virtual",
+                                        "displaySeq": 9
+                                    }
+                                ],
+                                "tiers": [],
+                                "displayGroup": true,
+                                "disabled": false,
+                                "active": true,
+                                "cxOptIn": false,
+                                "cxHwSupportAvailable": true,
+                                "cxHwSupportOptional": true,
+                                "cxTierOptions": [],
+                                "displayDiscount": true,
+                                "includedInEAID": false,
+                                "consentRequired": false,
+                                "atoTierOptions": []
+                            },
+                            {
+                                "name": "Cisco Secure Access",
+                                "desc": "Cisco Secure Access",
+                                "ato": "E3-SEC-SECACCESS-E",
+                                "inclusion": true,
+                                "autoSelected": false,
+                                "displaySeq": 4600,
+                                "qtyUnit": "User",
+                                "groups": [
+                                    {
+                                        "id": "Cisco Secure Access - Essentials",
+                                        "name": "Cisco Secure Access - Essentials",
+                                        "displaySeq": 1
+                                    }
+                                ],
+                                "tiers": [],
+                                "displayGroup": true,
+                                "disabled": false,
+                                "notAllowedHybridRelated": false,
+                                "hasBfRelatedMigratedAto": false,
+                                "active": true,
+                                "cxOptIn": false,
+                                "cxHwSupportAvailable": false,
+                                "serviceAttachMandatory": true,
+                                "displayDiscount": true,
+                                "includedInEAID": false,
+                                "consentRequired": false,
+                                "incompatibleAtos": [
+                                    "E3-SEC-SECACCESS-A"
+                                ],
+                                "incompatibleSuites": [
+                                    "User & Breach Protection (Combination)",
+                                    "User Protection"
+                                ]
+                            },
+                            {
+                                "name": "Secure Web",
+                                "desc": "Secure Web",
+                                "ato": "E3-SEC-WEB",
+                                "inclusion": true,
+                                "autoSelected": true,
+                                "displaySeq": 4700,
+                                "qtyUnit": "User",
+                                "groups": [
+                                    {
+                                        "id": "Secure Web Appliance Optional License",
+                                        "name": "Secure Web Appliance Optional License",
+                                        "displaySeq": 2
+                                    },
+                                    {
+                                        "id": "Secure Web Appliance",
+                                        "name": "Secure Web Appliance",
+                                        "displaySeq": 1
+                                    },
+                                    {
+                                        "id": "Support Options",
+                                        "name": "Support Options",
+                                        "displaySeq": 3
+                                    }
+                                ],
+                                "tiers": [],
+                                "displayGroup": true,
+                                "disabled": false,
+                                "active": true,
+                                "cxOptIn": false,
+                                "cxHwSupportAvailable": true,
+                                "cxHwSupportOptional": true,
+                                "cxTierOptions": [],
+                                "displayDiscount": true,
+                                "includedInEAID": false,
+                                "consentRequired": false,
+                                "atoTierOptions": []
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Add-on Products",
+                        "desc": "Add-on Products",
+                        "displaySeq": 9000,
+                        "display": true,
+                        "suites": [
+                            {
+                                "name": "Cloudlock",
+                                "desc": "Cloudlock",
+                                "ato": "E3-SEC-CLDLK",
+                                "inclusion": true,
+                                "autoSelected": true,
+                                "displaySeq": 8700,
+                                "groups": [
+                                    {
+                                        "id": "Cloudlock Federal",
+                                        "name": "Cloudlock Federal",
+                                        "displaySeq": 2
+                                    },
+                                    {
+                                        "id": "Cloudlock",
+                                        "name": "Cloudlock",
+                                        "displaySeq": 1
+                                    }
+                                ],
+                                "tiers": [],
+                                "displayGroup": true,
+                                "disabled": false,
+                                "active": true,
+                                "cxOptIn": false,
+                                "cxHwSupportAvailable": false,
+                                "cxTierOptions": [],
+                                "serviceAttachMandatory": true,
+                                "displayDiscount": true,
+                                "includedInEAID": false,
+                                "consentRequired": false,
+                                "atoTierOptions": []
+                            },
+                            {
+                                "name": "Cisco Secure DDOS protection",
+                                "desc": "Cisco Secure DDOS protection",
+                                "ato": "E3-SEC-DDOS",
+                                "inclusion": true,
+                                "autoSelected": true,
+                                "displaySeq": 8900,
+                                "groups": [
+                                    {
+                                        "id": "Cisco Secure DDOS Protection",
+                                        "name": "Cisco Secure DDOS Protection",
+                                        "displaySeq": 1
+                                    },
+                                    {
+                                        "id": "Add Ons",
+                                        "name": "Add Ons",
+                                        "displaySeq": 2
+                                    }
+                                ],
+                                "tiers": [],
+                                "displayGroup": true,
+                                "disabled": false,
+                                "active": true,
+                                "cxOptIn": false,
+                                "cxHwSupportAvailable": false,
+                                "cxTierOptions": [],
+                                "serviceAttachMandatory": true,
+                                "displayDiscount": true,
+                                "includedInEAID": false,
+                                "consentRequired": false,
+                                "atoTierOptions": []
+                            },
+                            {
+                                "name": "Security Add-ons",
+                                "desc": "Security Add-ons",
+                                "ato": "E3-SEC-ADDONS",
+                                "inclusion": true,
+                                "autoSelected": true,
+                                "displaySeq": 8400,
+                                "groups": [
+                                    {
+                                        "id": "Cyber Vision IDS",
+                                        "name": "Cyber Vision IDS",
+                                        "displaySeq": 4
+                                    },
+                                    {
+                                        "id": "AnyConnect",
+                                        "name": "AnyConnect",
+                                        "displaySeq": 1
+                                    },
+                                    {
+                                        "id": "Cyber Vision Advantage",
+                                        "name": "Cyber Vision Advantage",
+                                        "displaySeq": 3
+                                    },
+                                    {
+                                        "id": "Support Options",
+                                        "name": "Support Options",
+                                        "displaySeq": 5
+                                    },
+                                    {
+                                        "id": "Virtual Private Cloud",
+                                        "name": "Virtual Private Cloud",
+                                        "displaySeq": 2
+                                    }
+                                ],
+                                "tiers": [],
+                                "displayGroup": true,
+                                "disabled": false,
+                                "notAllowedHybridRelated": false,
+                                "hasBfRelatedMigratedAto": false,
+                                "active": true,
+                                "cxOptIn": false,
+                                "cxHwSupportAvailable": false,
+                                "cxTierOptions": [],
+                                "displayDiscount": true,
+                                "includedInEAID": false,
+                                "consentRequired": false,
+                                "atoTierOptions": []
+                            },
+                            {
+                                "name": "Secure Malware Analytics SaaS",
+                                "desc": "Secure Malware Analytics SaaS",
+                                "ato": "E3-SEC-SMA",
+                                "inclusion": true,
+                                "autoSelected": true,
+                                "displaySeq": 8500,
+                                "groups": [
+                                    {
+                                        "id": "Secure Malware Analytics On-Prem",
+                                        "name": "Secure Malware Analytics On-Prem",
+                                        "displaySeq": 2
+                                    },
+                                    {
+                                        "id": "Secure Malware Analytics Cloud",
+                                        "name": "Secure Malware Analytics Cloud",
+                                        "displaySeq": 1
+                                    },
+                                    {
+                                        "id": "Support Options",
+                                        "name": "Support Options",
+                                        "displaySeq": 3
+                                    }
+                                ],
+                                "tiers": [],
+                                "displayGroup": true,
+                                "disabled": false,
+                                "active": true,
+                                "cxOptIn": false,
+                                "cxHwSupportAvailable": true,
+                                "cxHwSupportOptional": true,
+                                "cxTierOptions": [],
+                                "displayDiscount": true,
+                                "includedInEAID": false,
+                                "consentRequired": false,
+                                "atoTierOptions": []
+                            },
+                            {
+                                "name": "Cisco Email Threat Defense",
+                                "desc": "Cisco Email Threat Defense",
+                                "ato": "E3-SEC-ETD-ESS",
+                                "inclusion": true,
+                                "autoSelected": false,
+                                "displaySeq": 8840,
+                                "groups": [
+                                    {
+                                        "id": "Cisco Email Threat Defence",
+                                        "name": "Cisco Email Threat Defence",
+                                        "displaySeq": 1
+                                    },
+                                    {
+                                        "id": "Support Options",
+                                        "name": "Support Options",
+                                        "displaySeq": 2
+                                    }
+                                ],
+                                "tiers": [],
+                                "displayGroup": true,
+                                "disabled": false,
+                                "active": true,
+                                "cxOptIn": false,
+                                "cxHwSupportAvailable": false,
+                                "displayDiscount": true,
+                                "includedInEAID": false,
+                                "consentRequired": false,
+                                "incompatibleSuites": [
+                                    "User & Breach Protection (Combination)",
+                                    "Breach Protection",
+                                    "User Protection"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "disabled": false,
+                "includedInEAID": true,
+                "active": true,
+                "externalConfiguration": false,
+                "cxOptInAllowed": true,
+                "cxAttached": false,
+                "service": false,
+                "eamsDelivery": {
+                    "partnerDeliverySelected": false
+                },
+                "relatedServicesIncludedInEAID": true,
+                "disableRsdAndTermUpdate": false,
+                "includedInSubscription": true
+            }
+        ]
+    },
+    "buildVersion": "NOV 11-14-2021 09:53 EST RELEASE",
+    "currentDate": 1716062119205
+}

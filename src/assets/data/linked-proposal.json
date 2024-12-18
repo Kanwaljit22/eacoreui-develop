@@ -1,0 +1,28 @@
+{
+    "rid": "51afdac8-26bb-466b-b0e3-ea90c1f23f0f",
+    "error": false,
+    "data": {
+        "matching": [
+            {
+                "id": 3396,
+                "proposal_group_id": 57,
+                "ea_offer_id": 3,
+                "name": "New Test Data Center",
+                "architecture_desc": "C1_DNA",
+                "currencyCode": "USD",
+                "totalNetPrice": 0,
+                "status": "In Progress"
+            },
+            {
+                "id": 3126,
+                "proposal_group_id": 57,
+                "ea_offer_id": 2,
+                "name": "test",
+                "architecture_desc": "C1_DC",
+                "currencyCode": "USD",
+                "totalNetPrice": 51128929.46000000089406967163085938,
+                "status": "In Progress"
+            }
+        ]
+    }
+}

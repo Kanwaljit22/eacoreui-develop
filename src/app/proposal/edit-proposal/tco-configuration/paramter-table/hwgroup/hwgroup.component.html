@@ -1,0 +1,5 @@
+<div class="edit-box--input" (click)="onClick($event, params)" (clickOutside)="onClickedOutside($event, data)" [attachOutsideOnClick]=true>
+    <input [hidden]="!edited" [(ngModel)]="data" class="ag-cell-edit-input text-right" name="data" type="text" (keydown)="keyUp($event, data)" id="data">
+    <span [hidden]="edited">{{data}}</span>
+
+</div>

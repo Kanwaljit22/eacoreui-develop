@@ -1,0 +1,244 @@
+
+<div class="modal-header">
+    <h5 class="modal-title" *ngIf="CustomerInfoIdx !== 2 && CustomerInfoIdx !== 5">
+        {{localeService.getLocalizedString('docusign.EDIT_CUST_INFO')}}
+        <!--span class="info-icon">i</span-->
+    </h5>
+    <h5 class="modal-title" *ngIf="CustomerInfoIdx === 2 || CustomerInfoIdx === 5">
+        {{localeService.getLocalizedString('docusign.ADD_CUST_INFO')}}
+        <!--span class="info-icon">i</span-->
+    </h5>
+    <button type="button" class="icon-close-btn" data-dismiss="modal" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+<form [formGroup]="form">
+<div class="modal-body edit-customer--info">
+    <div class="row card border-0">
+        <div class="col-lg-12" *ngIf="CustomerInfoIdx !== 2 && CustomerInfoIdx !== 3 && CustomerInfoIdx !== 4 && CustomerInfoIdx !== 5">
+            <h4 class="title">{{localeService.getLocalizedString('qual.whoinvolved.PREFERRED_LEGAL_NAME')}} & {{localeService.getLocalizedString('qual.create.ADDRESS')}}</h4>
+            <div class="form-group txt">
+                <input maxlength="128" class="form-control" name="custPreferredName" formControlName="custPreferredName" type="text"
+                    appElementFocus id="companyName" />
+                <label for="custPreferredName" class="customer-label" (click)="focusInput('companyName')">{{localeService.getLocalizedString('modal.editwhoinvolved.COMPANY_NAME')}}
+                    <span class="important">*</span>
+                </label>
+                <div class="text-danger" *ngIf="custPreferredName.invalid && custPreferredName.touched" role="alert">
+                    <i class="icon-error-icon"></i><span>{{requiredErrorMessage}}</span>
+                </div>
+            </div>
+            
+            <div class="form-group txt">
+                <input maxlength="128" class="form-control" name="addressLine1"  type="text"
+                    appElementFocus id="companyAddressLine1" formControlName="addressLine1"/>
+                <label for="addressLine1" class="customer-label" (click)="focusInput('companyAddressLine1')">{{localeService.getLocalizedString('modal.editwhoinvolved.ADDRESS1')}}
+                    <span class="important">*</span>
+                </label>
+                <div class="text-danger" role="alert" *ngIf="addressLine1.invalid && addressLine1.touched">
+                    <i class="icon-error-icon"></i><span>{{requiredErrorMessage}}</span>
+                </div>
+            </div>
+
+            <div class="form-group txt">
+                <input maxlength="128" class="form-control" name="addressLine2" type="text"
+                    appElementFocus id="companyAddressLine2" formControlName="addressLine2"/>
+                <label for="addressLine2" class="customer-label" (click)="focusInput('companyAddressLine2')">{{localeService.getLocalizedString('modal.editwhoinvolved.ADDRESS2')}}
+                </label>
+            </div>
+
+            <div class="row">
+            
+            <div class="col-6">
+                <div class="form-group txt">
+                    <!-- <input class="form-control" name="country" formControlName="country" type="text" appElementFocus
+                                        id="companyCountry" />
+                                    <label for="country" class="customer-label"
+                                        (click)="focusInput('companyCountry')">{{localeService.getLocalizedString('modal.editwhoinvolved.COUNTRY')}}
+                                        <span class="important">*</span>
+                                    </label> -->
+            
+            
+                    <div class="custom-dropdown">
+                        <label class="customer-label"
+                            [ngClass]="{'labelClass': country.value}">{{localeService.getLocalizedString('modal.editwhoinvolved.COUNTRY')}}
+                            <sup class="import">*</sup>
+                        </label>
+                        <input *ngIf='country.disabled' class="form-control" name="country" formControlName="country" type="text"
+                            appElementFocus id="companyCountry" />
+                        <div *ngIf='!country.disabled' ngbDropdown class="select-items " #myDropCountrysearch="ngbDropdown"
+                            (click)="myDropCountrysearch.open();">
+                            <span class="dropdown--typeAhead__arrow-management text-size-regular">
+                                <button
+                                    [id]="appDataService.createUniqueId('selectedCountryTranscation',appDataService.pageContext)"
+                                    type="button" appElementFocus class="btn--text drop-button" ngbDropdownAnchor dropdownManual>
+                                    {{country.value}}</button>
+                            </span>
+                            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                                <ul>
+                                    <li class="dropdown-item" *ngFor="let cot of countryOfTransactions" (click)="onCOTChange(cot)">
+                                        {{cot.countryName}}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-danger" *ngIf="country.invalid && country.touched" role="alert">
+                        <i class="icon-error-icon"></i><span>{{requiredErrorMessage}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group txt">
+                    <div class="custom-dropdown">
+                    <input *ngIf='!stateList.length' maxlength="45" class="form-control" name="state" formControlName="state" type="text" appElementFocus
+                        id="companyState" />
+                    <label for="state" class="customer-label"
+                        (click)="focusInput('companyState')">{{localeService.getLocalizedString('modal.editwhoinvolved.STATE')}}
+                        <span class="important">*</span>
+                    </label>
+                    <div *ngIf='stateList.length' ngbDropdown class="select-items" #myDropStateSearch="ngbDropdown"
+                        (click)="myDropStateSearch.open();">
+                        <span class="dropdown--typeAhead__arrow-management text-size-regular">
+                            <button [id]="appDataService.createUniqueId('state',appDataService.pageContext)" type="button"
+                                appElementFocus class="btn--text drop-button" ngbDropdownAnchor dropdownManual>
+                                {{state.value}}</button>
+                        </span>
+                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                            <ul>
+                                <li class="dropdown-item" *ngFor="let stateObj of stateList" (click)="onStateChange(stateObj)">
+                                    {{stateObj.state}}</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="text-danger" *ngIf="state.invalid && state.touched" role="alert">
+                        <i class="icon-error-icon"></i><span>{{requiredErrorMessage}}</span>
+                    </div></div>
+                </div>
+            </div>
+
+            <div class="col-6">
+                    <div class="form-group txt">
+                        <input maxlength="45" class="form-control" name="city"  type="text" formControlName="city"
+                            appElementFocus id="companyCity" />
+                        <label for="city" class="customer-label" (click)="focusInput('companyCity')">{{localeService.getLocalizedString('modal.editwhoinvolved.CITY')}}
+                            <span class="important">*</span>
+                        </label>
+                        <div class="text-danger" *ngIf="city.invalid && city.touched" role="alert">
+                            <i class="icon-error-icon"></i><span>{{requiredErrorMessage}}</span>
+                        </div>
+                    </div>
+                </div>
+
+            <div class="col-6">
+                <div class="form-group txt">
+                    <input maxlength="45" class="form-control" name="zip" formControlName="zip" type="text"
+                        appElementFocus id="companyZip" />
+                    <label for="zip" class="customer-label" (click)="focusInput('companyZip')">{{localeService.getLocalizedString('modal.editwhoinvolved.ZIP')}}
+                        <span class="important">*</span>
+                    </label>
+                    <div class="text-danger" *ngIf="zip.invalid && zip.touched" role="alert">
+                        <i class="icon-error-icon"></i><span>{{requiredErrorMessage}}</span>
+                    </div>
+                </div>
+            </div>
+
+
+            </div>
+
+        </div>
+
+
+        <div class="col-lg-12 pt-3"  formGroupName="custRep" *ngIf="CustomerInfoIdx !== 0">
+            <h4 class="title">{{localeService.getLocalizedString('qual.whoinvolved.CUSTOMER_REPRESENTATIVE')}}</h4>
+            <!-- <div class="form-group txt">
+                <input class="form-control" name="custRepLegalName" formControlName = "custRepLegalName" type="text"
+                    appElementFocus id="prefferedLegalName" />
+                <label for="custRepLegalName" class="customer-label">{{localeService.getLocalizedString('qual.whoinvolved.PREFERRED_LEGAL_NAME')}}
+                    <span class="important">*</span>
+                </label>
+                <div role="alert" *ngIf="legalname.invalid && legalname.touched">
+                    <i class="icon-error-icon"></i>
+                    <span>{{requiredErrorMessage}}</span>
+                </div>
+            </div> -->
+            <div class="form-group txt">
+                <input maxlength="45" class="form-control" name="custRepName" formControlName="custRepName" type="text"
+                    appElementFocus id="customerNAme" (input)="nameValidation()" required/>
+                <label for="custRepName" class="customer-label"  (click)="focusInput('customerNAme')">{{localeService.getLocalizedString('qual.whoinvolved.NAME')}}
+                    <span class="important">*</span>
+                </label>
+                <div class="text-danger" role="alert" *ngIf="name.invalid && name.touched">
+                    <i class="icon-error-icon"></i><span>{{requiredErrorMessage}}</span>
+                </div>
+            </div>
+            <div class="form-group txt">
+                <input maxlength="45" class="form-control" name="custRepTitle" formControlName="custRepTitle" type="text"
+                    appElementFocus id="customerTitle"  (input)="titleValidation()" required/>
+                <label for="custRepTitle" class="customer-label" (click)="focusInput('customerTitle')">{{localeService.getLocalizedString('qual.whoinvolved.TITLE')}}
+                    <span class="important">*</span>
+                </label>
+                <div class="text-danger" role="alert" *ngIf="title.invalid && title.touched">
+                    <i class="icon-error-icon"></i><span>{{requiredErrorMessage}}</span>
+                </div>
+            </div>
+            <div class="form-group txt">
+                <input maxlength="45" class="form-control" name="custRepEmailId" formControlName="custRepEmailId" type="email"
+                    appElementFocus id="customerEmail"  (input)="emailValidation()"/>
+                <label for="custRepEmailId" class="customer-label" (click)="focusInput('customerEmail')">{{localeService.getLocalizedString('qual.whoinvolved.E_MAIL')}} (Required for DocuSign)
+                    <span class="important" *ngIf = "false">*</span>
+                </label>
+                 <div *ngIf="email.touched">
+               <div class="text-danger" role="alert" *ngIf="invalidEmail">
+                    <i class="icon-error-icon"></i><span>{{invalidEmailFormateMessage}}</span>
+                </div> 
+                <!--   <div class="text-danger" role="alert" *ngIf="email.errors?.required ">
+                    <i class="icon-error-icon"></i><span>{{requiredErrorMessage}}</span>
+                </div> -->
+                <div class="text-danger" role="alert" *ngIf="invalidDomain">
+                    <i class="icon-error-icon"></i><span>{{invalidDomainErrorMessage}}</span>
+                </div>
+                </div> 
+            </div>
+            <div>
+                <div class="form-group txt eams-tel-num" style="margin-bottom: 0;">
+                    <label class="customer-label" for="" style="font-size: 12px; top:0px!important">
+                      Phone Number <span class="important">*</span></label>
+                <form #f="ngForm" [formGroup]="phoneForm">
+                    <div class="wrapper">
+                      <ngx-intl-tel-input
+                        [cssClass]="'custom form-control contact-number w-100'"
+                        [enableAutoCountrySelect]="true"
+                        [enablePlaceholder]="false"
+                        [searchCountryFlag]="true"
+                        [searchCountryField]="[
+                          SearchCountryField.Iso2,
+                          SearchCountryField.Name
+                        ]"
+                        [selectFirstCountry]="false"
+                        [maxLength]="15"
+                        [phoneValidation]="true"
+                        [separateDialCode]="true"
+                        [numberFormat]="PhoneNumberFormat.National"
+                        name="phone" ngDefaultControl 
+                        formControlName="phone"
+                      >
+                      </ngx-intl-tel-input>
+                    </div>
+                
+                  </form></div>
+
+                  <div *ngIf="phone.invalid && phone.value" class="text-danger" role="alert">
+                    <i class="icon-error-icon"></i>
+                    <span>Please enter valid phone number.</span>
+                </div> 
+            </div> 
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss('Cross click')">{{localeService.getLocalizedString('common.CANCEL')}}</button>
+    <button *ngIf="isForLocc" type="button" class="btn btn-primary button1" [disabled]="form.invalid || invalidDomain || (this.form.pristine && phoneForm.pristine) || this.disableButton1 ||this.disableButton2 || !phone.value || phone.invalid" (click)="updateCustomerContact()">{{localeService.getLocalizedString('common.UPDATE')}}</button>
+    <button *ngIf="CustomerInfoIdx === 0 || CustomerInfoIdx === 3" type="button" class="btn btn-primary button2" [disabled]="((form.invalid || invalidDomain || invalidEmail) )  || (form.pristine && phone.untouched) || this.disableButton1 || this.disableButton2 || !phone.value || phone.invalid" (click)="updateCustomerContact()">{{localeService.getLocalizedString('common.UPDATE')}}</button>
+    <button *ngIf="CustomerInfoIdx === 4" type="button" class="btn btn-primary button3" [disabled]="((form.invalid  ||  invalidDomain || invalidEmail)) || (form.pristine && phone.untouched) || this.disableButton1 || this.disableButton2 || !phone.value || phone.invalid" (click)="updateAdditionalCustomerContact()">{{localeService.getLocalizedString('common.UPDATE')}}</button>
+    <button *ngIf="CustomerInfoIdx === 1" type="button" class="btn btn-primary button3" [disabled]="((form.invalid  ||  invalidDomain || invalidEmail)) || this.form.pristine || this.disableButton1 || this.disableButton2" (click)="updateAdditionalCustomerContact()">{{localeService.getLocalizedString('common.UPDATE')}}</button>
+    <button *ngIf="CustomerInfoIdx === 2 || CustomerInfoIdx === 5" type="button" class="btn btn-primary button4" [disabled]="invalidDomain || invalidEmail || this.disableButton1 || this.disableButton2" (click)="addAdditionalCustomerContact()">{{localeService.getLocalizedString('common.ADD')}}</button>
+</div>
+</form>

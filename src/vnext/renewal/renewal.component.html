@@ -1,0 +1,1036 @@
+<ng-container>
+    <div class="container-fluid vNext position-relative" attr.page-id="{{dataIdConstantsService.renewal_page_renewalPage}}">
+        <button type="button" attr.action-id="{{dataIdConstantsService.renewal_button_continue}}" *ngIf="(iscontinue() || proposalStoreService.proposalData.objId) && !displayEndDateMsg && !(collabSelectedList.length > 1) && !fullOverlapIds; else disableContinue"
+        (click)='createSubscription()' class="btn btn-primary absolute-button" id="{{elementIdConstantsService.PROJECT_RENEWAL_CONTINUE}}">{{'common.CONTINUE' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+    <ng-template #disableContinue>
+        <button type="button"
+            class="btn btn-primary disabled absolute-button">{{'common.CONTINUE' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+    </ng-template>
+        <h5 class="heading--h5 mt-3">{{'renewal.RENEWAL_SUBSCRIPTIONS' | localizationPipe : localizationService.localizedkeySet.size}}</h5>
+        <div class="mb-2 mt-1" *ngIf="eaService.isSpnaFlow">
+            <div class="d-flex justify-content-between align-items-center info-alert-blue bl-3">
+                <span class="d-flex align-items-center">
+                    <span class="icon-msg-Info mr-3"><span class="path1"></span><span class="path2"></span><span
+                            class="path3"></span>
+                    </span>
+                    <span class="pos-rel t-1" *ngIf="eaService.isSpnaFlow">{{'renewal.SPNA_NOT_ENABLED' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                </span>
+            </div>
+        </div>
+        <div class="row mt-2 mb-4" *ngIf="!eaService.isSpnaFlow">
+            <div class="col-12">
+                <div class="input-group">
+                    <p class="radio-heading mr-4" *ngIf="eaService.isSpnaFlow"> {{'renewal.SPNA_EXISTING_EA_SUBSCRIPTION' | localizationPipe : localizationService.localizedkeySet.size}} <sup>&nbsp;*</sup></p>
+                    <p class="radio-heading mr-4" *ngIf="!eaService.isSpnaFlow"> {{'renewal.EXISTING_EA_SUBSCRIPTION' | localizationPipe : localizationService.localizedkeySet.size}} <sup>&nbsp;*</sup></p>
+                    <div class="radio-wrapper radio-custom mr-4">
+                        <input [disabled] = 'proposalStoreService.proposalData.objId || (eaService.isSpnaFlow && eaService.features.SPNA_REL)' attr.data-id="{{dataIdConstantsService.renewal_radio_yes_existingSubscriptions}}" type="radio"(change)="showHybridOfferQna($event);" name="existingSubscriptions" id="yes" value="yes"  [checked]="(proposalStoreService.proposalData.objId || createProposalStoreService.renewalId || proposalStoreService.proposalData?.subscriptionInfo?.justification || createProposalStoreService.renewalJustification) && isHybridOfferQnaSelected">
+                        <label for="yes">
+                            <span class='custom-radio-btn'>
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                            </span>
+                            <span>{{'common.Yes' | localizationPipe : localizationService.localizedkeySet.size}}</span> 
+                        </label>
+                    </div>
+                    <div class="radio-wrapper radio-custom mr-4">
+                        <input [disabled] = 'proposalStoreService.proposalData.objId' attr.data-id="{{dataIdConstantsService.renewal_radio_no_existingSubscriptions}}" type="radio" (change)="showHybridOfferQna($event);" name="existingSubscriptions" id="no" value="no"   [checked]="(proposalStoreService.proposalData.objId && !existingSubscriptions) || (eaService.isSpnaFlow && eaService.features.SPNA_REL)">
+                        <label for="no">
+                            <span class='custom-radio-btn'>
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                            </span>
+                            <span>{{'common.No' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+           
+            <div class="col-12 mb-2 mt-1" *ngIf="isExistingSubscriptionSelected && !existingSubscriptions">
+                <div class="d-flex justify-content-between align-items-center info-alert-blue bl-3">
+                    <span class="d-flex align-items-center">
+                        <span class="icon-msg-Info mr-3"><span class="path1"></span><span class="path2"></span><span
+                                class="path3"></span>
+                        </span>
+                        <span class="pos-rel t-1" *ngIf="!eaService.isSpnaFlow">{{'renewal.EXISTING_SUBSCRIPTION_QNA_SELECTED_NO_MSG' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                        <span class="pos-rel t-1" *ngIf="eaService.isSpnaFlow">{{'renewal.EXISTING_SUBSCRIPTION_QNA_SELECTED_NO_MSG_SPNA' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                    </span>
+                </div>
+            </div>
+            
+        </div>
+    
+    
+        <!-- <div class="row mt-2 mb-4" *ngIf="existingSubscriptions">
+            <div class="col-12">
+                <div class="input-group">
+                    <p class="radio-heading mr-4">{{'renewal.QNA_FOR_HYBRID_OFFER' | localizationPipe : localizationService.localizedkeySet.size}}<sup>&nbsp;*</sup></p>
+                    <div class="radio-wrapper radio-custom mr-4">
+                        <input [disabled] = 'proposalStoreService.proposalData.objId' attr.data-id="{{dataIdConstantsService.renewal_radio_yes_hybridOfferSubsciptions}}" type="radio"(change)="selectHybridOffer($event);" name="hybridOfferSubsciptions" id="yes" value="yes"  [checked]="(proposalStoreService.proposalData.objId || createProposalStoreService.renewalId  || proposalStoreService.proposalData?.subscriptionInfo?.justification || createProposalStoreService.renewalJustification)&& hybridOfferSubsciptions">
+                        <label for="yes">
+                            <span class='custom-radio-btn'>
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                            </span>
+                            <span>{{'common.Yes' | localizationPipe : localizationService.localizedkeySet.size}}</span> 
+                        </label>
+                    </div>
+                    <div class="radio-wrapper radio-custom mr-4">
+                        <input [disabled] = 'proposalStoreService.proposalData.objId' attr.data-id="{{dataIdConstantsService.renewal_radio_no_hybridOfferSubsciptions}}" type="radio" (change)="selectHybridOffer($event);" name="hybridOfferSubsciptions" id="No" value="No"   [checked]="(proposalStoreService.proposalData.objId || createProposalStoreService.renewalId || proposalStoreService.proposalData?.subscriptionInfo?.justification || createProposalStoreService.renewalJustification) && !hybridOfferSubsciptions">
+                        <label for="No">
+                            <span class='custom-radio-btn'>
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                            </span>
+                            <span>{{'common.No' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                        </label>
+                    </div>
+                </div>
+                <p class="radio-heading mr-2 font-italic renewal-text">{{'renewal.HYBRID_OFFER_QNA_MSG' | localizationPipe : localizationService.localizedkeySet.size}}</p>
+            </div>
+            <div class="col-7 mt-4">
+                <p class="radio-heading offer-sec  font-italic ">{{'renewal.HYBRID_OFFER_QNA_DESC_MSG' | localizationPipe : localizationService.localizedkeySet.size}}</p>
+            </div>
+            
+        </div> -->
+        <!-- for oct release -->
+        <!-- <div class="row" *ngIf='projectStoreService.projectData?.scopeInfo?.returningCustomer && existingSubscriptions && isHybridOfferQnaSelected'>
+            <div class="col-12 mb-3">
+                <div class="alert alert--warning alert-dismissable">
+                    <span class="alert-icon">
+                        <span class="icon-msg-warning"><span class="path1"></span><span class="path2"></span><span
+                                class="path3"></span></span>
+                    </span>
+                    <span>{{localizationService.getLocalizedString('renewal.RENEWAL_SUPPORT_FOR_EXISTING_CUSTOMERS')}}
+                    </span>
+                </div>
+            </div>
+        </div> -->
+        <!-- for oct release -->
+        <ng-container>
+    
+        <div class="row" *ngIf="displayEndDateMsg">
+            <div class="col-12 mb-3">
+                <div class="alert alert--danger alert-dismissable mt-2">
+                    <span class="alert-icon">
+                        <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                    </span>
+                    <span>{{'renewal.SELECT_VALID_SUBSCRIPTIONS' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                </div>
+            </div>
+        </div>    
+        <!-- for oct release -->
+        <!-- <div class="row">
+            <div class="col-12 mb-3">
+                <div class="d-flex justify-content-between align-items-center info-alert-blue bl-3">
+                    <span class="d-flex align-items-center">
+                        <span class="icon-msg-Info mr-3"><span class="path1"></span><span class="path2"></span><span
+                                class="path3"></span>
+                        </span>
+                        <span class="pos-rel t-1">{{localizationService.getLocalizedString('renewal.EA_SUBSCRIPTION_ELIGIBLE_MIGRATION')}}</span>
+                    </span>
+                   
+                </div>
+            </div>
+        </div> -->
+        <!-- for oct release -->
+        
+        <div>
+            <div class="row">
+              <div class="col-12">
+                  <app-message></app-message>
+              </div>
+            </div>
+            <div *ngIf="isHybridOfferQnaSelected && eaService.features.RENEWAL_SEPT_REL" class="w-100 ">
+                <div *ngIf="!isLoccDone" class="alert alert--warning mt-1">
+                    <span class="alert-icon">
+                        <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                    </span>
+                    <span>{{'renewal.LOCC_MESSAGE' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                </div>
+                <div class="alert alert--info mt-1">
+                        <span class="alert-icon">
+                            <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                        </span>
+                        <span>{{'renewal.SUBSCRIPTIONS_NOT_SUPPORTED' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                    </div>
+                        <div class="alert alert--warning mt-2 mb-3">
+                            <span class="alert-icon">
+                                <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span
+                                        class="path3"></span></span>
+                            </span>
+                            <span>{{'renewal.SUBSCRIPTION_SELECTION_CANNOT_BE_CHANGED_MESSAGE' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                    </div>
+                    <div class="alert alert--warning mt-2 mb-3" *ngIf="selectedSubsPartnerDifferentThanDeal.length && !proposalStoreService.proposalData?.objId">
+                        <span class="alert-icon">
+                            <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span
+                                    class="path3"></span></span>
+                        </span>
+                        <span>{{'renewal.SELECTED_SUBSCRIPTION_UNDER_DIFFERENT_PARTNER_MSG' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                    </div>
+                    <ng-container *ngIf="selectedOverlapSubscriptions.length">
+                        <ng-container *ngFor="let sub of selectedOverlapSubscriptions">
+                            <div  class="alert alert--warning mt-1"  *ngIf="sub?.partiallyOverlappingSubRefIds?.length && sub.showPartialOverLapMsg">
+                                <span class="alert-icon">
+                                    <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                                </span>
+                                <span>{{'renewal.SOME_SUITES_UNDER_SELECTED_SUBSC' | localizationPipe : localizationService.localizedkeySet.size}}
+                                    {{sub.subRefId}} {{'renewal.ALREADY_EXIST_FOR' | localizationPipe : localizationService.localizedkeySet.size}} <span >{{sub.partiallyOverlappingSubRefIds.join(' ,')}}</span>
+                                    {{'renewal.WITHIN_DEFINED_CUSTOMER_SCOPE' | localizationPipe : localizationService.localizedkeySet.size}}
+                                    {{'renewal.IF_YOU_WISH_TO_CONTINUE_OVERLAP_SUITES' | localizationPipe : localizationService.localizedkeySet.size}}
+                                </span>
+                            </div>
+                            <div  class="alert alert--danger mt-1"  *ngIf="sub?.fullyOverlappingSubRefIds && sub?.fullyOverlappingSubRefIds?.length > 0 && sub.showFullOverlappingMsg">
+                                <span class="alert-icon">
+                                    <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                                </span>
+                                <span>{{'renewal.SOME_SUITES_UNDER_SELECTED_SUBSC' | localizationPipe : localizationService.localizedkeySet.size}}
+                                    {{sub.subRefId}} {{'renewal.ALREADY_EXIST_FOR' | localizationPipe : localizationService.localizedkeySet.size}} <span>{{sub?.fullyOverlappingSubRefIds.join(' ,')}}</span>
+                                    {{'renewal.WITHIN_DEFINED_CUSTOMER_SCOPE' | localizationPipe : localizationService.localizedkeySet.size}}
+                                </span>
+                            </div>
+                        </ng-container>
+                    </ng-container>
+                    <div  class="alert alert--warning mt-1"  *ngIf="showMseaWarning">
+                        <span class="alert-icon">
+                            <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                        </span>
+                        <span>
+                            {{'renewal.SUBSCRIPTION_MSEA_WARNING' | localizationPipe : localizationService.localizedkeySet.size}}
+                        </span>
+                    </div>
+                    <div *ngIf="!proposalStoreService.proposalData.objId" class="d-flex flex-row-reverse align-items-center">
+                        <div class="w-50">
+                            <app-search-subscriptions [searchedSubscriptions]="searchedSubscriptions" [displaySubscriptions]="displaySearchedSubscriptions" (addSelectedSubscription)="addSelectedSubscription($event)" (searchSubscription)="searchSubscription($event)" (toggleDisplaySubscriptions)="toggleDisplaySubscriptions($event)"></app-search-subscriptions>
+                        </div>
+                    </div>
+                <hr>
+                <app-available-subscriptions [otherSubscriptions]="otherSubscriptions" [availableSubscriptions]="renewalSubscriptions" (subscriptionChecked)="handleSubscriptionChecked($event)" (goToSubUi)="goToSubUi($event)"></app-available-subscriptions>
+            </div>
+            <!-- EA Sub to Renew -->
+            <div class="row mt-2 mb-3" *ngIf = '!proposalStoreService.proposalData.objId && isHybridOfferQnaSelected && !eaService.features.RENEWAL_SEPT_REL'>
+                <div class="col-12">
+                    <div class="outer-list">
+                        <div class="outer-list-top">
+                            <h5 class="heading--h5">{{'renewal.FIND_EA_SUBSCRIPTION' | localizationPipe : localizationService.localizedkeySet.size}} </h5>
+                            <span>{{'renewal.SEARCH_WITH_SUBSCRIPTION_ID' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                        </div>
+                        <div class="outer-list-bottom">
+                            <div class="row">
+                                <div class="col-7 pl-0 mb-2">
+                                    <div class="alert alert--warning alert-dismissable mt-2">
+                                        <span class="alert-icon">
+                                            <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span
+                                                    class="path3"></span></span>
+                                        </span>
+                                        <span>{{'renewal.SUBSCRIPTION_SELECTION_CANNOT_BE_CHANGED_MESSAGE' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-between">
+                                    <app-search-dropdown [searchDropdown]="searchDropdownArray" [searchPlaceHolder]="searchPlaceHolder" (searchSelectedDrop)="searchSubscription($event)"></app-search-dropdown>
+                            </div>
+                            <!-- No Searched Subscription found Message -->
+                            <div class="row" *ngIf="noSubscriptionFoundMsg">
+                                <div class="col-12 mb-3">
+                                    <div class="alert alert--danger alert-dismissable mt-2">
+                                        <span class="alert-icon">
+                                            <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span
+                                                    class="path3"></span></span>
+                                        </span>
+                                        <span>{{noSubscriptionFoundMsg}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" *ngIf="searchedSubscription && searchedSubscription?.hasCollab">
+                                <div class="col-12 mb-3">
+                                    <div class="alert alert--warning alert-dismissable mt-2">
+                                        <span class="alert-icon">
+                                            <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span
+                                                    class="path3"></span></span>
+                                        </span>
+                                        <span *ngIf="!hybridOfferSubsciptions">{{'renewal.SELECT_ONE_COLLAB_SUB_MSG' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                                        <span *ngIf="hybridOfferSubsciptions">{{'renewal.SELECT_ONE_COLLAB_SUB_MSG_FOR_HYBRID' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row list-style mt-3 vNext-list mx-0" *ngIf="searchedSubscription">
+                                <div class="col-12 p-0">
+                                    <div class="row list-item--name align-items-center">
+                                        <div class="col-10">
+                                            <h3 class="heading">
+                                             <!--   <label class="label-check">
+                                                    <input class="form-check-input" type="checkbox" checked>
+                                                    <span class="custom-checkbox-btn i-vNext-fonts">
+                                                        <span class="path1"></span>
+                                                        <span class="path2"></span>
+                                                        <span class="path3"></span>
+                                                    </span>
+                                                </label>-->
+                                                <a href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.renewal_link_goToSearchedSubUi}}" (click)="goToSubUi(searchedSubscription.subRefId)" id="{{elementIdConstantsService.PROJECT_RENEWAL_GO_TO_SUB_UI_WITH_SEARCHED_SUBSCRIPTION}}">{{searchedSubscription.subRefId}}</a>
+                                                <span class="heading-details"><b>{{searchedSubscription.offerType}}<span *ngIf="searchedSubscription?.ea2ArchNames && searchedSubscription?.ea2ArchNames.length">:</span></b> {{searchedSubscription.ea2ArchNames?.toString()}}</span>
+                                            </h3>
+                                        </div>
+                                        <div class="col-2 d-flex align-items-center justify-content-between">
+                                            <span class="badge badge-onetime">{{searchedSubscription.typeDesc}}</span>
+                                            <button type="button" class="btn btn-primary pull-right" attr.action-id="{{dataIdConstantsService.renewal_button_addSubscription}}" (click)="addSubscription()" *ngIf="!((searchedSubscription?.hasCollab && searchedSubscription?.typeDesc === 'On-Time' && !searchedSubscription?.renewalRule?.allowOnTimeBFMigrationnSubscription) || searchedSubscription?.renewalRule?.hasUnsupportedATO); else disableAdd" id="{{elementIdConstantsService.PROJECT_RENEWAL_ADD_SUBSCRIPTION}}">{{'common.ADD' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                                            <ng-template #disableAdd>
+                                                <button type="button" class="btn btn-primary pull-right disabled">{{'common.ADD' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                                            </ng-template>
+                                        </div>
+                                    </div>
+                                    <div class="list-item row m-0">
+                                        <div class="list-item--val col-2">
+                                            <label>{{'common.PARTNER_NAME' | localizationPipe : localizationService.localizedkeySet.size}}</label>
+                                            <h3 class="label-name">{{searchedSubscription.partnerName ? searchedSubscription.partnerName : '--'}}</h3>
+        
+                                        </div>
+                                        <!--Start Disti flow for sept release-->
+                                        <div class="list-item--val col" *ngIf='eaService.isResellerOpty || eaService.isDistiOpty'>
+                                            <label>{{'common.DISTRIBUTOR_NAME' | localizationPipe : localizationService.localizedkeySet.size}}</label>
+                                            <h3 class="label-name">{{searchedSubscription?.distiName ? searchedSubscription.distiName : '--'}}</h3>
+                                        </div> 
+                                         <!--End Disti flow for sept release-->
+                                        <div class="list-item--val col">
+                                            <label>{{'common.SAMRT_ACCOUNT' | localizationPipe : localizationService.localizedkeySet.size}}</label>
+                                            <h3 class="label-name">{{redactedSmartAccount ? ('common.REDACTED' | localizationPipe : localizationService.localizedkeySet.size) :  searchedSubscription.smartAccountName}}</h3>
+                                        </div>
+                                        <div class="list-item--val col-2">
+                                            <label>{{'renewal.SUITES_INCLUDED' | localizationPipe : localizationService.localizedkeySet.size}}</label>
+                                            <h3 class="label-name ellipsis" placement="top"
+                                            #tooltip="ngbTooltip" [ngbTooltip]="tipContent">{{searchedSubscription?.ea2Suites?.toString()}} <a href="javascript:void();"></a></h3>
+                                            <ng-template #tipContent>
+                                            <span>{{searchedSubscription?.ea2Suites?.toString()}}</span>
+                                            </ng-template>
+                                            </div>
+                                        <div class="list-item--val col">
+                                            <label>{{'common.BILLING_MODEL' | localizationPipe : localizationService.localizedkeySet.size}}</label>
+                                            <h3 class="label-name">{{searchedSubscription.billingModel}}</h3>
+                                        </div>
+                                        <div class="list-item--val col-1">
+                                            <label>{{'common.START_DATE' | localizationPipe : localizationService.localizedkeySet.size}}</label>
+                                            <h3 class="label-name">{{searchedSubscription.startDate ? (searchedSubscription.startDate | date:'dd-MMM-yyyy') : '--'}}</h3>
+                                        </div>
+                                        <div class="list-item--val col-1">
+                                            <label>{{'common.END_DATE' | localizationPipe : localizationService.localizedkeySet.size}}</label>
+                                            <h3 class="label-name">{{searchedSubscription.endDate ? (searchedSubscription.endDate | date:'dd-MMM-yyyy') : '--'}}</h3>
+                                        </div>
+                                        <div class="list-item--val col-1">
+                                            <label>{{'common.STATUS' | localizationPipe : localizationService.localizedkeySet.size}}</label>
+                                            <h3 class="label-name active" >{{searchedSubscription.statusDesc}}</h3>
+                                        </div>
+                                    </div>
+                                    <div class="row mx-0" *ngIf="searchedSubscription?.renewalRule && searchedSubscription?.renewalRule.hasUnsupportedATO">
+                                        <div class="alert alert--danger">
+                                            <span class="alert-icon">
+                                                <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                                            </span>
+                                            <span>{{'renewal.UNSUPPORTED_ATO_MSG' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="row mx-0" *ngIf="searchedSubscription?.hasCollab && searchedSubscription?.renewalRule && (searchedSubscription?.typeDesc === 'On-Time') && !searchedSubscription?.renewalRule.allowOnTimeBFMigrationnSubscription">
+                                        <div class="alert alert--danger">
+                                            <span class="alert-icon">
+                                                <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                                            </span>
+                                            <span>{{'renewal.ON_TIME_MIGRATION_MSG' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="row mx-0" *ngIf="searchedSubscription?.partnerDifferentThanDeal">
+                                        <div class="alert alert--warning"><span class="alert-icon d-flex"><span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span></span><span>{{'renewal.SUBSCRIPTION_PARTNER_DIFFERENT_THAN_DEAL' | localizationPipe : localizationService.localizedkeySet.size}}</span></div>
+                                    </div>
+                                    <div class="row mx-0" *ngIf="redactedSmartAccount">
+                                        <div class="alert alert--warning"><span class="alert-icon d-flex"><span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span></span><span>{{'renewal.REDECTED_MSG' | localizationPipe : localizationService.localizedkeySet.size}}</span></div>
+                                    </div>
+                                    <div class="row mx-0" *ngIf="searchedSubscription?.overdue">
+                                        <div class="alert alert--warning"><span class="alert-icon d-flex"><span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span></span><span>{{'renewal.OVERDUE_MSG' | localizationPipe : localizationService.localizedkeySet.size}}</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ng-container *ngIf="!eaService.features.RENEWAL_SEPT_REL">
+            <div class="row mb-3" *ngIf="!eaService.isSpnaFlow">
+                <div class="col-12 d-flex align-items-center justify-content-between">
+                    <h5 class="heading--h5 dark bold-txt"> {{'renewal.SELECT_SUBSCRIPTIONS' | localizationPipe : localizationService.localizedkeySet.size}} 
+                        <span class="i-vNext-help-filled ml-1" ngbTooltip="{{'renewal.SELECT_SUBSCRIPTIONS_TOOLTIP' | localizationPipe : localizationService.localizedkeySet.size}}" container="body"></span>
+                        </h5>
+                    <div class="select-count" *ngIf='isHybridOfferQnaSelected'>
+                        <span class="count-no">{{selectedSubRefIds.length}}</span>
+                        <span>{{'common.SELECTED' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row" *ngIf='!proposalStoreService.proposalData.objId && subscriptionsList?.length && isHybridOfferQnaSelected && !hybridOfferSubsciptions'>
+                <div class="col-12 mb-3">
+                    <div class="d-flex justify-content-between align-items-center info-alert-blue bl-3">
+                        <span class="d-flex align-items-center">
+                            <span class="icon-msg-Info mr-3"><span class="path1"></span><span class="path2"></span><span
+                                    class="path3"></span>
+                            </span>
+                            <span class="pos-rel t-1"> {{'renewal.WE_HAVE_DETECTED' | localizationPipe : localizationService.localizedkeySet.size}} {{subscriptionsList.length}} {{'renewal.ELIGIBLE_FOR_RENEWAL' | localizationPipe : localizationService.localizedkeySet.size}} </span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="row" *ngIf="showLoccWarning"> 
+                <div class="col-12 mb-3">
+                    <div class="alert alert--warning alert-dismissable">
+                        <span class="alert-icon">
+                            <span class="icon-msg-warning"><span class="path1"></span><span class="path2"></span><span
+                                    class="path3"></span></span>
+                        </span>
+                        <span>{{'renewal.VIEW_SUBSCRIPTIONS_ELIGIBLE' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+
+        <div class="row" *ngIf="selectedSubRefIds.length && collabSelectedList.length > 1"> 
+            <div class="col-12 mb-3">
+                <div class="alert alert--danger alert-dismissable mt-2">
+                    <span class="alert-icon">
+                        <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span
+                                class="path3"></span></span>
+                    </span>
+                    <span>{{'renewal.COLLAB_SELECTION_MSG_1' | localizationPipe : localizationService.localizedkeySet.size}} {{convertNumberToWords(collabSelectedList.length)}} ({{collabSelectedList.length}}) {{'renewal.COLLAB_SELECTION_MSG_2' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                </div>
+            </div>
+        </div>
+    
+        <!-- Empty Subscriptions Skelton -->
+        <ng-container *ngIf='!isHybridOfferQnaSelected'>
+        <div class="row list-style mb-3 vNext-list skelton mx-0">
+            <div class="col-12 p-0">
+                <div class="row list-item--name align-items-center">
+                    <div class="col-10">
+                        <h3 class="heading">
+                            <span class="empty-box"></span>
+                            <span class="empty-box"></span>
+                        </h3>
+                    </div>
+                    <div class="col-2">
+                        <span class="empty-box one-time"></span>
+                    </div>
+                </div>
+                <div class="list-item row m-0">
+                    <div class="list-item--val col-2">
+                        <span class="empty-box"></span>
+                        <span class="empty-box"></span>
+                    </div>
+                    <div class="list-item--val col">
+                        <span class="empty-box"></span>
+                        <span class="empty-box"></span>
+                    </div>
+                    <div class="list-item--val col-4">
+                        <span class="empty-box"></span>
+                        <span class="empty-box"></span>
+                    </div>
+                    <div class="list-item--val col">
+                        <span class="empty-box"></span>
+                        <span class="empty-box"></span>
+                    </div>
+                    <div class="list-item--val col-1">
+                        <span class="empty-box"></span>
+                        <span class="empty-box"></span>
+                    </div>
+                    <div class="list-item--val col-1">
+                        <span class="empty-box"></span>
+                        <span class="empty-box"></span>
+                    </div>
+                    <div class="list-item--val col-1">
+                        <span class="empty-box"></span>
+                        <span class="empty-box"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row list-style mb-3 vNext-list skelton mx-0">
+            <div class="col-12 p-0">
+                <div class="row list-item--name align-items-center">
+                    <div class="col-10">
+                        <h3 class="heading">
+                            <span class="empty-box"></span>
+                            <span class="empty-box"></span>
+                        </h3>
+                    </div>
+                    <div class="col-2">
+                        <span class="empty-box one-time"></span>
+                    </div>
+                </div>
+                <div class="list-item row m-0">
+                    <div class="list-item--val col-2">
+                        <span class="empty-box"></span>
+                        <span class="empty-box"></span>
+                    </div>
+                    <div class="list-item--val col">
+                        <span class="empty-box"></span>
+                        <span class="empty-box"></span>
+                    </div>
+                    <div class="list-item--val col-4">
+                        <span class="empty-box"></span>
+                        <span class="empty-box"></span>
+                    </div>
+                    <div class="list-item--val col">
+                        <span class="empty-box"></span>
+                        <span class="empty-box"></span>
+                    </div>
+                    <div class="list-item--val col-1">
+                        <span class="empty-box"></span>
+                        <span class="empty-box"></span>
+                    </div>
+                    <div class="list-item--val col-1">
+                        <span class="empty-box"></span>
+                        <span class="empty-box"></span>
+                    </div>
+                    <div class="list-item--val col-1">
+                        <span class="empty-box"></span>
+                        <span class="empty-box"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+     
+    
+        <!-- Populated Subscriptions tiles -->
+        <ng-container *ngIf='isHybridOfferQnaSelected && !eaService.features.RENEWAL_SEPT_REL'>
+        <ng-container *ngIf='subscriptionsList?.length; else noSubscriptionsList'>   
+        <div class="row list-style mb-3 vNext-list mx-0" *ngFor='let subscription of subscriptionsList; let index = index;' [ngClass]="{'list-error': subscription?.selected && subscription?.hasCollab && collabSelectedList.length > 1}">
+            <div class="col-12 p-0">
+                <div class="row list-item--name align-items-center">
+                    <div class="col-10">
+                        <h3 class="heading">
+                            <label class="label-check">
+                                <input [disabled] = 'proposalStoreService.proposalData.objId' attr.data-id="{{dataIdConstantsService.renewal_checkbox_selectSubcription}}{{index}}" class="form-check-input" (change)="selectSubcription(subscription,$event)" type="checkbox" [checked] = 'subscription.selected'>
+                                <span class="custom-checkbox-btn i-vNext-fonts">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                    <span class="path3"></span>
+                                </span>
+                            </label>
+                            <a href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.renewal_link_goToSubUi}}{{index}}" (click)="goToSubUi(subscription.subRefId)" id="{{elementIdConstantsService.PROJECT_RENEWAL_GO_TO_SUB_UI_WITH_SUBSCRIPTION}}">{{subscription.subRefId}}</a>
+                            <span class="heading-details"><b>{{subscription.offerType}}<span *ngIf="subscription?.ea2ArchNames && subscription?.ea2ArchNames.length">:</span></b> {{subscription.ea2ArchNames?.toString()}}</span>
+                        </h3>
+                    </div>
+                    <div class="col-2">
+                        <span class="badge badge-onetime">{{subscription.typeDesc}}</span>
+                    </div>
+                </div>
+                <div class="list-item row m-0">
+                    <div class="list-item--val col-2">
+                        <label>{{'common.PARTNER_NAME' | localizationPipe : localizationService.localizedkeySet.size}}</label>
+                        <h3 class="label-name ellipsis" placement="top" #partnerTooltip="ngbTooltip" ngbTooltip="{{subscription.partnerName ? subscription.partnerName : ''}}">{{subscription.partnerName ? subscription.partnerName : '--'}}</h3>
+    
+                    </div>
+                     <!--Start Disti flow for sept release-->
+                    <div class="list-item--val col" *ngIf='eaService.isResellerOpty || eaService.isDistiOpty'>
+                        <label>{{'common.DISTRIBUTOR_NAME' | localizationPipe : localizationService.localizedkeySet.size}}</label>
+                        <h3 class="label-name">{{subscription?.distiName ? subscription.distiName : '--'}}</h3>
+                    </div>
+                     <!--End Disti flow for sept release-->
+                    <div class="list-item--val col"> 
+                        <label>{{'common.SAMRT_ACCOUNT' | localizationPipe : localizationService.localizedkeySet.size}}</label>
+                        <h3 class="label-name">
+                            {{(projectStoreService.projectData.smartAccount?.smrtAccntName 
+                                && projectStoreService.projectData.smartAccount.smrtAccntName !== subscription.smartAccountName) ?  ('common.REDACTED' | localizationPipe : localizationService.localizedkeySet.size) : subscription.smartAccountName}}</h3>
+                    </div>
+                    <div class="list-item--val col-2">
+                        <label>{{'renewal.SUITES_INCLUDED' | localizationPipe : localizationService.localizedkeySet.size}}</label>
+                        <h3 class="label-name ellipsis" placement="top"
+                        #tooltip="ngbTooltip" [ngbTooltip]="tipContent">{{subscription?.ea2Suites?.toString()}} <a href="javascript:void();"></a></h3>
+                        <ng-template #tipContent>
+                        <span>{{subscription?.ea2Suites?.toString()}}</span>
+                        </ng-template>
+                        </div>
+                    <div class="list-item--val col">
+                        <label>{{'common.BILLING_MODEL' | localizationPipe : localizationService.localizedkeySet.size}}</label>
+                        <h3 class="label-name">{{subscription.billingModel ? subscription.billingModel : '--'}}</h3>
+                    </div>
+                    <div class="list-item--val col-1">
+                        <label>{{'common.START_DATE' | localizationPipe : localizationService.localizedkeySet.size}}</label>
+                        <h3 class="label-name">{{subscription.startDate ? (subscription.startDate | date:'dd-MMM-yyyy') : '--'}}</h3>
+                    </div>
+                    <div class="list-item--val col-1">
+                        <label>{{'common.END_DATE' | localizationPipe : localizationService.localizedkeySet.size}}</label>
+                        <h3 class="label-name">{{subscription.endDate ? (subscription.endDate | date:'dd-MMM-yyyy') : '--'}}</h3>
+                    </div>
+                    <div class="list-item--val col-1">
+                        <label>{{'common.STATUS' | localizationPipe : localizationService.localizedkeySet.size}}</label>
+                        <h3 class="label-name" [ngClass]="{'active' : subscription.status === 'ACTIVE', 'danger': subscription.status != 'ACTIVE'}">{{subscription.statusDesc}}</h3>
+                    </div>
+                </div>
+                <div class="row mx-0" *ngIf="subscription.typeDesc === 'Early'">
+                    <div class="alert alert--warning" [ngClass]="{'pb-10' : subscription.typeDesc === 'Early' && subscription?.partnerDifferentThanDeal}"><span class="alert-icon d-flex"><span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span></span><span>{{'renewal.SELECTED_FOR_EARLY_RENEWAL' | localizationPipe : localizationService.localizedkeySet.size}}</span></div>
+                </div>
+                <div class="row mx-0" *ngIf="subscription?.partnerDifferentThanDeal">
+                    <div class="alert alert--warning" [ngClass]="{'pt-10' : subscription.typeDesc === 'Early' && subscription?.partnerDifferentThanDeal}"><span class="alert-icon d-flex"><span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span></span><span>{{'renewal.SUBSCRIPTION_PARTNER_DIFFERENT_THAN_DEAL' | localizationPipe : localizationService.localizedkeySet.size}}</span></div>
+                </div>
+                <div class="row mx-0" *ngIf="projectStoreService.projectData.smartAccount?.smrtAccntName && projectStoreService.projectData.smartAccount.smrtAccntName !== subscription.smartAccountName">
+                    <div class="alert alert--warning"><span class="alert-icon d-flex"><span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span></span><span>{{'renewal.REDECTED_MSG' | localizationPipe : localizationService.localizedkeySet.size}}</span></div>
+                </div>
+            </div>
+        </div>
+    
+        </ng-container>
+        <ng-template #noSubscriptionsList>
+            <p class="no-record">{{'renewal.NO_SUBSCRIPTION_FOUND' | localizationPipe : localizationService.localizedkeySet.size}}</p>
+        </ng-template>
+    
+    
+    </ng-container>
+    </ng-container>
+        <!-- Non-Standard EA Renewal Subscriptions -->
+        <div class="row non-standard" *ngIf='isHybridOfferQnaSelected'>
+            <div class="col">
+                <h5 class="heading--h5 dark bold-txt">{{'renewal.NON_STANDARD_EA_RENEWAL_SUBSCRIPTION' | localizationPipe : localizationService.localizedkeySet.size}}</h5>
+                <p>{{'renewal.PLEASE_DESCRIBE_ANY_OTHER_EA' | localizationPipe : localizationService.localizedkeySet.size}}</p>
+                <small>{{'renewal.ADD_ANY_ALL_RELEVANT_INFORMATION' | localizationPipe : localizationService.localizedkeySet.size}}</small>
+                <textarea [disabled] = 'proposalStoreService.proposalData.objId' [(ngModel)] = 'justification' rows="4" cols="100" class="form-control"></textarea>
+            </div>
+        </div>
+</div>
+</ng-container>
+<!-- <ng-container *ngIf="!eaService.isFeatureEnbled">
+    <div class="container-fluid vNext position-relative">
+        <button type="button" *ngIf="(iscontinue() || proposalStoreService.proposalData.objId) && !displayEndDateMsg && !(collabSelectedList.length > 1); else disableContinue"
+            (click)='createSubscription()' class="btn btn-primary absolute-button">{{'common.CONTINUE' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+    <ng-template #disableContinue>
+        <button type="button"
+            class="btn btn-primary disabled absolute-button">{{'common.CONTINUE' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+    </ng-template>
+        <h5 class="heading--h5 mt-3">{{'renewal.RENEWAL_SUBSCRIPTIONS' | localizationPipe : localizationService.localizedkeySet.size}}</h5>
+        <div class="row mt-2 mb-4">
+            <div class="col-12">
+                <div class="input-group">
+                    <p class="radio-heading mr-2"> {{'renewal.EXISTING_EA_SUBSCRIPTION' | localizationPipe : localizationService.localizedkeySet.size}} <sup>&nbsp;*</sup></p>
+                    <div class="radio-wrapper radio-custom mr-4">
+                        <input [disabled] = 'proposalStoreService.proposalData.objId' type="radio"(change)="selectExistingSubscription($event);" name="existingSubscriptions" id="yes" value="yes"  [checked]="(proposalStoreService.proposalData.objId || createProposalStoreService.renewalId || proposalStoreService.proposalData?.subscriptionInfo?.justification || createProposalStoreService.renewalJustification)&& existingSubscriptions">
+                        <label for="yes">
+                            <span class='custom-radio-btn'>
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                            </span>
+                            <span>{{'common.Yes' | localizationPipe : localizationService.localizedkeySet.size}}</span> 
+                        </label>
+                    </div>
+                    <div class="radio-wrapper radio-custom mr-4">
+                        <input [disabled] = 'proposalStoreService.proposalData.objId' type="radio" (change)="selectExistingSubscription($event);" name="existingSubscriptions" id="no" value="no"   [checked]="proposalStoreService.proposalData.objId && !existingSubscriptions">
+                        <label for="no">
+                            <span class='custom-radio-btn'>
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                            </span>
+                            <span>{{'common.No' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+  
+        <ng-container>
+    
+        <div class="row" *ngIf="displayEndDateMsg">
+            <div class="col-12 mb-3">
+                <div class="alert alert--danger alert-dismissable mt-2">
+                    <span class="alert-icon">
+                        <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                    </span>
+                    <span>{{'renewal.SELECT_VALID_SUBSCRIPTIONS' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                </div>
+            </div>
+        </div>    
+        <div class="row" *ngIf="!proposalStoreService.proposalData.objId && !projectStoreService.projectData?.scopeInfo?.returningCustomer">
+            <div class="col-12 mb-3">
+                <div class="d-flex justify-content-between align-items-center info-alert-blue bl-3">
+                    <span class="d-flex align-items-center">
+                        <span class="icon-msg-Info mr-3"><span class="path1"></span><span class="path2"></span><span
+                                class="path3"></span>
+                        </span>
+                        <span class="pos-rel t-1">{{'renewal.EA_SUBSCRIPTION_ELIGIBLE_MIGRATION' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                    </span>
+                   
+                </div>
+            </div>
+        </div>
+        
+        <div>
+            <div class="row">
+              <div class="col-12">
+                  <app-message></app-message>
+              </div>
+            </div>
+
+
+            <div class="row mt-2 mb-3" *ngIf = '!proposalStoreService.proposalData.objId && existingSubscriptions'>
+                <div class="col-12">
+                    <div class="outer-list">
+                        <div class="outer-list-top">
+                            <h5 class="heading--h5">{{'renewal.FIND_EA_SUBSCRIPTION' | localizationPipe : localizationService.localizedkeySet.size}} </h5>
+                            <span>{{'renewal.SEARCH_WITH_SUBSCRIPTION_ID' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                        </div>
+                        <div class="outer-list-bottom">
+                            <div class="d-flex align-items-center justify-content-between">
+                                    <app-search-dropdown [searchDropdown]="searchDropdownArray" [searchPlaceHolder]="searchPlaceHolder" (searchSelectedDrop)="searchSubscription($event)"></app-search-dropdown>
+                            </div>
+                            
+                            <div class="row" *ngIf="noSubscriptionFoundMsg">
+                                <div class="col-12 mb-3">
+                                    <div class="alert alert--danger alert-dismissable mt-2">
+                                        <span class="alert-icon">
+                                            <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span
+                                                    class="path3"></span></span>
+                                        </span>
+                                        <span>{{noSubscriptionFoundMsg}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" *ngIf="searchedSubscription && searchedSubscription?.hasCollab">
+                                <div class="col-12 mb-3">
+                                    <div class="alert alert--warning alert-dismissable mt-2">
+                                        <span class="alert-icon">
+                                            <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span
+                                                    class="path3"></span></span>
+                                        </span>
+                                        <span>{{'renewal.SELECT_ONE_COLLAB_SUB_MSG' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row list-style mt-3 vNext-list mx-0" *ngIf="searchedSubscription">
+                                <div class="col-12 p-0">
+                                    <div class="row list-item--name align-items-center">
+                                        <div class="col-10">
+                                            <h3 class="heading">
+                                             
+                                                <a href="javascript:void(0);" (click)="goToSubUi(searchedSubscription.subRefId)">{{searchedSubscription.subRefId}}</a>
+                                                <span class="heading-details"><b>{{searchedSubscription.offerType}}<span *ngIf="searchedSubscription?.ea2ArchNames && searchedSubscription?.ea2ArchNames.length">:</span></b> {{searchedSubscription.ea2ArchNames?.toString()}}</span>
+                                            </h3>
+                                        </div>
+                                        <div class="col-2 d-flex align-items-center justify-content-between">
+                                            <span class="badge badge-onetime">{{searchedSubscription.typeDesc}}</span>
+                                            <button type="button" class="btn btn-primary pull-right" (click)="addSubscription()" *ngIf="!((searchedSubscription?.hasCollab && searchedSubscription?.typeDesc === 'On-Time' && !searchedSubscription?.renewalRule?.allowOnTimeBFMigrationnSubscription) || searchedSubscription?.renewalRule?.hasUnsupportedATO); else disableAdd">{{'common.ADD' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                                            <ng-template #disableAdd>
+                                                <button type="button" class="btn btn-primary pull-right disabled">{{'common.ADD' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                                            </ng-template>
+                                        </div>
+                                    </div>
+                                    <div class="list-item row m-0">
+                                        <div class="list-item--val col-2">
+                                            <label>{{'common.PARTNER_NAME' | localizationPipe : localizationService.localizedkeySet.size}}</label>
+                                            <h3 class="label-name">{{searchedSubscription.partnerName ? searchedSubscription.partnerName : '--'}}</h3>
+        
+                                        </div>
+                                        
+                                        <div class="list-item--val col" *ngIf='eaService.isResellerOpty || eaService.isDistiOpty'>
+                                            <label>{{'common.DISTRIBUTOR_NAME' | localizationPipe : localizationService.localizedkeySet.size}}</label>
+                                            <h3 class="label-name">{{searchedSubscription?.distiName ? searchedSubscription.distiName : '--'}}</h3>
+                                        </div> 
+                                        
+                                        <div class="list-item--val col">
+                                            <label>{{'common.SAMRT_ACCOUNT' | localizationPipe : localizationService.localizedkeySet.size}}</label>
+                                            <h3 class="label-name">{{redactedSmartAccount ? ('common.REDACTED' | localizationPipe : localizationService.localizedkeySet.size) :  searchedSubscription.smartAccountName}}</h3>
+                                        </div>
+                                        <div class="list-item--val col-2">
+                                            <label>{{'renewal.SUITES_INCLUDED' | localizationPipe : localizationService.localizedkeySet.size}}</label>
+                                            <h3 class="label-name ellipsis" placement="top"
+                                            #tooltip="ngbTooltip" [ngbTooltip]="tipContent">{{searchedSubscription?.ea2Suites?.toString()}} <a href="javascript:void();"></a></h3>
+                                            <ng-template #tipContent>
+                                            <span>{{searchedSubscription?.ea2Suites?.toString()}}</span>
+                                            </ng-template>
+                                            </div>
+                                        <div class="list-item--val col">
+                                            <label>{{'common.BILLING_MODEL' | localizationPipe : localizationService.localizedkeySet.size}}</label>
+                                            <h3 class="label-name">{{searchedSubscription.billingModel}}</h3>
+                                        </div>
+                                        <div class="list-item--val col-1">
+                                            <label>{{'common.START_DATE' | localizationPipe : localizationService.localizedkeySet.size}}</label>
+                                            <h3 class="label-name">{{searchedSubscription.startDate ? (searchedSubscription.startDate | date:'dd-MMM-yyyy') : '--'}}</h3>
+                                        </div>
+                                        <div class="list-item--val col-1">
+                                            <label>{{'common.END_DATE' | localizationPipe : localizationService.localizedkeySet.size}}</label>
+                                            <h3 class="label-name">{{searchedSubscription.endDate ? (searchedSubscription.endDate | date:'dd-MMM-yyyy') : '--'}}</h3>
+                                        </div>
+                                        <div class="list-item--val col-1">
+                                            <label>{{'common.STATUS' | localizationPipe : localizationService.localizedkeySet.size}}</label>
+                                            <h3 class="label-name active" >{{searchedSubscription.statusDesc}}</h3>
+                                        </div>
+                                    </div>
+                                    <div class="row mx-0" *ngIf="searchedSubscription?.renewalRule && searchedSubscription?.renewalRule.hasUnsupportedATO">
+                                        <div class="alert alert--danger">
+                                            <span class="alert-icon">
+                                                <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                                            </span>
+                                            <span>{{'renewal.UNSUPPORTED_ATO_MSG' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="row mx-0" *ngIf="searchedSubscription?.hasCollab && searchedSubscription?.renewalRule && (searchedSubscription?.typeDesc === 'On-Time') && !searchedSubscription?.renewalRule.allowOnTimeBFMigrationnSubscription">
+                                        <div class="alert alert--danger">
+                                            <span class="alert-icon">
+                                                <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                                            </span>
+                                            <span>{{'renewal.ON_TIME_MIGRATION_MSG' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="row mx-0" *ngIf="searchedSubscription?.partnerDifferentThanDeal">
+                                        <div class="alert alert--warning"><span class="alert-icon d-flex"><span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span></span><span>{{'renewal.SUBSCRIPTION_PARTNER_DIFFERENT_THAN_DEAL' | localizationPipe : localizationService.localizedkeySet.size}}</span></div>
+                                    </div>
+                                    <div class="row mx-0" *ngIf="redactedSmartAccount">
+                                        <div class="alert alert--warning"><span class="alert-icon d-flex"><span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span></span><span>{{'renewal.REDECTED_MSG' | localizationPipe : localizationService.localizedkeySet.size}}</span></div>
+                                    </div>
+                                    <div class="row mx-0" *ngIf="searchedSubscription?.overdue">
+                                        <div class="alert alert--warning"><span class="alert-icon d-flex"><span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span></span><span>{{'renewal.OVERDUE_MSG' | localizationPipe : localizationService.localizedkeySet.size}}</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-12 d-flex align-items-center justify-content-between">
+                <h5 class="heading--h5 dark bold-txt"> {{'renewal.SELECT_SUBSCRIPTIONS' | localizationPipe : localizationService.localizedkeySet.size}} 
+                    <span class="i-vNext-help-filled ml-1" ngbTooltip="{{'renewal.SELECT_SUBSCRIPTIONS_TOOLTIP' | localizationPipe : localizationService.localizedkeySet.size}}" container="body"></span>
+                    </h5>
+                <div class="select-count" *ngIf='existingSubscriptions'>
+                    <span class="count-no">{{selectedSubRefIds.length}}</span>
+                    <span>{{'common.SELECTED' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf='!proposalStoreService.proposalData.objId && subscriptionsList?.length && existingSubscriptions'>
+            <div class="col-12 mb-3">
+                <div class="d-flex justify-content-between align-items-center info-alert-blue bl-3">
+                    <span class="d-flex align-items-center">
+                        <span class="icon-msg-Info mr-3"><span class="path1"></span><span class="path2"></span><span
+                                class="path3"></span>
+                        </span>
+                        <span class="pos-rel t-1"> {{'renewal.WE_HAVE_DETECTED' | localizationPipe : localizationService.localizedkeySet.size}} {{subscriptionsList.length}} {{'renewal.ELIGIBLE_FOR_RENEWAL' | localizationPipe : localizationService.localizedkeySet.size}} </span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    
+        <div class="row" *ngIf="showLoccWarning"> 
+            <div class="col-12 mb-3">
+                <div class="alert alert--warning alert-dismissable">
+                    <span class="alert-icon">
+                        <span class="icon-msg-warning"><span class="path1"></span><span class="path2"></span><span
+                                class="path3"></span></span>
+                    </span>
+                    <span>{{'renewal.VIEW_SUBSCRIPTIONS_ELIGIBLE' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" *ngIf="selectedSubRefIds.length && collabSelectedList.length > 1"> 
+            <div class="col-12 mb-3">
+                <div class="alert alert--danger alert-dismissable mt-2">
+                    <span class="alert-icon">
+                        <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span
+                                class="path3"></span></span>
+                    </span>
+                    <span>{{'renewal.COLLAB_SELECTION_MSG_1' | localizationPipe : localizationService.localizedkeySet.size}} {{convertNumberToWords(collabSelectedList.length)}} ({{collabSelectedList.length}}) {{'renewal.COLLAB_SELECTION_MSG_2' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                </div>
+            </div>
+        </div>
+    
+       
+        <ng-container *ngIf='!existingSubscriptions'>
+        <div class="row list-style mb-3 vNext-list skelton mx-0">
+            <div class="col-12 p-0">
+                <div class="row list-item--name align-items-center">
+                    <div class="col-10">
+                        <h3 class="heading">
+                            <span class="empty-box"></span>
+                            <span class="empty-box"></span>
+                        </h3>
+                    </div>
+                    <div class="col-2">
+                        <span class="empty-box one-time"></span>
+                    </div>
+                </div>
+                <div class="list-item row m-0">
+                    <div class="list-item--val col-2">
+                        <span class="empty-box"></span>
+                        <span class="empty-box"></span>
+                    </div>
+                    <div class="list-item--val col">
+                        <span class="empty-box"></span>
+                        <span class="empty-box"></span>
+                    </div>
+                    <div class="list-item--val col-4">
+                        <span class="empty-box"></span>
+                        <span class="empty-box"></span>
+                    </div>
+                    <div class="list-item--val col">
+                        <span class="empty-box"></span>
+                        <span class="empty-box"></span>
+                    </div>
+                    <div class="list-item--val col-1">
+                        <span class="empty-box"></span>
+                        <span class="empty-box"></span>
+                    </div>
+                    <div class="list-item--val col-1">
+                        <span class="empty-box"></span>
+                        <span class="empty-box"></span>
+                    </div>
+                    <div class="list-item--val col-1">
+                        <span class="empty-box"></span>
+                        <span class="empty-box"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row list-style mb-3 vNext-list skelton mx-0">
+            <div class="col-12 p-0">
+                <div class="row list-item--name align-items-center">
+                    <div class="col-10">
+                        <h3 class="heading">
+                            <span class="empty-box"></span>
+                            <span class="empty-box"></span>
+                        </h3>
+                    </div>
+                    <div class="col-2">
+                        <span class="empty-box one-time"></span>
+                    </div>
+                </div>
+                <div class="list-item row m-0">
+                    <div class="list-item--val col-2">
+                        <span class="empty-box"></span>
+                        <span class="empty-box"></span>
+                    </div>
+                    <div class="list-item--val col">
+                        <span class="empty-box"></span>
+                        <span class="empty-box"></span>
+                    </div>
+                    <div class="list-item--val col-4">
+                        <span class="empty-box"></span>
+                        <span class="empty-box"></span>
+                    </div>
+                    <div class="list-item--val col">
+                        <span class="empty-box"></span>
+                        <span class="empty-box"></span>
+                    </div>
+                    <div class="list-item--val col-1">
+                        <span class="empty-box"></span>
+                        <span class="empty-box"></span>
+                    </div>
+                    <div class="list-item--val col-1">
+                        <span class="empty-box"></span>
+                        <span class="empty-box"></span>
+                    </div>
+                    <div class="list-item--val col-1">
+                        <span class="empty-box"></span>
+                        <span class="empty-box"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+     
+    
+        
+        <ng-container *ngIf='existingSubscriptions'>
+        <ng-container *ngIf='subscriptionsList?.length; else noSubscriptionsList'>   
+            <div class="row list-style mb-3 vNext-list mx-0" *ngFor='let subscription of subscriptionsList' [ngClass]="{'list-error': subscription?.selected && subscription?.hasCollab && collabSelectedList.length > 1}">
+                <div class="col-12 p-0">
+                    <div class="row list-item--name align-items-center">
+                        <div class="col-10">
+                            <h3 class="heading">
+                                <label class="label-check">
+                                    <input [disabled] = 'proposalStoreService.proposalData.objId' class="form-check-input" (change)="selectSubcription(subscription,$event)" type="checkbox" [checked] = 'subscription.selected'>
+                                    <span class="custom-checkbox-btn i-vNext-fonts">
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                        <span class="path3"></span>
+                                    </span>
+                                </label>
+                                <a href="javascript:void(0);" (click)="goToSubUi(subscription.subRefId)">{{subscription.subRefId}}</a>
+                                <span class="heading-details"><b>{{subscription.offerType}}<span *ngIf="subscription?.ea2ArchNames && subscription?.ea2ArchNames.length">:</span></b> {{subscription.ea2ArchNames?.toString()}}</span>
+                            </h3>
+                        </div>
+                        <div class="col-2">
+                            <span class="badge badge-onetime">{{subscription.typeDesc}}</span>
+                        </div>
+                    </div>
+                    <div class="list-item row m-0">
+                        <div class="list-item--val col-2">
+                            <label>{{'common.PARTNER_NAME' | localizationPipe : localizationService.localizedkeySet.size}}</label>
+                            <h3 class="label-name ellipsis" placement="top" #partnerTooltip="ngbTooltip" ngbTooltip="{{subscription.partnerName ? subscription.partnerName : ''}}">{{subscription.partnerName ? subscription.partnerName : '--'}}</h3>
+        
+                        </div>
+                         
+                        <div class="list-item--val col" *ngIf='eaService.isResellerOpty || eaService.isDistiOpty'>
+                            <label>{{'common.DISTRIBUTOR_NAME' | localizationPipe : localizationService.localizedkeySet.size}}</label>
+                            <h3 class="label-name">{{subscription?.distiName ? subscription.distiName : '--'}}</h3>
+                        </div>
+                         
+                        <div class="list-item--val col"> 
+                            <label>{{'common.SAMRT_ACCOUNT' | localizationPipe : localizationService.localizedkeySet.size}}</label>
+                            <h3 class="label-name">
+                                {{(projectStoreService.projectData.smartAccount?.smrtAccntName 
+                                    && projectStoreService.projectData.smartAccount.smrtAccntName !== subscription.smartAccountName) ?  ('common.REDACTED' | localizationPipe : localizationService.localizedkeySet.size) : subscription.smartAccountName}}</h3>
+                        </div>
+                        <div class="list-item--val col-2">
+                            <label>{{'renewal.SUITES_INCLUDED' | localizationPipe : localizationService.localizedkeySet.size}}</label>
+                            <h3 class="label-name ellipsis" placement="top"
+                            #tooltip="ngbTooltip" [ngbTooltip]="tipContent">{{subscription?.ea2Suites?.toString()}} <a href="javascript:void();"></a></h3>
+                            <ng-template #tipContent>
+                            <span>{{subscription?.ea2Suites?.toString()}}</span>
+                            </ng-template>
+                            </div>
+                        <div class="list-item--val col">
+                            <label>{{'common.BILLING_MODEL' | localizationPipe : localizationService.localizedkeySet.size}}</label>
+                            <h3 class="label-name">{{subscription.billingModel ? subscription.billingModel : '--'}}</h3>
+                        </div>
+                        <div class="list-item--val col-1">
+                            <label>{{'common.START_DATE' | localizationPipe : localizationService.localizedkeySet.size}}</label>
+                            <h3 class="label-name">{{subscription.startDate ? (subscription.startDate | date:'dd-MMM-yyyy') : '--'}}</h3>
+                        </div>
+                        <div class="list-item--val col-1">
+                            <label>{{'common.END_DATE' | localizationPipe : localizationService.localizedkeySet.size}}</label>
+                            <h3 class="label-name">{{subscription.endDate ? (subscription.endDate | date:'dd-MMM-yyyy') : '--'}}</h3>
+                        </div>
+                        <div class="list-item--val col-1">
+                            <label>{{'common.STATUS' | localizationPipe : localizationService.localizedkeySet.size}}</label>
+                            <h3 class="label-name" [ngClass]="{'active' : subscription.status === 'ACTIVE', 'danger': subscription.status != 'ACTIVE'}">{{subscription.statusDesc}}</h3>
+                        </div>
+                    </div>
+                    <div class="row mx-0" *ngIf="subscription.typeDesc === 'Early'">
+                        <div class="alert alert--warning" [ngClass]="{'pb-10' : subscription.typeDesc === 'Early' && subscription?.partnerDifferentThanDeal}"><span class="alert-icon d-flex"><span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span></span><span>{{'renewal.SELECTED_FOR_EARLY_RENEWAL' | localizationPipe : localizationService.localizedkeySet.size}}</span></div>
+                    </div>
+                    <div class="row mx-0" *ngIf="subscription?.partnerDifferentThanDeal">
+                        <div class="alert alert--warning" [ngClass]="{'pt-10' : subscription.typeDesc === 'Early' && subscription?.partnerDifferentThanDeal}"><span class="alert-icon d-flex"><span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span></span><span>{{'renewal.SUBSCRIPTION_PARTNER_DIFFERENT_THAN_DEAL' | localizationPipe : localizationService.localizedkeySet.size}}</span></div>
+                    </div>
+                    <div class="row mx-0" *ngIf="projectStoreService.projectData.smartAccount?.smrtAccntName && projectStoreService.projectData.smartAccount.smrtAccntName !== subscription.smartAccountName">
+                        <div class="alert alert--warning"><span class="alert-icon d-flex"><span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span></span><span>{{'renewal.REDECTED_MSG' | localizationPipe : localizationService.localizedkeySet.size}}</span></div>
+                    </div>
+                </div>
+            </div>
+    
+        </ng-container>
+        <ng-template #noSubscriptionsList>
+            <p class="no-record">{{'renewal.NO_SUBSCRIPTION_FOUND' | localizationPipe : localizationService.localizedkeySet.size}}</p>
+        </ng-template>
+    
+    
+    </ng-container>
+    </ng-container>
+        
+        <div class="row non-standard" *ngIf='existingSubscriptions'>
+            <div class="col">
+                <h5 class="heading--h5 dark bold-txt">{{'renewal.NON_STANDARD_EA_RENEWAL_SUBSCRIPTION' | localizationPipe : localizationService.localizedkeySet.size}}</h5>
+                <p>{{'renewal.PLEASE_DESCRIBE_ANY_OTHER_EA' | localizationPipe : localizationService.localizedkeySet.size}}</p>
+                <small>{{'renewal.ADD_ANY_ALL_RELEVANT_INFORMATION' | localizationPipe : localizationService.localizedkeySet.size}}</small>
+                <textarea [disabled] = 'proposalStoreService.proposalData.objId' [(ngModel)] = 'justification' rows="4" cols="100" class="form-control"></textarea>
+            </div>
+        </div>
+    </div>
+</ng-container> -->

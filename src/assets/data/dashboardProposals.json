@@ -1,0 +1,21 @@
+[
+    {
+        "id": 123,
+        "name": "Cisco One",
+        "customerName": "Microsoft",
+        "qualificationName": "Test Qualification Name New 1",
+        "partnerName":"Rajeev Kedia",
+        "partnerContact":"rkedia@cisco.com",
+        "createdBy": "Rajeev Kedia",
+        "createdByContact": "rkedia@cisco.com",
+        "eaStarteDate": "20-Mar-2018",
+        "suites": "WAN, Access Switching",
+        "totalNetPrice": 123456,
+        "term": 5,
+        "billingModel": "Annual",
+        "countryOfTransanction": "USA",
+        "dealId": 61002002,
+        "access": "Read-Write",
+        "status": "In Progress"
+    }
+]

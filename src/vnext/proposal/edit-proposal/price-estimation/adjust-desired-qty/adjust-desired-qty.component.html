@@ -1,0 +1,917 @@
+<div class="custom-flyout-overlay"></div>
+<div class="custom-flyout vNext cust-md adjust-desired-quantity" [class.dnx-suite]="(eaService.features.FIRESTORM_REL && selectedSuite.isDnxTierSuite) || showQtyForFollowOn" >
+    <div class="heading">
+        <div class="d-flex justify-content-between align-items-top mb-2">
+            <div class="heading-title">
+                <h2 class="heading--h2 d-flex align-items-center" attr.data-id="{{dataIdConstantsService.adjustDesiredQty_label_adjDesiredQtyPop}}">{{'adjust-desired-quantity.ADJUST_DESIRED_QUANTITY_FOR' | localizationPipe : localizationService.localizedkeySet.size}}&nbsp;
+                    <div class="dropdown" (clickOutside)="showSuiteDropdown = false;">
+                        <a class="mb-0 dropdown-link" href="javascript:void(0);" [ngClass]='{"disabled": updatedPidsArray.length}' attr.action-id="{{dataIdConstantsService.adjustDesiredQty_link_selectedSuite}}{{selectedSuite.ato}}"
+                            (click)="showSuiteDropdown = !showSuiteDropdown">{{selectedSuite.poolSuiteLineName ? selectedSuite.poolSuiteLineName: ('common.SELECT_SUITE' | localizationPipe : localizationService.localizedkeySet.size)}}
+                            <span class="icon-arrow-stroke ml-2"></span>
+                        </a>
+                        <ul class="dropdown-menu" [class.show]="showSuiteDropdown">
+                            <ng-container *ngFor='let suite of selectedPoolObj.childs; let index = index;'>
+                                <li *ngIf='suite.inclusion && !suite.disabled'>
+                                    <a href="javascript:void(0);" (click)="changeSuite(suite)" attr.action-id="{{dataIdConstantsService.adjustDesiredQty_link_changeSuite}}{{suite.ato}}"
+                                        class="dropdown-item">{{suite.poolSuiteLineName}}</a>
+                                </li>
+                            </ng-container>
+                        </ul>
+                    </div></h2>
+            </div>
+            <div>
+                <!-- <a class="mr-2" href="javascript:void(0)"><span class="icon-full-screen mr-0"></span></a> -->
+                <button class="icon-close-btn" (click)="close()" attr.action-id="{{dataIdConstantsService.adjustDesiredQty_button_close}}"  type="button"></button>
+            </div>
+        </div>
+
+        <!-- <div class="d-block w-100 mb-2" style="color: #626262;">
+            <div class="w-100" *ngIf='selectedSuite?.commitInfo?.threshold'><small>{{localizationService.getLocalizedString('adjust-desired-quantity.COMMIT_VALUE')}} ({{currencyCode}}): <span class="secondary-color"><span class="bold-txt">{{selectedSuite.commitNetPrice}}</span> of {{selectedSuite.commitInfo.threshold ? utilitiesService.formatValue(utilitiesService.getFloatValue(selectedSuite.commitInfo.threshold)) : '0.00'}}</span></small></div>
+            <div *ngIf='selectedSuite?.commitInfo?.qtyThreshold' class="w-100"><small>{{localizationService.getLocalizedString('adjust-desired-quantity.TOTAL_COMMIT_QUANTITY')}} <span class="secondary-color"><span class="bold-txt">{{selectedSuite.commitInfo.qtyThreshold.achieved ? selectedSuite.commitInfo.qtyThreshold.achieved : 0}}</span> of {{selectedSuite.commitInfo.qtyThreshold.required ? selectedSuite.commitInfo.qtyThreshold.required : 0}}</span></small></div>
+        </div> -->
+        <h6 class="heading--h6 mt-4 d-flex pos-rel-t4">
+            <ng-template #tipFCContent>
+                <span *ngIf='selectedSuite.commitInfo?.overrideState'> 
+                    <span *ngIf='selectedSuite.commitInfo.overrideState === "REQUESTED"'> {{'common.OVERRIDE_REQUESTED' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                    <span *ngIf='selectedSuite.commitInfo.overrideState === "APPROVED"'> {{'common.OVERRIDE_APPROVED' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                    <span *ngIf='selectedSuite.commitInfo.overrideState === "REJECTED"'> {{'common.OVERRIDE_REJECTED' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                </span>
+            </ng-template>
+            <div *ngIf="selectedSuite?.enrollmentId !== 6">
+                <small class="fully-committed committed" *ngIf='selectedSuite?.commitInfo?.committed; else PartiallyCommitted'  #tooltip="ngbTooltip" [ngbTooltip]="selectedSuite.commitInfo?.overrideState ? tipFCContent : ''" placement='top'>
+                    <span class="committed-status"><span class="i-vNext-Full-1" [ngClass]="{'i-dots' : selectedSuite?.commitInfo?.overrideState, 'orange': selectedSuite?.commitInfo?.overrideState === 'REQUESTED', 'blue': selectedSuite?.commitInfo?.overrideState === 'APPROVED', 'red': selectedSuite?.commitInfo?.overrideState === 'REJECTED'}"><span class="path1"></span><span class="path2"></span></span></span> {{'adjust-desired-quantity.FULLY_COMMITTED' | localizationPipe : localizationService.localizedkeySet.size}}                       
+                </small>
+                <ng-template #PartiallyCommitted>
+                    <ng-template #tipPCContent>
+                        <span *ngIf='selectedSuite.commitInfo?.overrideState && selectedSuite.commitInfo.overrideState === "REJECTED"'>{{'common.OVERRIDE_REJECTED' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                    </ng-template>
+                    <small class="partially-committed committed"  #tooltip="ngbTooltip" [ngbTooltip]="selectedSuite.commitInfo?.overrideState ? tipPCContent : ''" placement='top'>
+                        <span class="committed-status"><span class="i-vNext-partially-commited" [ngClass]="{'i-dots' : selectedSuite?.commitInfo?.overrideState, 'red': selectedSuite?.commitInfo?.overrideState === 'REJECTED'}"></span></span> {{'adjust-desired-quantity.PARTIALLY_COMMITTED' | localizationPipe : localizationService.localizedkeySet.size}}
+                    </small>
+                </ng-template>
+            </div>
+            <ng-container *ngIf="!eaService.isResellerLoggedIn && (!proposalStoreService.proposalData?.dealInfo?.subscriptionUpgradeDeal || (proposalStoreService.proposalData?.dealInfo?.subscriptionUpgradeDeal && eaService.features.CROSS_SUITE_MIGRATION_REL && selectedSuite?.migrated && selectedSuite?.migratedFrom?.length))">
+            <a attr.action-id="{{dataIdConstantsService.adjustDesiredQty_link_requestOverride}}{{selectedSuite?.ato}}" *ngIf="!selectedSuite?.commitInfo?.committed && !selectedSuite?.commitInfo?.overrideRequested && selectedSuite?.commitInfo?.overrideAllowed && selectedSuite?.commitInfo?.overrideEligible && !proposalStoreService.isReadOnly" href="javascript:void(0)" class="d-flex align-items-center ml-2 commit-rule" #overRidepopover="ngbPopover" [ngClass]="{'disabled': (selectedSuite?.commitInfo?.overrideEligible && !selectedSuite?.commitInfo?.overrideAllowed)}" popoverClass="ag-dropdown-wrap request-popover" [ngbPopover]="overrideTemplate" placement="bottom" container="body" [autoClose]="'outside'" triggers="manual" (click)="showPopover()">
+                {{'price-estimation.ADJUSTED_QTY_REQUEST_OVERRIDE' | localizationPipe : localizationService.localizedkeySet.size}}
+            </a>
+            <a attr.action-id="{{dataIdConstantsService.adjustDesiredQty_link_modifyOverrideRequest}}{{selectedSuite?.ato}}" *ngIf="(showModifyReq || selectedSuite?.commitInfo?.overrideRequested) && !proposalStoreService.isReadOnly" href="javascript:void(0)" class="d-flex align-items-center ml-2 commit-rule" #overRidepopover="ngbPopover" popoverClass="ag-dropdown-wrap request-popover" [ngbPopover]="overrideTemplate" placement="bottom" container="body" [autoClose]="'outside'" triggers="manual" (click)="showPopover()">
+                {{'price-estimation.ADJUSTED_QTY_VIEW_OVERRIDE_REQUEST' | localizationPipe : localizationService.localizedkeySet.size}}
+            </a>
+           </ng-container>
+            <ng-template #overrideTemplate>
+                    <div class="modal-body vNext modal-without-header">
+                        <button class="icon-close-btn" type="button" (click)="overRidepopover.close()" attr.action-id="{{dataIdConstantsService.adjustDesiredQty_button_closeOverRidepopover}}"></button>
+                        <h2>{{'price-estimation.ADJUSTED_QTY_COMMIT_OVERRIDE_REQUEST' | localizationPipe : localizationService.localizedkeySet.size}}</h2>
+                        <!-- <h5 class="text-center">Please provide a business justification for audit purposes.</h5> -->
+                        <div class="row mt-4">
+                            <div class=" col-12 form-group mt-0 mb-3" (clickOutside)="showReasonDrop = false;">
+                                <label class="form-control-placeholder top">{{'common.SELECT_A_REASON' | localizationPipe : localizationService.localizedkeySet.size}}<sup>*</sup></label>
+                                <div class="select-items dropdown my-1">
+                                    <span class="dropdown--typeAhead__arrow-management">
+                                        <button class="btn--text drop-button dropdown-toggle" type="button" attr.action-id="{{dataIdConstantsService.adjustDesiredQty_button_selectedCommitReason}}"
+                                            (click)="showReasonDrop = !showReasonDrop">{{selectedCommitReason}}</button>
+                                    </span>
+                                    <div class="dropdown-menu" [class.show]="showReasonDrop">
+                                        <ul>
+                                            <li *ngFor="let reason of reasonsArr; let index = index;" (click)="selectReason(reason)" attr.action-id="{{dataIdConstantsService.adjustDesiredQty_dropdown_selectReason}}{{index}}">
+                                                {{reason}}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="alert alert--warning">
+                                    <span class="alert-icon">
+                                        <span class="icon-msg-warning"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                                    </span>
+                                    <span>{{'price-estimation.ADJUSTED_QTY_COMMIT_OVERRIDE_REQUIRE_BUSINESS' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="justify-content-center d-flex pb-4 paddingT10 mt-3">
+                            <span class="d-flex withraw-req" *ngIf="showModifyReq || selectedSuite?.commitInfo?.overrideRequested">
+                                <a href="javascript:void(0)" class="commit-rule" (click)="withdrawRequest()" attr.action-id="{{dataIdConstantsService.adjustDesiredQty_link_withdrawRequestOverride}}{{selectedSuite?.ato}}">
+                                    {{'common.WITHDRAW_REQUEST' | localizationPipe : localizationService.localizedkeySet.size}}
+                                </a>
+                            </span>
+                            <button class="btn btn-secondary" type="button" attr.action-id="{{dataIdConstantsService.adjustDesiredQty_button_cancelOverRidePopover}}"
+                                (click)="overRidepopover.close();" id="adjustedDesiredQty_cancel">{{'common.CANCEL' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                            <button class="btn btn-primary" [disabled]="selectedCommitReason === 'Select Reason'" type="button" (click)="reqOverrideCommit()" attr.action-id="{{dataIdConstantsService.adjustDesiredQty_button_doneOverRidePopover}}">{{'common.DONE' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                        </div>
+                    </div>
+            </ng-template>
+            <!--a class="ml-2" href="javascript:void();">(How pricing works?)</a-->
+        </h6>
+
+        <div class="d-flex align-items-center" style="color: #626262;" *ngIf="selectedSuite?.enrollmentId !== 6">
+            <div *ngIf='selectedSuite?.commitInfo?.threshold && !isFireWallSuite'>
+                <small>
+                    <span class="commit-title">{{'adjust-desired-quantity.COMMIT_VALUE' | localizationPipe : localizationService.localizedkeySet.size}} ({{currencyCode}})
+                        <!-- <span class="i-vNext-help-filled" placement="right" tooltipClass="tooltip-left" ngbTooltip="{{localizationService.getLocalizedString('price-estimation.ADJUSTED_QTY_COMMIT_VALUE_TOOLTIP')}}" container="body"></span>  -->
+                    </span>
+
+                  
+                    <span  *ngIf="!eaService.isResellerLoggedIn && !proposalStoreService.proposalData?.hideCollabPartnerNetPriceInfo; else hidePrice" class="secondary-color d-block"><span class="bold-txt">{{selectedSuite.commitNetPrice}}</span> / {{selectedSuite.commitInfo.threshold ? utilitiesService.formatValue(utilitiesService.getFloatValue(selectedSuite.commitInfo.threshold)) : '0.00'}} <span *ngIf="isSecurity && !isSecurityTier0Selected && priceEstimateStoreService.selectedEnrollment?.securityTier"> ({{'common.SCU' | localizationPipe : localizationService.localizedkeySet.size}} {{priceEstimateStoreService.selectedEnrollment?.selectedTierScuRange?.min}}+)</span></span>
+                    <ng-template #hidePrice>
+                        <div class="progress">
+                            <div class="progress-bar" [ngStyle]="commitValueStyle" [ngClass]="{'full-commit': selectedSuite?.commitInfo?.committed}">
+                            </div>
+                        </div>
+                </ng-template>
+                </small>
+            </div>
+            <div *ngIf='isSecurity && isFireWallSuite'>
+                <small>
+                    <span class="commit-title">{{'adjust-desired-quantity.COMMIT_VALUE' | localizationPipe : localizationService.localizedkeySet.size}} ({{currencyCode}})
+                        <!-- <span class="i-vNext-help-filled" placement="right" tooltipClass="tooltip-left" ngbTooltip="{{localizationService.getLocalizedString('price-estimation.ADJUSTED_QTY_COMMIT_VALUE_TOOLTIP')}}" container="body"></span>  -->
+                    </span>
+                    <span  *ngIf="!eaService.isResellerLoggedIn && !proposalStoreService.proposalData?.hideCollabPartnerNetPriceInfo; else hideThreshold" class="secondary-color d-block"><span class="bold-txt">{{selectedSuite.commitNetPrice}}</span> / {{(isSecurityTier0Selected) ? localizationService.getLocalizedString('adjust-desired-quantity.NOT_APPLICABLE_ACCESS_ONLY'): selectedSuite.commitInfo.threshold ? utilitiesService.formatValue(utilitiesService.getFloatValue(selectedSuite.commitInfo.threshold)) : '0.00'}} <span *ngIf="!isSecurityTier0Selected && priceEstimateStoreService.selectedEnrollment?.securityTier"> ({{'common.SCU' | localizationPipe : localizationService.localizedkeySet.size}} {{priceEstimateStoreService.selectedEnrollment?.selectedTierScuRange?.min}}+)</span></span>
+                    <ng-template #hideThreshold>
+                        <div class="progress">
+                            <div class="progress-bar" [ngStyle]="commitValueStyle" [ngClass]="{'full-commit': selectedSuite?.commitInfo?.committed}">
+                            </div>
+                        </div>
+                    </ng-template>
+                    
+                </small>
+            </div>
+
+            <div *ngIf=' selectedSuite?.commitInfo?.ibQtyThreshold && !isSecurity && (eaService.isResellerLoggedIn || (proposalStoreService.proposalData?.hideCollabPartnerNetPriceInfo ))'>
+                <small>
+                    <span class="commit-title">{{'adjust-desired-quantity.COMMIT_VALUE' | localizationPipe : localizationService.localizedkeySet.size}} ({{currencyCode}})
+                    </span>
+                        <div class="progress">
+                            <div class="progress-bar" [ngStyle]="commitValueStyle" [ngClass]="{'full-commit': selectedSuite?.commitInfo?.committed}">
+                            </div>
+                        </div>
+                </small>
+            </div>
+            <span class="i-vNext-add mx-3" *ngIf='selectedSuite?.commitInfo?.ibQtyThreshold && !isSecurity'></span>
+            <div *ngIf='selectedSuite?.commitInfo?.ibQtyThreshold && !isSecurity'>
+                <small>
+                    <span class="commit-title">{{'price-estimation.ADJUSTED_QTY_ENTERPRISE_COVERAGE' | localizationPipe : localizationService.localizedkeySet.size}}
+                        <!-- <span class="i-vNext-help-filled" placement="right" tooltipClass="tooltip-left" ngbTooltip="{{localizationService.getLocalizedString('price-estimation.ADJUSTED_QTY_ENTERPRISE_COVERAGE_TOOLTIP')}}" container="body"></span> -->
+                    </span>
+                    <span class="primary-color d-block"><span class="bold-txt">{{selectedSuite.commitInfo?.ibQtyThreshold?.achieved ? selectedSuite.commitInfo?.ibQtyThreshold?.achieved : 0}}</span> / {{selectedSuite.commitInfo?.ibQtyThreshold?.required ? selectedSuite.commitInfo?.ibQtyThreshold?.required : 0}}</span>
+                </small>
+            </div>
+            <div *ngIf='selectedSuite?.commitInfo?.qtyThreshold'>
+                <small>
+                    <span class="commit-title">{{'adjust-desired-quantity.TOTAL_COMMIT_QUANTITY' | localizationPipe : localizationService.localizedkeySet.size}}
+                        <!-- <span class="i-vNext-help-filled" placement="right" tooltipClass="tooltip-left" ngbTooltip="{{localizationService.getLocalizedString('price-estimation.ADJUSTED_QTY_COMMIT_QUANTITY_TOOLTIP')}}" container="body"></span> -->
+                    </span>
+                    <span class="primary-color d-block"><span class="bold-txt">{{selectedSuite.commitInfo?.qtyThreshold.achieved ? selectedSuite.commitInfo.qtyThreshold.achieved : 0}}</span> / {{(isSecurity && isSecurityTier0Selected) ? localizationService.getLocalizedString('adjust-desired-quantity.NOT_APPLICABLE_ACCESS_ONLY'): selectedSuite.commitInfo.qtyThreshold.required ? selectedSuite.commitInfo.qtyThreshold.required : 0}} <span *ngIf="isSecurity && !isSecurityTier0Selected && priceEstimateStoreService.selectedEnrollment?.securityTier"> ({{'common.SCU' | localizationPipe : localizationService.localizedkeySet.size}} {{priceEstimateStoreService.selectedEnrollment?.selectedTierScuRange?.min}}+)</span></span>
+                </small>
+            </div>
+        </div>
+        <ng-template #hybridTooltip>
+                {{'adjust-desired-quantity.HYBRID_ADJ_QTY_TOOLTIP' | localizationPipe : localizationService.localizedkeySet.size}}
+            </ng-template>
+        <div class="d-flex align-items-center" *ngIf="selectedSuite?.enrollmentId === 6">
+            <small>
+                <span class="commit-title">{{'adjust-desired-quantity.ALLOWED_QTY_RANGE' | localizationPipe : localizationService.localizedkeySet.size}}<span class="i-vNext-help-filled ml-2 cursor-pointer"  #tooltip="ngbTooltip" [ngbTooltip]="hybridTooltip" placement='top'></span></span>
+                <span class="primary-color d-block">
+                    <span class="bold-txt">{{selectedSuite?.hybridParam?.qtyRange?.min}}-{{selectedSuite?.hybridParam?.qtyRange?.max}}</span>
+                    <span> {{'adjust-desired-quantity.USER_QTY_LABEL_MSG' | localizationPipe : localizationService.localizedkeySet.size}}{{priceEstimateStoreService.selectedEnrollment?.userCount}}</span>
+                </span>
+            </small>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center buttons-area">
+            <div class="d-flex">
+                <!-- <div class="dropdown" (clickOutside)="showPoolDropdown = false;">
+                    <a class="mb-0 dropdown-link" href="javascript:void(0);" [ngClass]='{"disabled": updatedPidsArray.length}'  (click)="showPoolDropdown = !showPoolDropdown">{{selectedPool}} 
+                        <span class="icon-arrow-stroke ml-2"></span>
+                    </a>
+                    <ul class="dropdown-menu" [class.show]="showPoolDropdown">
+                        <li *ngFor='let pool of poolArray'>
+                            <a href="javascript:void(0);" (click)="changePool(pool)"  class="dropdown-item">{{pool.poolSuiteLineName}}</a>
+                        </li>
+                    </ul>
+                </div>
+             -->
+            </div>
+
+            <div>
+                <button (click)='close()' id="{{elementIdConstantsService.AdjustedDesiredQty_Cancel}}" class="btn btn-secondary" attr.action-id="{{dataIdConstantsService.adjustDesiredQty_button_cancel}}">{{'common.CANCEL' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                <button  class="btn btn-secondary ml-2" [disabled]='!updatedPidsArray.length || (selectedSuite?.isDnxTierSuite && qtyLineError)' (click)='recalculatePidData()' attr.action-id="{{dataIdConstantsService.adjustDesiredQty_button_recalculate}}">{{'adjust-desired-quantity.RECALCULATE' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                <button id="{{elementIdConstantsService.AdjustedDesiredQty_Save_DONE}}" class="btn btn-primary ml-2" [disabled]='(!updatedPidsArray.length && !enableDoneButton) || (selectedSuite?.isDnxTierSuite && qtyLineError)' (click)='done()' attr.action-id="{{dataIdConstantsService.adjustDesiredQty_button_done}}">{{'adjust-desired-quantity.SAVE_DONE' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+            </div>
+        </div>
+    </div>
+    <!-- End of Heading -->
+
+    <div class="body">
+        <span class="d-flex align-items-center my-2" *ngIf="(!proposalStoreService.proposalData?.dealInfo?.subscriptionUpgradeDeal || (proposalStoreService.proposalData?.dealInfo?.subscriptionUpgradeDeal && eaService.features.CROSS_SUITE_MIGRATION_REL && selectedSuite?.migrated && selectedSuite?.migratedFrom?.length)) && !eaStoreService.isValidationUI && !proposalStoreService.isReadOnly"><a class="commit-rule" href="javascript:void(0);" (click)="redirectToCommitRulesPage()" attr.action-id="{{dataIdConstantsService.adjustDesiredQty_link_viewCommitRules}}">View Commit Rules</a><span class="i-vNext-fill ml-2"></span></span>
+        <div class="alert alert--warning" *ngIf="selectedSuite?.qualifiesForHigherScuRange">
+            <span class="alert-icon">
+                <span class="icon-msg-warning"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+            </span>
+            <span>{{'price-estimation.DESIRED_QTY_QUALIFIES_HIGHER_SCU_RANGE' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+        </div>
+        <div class="alert alert--info" *ngIf="eaService.features.FIRESTORM_REL && selectedSuite.isDnxTierSuite && !selectedSuite?.commitInfo?.committed">
+            <span class="alert-icon">
+                <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+            </span>
+            <span>{{'adjust-desired-quantity.DNX_PARTIAL_COMMIT_INFO' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+        </div>
+
+        <div class="alert alert--info" *ngIf="eaService.features.WIFI7_REL && selectedSuite?.eaSuiteType === constantsService.CISCO_NETWORKING_SOLUTION">
+            <span class="alert-icon">
+                <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+            </span>
+            <span>{{'adjust-desired-quantity.UNX_INFO_MESSAGE_FOR_BROWNFIELD_PURCHASE' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+        </div>
+
+        <ng-container *ngIf="eaService.features.SPLUNK_SUITE_REL && isSplunkSuitesSelected">
+            <div class="mb-3" *ngIf="showSplunkMessage1">
+                <div class="d-flex justify-content-between align-items-center info-alert-blue bl-3">
+                    <span class="d-flex align-items-center">
+                        <span class="icon-msg-Info mr-3"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                        <span class="pos-rel t-1">{{'common.PA_BASED_ON_SPLUNK_MESSAGE_1' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                    </span>
+                    <a href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.adjustDesiredQty_link_closeSplunkPAInfoMsg}}" (click)='showSplunkMessage1 = false;' class="lh-1"><span class="icon-close-btn"></span></a>
+                </div>
+            </div>
+
+            <div class="mb-3" *ngIf="showSplunkMessage2">
+                <div class="d-flex justify-content-between align-items-center info-alert-blue bl-3">
+                    <span class="d-flex align-items-center">
+                        <span class="icon-msg-Info mr-3"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                        <span class="pos-rel t-1">{{'common.PA_BASED_ON_SPLUNK_MESSAGE_2' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                    </span>
+                    <a href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.adjustDesiredQty_link_closeSplunkPurchaseInfoMsg}}" (click)='showSplunkMessage2 = false;' class="lh-1"><span class="icon-close-btn"></span></a>
+                </div>
+            </div>
+
+            <div class="mb-3" *ngIf="showSplunkMessage3 && (isSplunkSuiteQtyAdded || selectedSuite?.commitNetPrice)">
+                <div class="d-flex justify-content-between align-items-center info-alert-blue bl-3">
+                    <span class="d-flex align-items-center">
+                        <span class="icon-msg-Info mr-3"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                        <span class="pos-rel t-1">{{'common.ENGAGE_SPLUNK_RSM_WHEN_SPLUNK_SUITE_ADDED_TO_PROPOSAL_MESSAGE_1' | localizationPipe : localizationService.localizedkeySet.size}}<a href="mailto:clo-ea-splunk-support@cisco.com">{{'common.CISCO_SUPPORT' | localizationPipe : localizationService.localizedkeySet.size}}</a>{{'common.ENGAGE_SPLUNK_RSM_WHEN_SPLUNK_SUITE_ADDED_TO_PROPOSAL_MESSAGE_2' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                    </span>
+                    <a href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.adjustDesiredQty_link_closeSplunkEnageSupportInfoMsg}}" (click)='showSplunkMessage3 = false;' class="lh-1"><span class="icon-close-btn"></span></a>
+                </div>
+            </div>
+
+        </ng-container>
+
+        <app-message *ngIf="adjustDesiredQtyService.displayMsgForAdjDesiredQty"></app-message>
+        <app-multi-error [message] = "proposalStoreService.proposalData.message"  [identifier] = "selectedSuite.ato"> </app-multi-error>
+        <div class="row">
+            <div class="col-12" *ngIf="selectedSuite?.enrollmentId === 6 && selectedSuite?.hybridParam?.rollupQty && (selectedSuite?.hybridParam?.rollupQty >= selectedSuite?.hybridParam?.qtyRange?.min) &&  (selectedSuite?.hybridParam?.rollupQty < selectedSuite?.hybridParam?.qtyRange?.max)">
+                <div class="alert alert--info">
+                    <span class="alert-icon">
+                        <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                    </span>
+                    <span>{{'adjust-desired-quantity.INCREASE_USER_COUNT_INFO_MSG' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                </div>
+            </div>
+            <!-- <div class="col-12">
+                <div class="alert alert--danger">
+                    <span class="alert-icon">
+                        <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                    </span>
+                    <span>"Pre Net Price" should be higher than "Minimum Commit Value" to commit this suite.</span>
+                    <span class="alert-action"><a href="javascript:void(0);" class="icon-close-btn"></a></span>
+                </div>
+            </div> -->
+
+            <div class="col-12 mt-1 fixTableHead" *ngIf='displayGrid' [class.splunk-suite]="eaService.features.SPLUNK_SUITE_REL && isSplunkSuitesSelected" >
+                <table class="primary-table">
+                    <thead>
+                        <tr class="collapsable-header" *ngIf="selectedSuite?.migration">
+                            <th></th>
+                            <th></th>
+                            <th *ngIf="showQtyForFollowOn" class="text-center">
+                                <span class="icon-expanded" (click)="showOrHideTotalConsumedQty()" attr.action-id="{{dataIdConstantsService.adjustDesiredQty_icon_expandQty}}" *ngIf="showQtyForFollowOn"></span>
+                            </th>
+                            <th class="text-center" [attr.colspan]="adjustDesiredQtyService.qtyCount" [class.no-colspan]="!adjustDesiredQtyService.qtyCount">
+                              <span class="icon-contracted" (click)="showOrHideTotalConsumedQty()" attr.action-id="{{dataIdConstantsService.adjustDesiredQty_icon_collapseQty}}" *ngIf="!showQtyForFollowOn"></span>
+                              
+                            </th>
+                            <th *ngIf="isSecurity"></th>
+                            <th></th>
+                            </tr>
+                        <tr>
+                            <th rowspan="2">{{'adjust-desired-quantity.ITEM_DESCRIPTION' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                            <th rowspan="2" *ngIf="(!proposalStoreService.proposalData?.dealInfo?.subscriptionUpgradeDeal || (proposalStoreService.proposalData?.dealInfo?.subscriptionUpgradeDeal && eaService.features.CROSS_SUITE_MIGRATION_REL && selectedSuite?.migrated && selectedSuite?.migratedFrom?.length))" class="text-right" width="150px">{{'adjust-desired-quantity.QUANTITY_FOUND_2' | localizationPipe : localizationService.localizedkeySet.size}}
+                            </th>
+                            <th rowspan="2" *ngIf="((proposalStoreService.proposalData?.dealInfo?.subscriptionUpgradeDeal && !eaService.features.CROSS_SUITE_MIGRATION_REL) || (proposalStoreService.proposalData?.dealInfo?.subscriptionUpgradeDeal && eaService.features.CROSS_SUITE_MIGRATION_REL && selectedSuite?.upgraded))" class="text-right" width="150px">{{'adjust-desired-quantity.ENTITLED_QTY' | localizationPipe : localizationService.localizedkeySet.size}}
+                            </th>
+                            <th rowspan="2" *ngIf="((proposalStoreService.proposalData?.dealInfo?.subscriptionUpgradeDeal && !eaService.features.CROSS_SUITE_MIGRATION_REL) || (proposalStoreService.proposalData?.dealInfo?.subscriptionUpgradeDeal && eaService.features.CROSS_SUITE_MIGRATION_REL && selectedSuite?.upgraded))" class="text-right" width="150px">{{'adjust-desired-quantity.CONSUMPTION_QTY' | localizationPipe : localizationService.localizedkeySet.size}}
+                            </th>
+                            <th rowspan="2" class="text-right" width="150px" *ngIf="showQtyForFollowOn">{{'adjust-desired-quantity.ESTIMATED_EA_QUANTITY' | localizationPipe : localizationService.localizedkeySet.size}}
+                                <span class="i-vNext-help-filled" tooltipClass="prices-shown" container="body" ngbTooltip="{{'adjust-desired-quantity.CUSTOMER_IB_QTY' | localizationPipe : localizationService.localizedkeySet.size}}"></span>
+                            </th>
+                            <th [attr.colspan]="adjustDesiredQtyService.qtyCount" width="125px" class="text-center no-wrap" [class.no-colspan]="!adjustDesiredQtyService.qtyCount">{{'adjust-desired-quantity.DESIRED_QUANTITY_LABEL' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                            <th class="text-right no-wrap" [attr.rowspan]="(eaService.features.FIRESTORM_REL && selectedSuite.isDnxTierSuite) ? 2 : 0" *ngIf="(isSecurity && (!proposalStoreService.proposalData?.dealInfo?.subscriptionUpgradeDeal || (proposalStoreService.proposalData?.dealInfo?.subscriptionUpgradeDeal && eaService.features.CROSS_SUITE_MIGRATION_REL && selectedSuite?.migrated && selectedSuite?.migratedFrom?.length))) || (eaService.features.FIRESTORM_REL && selectedSuite.isDnxTierSuite)" width="150px">{{'adjust-desired-quantity.COMMIT_QUANTITY' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                            <th rowspan="2" class="text-right" width="135px">
+                                <div class="th-with-info" *ngIf="(!proposalStoreService.proposalData?.dealInfo?.subscriptionUpgradeDeal || (proposalStoreService.proposalData?.dealInfo?.subscriptionUpgradeDeal && eaService.features.CROSS_SUITE_MIGRATION_REL && selectedSuite?.migrated && selectedSuite?.migratedFrom?.length))">
+                                    <span class="i-vNext-help-filled" tooltipClass="prices-shown" ngbTooltip="{{'adjust-desired-quantity.COMMIT_NET_PRICE_TOOLTIP' | localizationPipe : localizationService.localizedkeySet.size}}" container="body"></span>
+                                    <span>{{'adjust-desired-quantity.COMMIT_NET_PRICE' | localizationPipe : localizationService.localizedkeySet.size}} ({{currencyCode}})</span>
+                                </div>
+                                <span *ngIf="((proposalStoreService.proposalData?.dealInfo?.subscriptionUpgradeDeal && !eaService.features.CROSS_SUITE_MIGRATION_REL) || (proposalStoreService.proposalData?.dealInfo?.subscriptionUpgradeDeal && eaService.features.CROSS_SUITE_MIGRATION_REL && selectedSuite?.upgraded))">{{'adjust-desired-quantity.UPGRADE_TCV' | localizationPipe : localizationService.localizedkeySet.size}} ({{currencyCode}})</span>
+                            </th>
+                        </tr>
+                        <tr *ngIf="!isValidationUI">
+                                <th *ngIf='adjustDesiredQtyService.display_ESSENTIAL' width="10%" class="text-right colspan-border--top colspan-border--left">
+                                    {{'common.ESSENTIAL' | localizationPipe : localizationService.localizedkeySet.size}}
+                                </th>
+                                <th *ngIf='adjustDesiredQtyService.display_ADVANTAGE' width="10%" class="text-right colspan-border--top colspan-border--left">
+                                    {{'common.ADVANTAGE' | localizationPipe : localizationService.localizedkeySet.size}}
+                                </th>
+                                <th *ngIf='adjustDesiredQtyService.display_PREMIUM' width="10%" class="text-right colspan-border--top colspan-border--left colspan-border--right">
+                                    {{'common.PREMIUM' | localizationPipe : localizationService.localizedkeySet.size}}
+                                </th>
+                                <th *ngIf='adjustDesiredQtyService.display_CONTROLLER' width="10%" class="text-right colspan-border--top colspan-border--left colspan-border--right">
+                                    {{'common.CONTROLLER' | localizationPipe : localizationService.localizedkeySet.size}}
+                                </th>
+                                <th *ngIf='adjustDesiredQtyService.display_ROUTING_HYBRID_WORKER' width="10%" class="text-right colspan-border--top colspan-border--left colspan-border--right">
+                                    {{'common.ROUTING_HYBRID_WORKER' | localizationPipe : localizationService.localizedkeySet.size}}
+                                </th>
+                               
+                                <th *ngIf='adjustDesiredQtyService.display_ENTERPRISE' width="10%" class="text-right colspan-border--top colspan-border--left colspan-border--right">
+                                    {{'adjust-desired-quantity.ENTERPRISE' | localizationPipe : localizationService.localizedkeySet.size}}
+                                </th>
+                                <th *ngIf='adjustDesiredQtyService.display_PREMIER' width="10%" class="text-right colspan-border--top colspan-border--left colspan-border--right">
+                                    {{'adjust-desired-quantity.PREMIER' | localizationPipe : localizationService.localizedkeySet.size}}
+                                </th>
+                                <th *ngIf='adjustDesiredQtyService.display_D2OPS' width="10%" class="text-right colspan-border--top colspan-border--left">
+                                    {{'adjust-desired-quantity.DAY2OPS' | localizationPipe : localizationService.localizedkeySet.size}}
+                                </th>
+                                <th *ngIf='adjustDesiredQtyService.display_PRO' width="10%" class="text-right colspan-border--top colspan-border--left colspan-border--right">
+                                    {{'adjust-desired-quantity.PRO' | localizationPipe : localizationService.localizedkeySet.size}}
+                                 </th>
+                                 <th *ngIf='adjustDesiredQtyService.display_ADVANCED' width="10%" class="text-right colspan-border--top colspan-border--left colspan-border--right">
+                                    {{'adjust-desired-quantity.ADVANCED' | localizationPipe : localizationService.localizedkeySet.size}}
+                                 </th>
+                                 <th *ngIf='adjustDesiredQtyService.display_PEAK' width="10%" class="text-right colspan-border--top colspan-border--left colspan-border--right">
+                                    {{'adjust-desired-quantity.PEAK' | localizationPipe : localizationService.localizedkeySet.size}}
+                                 </th>
+                                <th *ngIf='adjustDesiredQtyService.display_ADD_ON' width="10%" class="text-right colspan-border--top colspan-border--left colspan-border--right">
+                                    {{'adjust-desired-quantity.ADD_ON' | localizationPipe : localizationService.localizedkeySet.size}}
+                                </th>
+                            <th *ngIf='adjustDesiredQtyService.display_GENERAL && adjustDesiredQtyService.qtyCount' width="9%"
+                                class="text-right colspan-border--top colspan-border--left colspan-border--right">
+                            
+                            </th>
+                            
+                        </tr>
+                        <tr *ngIf="isValidationUI">
+                            <ng-container *ngFor="let columnType of adjustDesiredQtyService.desiredQtyColumnsData">
+                                <th *ngIf="columnType.displayVisible" width="10%" class="text-right colspan-border--top colspan-border--left">{{columnType.displayName}}</th>
+                            </ng-container>
+                            <th *ngIf='adjustDesiredQtyService.display_GENERAL && adjustDesiredQtyService.qtyCount' width="9%"
+                                class="text-right colspan-border--top colspan-border--left colspan-border--right">
+                            
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf='!selectedSuite.hasPids; else hasPids'>
+                        <tr *ngFor='let lineItem of selectedSuite.childs'>
+                            <ng-container *ngIf='lineItem.poolName === "group"; else line'>
+                                    <td><b>{{lineItem.poolSuiteLineName}}</b></td>
+                                    <td></td>
+                                    <td *ngIf="eaService.features.FIRESTORM_REL && selectedSuite.isDnxTierSuite"></td>
+                            </ng-container>
+                            <ng-template #line>
+                                <td class="d-flex justify-content-between align-items-center">
+                                    <span>{{lineItem.poolSuiteLineName}}  <span class="icon-msg-error ml-2" ngbTooltip="{{'adjust-desired-quantity.DNX_QTY_ERROR' | localizationPipe : localizationService.localizedkeySet.size}}" placement="top-left"  *ngIf="lineItem.dnxQtyError"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span></span>   <span *ngIf="priceEstimateStoreService.selectedCxEnrollment?.awaitingResponse && ((lineItem?.CX_HW_SUPPORT && !eaService.features.SPA_PID_TYPE) || (lineItem?.HW__PRODUCTS && eaService.features.SPA_PID_TYPE)) && eaService.features.FIRESTORM_REL" class="icon-reload"></span>
+                                </td>
+                                <td class="text-right" *ngIf="(!proposalStoreService.proposalData?.dealInfo?.subscriptionUpgradeDeal || (proposalStoreService.proposalData?.dealInfo?.subscriptionUpgradeDeal && eaService.features.CROSS_SUITE_MIGRATION_REL && selectedSuite?.migrated && selectedSuite?.migratedFrom?.length))"> <span *ngIf="!lineItem?.singleColumn">{{lineItem.ibQty ? lineItem.ibQty : '0'}}</span>
+                                    <span *ngIf="lineItem?.singleColumn">{{lineItem.hwSupportQty}}</span>
+                                </td>
+                                <td class="text-right" *ngIf="((proposalStoreService.proposalData?.dealInfo?.subscriptionUpgradeDeal && !eaService.features.CROSS_SUITE_MIGRATION_REL) || (proposalStoreService.proposalData?.dealInfo?.subscriptionUpgradeDeal && eaService.features.CROSS_SUITE_MIGRATION_REL && selectedSuite?.upgraded))">{{lineItem.lowerTierPidTotalQty ? lineItem.lowerTierPidTotalQty : '0'}}</td>
+                                <td class="text-right" *ngIf="showQtyForFollowOn || ((proposalStoreService.proposalData?.dealInfo?.subscriptionUpgradeDeal && !eaService.features.CROSS_SUITE_MIGRATION_REL) || (proposalStoreService.proposalData?.dealInfo?.subscriptionUpgradeDeal && eaService.features.CROSS_SUITE_MIGRATION_REL && selectedSuite?.upgraded))">{{lineItem.totalConsumedQty}}</td>
+                            </ng-template>
+                            
+                            <ng-container *ngIf="!isValidationUI; else validationUiColumnData">
+                                <td class="text-right" *ngIf='adjustDesiredQtyService.display_ESSENTIAL'>
+                                    <!-- HTML for multi-error scenario -->
+                                    <a href="javascript:void(0)" attr.action-id="{{dataIdConstantsService.adjustDesiredQty_link_essentialErrorPopOver}}{{lineItem.id}}" #popover="ngbPopover"  *ngIf="lineItem.error && lineItem.ESSENTIAL" popoverClass="ag-dropdown-wrap hover-navigator" [ngbPopover]="errorTemplate" placement="bottom" container="body" [outsideClick]="true" triggers="manual" (click)="popover.open();">
+                                        <span class="icon-msg-error" ><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                                    </a>
+                                    <ng-template #errorTemplate>
+                                        <div class="error-list alert-error alert-left position-absolute">
+                                            <div class="alert-head">{{'common.SHOWING' | localizationPipe : localizationService.localizedkeySet.size}}{{lineItem.arrayOfErrorMessages.length}} {{'common.ERRORS_OF' | localizationPipe : localizationService.localizedkeySet.size}} {{lineItem.arrayOfErrorMessages.length}}</div>
+                                            <div class="overflow-hidden">
+                                                <div class="alert alert--danger" *ngFor="let message of lineItem.arrayOfErrorMessages">
+                                                    <span class="alert-icon">
+                                                        <span class="icon-msg-error" ><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                                                    </span>
+                                                    <span  [innerHTML]="message | vnextStringToHtml"></span>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="more-errors"><a href="javascript:void(0);">Show more<span
+                                                        class="i-vNext-arrow-down-heavy"></span></a></div> -->
+                                        </div>
+                                    </ng-template>
+                                    <input *ngIf='lineItem.ESSENTIAL; else noEssential' (paste)="onPaste($event)"  attr.data-id="{{dataIdConstantsService.adjustDesiredQty_number_qtyUpdateEssential}}{{lineItem.id}}" (keydown)="checkUpdatedQty($event)"  [ngClass]="{'form-error': lineItem.error && lineItem.ESSENTIAL, 'disabled': proposalStoreService.isReadOnly}"  class="form-control" type="number" (blur)='updateQty(lineItem, "ESSENTIAL")'  [ngModel]='lineItem.ESSENTIAL' (ngModelChange)="onChange($event)">
+                                    <ng-template #noEssential>
+                                        <span> {{lineItem.poolName === "group" ? '' : '--'}} </span>
+                                    </ng-template>
+                                </td>
+                                <td class="text-right" *ngIf='adjustDesiredQtyService.display_ADVANTAGE'>
+                                    <!-- HTML for multi-error scenario -->
+                                    <a href="javascript:void(0)" attr.action-id="{{dataIdConstantsService.adjustDesiredQty_link_advantageErrorPopOver}}{{lineItem.id}}" #popover="ngbPopover"  *ngIf="lineItem.error && lineItem.ADVANTAGE" popoverClass="ag-dropdown-wrap hover-navigator" [ngbPopover]="errorTemplate" placement="bottom" container="body" [outsideClick]="true" triggers="manual" (click)="popover.open();">
+                                        <span class="icon-msg-error" ><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                                    </a>
+                                    <ng-template #errorTemplate>
+                                        <div class="vNext error-list alert-error alert-left position-absolute">
+                                            <div class="alert-head">{{'common.SHOWING' | localizationPipe : localizationService.localizedkeySet.size}}{{lineItem.arrayOfErrorMessages.length}} {{'common.ERRORS_OF' | localizationPipe : localizationService.localizedkeySet.size}} {{lineItem.arrayOfErrorMessages.length}}</div>
+                                            <div class="overflow-hidden">
+                                                <div class="alert alert--danger" *ngFor="let message of lineItem.arrayOfErrorMessages">
+                                                    <span class="alert-icon">
+                                                        <span class="icon-msg-error" ><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                                                    </span>
+                                                    <span  [innerHTML]="message | vnextStringToHtml"></span>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="more-errors"><a href="javascript:void(0);">Show more<span
+                                                        class="i-vNext-arrow-down-heavy"></span></a></div> -->
+                                        </div>
+                                    </ng-template>
+                                    <input *ngIf='lineItem.ADVANTAGE; else noAdvantage' (paste)="onPaste($event)"  attr.data-id="{{dataIdConstantsService.adjustDesiredQty_number_qtyUpdateAdvantage}}{{lineItem.id}}" (keydown)="checkUpdatedQty($event)"  [ngClass]="{'form-error': lineItem.error && lineItem.ADVANTAGE, 'disabled': proposalStoreService.isReadOnly}"  class="form-control" type="number" (blur)='updateQty(lineItem, "ADVANTAGE")'  [ngModel]='lineItem.ADVANTAGE' (ngModelChange)="onChange($event)">
+                                    <ng-template #noAdvantage>
+                                        <span> {{lineItem.poolName === "group" ? '' : '--'}} </span>
+                                    </ng-template>
+                                </td>
+    
+                                <td class="text-right" *ngIf='adjustDesiredQtyService.display_PREMIUM'>
+                                    <a href="javascript:void(0)" attr.action-id="{{dataIdConstantsService.adjustDesiredQty_link_premiumErrorPopOver}}{{lineItem.id}}" #popover="ngbPopover"  *ngIf="lineItem.error && lineItem.PREMIUM" popoverClass="ag-dropdown-wrap hover-navigator" [ngbPopover]="errorTemplate" placement="bottom" container="body" [outsideClick]="true" triggers="manual" (click)="popover.open();">
+                                        <span class="icon-msg-error" ><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                                    </a>
+                                    <ng-template #errorTemplate>
+                                        <div class="error-list alert-error alert-left position-absolute">
+                                            <div class="alert-head">{{'common.SHOWING' | localizationPipe : localizationService.localizedkeySet.size}}{{lineItem.arrayOfErrorMessages.length}} {{'common.ERRORS_OF' | localizationPipe : localizationService.localizedkeySet.size}} {{lineItem.arrayOfErrorMessages.length}}</div>
+                                            <div class="overflow-hidden">
+                                                <div class="alert alert--danger" *ngFor="let message of lineItem.arrayOfErrorMessages">
+                                                    <span class="alert-icon">
+                                                        <span class="icon-msg-error" ><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                                                    </span>
+                                                    <span  [innerHTML]="message | vnextStringToHtml"></span>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="more-errors"><a href="javascript:void(0);">Show more<span
+                                                        class="i-vNext-arrow-down-heavy"></span></a></div> -->
+                                        </div>
+                                    </ng-template>
+                                    <input *ngIf='lineItem.PREMIUM; else noPremium' attr.data-id="{{dataIdConstantsService.adjustDesiredQty_number_qtyUpdatePremium}}{{lineItem.id}}" (paste)="onPaste($event)"  (keydown)="checkUpdatedQty($event)" class="form-control"  [ngClass]="{'form-error': lineItem.error && lineItem.PREMIUM, 'disabled': proposalStoreService.isReadOnly}"  type="number" (blur)='updateQty(lineItem, "PREMIUM")' [ngModel]='lineItem.PREMIUM' (ngModelChange)="onChange($event)">
+                                    
+                                    <ng-template #noPremium>
+                                            <span> {{lineItem.poolName === "group" ? '' : '--'}} </span>
+                                    </ng-template>
+                                </td>
+    
+                                <td class="text-right" *ngIf='adjustDesiredQtyService.display_CONTROLLER'>
+                                    <a href="javascript:void(0)" #controllerPopover="ngbPopover"  *ngIf="lineItem.error && lineItem.CONTROLLER" attr.action-id="{{dataIdConstantsService.adjustDesiredQty_link_controllerErrorPopOver}}{{lineItem.id}}" popoverClass="ag-dropdown-wrap hover-navigator" [ngbPopover]="controllerErrorTemplate" placement="bottom" container="body" [outsideClick]="true" triggers="manual" (click)="controllerPopover.open();">
+                                        <span class="icon-msg-error" ><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                                    </a>
+                                    <ng-template #controllerErrorTemplate>
+                                        <div class="error-list alert-error alert-left position-absolute">
+                                            <div class="alert-head">{{'common.SHOWING' | localizationPipe : localizationService.localizedkeySet.size}}{{lineItem.arrayOfErrorMessages.length}} {{'common.ERRORS_OF' | localizationPipe : localizationService.localizedkeySet.size}} {{lineItem.arrayOfErrorMessages.length}}</div>
+                                            <div class="overflow-hidden">
+                                                <div class="alert alert--danger" *ngFor="let message of lineItem.arrayOfErrorMessages">
+                                                    <span class="alert-icon">
+                                                        <span class="icon-msg-error" ><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                                                    </span>
+                                                    <span  [innerHTML]="message | vnextStringToHtml"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ng-template>
+                                    <input *ngIf='lineItem.CONTROLLER; else noControler' attr.data-id="{{dataIdConstantsService.adjustDesiredQty_number_qtyUpdateController}}{{lineItem.id}}" (keydown)="checkUpdatedQty($event)" class="form-control"  [ngClass]="{'form-error': lineItem.error && lineItem.CONTROLLER, 'disabled': proposalStoreService.isReadOnly}"  type="number" (blur)='updateQty(lineItem, "CONTROLLER")' [ngModel]='lineItem.CONTROLLER' (ngModelChange)="onChange($event)">
+                                    
+                                    <ng-template #noControler>
+                                            <span> {{lineItem.poolName === "group" ? '' : '--'}} </span>
+                                    </ng-template>
+                                </td>
+    
+                                <td class="text-right" *ngIf='adjustDesiredQtyService.display_ROUTING_HYBRID_WORKER'>
+                                    <a href="javascript:void(0)" #routingHybridWorkerPopover="ngbPopover"  *ngIf="lineItem.error && lineItem.ROUTING_HYBRID_WORKER" attr.action-id="{{dataIdConstantsService.adjustDesiredQty_link_routingHybridWorker}}{{lineItem.id}}" popoverClass="ag-dropdown-wrap hover-navigator" [ngbPopover]="routingHybridWorkerErrorTemplate" placement="bottom" container="body" [outsideClick]="true" triggers="manual" (click)="routingHybridWorkerPopover.open();">
+                                        <span class="icon-msg-error" ><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                                    </a>
+                                    <ng-template #routingHybridWorkerErrorTemplate>
+                                        <div class="error-list alert-error alert-left position-absolute">
+                                            <div class="alert-head">{{'common.SHOWING' | localizationPipe : localizationService.localizedkeySet.size}}{{lineItem.arrayOfErrorMessages.length}} {{'common.ERRORS_OF' | localizationPipe : localizationService.localizedkeySet.size}} {{lineItem.arrayOfErrorMessages.length}}</div>
+                                            <div class="overflow-hidden">
+                                                <div class="alert alert--danger" *ngFor="let message of lineItem.arrayOfErrorMessages">
+                                                    <span class="alert-icon">
+                                                        <span class="icon-msg-error" ><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                                                    </span>
+                                                    <span  [innerHTML]="message | vnextStringToHtml"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ng-template>
+                                    <input *ngIf='lineItem.ROUTING_HYBRID_WORKER; else noRoutingHybridWorker' attr.data-id="{{dataIdConstantsService.adjustDesiredQty_number_qtyUpdateRoutingHybridWorkerErrorPopOver}}{{lineItem.id}}" (keydown)="checkUpdatedQty($event)" class="form-control"  [ngClass]="{'form-error': lineItem.error && lineItem.ROUTING_HYBRID_WORKER, 'disabled': proposalStoreService.isReadOnly}"  type="number" (blur)='updateQty(lineItem, "ROUTING_HYBRID_WORKER")' [ngModel]='lineItem.ROUTING_HYBRID_WORKER' (ngModelChange)="onChange($event)">
+                                    
+                                    <ng-template #noRoutingHybridWorker>
+                                            <span> {{lineItem.poolName === "group" ? '' : '--'}} </span>
+                                    </ng-template>
+                                </td>
+    
+    
+                                <td class="text-right" *ngIf='adjustDesiredQtyService.display_ENTERPRISE'>
+                                    <a href="javascript:void(0)" attr.action-id="{{dataIdConstantsService.adjustDesiredQty_link_enterpriseErrorPopOver}}{{lineItem.id}}" #popover="ngbPopover"  *ngIf="lineItem.error && lineItem.ENTERPRISE" popoverClass="ag-dropdown-wrap hover-navigator" [ngbPopover]="errorTemplate" placement="bottom" container="body" [outsideClick]="true" triggers="manual" (click)="popover.open();">
+                                        <span class="icon-msg-error" ><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                                    </a>
+                                    <ng-template #errorTemplate>
+                                        <div class="error-list alert-error alert-left position-absolute">
+                                            <div class="alert-head">{{'common.SHOWING' | localizationPipe : localizationService.localizedkeySet.size}}{{lineItem.arrayOfErrorMessages.length}} {{'common.ERRORS_OF' | localizationPipe : localizationService.localizedkeySet.size}} {{lineItem.arrayOfErrorMessages.length}}</div>
+                                            <div class="overflow-hidden">
+                                                <div class="alert alert--danger" *ngFor="let message of lineItem.arrayOfErrorMessages">
+                                                    <span class="alert-icon">
+                                                        <span class="icon-msg-error" ><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                                                    </span>
+                                                    <span  [innerHTML]="message | vnextStringToHtml"></span>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="more-errors"><a href="javascript:void(0);">Show more<span
+                                                        class="i-vNext-arrow-down-heavy"></span></a></div> -->
+                                        </div>
+                                    </ng-template>
+                                    <input *ngIf='lineItem.ENTERPRISE; else noEnterprise' (paste)="onPaste($event)"  attr.data-id="{{dataIdConstantsService.adjustDesiredQty_number_qtyUpdateEnterprise}}{{lineItem.id}}" (keydown)="checkUpdatedQty($event)"  [ngClass]="{'form-error': lineItem.error && lineItem.ENTERPRISE, 'disabled': proposalStoreService.isReadOnly}"  class="form-control" type="number" (blur)='updateQty(lineItem, "ENTERPRISE")' [ngModel]='lineItem.ENTERPRISE' (ngModelChange)="onChange($event)">
+                                    
+                                    <ng-template #noEnterprise>
+                                            <span> {{lineItem.poolName === "group" ? '' : '--'}} </span>
+                                    </ng-template>
+                                </td>
+                                <td class="text-right" *ngIf='adjustDesiredQtyService.display_PREMIER'>
+                                    <a href="javascript:void(0)" attr.action-id="{{dataIdConstantsService.adjustDesiredQty_link_premierErrorPopOver}}{{lineItem.id}}" #popover="ngbPopover"  *ngIf="lineItem.error && lineItem.PREMIER" popoverClass="ag-dropdown-wrap hover-navigator" [ngbPopover]="errorTemplate" placement="bottom" container="body" [outsideClick]="true" triggers="manual" (click)="popover.open();">
+                                        <span class="icon-msg-error" ><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                                    </a>
+                                    <ng-template #errorTemplate>
+                                        <div class="error-list alert-error alert-left position-absolute">
+                                            <div class="alert-head">{{'common.SHOWING' | localizationPipe : localizationService.localizedkeySet.size}}{{lineItem.arrayOfErrorMessages.length}} {{'common.ERRORS_OF' | localizationPipe : localizationService.localizedkeySet.size}} {{lineItem.arrayOfErrorMessages.length}}</div>
+                                            <div class="overflow-hidden">
+                                                <div class="alert alert--danger" *ngFor="let message of lineItem.arrayOfErrorMessages">
+                                                    <span class="alert-icon">
+                                                        <span class="icon-msg-error" ><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                                                    </span>
+                                                    <span  [innerHTML]="message | vnextStringToHtml"></span>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="more-errors"><a href="javascript:void(0);">Show more<span
+                                                        class="i-vNext-arrow-down-heavy"></span></a></div> -->
+                                        </div>
+                                    </ng-template>
+                                    <input *ngIf='lineItem.PREMIER; else noPrimier' (paste)="onPaste($event)"  attr.data-id="{{dataIdConstantsService.adjustDesiredQty_number_qtyUpdatePremier}}{{lineItem.id}}" (keydown)="checkUpdatedQty($event)" class="form-control"  [ngClass]="{'form-error': lineItem.error && lineItem.PREMIER, 'disabled': proposalStoreService.isReadOnly}"  type="number" (blur)='updateQty(lineItem, "PREMIER")' [ngModel]='lineItem.PREMIER' (ngModelChange)="onChange($event)">
+                                    
+                                    <ng-template #noPrimier>
+                                            <span> {{lineItem.poolName === "group" ? '' : '--'}} </span>
+                                    </ng-template>
+                                </td>
+                                <td class="text-right" *ngIf='adjustDesiredQtyService.display_D2OPS'>
+                                    <a href="javascript:void(0)" attr.action-id="{{dataIdConstantsService.adjustDesiredQty_link_d2OpsErrorPopOver}}{{lineItem.id}}" #popover="ngbPopover"  *ngIf="lineItem.error && lineItem.D2OPS" popoverClass="ag-dropdown-wrap hover-navigator" [ngbPopover]="errorTemplate" placement="bottom" container="body" [outsideClick]="true" triggers="manual" (click)="popover.open();">
+                                        <span class="icon-msg-error" ><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                                    </a>
+                                    <ng-template #errorTemplate>
+                                        <div class="error-list alert-error alert-left position-absolute">
+                                            <div class="alert-head">{{'common.SHOWING' | localizationPipe : localizationService.localizedkeySet.size}}{{lineItem.arrayOfErrorMessages.length}} {{'common.ERRORS_OF' | localizationPipe : localizationService.localizedkeySet.size}} {{lineItem.arrayOfErrorMessages.length}}</div>
+                                            <div class="overflow-hidden">
+                                                <div class="alert alert--danger" *ngFor="let message of lineItem.arrayOfErrorMessages">
+                                                    <span class="alert-icon">
+                                                        <span class="icon-msg-error" ><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                                                    </span>
+                                                    <span  [innerHTML]="message | vnextStringToHtml"></span>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="more-errors"><a href="javascript:void(0);">Show more<span
+                                                        class="i-vNext-arrow-down-heavy"></span></a></div> -->
+                                        </div>
+                                    </ng-template>
+                                    <input *ngIf='lineItem.D2OPS; else noD2OPS' (paste)="onPaste($event)"  attr.data-id="{{dataIdConstantsService.adjustDesiredQty_number_qtyUpdateD2Ops}}{{lineItem.id}}" (keydown)="checkUpdatedQty($event)" class="form-control"  [ngClass]="{'form-error': lineItem.error && lineItem.D2OPS, 'disabled': proposalStoreService.isReadOnly}"  type="number" (blur)='updateQty(lineItem, "D2OPS")' [ngModel]='lineItem.D2OPS' (ngModelChange)="onChange($event)">
+                                    
+                                    <ng-template #noD2OPS>
+                                            <span> {{lineItem.poolName === "group" ? '' : '--'}} </span>
+                                    </ng-template>
+                                </td>
+                                <td class="text-right" *ngIf='adjustDesiredQtyService.display_PRO'>
+                                    <a href="javascript:void(0)" attr.action-id="{{dataIdConstantsService.adjustDesiredQty_link_proErrorPopOver}}{{lineItem.id}}" #popover="ngbPopover"  *ngIf="lineItem.error && lineItem.PRO" popoverClass="ag-dropdown-wrap hover-navigator" [ngbPopover]="errorTemplate" placement="bottom" container="body" [outsideClick]="true" triggers="manual" (click)="popover.open();">
+                                        <span class="icon-msg-error" ><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                                    </a>
+                                    <ng-template #errorTemplate>
+                                        <div class="error-list alert-error alert-left position-absolute">
+                                            <div class="alert-head">{{'common.SHOWING' | localizationPipe : localizationService.localizedkeySet.size}}{{lineItem.arrayOfErrorMessages.length}} {{'common.ERRORS_OF' | localizationPipe : localizationService.localizedkeySet.size}} {{lineItem.arrayOfErrorMessages.length}}</div>
+                                            <div class="overflow-hidden">
+                                                <div class="alert alert--danger" *ngFor="let message of lineItem.arrayOfErrorMessages">
+                                                    <span class="alert-icon">
+                                                        <span class="icon-msg-error" ><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                                                    </span>
+                                                    <span  [innerHTML]="message | vnextStringToHtml"></span>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="more-errors"><a href="javascript:void(0);">Show more<span
+                                                        class="i-vNext-arrow-down-heavy"></span></a></div> -->
+                                        </div>
+                                    </ng-template>
+                                    <input *ngIf='lineItem.PRO; else noPro' (paste)="onPaste($event)"  attr.data-id="{{dataIdConstantsService.adjustDesiredQty_number_qtyUpdatePro}}{{lineItem.id}}" (keydown)="checkUpdatedQty($event)" class="form-control" [ngClass]="{'form-error': lineItem.error && lineItem.PRO, 'disabled': proposalStoreService.isReadOnly}" type="number" (blur)='updateQty(lineItem, "PRO")' [ngModel]='lineItem.PRO' (ngModelChange)="onChange($event)">
+                                    
+                                    <ng-template #noPro>
+                                            <span> {{lineItem.poolName === "group" ? '' : '--'}} </span>
+                                    </ng-template>
+                                </td>
+                                <td class="text-right" *ngIf='adjustDesiredQtyService.display_ADVANCED'>
+                                    <a href="javascript:void(0)" attr.action-id="{{dataIdConstantsService.adjustDesiredQty_link_advancedErrorPopOver}}{{lineItem.id}}" #popover="ngbPopover"  *ngIf="lineItem.error && lineItem.ADVANCED" popoverClass="ag-dropdown-wrap hover-navigator" [ngbPopover]="errorTemplate" placement="bottom" container="body" [outsideClick]="true" triggers="manual" (click)="popover.open();">
+                                        <span class="icon-msg-error" ><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                                    </a>
+                                    <ng-template #errorTemplate>
+                                        <div class="error-list alert-error alert-left position-absolute">
+                                            <div class="alert-head">{{'common.SHOWING' | localizationPipe : localizationService.localizedkeySet.size}}{{lineItem.arrayOfErrorMessages.length}} {{'common.ERRORS_OF' | localizationPipe : localizationService.localizedkeySet.size}} {{lineItem.arrayOfErrorMessages.length}}</div>
+                                            <div class="overflow-hidden">
+                                                <div class="alert alert--danger" *ngFor="let message of lineItem.arrayOfErrorMessages">
+                                                    <span class="alert-icon">
+                                                        <span class="icon-msg-error" ><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                                                    </span>
+                                                    <span  [innerHTML]="message | vnextStringToHtml"></span>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="more-errors"><a href="javascript:void(0);">Show more<span
+                                                        class="i-vNext-arrow-down-heavy"></span></a></div> -->
+                                        </div>
+                                    </ng-template>
+                                    <input *ngIf='lineItem.ADVANCED; else noAdvanced' (paste)="onPaste($event)"  attr.data-id="{{dataIdConstantsService.adjustDesiredQty_number_qtyUpdateAdvanced}}{{lineItem.id}}" (keydown)="checkUpdatedQty($event)" class="form-control" [ngClass]="{'form-error': lineItem.error && lineItem.ADVANCED, 'disabled': proposalStoreService.isReadOnly}" type="number" (blur)='updateQty(lineItem, "ADVANCED")' [ngModel]='lineItem.ADVANCED' (ngModelChange)="onChange($event)">
+                                    
+                                    <ng-template #noAdvanced>
+                                            <span> {{lineItem.poolName === "group" ? '' : '--'}} </span>
+                                    </ng-template>
+                                </td>
+                                <td class="text-right" *ngIf='adjustDesiredQtyService.display_PEAK'>
+                                    <a href="javascript:void(0)" attr.action-id="{{dataIdConstantsService.adjustDesiredQty_link_peakErrorPopOver}}{{lineItem.id}}" #popover="ngbPopover"  *ngIf="lineItem.error && lineItem.PEAK" popoverClass="ag-dropdown-wrap hover-navigator" [ngbPopover]="errorTemplate" placement="bottom" container="body" [outsideClick]="true" triggers="manual" (click)="popover.open();">
+                                        <span class="icon-msg-error" ><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                                    </a>
+                                    <ng-template #errorTemplate>
+                                        <div class="error-list alert-error alert-left position-absolute">
+                                            <div class="alert-head">{{'common.SHOWING' | localizationPipe : localizationService.localizedkeySet.size}}{{lineItem.arrayOfErrorMessages.length}} {{'common.ERRORS_OF' | localizationPipe : localizationService.localizedkeySet.size}} {{lineItem.arrayOfErrorMessages.length}}</div>
+                                            <div class="overflow-hidden">
+                                                <div class="alert alert--danger" *ngFor="let message of lineItem.arrayOfErrorMessages">
+                                                    <span class="alert-icon">
+                                                        <span class="icon-msg-error" ><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                                                    </span>
+                                                    <span  [innerHTML]="message | vnextStringToHtml"></span>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="more-errors"><a href="javascript:void(0);">Show more<span
+                                                        class="i-vNext-arrow-down-heavy"></span></a></div> -->
+                                        </div>
+                                    </ng-template>
+                                    <input *ngIf='lineItem.PEAK; else noPeak' (paste)="onPaste($event)"   attr.data-id="{{dataIdConstantsService.adjustDesiredQty_number_qtyUpdatePeak}}{{lineItem.id}}" (keydown)="checkUpdatedQty($event)" class="form-control" [ngClass]="{'form-error': lineItem.error && lineItem.PEAK, 'disabled': proposalStoreService.isReadOnly}" type="number" (blur)='updateQty(lineItem, "PEAK")' [ngModel]='lineItem.PEAK' (ngModelChange)="onChange($event)">
+                                    
+                                    <ng-template #noPeak>
+                                            <span> {{lineItem.poolName === "group" ? '' : '--'}} </span>
+                                    </ng-template>
+                                </td>
+                                <td class="text-right" *ngIf='adjustDesiredQtyService.display_ADD_ON'>
+                                    <a href="javascript:void(0)" attr.action-id="{{dataIdConstantsService.adjustDesiredQty_link_addOnErrorPopOver}}{{lineItem.id}}" #popover="ngbPopover"  *ngIf="lineItem.error && lineItem.ADD_ON" popoverClass="ag-dropdown-wrap hover-navigator" [ngbPopover]="errorTemplate" placement="bottom" container="body" [outsideClick]="true" triggers="manual" (click)="popover.open();">
+                                        <span class="icon-msg-error" ><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                                    </a>
+                                    <ng-template #errorTemplate>
+                                        <div class="error-list alert-error alert-left position-absolute">
+                                            <div class="alert-head">{{'common.SHOWING' | localizationPipe : localizationService.localizedkeySet.size}}{{lineItem.arrayOfErrorMessages.length}} {{'common.ERRORS_OF' | localizationPipe : localizationService.localizedkeySet.size}} {{lineItem.arrayOfErrorMessages.length}}</div>
+                                            <div class="overflow-hidden">
+                                                <div class="alert alert--danger" *ngFor="let message of lineItem.arrayOfErrorMessages">
+                                                    <span class="alert-icon">
+                                                        <span class="icon-msg-error" ><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                                                    </span>
+                                                    <span  [innerHTML]="message | vnextStringToHtml"></span>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="more-errors"><a href="javascript:void(0);">Show more<span
+                                                        class="i-vNext-arrow-down-heavy"></span></a></div> -->
+                                        </div>
+                                    </ng-template>
+                                    <input *ngIf='lineItem.ADD_ON; else noAddon' (paste)="onPaste($event)"  attr.data-id="{{dataIdConstantsService.adjustDesiredQty_number_qtyUpdateAddOn}}{{lineItem.id}}" (keydown)="checkUpdatedQty($event)" class="form-control" [ngClass]="{'form-error': lineItem.error && lineItem.ADD_ON, 'disabled': proposalStoreService.isReadOnly}" type="number" (blur)='updateQty(lineItem, "ADD_ON")' [ngModel]='lineItem.ADD_ON' (ngModelChange)="onChange($event)">
+                                    
+                                    <ng-template #noAddon>
+                                            <span> {{lineItem.poolName === "group" ? '' : '--'}} </span>
+                                    </ng-template>
+                                </td> 
+                            </ng-container>
+                            <ng-template #validationUiColumnData>
+                                <ng-container *ngFor="let columnType of adjustDesiredQtyService.desiredQtyColumnsData; let index = index;">
+                                    <td class="text-right" *ngIf='columnType.displayVisible && !lineItem.singleColumn '>
+                                        <!-- HTML for multi-error scenario -->
+                                        <a href="javascript:void(0)" attr.action-id="{{dataIdConstantsService.adjustDesiredQty_link_errorPopOver}}{{columnType.displayId}}.{{lineItem.id}}" #popover="ngbPopover"  *ngIf="lineItem.error && lineItem[columnType.type]" popoverClass="ag-dropdown-wrap hover-navigator" [ngbPopover]="errorTemplate" placement="bottom" container="body" [outsideClick]="true" triggers="manual" (click)="popover.open();">
+                                            <span class="icon-msg-error" ><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                                        </a>
+                                        <ng-template #errorTemplate>
+                                            <div class="error-list alert-error alert-left position-absolute">
+                                                <div class="alert-head">{{'common.SHOWING' | localizationPipe : localizationService.localizedkeySet.size}}{{lineItem.arrayOfErrorMessages.length}} {{'common.ERRORS_OF' | localizationPipe : localizationService.localizedkeySet.size}} {{lineItem.arrayOfErrorMessages.length}}</div>
+                                                <div class="overflow-hidden">
+                                                    <div class="alert alert--danger" *ngFor="let message of lineItem.arrayOfErrorMessages">
+                                                        <span class="alert-icon">
+                                                            <span class="icon-msg-error" ><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                                                        </span>
+                                                        <span  [innerHTML]="message | vnextStringToHtml"></span>
+                                                    </div>
+                                                </div>
+                                                <!-- <div class="more-errors"><a href="javascript:void(0);">Show more<span
+                                                            class="i-vNext-arrow-down-heavy"></span></a></div> -->
+                                            </div>
+                                        </ng-template>
+                                        <input *ngIf='lineItem[columnType.type]; else noValue' (paste)="onPaste($event)"  attr.data-id="{{dataIdConstantsService.adjustDesiredQty_number_qtyUpdate}}{{columnType.displayId}}.{{lineItem.id}}" (keydown)="checkUpdatedQty($event)"  [ngClass]="{'form-error': lineItem.error && lineItem[columnType.type], 'disabled': proposalStoreService.isReadOnly}"  class="form-control" type="number" (blur)='updateQty(lineItem, columnType.type)'  [ngModel]='lineItem[columnType.type]' (ngModelChange)="onChange($event)">
+                                        <ng-template #noValue>
+                                            <span> {{lineItem.poolName === "group" ? '' : '--'}} </span>
+                                        </ng-template>
+                                       
+                                    </td>
+                                    <td class="text-right" [attr.colspan]="adjustDesiredQtyService.desiredQtyColumnsData?.length"  *ngIf='columnType.displayVisible && lineItem.singleColumn && index === 0'>
+                                        <a href="javascript:void(0)" attr.action-id="{{dataIdConstantsService.adjustDesiredQty_link_errorPopOver}}{{columnType.displayId}}.{{lineItem.id}}" #cxpopover="ngbPopover"  *ngIf="lineItem.error"  popoverClass="ag-dropdown-wrap hover-navigator" [ngbPopover]="errorCXHWTemplate" placement="bottom-left" container="body" [outsideClick]="true" triggers="manual" (click)="cxpopover.open();">
+                                            <span class="icon-msg-error" ><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                                        </a>
+                                        <ng-template #errorCXHWTemplate>
+                                            <div class="error-list alert-error alert-left position-absolute">
+                                                <div class="alert-head">{{'common.SHOWING' | localizationPipe : localizationService.localizedkeySet.size}}{{lineItem.arrayOfErrorMessages.length}} {{'common.ERRORS_OF' | localizationPipe : localizationService.localizedkeySet.size}} {{lineItem.arrayOfErrorMessages.length}}</div>
+                                                <div class="overflow-hidden">
+                                                    <div class="alert alert--danger" *ngFor="let message of lineItem.arrayOfErrorMessages">
+                                                        <span class="alert-icon vNext">
+                                                            <span class="icon-msg-error" ><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                                                        </span>
+                                                        <span  [innerHTML]="message | vnextStringToHtml"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </ng-template>
+                                        <input  disabled  attr.data-id="{{dataIdConstantsService.adjustDesiredQty_number_qtyUpdate}}{{columnType.displayId}}.{{lineItem.id}}"  class="form-control single-col-input disabled" type="number"  [ngModel]='lineItem.desiredQty' [class.hasError]="lineItem?.error">
+                                    </td>
+                                </ng-container>
+                            </ng-template>
+                              
+                            <td class="text-right" *ngIf='adjustDesiredQtyService.display_GENERAL'>
+                                    <a href="javascript:void(0)" attr.action-id="{{dataIdConstantsService.adjustDesiredQty_link_generalErrorPopOver}}{{lineItem.id}}" #popover="ngbPopover"  *ngIf="lineItem.error && lineItem.GENERAL" popoverClass="ag-dropdown-wrap hover-navigator" [ngbPopover]="errorTemplate" placement="bottom" container="body" [outsideClick]="true" triggers="manual" (click)="popover.open();">
+                                        <span class="icon-msg-error" ><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                                    </a>
+                                    <ng-template #errorTemplate>
+                                        <div class="error-list alert-error alert-left position-absolute">
+                                            <div class="alert-head">{{'common.SHOWING' | localizationPipe : localizationService.localizedkeySet.size}}{{lineItem.arrayOfErrorMessages.length}} {{'common.ERRORS_OF' | localizationPipe : localizationService.localizedkeySet.size}} {{lineItem.arrayOfErrorMessages.length}}</div>
+                                            <div class="overflow-hidden">
+                                                <div class="alert alert--danger" *ngFor="let message of lineItem.arrayOfErrorMessages">
+                                                    <span class="alert-icon">
+                                                        <span class="icon-msg-error" ><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                                                    </span>
+                                                    <span  [innerHTML]="message | vnextStringToHtml"></span>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="more-errors"><a href="javascript:void(0);">Show more<span
+                                                        class="i-vNext-arrow-down-heavy"></span></a></div> -->
+                                        </div>
+                                    </ng-template>
+                                    <input *ngIf='lineItem.GENERAL; else noGeneral' (paste)="onPaste($event)"  attr.data-id="{{dataIdConstantsService.adjustDesiredQty_number_qtyUpdateGeneral}}{{lineItem.id}}" (keydown)="checkUpdatedQty($event)" class="form-control"  [ngClass]="{'form-error': lineItem.error && lineItem.GENERAL, 'disabled': proposalStoreService.isReadOnly}" type="number" (blur)='updateQty(lineItem, "GENERAL")' [ngModel]='lineItem.GENERAL' (ngModelChange)="onChange($event)">
+                                    
+                                    <ng-template #noGeneral>
+                                            <span> {{lineItem.poolName === "group" ? '' : '--'}} </span>
+                                    </ng-template>
+                                </td> 
+                                <td class="text-right" *ngIf="(eaService.features.FIRESTORM_REL && selectedSuite.isDnxTierSuite)">
+                                    <input *ngIf='lineItem?.commitInfo?.ibQtyThreshold?.achieved; else noIbThreshold'  attr.data-id="{{dataIdConstantsService.adjustDesiredQty_number_qtyUpdateGeneral}}{{lineItem.id}}" class="form-control" [ngClass]="{'disabled': proposalStoreService.isReadOnly}"  type="number" disabled  [ngModel]='lineItem?.commitInfo?.ibQtyThreshold?.achieved' >
+                                    
+                                    <ng-template #noIbThreshold>
+                                        <span> {{lineItem.poolName === "group" ? '' : '--'}} </span>
+                                </ng-template>
+                                </td> 
+                            <td class="text-right" >
+                                <!--  info Icon Added  -->
+                                <!--span class="i-vNext-info mr-2 cursor-pointer"></span--> 
+                                {{lineItem.commitNetPrice}}
+                            </td>
+                        </tr>
+
+                    </tbody>
+                    <ng-template #hasPids>
+                        <tbody>
+                            <tr *ngFor='let pidItem of selectedSuite.childs'>
+                                <ng-container *ngIf='pidItem.poolName === "group"; else pid'>
+                                    <td>  <b>{{pidItem.poolSuiteLineName}}</b></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td *ngIf="isSecurity"></td>
+                                    <td></td>
+                                </ng-container>
+                                <ng-template #pid>
+                                    <td>
+                                        {{pidItem.poolSuiteLineName}}
+                                    </td>
+                                    <td class="text-right" *ngIf="(!proposalStoreService.proposalData?.dealInfo?.subscriptionUpgradeDeal || (proposalStoreService.proposalData?.dealInfo?.subscriptionUpgradeDeal && eaService.features.CROSS_SUITE_MIGRATION_REL && selectedSuite?.migrated && selectedSuite?.migratedFrom?.length))">{{pidItem.ibQty ? pidItem.ibQty : '0'}}</td>
+                                    <td class="text-right" *ngIf="((proposalStoreService.proposalData?.dealInfo?.subscriptionUpgradeDeal && !eaService.features.CROSS_SUITE_MIGRATION_REL) || (proposalStoreService.proposalData?.dealInfo?.subscriptionUpgradeDeal && eaService.features.CROSS_SUITE_MIGRATION_REL && selectedSuite?.upgraded))">{{pidItem.lowerTierPidTotalQty ? pidItem.lowerTierPidTotalQty : '0'}}</td>
+
+                                    <td class="text-right" *ngIf="showQtyForFollowOn || ((proposalStoreService.proposalData?.dealInfo?.subscriptionUpgradeDeal && !eaService.features.CROSS_SUITE_MIGRATION_REL) || (proposalStoreService.proposalData?.dealInfo?.subscriptionUpgradeDeal && eaService.features.CROSS_SUITE_MIGRATION_REL && selectedSuite?.upgraded))">{{pidItem.totalConsumedQty}}</td>
+                                    <td class="text-right" (click)='selectSupport(pidItem)' attr.action-id="{{dataIdConstantsService.adjustDesiredQty_link_selectSupportPid}}{{pidItem.pidName}}" *ngIf='pidItem.supportPid; else noSupportPid'>
+                                        <span class="selected-cell-data" *ngIf='pidItem.desiredQty; else pidNotSelected'><span class="icon-tick-01 mr-2"></span>{{'common.SELECTED' | localizationPipe : localizationService.localizedkeySet.size}}</span> 
+                                        <ng-template #pidNotSelected>
+                                            {{'common.SELECT' | localizationPipe : localizationService.localizedkeySet.size}}
+                                        </ng-template>
+                                    </td>  
+                                    <ng-template #noSupportPid>
+                                        <!-- HTML for multi-error scenario -->
+                                        <td class="text-right" *ngIf="(!proposalStoreService.proposalData?.dealInfo?.subscriptionUpgradeDeal || (proposalStoreService.proposalData?.dealInfo?.subscriptionUpgradeDeal && eaService.features.CROSS_SUITE_MIGRATION_REL && selectedSuite?.migrated && selectedSuite?.migratedFrom?.length))">
+                                            <a href="javascript:void(0)" attr.action-id="{{dataIdConstantsService.adjustDesiredQty_link_desiredQtyErrorPopOver}}{{pidItem.pidName}}" #popover="ngbPopover"  *ngIf="pidItem.error && pidItem.pidType" popoverClass="ag-dropdown-wrap hover-navigator" [ngbPopover]="errorTemplate" container="body" placement="bottom" [outsideClick]="true" triggers="manual" (click)="popover.open();">
+                                                <span class="icon-msg-error" ><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                                            </a>
+                                            <ng-template #errorTemplate>
+                                                <div class="error-list alert-error alert-left position-absolute">
+                                                    <div class="alert-head" >{{'common.SHOWING' | localizationPipe : localizationService.localizedkeySet.size}}{{pidItem.arrayOfErrorMessages.length}} {{'common.ERRORS_OF' | localizationPipe : localizationService.localizedkeySet.size}} {{pidItem.arrayOfErrorMessages.length}}</div>
+                                                    <div class="overflow-hidden">
+                                                        <div class="alert alert--danger" *ngFor="let message of pidItem.arrayOfErrorMessages">
+                                                            <span class="alert-icon">
+                                                                <span class="icon-msg-error" ><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                                                            </span>
+                                                            <span  [innerHTML]="message | vnextStringToHtml"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </ng-template>
+                                            <input *ngIf='pidItem.pidType; else noPidvalue' (paste)="onPaste($event)"  attr.data-id="{{dataIdConstantsService.adjustDesiredQty_number_desiredQtyUpdate}}{{pidItem.pidName}}" (keydown)="checkUpdatedQty($event)" class="form-control" [ngClass]="{'form-error': pidItem.error && pidItem.pidType, 'disabled': proposalStoreService.isReadOnly}"
+                                                type="number" (blur)='updateQtyForPid(pidItem, pidItem.pidType)' [ngModel]='pidItem.desiredQty'
+                                                (ngModelChange)="onChange($event)">
+                                                
+                                            <ng-template #noPidvalue>
+                                                --
+                                            </ng-template>
+                                        </td>
+                                        <td class="text-right" *ngIf="((proposalStoreService.proposalData?.dealInfo?.subscriptionUpgradeDeal && !eaService.features.CROSS_SUITE_MIGRATION_REL) || (proposalStoreService.proposalData?.dealInfo?.subscriptionUpgradeDeal && eaService.features.CROSS_SUITE_MIGRATION_REL && selectedSuite?.upgraded))">
+                                            <ng-template #desiredQtyTemplate>
+                                                <span>
+                                                    {{'adjust-desired-quantity.DESIRED_QUANTITY_ERROR' | localizationPipe : localizationService.localizedkeySet.size}}
+                                                </span>
+                                            </ng-template>
+                                           <input *ngIf='pidItem.pidType; else noPidvalue' (paste)="onPaste($event)"  attr.data-id="{{dataIdConstantsService.adjustDesiredQty_number_desiredQtyUpdate}}{{pidItem.pidName}}" (keydown)="checkUpdatedQty($event)" class="form-control" [ngClass]="{'form-error': pidItem.error && pidItem.pidType, 'disabled': proposalStoreService.isReadOnly}"
+                                               type="number" (blur)='updateQtyForPid(pidItem, pidItem.pidType, true)' [ngModel]='pidItem.desiredQty'
+                                               (ngModelChange)="onChange($event)">
+                                            <span *ngIf="pidItem.error" class="icon-msg-error ml-2" #desiredTooltip="ngbTooltip" [ngbTooltip]="desiredQtyTemplate" placement="top"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                                               
+                                           <ng-template #noPidvalue>
+                                               --
+                                           </ng-template>
+                                       </td>
+                                    </ng-template>
+                                    <td class="text-right" *ngIf="isSecurity && (!proposalStoreService.proposalData?.dealInfo?.subscriptionUpgradeDeal || (proposalStoreService.proposalData?.dealInfo?.subscriptionUpgradeDeal && eaService.features.CROSS_SUITE_MIGRATION_REL && selectedSuite?.migrated && selectedSuite?.migratedFrom?.length))">
+                                        <span *ngIf="isFireWallSuite; else notFireWallSuite">
+                                            {{pidItem.commitNetPrice}}
+                                        </span>
+                                        <ng-template #notFireWallSuite>
+                                            {{pidItem.commitInfo?.qtyThreshold?.achieved ? pidItem.commitInfo?.qtyThreshold?.achieved : '--'}}
+                                        </ng-template>
+                                     </td>
+                                    <td class="text-right" >
+                                       {{pidItem.commitNetPrice}}
+                                    </td>
+                                </ng-template>
+                            </tr>
+    
+                        </tbody> 
+                    </ng-template>
+                    <tfoot>
+                        <tr>
+                            <td>{{'common.TOTAL' | localizationPipe : localizationService.localizedkeySet.size}}</td>
+                            <td class="text-right" *ngIf="(!proposalStoreService.proposalData?.dealInfo?.subscriptionUpgradeDeal || (proposalStoreService.proposalData?.dealInfo?.subscriptionUpgradeDeal && eaService.features.CROSS_SUITE_MIGRATION_REL && selectedSuite?.migrated && selectedSuite?.migratedFrom?.length))">{{adjustDesiredQtyService.totalIbQty ? adjustDesiredQtyService.totalIbQty : '0'}}</td>
+                            <td class="text-right"  *ngIf="((proposalStoreService.proposalData?.dealInfo?.subscriptionUpgradeDeal && !eaService.features.CROSS_SUITE_MIGRATION_REL) || (proposalStoreService.proposalData?.dealInfo?.subscriptionUpgradeDeal && eaService.features.CROSS_SUITE_MIGRATION_REL && selectedSuite?.upgraded))">{{adjustDesiredQtyService.totalLowerTierPidQty ? adjustDesiredQtyService.totalLowerTierPidQty : '0'}}</td>
+                            <td class="text-right" *ngIf="showQtyForFollowOn || ((proposalStoreService.proposalData?.dealInfo?.subscriptionUpgradeDeal && !eaService.features.CROSS_SUITE_MIGRATION_REL) || (proposalStoreService.proposalData?.dealInfo?.subscriptionUpgradeDeal && eaService.features.CROSS_SUITE_MIGRATION_REL && selectedSuite?.upgraded))">{{adjustDesiredQtyService.totalConsumedQtyForSuite ? adjustDesiredQtyService.totalConsumedQtyForSuite : '0'}}</td>
+                            <ng-container *ngIf="!isValidationUI; else validationUIColumnsTotal">
+                                <td *ngIf='adjustDesiredQtyService.display_ESSENTIAL' class="text-right">{{adjustDesiredQtyService.ESSENTIAL}}</td>
+                                <td *ngIf='adjustDesiredQtyService.display_ADVANTAGE' class="text-right">{{adjustDesiredQtyService.ADVANTAGE}}</td>
+                                <td *ngIf='adjustDesiredQtyService.display_PREMIUM' class="text-right">{{adjustDesiredQtyService.PREMIUM}}</td>
+                                <td *ngIf='adjustDesiredQtyService.display_CONTROLLER' class="text-right">{{adjustDesiredQtyService.CONTROLLER}}</td>
+                                <td *ngIf='adjustDesiredQtyService.display_ROUTING_HYBRID_WORKER' class="text-right">{{adjustDesiredQtyService.ROUTING_HYBRID_WORKER}}</td>
+                                <td *ngIf='adjustDesiredQtyService.display_ENTERPRISE'  class="text-right">{{adjustDesiredQtyService.ENTERPRISE}}</td>
+                                <td *ngIf='adjustDesiredQtyService.display_PREMIER' class="text-right">{{adjustDesiredQtyService.PREMIER}}</td>
+                                <td *ngIf='adjustDesiredQtyService.display_D2OPS' class="text-right">{{adjustDesiredQtyService.D2OPS}}</td>
+                                <td *ngIf='adjustDesiredQtyService.display_PRO'  class="text-right">{{adjustDesiredQtyService.PRO}}</td>
+                                <td *ngIf='adjustDesiredQtyService.display_ADVANCED' class="text-right">{{adjustDesiredQtyService.ADVANCED}}</td>
+                                <td *ngIf='adjustDesiredQtyService.display_PEAK' class="text-right">{{adjustDesiredQtyService.PEAK}}</td>
+                                <td *ngIf='adjustDesiredQtyService.display_ADD_ON'  class="text-right">{{adjustDesiredQtyService.ADD_ON}}</td>
+                            </ng-container>
+                            <ng-template #validationUIColumnsTotal>
+                                <ng-container *ngFor="let columnType of adjustDesiredQtyService.desiredQtyColumnsData">
+                                    <td *ngIf="columnType.displayVisible" class="text-right">{{columnType.displayValue}}</td>
+                                </ng-container>
+                            </ng-template>
+                            <td *ngIf='adjustDesiredQtyService.display_GENERAL'  class="text-right">{{adjustDesiredQtyService.GENERAL}}</td>
+                            <td *ngIf='selectedSuite.hasPids' class="text-right">{{adjustDesiredQtyService.totalQty}}</td>
+                            <td class="text-right" *ngIf="isSecurity && (!proposalStoreService.proposalData?.dealInfo?.subscriptionUpgradeDeal || (proposalStoreService.proposalData?.dealInfo?.subscriptionUpgradeDeal && eaService.features.CROSS_SUITE_MIGRATION_REL && selectedSuite?.migrated && selectedSuite?.migratedFrom?.length))">
+                                <span *ngIf="isFireWallSuite; else otherSuiteTotal">
+                                    {{selectedSuite.commitNetPrice}}
+                                </span>
+                                <ng-template #otherSuiteTotal>
+                                    {{selectedSuite?.commitInfo?.qtyThreshold?.achieved ? selectedSuite.commitInfo.qtyThreshold?.achieved : '--'}}
+                                </ng-template>
+                            </td>
+                            <td *ngIf='eaService.features.FIRESTORM_REL && selectedSuite.isDnxTierSuite' class="text-right">{{selectedSuite?.commitInfo?.ibQtyThreshold?.achieved}}</td>
+                            <td class="text-right">{{selectedSuite.commitNetPrice}}</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+            <!-- <div class="col-12 mt-1">
+                <label class="label-check">
+                    <input class="form-check-input" type="checkbox">
+                    <span class="custom-checkbox-btn"><span class="path1"></span><span class="path2"></span></span>
+                    <span>I agree that if I don’t meet Minimum Commit Value, I will loose vNext Advantage but still I want to buy my desired quantity.</span>
+                </label>
+            </div> -->
+        </div>
+    </div>
+    <!-- End of Body -->
+</div>

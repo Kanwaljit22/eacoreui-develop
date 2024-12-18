@@ -1,0 +1,69 @@
+<div class="modal-header">
+    <h5 class="modal-title">Look Up New Subsidiaries for ‘Government of the US’</h5>
+    <button class="icon-close-btn" type="button" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+
+<div class="modal-body">
+    <div >
+        <app-road-map *ngIf="roadMapGrid" [roadMapGrid]="roadMapGrid" [componentNumToLoad]="componentNumToLoad"></app-road-map>
+    </div>
+
+    <div class="d-flex modal-search-wrap marginT20 marginB20">
+        <div class="form-group mb-0">
+            <div class="custom-dropdown">
+                <label class="form-control-placeholder">Search by </label>
+                <select class="custom-select mb-2 mb-sm-0 col myCustomSelect" required appElementFocus>
+                    <option value="" for="">GU Name</option>
+                    <option value="" for="">GU Name</option>
+                    <option value="" for="">GU Name</option>
+                </select>
+                <span class="ico-dropdown"></span>
+            </div>
+        </div>
+        <div class="position-relative search-wrap">
+            <input class="form-control" id="searchSpecialist" name="searchSpecialist" required="" type="text" placeholder="Start with search to view new Subsidiary">
+            <!--label class="form-control-placeholder" for="searchSpecialist" >Start with search to view new Subsidiary</label-->
+        </div>
+        <button class="btn btn-primary" type="button">Search</button>
+    </div>
+
+    <div class="subsidiary-result-wrap">
+        
+        <div class="container-fluid">
+            <div class="flexible-div topActionsBar align-items-center">
+                <div class="col-xs-12 col-sm-7 col-md-7 paddingL0">
+                    <h4>Subsidiaries found which you can add to the Parent</h4>
+                </div>
+                <div class="col-xs-12 col-sm-5 col-md-5 pr-0">
+                    <ul class="qualify-btn float-right">
+                        <li class="">
+                            <button class="btn btn-secondary" type="button">Clear All</button>
+                        </li>
+                        <li>
+                            <button class="btn btn-primary" type="button">Add Subsidiary</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="no-result-found">
+                <h5>Start with search to view new Subsidiary </h5>
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
+<!-- End of Body -->
+
+<div class="modal-footer">
+    <div class="">
+        <button class="btn btn-secondary btn-back" type="button" id="QualificationDefineSubsidiaryStep_BACK"><span class="icon-btn-back"></span><span class="mid-text">Back</span></button>
+    </div>
+
+    <div class="">
+        <button class="btn btn-secondary" (click)="activeModal.dismiss('Cross click')" type="button">Cancel</button>
+        <button class="btn btn-primary" type="button"  (click)="continue()" >New</button>
+    </div>    
+</div> 

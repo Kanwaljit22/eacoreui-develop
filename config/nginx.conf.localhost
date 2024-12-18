@@ -1,0 +1,55 @@
+
+user  nginx;
+worker_processes  1;
+
+error_log  /var/log/nginx/error.log warn;
+pid        /var/run/nginx.pid;
+
+
+events {
+    worker_connections  1024;
+}
+
+
+http {
+    include       /etc/nginx/mime.types;
+    default_type  application/octet-stream;
+
+    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                      '$status $body_bytes_sent "$http_referer" '
+                      '"$http_user_agent" "$http_x_forwarded_for"';
+
+    access_log  /var/log/nginx/access.log  main;
+
+    sendfile        on;
+    #tcp_nopush     on;
+
+    keepalive_timeout  65;
+
+    #gzip  on;
+
+    # include /etc/nginx/conf.d/*.conf;
+
+    # default root is /etc/nginx/html/
+    root /usr/share/nginx/html/;
+    
+    server {
+        listen 8080;
+        auth_basic              "Administrator Area";
+        auth_basic_user_file    /etc/authdata/.htpasswd;
+
+        location = / {
+            return 301 $scheme://$http_host/creui/;
+        }
+
+        location /creui/ {
+            alias /usr/share/nginx/html/;
+        }
+
+        location /cre/ {
+            proxy_pass http://localhost:5000/cre/;
+            proxy_pass_request_headers on;
+            proxy_set_header X-GEN-USER creadmin;
+        }
+    }
+}

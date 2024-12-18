@@ -1,0 +1,46 @@
+<div class="form-group">
+    <div class="row align-items-center">
+        <div class="col-12">
+            <div class="alert alert--info alert-dismissable mb-2">
+                <span class="alert-icon">
+                    <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                </span>
+                <span><strong>{{'common.TIP' | localizationPipe : localizationService.localizedkeySet.size }}</strong> {{'meraki-org-ids.TIPS_MSG' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+            </div> 
+            <div *ngIf="(showInvalidOrgIdsMsg || isMaxLimitReached) && !isReadOnly" class="alert alert--danger alert-dismissable mb-2">
+                <span class="alert-icon">
+                    <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                </span>
+                <span *ngIf="showInvalidOrgIdsMsg">{{'common.INVALID_ORG_ID'  | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                <span *ngIf="isMaxLimitReached">{{'common.MAX_RANGE_FOR_ID' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+            </div>
+        </div>
+        <div class="d-flex col-12 justify-content-between mt-2">
+            <div>
+                <h4>
+                    {{'meraki-org-ids.MERAKI_ORG_IDS' | localizationPipe : localizationService.localizedkeySet.size}}<sup>*</sup>
+                </h4>
+                <label class="customer-label"> {{'meraki-org-ids.ENTER_ONLY_NUMERIC_VALUES' | localizationPipe : localizationService.localizedkeySet.size}}</label>
+            </div>
+            <ul class="qualify-btn">
+                <a #downloadZipLink [hidden]="true"></a> 
+                <li (click)="downoloadOrgId()" attr.action-id="{{dataIdConstantsService.merakiOrgId_button_downloadOrgId}}" [ngClass]="{'disabled': !orgIdsArr.length || isReadOnly}" class="downloadOrg mr-2">
+                    <button type="button" attr.action-id="" class="btn btn-secondary no-border-btn"><span class="i-vNext-download mr-2"></span>{{'common.DOWNLOAD_ORG_ID' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                </li>
+                
+                <li class="mr-1">
+                    <button type="button" attr.action-id="{{dataIdConstantsService.merakiOrgId_button_cancel}}" class="btn btn-secondary no-border-btn" (click)="cancel()" id="{{elementIdConstantsService.MerakiOrgId_Cancel}}">{{'common.CANCEL' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                </li>
+                <li>
+                    <button type="button"  class="btn btn-secondary" *ngIf="disableSave || isReadOnly || !eaIdStoreService.eaIdData?.scopeChangeDetails?.requestId; else enableSave" disabled>{{'common.SAVE' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                    <ng-template #enableSave>
+                        <button type="button" attr.action-id="{{dataIdConstantsService.merakiOrgId_button_save}}" class="btn btn-secondary" (click)="save()" >{{'common.SAVE' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                    </ng-template>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <textarea placeholder="{{'common.ADD_ORG_PLACEHOLDER' | localizationPipe : localizationService.localizedkeySet.size}}" class="form-control" (keydown)='isNumberEvent($event)' attr.data-id="{{dataIdConstantsService.merakiOrgId_textarea_orgIds}}"
+    [(ngModel)]='orgIds' class="form-control" (blur)="checkorgIds()" [ngClass]="{'disabled': !eaIdStoreService.eaIdData?.scopeChangeDetails?.requestId || isReadOnly}" ></textarea>
+    <small class="text-right">{{'common.ORG_IDS_LIMIT' | localizationPipe : localizationService.localizedkeySet.size}}</small>
+</div>

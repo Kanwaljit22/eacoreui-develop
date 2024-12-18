@@ -1,0 +1,50 @@
+# register the clientId with the okta IDP to use the API endpoints
+# add the global route SSO policy in GSLB deployment yaml spec.ssoAuthConfig field
+spec:
+  ssoAuthConfig:
+    contexts:
+    - context: /rest/services/api/healthcheck/ping
+      contextMatch: exact
+      policyType: public
+    - context: /rest/services
+      contextMatch: exact
+      policyType: public
+    - context: /rest/services/
+      contextMatch: prefix
+      policyType: api
+    - context: /healthcheck.html
+      contextMatch: exact
+      policyType: public
+    - context: ^/.*\.js$
+      contextMatch: regex
+      policyType: public
+    - context: /
+      contextMatch: prefix
+      policyType: web
+    policy:
+      api:
+        allow:
+        - paths:
+          - path: /rest/services
+            pathMatch: exact
+          - path: /rest/services/
+            pathMatch: prefix
+          when:
+          - kind: clientId
+            values:
+            - quoting_oauth_prd_client
+            - icwpricing
+            - eaprospect.consumer
+      web:
+        allow:
+        - paths:
+          - path: /
+            pathMatch: prefix
+          when:
+          - kind: userId
+            values:
+            - '*'
+    provider:
+      cors: platform
+      idp: okta
+      sso: platform

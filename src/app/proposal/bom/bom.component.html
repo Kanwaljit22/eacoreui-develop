@@ -1,0 +1,213 @@
+<app-sub-header [screenName]='constantsService.BOM'></app-sub-header>
+<app-financial-summary [financialSummaryData] = "proposalDataService.summaryData"  [financialSummaryTotalData] = "proposalDataService.pinnedResult" ></app-financial-summary>
+<!-- End of Conatiner Fluid -->
+<div id="filter-area" class="mb-3" >
+    <div class="container-fluid">
+        <div class="row align-items-center" *ngIf="!createQualification">
+            <div class="col-md-3">
+                <h2>{{localeService.getLocalizedString('bom.QUOTE_PREV')}}</h2>
+            </div>
+            <div class="col-md-9">
+                <ul class="qualify-btn">
+                    <li >
+                        <button [id]="appDataService.createUniqueId('PROPOSAL_LIST',appDataService.pageContext)"
+                            type="button" (click)="goToProposalList()"
+                            class="btn btn-secondary">{{localeService.getLocalizedString('common.PROPOSAL_LIST')}}</button>
+                    </li>
+                    <li >
+                        <button [id]="appDataService.createUniqueId('DOCUMENT_CENTER_BUTTON',appDataService.pageContext)"
+                            type="button" (click)="goToDocumentCenter()"
+                            class="btn btn-secondary">{{localeService.getLocalizedString('common.DOCUMENT_CENTER')}}</button>
+                    </li>
+                    <li *ngIf="!appDataService.isGroupSelected">
+                        <button  [id]="appDataService.createUniqueId('SALES_READINESS',appDataService.pageContext)" type="button" (click)="salesReadiness()" class="btn btn-secondary">{{localeService.getLocalizedString('common.SALES_READINESS')}}</button>
+                    </li>
+                    <li *ngIf="appDataService.isGroupSelected">
+                        <button  [id]="appDataService.createUniqueId('SALES_READINESS',appDataService.pageContext)" type="button" class="btn btn-secondary" disabled>{{localeService.getLocalizedString('common.SALES_READINESS')}}</button>
+                    </li>
+                    <li>
+                        <a #downloadZipLink [hidden]="true"></a>
+                        <button [id]="appDataService.createUniqueId('DOWNLOAD_BOM',appDataService.pageContext)"
+                            *ngIf="!(proposalDataService.proposalDataObject.proposalData.isStatusIncompleteCrossArch || proposalDataService.proposalDataObject.proposalData.isStatusInconsistentCrossArch || isLinkedCxInProgress || !isHeaderLoaded) && showDownloadBom"
+                            (click)="downloadBOMPreview()" type="button"
+                            class="btn btn-secondary">{{localeService.getLocalizedString('bom.DOWNLOAD_BOM')}}</button>
+                        <button [id]="appDataService.createUniqueId('DOWNLOAD_BOM',appDataService.pageContext)"
+                            *ngIf="(proposalDataService.proposalDataObject.proposalData.isStatusIncompleteCrossArch || proposalDataService.proposalDataObject.proposalData.isStatusInconsistentCrossArch || isLinkedCxInProgress || !isHeaderLoaded)"
+                            type="button" class="btn btn-secondary"
+                            disabled>{{localeService.getLocalizedString('bom.DOWNLOAD_BOM')}}</button>
+
+                        <!-- <li>
+            <button type="button" (click)="gotoDocument()" class="btn btn-secondary">Document Center</button>
+          </li>-->
+                    </li>
+                    <li class="viewProspect btn-sep">
+                        <button 
+                            *ngIf="!(proposalDataService.proposalDataObject.proposalData.isCrossArchitecture && !appDataService.isGroupSelected) && !(proposalDataService.proposalDataObject.proposalData.isStatusIncompleteCrossArch || proposalDataService.proposalDataObject.proposalData.isStatusInconsistentCrossArch || isLinkedCxInProgress || !isHeaderLoaded) && (appDataService.userInfo.rwSuperUser || appDataService.isReadWriteAccess)"
+                            container="body" placement="bottom-right"
+                            type="button" (click)="generateBomToQuote('goToQuote')" [ngClass]="{ 'disabled': appDataService.includedPartialIb || qualService.disabledContinueButton || isLinkedCxInProgress }" class="btn btn-primary">
+                            <!--i class="icon-alert-info1"></i-->
+                            {{localeService.getLocalizedString('bom.GO_TO_CCW')}}</button>
+                    </li>
+                    <li>
+                        <button 
+                            *ngIf="((proposalDataService.proposalDataObject.proposalData.isCrossArchitecture && !appDataService.isGroupSelected) || (proposalDataService.proposalDataObject.proposalData.isStatusIncompleteCrossArch || proposalDataService.proposalDataObject.proposalData.isStatusInconsistentCrossArch || isLinkedCxInProgress || !isHeaderLoaded) && !appDataService.userInfo.rwSuperUser && !appDataService.isReadWriteAccess)"
+                            container="body" placement="bottom-right"
+                            type="button" class="btn btn-primary" style="margin: 7px" disabled>
+                            <!--i class="icon-alert-info1"></i-->
+                            {{localeService.getLocalizedString('bom.GO_TO_CCW')}}</button>
+                        <button [id]="appDataService.createUniqueId('CONVERT_TO_CCW',appDataService.pageContext)"
+                            *ngIf="!(proposalDataService.proposalDataObject.proposalData.isCrossArchitecture && !appDataService.isGroupSelected) && !(proposalDataService.proposalDataObject.proposalData.isStatusIncompleteCrossArch || proposalDataService.proposalDataObject.proposalData.isStatusInconsistentCrossArch || isLinkedCxInProgress || !isHeaderLoaded) && (appDataService.userInfo.rwSuperUser || appDataService.isReadWriteAccess) && allowConvertToQuote && !qualService.isDistiWithTC && !proposalDataService.hasLegacySuites"
+                            container="body" placement="bottom-right" [ngClass]="{ 'disabled': appDataService.includedPartialIb || qualService.disabledContinueButton || isLinkedCxInProgress }"
+                            ngbTooltip="Please uncheck block pop-up windows to disable the pop-up blocker and then click on convert to quote."
+                            type="button" (click)="generateBomToQuote('convertToQuote')" class="btn btn-primary">
+                            <!--i class="icon-alert-info1"></i-->
+                            {{localeService.getLocalizedString('bom.CONVERT_TO_CCW')}}</button>
+                        <button [id]="appDataService.createUniqueId('CONVERT_TO_CCW',appDataService.pageContext)"
+                            *ngIf="(proposalDataService.proposalDataObject.proposalData.isCrossArchitecture && !appDataService.isGroupSelected) || (proposalDataService.proposalDataObject.proposalData.isStatusIncompleteCrossArch || proposalDataService.proposalDataObject.proposalData.isStatusInconsistentCrossArch || isLinkedCxInProgress || !isHeaderLoaded) && !appDataService.userInfo.rwSuperUser && !appDataService.isReadWriteAccess && !allowConvertToQuote && !qualService.isDistiWithTC && !proposalDataService.hasLegacySuites"
+                            container="body" placement="bottom-right"
+                            ngbTooltip="Please uncheck block pop-up windows to disable the pop-up blocker and then click on convert to quote."
+                            type="button" class="btn btn-primary" disabled>
+                            <!--i class="icon-alert-info1"></i-->
+                            {{localeService.getLocalizedString('bom.CONVERT_TO_CCW')}}</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clearfix"></div>
+<div class="container-fluid">
+
+    <div class="alert alert--danger" *ngIf="showErrorMessage">
+        <span class="alert-icon">
+            <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span></span>
+        </span>
+        <span *ngFor="let error of Errormessages">{{error['text']}}</span>
+    </div>
+    <div class="alert alert--danger" *ngIf="displayAuthorizationError">
+        <span class="alert-icon">
+            <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span></span>
+        </span>
+        <span>The Proposal cannot be convert to quote as the partner is not currently authorized to transact EA deals.
+           <a (click)="openPurchaseModal()" href="javascript:void(0)"> Click here</a>  to view the Authorization details. 
+           The partner must qualify and enroll to the required EA track(s) for more details <a (click)="openUrl()" href="javascript:void(0)"> Click here</a>. 
+            Contact <b>ea_partner_enrollment@cisco.com</b> if you have any questions.
+        </span>
+    </div>
+
+    <!--Error message if proposal has any legacy suite-->
+    <div class="alert alert--danger alert-dismissable clearfix" *ngIf='proposalDataService.hasLegacySuites && (appDataService.isReadWriteAccess || (appDataService.userInfo.roSuperUser && !appDataService.isReadWriteAccess))'
+        style="width: 100%;">
+        <span class="alert-icon">
+            <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+        </span>
+        <!--span class="icon-alert-warning-bg"></span-->
+        <span>{{localeService.getLocalizedString('proposal.managesuites.LEGACY_SUITE_COMPLETED')}}</span>
+    </div>
+    <!-- To show cross Architecture related message -->
+
+    <div class="alert alert--info alert-dismissable"
+        *ngIf="proposalDataService.proposalDataObject.proposalData.isCrossArchitecture && !(proposalDataService.proposalDataObject.proposalData.isStatusIncompleteCrossArch || proposalDataService.proposalDataObject.proposalData.isStatusInconsistentCrossArch)">
+        <span class="alert-icon">
+            <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+        </span>
+        <span>{{localeService.getLocalizedMessage('proposal.preview_quote.CROSS_ARCHITECTURE_MESSAGE')}}</span>
+    </div>
+
+    <div class="alert alert--info alert-dismissable"
+        *ngIf="proposalDataService?.proposalDataObject?.proposalData?.isStatusIncompleteCrossArch && proposalDataService.proposalDataObject.proposalData.isStatusInconsistentCrossArch">
+        <span class="alert-icon">
+            <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+        </span>
+        <span>{{localeService.getLocalizedMessage('common.bom.ONE_MORE_LINKED_PROPOSAL_PARAM_NOT_CONSISTENT_NOT_COMPLETE_PLEASE_FIX')}}</span>
+    </div>
+
+    <div class="alert alert--info alert-dismissable"
+        *ngIf="(proposalDataService?.proposalDataObject?.proposalData?.isStatusIncompleteCrossArch && !proposalDataService.proposalDataObject.proposalData.isStatusInconsistentCrossArch) || isLinkedCxInProgress">
+        <span class="alert-icon">
+            <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+        </span>
+        <span>{{localeService.getLocalizedMessage('bom.ONE_MORE_LINKED_PROPOSAL_NOT_COMPLETE_PLEASE_FIX')}}</span>
+    </div>
+
+    <div class="alert alert--info alert-dismissable"
+        *ngIf="!proposalDataService?.proposalDataObject?.proposalData?.isStatusIncompleteCrossArch && proposalDataService.proposalDataObject.proposalData.isStatusInconsistentCrossArch">
+        <span class="alert-icon">
+            <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+        </span>
+        <span>{{localeService.getLocalizedMessage('bom.ONE_MORE_LINKED_PROPOSAL_PARAM_NOT_CONSISTENT_PLEASE_FIX')}}</span>
+    </div>
+
+    <div  *ngIf="appDataService.includedPartialIb" class="alert alert--warning alert-dismissable">
+
+        <span class="alert-icon">
+            <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+        </span>
+        <span>This proposal cannot be converted to CCW Quote as LoCC is not signed, please re-open the proposal and initiate/upload a valid LoCC from Price Estimate page.</span>
+        <!-- <a class="close" style="cursor: pointer;" (click)="removeAlert(message)">&times;</a> -->
+    </div>
+    <div  *ngIf="invalidPartner" class="alert alert--warning alert-dismissable">
+
+        <span class="alert-icon">
+            <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+        </span>
+        <span>{{localeService.getLocalizedMessage('bom.INVALID_PARTNER')}}</span>
+    </div>
+    <div class="alert alert--warning" *ngIf='proposalDataService.displayAnnualBillingMsg && !createProposalService.isMSPSelected'>
+            <i class="arrow up"></i>
+            <span class="alert-icon">
+                <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+            </span>
+            <span class="infoTxt">{{localeService.getLocalizedString('modal.proposalheader.BILLING_APPROVAL')}}</span>
+         </div> 
+
+
+
+    <!--  -->
+    <message></message>
+    <app-ea-purchases *ngIf="proposalSummaryService.showCiscoEaAuth && !proposalDataService.cxProposalFlow" style="width: 100%"></app-ea-purchases>
+    <div class="alert alert--info alert-dismissable"
+        *ngIf="!(proposalDataService.proposalDataObject.proposalData.isStatusIncompleteCrossArch || proposalDataService.proposalDataObject.proposalData.isStatusInconsistentCrossArch) && isHeaderLoaded && !proposalDataService.relatedCxProposalId && !proposalDataService.relatedSoftwareProposalId">
+        <span class="alert-icon">
+            <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+        </span>
+        <span>{{localeService.getLocalizedMessage('bom.DATE_INFO_MSG')}}</span>
+    </div>
+
+    <div class="alert alert-info alert-dismissable"
+    *ngIf="!(proposalDataService.proposalDataObject.proposalData.isStatusIncompleteCrossArch || proposalDataService.proposalDataObject.proposalData.isStatusInconsistentCrossArch) && isHeaderLoaded && isCotermPresent && !proposalDataService.relatedCxProposalId && !proposalDataService.relatedSoftwareProposalId">
+    <span class="alert-icon">
+      <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+    </span>
+    <span>{{localeService.getLocalizedMessage('bom.DATE_INFO_MSG_COTERM')}}</span>
+    </div>
+
+    <div class="row clearfix">
+        <div class="col-xs-12 col-sm-8 col-md-12"
+            *ngIf="!(proposalDataService.proposalDataObject.proposalData.isStatusIncompleteCrossArch || proposalDataService.proposalDataObject.proposalData.isStatusInconsistentCrossArch || isLinkedCxInProgress) && isHeaderLoaded">
+            <div class="flexible-div align-items-center topActionsBar mb-2 justify-content-end">
+                    <div class="col-md-8 pr-0 pl-0" *ngIf='proposalDataService.proposalDataObject.proposalData.isCrossArchitecture || (proposalDataService.proposalDataObject.proposalData.linkId && !proposalDataService.nonTransactionalRelatedSoftwareProposal)'>
+                        <div class="line-level-list">View BOM by </div>
+                        <div class="bottomActionsTab">
+                            <ul class="nav">
+                                <li class="nav-item" *ngFor="let arch of arrayArchitecture;" (click)="architectureSelected(arch.name)">
+                                    <a class="nav-link"  [ngClass]="{'active': arch.active }" href="javascript:void(0);">{{arch.name}}</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-4 pr-0">
+                    <div class="price-usd no-border pricePosRight p-0 float-right" style="font-size: 12px; margin-top:10px">{{localeService.getLocalizedString('price.est.ALL_PRICES')}}
+                            {{constantsService.CURRENCY}}</div>
+                        </div>
+                </div>
+            <ag-grid-angular #agGrid id="ag-grid" style="width: calc(100% - 1px); height: 500px;" appTableHeight
+                class="ag-fresh bom-grid" [gridOptions]="gridOptions" [sideBar]="false"
+                [columnDefs]="columnDefs" [getNodeChildDetails]="getNodeChildDetails" [rowData]="rowData" enableColResize enableSorting enableFilter groupHeaders
+                suppressRowClickSelection toolPanelSuppressGroups toolPanelSuppressValues debug rowHeight="26">
+            </ag-grid-angular>
+            <!-- <div class="p-relative" ><div class="scenario-options"><button class="toggle-btn" (click)="openQuoteModal()">Scenario 1</button><button class="toggle-btn disable ml-2">Scenario 2</button></div></div> -->
+            <div class="disclaimer">{{localeService.getLocalizedMessage('bom.STANDARD_DSA_APPROVAL')}}</div>
+        </div>
+    </div>
+</div>

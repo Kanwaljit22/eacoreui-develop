@@ -1,0 +1,12 @@
+
+.vnext-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    margin-top: 50px;
+    z-index: 99;
+    .container-fluid {
+        background-color: #fff;
+    }    
+}

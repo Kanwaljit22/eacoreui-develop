@@ -1,0 +1,143 @@
+<div class="modal-body vNext modal-without-header">
+    <button class="icon-close-btn" type="button"   (click)="close()"></button>
+    <h2 class="mb-5">{{'select-more-bu.ADVANCE_SEARCH' | localizationPipe : localizationService.localizedkeySet.size}}</h2>
+    <!-- End of header -->
+    <!-- Search Id in Text Area Starts-->
+    <app-message [displayModalMsg] = 'true'></app-message>
+    <div *ngIf="!searchWithExcel" class="vNext-lookup-desc pb-2 px-5">
+
+        <p class="mb-4">
+        <span class="d-block font-weight-bold my-3">{{'select-more-bu.MANUAL_SEARCH' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+        {{'select-more-bu.MANUAL_SEARCH_DESC' | localizationPipe : localizationService.localizedkeySet.size}}
+        </p>
+
+
+        <div *ngIf="invalidSerchIds.length" class="alert alert--danger alert-dismissable mb-2">
+            <span class="alert-icon">
+                <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span
+                        class="path3"></span></span>
+            </span>
+            <span (clickOutside)="showInvalidIds = false;">{{'select-more-bu.SEARCH_ID_ERROR' | localizationPipe : localizationService.localizedkeySet.size}} 
+                
+                <a href="javascript:void(0)" (click)="showInvalidIds = true">{{'common.VIEW_INVALID_IDS' | localizationPipe : localizationService.localizedkeySet.size}}</a>
+
+                <div class="dropdown" *ngIf="showInvalidIds">
+                    <ul class="dropdown-menu top-35">	                  
+                        <li  *ngFor="let id of invalidSerchIds">
+                            <label  class="mt-1">{{id}}</label>
+                        </li>     
+                    </ul>
+                </div>	
+            </span>
+        </div>
+        <div *ngIf="searchLimitError" class="alert alert--warning alert-dismissable mb-2">
+            <span class="alert-icon">
+                <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span
+                        class="path3"></span></span>
+            </span>
+            <span>{{'select-more-bu.SEARCH_LIMIT' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+        </div>
+
+        <div class="mb-4">
+            <label>
+                <textarea (keydown)='keyDown($event)' (paste)="onPaste($event)"  [(ngModel)] = 'searchIds' rows="10" cols="100" placeholder="{{'select-more-bu.SEARCH_PLACEHOLDER' | localizationPipe : localizationService.localizedkeySet.size}}" class="form-control"></textarea>
+            </label>
+        </div>
+    </div>
+    <!-- Search Id in Text Area Ends-->
+    <!-- Excel Search Starts-->
+    <div *ngIf="searchWithExcel" class="vNext-lookup-desc pb-2 px-5">
+        <p class="mb-4">
+        <span class="d-block font-weight-bold my-3">{{'common.SEARCH_EXCEL' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+        {{'select-more-bu.EXCEL_SEARCH_DESC' | localizationPipe : localizationService.localizedkeySet.size}}
+        </p>
+
+        <div class="mb-4">
+            <!--file-->
+            <div class="file-upload-section">
+                <div>
+                    <div *ngIf="documentId" class="alert alert--danger alert-dismissable mb-2">
+                        <span class="alert-icon">
+                            <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span
+                                    class="path3"></span></span>
+                        </span>
+                        <span>{{'select-more-bu.SEARCH_ID_ERROR_IN_EXCEL' | localizationPipe : localizationService.localizedkeySet.size}}
+                            <a #downloadZipLink [hidden]="true"></a>
+                            <a href="javascript:void();" (click)="downloadErrorFile()">{{localizationService.getLocalizedString('common.CLICK_HERE')}}
+                            </a>
+                            {{'common.locc.TO_DOWNLOAD' | localizationPipe : localizationService.localizedkeySet.size}}
+                        </span>
+                    </div>
+
+                    <div *ngIf="fileFormatError" class="alert alert--danger alert-dismissable mb-2">
+                        <span class="alert-icon">
+                            <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span
+                                    class="path3"></span></span>
+                        </span>
+                        <span>{{'select-more-bu.FILE_FORMAT_ERROR' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                    </div>
+
+                    <div *ngIf="message" class="alert alert--danger alert-dismissable mb-2">
+                        <span class="alert-icon">
+                            <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span
+                                    class="path3"></span></span>
+                        </span>
+                        <span>{{message}}
+                          
+                        </span>
+                    </div>
+                    <!--For uploaded file-->
+                    <div class="justify-content-between align-items-center mt-3" *ngIf="uploadedFileName">
+                        <div class="mr-3">
+                            <div class="d-flex justify-content-between align-items-center uploadFile-wrap">
+                                <span class="d-flex align-items-center">
+                                    <span class="icon-wrap">
+                                        <span class="signature-icon-wrap"><img style="width:20px" src="assets/images/icons/signature-initiated.svg"></span>
+                                    </span>
+                                    <span class="upload-file-name">{{uploadedFileName}}</span>
+                                </span>
+                                <span class="action-wrap download-link" *ngIf="documentId">
+                                    <a #downloadZipLink [hidden]="true"></a>
+                                    <a href="javascript:void(0);" (click)="downloadErrorFile()">
+                                        <span class="i-vNext-download mr-1"></span> {{'common.DOWNLOAD' | localizationPipe : localizationService.localizedkeySet.size}}
+                                    </a>
+                                </span>
+        
+                                <span class="action-wrap">
+                                    <span class="icon-tick d-none"></span>
+                                    <span class="icon-delete" (click)="reset()"
+                                     ></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div> 
+                    <!--For uploaded file-->
+                    <!--To upload file-->
+                    <div *ngIf="!uploadedFileName || documentId" class="my-drop-zone drag-drop flex-wrap justify-content-center mt-4" ng2FileDrop
+                        (fileOver)="fileOverBase($event)" (onFileDrop)="dropped($event)" [uploader]="uploader">
+                        <input type="file" id="file" #file ng2FileSelect [uploader]="uploader" (change)="onFileChange($event)"
+                            hidden  />
+                            <span class="signature-icon-wrap"><img src="assets/images/icons/signature-initiated.svg"></span>
+                        <span>{{'common.locc.DRAG_&_DROP_FILE_HERE_OR' | localizationPipe :
+                            localizationService.localizedkeySet.size}} <a href="javascript:void(0)" (click)="file.click()"
+                                >{{'common.BROWSE' |
+                                localizationPipe : localizationService.localizedkeySet.size}}</a> {{'common.TO_UPLOAD' |
+                            localizationPipe : localizationService.localizedkeySet.size}} </span>
+                    </div>
+                    <!--To upload file-->   
+                </div>
+            </div>
+        
+            <!--file-->
+        </div>
+    </div>
+    <!-- Excel Search Ends-->
+
+    <div class="text-center d-block pb-4">
+        <button class="btn btn-secondary" type="button" [disabled]="!searchIds && !uploadedFileName"  (click)="reset()">{{'common.RESET' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+        <button class="btn btn-secondary" type="button" id="{{elementIdConstantsService.AdvancePartySearch_Cancel}}" (click)="close()">{{localizationService.getLocalizedString('common.CANCEL')}} </button>
+        <button class="btn btn-primary ml-1" type="button" *ngIf="!searchWithExcel" (click)="displayExcelSearch()" >{{'common.SEARCH_EXCEL' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+        <button class="btn btn-primary ml-1" *ngIf="!searchWithExcel" type="button" [disabled]="!searchIds" (click)="search()" >{{'common.SEARCH' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+        <button class="btn btn-primary ml-1" *ngIf="searchWithExcel" type="button" [disabled]="!uploadedFileName"  (click)="searchIdWithExcel()" >{{'common.SEARCH' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+    </div>
+</div>

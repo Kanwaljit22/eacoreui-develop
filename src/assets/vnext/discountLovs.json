@@ -1,0 +1,34 @@
+{
+    "data": [
+        {
+            "ato": "E3-N-DCN",
+            "discount": {
+                "subsDisc": {
+                    "min": 42,
+                    "max": 100,
+                    "defaultDisc": 50
+                },
+                "servDisc": {
+                    "min": 42,
+                    "max": 100,
+                    "defaultDisc": 50
+                }
+            }
+        },
+        {
+            "ato": "ACI-DC",
+            "discount": {
+                "subsDisc": {
+                    "min": 40,
+                    "max": 75,
+                    "defaultDisc": 50
+                },
+                "servDisc": {
+                    "min": 38,
+                    "max": 60,
+                    "defaultDisc": 50
+                }
+            }
+        }
+    ]
+}

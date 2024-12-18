@@ -1,0 +1,26 @@
+.vNext {
+    .heading{
+        font-size: 32px;
+        color: #394454;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+    .alert--info {
+        font-size: 20px;
+        color: #394454;
+        .icon-msg-Info {
+            font-size: 26px;
+
+            .path1 {
+                &::before {
+                    color: #00bceb;
+                }
+            }
+        }
+        a{
+            text-decoration: none;
+            color: #00bceb;
+            font-weight: 400;
+        }
+    }
+}

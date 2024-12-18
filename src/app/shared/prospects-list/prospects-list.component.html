@@ -1,0 +1,27 @@
+<div class="min-info-list">
+  <ul class="list-style">
+    <li class="list-item border--all solid" *ngFor="let a of prospectData"  (click)="viewQualificationList(a)" style="cursor: pointer;">
+      <div class="list-item--logo flex-55">
+      <!--  <img src="images/microsoft-corporation.svg"> -->
+        <span class="list-item--name ellipsis"><a [id]="appDataService.createUniqueId(a.prospectName)" class="ellipsis" placement="top"
+          container="body" ngbTooltip="{{showFavoritesProspects ? a.customerName : a.prospectName }}" href="javascript:void(0);" (click)="viewQualificationList(a)">{{showFavoritesProspects ? a.customerName : a.prospectName }}</a></span>
+      </div>
+      <!-- <div class="list-item--val flex-19">
+        <label>{{localeService.getLocalizedString('dashboard.prospect.NUMBER_OF_ARCHS')}}</label>
+        <h3><span class="ellipsis">{{a.archCount}}</span></h3>
+      </div> -->
+      <div class="list-item--val flex-40">
+        <label>{{localeService.getLocalizedString('dashboard.prospect.LIST_OF_ARCHS')}}</label>
+        <h3><span placement="top"
+          container="body" ngbTooltip="{{a.archs}}" class="ellipsis">{{a.archs}}</span></h3>
+      </div>
+      <div class="list-item--val arc-count">{{a.archCount}}</div>
+    </li>
+  </ul>
+</div>
+<div  *ngIf="prospectData?.length === 0 &&  showFavoritesProspects">
+  <div class="no-qual-list">{{localeService.getLocalizedString('dashboard.prospect.NO_FAV_SELECTED')}}</div>
+</div>
+<div  *ngIf="prospectData?.length === 0 &&  !showFavoritesProspects">
+  <div class="no-qual-list">{{localeService.getLocalizedString('dashboard.prospect.NO_PROSPECT_FOUND')}}</div>
+</div>

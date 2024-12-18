@@ -1,0 +1,65 @@
+.mt-25 {
+    margin-top: 25px;
+}
+
+.mt-30 {
+    margin-top: 32px;
+}
+
+.mt-15 {
+    margin-top: 15px;
+}
+
+.mb-10 {
+    margin-bottom: 10px;
+}
+
+.mb-30 {
+    margin-bottom: 30px;
+}
+
+.mr-50 {
+    margin-right: 50px;
+}
+
+.checkbox-wrap {
+    padding: 0px 0px 0px;
+    float: left;
+    width: 100%;
+}
+
+.checkbox-wrap:after,
+.architecture-info:after,
+.an-list:after {
+    display: block;
+    clear: both;
+    content: "";
+    height: 1px;
+    width: 100%;
+}
+
+.checkbox-wrap .label-check {
+    top: 0;
+}
+
+.ques-answer {
+    padding-top: 15px;
+}
+
+.ques-answer .form--head {
+    padding-bottom: 10px;
+}
+
+.ques-answer .label-check {
+    display: block;
+    clear: both;
+    padding-bottom: 15px;
+}
+
+.qst-check {
+    padding-bottom: 5px;
+    .label-check {
+        max-width:100%;
+        width: auto;
+    }
+}

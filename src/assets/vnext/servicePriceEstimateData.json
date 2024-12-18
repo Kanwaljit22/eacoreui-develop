@@ -1,0 +1,259 @@
+{
+  "rid": "EAMP1632395761612",
+  "user": "rbinwani",
+  "error": false,
+  "data": {
+    "enrollments": [
+      {
+        "id": 5,
+        "name": "Service",
+        "primary": false,
+        "enrolled": true,
+        "displayQnA": true,
+        "displaySeq": 4,
+        "billingTerm": {
+          "rsd": "20210923",
+          "billingModel": "Prepaid",
+          "billingModelName": "Prepaid Term",
+          "term": 36
+        },
+        "commitInfo": {
+          "committed": false,
+          "fcSuiteCount": 0,
+          "pcSuiteCount": 13
+        },
+        "pools": [
+          {
+            "name": "Networking & Cloud Services",
+            "desc": "Networking & Cloud Services",
+            "displaySeq": 1,
+            "display": true,
+            "suites": [
+              {
+                "name": "Cisco DNA Switching",
+                "desc": "Cisco DNA Switching",
+                "ato": "E3-SEC-ISE",
+                "atoTier": "TIER_1",
+                "atoTierOptions": [
+                  {
+                    "name": "TIER_1",
+                    "desc": "Tier 1",
+                    "displaySeq": 1,
+                    "defaultTier": true
+                  }
+                ],
+                "credit": {
+                  "cxHwSupportCredits": {
+                    "residual": 232.2,
+                    "uncovered": 222.3
+                  }
+                },
+                "inclusion": true,
+                "displaySeq": 1,
+                "discount": {
+                  "subsDisc": 50,
+                  "servDisc": 0
+                },
+                "billingTerm": {
+                  "rsd": "20210923",
+                  "billingModel": "Prepaid",
+                  "term": 36
+                },
+                "commitInfo": {
+                  "committed": false,
+                  "fcSuiteCount": 0,
+                  "pcSuiteCount": 0
+                },
+                "displayGroup": true,
+                "disabled": false,
+                "active": true,
+                "qtyUnit": "Sessions",
+                "pids": [
+                  {
+                    "name": "NTWK-DNA-S-C9500-HIGH",
+                    "desc": "C9500 Cisco DNA EA High (24Q/40X)",
+                    "displaySeq": 3,
+                    "groupId": 1,
+                    "type": "SUBSCRIPTION",
+                    "supportPid": false,
+                    "discount": {
+                      "servDisc": 44
+                    },
+                    "credit": {
+                      "cxHwSupportCredits": {
+                        "residual": 232.2,
+                        "uncovered": 222.3
+                      }
+                    },
+                    "cxIbQty": {
+                      "productFamilyCount": 33,
+                      "total": 22,
+                      "owned": 33,
+                      "uncovered": 44,
+                      "takeover": 55
+                    }
+                  },
+                  {
+                    "name": "NTWK-DNA-S-C9500-48Y4C",
+                    "desc": "C9500 Cisco DNA EA 48Y4C",
+                    "displaySeq": 1,
+                    "groupId": 2,
+                    "type": "SUBSCRIPTION",
+                    "supportPid": false,
+                    "discount": {
+                      "servDisc": 44
+                    },
+                    "credit": {
+                      "cxHwSupportCredits": {
+                        "residual": 232.2,
+                        "uncovered": 222.3
+                      }
+                    },
+                    "cxIbQty": {
+                      "productFamilyCount": 33,
+                      "total": 22,
+                      "owned": 33,
+                      "uncovered": 44,
+                      "takeover": 55
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "priceInfo": {
+          "extendedList": 0,
+          "unitNet": 0,
+          "totalNet": 0,
+          "totalNetBeforeCredit": 0
+        },
+        "ncPriceInfo": {
+          "extendedList": 0,
+          "unitNet": 0,
+          "totalNet": 0,
+          "totalNetBeforeCredit": 0
+        },
+        "disabled": false,
+        "active": true,
+        "externalConfiguration": false,
+        "cxOptInAllowed": false
+      }
+    ],
+    "proposal": {
+      "objId": "614c61dd531c89693e9073b6",
+      "id": 8927587,
+      "projectObjId": "612770b174e3b56e4a95106e",
+      "projectId": 46356,
+      "name": "test-subscription",
+      "billingTerm": {
+        "rsd": "20210923",
+        "billingModel": "Prepaid",
+        "term": 36
+      },
+      "countryOfTransaction": "US",
+      "priceList": {
+        "id": "1109",
+        "name": "Global Price List - US"
+      },
+      "currencyCode": "USD",
+      "partnerInfo": {
+        "beGeoId": 639324,
+        "beId": 586064,
+        "beGeoName": "ConvergeOne, Inc.",
+        "pgtmvBeGeoId": 272241792,
+        "countryCode": "US"
+      },
+      "customer": {
+        "accountName": "FIRST COMMAND FINANCIAL SERVICES",
+        "customerGuId": "10522714",
+        "customerGuName": "FIRST COMMAND FINANCIAL SERVICES INC",
+        "preferredLegalName": "FIRST COMMAND FINANCIAL SERVICES",
+        "preferredLegalAddress": {
+          "addressLine1": "1584 MCNEIL ST",
+          "addressLine2": "STE 240 ",
+          "city": "DUPONT",
+          "state": "WA",
+          "zip": "98327",
+          "country": "UNITED STATES"
+        },
+        "customerReps": [
+          {
+            "id": 0,
+            "title": "QA",
+            "firstName": "Trupti",
+            "lastName": "Zope",
+            "name": "Trupti Zope",
+            "email": "trzope@cisco.com"
+          }
+        ],
+        "federalCustomer": false,
+        "countryCode": "UNITED STATES",
+        "legacyCustomer": false
+      },
+      "dealInfo": {
+        "id": "686274238",
+        "statusDesc": "Qualified",
+        "optyOwner": "emily-culp",
+        "buyMethodDisti": false,
+        "type": "PARTNER",
+        "dealScope": 3,
+        "dealSource": 0,
+        "dealType": 3,
+        "crPartyId": "355872696",
+        "partnerDeal": true,
+        "distiDeal": false
+      },
+      "buyingProgram": "BUYING_PGRM_3",
+      "locked": false,
+      "status": "IN_PROGRESS",
+      "initiatedBy": {
+        "type": "CISCO",
+        "ciscoInitiated": true,
+        "distiInitiated": false
+      },
+      "audit": {
+        "createdBy": "rbinwani",
+        "createdAt": "2021-09-23T11:15:41.332+0000",
+        "updatedBy": "rbinwani",
+        "updatedAt": "2021-09-23T11:15:45.118+0000"
+      },
+      "priceInfo": {
+        "extendedList": 0,
+        "unitNet": 0,
+        "originalExtendedList": 0,
+        "originalUnitList": 0,
+        "totalNet": 0,
+        "totalNetBeforeCredit": 0,
+        "totalNetAfterIBCredit": 0,
+        "unitListMRC": 0,
+        "unitNetMRC": 0
+      },
+      "commitInfo": {
+        "committed": false,
+        "threshold": 100000
+      },
+      "forceAllowCompletion": false,
+      "programEligibility": {
+        "eligible": false
+      },
+      "syncStatus": {
+        "configDirty": false,
+        "priceDirty": true,
+        "hanaDirty": true,
+        "quoteInSync": false,
+        "ruleDirty": true
+      },
+      "deleted": false,
+      "scopeInfo": {
+        "scopeId": 1125,
+        "masterAgreementId": "EA1106",
+        "returningCustomer": false
+      },
+      "summaryViewAllowed": false,
+      "statusDesc": "In Progress",
+      "allowCompletion": false
+    }
+  },
+  "currentDate": "2021-09-23T11:16:03.258+0000"
+}

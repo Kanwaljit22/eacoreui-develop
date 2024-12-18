@@ -1,0 +1,75 @@
+.pe-skelton{
+  span{
+      display: block;
+      background: #e5e8ec;
+  }
+  .text-placeholder {
+      width: 180px;
+      height: 17px;
+  }
+  .button-placeholder {
+      width: 108px;
+      height: 33px;
+      border-radius: 100px;
+      &.button-sm{
+          width: 75px;
+          height: 27px;
+      }
+  }
+  .pe-roadmap{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .circle{
+          width: 21px;
+          height: 21px;
+          border-radius: 100%;
+      }
+      .line{
+          height: 1px;
+          width: 150px;
+      }
+  }
+  .pe-enrollment {
+      width: 100%;
+      padding: 12px;
+      background: #e5e8ec;
+      margin-top: 50px;
+      margin-bottom: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .pe-tile {
+        width: 280px;
+        height: 137px;
+        background: #fff;
+        display: flex;
+        align-items: end;
+        justify-content: end;
+        padding: 15px;
+        margin-right: 15px;
+        &:last-child{
+            margin-right: 0;
+        }
+    }
+  }
+  .section-seperator {
+      width: 100%;
+      height: 44px;
+      margin-top: 40px;
+      margin-bottom: 20px;
+  }
+  table{
+      width: 100%;
+      td{
+          padding: 15px;
+      }
+      span{
+          display: inline-block;
+      }
+  }
+  .full-width{
+      width: calc(100% + 70px);
+      margin-left: -35px;
+  }
+}

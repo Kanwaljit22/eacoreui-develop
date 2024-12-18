@@ -1,0 +1,97 @@
+.recommended-button {
+    border-top: 1px solid rgba(214, 214, 214, 0.5);
+    margin-top: 10px;
+}
+
+.recommended-button li button {
+    border    : 0;
+    background: none;
+    padding   : 5px 5px 5px 30px;
+}
+
+recommended-proposal .border-left {
+    border-color: #e7e7e7;
+}
+
+.recommended-button.proposal-button button i {
+    left: 0px;
+}
+
+.recommended-left {
+    background   : #FFFFFF;
+    border       : 1px solid rgba(214, 214, 214, 0.5);
+    box-shadow   : 0px 0px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    padding      : 15px 20px 5px 20px;
+    margin-bottom: 10px !important;
+}
+
+.recommended-right {
+    background   : #f8f8f8;
+    border       : 1px solid rgba(214, 214, 214, 0.5);
+    box-shadow   : 0px 0px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    padding      : 15px 20px 5px 20px;
+    margin-bottom: 10px;
+}
+
+.recommended-right h3 {
+    font-size  : 16px;
+    line-height: 22px
+}
+
+.recommended-right h3 .sales-title {
+    color        : #333333;
+    display      : block;
+    width        : calc(100% - 25px);
+    float        : left;
+    overflow     : hidden;
+    text-overflow: ellipsis;
+    white-space  : nowrap;
+}
+
+.recommended-icons {
+    font-size  : 32px;
+    float      : right;
+    padding    : 10px 0 10px 10px;
+    border-left: 1px solid rgba(214, 214, 214, 0.5);
+}
+
+.recommended-right p,
+.recommended-right li,
+.recommended-left p,
+.recommended-left li {
+    font-size: 12px;
+}
+
+
+.icon-pdf-2,
+.icon-xls-2,
+.icon-ppt-2 {
+    font-size   : 30px;
+    float       : left;
+    margin-right: 10px;
+    margin-top  : 3px;
+}
+
+.star {
+    position : relative;
+    display  : inline-block;
+    font-size: 1.1rem;
+    color    : #d3d3d3;
+}
+
+.full {
+    color: #ffae42;
+}
+
+.half {
+    position: absolute;
+    display : inline-block;
+    overflow: hidden;
+    color   : #ffae42
+}
+
+.right67 {
+    right: 67% !important
+}

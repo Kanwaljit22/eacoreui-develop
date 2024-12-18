@@ -1,0 +1,75 @@
+<!-- vNext -- Header -- Starts here -->
+<header class="vNext-header vNext">
+    <div class="container-fluid">
+        <div class="row align-items-center">
+            <div class="col-lg-5">
+                <span style="cursor: pointer;"  class="navbar-brand p-0">
+                    <span class="site-logo">
+                        <img src="assets/images/icons/cisco-logo-white.svg">
+                        <span class="i-vNext-vnext-cart"></span>
+                    </span>
+
+                    <span class="site-title"> 
+                        <h3>{{localizationService.getLocalizedString('common.header.CISCO_COMMERCE')}}</h3>
+                        <h2>{{localizationService.getLocalizedString('common.header.ENTERPRISE_AGREEMENT_MANAGEMENT')}}</h2>
+                    </span>
+                </span>
+            </div>
+            <!-- End if Logo -->
+
+            <div class="col-lg-7 d-flex justify-content-end">
+                <ul class="d-flex align-items-center">
+                    <li class="mx-1 dropdown profile">
+                        <a role="button" href="javascript:void(0)">
+                            <div class="user-name ng-binding" ><span class="ellipsis">{{localizationService.getLocalizedString('common.header.HI')}}, {{eaStoreService.userInfo.firstName}}
+                                <!--sup> Proxy</sup--></span>
+                                <!-- <span
+                                    class="ico-dropdown"></span> -->
+                            </div>
+                        </a>
+                        <!-- <div class="dropdown-menu profile-links">
+                            <ul>
+                                <span class="icon-arrow-up"><span class="path1"></span><span class="path2"></span></span>
+                                <li class="dropdown-profile">
+                                    <span class="user-desname">Emily</span>
+                                    <span class="smallTxt">NonAM-Mgr</span>
+                                </li>
+
+                                <li class="">
+                                    <a class="dropdown-item" href="">Proxy Login</a>
+                                </li>
+                                <li class="">
+                                    <a class="dropdown-item" href="">Change Proxy</a>
+                                </li>
+                                <li style="cursor:pointer;"><a class="dropdown-item">Proxy</a></li>
+                                <li style="cursor:pointer;"><a class="dropdown-item">Exit Proxy</a></li>
+                                <li style="cursor:pointer;"><a class="dropdown-item">Manage Compliance Hold</a></li>
+                                <li style="cursor:pointer;"><a class="dropdown-item">Manage Routing Team</a></li>
+                                <li style="cursor:pointer;"><a class="dropdown-item">{{localeService.getLocalizedString('header.SIGN_OUT')}}</a></li>
+
+                                <li class="userInfoListItem" [hidden]="true">
+                                    <span class="smallTxt">Your Account</span>
+                                    <span class="username">Emily</span>
+                                    <span class="userPost">Administrator</span>
+                                </li>
+                            </ul>
+                        </div> -->
+                    </li>
+
+                    <!-- <li class="mx-2 position-relative">
+                        <img src="assets/images/icons/idea.svg">
+                        <span class="noti-number-badge">3</span>
+                    </li>
+
+                    <li class="mx-2 position-relative">
+                        <img src="assets/images/icons/team.svg">
+                        <span class="noti-number-badge">2</span>
+                    </li>
+
+                    <li class="mx-2"><img src="assets/images/icons/faq-icon.svg"></li> -->
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- vNext -- Header -- Ends here -->

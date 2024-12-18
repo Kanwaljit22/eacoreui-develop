@@ -1,0 +1,374 @@
+<section class="vNext" id="legalPackage" *ngIf="proposalStoreService.proposalData.status !== 'COMPLETE'">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="section-content">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="vNext-locc">
+                            <div class="d-flex align-items-top">
+                                <span class="severity-badge bg-green" container="body" ngbTooltip="{{'common.CISCO_CONFIDENTIAL' | localizationPipe : localizationService.localizedkeySet.size}}" placement="top-left">C</span>
+                                <div class="pdf-icon-wrap">
+                                    <span class="i-vNext-pdf mr-3"><span class="path1"></span><span class="path2"></span><span
+                                    class="path3"></span><span class="path4"></span>
+                                    </span>
+                                </div>
+                            
+                                <div class="description-box">
+                                    <div class="d-flex">
+                                        <h4 class="sm-heading">{{'common.MULTI_PARTNER_LABLE' | localizationPipe : localizationService.localizedkeySet.size}}</h4>
+                                    </div>
+                                    <p class="secondary-text">{{'common.MULTI_PARTNER_DESC' | localizationPipe : localizationService.localizedkeySet.size}}</p>
+                                    <div class="d-flex mt-3">
+                                            <div class="radio-custom mr-4 mb-0">
+                                                <input [checked]="selectedConsent === 'intitateSig'" attr.data-id="{{dataIdConstantsService.multiPartnerConsent_radio_intitateSig}}" id="locc1" type="radio" name="locc" (click)="selectCustomerConsent($event)">
+                                                <label for="locc1">
+                                                    <span class="custom-radio-btn"><span class="path1"></span><span class="path2"></span></span>
+                                                    <span><span></span></span> 
+                                                    Initiate e-Signature (Electronic signature)</label>
+                                            </div>
+                                
+                                            <div class="radio-custom mr-4 mb-0">
+                                                <input id="locc2" type="radio" name="locc" [checked]="selectedConsent === 'uploadDoc'" attr.data-id="{{dataIdConstantsService.multiPartnerConsent_radio_uploadDoc}}"  (click)="selectCustomerConsent($event)" [disabled]="!editLegalPackage">
+                                                <label for="locc2">
+                                                    <span class="custom-radio-btn"><span class="path1"></span><span class="path2"></span></span>
+                                                    <span><span></span></span> 
+                                                    Upload Signed Document(s) </label>
+                                            </div>
+                                    </div>   
+                                    <div>
+
+                                        <div class="d-flex mt-3"  *ngIf='displaySuccessMsg'>
+                                            <div class="d-flex justify-content-between align-items-center alert alert--success alert-dismissable">
+                                                <span class="d-flex align-items-center">
+                                                <span class="alert-icon">
+                                                    <span class="icon-done1"><span class="path1"></span><span class="path2"></span></span>
+                                                </span>
+                                                <span>{{'common.DOC_UPLOAD_SUCCESS_MSG' | localizationPipe : localizationService.localizedkeySet.size}}</span></span>
+                                                 <a href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.multiPartnerConsent_link_closeMessage}}" (click)='displaySuccessMsg = false;' class="lh-1"><span class="icon-close-btn"></span></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>     
+                            </div>
+                
+                            <div class="vNext-locc-dropdown" *ngIf="selectedConsent === 'intitateSig'">
+                                <div class="inner-locc-wrap" id="upload" *ngIf='step === 1'>
+                                    <div class="d-flex justify-content-between">
+                                        <div class="locc-dropdown-heading">
+                                            <h4 class="heading--h4">Confirm Customer and Customer Representative Information</h4>
+                                        </div>
+                                        <div class="steps-count">
+                                            <span>{{'common.locc.STEP_1' | localizationPipe : localizationService.localizedkeySet.size}} <span class="total-count">{{'common.OF_2' | localizationPipe : localizationService.localizedkeySet.size}}</span></span>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-between mt-2 align-items-end">
+                                        <ul class="inline-listing border-right-li w-100 li-33">
+                                            <li style="padding-bottom: 13.8px;" [ngClass]="{'spacing-legalName': invalidCustomerRepData && (multiPartnerCustRep[0].mandatoryFieldsMissing || multiPartnerCustRep[1].mandatoryFieldsMissing)}">
+                                                <div class="rep-info-warp">
+                                                    <h6 class="heading--h6">{{'common.PREFERRED_LEGAL_NAME' | localizationPipe : localizationService.localizedkeySet.size}} <a href="javascript:void(0);" (click)="editPreferredLegal()" attr.action-id="{{dataIdConstantsService.multiPartnerConsent_link_editPreferredLegal}}" *ngIf="editLegalPackage"><span class="i-vNext-edit-filled"></span></a></h6>
+                                                    <h5 class="heading--h5">{{proposalStoreService.proposalData?.customer?.preferredLegalName}}</h5>
+                                                </div>
+                                            </li>
+                                            <li *ngIf="multiPartnerCustRep && multiPartnerCustRep[0]">
+                                                <div class="rep-info-warp" [ngClass]="{'spacing-customerRep': invalidCustomerRepData && !multiPartnerCustRep[0].mandatoryFieldsMissing && multiPartnerCustRep[1].mandatoryFieldsMissing}">
+                                                    <h6 class="heading--h6">{{'common.CUSTOMER_REPRESENTATIVE' | localizationPipe : localizationService.localizedkeySet.size}} <a href="javascript:void(0);" *ngIf="editLegalPackage" attr.action-id="{{dataIdConstantsService.multiPartnerConsent_link_editCustomerRep}}" (click)="editCustomerRep('update', multiPartnerCustRep[0])"><span class="i-vNext-edit-filled"></span></a></h6>
+                                                    <h5 class="heading--h5">{{multiPartnerCustRep[0]?.name ? multiPartnerCustRep[0].name: '--'}}</h5>
+                                                    <p>{{multiPartnerCustRep[0]?.title ? multiPartnerCustRep[0].title : '--'}}</p>
+                                                    <p>{{multiPartnerCustRep[0]?.email ? multiPartnerCustRep[0].email : '--'}}</p>
+                                                </div>
+                                                <small class="text-danger" *ngIf="invalidCustomerRepData && multiPartnerCustRep[0].mandatoryFieldsMissing"><i class="icon-error-icon"></i><span>{{'common.CUSTOMER_REP_MANDATORY_FIELDS_MISSING' | localizationPipe : localizationService.localizedkeySet.size}}</span></small>                                            
+                                            </li>
+
+                                            <li *ngIf="multiPartnerCustRep && multiPartnerCustRep[1]">
+                                                <div class="rep-info-warp" [ngClass]="{'spacing-customerRep': invalidCustomerRepData && multiPartnerCustRep[0].mandatoryFieldsMissing && !multiPartnerCustRep[1].mandatoryFieldsMissing}">
+                                                    <h6 class="heading--h6">{{'common.CUSTOMER_REPRESENTATIVE' | localizationPipe : localizationService.localizedkeySet.size}} <a href="javascript:void(0);" *ngIf="editLegalPackage"><span class="i-vNext-edit-filled" attr.action-id="{{dataIdConstantsService.multiPartnerConsent_link_editCustomerRep}}" (click)="editCustomerRep('update', multiPartnerCustRep[1])" ></span><span class="icon-delete1 ml-2" (click)="deleteCustomerRep(multiPartnerCustRep[1]?.id)"></span></a></h6>
+                                                    <h5 class="heading--h5">{{multiPartnerCustRep[1]?.name ? multiPartnerCustRep[1].name: '--'}}</h5>
+                                                    <p>{{multiPartnerCustRep[1]?.title ? multiPartnerCustRep[1].title : '--'}}</p>
+                                                    <p>{{multiPartnerCustRep[1]?.email ? multiPartnerCustRep[1].email : '--'}}</p>
+                                                </div>
+                                                <small class="text-danger" *ngIf="invalidCustomerRepData && multiPartnerCustRep[1].mandatoryFieldsMissing"><i class="icon-error-icon"></i><span>{{'common.CUSTOMER_REP_MANDATORY_FIELDS_MISSING' | localizationPipe : localizationService.localizedkeySet.size}}</span></small>
+                                            </li>
+
+                                            <li *ngIf="showAddCustomerRep() && editLegalPackage">
+                                                <div class="add-cust-rep">
+                                                    <div class="text-center">
+                                                        <a href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.multiPartnerConsent_link_editCustomerRep}}" (click)="editCustomerRep('add')">
+                                                            {{multiPartnerCustRep.length?('legal-package.ADD_SECONDARY_CUST_REP' | localizationPipe : localizationService.localizedkeySet.size):('legal-package.ADD_CUSTOMER_REPRESENTATIVE' | localizationPipe : localizationService.localizedkeySet.size)}}  
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center mt-3">            
+                                        <div class="form-group my-0 w-50">
+                                            <label class="customer-label mb-1">{{'legal-package.SELECT_LANGUAGE' | localizationPipe : localizationService.localizedkeySet.size}}</label>
+                                            <div class="select-items dropdown w-325" (clickOutside)="hideLanguages()">
+                                                <span class="dropdown--typeAhead__arrow-management" (click)='displayLanguages = true;'>
+                                                    <button class="btn--text drop-button dropdown-toggle" type="button" attr.action-id="{{dataIdConstantsService.multiPartnerConsent_button_selectLanguage}}">{{selectedLanguage.displayName}}</button>
+                                                    <!-- <button disabled *ngIf='supportedLanguages.length === 1' class="btn--text drop-button" type="button">{{supportedLanguages[0].displayName}}</button>-->
+                                                </span> 
+                                                <div class="dropdown-menu" [class.show]="displayLanguages">
+                                                    <ul>
+                                                        <li *ngFor='let language of supportedLanguages' (click)="updateLanguage(language)">{{language.displayName}}</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                           
+                                        </div>
+                                    </div>
+                                    <!-- Drag and drop -- Ends here -->
+                                    <div class="d-flex w-100 justify-content-end marginT20" *ngIf="editLegalPackage">
+                                        <button class="btn btn-primary sm ml-2" (click)='moveToNextStep()' *ngIf="multiPartnerCustRep.length && !invalidCustomerRepData; else disableContinue" id="{{elementIdConstantsService.MULTI_PARTNER_CONTINUE}}" attr.action-id="{{dataIdConstantsService.multiPartnerConsent_button_continue}}">{{'common.CONTINUE' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                                        <ng-template #disableContinue>
+                                            <button class="btn btn-primary sm ml-2 disabled">{{'common.CONTINUE' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                                        </ng-template>
+                                    </div>
+                
+                                    <hr class="weight-1">
+                                </div>
+                                <!-- End of LoCC -- Step 1 -->
+                                <!-- Legal Package Information Section -- Starts Here -->
+                                <div class="inner-locc-wrap" *ngIf='step===2 && !eSignInitiated'>
+                                   
+
+                                    <div class="d-flex justify-content-between mt-3 align-items-end">
+                                        <div class="d-flex justify-content-between w-100">
+                                            <div class="locc-dropdown-heading">
+                                                <h4 class="heading--h4">Preview Document</h4>
+                                                <p>{{'common.locc.CUSTOMER_REPRESENTATIVE' | localizationPipe : localizationService.localizedkeySet.size}} </p>
+                                            </div>
+                                            <div class="steps-count">
+                                                    <span>{{'common.locc.STEP_2' | localizationPipe : localizationService.localizedkeySet.size}} <span class="total-count">{{'common.OF_2' | localizationPipe : localizationService.localizedkeySet.size}}</span></span>
+                                                </div>
+
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="d-flex justify-content-between align-items-center mt-1">
+                                        <div class="w-100">
+                                            <div class="d-flex align-items-center uploadFile-wrap">
+                                               
+                                                <span class="icon-wrap">
+                                                    <span class="i-vNext-pdf mr-3"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></span>
+                                                </span>
+                                                
+                                                    <h6 class="heading--h6 d-flex justify-content-between align-items-center w-100">Exception Intra Portfolio Multi-Partner Consent Form
+                                                        <div>
+                                                            <a #downloadZipLink [hidden]="true"></a>
+                                                            <a href="javascript:void(0);" (click)="unsignedCustomerConsent()" attr.action-id="{{dataIdConstantsService.multiPartnerConsent_link_editCustomerRep}}">
+                                                                <span class="i-vNext-download mr-1"></span>
+                                                            </a>
+                                                        </div>
+                                                    </h6>
+                                                   
+                                                
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex w-100 justify-content-end marginT20" *ngIf="editLegalPackage">
+                                        <button class="btn btn-secondary sm ml-2" (click)='moveToPreviousStep()' attr.action-id="{{dataIdConstantsService.multiPartnerConsent_button_back}}">{{'common.BACK' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                                        <button (click)='initiateESignature()' class="btn btn-primary sm ml-2" attr.action-id="{{dataIdConstantsService.multiPartnerConsent_button_initiateESignature}}">{{'legal-package.INITIATE_E-SIGNATURE' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                                    </div>
+                                </div>
+                                <!-- Legal Package Information Section -- Ends Here -->  
+
+                                <div class="inner-locc-wrap"  *ngIf='step===2 && eSignInitiated' id="initiateStepInitiate">
+                                    <div class="d-flex justify-content-between">
+                                        <div class="locc-dropdown-heading">
+                                            <h4 class="heading--h4 mb-3">{{'common.locc.E_SIGN_INITIATED' | localizationPipe : localizationService.localizedkeySet.size}}</h4>
+                                        </div>
+                                    </div>
+                            
+                                    <div class="d-flex align-items-center">
+                                        <div class="paddingR40">
+                                            <img src="assets/images/icons/signature-initiated.svg">
+                                        </div>
+                                        <div>
+                                            <div class="mb-2">Status <span class="badge badge-in-progress" *ngIf="!eDocSigned && eSignInitiated">{{'common.PENDING_SIGNATURE' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                                                <span class="badge badge-valid" *ngIf="eDocSigned">{{'common.SIGNED' | localizationPipe : localizationService.localizedkeySet.size}}
+                                                   
+                                                </span>
+                                            </div>   
+                                            
+                                            <ul class="inline-listing full-width-listing disc" *ngIf="!eDocSigned">
+                                                <li>{{'common.ELECTRONIC_COPIES_OF_THE' | localizationPipe : localizationService.localizedkeySet.size}} <a #downloadZipLink [hidden]="true"></a>
+                                                    <a href="javascript:void(0);" (click)="downloadDoc()" attr.action-id="{{dataIdConstantsService.multiPartnerConsent_link_partnerConsentdownload}}">{{'common.MULTI_PARTNER_CONSENT_FORM' | localizationPipe : localizationService.localizedkeySet.size}}</a>
+                                                    {{'common.locc.HAVE_BEEN_REQUESTED_TO_BE_SENT_TO' | localizationPipe : localizationService.localizedkeySet.size}} <span class="bold-txt" *ngIf='customerRepData.length'>{{customerRepData[0]?.name}} ({{customerRepData[0]?.email}})<span *ngIf="customerRepData[1]">, {{customerRepData[1]?.name}} ({{customerRepData[1]?.email}})</span></span>
+                                                </li>
+                                                <li>{{'common.locc.SIGN_THE_DOCUMENTS' | localizationPipe : localizationService.localizedkeySet.size}}</li>
+                                            </ul>
+                                            
+                                            <ul class="inline-listing full-width-listing" *ngIf="eDocSigned">
+                                                <li *ngIf="!customerConsentUploaded.documentId">{{'legal-package.E_SIGNATURE_COMPLETED' | localizationPipe : localizationService.localizedkeySet.size}} <a #downloadZipLink [hidden]="true"></a>
+                                                    <a href="javascript:void(0);" (click)="downloadDoc()" attr.action-id="{{dataIdConstantsService.multiPartnerConsent_link_partnerConsentdownload}}">{{'common.MULTI_PARTNER_CONSENT_FORM' | localizationPipe : localizationService.localizedkeySet.size}}</a>
+                                                    {{'legal-package.HAVE_BEEN_SIGNED_BY' | localizationPipe : localizationService.localizedkeySet.size}} <span class="bold-txt" *ngIf='customerRepData.length'>{{customerRepData[0]?.name}} {{customerRepData[0]?.email}}<span *ngIf="customerRepData[1]">, {{customerRepData[1]?.name}} {{customerRepData[1]?.email}}</span></span>
+                                                </li>
+                                                <li *ngIf="customerConsentUploaded.documentId">{{'legal-package.PHYSICAL_SIGNATURE_UPLOADED' | localizationPipe : localizationService.localizedkeySet.size}} <a #downloadZipLink [hidden]="true"></a>
+                                                    <a href="javascript:void(0);" (click)="downloadDoc()" attr.action-id="{{dataIdConstantsService.multiPartnerConsent_link_partnerConsentdownload}}">{{'common.MULTI_PARTNER_CONSENT_FORM' | localizationPipe : localizationService.localizedkeySet.size}}</a>
+                                                    {{'legal-package.HAVE_BEEN_SIGNED' | localizationPipe : localizationService.localizedkeySet.size}}
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center uploadFile-wrap">
+                                               
+                                        <span class="icon-wrap">
+                                            <span class="i-vNext-pdf mr-3"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></span>
+                                        </span>
+                                        <h6 class="heading--h6 d-flex justify-content-between align-items-center w-100">Exception Intra Portfolio Multi-Partner Consent Form
+                                            <div>
+                                                <a #downloadZipLink [hidden]="true"></a>
+                                                <a href="javascript:void(0);" (click)="downloadDoc()" attr.action-id="{{dataIdConstantsService.multiPartnerConsent_link_downloadDoc}}">
+                                                    <span class="i-vNext-download"></span>
+                                                </a>
+                                            </div>
+                                        </h6>
+                                        
+                                    </div>
+                            
+                                    <div class="d-flex w-100 justify-content-end marginT20" *ngIf="editLegalPackage">
+                                        <button (click)='restart()' class="btn btn-primary sm ml-2" attr.action-id="{{dataIdConstantsService.multiPartnerConsent_button_restart}}">{{'legal-package.RESTART' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                                    </div>
+                                </div>                
+                                <!-- End of e-signature initiated -->
+                            </div>
+                            
+
+                            <!-- End of e-signature initiated -->
+                            <div *ngIf="selectedConsent === 'uploadDoc'" class="vNext-locc-dropdown">
+                                <div class="inner-locc-wrap" id="upload">
+                                    <div class="d-flex justify-content-between">
+                                        <div *ngIf="!isCustConsentUploaded" class="locc-dropdown-heading w-100">
+                                            <div class="d-flex justify-content-between">
+                                                <h4 class="heading--h4 mb-3">Customer Consent</h4>
+                                                <div class="steps-count">
+                                                    <span *ngIf="!filesUploadedData.length">{{'common.locc.STEP_1' | localizationPipe : localizationService.localizedkeySet.size}} <span class="total-count">{{'common.OF_2' | localizationPipe : localizationService.localizedkeySet.size}}</span></span>
+                                                    <span *ngIf="filesUploadedData.length">{{'common.locc.STEP_2' | localizationPipe : localizationService.localizedkeySet.size}} <span class="total-count">{{'common.OF_2' | localizationPipe : localizationService.localizedkeySet.size}}</span></span>
+                                                </div>
+                                            </div>
+                                           
+                                           
+                                            <p *ngIf="!filesUploadedData.length">{{'common.UPLOAD_MULTI_PARTNER_COUST_CONCENT' | localizationPipe : localizationService.localizedkeySet.size}} 
+                                            </p>
+                                        </div>
+                                        
+                                    </div>
+                                    
+                                    <!-- Drag and drop -- Starts here -->
+                                    <div class="d-flex" *ngIf="!filesUploadedData.length && !isCustConsentUploaded">
+                                        <div class="my-drop-zone drag-drop" ng2FileDrop (fileOver)="fileOverBase($event)"
+                                            (onFileDrop)="dropped($event, false)" [uploader]="uploader">
+                                            <input type="file" id="file" #file ng2FileSelect [uploader]="uploader" attr.data-id="{{dataIdConstantsService.multiPartnerConsent_radio_uploadFile}}" (change)="onFileChange($event, false)"
+                                                hidden />
+                                            <span class="signature-icon-wrap"><img src="assets/images/icons/signature-initiated.svg"></span>
+                                            <span>{{'common.locc.DRAG_&_DROP_FILE_HERE_OR' | localizationPipe : localizationService.localizedkeySet.size}} <a href="javascript:void(0)" (click)="file.click()" attr.action-id="{{dataIdConstantsService.multiPartnerConsent_link_browse}}">{{'common.BROWSE' | localizationPipe : localizationService.localizedkeySet.size}}</a> {{'common.TO_UPLOAD' | localizationPipe : localizationService.localizedkeySet.size}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <!-- Drag and drop -- Ends here -->
+                            
+                                    <!-- File Upload Progress Section -- Starts Here -->
+                                    <div class="d-flex justify-content-between align-items-center mt-3" *ngIf="filesUploadedData.length || isCustConsentUploaded">
+                                        <div class="w-50">
+                                            <div class="d-flex align-items-center uploadFile-wrap">
+                                               
+                                                <span class="icon-wrap">
+                                                    <span class="i-vNext-pdf mr-3"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></span>
+                                                </span>
+                                                
+                                                    <h6 class="heading--h6 d-flex justify-content-between align-items-center w-100">Exception Intra Portfolio Multi-Partner Consent Form
+                                                       
+                                                        <span class="action-wrap ml-1" *ngIf="filesUploadedData.length">
+                                                            <span class="icon-tick d-none"></span>
+                                                            <span class="icon-delete" (click)="removeUploadedDocs()"></span>
+                                                        </span>
+                                                        <span class="action-wrap ml-1" *ngIf="isCustConsentUploaded">
+                                                            <a #downloadZipLink [hidden]="true"></a>
+                                                            <a href="javascript:void(0);" (click)="downloadDoc()" attr.action-id="{{dataIdConstantsService.multiPartnerConsent_link_downloadDoc}}">
+                                                                <span class="i-vNext-download"></span>
+                                                            </a>
+                                                        </span>
+                                                    </h6>
+                                            </div>  
+                                        </div>
+                                    <div *ngIf="isCustConsentUploaded" class="w-50 pl-5">Signed on {{customerConsentUploaded.createdOn}} <span *ngIf="customerConsentUploaded.expiryDateStr"> and is valid until <b>{{customerConsentUploaded.expiryDateStr}}</b></span></div>
+                                    </div>
+                                    
+                                    <div class="d-flex w-100 justify-content-end marginT20" *ngIf="filesUploadedData.length">
+                                        <button class="btn btn-secondary sm ml-2" (click)='removeUploadedDocs()' attr.action-id="{{dataIdConstantsService.multiPartnerConsent_button_back}}">{{'common.BACK' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                                        <button (click)='uploadDocs()' class="btn btn-primary sm ml-2" attr.action-id="{{dataIdConstantsService.multiPartnerConsent_button_done}}">{{'common.DONE' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                                    </div>
+                                    <div class="d-flex w-100 justify-content-end marginT20" *ngIf="isCustConsentUploaded">
+
+                                        <button (click)='restartUpload()' class="btn btn-primary sm ml-2" attr.action-id="{{dataIdConstantsService.multiPartnerConsent_button_restart}}">{{'legal-package.RESTART' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                                    </div> 
+                                    <!-- File Upload Progress Section -- Ends Here -->
+                            
+                                </div>
+                            </div>                
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="vNext" id="legalPackage" *ngIf="proposalStoreService.proposalData.status === 'COMPLETE'">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="section-content">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="vNext-locc inner-locc-wrap multi-partner-concent">
+                            
+                
+                            <div class="vNext-locc-dropdown" >
+                                <div class="inner-locc-wrap"  id="initiateStepInitiate">
+                                    <div class="d-flex justify-content-between">
+                                        <div class="locc-dropdown-heading mt-2">
+                                            <h4 class="sm-heading">{{'common.MULTI_PARTNER_LABLE' | localizationPipe : localizationService.localizedkeySet.size}}</h4>
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex align-items-center uploadFile-wrap mt-3">
+                                               
+                                        <span class="icon-wrap">
+                                            <span class="i-vNext-pdf mr-4"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></span>
+                                        </span>
+                                        <h6 class="heading--h6 d-flex justify-content-between align-items-center w-100">Exception Intra Portfolio Multi-Partner Consent Form
+                                            <div>
+                                                <a #downloadZipLink [hidden]="true"></a>
+                                                <a href="javascript:void(0);" (click)="downloadDoc()" attr.action-id="{{dataIdConstantsService.multiPartnerConsent_link_downloadDoc}}">
+                                                    <span class="i-vNext-download"></span>
+                                                </a>
+                                            </div>
+                                        </h6>
+                                        
+                                    </div>
+                            
+                                    <div class="d-flex w-100 justify-content marginT20 mt-1 mb-2" >
+                                       <span *ngIf="customerConsentUploaded.expired">Multi Partner Customer Consent is expired. </span> 
+                                       <span>Uploaded by <b>{{customerConsentUploaded.uploadedBy}}</b>,  <b>{{customerConsentUploaded.createdOn}}</b> <span *ngIf="customerConsentUploaded.expiryDateStr"> and is valid until <b>{{customerConsentUploaded.expiryDateStr}}</b></span></span>
+                                    
+                                    </div>
+                                    <div class="alert alert--info alert-dismissable">
+                                        <span class="alert-icon">
+                                            <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                                        </span>
+                                        <span>{{ (eaService.isSpnaFlow) ? ('legal-package.SPNA_CUST_CONSENT_PENDING_SIGN_MSG' | localizationPipe : localizationService.localizedkeySet.size) :  ('legal-package.CUST_CONSENT_PENDING_SIGN_MSG' | localizationPipe : localizationService.localizedkeySet.size) }}</span>
+                                    </div> 
+                                </div>             
+                            </div>            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

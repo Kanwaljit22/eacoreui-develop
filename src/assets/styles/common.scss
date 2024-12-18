@@ -1,0 +1,57 @@
+@charset 'UTF-8';
+
+/* Abstraction */
+
+@import 
+'abstracts/variables',
+'abstracts/mixins';
+
+/* Icon & fonts Styling */
+
+@import 'fonts/fonts',
+'fonts/svg_icons',
+'fonts/vnext_icons',
+'fonts/icTco.css',
+'fonts/eamp_icons';
+
+/* Base styling */
+
+@import 'base/base',
+'base/generic_classes',
+'base/typography';
+
+@import 'components/ag-grid',
+'components/alert',
+'components/slide-flyout',
+'components/header',
+'components/breadcrumbs',
+'components/sub-header',
+'components/nav-tabs',
+'components/tokens',
+'components/button',
+'components/pagination',
+'components/tooltip',
+'components/banner',
+'components/buttons',
+'components/checkbox',
+'components/road-map',
+'components/dropdown',
+'components/radio',
+'components/modal',
+'components/tiles',
+'components/table',
+'components/timeline',
+'components/dashboard',
+'components/filters',
+'components/subSid-search',
+'components/subSid-tabs-header',
+'components/sub-switch',
+'components/credit-overview',
+'components/flyout',
+'components/cards',
+'components/cx-confirmation',
+'components/forms',
+'components/figure',
+'components/range-slider',
+'components/tco',
+'components/vNext';

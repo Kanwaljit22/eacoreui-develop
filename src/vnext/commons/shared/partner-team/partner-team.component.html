@@ -1,0 +1,298 @@
+    <div class="row">
+        <div class="col-12">
+            <h5 class="heading--h5 dark mb-2" attr.data-id="{{dataIdConstantsService.partnerTeam_label_partnerTeamMembers}}">{{'common.PARTNER_TEAM_MEMBERS' | localizationPipe : localizationService.localizedkeySet.size}}</h5>
+        </div>
+    
+        <div class="col-12">
+            <app-message></app-message>
+        </div>
+    
+    
+    
+        <!--<div class="col-12">
+            <div class="alert alert--warning">
+                <span class="alert-icon">
+                    <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                </span>
+                <span class="t-0">While choosing your team, please ensure that you add a <q class="bold-txt">Partner Team</q> to your team for successful project creation.</span>
+            </div>
+        </div>-->
+    
+        <div class="col-12" *ngIf="!projectStoreService.lockProject && projectStoreService.projectEditAccess">
+            <div class="card-body vNext-card align-items-center marginB10 ">
+                <div class="row">
+                        <div class="form-group mt-0 mb-3 pl-15 w-50 col-4" (clickOutside)="showTeamDropdown = false;">
+                                <label class="form-control-placeholder top" attr.data-id="{{dataIdConstantsService.partnerTeam_label_selectTeam}}">{{'common.SELECT_TEAM' | localizationPipe : localizationService.localizedkeySet.size}}</label>
+                                <div class="select-items dropdown my-1" *ngIf='partnerArr.length'>
+                                    <span class="dropdown--typeAhead__arrow-management">
+                                        <button class="btn--text drop-button dropdown-toggle" type="button" attr.action-id="{{dataIdConstantsService.partnerTeam_dropdown_selectTeam}}"
+                                            
+                                            (click)="showTeamDropdown = !showTeamDropdown">{{selectedPartner?.beGeoName}}</button>
+                                    </span>
+                                    <div class="dropdown-menu"  [class.show]="showTeamDropdown">
+                                        <ul>
+                                            <li *ngFor='let team of partnerArr; let index = index;' (click)='selectTeam(team)' attr.action-id="{{dataIdConstantsService.partnerTeam_dropdown_selectPartnerTeam}}{{index}}">
+                                                {{team.beGeoName}}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-2 form-group mt-0 mb-3 pl-15 w-50" (clickOutside)="showSearchDrop = false;">
+                                <label class="form-control-placeholder top" attr.data-id="{{dataIdConstantsService.partnerTeam_label_selectIdType}}">{{'common.SELECT_ID_TYPE' | localizationPipe : localizationService.localizedkeySet.size}}</label>
+                                <div class="select-items dropdown my-1" *ngIf='partnerArr.length'>
+                                    <span class="dropdown--typeAhead__arrow-management">
+                                        <button class="btn--text drop-button dropdown-toggle" type="button" attr.action-id="{{dataIdConstantsService.partnerTeam_dropdown_selectType}}"
+                                            
+                                            (click)="showSearchDrop = !showSearchDrop">{{selectedSearchType.name}}</button>
+                                    </span>
+                                    <div class="dropdown-menu"  [class.show]="showSearchDrop">
+                                        <ul>
+                                            <li *ngFor="let type of searchTeamByOptions; let index = index;" (click)="selectType(type)">
+                                                <a href="javascript:void(0);" class="dropdown-item" attr.action-id="{{dataIdConstantsService.partnerTeam_dropdown_searchTeamByOption}}{{type.name}}">{{type.name}}</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                    <div class="col-6">
+                        <div class="d-flex align-items-center">
+                            <div class="form-group w-100 mr-2 my-0">
+                                <label class="form-control-placeholder top w-100" attr.data-id="{{dataIdConstantsService.partnerTeam_label_enterMemberId}}"
+                                for="searchPartner">{{'common.ENTER_MEMBER_ID' | localizationPipe : localizationService.localizedkeySet.size}}</label>
+                                <input appelementfocus="" placeholder="Enter Cisco ID or Email and click on Add"
+                                    class="form-control my-1" [(ngModel)]="searchTeam.userId" [value]="searchTeam.userId"
+                                    required="" type="text" attr.data-id="{{dataIdConstantsService.partnerTeam_text_userId}}">
+                            </div>
+    
+                            <button class="btn btn-primary sm ml-2 mt-4" id="{{elementIdConstantsService.Project_Add_Partner_Team_Member}}" [ngClass]='{"disabled": !searchTeam.userId.length}' attr.action-id="{{dataIdConstantsService.partnerTeam_button_addTeamMember}}"
+                                (click)="addTeamMember()">{{localizationService.getLocalizedString('common.ADD')}}</button>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="row mt-2">
+                    <div class="col-12 notify-wrap">
+                        <h5 class="heading--h5 d-inline-block mr-1" attr.data-id="{{dataIdConstantsService.partnerTeam_label_notifyBy}}">{{localizationService.getLocalizedString('common.NOTIFY_BY')}}</h5>
+                        <!-- <label class="label-check ml-2">
+                                <input class="form-check-input" [(ngModel)]="searchTeam.notification" [checked]="searchTeam.notification" type="checkbox">
+                                <span class="custom-checkbox-btn"><span class="path1"></span><span class="path2"></span></span><span></span>
+                                <span>Email</span>
+                            </label> -->
+                        <label class="label-check ml-2">
+                            <input class="form-check-input" [(ngModel)]="searchTeam.webexNotification" attr.data-id="{{dataIdConstantsService.partnerTeam_checkbox_webexNotification}}"
+                                [checked]="searchTeam.webexNotification" type="checkbox" [disabled]="(!isDistiSelected && (eaService.isDistiOpty || eaService.isResellerOpty || distiDetaiForCiscoDealPresent)) || isPartnerLoggedInSfdcDeal || !allowWebexTeamSelection" >
+                            <span class="custom-checkbox-btn i-vNext-fonts"><span class="path1"></span><span
+                                    class="path2"></span><span class="path3"></span></span>
+                            <span class="label-name" attr.data-id="{{dataIdConstantsService.partnerTeam_label_webexTeam}}">{{localizationService.getLocalizedString('common.WEBEX_TEAMS')}}</span>
+                        </label>
+                        <label class="label-check ml-4">
+                            <input class="form-check-input" [(ngModel)]="searchTeam.notifyByWelcomeKit" attr.data-id="{{dataIdConstantsService.partnerTeam_checkbox_notifyByWelcomeKit}}"
+                                [checked]="searchTeam.notifyByWelcomeKit" type="checkbox">
+                            <span class="custom-checkbox-btn i-vNext-fonts"><span class="path1"></span><span
+                                    class="path2"></span><span class="path3"></span></span><span></span>
+                            <span class="label-name" attr.data-id="{{dataIdConstantsService.partnerTeam_label_welcomeKit}}">{{localizationService.getLocalizedString('common.WELCOME_KIT')}}</span>
+                        </label>
+                    </div>
+                </div>
+    
+            </div>
+        </div>
+    
+        <div class="col-12 mb-0">
+            <table class="primary-table partner-team_table">
+                <thead>
+                    <tr>
+                        <th rowspan="2" attr.data-id="{{dataIdConstantsService.partnerTeam_label_name}}">
+                            {{localizationService.getLocalizedString('common.NAME')}}</th>
+                        <th rowspan="2" width="150px" attr.data-id="{{dataIdConstantsService.partnerTeam_label_ciscoId}}">{{localizationService.getLocalizedString('common.CISCO_ID')}}</th>
+                        <th rowspan="2" width="225px" attr.data-id="{{dataIdConstantsService.partnerTeam_label_email}}">{{localizationService.getLocalizedString('common.EMAIL')}}</th>
+                        <th rowspan="2" width="150px" class="d-none" attr.data-id="{{dataIdConstantsService.partnerTeam_label_partner}}">{{localizationService.getLocalizedString('common.PARTNER')}}</th>
+                        <!-- <th rowspan="2" width="25%">Partner</th> -->
+                        <th colspan="2" class="text-center" width="285px" attr.data-id="{{dataIdConstantsService.partnerTeam_label_listNotifyBy}}">{{localizationService.getLocalizedString('common.NOTIFY_BY')}}</th>
+                        <!-- <th rowspan="2" width="11%">Access Type</th> -->
+                        <th rowspan="2" width="70px" attr.data-id="{{dataIdConstantsService.partnerTeam_label_action}}">{{localizationService.getLocalizedString('common.ACTION')}}</th>
+                    </tr>
+                    <tr>
+                        <!-- <th width="10%" class="text-center  colspan-border--top colspan-border--left">
+                            <label (click)="selectAllCheckbox('notification','selectAllEmailCheck')" class="label-check" style="padding-right: 4px;">
+                                <input class="form-check-input" [checked]="selectAllEmailCheck" type="checkbox">
+                                <span class="custom-checkbox-btn">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                                </span>                                               
+                                <span></span>
+                                <span>E-Mail</span>
+                            </label>
+                        </th> -->
+    
+                        <th width="145px" class="text-center  colspan-border--top colspan-border--left">
+                            <label class="label-check"
+                                style="padding-right: 4px;">
+                                <input class="form-check-input" [disabled]="projectStoreService.lockProject || !projectStoreService.projectEditAccess || (projectStoreService.projectData?.partnerTeam?.partnerContacts?.length && (eaService.isDistiOpty || eaService.isResellerOpty || distiDetaiForCiscoDealPresent)) || isPartnerLoggedInSfdcDeal || !allowWebexTeamSelection"
+                                    [checked]="allWebexCheck" type="checkbox" attr.data-id="{{dataIdConstantsService.partnerTeam_checkbox_allWebexCheck}}" (click)="selectAllCheckbox('webexNotification','allWebexCheck')">
+                                <span class="custom-checkbox-btn i-vNext-fonts">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                    <span class="path3"></span>
+                                </span>
+                                <span></span>
+                                <span attr.data-id="{{dataIdConstantsService.partnerTeam_label_listWebexTeams}}">{{localizationService.getLocalizedString('common.WEBEX_TEAMS')}}</span>
+                            </label>
+                        </th>
+    
+                        <th width="140px" class="text-center  colspan-border--top colspan-border--left colspan-border--right">
+                            <label class="label-check" style="padding-right: 4px;">
+                                <input class="form-check-input" [disabled]="projectStoreService.lockProject || !projectStoreService.projectEditAccess"
+                                    [checked]="allWelcomeKitCheck" type="checkbox" attr.data-id="{{dataIdConstantsService.partnerTeam_checkbox_allWelcomeKitCheck}}" (click)="selectAllCheckbox('notifyByWelcomeKit','allWelcomeKitCheck')">
+                                <span class="custom-checkbox-btn i-vNext-fonts">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                    <span class="path3"></span>
+                                </span>
+                                <span></span>
+                                <span attr.data-id="{{dataIdConstantsService.partnerTeam_label_listWelcomeKit}}">{{localizationService.getLocalizedString('common.WELCOME_KIT')}}</span>
+                            </label>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody
+                    *ngIf="projectStoreService.projectData?.partnerTeam?.partnerContacts?.length > 0 || projectStoreService.projectData?.partnerTeam?.distiContacts?.length >0; else noMemberAdded">
+                    <ng-container *ngIf="!eaService.isDistiOpty && !eaService.isResellerOpty && !projectStoreService.projectData.dealInfo.partnerDeal; else partnerDealFlow">
+                        <ng-container *ngFor="let partner of multiplePartnerContactsMap | keyvalue">
+                            <app-display-team (checkboxSelection)='updateTeamCheckbox($event)'
+                            (deleteTeam)='deleteTeamMember($event)'
+                            [teamMembers]="partner.value"
+                            [header]="teamMemberFilter[0]" [isExpand]="!showExpandAll"
+                            [teamType]="constantsService.PARTNER_TYPE"
+                            [distiDetaiForCiscoDealPresent]="distiDetaiForCiscoDealPresent"
+                            [disableWebexTeams]="isPartnerLoggedInSfdcDeal || !allowWebexTeamSelection"
+                            [partnerCompany]="partner.key"></app-display-team>
+                        </ng-container>
+                    </ng-container>
+                    <ng-template #partnerDealFlow>
+                        <app-display-team (checkboxSelection)='updateTeamCheckbox($event)'
+                        (deleteTeam)='deleteTeamMember($event)'
+                        [teamMembers]="projectStoreService.projectData?.partnerTeam?.partnerContacts"
+                        [header]="teamMemberFilter[0]" [isExpand]="!showExpandAll"
+                        [teamType]="constantsService.PARTNER_TYPE"
+                        [disableWebexTeams]="isPartnerLoggedInSfdcDeal || !allowWebexTeamSelection"
+                        [partnerCompany]="projectStoreService.projectData?.partnerInfo?.beGeoName"></app-display-team>
+                    </ng-template>
+
+                    <!-- Disti Team display starts here -->
+                    <ng-container *ngIf="!eaService.isDistiOpty && !eaService.isResellerOpty && !projectStoreService.projectData.dealInfo.partnerDeal; else distiDealFlow">
+                        <ng-container *ngFor="let disti of multipleDistiContactsMap | keyvalue">
+                            <app-display-team 
+                            (checkboxSelection)='updateTeamCheckbox($event)'
+                            (deleteTeam)='deleteTeamMember($event)'  
+                            [teamMembers] = "disti.value" 
+                            [header] = "teamMemberFilter[1]" 
+                            [isExpand] = "!showExpandAll" 
+                            [teamType] = "constantsService.DISTI_TYPE" 
+                            [disableWebexTeams]="isPartnerLoggedInSfdcDeal || !allowWebexTeamSelection"
+                            [partnerCompany]="disti.key">
+                          </app-display-team>
+                        </ng-container>
+                    </ng-container>
+                    <ng-template #distiDealFlow>
+                        <app-display-team 
+                            (checkboxSelection)='updateTeamCheckbox($event)'
+                            (deleteTeam)='deleteTeamMember($event)'  
+                            [teamMembers] = "projectStoreService.projectData?.partnerTeam?.distiContacts" 
+                            [header] = "teamMemberFilter[1]" 
+                            [isExpand] = "!showExpandAll" 
+                            [teamType] = "constantsService.DISTI_TYPE" 
+                            [disableWebexTeams]="isPartnerLoggedInSfdcDeal || !allowWebexTeamSelection"
+                            [partnerCompany]="projectStoreService.projectData?.dealInfo?.distiDetail?.name">
+                          </app-display-team>
+                    </ng-template>
+                    <!-- Disti Team display starts here -->
+                    <!-- <app-display-team *ngIf = "(eaService.isDistiOpty || eaService.isResellerOpty || distiDetaiForCiscoDealPresent) && projectStoreService.projectData?.partnerTeam?.distiContacts?.length" (checkboxSelection)='updateTeamCheckbox($event)'(deleteTeam)='deleteTeamMember($event)'  [teamMembers] = "projectStoreService.projectData?.partnerTeam?.distiContacts" [header] = "teamMemberFilter[1]" [isExpand] = "!showExpandAll" [teamType] = "constantsService.DISTI_TYPE" [partnerCompany]="projectStoreService.projectData?.dealInfo?.distiDetail?.name"></app-display-team> -->
+                </tbody>
+    
+                <!-- <ng-template #noMemberAdded> 
+                        <tbody>
+                            <tr>
+                                <td colspan="6" class="text-center">
+                                    No partner added
+                                </td>
+                            </tr>
+                        </tbody>
+                    </ng-template>  -->
+                <ng-template #noMemberAdded>
+                    <tbody class="empty-table-inputs">
+                        <!-- <tr>
+                            <td>
+                                <span class="blank-input"></span>
+                            </td>
+                            <td>
+                                <span class="blank-input"></span>
+                            </td>
+                            <td>
+                                <span class="blank-input"></span>
+                            </td>
+                            <td>
+                                <span class="blank-checkbox"></span>
+                            </td>
+                            <td>
+                                <span class="blank-checkbox"></span>
+                            </td>
+                            <td>
+                                <span class="blank-checkbox"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="blank-input"></span>
+                            </td>
+                            <td>
+                                <span class="blank-input"></span>
+                            </td>
+                            <td>
+                                <span class="blank-input"></span>
+                            </td>
+                            <td>
+                                <span class="blank-checkbox"></span>
+                            </td>
+                            <td>
+                                <span class="blank-checkbox"></span>
+                            </td>
+                            <td>
+                                <span class="blank-checkbox"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="blank-input"></span>
+                            </td>
+                            <td>
+                                <span class="blank-input"></span>
+                            </td>
+                            <td>
+                                <span class="blank-input"></span>
+                            </td>
+                            <td>
+                                <span class="blank-checkbox"></span>
+                            </td>
+                            <td>
+                                <span class="blank-checkbox"></span>
+                            </td>
+                            <td>
+                                <span class="blank-checkbox"></span>
+                            </td>
+                        </tr> -->
+                        <tr>
+                            <td colspan="6">
+                                <div
+                                    class="d-flex w-100 align-items-center justify-content-center empty-enrollment flex-column">
+                                    <img src="../../../../assets/images/icons/empty-enrollment.svg">
+                                    <h4 class="heading--h4" attr.data-id="{{dataIdConstantsService.partnerTeam_label_noTeamMemberAdded}}">{{localizationService.getLocalizedString('common.NO_TEAM_MEMBER_ADDED')}}</h4>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </ng-template>
+            </table>
+        </div>
+    </div>
+<!-- End of Partner team Member -- Row -->

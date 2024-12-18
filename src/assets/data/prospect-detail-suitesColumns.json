@@ -1,0 +1,80 @@
+[
+    {
+        "headerName": "SUITE",
+        "field": "suite_Name",
+        "pinned": true,
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 220,
+        "minWidth": 60,
+        "cellRenderer": "group",
+        "suppressMenu": true
+    },
+    {
+        "headerName": "EA QTY ($)",
+        "field": "eaQty",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 120,
+        "minWidth": 60,
+        "cellClass": "text-center",
+        "suppressMenu": true
+    },
+    {
+        "headerName": "NET EA LICENSE AMOUNT ($)",
+        "field": "netEaLicenseAmount",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 150,
+        "minWidth": 60,
+        "cellClass": "text-right",
+        "suppressMenu": true
+    },
+    {
+        "headerName": "NET EA SERVICE AMOUNT ($)",
+        "field": "netEaServiceAmount",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 150,
+        "minWidth": 60,
+        "cellClass": "text-right",
+        "suppressMenu": true
+    },
+    {
+        "headerName": "NET C1 CREDIT ($)",
+        "field": "netC1credit",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 180,
+        "minWidth": 60,
+        "cellClass": "text-right",
+        "suppressMenu": true
+    },
+    {
+        "headerName": "NET TCV ($)",
+        "field": "netAnchorcredit",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 210,
+        "minWidth": 60,
+        "cellClass": "text-right",
+        "suppressMenu": true
+    },
+    {
+        "headerName": "SWSS RESIDUAL AMOUNT ($)",
+        "field": "residualAmount",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 180,
+        "minWidth": 60,
+        "cellClass": "text-right",
+        "suppressMenu": true
+    }
+]

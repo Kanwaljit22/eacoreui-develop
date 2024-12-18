@@ -1,0 +1,107 @@
+.custom-rangeSlider {
+    .ngx-slider {
+        margin: 0;
+        .ngx-slider-combined {
+            display: none !important;
+        }
+        .ngx-slider-model-high {
+            opacity: 1 !important;
+        }
+
+        .ngx-slider-bar {
+            height: 10px;
+            border-radius: 5px;
+        }
+
+        .ngx-slider-left-out-selection .ngx-slider-bar {
+            background-color: rgba(0,80,115,0.5) !important;
+            border-radius: 5px 0 0 5px;
+        }
+
+        .ngx-slider-selection {
+            background-color: $theme-color;
+            border-radius: 0;
+        }
+
+        .ngx-slider-right-out-selection .ngx-slider-bar {
+            background-color: #e2e4e9 !important;
+            border-radius: 0 5px 5px 0;
+        }
+
+        .ngx-slider-pointer {
+
+            &.ngx-slider-pointer-min {
+                width: unset;
+                height: unset;
+                top: -13px;
+                background-color: transparent;
+                border-radius: unset;
+                &::after {
+                    width: 0;
+                    height: 20px;
+                    top: 8px;
+                    left: 0;
+                    background: #333;
+                }
+            }
+
+            &.ngx-slider-pointer-max {
+                background: transparent url('../../images/slider-knob.svg') no-repeat;
+                height: 20px;
+                width: 21px;
+                top: -5px;
+                margin-left: -10px;
+
+                &::after {
+                    display: none;
+                }
+            }
+        }
+        
+        .ngx-slider-bubble {
+            background-color: #005073;
+            color: #fff !important;
+            font-size: 12px !important;
+            border-radius: 5px;
+            padding: 5px 5px 3px 5px !important;
+            line-height: 1;
+            z-index: 9;
+
+            &.ngx-slider-model-value {
+                display: none !important;
+            }
+
+            &::before {
+                content: "";
+                width: 0;
+                height: 0;
+                border-left: 4px solid transparent;
+                border-right: 4px solid transparent;
+                border-top: 8px solid #005073;
+                position: absolute;
+                bottom: -7px;
+                margin: 0 auto;
+                left: 0;
+                right: 0;
+            }
+        }
+        
+        .ngx-slider-tick {
+            top: 15px;
+            width: 1px;
+            background-color: #999;
+            margin-left: 0;
+
+            &.ngx-slider-selected {
+                background-color: #999;
+            }
+        }
+
+        .ngx-slider-tick-value {
+            top: 15px;
+            color: #999;
+            bottom: auto !important;
+        }
+
+    }
+}

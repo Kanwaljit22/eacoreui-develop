@@ -1,0 +1,135 @@
+<div class="modal-body vNext modal-without-header">
+    <button class="icon-close-btn" type="button" (click)="close()" attr.action-id="{{dataIdConstantsService.changeDealId_button_closeIcon}}"></button>
+    <h2>{{localizationService.getLocalizedString('common.CHANGE_DEAL_ID')}}</h2>
+    <h5 class="text-center">{{localizationService.getLocalizedString('change-deal-id.YOU_NEED_TO_LOOKUP')}}</h5>
+    <div class="change-dealId-wrap">
+        <div class="px-5 py-3">
+            <app-message [displayModalMsg]="true"></app-message>
+            <div *ngIf="isUserEnteredSameDeal && newDealId">
+                <div class="alert alert--danger alert-dismissable mt-2">
+                    <span class="alert-icon">
+                        <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                    </span>
+                    <span>{{localizationService.getLocalizedString('change-deal-id.AS_EXISTING_DEAL_ID')}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group my-0 text-left px-3 d-flex align-items-end justify-content-center">
+            <div>  
+                <label  class="customer-label">{{localizationService.getLocalizedString('common.DEAL_ID')}}<sup>*</sup></label>
+                <div class="position-relative w-100 d-flex">
+                    <input appelementfocus="" class="form-control paddingR35" [(ngModel)]="newDealId" attr.data-id="{{dataIdConstantsService.changeDealId_text_newDealId}}" (keyup.enter)="lookUpDeal()" required="" type="text" id="">
+                </div>
+            </div>
+            <button class="btn btn-secondary" [disabled]="!newDealId" (click)="lookUpDeal()" attr.action-id="{{dataIdConstantsService.changeDealId_button_lookUpDeal}}">{{localizationService.getLocalizedString('common.LOOKUP')}}</button>
+        </div>
+        
+        <div class="error-warp-small" *ngIf="isApiCalled && !isDealValid && !errorPresent">
+            <div class="alert alert--danger alert-dismissable mt-2">
+                <span class="alert-icon">
+                    <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                </span>
+                <span>{{localizationService.getLocalizedString('change-deal-id.INVALID_DEAL')}}</span>
+            </div>
+        </div>
+
+        <div class="change-dealId-innerwrap" *ngIf="isApiCalled && isDealDataPresent && isDealValid">
+            <h5 class="mb-2">{{  'change-deal-id.HERE_IS_THE_RESULT_OF_LOOKUP'| localizationPipe : localizationService.localizedkeySet.size}}</h5>
+            <table class="primary-table">
+                <thead>
+                    <tr>
+                        <th width="130px">{{localizationService.getLocalizedString('common.DEAL_ID')}}</th>
+                        <th width="150px">{{localizationService.getLocalizedString('change-deal-id.OPPORTUNITY_NAME')}}</th>
+                        <th>{{localizationService.getLocalizedString('change-deal-id.ACCOUNT_NAME_ADDRESS')}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{newDealData?.dealInfo?.id}}</td>
+                        <td>{{newDealData?.dealInfo?.optyName}}</td>
+                        <td>{{newDealData?.customerInfo?.preferredLegalName}}<br>
+                            {{newDealData?.customerInfo?.preferredLegalAddress?.addressLine1}}, <span *ngIf="newDealData?.customerInfo?.preferredLegalAddress?.addressLine2">
+                                {{newDealData?.customerInfo?.preferredLegalAddress?.addressLine2}}</span> {{newDealData?.customerInfo?.preferredLegalAddress?.city}},<br>
+                                {{newDealData?.customerInfo?.preferredLegalAddress?.state}} {{newDealData?.customerInfo?.preferredLegalAddress?.zip}}, {{newDealData?.customerInfo?.preferredLegalAddress?.country}}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="acknowldge-div marginT10 w-100 marginB20">
+                <label class="label-check">
+                    <input class="form-check-input" id="" type="checkbox" value="" [checked]="allowChange" attr.data-id="{{dataIdConstantsService.changeDealId_checkbox_matchDealId}}" (change)="matchDealId()">
+                    <span class="custom-checkbox-btn i-vNext-fonts"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                    <span >{{localizationService.getLocalizedString('change-deal-id.CHANGE_THIS_DID')}}</span>
+                </label>
+            </div>
+
+            <div>
+                <label  class="customer-label">{{localizationService.getLocalizedString('change-deal-id.INCLUDES_ITEMS')}}</label>
+                <ul class="inline-listing block-list-item">
+                    <li *ngFor="let item of includingItemsData; let index = index;">
+                        <label class="label-check">
+                            <input class="form-check-input" id="" type="checkbox" value="" [checked]='item.selected' (change)="selectItems(item)" attr.data-id="{{dataIdConstantsService.changeDealId_checkbox_selectItems}}{{index}}">
+                            <span class="custom-checkbox-btn i-vNext-fonts"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                            <span>{{item.name}}</span>
+                        </label>
+                        <ng-container>
+                            <table class="primary-table mt-2 pl-3 ml-3" *ngIf="item.id === constantService.COPY_ALL_MY_PROPOSAL">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 50px;"></th>
+                                        <th>Proposal Name</th>
+                                        <th style="width: 100px;">Proposal ID</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let proposal of proposalListData; let index = index">
+                                        <td style="text-align: center">
+                                            <label class="label-check">
+                                            <input class="form-check-input" id="" type="checkbox" value="" [checked]='proposal.selected' (change)="selectProposal(proposal)" attr.data-id="{{dataIdConstantsService.changeDealId_checkbox_selectProposal}}{{index}}">
+                                            <span class="custom-checkbox-btn i-vNext-fonts"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                                        </label>
+                                        </td>
+                                        <td>
+                                            {{proposal.name}}
+                                        </td>
+                                        <td>{{proposal.id}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="d-flex smart-account-pagination change-deal-id justify-content-between align-items-center mt-3" *ngIf="item.id === constantService.COPY_ALL_MY_PROPOSAL">
+                                <div class="col d-flex justify-content-end pr-0">
+                                    <ngb-pagination [collectionSize]="paginationObject.noOfRecords" [(page)]="currentPage"
+                                    [boundaryLinks]="true" [maxSize]="4" [pageSize]="paginationObject.pageSize"
+                                    (pageChange)="pageChange($event)">
+                                    </ngb-pagination>
+                                </div> 
+                            </div>
+                            <!-- <ul class="inline-listing block-list-item pl-4 mt-2" *ngIf="item.id === constantService.COPY_ALL_MY_PROPOSAL">
+                                <li *ngFor="let proposal of proposalListData">
+                                    <label class="label-check">
+                                        <input class="form-check-input" id="" type="checkbox" value="" [checked]='proposal.selected' (change)="selectProposal(proposal)">
+                                        <span class="custom-checkbox-btn i-vNext-fonts"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                                        <span>{{proposal.name}}</span>
+                                    </label>
+                                </li>
+                                <div class="d-flex smart-account-pagination change-deal-id justify-content-between align-items-center mt-3">
+                                    <div class="col d-flex justify-content-end pr-0">
+                                        <ngb-pagination [collectionSize]="paginationObject.noOfRecords" [(page)]="currentPage"
+                                        [boundaryLinks]="true" [maxSize]="4" [pageSize]="paginationObject.pageSize"
+                                        (pageChange)="pageChange($event)">
+                                        </ngb-pagination>
+                                    </div> 
+                                </div>
+                            </ul> -->
+                        </ng-container>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="text-center d-block w-100 mt-5">
+                <button class="btn btn-secondary" type="button" (click)="close()" attr.action-id="{{dataIdConstantsService.changeDealId_button_cancel}}" id="{{elementIdConstantsService.ChangeDealId_Cancel}}">{{localizationService.getLocalizedString('common.CANCEL')}}</button>
+                <button class="btn btn-primary" [disabled]="!allowChange" (click)="changeDealId()" attr.action-id="{{dataIdConstantsService.changeDealId_button_changeDealId}}">{{localizationService.getLocalizedString('common.DONE')}}</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,212 @@
+{
+  "data": {
+    "proposalId": 0,
+    "archName": "C1_DNA",
+    "state": "string",
+    "updatedAt": "2021-01-13T10:29:01.668Z",
+    "updatedBy": "rishiki",
+    "cxParams": {
+      "allowServiceLineEditPunchInToCCWR": true,
+      "partnerEamsDelivery": true,
+      "partnerEamsDeliveryEligible": true,
+  
+      "eamsPartnerInfo": {
+        "ccoId": "string",
+        "contactNumber": "string",
+        "emailId": "string",
+        "partnerContactName": "string"  
+      },
+      "billingSkuQty": 2,
+      "extendedListPrice":1000.09,
+      "ibQty": {
+        "coveredQty": 2,
+        "takeoverQty": 3,
+        "totalQty": 5,
+        "uncoveredQty": 0
+      },
+      "postPurchaseAdjustmentTcv": 2344.56,
+      "productFamiltyCount": 22,
+      "credits": {
+        "residualCredit": 12.33,
+        "uncoveredAssetCredit": 1222.00
+      }
+    },
+    "priceInfo": {
+      "netPrice": 1234.54,
+      "residualCredit": 123.45,
+      "uncoveredCredit": 3455,
+      "netPricePostPA": 5433.44
+    },
+    "invalidConfig": true,
+    "majorLines": [
+      {
+        "atoName": "string",
+        "suiteName": "CX for ATO Switching",
+        "configStatus": "UNVERIFIED",
+        "cxParams": {
+          "billingSkuQty": 1,
+          "extendedListPrice": 123.34,
+          "minDiscount": 25,
+          "maxDiscount" : 100,
+          "discount" : 45,
+          "ibQty": {
+            "coveredQty": 1,
+            "takeoverQty": 3,
+            "totalQty": 4,
+            "uncoveredQty": 0
+          },
+          "postPurchaseAdjustmentTcv": 345.45,
+          "productFamiltyCount": 32,
+          "credits": {
+            "residualCredit": 123.54,
+            "uncoveredAssetCredit": 112.99
+          }
+        },
+        "priceInfo": {
+          "netPrice": 1234.54,
+          "eaDiscount": 30,
+          "residualCredit": 123.45,
+          "uncoveredCredit": 3455,
+          "netPricePostPA": 5433.44
+        },
+        "invalidConfig": true,
+        "proposalMinorLines": [
+          {
+            "description": "Hardware Support- RMA 1",
+            "bookingsQuantity": 0,
+            "configStatus": "UNVERIFIED",
+            "creditType": 0,
+            "cxParams": {
+              "billingSkuQty": 1,
+              "extendedListPrice": 100.00,
+              "minDiscount": 40,
+              "maxDiscount" : 100,
+              "discount" : 45,
+              "productType": "CX_HARDWARE_SUPPORT",
+              "ibQty": {
+                "coveredQty": 0,
+                "takeoverQty": 1,
+                "totalQty": 2,
+                "uncoveredQty": 1
+              },
+              "postPurchaseAdjustmentTcv": 344.56,
+              "productFamiltyCount": 23,
+              "credits": {
+                "residualCredit": 123.45,
+                "uncoveredAssetCredit": 0
+              }
+            },
+            "priceInfo": {
+              "netPrice": 1234.54,
+              "eaDiscount": 30,
+              "residualCredit": 123.45,
+              "uncoveredCredit": 3455,
+              "netPricePostPA": 5433.44
+            },
+            "eaExceptionFlag": "string",
+            "ibQuantity": 0,
+            "invalidConfig": true,
+            "lineItemId": "string",
+            "name": "string",
+            "product": "ADVANCED",
+            "qty": 0,
+            "servicePid": true,
+            "state": "string",
+            "suiteId": 0
+          },
+          {
+            "description": "Hardware Support- RMA 2",
+            "bookingsQuantity": 0,
+            "configStatus": "UNVERIFIED",
+            "creditType": 0,
+            "cxParams": {
+              "billingSkuQty": 1,
+              "extendedListPrice": 100.00,
+              "minDiscount": 25,
+              "maxDiscount" : 100,
+              "discount" : 45,
+              "productType": "CX_HARDWARE_SUPPORT",
+              "ibQty": {
+                "coveredQty": 0,
+                "takeoverQty": 1,
+                "totalQty": 2,
+                "uncoveredQty": 1
+              },
+              "postPurchaseAdjustmentTcv": 344.56,
+              "productFamiltyCount": 23,
+              "credits": {
+                "residualCredit": 123.45,
+                "uncoveredAssetCredit": 0
+              }
+            },
+            "priceInfo": {
+              "netPrice": 1234.54,
+              "eaDiscount": 30,
+              "residualCredit": 123.45,
+              "uncoveredCredit": 3455,
+              "netPricePostPA": 5433.44
+            },
+            "eaExceptionFlag": "string",
+            "ibQuantity": 0,
+            "invalidConfig": true,
+            "lineItemId": "string",
+            "name": "string",
+            "product": "ADVANCED",
+            "qty": 0,
+            "servicePid": true,
+            "state": "string",
+            "suiteId": 0
+          },
+          {
+            "description": "Software Cloud",
+            "bookingsQuantity": 0,
+            "configStatus": "UNVERIFIED",
+            "creditType": 0,
+              "productType": "CX_SOFTWARE_SUPPORT",
+            "cxParams": {
+              "billingSkuQty": 1,
+              "extendedListPrice": 100.00,
+              "minDiscount": 25,
+              "maxDiscount" : 100,
+              "discount" : 45,
+              "ibQty": {
+                "coveredQty": 0,
+                "takeoverQty": 1,
+                "totalQty": 2,
+                "uncoveredQty": 1
+              },
+              "postPurchaseAdjustmentTcv": 344.56,
+              "productFamiltyCount": 23,
+              "credits": {
+                "residualCredit": 123.45,
+                "uncoveredAssetCredit": 0
+              }
+            },
+            "priceInfo": {
+              "netPrice": 1234.54,
+              "eaDiscount": 30,
+              "residualCredit": 123.45,
+              "uncoveredCredit": 3455,
+              "netPricePostPA": 5433.44
+            },
+            "eaExceptionFlag": "string",
+            "ibQuantity": 0,
+            "invalidConfig": true,
+            "lineItemId": "string",
+            "name": "string",
+            "product": "ADVANCED",
+            "qty": 0,
+            "servicePid": true,
+            "state": "string",
+            "suiteId": 0
+          }
+        ],
+        "qty": 0,
+        "qualified": true,
+        "suiteId": 0
+      }
+    ],
+    "suites": [],
+    "qty": 0
+  }
+}

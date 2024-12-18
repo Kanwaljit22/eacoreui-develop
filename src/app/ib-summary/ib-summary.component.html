@@ -1,0 +1,140 @@
+<div class="clearfix"></div>
+<app-sub-header [subHeaderData]="summaryData"></app-sub-header>
+
+<div class="sub-header-level-2" >
+    <div class="container-fluid">
+        <div class="flexible-div align-items-center topActionsBar">
+            <div class="col-xs-12 col-sm-7 col-md-7 pl-0 pr-0">
+                <h3 *ngIf="appDataService.archName !== constantsService.SECURITY ">{{localeService.getLocalizedString('ibsummary.VIEW_IB_SUMM_BY')}}</h3>
+                <h3 *ngIf="appDataService.archName === constantsService.SECURITY">{{localeService.getLocalizedString('ibsummary.VIEW_BOOKING_SUMM_BY')}}</h3>
+                <div class="bottomActionsTab">
+                    <ul class="nav">
+                        <li *ngIf="appDataService.archName !== constantsService.SECURITY " class="nav-item">
+                            <a class="nav-link" routerLinkActive="active" routerLink="ib-summary-sales-order">{{localeService.getLocalizedString('ibsummary.SALES_ORDER')}}</a>
+                        </li>
+                        <li *ngIf="appDataService.archName === constantsService.SECURITY " class="nav-item">
+                                <a class="security nav-link" routerLinkActive="active" >{{localeService.getLocalizedString('ibsummary.SALES_ORDER')}}</a>
+                            </li>
+                        <li *ngIf="appDataService.archName !== constantsService.SECURITY " class="nav-item">
+                            <a class="nav-link" routerLinkActive="active" routerLink="ib-summary-contract-number">{{localeService.getLocalizedString('ibsummary.CONTRACT_NUMBER')}}</a>
+                        </li>
+                        <li *ngIf="appDataService.archName !== constantsService.SECURITY " class="nav-item">
+                            <a class="nav-link" routerLinkActive="active" routerLink="ib-summary-install-site-number">{{localeService.getLocalizedString('ibsummary.INSTALL_SITE')}}</a>
+                        </li>
+                        <li *ngIf="appDataService.archName !== constantsService.SECURITY " class="nav-item">
+                            <a class="nav-link" routerLinkActive="active" routerLink="ib-summary-serial-number">{{localeService.getLocalizedString('ibsummary.SERIAL_NUMBER')}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-5 col-md-5 pr-0 pl-0">
+                <app-copy-link></app-copy-link>
+                <ul class="qualify-btn float-right" style="top: 5px">
+                    <li class="fullScreenBtn" *ngIf="!ibSummaryService.disableRequestIba" (click)="openSearchLocate()">
+                        <a href=" javascript: ">
+                            <span class="icon-search "></span>
+                            <!--Full Screen-->
+                        </a>
+                    </li>
+                    <li class="fullScreenBtn" *ngIf="ibSummaryService.disableRequestIba">
+                            <a href=" javascript: ">
+                                <span class="icon-search "></span>
+                                <!--Full Screen-->
+                            </a>
+                        </li>
+                    <li class="fullScreenBtn " *ngIf="!ibSummaryService.disableRequestIba" (click)="requestIba()">
+                        <a href=" javascript: ">
+                            <span class="icon-request-report "></span>
+                            <!--Full Screen-->
+                        </a>
+                    </li>
+                    <li class="fullScreenBtn " *ngIf="ibSummaryService.disableRequestIba">
+                            <a href=" javascript: ">
+                                <span class="icon-request-report "></span>
+                                <!--Full Screen-->
+                            </a>
+                        </li>
+                    <li class="exitFullScreenBtn " [ngClass]="{ 'enableExitBtn': headerService.fullScreen} ">
+                        <a href="javascript: " (click)="headerService.exitFullScreenView(); tableheight()">
+                            <span class="icon-exit-full-screen icon "></span>
+                            <!--Exit Full Screen-->
+                        </a>
+                    </li>
+                    <li class="fullScreenBtn " [ngClass]="{ 'disableBtn': headerService.fullScreen} ">
+                        <a href="javascript: ">
+                            <span class="icon-full-screen " (click)="headerService.fullScreenView(); tableheight()"></span>
+                            <!--Full Screen-->
+                        </a>
+                    </li>
+                    <li class="startQual" (click)="goToProspect()">
+                        <button type="button" class="btn btn-secondary">{{localeService.getLocalizedString('common.VIEW_PROSPECT_DETAILS')}}</button>
+                    </li>
+
+                    <li class="startQual startQualDropdown">
+                        <button type="button" class="btn btn-primary " (click)="startQualification(toStartQualNew)">{{localeService.getLocalizedString('common.START_QUAL')}}</button>
+                    </li>
+                </ul>
+                
+            </div>
+            <message></message>
+        </div>
+
+
+        <div id=" " *ngIf="ibSummaryService.isSearchAndLocate ">
+            <div class="approve-disapprove refine-result alert alert--warning">
+                <span class="alert-icon">
+                    <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                </span>
+                <span class="infoTxt " *ngIf="ibSummaryService.showInside ">
+                    {{localeService.getLocalizedString('ibsummary.SHOWING')}}
+                    <strong>{{ibSummaryService.customerSearchResult.length}} {{localeService.getLocalizedString('ibsummary.RESULTS')}}</strong> {{localeService.getLocalizedString('ibsummary.FOUND_WITHIN')}} {{appDataService.customerName}}.
+                    <a href="javascript:void(0) " (click)="showOutsideResults() ">{{ibSummaryService.nonCustomerSearchResult.length}} {{localeService.getLocalizedString('ibsummary.RESULTS')}}</a> {{localeService.getLocalizedString('ibsummary.FOUND_OUTSIDE')}} {{appDataService.customerName}}.
+                    <a class="dropdown " href="javascript:void(0) ">{{ibSummaryService.notFoundSearchResult.length}} {{localeService.getLocalizedString('ibsummary.RESULTS')}}
+                        <div class="dropdown-menu results-list" *ngIf="ibSummaryService.notFoundSearchResult.length > 0">
+                            <span class="icon-arrow-up "><span class="path1 "></span><span class="path2 "></span></span>
+                <ul>
+                    <li *ngFor="let a of ibSummaryService.notFoundSearchResult ">
+                        <a href="javascript:void(0); ">{{a}}</a>
+                    </li>
+                </ul>
+            </div>
+            </a> {{localeService.getLocalizedString('ibsummary.FOUND_NO_MATCHES')}}
+            </span>
+            <ul class="refine-search" *ngIf="ibSummaryService.showInside ">
+                <li>
+                    <a href="javascript:void(0)" class="mr-2" (click)="openSearchLocate() ">{{localeService.getLocalizedString('ibsummary.REFINE_SEARCH')}}</a>
+                    <button class="icon-close-btn " data-dismiss="modal " type="button " (click)="closeSearch() "></button>
+                </li>
+            </ul>
+            <span class="infoTxt" *ngIf="!ibSummaryService.showInside ">
+                    {{localeService.getLocalizedString('ibsummary.SHOWING')}}
+                    <strong>{{ibSummaryService.nonCustomerSearchResult.length}} {{localeService.getLocalizedString('ibsummary.RESULTS')}}</strong> {{localeService.getLocalizedString('ibsummary.FOUND_OUTSIDE')}} {{appDataService.customerName}}.
+                    <a href="javascript:void(0) " (click)="showInsideResults() ">{{ibSummaryService.customerSearchResult.length}} {{localeService.getLocalizedString('ibsummary.RESULTS')}}</a> {{localeService.getLocalizedString('ibsummary.FOUND_WITHIN')}} {{appDataService.customerName}}.
+                    <a class="dropdown " href="javascript:void(0) ">{{ibSummaryService.notFoundSearchResult.length}} {{localeService.getLocalizedString('ibsummary.RESULTS')}}
+                        <div class="dropdown-menu results-list" *ngIf="ibSummaryService.notFoundSearchResult.length > 0">
+                            <span class="icon-arrow-up "><span class="path1 "></span><span class="path2 "></span>
+            </span>
+            <ul>
+                <li *ngFor="let a of ibSummaryService.notFoundSearchResult ">
+                    <a href="javascript:void(0); ">{{a}}</a>
+                </li>
+            </ul>
+        </div>
+        </a> {{localeService.getLocalizedString('ibsummary.FOUND_NO_MATCHES')}}
+        </span>
+        <ul class="refine-search" *ngIf="!ibSummaryService.showInside ">
+            <li>
+                <a href="javascript:void(0)" class="mr-2" (click)="openSearchLocate() ">{{localeService.getLocalizedString('ibsummary.REFINE_SEARCH')}}</a>
+                <button class="icon-close-btn " data-dismiss="modal " type="button " (click)="closeSearch() "></button>
+            </li>
+        </ul>
+    </div>
+</div>
+
+</div>
+</div>
+
+
+
+<router-outlet></router-outlet>

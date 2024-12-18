@@ -1,0 +1,133 @@
+button{
+    &.btn { 
+        border-radius: 6px;
+        padding: $half-spacing $base-spacing;
+        text-shadow: 0px 0px;
+        line-height: 1; 
+        font-size: rem(14); 
+        transition: all .5s ease!important;
+        cursor: pointer;
+        position: relative;
+        &.btn-primary { 
+            background: $theme-color; 
+            border: 1px solid $theme-color; 
+            color: $white-color;
+            &:active , &:hover , &:focus , &:not([disabled]):not(.disabled):active , &:not([disabled]):not(.disabled).active {
+                background: $theme-color;
+                border-color: $theme-color;
+                color: $white-color;
+                box-shadow: 0px 0px;
+            }
+            &:hover {
+                box-shadow: 0 3px 15px 0 rgba(0, 0, 0, .25);
+            }
+            &.btn-sm { 
+                padding:$qtr-spacing;
+            }
+            &.btn-continue { 
+                padding-right: calc(#{$base-spacing} * 1.5);
+                .icon-btn-continue{ 
+                    display: inline-block; 
+                    font-size: rem(12);
+                    position: absolute;
+                    right: 15px;
+                }
+            }
+        }
+        &.btn-secondary {
+            background: $white-color;
+            border: 1px solid $theme-color;
+            color: $theme-color;
+            font-weight: 400;
+            letter-spacing: 0.03em;
+            &:focus {
+                box-shadow: 0px 0px;
+            }
+            &:hover {
+                box-shadow: 0 3px 15px 0 rgba(0, 0, 0, .25);
+            }
+            &.btn-back { 
+                padding-left: calc(#{$base-spacing} * 1.5);
+                .icon-btn-back { 
+                    display: inline-block; 
+                    font-size: rem(12);
+                    position: absolute;
+                    left: 15px;
+                } 
+            }
+        }
+        &.btn-text{
+            font-weight: normal;
+            font-size: rem(14);
+            line-height: rem(22);
+            background: transparent;
+            border: 1px solid transparent;
+            color: $theme-color;
+            padding: 0 0 0 10px !important;
+   
+            align-items: baseline;
+            display: flex;
+            
+            &.decoration-none {
+                &:hover, &:focus {
+                    text-decoration: none;
+                }
+            }
+            &:focus {
+                box-shadow: 0px 0px;
+            }
+            &:hover {
+                box-shadow: none;
+                text-decoration: underline;
+
+                [class^='icon']{ text-decoration: none;}
+            }
+            &.disabled, &[disabled] {
+                color: #999999;
+                background:transparent !important;
+                border:transparent;
+
+                &:hover{
+                    color: #999999;
+                    background:transparent !important;
+                    border:transparent;
+                    text-decoration: none;
+                }
+
+                [class^='icon']{
+                    
+                    &:before{ color:#999999;}}
+            }
+
+            .icon-prop-list:before{ position: relative; top:2px;}
+            .icon-edit-hardware, .icon-EAMS-delivery {
+                align-self: center;
+            }
+        }
+        &.btn-sm {
+            font-size: rem(12);
+        }
+        &.disabled , &[disabled] , &.disabled:hover , &[disabled]:hover {
+            background-color: $light-grey !important;
+            color: $secondary-text !important;
+            border-color: $light-grey !important;
+            text-shadow: none;
+            box-shadow: 0px 0px 0px;
+            cursor: not-allowed;
+        }
+        &.warning-btn {
+            background: #F3A84A;
+            color: #fff;
+        }
+    }
+}
+.small-btn {
+    font-size     : 13px;
+    padding       : 5px 10px;
+    text-transform: capitalize;
+    color         : #fff !important;
+}
+.seperator-left{
+    border-left: 1px solid #D6D6D6 !important;
+    border-radius: 0 !important;
+}

@@ -1,0 +1,132 @@
+.btn {
+    padding: 7px 20px !important;
+    font-size: rem(14);            
+    border-radius: 50px;
+    margin: 0 6px;
+
+    &:first-child {
+        margin-left: 0;
+    }
+
+    &:last-child {
+        margin-right: 0;
+    }
+
+    &.btn-primary {
+        color: #fff;
+        border-color: #227bb1;
+        background-color: #227bb1;
+    }
+
+    &.btn-secondary {
+        color: #227bb1;
+        border-color: #227bb1;
+    }
+}
+
+p {
+    a {
+        color: #00bceb;
+    }
+}
+
+.info-alert-blue {
+    background-color: #eff8fe;
+    font-size: 0.875rem;
+    font-weight: 400;
+    color: #394454;
+    padding: 10px 20px 10px 16px;
+    line-height: 1;
+    &.bl-3 {
+        border-left: 4px solid #00bceb;
+    }
+    .icon-msg-Info {
+        font-size: 1.25rem;
+        .path1 {
+            &::before {
+                color: #00bceb;
+            }
+        }
+        .path2, .path3 {
+            &::before {
+                color: #fff;
+            }
+        }
+    }
+    .icon-close-btn {
+        font-size: 0.75rem;
+        position: relative;
+        top: 1px;
+    }
+    .pos-rel {
+        position: relative;
+        &.t-1 {
+            top: 1px;
+        }
+    }
+}
+
+.text-block {
+    margin-bottom: 30px;
+    .title {
+        color: #6c757d;
+        font-size: 1rem;
+        margin-bottom: 10px;
+        line-height: 24px;
+    }
+    p {
+        color: #394454;
+        font-size: 0.813rem;
+    }
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+.vNext textarea.form-control{
+    height: 80px;
+}
+
+textarea.form-control.resizeTextArea{
+    min-height: 80px;
+    max-height: 200px;
+    resize: vertical;
+}
+
+/*---------- Responsive ----------*/
+
+@media screen and (min-width:1600px){
+    .customer-label {
+        font-size: rem(15);
+    }
+    .info-alert-blue {
+        font-size: rem(15);
+        .icon-msg-Info {
+            font-size: rem(21);
+        }
+        .icon-close-btn {
+            font-size: rem(13);
+        }
+    }
+}
+
+@media screen and (min-width:1920px){
+    .customer-label {
+        font-size: rem(16);
+    }
+    .info-alert-blue {
+        font-size: rem(16);
+        .icon-msg-Info {
+            font-size: rem(22);
+        }
+        .icon-close-btn {
+            font-size: rem(14);
+        }
+    }
+}
+
+.drop-selected {
+    font-size: 16px;
+    color: #000000;
+    font-weight: 300;
+}

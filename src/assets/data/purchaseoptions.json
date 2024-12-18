@@ -1,0 +1,38 @@
+{
+  "data": {
+    "archs": [
+      {
+        "code": "C1_DNA",
+        "name": "EA Cisco DNA-Switching Wireless Routing",
+        "Suites": [
+          {
+            "suiteId": 13,
+            "name": "Cisco DNA EA for Switching"
+          },
+          {
+            "suiteId": 14,
+            "name": "Cisco DNA EA for Wireless"
+          },
+          {
+            "suiteId": 15,
+            "name": "Cisco DNA EA for Routing"
+          }
+        ]
+      },
+      {
+        "code": "C1_DC",
+        "name": "EA Data Center ACI and HyperFlex",
+        "Suites": [
+          {
+            "suiteId": 16,
+            "name": "Cisco Data Center EA for ACI"
+          },
+          {
+            "suiteId": 17,
+            "name": "Cisco Data Center EA for HyperFlex"
+          }
+        ]
+      }
+    ]
+  }
+}

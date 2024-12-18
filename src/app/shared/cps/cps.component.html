@@ -1,0 +1,370 @@
+ <!-- Begin new component for Guide me feature -->
+ <div class="overflow_scroll" *ngIf='!proposalDataService.cxProposalFlow' [ngClass]="{'hasfooter': isDefineSubPage}">
+<div *ngIf='isDefineSubPage'>
+  <!-- <h3 class="heading--h3 normal text-center" *ngIf="showAllContent && cpsService.showQuoteLink && isDataLoaded" >What type of case do you want to raise!</h3> -->
+  <ul class="guide--check">
+      <li (click)="showContent('pricing')" class="" [ngClass]="{'active': generalEnquiry}">
+          <span class="icon-tick-check"><span class="path1"></span><span class="path2"></span></span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="81" height="83" viewBox="0 0 81 83" fill="none">
+              <path d="M21.9761 12.5291V69.681C21.9761 72.4424 24.2147 74.681 26.9761 74.681H52.8742H71.7687C74.5301 74.681 76.7687 72.4424 76.7687 69.681V28.0728C76.7687 26.786 76.2726 25.5488 75.3837 24.6185L60.5308 9.07482C59.5875 8.08757 58.2814 7.52911 56.9159 7.52911H26.9761C24.2147 7.52911 21.9761 9.76769 21.9761 12.5291Z" fill="#EBEDED"/>
+              <path d="M16.1894 7V64.1519C16.1894 66.9133 18.428 69.1519 21.1894 69.1519H47.0875H65.982C68.7434 69.1519 70.982 66.9133 70.982 64.1519V22.5437C70.982 21.2569 70.4859 20.0197 69.597 19.0894L54.7441 3.54571C53.8008 2.55847 52.4947 2 51.1292 2H21.1894C18.428 2 16.1894 4.23858 16.1894 7Z" stroke="#005073" stroke-width="3"/>
+              <path d="M52.9781 15.8363V2.30317C52.9781 2.21252 53.0891 2.16864 53.1511 2.23478L70.4322 20.6679C70.4921 20.7318 70.4468 20.8363 70.3592 20.8363H57.9781C55.2167 20.8363 52.9781 18.5978 52.9781 15.8363Z" fill="white" stroke="#005073" stroke-width="3"/>
+              <path d="M33.2564 14.3067H25.6758" stroke="#005073" stroke-width="3" stroke-linecap="round"/>
+              <path d="M39.8099 21.3969H25.6749" stroke="#005073" stroke-width="3" stroke-linecap="round"/>
+              <path d="M61.9749 28.7871L25.9309 28.8098" stroke="#005073" stroke-width="3" stroke-linecap="round"/>
+              <path d="M61.7192 36.6143L25.6751 36.637" stroke="#005073" stroke-width="3" stroke-linecap="round"/>
+              <path d="M61.7192 44.7756L25.6751 44.7983" stroke="#005073" stroke-width="3" stroke-linecap="round"/>
+              <path d="M61.7192 52.8686L25.6751 52.8913" stroke="#005073" stroke-width="3" stroke-linecap="round"/>
+              <path d="M62.28 60.0924L25.6743 60.1199" stroke="#005073" stroke-width="3" stroke-linecap="round"/>
+          </svg>
+          <h5 class="heading--h5 bolder text-center">Customer Registry Support</h5>
+          <span class="badge" *ngIf="showDetails && !allCaseClosed" >Case Created</span>
+      </li>
+      <!-- <li  *ngIf = "cpsService.showQuoteLink" (click)="showContent('quote')" class="" [ngClass]="{'active': showQuote}">
+          <span class="icon-tick-check"><span class="path1"></span><span class="path2"></span></span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="81" height="80" viewBox="0 0 81 80" fill="none">
+              <path d="M35.6859 10.7284H50.7626C52.7619 10.7284 54.6793 11.5227 56.093 12.9364C57.5067 14.3501 58.3009 16.2675 58.3009 18.2668V23.3782H73.3777C75.377 23.3782 77.2944 24.1725 78.7081 25.5862C80.1218 26.9999 80.916 28.9173 80.916 30.9166V72.3776C80.916 74.3769 80.1218 76.2943 78.7081 77.708C77.2944 79.1217 75.377 79.9159 73.3777 79.9159H13.0708C8.887 79.9159 5.53243 76.5237 5.53243 72.3776V30.9166C5.53243 26.7328 8.887 23.3782 13.0708 23.3782H28.1475V18.2668C28.1475 14.083 31.5021 10.7284 35.6859 10.7284Z" fill="#EBEDED"/>
+              <mask id="path-2-inside-1" fill="white">
+              <path d="M31.2328 7.82879H46.3912C48.4014 7.82879 50.3292 8.62731 51.7505 10.0487C53.1719 11.4701 53.9704 13.3979 53.9704 15.408V18.9775H69.1289C71.139 18.9775 73.0668 19.7761 74.4882 21.1974C75.9095 22.6188 76.7081 24.5466 76.7081 26.5567V68.2424C76.7081 70.2525 75.9095 72.1803 74.4882 73.6017C73.0668 75.0231 71.139 75.8216 69.1289 75.8216H8.49522C4.28876 75.8216 0.916016 72.4109 0.916016 68.2424V26.5567C0.916016 22.3503 4.28876 18.9775 8.49522 18.9775H23.6536V15.408C23.6536 11.2015 27.0264 7.82879 31.2328 7.82879Z"/>
+              </mask>
+              <path d="M25.7008 21.9817H52.2435V18.9817H25.7008V21.9817ZM46.3912 7.82879V4.82879V7.82879ZM53.9704 18.9775H50.9704V21.9775H53.9704V18.9775ZM69.1289 18.9775V15.9775V18.9775ZM23.6536 18.9775V21.9775H26.6536V18.9775H23.6536ZM31.2328 10.8288H46.3912V4.82879H31.2328V10.8288ZM46.3912 10.8288C47.6057 10.8288 48.7705 11.3112 49.6292 12.17L53.8719 7.92737C51.8879 5.94338 49.197 4.82879 46.3912 4.82879V10.8288ZM49.6292 12.17C50.488 13.0288 50.9704 14.1935 50.9704 15.408H56.9704C56.9704 12.6022 55.8559 9.91136 53.8719 7.92737L49.6292 12.17ZM50.9704 15.408V18.9775H56.9704V15.408H50.9704ZM53.9704 21.9775H69.1289V15.9775H53.9704V21.9775ZM69.1289 21.9775C70.3433 21.9775 71.5081 22.46 72.3668 23.3187L76.6095 19.0761C74.6255 17.0921 71.9346 15.9775 69.1289 15.9775V21.9775ZM72.3668 23.3187C73.2256 24.1775 73.7081 25.3423 73.7081 26.5567H79.7081C79.7081 23.751 78.5935 21.0601 76.6095 19.0761L72.3668 23.3187ZM73.7081 26.5567V68.2424H79.7081V26.5567H73.7081ZM73.7081 68.2424C73.7081 69.4569 73.2256 70.6216 72.3668 71.4804L76.6095 75.723C78.5935 73.739 79.7081 71.0482 79.7081 68.2424H73.7081ZM72.3668 71.4804C71.5081 72.3391 70.3433 72.8216 69.1289 72.8216V78.8216C71.9346 78.8216 74.6255 77.707 76.6095 75.723L72.3668 71.4804ZM69.1289 72.8216H8.49522V78.8216H69.1289V72.8216ZM8.49522 72.8216C5.95537 72.8216 3.91602 70.7639 3.91602 68.2424H-2.08398C-2.08398 74.058 2.62215 78.8216 8.49522 78.8216V72.8216ZM3.91602 68.2424V26.5567H-2.08398V68.2424H3.91602ZM3.91602 26.5567C3.91602 24.0071 5.94562 21.9775 8.49522 21.9775V15.9775C2.63191 15.9775 -2.08398 20.6934 -2.08398 26.5567H3.91602ZM8.49522 21.9775H23.6536V15.9775H8.49522V21.9775ZM26.6536 18.9775V15.408H20.6536V18.9775H26.6536ZM26.6536 15.408C26.6536 12.8584 28.6832 10.8288 31.2328 10.8288V4.82879C25.3695 4.82879 20.6536 9.54469 20.6536 15.408H26.6536Z" fill="#005073" mask="url(#path-2-inside-1)"/>
+              <path d="M74.3172 37.2783C74.3172 37.2783 59.7295 43.3696 38.6822 43.3696C17.6349 43.3696 3.30781 37.2783 3.30781 37.2783" stroke="#005073" stroke-width="3" stroke-linecap="round"/>
+              <path d="M40.3051 46.4132L37.3173 46.3988" stroke="#005073" stroke-width="10" stroke-linecap="round"/>
+          </svg>
+          <h5 class="heading--h5 bolder text-center">Quoting</h5>
+      </li> -->
+  </ul>
+  <h3 *ngIf="showAllContent && isDataLoaded" class="heading--h3 normal text-center mt-4 before-border">Provide specifications about your issue.</h3>
+
+     <br *ngIf="successMessage"/>   
+     <br *ngIf="successMessage"/>   
+
+     <div class="alert alert--success" *ngIf="successMessage"><span class="icon-done1 alert-icon"><span class="path1"></span><span class="path2"></span></span><span class="infoTxt">Your request is submitted successfully. You will receive an email shortly with case details.</span></div>
+
+
+     <br *ngIf="alreadyCreated"/>   
+     <br *ngIf="alreadyCreated"/>  
+
+      <div class="alert alert--info" *ngIf="alreadyCreated"> 
+      
+        <span class="alert-icon">
+          <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+      </span>
+        You already created a case for this Qualification.</div>
+
+
+
+  <!-- Begin General Enquiry -->
+  <div class="card border-0 general-inq"  *ngIf="showAllContent && isDataLoaded">
+
+
+    <div class="form-group element-hasvalue">
+      <label class="customer-label" for="custPreferredName">{{localeService.getLocalizedString('cps.SUBJECT')}} of Case <span class="import">*</span></label>
+      <input type="text" class="form-control" [(ngModel)]="subject" appElementFocus required="" type="text" readonly disabled='disabled'>
+  </div>
+   
+      <!--Show Quoting Content-->
+<div class="show-quoting" *ngIf="showQuote">
+  <div class="element-hasvalue form-group">
+    <label class="customer-label" (click)="focusDescription()" for="buyMethod">Buy Method
+      <sup class="import">*</sup>
+    </label>
+    <input class="form-control" id="buyMethod" [(ngModel)]="buyMethod" appElementFocus required=""
+      type="text" />
+      
+  </div>
+  <div class="element-hasvalue form-group">
+    <label class="customer-label" (click)="focusDescription()" for="justification">Nonstandard
+      Justification
+      <sup class="import">*</sup>
+    </label>
+    <input class="form-control" id="justification" [(ngModel)]="justification" appElementFocus required=""
+      type="text" />
+    
+  </div>
+  <div class="element-hasvalue form-group">
+    <label class="customer-label" (click)="focusDescription()" for="ccwQuoteId">CCW Quote id
+    </label>
+    <input class="form-control" id="ccwQuoteId" [(ngModel)]="ccwQuoteId" appElementFocus type="text" />
+    
+  </div>
+  <div class="element-hasvalue form-group">
+    <label class="customer-label" (click)="focusDescription()" for="additionalEmails">Additional Emails
+    </label>
+    <input class="form-control" id="additionalEmails" [(ngModel)]="additionalEmails" appElementFocus type="text"
+      (input)="onChange(additionalEmails)"/>
+    
+    <div class="text-danger" role="alert" *ngIf="invalidEmail">
+      <i class="icon-error-icon"></i>
+      <span>{{localeService.getLocalizedString('common.INVALID_EMAIL')}}</span>
+    </div>
+    <div class="text-danger" role="alert" *ngIf="invalidDoamin">
+      <i class="icon-error-icon"></i>
+      <span>{{localeService.getLocalizedString('common.INVALID_DOMAIN')}}</span>
+    </div>
+  </div>
+</div>
+          <!-- END Quoting Content -->
+
+      <div class="form-group element-hasvalue">
+          <label class="customer-label" for="description">{{localeService.getLocalizedString('qual.create.DESC')}}<span class="import">*</span></label>
+          <input type="text" class="form-control" id="description" [(ngModel)]="description" appElementFocus required="" (ngModelChange)="autosize($event)" type="text">
+      </div>
+      <!--Begin Upload form -->
+      <div class="form-group element-hasvalue" *ngIf="!showQuote" ng2FileDrop (fileOver)="fileOverBase($event)" (onFileDrop)="dropped($event)"
+      [uploader]="uploader">
+          <label class="customer-label">Attach your documents</label>
+          <div class="drag-n-drop mt-2" [class.active]="fileName">
+              <svg *ngIf = "!fileName" class="pr-3" xmlns="http://www.w3.org/2000/svg" width="105" height="90" viewBox="0 0 105 90" fill="none">
+                  <path d="M64.8595 33.1586L52.613 75.6693C52.2258 77.0136 53.0016 78.4174 54.346 78.8047L73.712 84.3836L88.1366 88.5391C89.4809 88.9264 90.8847 88.1505 91.272 86.8062L100.17 55.9174C100.351 55.291 100.283 54.6191 99.9806 54.0415L92.2232 39.2203C91.9024 38.6074 91.3449 38.1523 90.6801 37.9608L67.9949 31.4257C66.6506 31.0384 65.2468 31.8142 64.8595 33.1586Z" fill="#EBEDED"/>
+                  <path d="M7.04189 32.028L20.4 70.9761C20.8538 72.2995 22.2946 73.0043 23.6179 72.5505L41.3477 66.4697L54.5157 61.9534C55.839 61.4996 56.5439 60.0588 56.09 58.7355L46.3812 30.4275C46.1697 29.8109 45.7286 29.2995 45.1497 28.9998L31.3331 21.8467C30.7188 21.5286 30.0011 21.4757 29.3467 21.7001L8.61622 28.81C7.29287 29.2639 6.58801 30.7046 7.04189 32.028Z" fill="#EBEDED"/>
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M26.9278 18.8633C26.1292 18.4499 25.1961 18.381 24.3454 18.6728L3.61499 25.7827C1.89463 26.3728 0.978316 28.2457 1.56835 29.9661L14.9264 68.9142C15.5165 70.6346 17.3894 71.5509 19.1098 70.9608L50.0075 60.3638C51.7279 59.7738 52.6442 57.9008 52.0542 56.1805L42.3454 27.8725C42.0704 27.0709 41.497 26.4061 40.7444 26.0165L26.9278 18.8633ZM24.8385 20.1105C25.2966 19.9534 25.799 19.9904 26.229 20.2131L40.0456 27.3662C40.4509 27.576 40.7596 27.934 40.9077 28.3656L50.6165 56.6736C50.9342 57.5999 50.4408 58.6084 49.5144 58.9261L18.6167 69.5232C17.6903 69.8409 16.6818 69.3475 16.3641 68.4211L3.00604 29.473C2.68833 28.5466 3.18172 27.5381 4.10807 27.2204L24.8385 20.1105Z" fill="#005073"/>
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M92.2655 33.8522C91.8485 33.0554 91.1237 32.4638 90.2595 32.2148L67.5743 25.6796C65.8266 25.1762 64.0017 26.1848 63.4982 27.9325L51.2517 70.4431C50.7483 72.1908 51.7569 74.0157 53.5045 74.5192L87.2952 84.2536C89.0428 84.757 90.8677 83.7484 91.3712 82.0008L100.27 51.112C100.504 50.2977 100.416 49.4242 100.023 48.6734L92.2655 33.8522ZM89.8387 33.6753C90.3041 33.8094 90.6943 34.1279 90.9189 34.557L98.6763 49.3782C98.8879 49.7825 98.9355 50.2528 98.8091 50.6913L89.9107 81.58C89.6396 82.5211 88.6569 83.0642 87.7159 82.7931L53.9253 73.0587C52.9842 72.7876 52.4411 71.8049 52.7122 70.8639L64.9587 28.3532C65.2298 27.4121 66.2125 26.869 67.1535 27.1401L89.8387 33.6753Z" fill="#005073"/>
+                  <path d="M87.7591 44.0421L90.8408 33.3449C90.8535 33.3008 90.9137 33.295 90.9346 33.3359L99.4308 49.9519C99.4509 49.9914 99.4142 50.0359 99.3716 50.0237L89.4921 47.1775C88.1477 46.7903 87.3719 45.3865 87.7591 44.0421Z" fill="white"/>
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M91.6121 32.9895C91.2775 32.3351 90.3148 32.428 90.1114 33.1341L87.0297 43.8313C86.5263 45.579 87.5349 47.4039 89.2825 47.9073L99.1621 50.7534C99.844 50.9499 100.431 50.2373 100.108 49.6055L99.4316 49.9515L100.108 49.6055L91.6121 32.9895ZM91.0754 35.2784L98.0096 48.8397L89.7033 46.4468C88.7622 46.1757 88.2191 45.1931 88.4902 44.2521L91.0754 35.2784ZM90.2591 33.6819L90.2588 33.6814L90.2588 33.6814C90.2589 33.6816 90.259 33.6818 90.2591 33.6819Z" fill="#005073"/>
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M17.6857 54.4923C17.8252 54.8882 18.4276 55.037 19.0312 54.8246L41.1113 47.0579C41.7149 46.8455 42.0912 46.3525 41.9517 45.9567C41.8122 45.5608 41.2098 45.412 40.6062 45.6244L18.5261 53.3911C17.9225 53.6034 17.5462 54.0965 17.6857 54.4923Z" fill="#005073"/>
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M19.0822 59.7506C19.2217 60.1465 19.8241 60.2953 20.4277 60.0829L42.5078 52.3162C43.1114 52.1038 43.4877 51.6108 43.3482 51.215C43.2087 50.8191 42.6063 50.6703 42.0027 50.8827L19.9226 58.6494C19.319 58.8617 18.9427 59.3548 19.0822 59.7506Z" fill="#005073"/>
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M34.1234 33.2192C32.1043 28.1251 26.7885 25.2544 21.6277 26.3424L25.0693 36.337L34.1234 33.2192Z" fill="#005073"/>
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M33.3328 35.3688C34.8184 40.6824 32.0188 46.2618 26.8577 48.039C21.4966 49.8851 15.6175 46.9296 13.7264 41.4377C11.8353 35.9459 14.6483 29.9973 20.0094 28.1512C20.0889 28.1238 20.1685 28.0975 20.2483 28.0722L23.8815 38.6233L33.3328 35.3688Z" fill="#005073"/>
+                  <path d="M79.958 49.1147L74.6971 67.5638" stroke="#005073" stroke-dasharray="1 1"/>
+                  <rect x="69.4802" y="43.8762" width="23.1433" height="5.6177" transform="rotate(15.9159 69.4802 43.8762)" fill="white" stroke="#005073"/>
+                  <path d="M63.1477 65.178L66.0538 54.9871L88.852 61.4882L85.9961 71.5034" stroke="#005073" stroke-linecap="round" stroke-linejoin="bevel"/>
+                  <rect x="72.5196" y="62.7904" width="6.99659" height="6.95599" transform="rotate(15.9159 72.5196 62.7904)" fill="#005073"/>
+                  <ellipse cx="63.3579" cy="63.5159" rx="3.7674" ry="3.74553" transform="rotate(15.9159 63.3579 63.5159)" fill="#005073"/>
+                  <path d="M85.1039 73.913L90.6747 68.8246L83.0548 66.6518L85.1039 73.913Z" fill="#005073"/>
+                  <path d="M31.6533 4.97502V49.9433C31.6533 51.3654 32.7927 52.5182 34.1982 52.5182H54.4453H69.5262C70.9317 52.5182 72.0711 51.3654 72.0711 49.9433V17.2689C72.0711 16.6062 71.8186 15.9691 71.3661 15.49L59.7555 3.19615C59.2753 2.68774 58.6105 2.40014 57.9155 2.40014H34.1982C32.7927 2.40014 31.6533 3.55296 31.6533 4.97502Z" fill="#005073" stroke="white" stroke-width="2"/>
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M36.9823 10.5085C36.9823 10.9282 37.3225 11.2684 37.7422 11.2684H43.3082C43.7279 11.2684 44.0682 10.9282 44.0682 10.5085C44.0682 10.0887 43.7279 9.74851 43.3082 9.74851H37.7422C37.3225 9.74851 36.9823 10.0887 36.9823 10.5085Z" fill="white"/>
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M36.9822 15.715C36.9822 16.1347 37.3224 16.4749 37.7421 16.4749H48.1207C48.5404 16.4749 48.8806 16.1347 48.8806 15.715C48.8806 15.2953 48.5404 14.955 48.1207 14.955H37.7421C37.3224 14.955 36.9822 15.2953 36.9822 15.715Z" fill="white"/>
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M37.1794 21.1587C37.1796 21.5784 37.5201 21.9185 37.9398 21.9182L65.7237 21.9015C66.1434 21.9013 66.4835 21.5608 66.4832 21.1411C66.4829 20.7214 66.1425 20.3814 65.7228 20.3816L37.9389 20.3983C37.5192 20.3986 37.1791 20.739 37.1794 21.1587Z" fill="white"/>
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M36.9815 32.6529C36.9817 33.0726 37.3222 33.4127 37.7419 33.4124L58.0058 33.4002C58.4255 33.4 58.7656 33.0595 58.7653 32.6398C58.7651 32.2201 58.4246 31.8801 58.0049 31.8803L37.741 31.8925C37.3213 31.8928 36.9812 32.2332 36.9815 32.6529Z" fill="white"/>
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M36.9823 26.9056C36.9826 27.3253 37.323 27.6654 37.7427 27.6651L65.5267 27.6484C65.9464 27.6482 66.2864 27.3077 66.2862 26.888C66.2859 26.4683 65.9455 26.1283 65.5258 26.1285L37.7418 26.1452C37.3221 26.1455 36.9821 26.4859 36.9823 26.9056Z" fill="white"/>
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M37.1474 38.4001C37.1478 38.8198 37.6668 39.1599 38.3067 39.1596L62.9896 39.1499C63.6295 39.1496 64.1479 38.8092 64.1475 38.3895C64.1472 37.9698 63.6281 37.6297 62.9882 37.63L38.3053 37.6397C37.6654 37.64 37.147 37.9804 37.1474 38.4001Z" fill="white"/>
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M37.149 44.1482C37.1493 44.5679 37.6684 44.9079 38.3083 44.9077L61.7145 44.8984C62.3544 44.8982 62.8728 44.5577 62.8724 44.138C62.872 43.7183 62.353 43.3783 61.7131 43.3785L38.3069 43.3878C37.667 43.388 37.1486 43.7285 37.149 44.1482Z" fill="white"/>
+              </svg>
+              <div  class="well my-drop-zone text-center m-0">
+                        <ng-container  *ngIf="!fileName">
+                        <input  type="file" id="file" #file ng2FileSelect [uploader]="uploader"
+                        (change)="onFileChange($event)"  hidden />
+                        <span>Drag and drop files anywhere or
+                            <a href="javascript:void(0);" (click)="file.click()">Upload a file</a>
+                        </span>
+                      </ng-container>
+                        <span class="icon-doc1" *ngIf= "fileType === 'doc'  || fileType === 'docx' "><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span><span class="path8"></span></span>
+<span class="icon-ppt1" *ngIf= "fileType === 'ppt' "><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span></span>
+<span class="icon-xls1" *ngIf= "fileType === 'xlsx' || fileType === 'xls' "><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span><span class="path8"></span></span>
+<span class="icon-pdf1" *ngIf= "fileType === 'pdf'"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span><span class="path8"></span></span>
+
+<span class="icon-PNG" *ngIf= "fileType === 'png'"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span><span class="path8"></span></span>
+<span class="icon-TXT" *ngIf= "fileType === 'txt' || fileType === 'text' "><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span><span class="path8"></span></span>
+<span class="icon-JPG" *ngIf= "fileType === 'jpg' || fileType === 'jpeg'"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span><span class="path8"></span></span>
+
+
+                        <p>{{fileName}}</p>
+                        <p *ngIf = "fileName && fileName.length>0"><a href="javascript:void();"  (click)="removeItem()">Remove</a></p>
+                    </div>
+          </div>
+
+     </div>
+     <br *ngIf = "fileTypeError || fileSizeError"/>   
+
+       <div class="alert alert--danger" *ngIf = "fileTypeError || fileSizeError">
+             
+        <span class="alert-icon">
+            <span class="icon-alert-error"></span>
+        </span>
+        <span>{{fileErrorMessage}}</span>
+    
+    </div>
+
+    </div> </div>
+      <!--END Upload form -->
+
+  <!-- End General Enquiry -->
+
+
+  <!-- Help & Support - Instructions : Starts Here -->
+  <div *ngIf='!isDefineSubPage'>
+    <div class="block-instruction">
+      <h3 class="heading--h3 bold border-bottom solid uppercase mb-2 pb-1">Please read carefully:</h3>
+      <p>If you believe the IB Assessment on your proposal is inaccurate, take a moment to verify the below:</p>
+      <ol>
+        <li>When creating the qualification, did you select all the applicable countries and subsidiaries?</li>
+        <li>Using the <span class="italic-text">“Credit Overview”</span> page, did you make sure all the licenses, contracts and subscriptions of interest are eligible and active?</li>
+      </ol>
+      <p>If the above did not solve your problem, you will need to open a case with our support team.</p>
+    </div>
+
+    <div class="block-instruction">
+      <p class="mb-2 underline">Instructions on how to open a case with the IB Assessment support team:</p>
+      <ul class="flex-list">
+        <li><span class="no-wrap-text dashed-step bold-txt">Step 1</span>Navigate to the <span class="bold-txt">Credit Overview</span> page</li>
+        <li><span class="no-wrap-text dashed-step bold-txt">Step 2</span>Click the <span class="italic-text">“Engage Support Team”</span> button</li>
+        <li><span class="no-wrap-text dashed-step bold-txt">Step 3</span>Fill-out the form and click the <span class="italic-text">“Continue”</span> button (as a best practice, always include as much information as possible)</li>
+        <li><span class="no-wrap-text dashed-step bold-txt">Step 4</span>Click the <span class="italic-text">“X”</span> button on the top right of the page to leave the <span class="bold-txt">Credit Overview</span> page</li>
+        <li><span class="no-wrap-text dashed-step bold-txt">Step 5</span>Now that you’re back to the <span class="bold-txt">Price Estimation</span> page, click the <span class="italic-text">“Continue”</span> and <span class="italic-text">“Submit for Approval”</span> buttons.  A member of our support team will get back to you shortly.</li>
+      </ul>
+      <p class="d-none">If the above did not solve your problem, you will need to open a case with our support team.</p>
+    </div>
+  </div>
+  <!-- Help & Support - Instructions : Ends Here -->
+
+ <h3 *ngIf="showDetails" class="heading--h3 normal text-center mt-4 before-border mb-3">Specifications regarding your General Inquiry</h3>
+ <div *ngIf="showDetails">
+  <div class="row list-style mb-3"  *ngFor="let case of caseList">
+      <div class="col p-0">
+          <div  class="list-item--name align-items-center row">
+              <div  class="col-8 d-flex">
+                <h3  class="heading ellipsis p-0" *ngIf="(case?.pegaCaseDetails?.CaseNumber)"><a  href="javascript:void(0);" (click)="openCasePortal(case.pegaCaseDetails.URL)" >{{case?.pegaCaseDetails?.CaseNumber}} </a></h3>
+                <h3  class="heading ellipsis p-0" *ngIf="!(case?.pegaCaseDetails?.CaseNumber)">SWINC-XXX (Pending Case Creation)</h3>
+              </div>
+              <div  class="col-4 text-right">
+                  <ul  class="tile-list">
+                      <li  class="pr-0"><span *ngIf='case?.status !== "Resolved"' class="badge badge-in-progress">{{case.status}}</span>
+                        <span *ngIf='case?.status === "Resolved"'  class="badge badge-validated">{{case.status}}</span>  
+                      </li> 
+                  </ul>
+              </div>
+              <div class="col-12 list-item--val mt-1">
+                  <label>{{case?.subject}}</label>
+              </div>
+          </div>
+         <!-- Please dont remove this code .It will used in future   -->
+          <!-- <div class="list-activity" *ngIf = "false">
+              <p class="activity-heading">Activity</p>
+              <div class="d-flex mb-3" *ngFor="let note of case?.caseNotes">
+                  <span class="activity-dp">SW</span>
+                  <div>
+                      <p>{{note.NoteDescription}}</p>
+                      <span class="badge">Requested Date: <b>{{note?.createdDateAsString}}</b></span>
+                  </div>
+              </div>
+          </div> -->
+          <div  class="list-item border--top solid">
+              <div  class="list-item--val col-4">
+                  <label >Created By</label>
+                  <h4  class="label-name">{{case?.createdBy}}</h4>
+              </div>
+              <div  class="list-item--val col-4">
+                  <label >Type</label>
+                  <h4  class="label-name">{{case?.caseSubType}}</h4>
+              </div>
+              <div  class="list-item--val col-4">
+                  <label >Created Date</label>
+                  <h4 class="label-name">{{case?.createdAtAsString}}</h4>
+              </div>
+          </div>
+      </div>
+  </div>
+  </div>  
+<!-- Begin Empty case result div -->
+  <div class="guide-me-bg" *ngIf="!showAllContent && !alreadyCreated && !showDetails && !successMessage">
+  <!-- <svg class="m-auto d-block pt-3" xmlns="http://www.w3.org/2000/svg" width="391" height="356" viewBox="0 0 491 456" fill="none">
+      <g opacity="0.3">
+      <path d="M289.822 147.565C303.262 123.584 318.552 61.5651 272.188 5.34619" stroke="#00BCEB" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M263.491 21.427C263.952 20.4847 268.743 7.65657 269.837 3.15966L291.061 6.3488" stroke="#00BCEB" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+      <path d="M359.895 216.93H378.389C378.389 216.93 377.336 209.005 383.653 203.671C388.488 199.705 394.229 200.594 397.313 201.962C400.396 203.331 402.685 205.211 404.273 208.758C404.273 208.758 405.281 210.999 405.644 212.549" stroke="#00BCEB" stroke-opacity="0.4" stroke-width="3" stroke-linecap="round"/>
+      <path d="M397.857 219.85C397.857 219.85 399.398 214.515 404.184 212.874C408.971 211.232 413.509 213.418 415.322 215.617C417.134 217.816 417.709 219.583 418.051 221.427C418.393 223.27 418.298 225.69 418.298 225.69C418.298 225.69 424.345 225.444 426.408 228.123C428.071 230.258 428.241 232.813 427.635 234.694C427.03 236.575 425.009 239.317 421.218 239.317H344.321" stroke="#00BCEB" stroke-opacity="0.4" stroke-width="3" stroke-linecap="round"/>
+      <path d="M334.586 226.663H397.857" stroke="#00BCEB" stroke-opacity="0.4" stroke-width="3" stroke-linecap="round"/>
+      <path d="M317.066 226.663H324.853" stroke="#00BCEB" stroke-opacity="0.4" stroke-width="3" stroke-linecap="round"/>
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M277.159 211.575L306.847 182.374L405.645 281.659" fill="white"/>
+      <path d="M78.587 280.686L211.454 147.333L306.845 241.751" stroke="#00BCEB" stroke-opacity="0.4" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M211.456 148.306V252.458L183.228 223.257L125.312 280.686" stroke="#00BCEB" stroke-opacity="0.4" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M277.159 211.575L306.847 182.374L405.645 281.659" stroke="#00BCEB" stroke-opacity="0.4" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M123.37 270.682C123.634 269.692 125.039 269.692 125.303 270.682L128.23 281.659H120.443L123.37 270.682Z" fill="#00BCEB" fill-opacity="0.4"/>
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M68.18 261.559C67.9062 260.6 66.552 260.589 66.2618 261.542L60.4351 280.687H65.8553L73.7204 280.954L68.18 261.559Z" fill="#00BCEB" fill-opacity="0.4"/>
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M265.467 188.313C265.77 187.383 267.09 187.396 267.375 188.331L273.264 207.682L268.754 204.797L261.926 199.188L265.467 188.313Z" fill="#00BCEB" fill-opacity="0.4"/>
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M400.795 261.441C401.082 260.496 402.42 260.496 402.708 261.441L408.565 280.686H403.145L397.227 273.165L400.795 261.441Z" fill="#00BCEB" fill-opacity="0.4"/>
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M74.7015 270.682C74.9655 269.692 76.3701 269.692 76.634 270.682L79.5613 281.659H71.7742L74.7015 270.682Z" fill="#00BCEB" fill-opacity="0.4"/>
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M408.573 270.682C408.837 269.692 410.241 269.692 410.505 270.682L413.432 281.659H405.645L408.573 270.682Z" fill="#00BCEB" fill-opacity="0.4"/>
+      <path d="M188.442 318.582C181.391 320.048 177.014 313.012 177.014 313.012H177.006C177.006 313.012 173.668 318.799 166.811 318.799C160.242 318.799 156.636 313.012 156.636 313.012H156.625C156.625 313.012 153.292 318.799 146.436 318.799C139.864 318.799 136.261 313.012 136.261 313.012H136.25C136.25 313.012 130.609 320.164 123.71 318.697" stroke="#00BCEB" stroke-opacity="0.4" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M96.9434 303.426C89.8926 304.892 85.5158 297.855 85.5158 297.855H85.5074C85.5074 297.855 82.1692 303.642 75.3127 303.642C68.7432 303.642 65.1377 297.855 65.1377 297.855H65.1264C65.1264 297.855 61.7938 303.642 54.9373 303.642C48.3651 303.642 44.7623 297.855 44.7623 297.855H44.751C44.751 297.855 39.1105 305.008 32.2117 303.541" stroke="#00BCEB" stroke-opacity="0.4" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M158.302 303.425C151.251 304.891 146.874 297.854 146.874 297.854H146.866C146.866 297.854 143.528 303.641 136.671 303.641C130.102 303.641 126.496 297.854 126.496 297.854H126.485C126.485 297.854 123.152 303.641 116.296 303.641C109.723 303.641 106.121 297.854 106.121 297.854H106.109C106.109 297.854 100.469 305.006 93.5701 303.54" stroke="#00BCEB" stroke-opacity="0.4" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M13.371 282.147H236.276C236.276 282.147 208.18 287.961 207.074 310.862C207.074 332.944 229.399 340.55 236.276 340.55H327.774C336.939 340.55 346.268 344.551 346.268 354.664C346.268 364.778 337.964 369.752 329.721 369.752H302.466C298.088 369.752 291.759 372.893 291.759 379.972C291.759 387.051 298.068 390.193 301.492 390.193H400.602" stroke="#8CD3F8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M1.69043 282.147H7.53073" stroke="#8CD3F8" stroke-width="3" stroke-linecap="round"/>
+      <path d="M329.723 282.147H465.997" stroke="#8CD3F8" stroke-width="3" stroke-linecap="round"/>
+      <path d="M471.834 282.147H489.355" stroke="#8CD3F8" stroke-width="3" stroke-linecap="round"/>
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M302.498 262.703C303.073 260.811 305.751 260.811 306.326 262.703L320.175 308.28C320.566 309.564 319.604 310.861 318.262 310.861H290.563C289.22 310.861 288.259 309.564 288.649 308.28L302.498 262.703Z" fill="#00BCEB" fill-opacity="0.4"/>
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M304.899 259.758L320.96 311.347H287.865L304.899 259.758Z" stroke="#8CD3F8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M304.899 264.454C304.899 264.454 304.899 318.692 304.899 319.937C304.899 318.692 304.899 264.454 304.899 264.454Z" stroke="#8CD3F8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M313.173 286.842C313.173 286.842 305.386 296.276 305.386 296.576C305.386 296.276 313.173 286.842 313.173 286.842Z" stroke="#8CD3F8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M272.923 237.857L297.31 308.206C297.761 309.505 296.796 310.861 295.421 310.861H250.425C249.05 310.861 248.085 309.505 248.535 308.206L272.923 237.857Z" fill="#00BCEB" fill-opacity="0.4"/>
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M272.778 234.937L298.23 311.348H247.614L272.778 234.937Z" stroke="#8CD3F8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M272.778 239.803C272.778 239.803 272.778 317.427 272.778 319.621C272.778 317.427 272.778 239.803 272.778 239.803Z" stroke="#8CD3F8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M262.215 267.059C262.215 267.059 272.923 277.395 272.923 277.767C272.923 277.395 262.215 267.059 262.215 267.059Z" stroke="#8CD3F8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M273.896 295.286C273.896 295.286 287.523 279.34 287.523 279.712C287.523 279.34 273.896 295.286 273.896 295.286Z" stroke="#8CD3F8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M162.207 189.9L165.833 191.467L168.229 198.101L154.557 208.537H141.985L162.207 189.9Z" fill="white"/>
+      <path d="M107.791 185.783H126.285C126.285 185.783 125.232 177.859 131.549 172.524C136.384 168.559 142.125 169.448 145.208 170.816C148.291 172.185 150.581 174.065 152.168 177.612C152.168 177.612 153.177 179.853 153.54 181.403" stroke="#00BCEB" stroke-opacity="0.4" stroke-width="3" stroke-linecap="round"/>
+      <path d="M145.752 188.703C145.752 188.703 147.294 183.368 152.08 181.727C156.866 180.086 161.405 182.272 163.217 184.471C165.03 186.67 165.605 188.437 165.947 190.28C166.289 192.124 166.194 194.544 166.194 194.544C166.194 194.544 172.241 194.297 174.303 196.977C175.966 199.112 176.137 201.666 175.531 203.547C174.925 205.428 172.905 208.171 169.114 208.171H92.2164" stroke="#00BCEB" stroke-opacity="0.4" stroke-width="3" stroke-linecap="round"/>
+      <path d="M82.4819 195.517H145.752" stroke="#00BCEB" stroke-opacity="0.4" stroke-width="3" stroke-linecap="round"/>
+      <path d="M64.9616 195.517H72.7487" stroke="#00BCEB" stroke-opacity="0.4" stroke-width="3" stroke-linecap="round"/>
+      <path d="M61.0681 397.006H153.534C153.534 397.006 162.3 397.749 162.3 404.663C162.3 411.577 153.534 412.58 153.534 412.58H144.779C144.779 412.58 138.897 413.774 138.897 418.569C138.897 423.363 144.779 424.261 144.779 424.261H282.026" stroke="#8CD3F8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M289.327 424.26H293.707" stroke="#8CD3F8" stroke-width="3" stroke-linecap="round"/>
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M113.145 331.302L136.02 407.713H89.2971L113.145 331.302Z" fill="#00BCEB" fill-opacity="0.4" stroke="#8CD3F8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M113.144 331.789C113.144 331.789 113.144 415.616 113.144 417.566C113.144 415.616 113.144 331.789 113.144 331.789Z" stroke="#8CD3F8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M98.0561 383.463C98.0561 383.463 112.657 396.167 112.657 396.624C112.657 396.167 98.0561 383.463 98.0561 383.463Z" stroke="#8CD3F8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M113.63 385.406C113.63 385.406 125.311 371.787 125.311 372.245C125.311 371.787 113.63 385.406 113.63 385.406Z" stroke="#8CD3F8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M195.882 325.466L163.76 436.913H228.003L195.882 325.466Z" fill="#00BCEB" fill-opacity="0.4" stroke="#8CD3F8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M195.882 326.922C195.882 326.922 195.882 451.096 195.882 454.133C195.882 451.096 195.882 326.922 195.882 326.922Z" stroke="#8CD3F8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M216.323 401.025C216.323 401.025 195.882 422.489 195.882 422.96C195.882 422.489 216.323 401.025 216.323 401.025Z" stroke="#8CD3F8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M207.563 368.854C207.563 368.854 195.882 384.468 195.882 384.94C195.882 384.468 207.563 368.854 207.563 368.854Z" stroke="#8CD3F8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M195.881 405.412C195.881 405.412 179.82 383.005 179.82 383.476C179.82 383.005 195.881 405.412 195.881 405.412Z" stroke="#8CD3F8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg> -->
+  <p   class="text-center">Choose your case type first to proceed.</p>
+
+</div>
+<!-- END Empty case result div -->
+
+  </div>
+
+
+  <div *ngIf="isDefineSubPage">
+  <div class = "text-right pr-3" *ngIf="showDetails && allCaseClosed" >
+ 
+    <button type="button" class="btn btn-primary" (click)="createNewCase()">
+            <span class="icon-btn-back"></span><span class="mid-text">{{localeService.getLocalizedString('common.CASE.CREATE')}}</span><span class="icon-btn-continue"></span>
+     </button>
+     </div>
+  <div class="modal-footer" *ngIf="showAllContent && isDataLoaded">
+      <button class="btn btn-secondary"  (click)="cancelEngage()" type="button">Cancel</button>
+      
+      <button class="btn btn-primary" type="button" *ngIf="!this.showQuote"  [disabled]="!description" (click)="submitPricingCase()" >Submit Case</button>
+      <button class="btn btn-primary" type="button" *ngIf="this.showQuote && this.showAllContent" [disabled]="!description || !buyMethod || !justification || disableAdd" (click)="submitQuoteCase()">Submit Case</button>
+  </div>
+</div>
+
+
+
+<!-- END new component for Guide me feature -->
+
+ 
+ <!--Begin CPS-->
+ <div class="engage-CPS--block" style="display: none;" [ngClass]="{'open':cpsService.showCPSContent}" >
+   <div class="price-quote--info" *ngIf='(appDataService.isReadWriteAccess || appDataService.userInfo.rwSuperUser) && !cpsService.showCPSContent'>
+     <!-- <p>You can contact our CPS team for support depending on the nature of the issue.</p> -->
+     <ul>
+       <!-- <li>For Pricing related issues. <a  (click)="showContent('pricing')" href="javascript:void(0)">Click here.</a></li> -->
+       <li>For assistance, <a  (click)="showContent('pricing')" href="javascript:void(0)">Click here</a> to contact our support team</li>
+       <li class="last-child" *ngIf='cpsService.showQuoteLink'>Anything quote related. <a (click)="showContent('quote')" href="javascript:void(0)">Click here.</a></li>
+     </ul>
+   </div>
+   <!--<p style="position:relative" *ngIf="!cpsService.showCPSContent">{{localeService.getLocalizedMessage('cps.HELP')}} <a *ngIf="appDataService.isReadWriteAccess && !appDataService.roadMapPath" href="javascript:void(0)" class="linkText" (click)="showContent()"> {{localeService.getLocalizedMessage('cps.CLICK_TO_ENGAGE')}}</a> <a *ngIf="(!appDataService.isReadWriteAccess && appDataService.userInfo.roSuperUser) || (appDataService.isReadWriteAccess && appDataService.roadMapPath)" class="linkText" > {{localeService.getLocalizedMessage('cps.CLICK_TO_ENGAGE')}}</a>  </p>-->
+  <!-- <a href="javascript:void(0)" class="rightArrow icon-arrow-stroke" (click)="hideContent()"></a> -->
+  <div class="cpc-wrapper" *ngIf="cpsService.showCPSContent">
+      <div class="cpc-header">{{localeService.getLocalizedString('cps.ENGAGE_CPS')}}</div>
+      <div class="cpc-content card border-0 bg-transparent" *ngIf="!successMessage && !alreadyCreated">
+          
+<!-- 
+          <div class="mt-2">
+            <button class="btn btn-primary" *ngIf="!this.showQuote" type="button" [disabled]="description.length == 0" (click)="submitPricingCase()">{{localeService.getLocalizedString('cps.SUBMIT_CASE')}}</button>
+            <button class="btn btn-primary" *ngIf="this.showQuote" type="button" [disabled]="!description || !buyMethod || !justification || disableAdd" (click)="submitQuoteCase()">{{localeService.getLocalizedString('cps.SUBMIT_CASE')}}</button>
+            <button class="btn btn-secondary mr-2" type="button" (click)="cancelEngage()">{{localeService.getLocalizedString('common.CANCEL')}}</button>
+          </div> -->
+
+
+
+      </div>
+
+
+  
+<!--END CPS-->

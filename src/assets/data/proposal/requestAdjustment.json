@@ -1,0 +1,35 @@
+[
+    {
+        "lineItem": "ACS-C2900-48",
+        "c1Foundation": -1400,
+        "alcFoundation": -2400,
+        "swssFoundation": "",
+        "c1Advanced": -500,
+        "alcAdvanced": -1000,
+        "swssAdvanced": "",
+        "reason": "",
+        "comments": ""
+    },
+    {
+        "lineItem": "ACS-C2900-40",
+        "c1Foundation": -1400,
+        "alcFoundation": -2400,
+        "swssFoundation": "",
+        "c1Advanced": -500,
+        "alcAdvanced": -1000,
+        "swssAdvanced": "",
+        "reason": "",
+        "comments": ""
+    },
+    {
+        "lineItem": "ACS-C2900-30",
+        "c1Foundation": -1400,
+        "alcFoundation": -2400,
+        "swssFoundation": "",
+        "c1Advanced": -500,
+        "alcAdvanced": -1000,
+        "swssAdvanced": "",
+        "reason": "",
+        "comments": ""
+    }
+]

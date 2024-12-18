@@ -1,0 +1,255 @@
+.global-bookmark {
+    width: 100%;
+    float: left;
+    position: relative;
+    .financial-info-block {
+        position: absolute;
+        right: 0;
+        top: -26px;
+        width: 50px;
+        height: 50px;
+        border-top: 40px solid #00bceb;
+        border-left: 50px solid transparent;
+        cursor: pointer;
+        z-index:9999;
+        
+        .icon-down-arow-white {
+            transform: rotate(-270deg);
+            position: absolute;
+            right: 10px;
+            top: -30px;
+        }
+    }
+}
+
+.subHeaderWrap {
+    background: $link-color;
+    color: $white-color;
+    padding-bottom: $half-spacing;
+    span.sub-header--text {
+        font-size: rem(24);
+        color: $white-color;
+        font-weight: 100;
+        line-height: 1;
+        text-shadow: 0px 0px;
+        @include ellipsis;
+    }
+    h2 {
+        display: flex;
+        align-items: center;
+    }
+    .digit {
+        color: $white-color;
+        font-size: rem(12);
+        font-weight: 500;
+        line-height: rem(14);
+        white-space: nowrap;
+        letter-spacing: 0.02em;
+        display: flex;
+        justify-content: flex-start;
+        .icon-msg-Info {
+            position: relative;
+            top: unset;
+            left: unset;
+            padding-left: $qtr-spacing;
+            .path1:before {
+                color: $white-color;
+            }
+            .path2:before,
+            .path3:before {
+                color: $theme-color;
+            }
+        }
+    }
+    .val {
+        position: relative;
+        font-size: rem(24);
+        max-width: 100%;
+        line-height: 1;
+        display: block;
+        @include ellipsis;
+        padding-top: $qtr-spacing;
+    }
+    .d3-value {
+        display: flex;
+        font-size: rem(14);
+        padding-top: $qtr-spacing;
+        width: auto;
+        line-height: 1;
+        span {
+            padding-left: $half-spacing;
+        }
+    }
+    .data-column {
+        padding: 0 15px;
+        text-align: left;
+        overflow: hidden;
+    }
+    .new-header {
+        justify-content: flex-end;
+        flex-wrap: nowrap;
+        .val {
+            font-size: rem(16);
+        }
+    }
+    .icon-history {
+        font-size: rem(20);
+        //margin-left: $qtr-spacing;
+        cursor: pointer;
+    }
+    .sub-header--icon {
+        font-size: rem(30);
+        margin-right: $half-spacing;
+        height: rem(30);
+    }
+    .subTitle-iconWrap {
+        font-size: 17px;
+        padding-left: 5px;
+        cursor: pointer;
+    }
+    .btn-cross-arch {
+        display: flex;
+        //justify-content: space-between;
+        justify-content: flex-start;
+        align-items: center;
+        h2 {
+            //max-width: calc(100% - 200px);
+            max-width: calc(100% - 150px);
+        }
+
+        &.cx-flow {
+            h2 {
+                max-width: calc(100% - 348px);
+            }
+        }
+    }
+
+    .btn-single-arch {
+        display: flex;
+        //justify-content: space-between;
+        justify-content: flex-start;
+        align-items: center;
+        h2 {
+            max-width: calc(100% - 40px);
+        }
+        &.cx-flow {
+            h2 {
+                max-width: calc(100% - 60px);
+            }
+        }
+    }
+
+    .flyout-right {
+        .btn-secondary-outline {
+            .dropdown-menu {
+                left: auto;
+                right: -30px;
+            }
+            .icon-arrow-up {
+                left: auto;
+                right: 80px;
+            }
+        }
+    }
+    
+    .btn-secondary-outline {
+        line-height: 1;
+        padding: 4px 0px 0;
+        background: none;
+        border: 0px;
+        font-size: rem(12);
+        color: $white-color;
+        position: relative;
+        cursor: pointer;
+        [class^="icon-"]::before {
+            color: #fff;
+        }
+        .icon-arrow-up {
+            left: 70px;
+            right: auto;
+        }
+        .custom--tooltip .icon-arrow-up {
+            display: inline-block;
+            transform: rotate(-180deg);
+            bottom: -8px;
+            height: 10px;
+            top: auto;
+            .path2:before {
+                color: red;
+            }
+        }
+        &:hover .custom--tooltip {
+            display: block;
+        }
+        .icon-error-icon {
+            display: inline-block;
+            //vertical-align: middle;
+            margin-left: 3px;
+            &:before {
+                color: #fbab18;
+            }
+        }
+        .dropdown-menu {
+            display: block;
+            width: 950px;
+            top: 25px;
+            border: 1px solid #005073;
+            padding: 15px;
+            left: calc(100% - 80px);
+            &.auto-width {
+                width: auto;
+            }
+        }
+        .dropdown {
+            font-size: 12px;
+            display: inline-block;
+            border-bottom: 1px solid #FFF;
+            padding: 3px 0px;
+            position: relative;
+            margin: 0 $qtr-spacing;
+        }
+        .icon-arrow-stroke-right {
+            transform: rotate(90deg);
+            display: inline-block;
+        }
+        .cross-hover-info table td:nth-child(3) {
+            padding-right: 30px;
+        }
+    }
+}
+
+.sticky-header {
+    padding-top: 65px;
+    .global-bookmark {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 100;
+        .subHeaderWrap {
+            padding-top: $half-spacing;
+        }
+    }
+    .breadcrumb {
+        display: none;
+    }
+    #filter-area {
+        position: fixed;
+        top: 54px;
+        left: 0;
+        z-index: 98;
+        box-shadow: 0px 0px 19px -1px rgba(0, 0, 0, 0.13);
+
+        &.advanced-search-section {
+            padding-left: 40px !important;
+            padding-right: 40px !important;
+        }
+    }
+    #main-container {
+        padding-top: 50px;
+    }
+    #summary-block {
+        padding-top: 50px;
+        padding-bottom: 10px
+    }
+    
+}

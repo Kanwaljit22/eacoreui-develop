@@ -1,0 +1,34 @@
+.nav-tabs {
+    border-bottom: 2px solid #E4E4E4;
+
+    .nav-link{
+        margin-bottom: -2px;
+        background: transparent;
+        border: 0px;
+        border-bottom: 2px solid transparent!important;
+        font-size: 14px;
+        line-height: 20px;
+        text-transform: uppercase;
+        &:hover, &.active {
+            border-bottom:2px solid #059FD9!important;
+            cursor: pointer;
+            
+        }
+        &.active{
+            color: #059FD9;
+        }
+    }
+
+}  
+
+.primary-table {
+    tbody {
+        tr {
+            td {
+                &.first-col {
+                    padding-left: 30px;
+                }
+            }
+        }
+    }
+}

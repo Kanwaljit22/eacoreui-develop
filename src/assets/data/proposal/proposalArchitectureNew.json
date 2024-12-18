@@ -1,0 +1,18 @@
+[
+    {
+        "id": "5c909c56d446b10df84160e1",
+        "name": "existing_Data_Center",
+        "description": "Do you have an existing Data ?",
+        "type": "dropdown",
+        "answers": [
+            {
+                "name": "01",
+                "description": "01"
+            },
+            {
+                "name": "02",
+                "description": "02"
+            }
+        ]
+    }
+]

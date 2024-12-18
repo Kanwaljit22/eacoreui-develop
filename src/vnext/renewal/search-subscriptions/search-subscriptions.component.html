@@ -1,0 +1,83 @@
+<div appClickOutside (clickOutside)="onClickOutside()" [excludeSelectors]="['.i-vNext-search']">
+  <div class="d-flex align-items-center position-relative mb-1 w-100"> 
+    <app-search-dropdown class="w-100" 
+                         [clearSearch]="clearSearch" 
+                         [fullWidth]="true" 
+                         [roundedInput]="true" 
+                         [disableSelectedDropValue]="true" 
+                         [searchPlaceHolder]="'Enter EA 2.0, EA 3.0 or A-Flex subscription IDs to search'" 
+                         (searchSelectedDrop)="onSearch($event)">
+    </app-search-dropdown>
+    <button attr.data-id="{{dataIdConstantsService.searchSubscriptions_button_searchSubscriptions}}" 
+            type="button" 
+            class="btn btn-primary ml-3" 
+            (click)="addSubscription()" 
+            [disabled]="!anyItemSelected">Add Subscription</button>
+
+    <div class="dropdown-table position-absolute bg-white overflow-auto mt-1" *ngIf="displaySubscriptions">
+      <div *ngIf="searchedSubscriptions.length > 0">
+        <table class="w-100">
+          <thead>
+            <tr>
+              <th></th>
+              <th>{{'search-subscriptions.SUBSCRIPTION_ID' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+              <th>{{'search-subscriptions.SUBSCRIPTION_TYPE' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+              <th>{{'search-subscriptions.SUBSCRIPTION_STATUS' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+              <th>{{'search-subscriptions.START_DATE' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+              <th>{{'search-subscriptions.END_DATE' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+              <th>{{'search-subscriptions.SUBSCRIPTION_PARTNER_NAME' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let sub of searchedSubscriptions; let i = index">
+              <td [attr.data-id]="dataIdConstantsService.searchSubscriptions_checkbox_searchSubscriptions + '-' + i">
+                <label class="label-check">
+                  <input class="form-check-input" 
+                         type="checkbox" 
+                         [checked]="sub.selected" 
+                         (change)="selectSubscription(sub)" />
+                  <span class="custom-checkbox-btn i-vNext-fonts">
+                    <span class="path1"></span>
+                    <span class="path2"></span>
+                    <span class="path3"></span>
+                  </span>
+                </label>
+              </td>
+              <td [attr.data-id]="dataIdConstantsService.searchSubscriptions_subscription_id_searchSubscriptions + '-' + i">
+                {{ sub.subRefId }}
+              </td>
+              <td [attr.data-id]="dataIdConstantsService.searchSubscriptions_subscription_type_searchSubscriptions + '-' + i">
+                {{ sub.offerType }}
+              </td>
+              <td [attr.data-id]="dataIdConstantsService.searchSubscriptions_subscription_status_searchSubscriptions + '-' + i">
+                <span class="badge badge-approved badge-t3" *ngIf="transformToLowercaseExceptFirstLetter(sub.statusDesc || '') === 'Active'">{{transformToLowercaseExceptFirstLetter(sub.statusDesc || '')}}</span>
+                <span class="badge badge-in-progress badge-t3" *ngIf="transformToLowercaseExceptFirstLetter(sub.statusDesc || '') !== 'Active'">{{transformToLowercaseExceptFirstLetter(sub.statusDesc || '')}}</span>
+              </td>
+              <td [attr.data-id]="dataIdConstantsService.searchSubscriptions_subscription_startDate_searchSubscriptions + '-' + i">
+                {{ sub.startDateStr }}
+              </td>
+              <td [attr.data-id]="dataIdConstantsService.searchSubscriptions_subscription_endDate_searchSubscriptions + '-' + i">
+                {{ sub.endDateStr }}
+              </td>
+              <td [attr.data-id]="dataIdConstantsService.searchSubscriptions_subscription_partnerName_searchSubscriptions + '-' + i">
+                {{ sub.partnerName }}
+              </td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="7">
+                <a [attr.data-id]="dataIdConstantsService.searchSubscriptions_table_hyperlink_searchSubscriptions" href="#">
+                  {{'search-subscriptions.HYPERLINK' | localizationPipe : localizationService.localizedkeySet.size}}
+                </a>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+      <h5 [attr.data-id]="dataIdConstantsService.searchSubscriptions_no_results_searchSubscriptions" class="text-center p-2" *ngIf="searchedSubscriptions.length === 0">
+        {{'search-subscriptions.NO_RESULTS' | localizationPipe : localizationService.localizedkeySet.size}}
+      </h5>
+    </div>
+  </div>
+</div>

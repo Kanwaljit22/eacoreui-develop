@@ -1,0 +1,17 @@
+<app-menubar *ngIf = "displayMenuBar"></app-menubar>
+<app-main-header *ngIf="appDataService.flow !== 'nextgen' && getEaHeader() "></app-main-header>
+<app-breadcrumbs *ngIf="(isBreadCrumShown|async)"></app-breadcrumbs>
+<app-copy-link></app-copy-link>
+<app-guide-me *ngIf="isAuthUser"></app-guide-me>
+<app-debug  *ngIf="appDataService.showDebugger"></app-debug>
+<app-new-release-feature *ngIf="appDataService.showAnnounceBanneer && appDataService.isUserDataLoaded && isAuthUser  && !appDataService.showUserRolePopup"></app-new-release-feature> 
+<div [hidden]='!blockUiService.spinnerConfig.block'>
+    <!-- this change will remove *ngIf true and false error.-->
+    <app-loader *ngIf='!blockUiService.isPollerServiceCall'></app-loader>
+</div>
+<div class="mainPageContent" [ngClass]="{'filters-active': filtersService.getFiltersState() || reportFiltersService.getFiltersState()}">
+
+    <router-outlet (activate)="onActivate($event)"></router-outlet>
+</div>
+<div class="clearfix marginB20"></div>
+<div class="clearfix marginB20"></div>

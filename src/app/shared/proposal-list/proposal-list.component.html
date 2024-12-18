@@ -1,0 +1,382 @@
+<div class="toggle-grid-list" *ngIf="proposalData?.isToggleVisible && proposalData.data.length > 0" ><a *ngIf="!listProposalService.displayGridView" href="javascript:void(0)" (click)="toggleView()"><i class="icon-grid"></i><span>{{localeService.getLocalizedString('myproposal.GRID_VIEW')}}</span></a>
+    <a *ngIf="listProposalService.displayGridView" href="javascript:void(0)" (click)="toggleView()"><i class="icon-list"></i><span>{{localeService.getLocalizedString('myproposal.TILE_VIEW')}}</span></a>
+</div>
+
+<div *ngIf="listProposalService.displayGridView" >
+       <div [hidden]="hideProposalGrid || dataNotLoaded" class="aggrid-wrapper-list" style="height: calc(100vh - 100px);" >
+            <ag-grid-angular #agGrid id="ag-grid" style="width: 100%; height: 100%" appTableHeight class="ag-fresh proposal-grid" (gridReady)="onGridReady($event)"
+            [gridOptions]="gridOptions" [columnDefs]="columnDefs" [rowData]="rowData" [sideBar]="false"
+           enableColResize enableSorting enableFilter groupHeaders suppressRowClickSelection toolPanelSuppressGroups toolPanelSuppressValues (cellMouseOver)="utilitiesService.onCellMouseOver($event, 1)"
+           debug rowHeight="30" [headerHeight]="45" (cellClicked)="onCellClicked($event)" 
+           [getNodeChildDetails]="getNodeChildDetails" 
+           > 
+           </ag-grid-angular>
+       </div>       
+       <div [hidden]="!hideProposalGrid || dataNotLoaded"  >
+            <div class="clearfix mt-4 text-center" id="noSearchData" >
+            <span class="icon-no-result-found">
+                <span class="path1"></span><span class="path2"></span><span class="path3"></span><span
+                    class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span><span
+                    class="path8"></span><span class="path9"></span><span class="path10"></span><span class="path11"></span>
+            </span>
+            <h6>{{localeService.getLocalizedString('proposal.list.NO_PROPOSAL_FOUND')}}</h6>
+            </div> 
+       </div>
+ </div>
+
+<div class="mt-2" *ngIf="!listProposalService.displayGridView">
+    
+    <ng-container  *ngFor="let e of proposalData.data | searchFilter: searchProposal : searchArray; let i = index" >
+        <div class="group-tile-wrapper" [ngClass]="{'wrapper': e.hasLinkedProposal || e.parentGroupId,'wrapper--level-1':e.crossProposal || e.parentGroupId,'wrapper--level-2': e.singleProposal, 'wrapper--level-end': e.lastProposalInGroup}" *ngIf="!e.nonTransactionalProposal">
+            <span class="group-heading justify-content-between">
+                <h3 *ngIf="!e.hasLinkedProposal">{{e.groupName}}</h3>
+
+                <ul *ngIf="!e.hasLinkedProposal && !e.parentGroupId && (e.archName !== 'INVALID' || !e.hasMultipleOffer)" class="tile-list"><li class="pr-0"><span class="icon-single-arch"></span> <span class="pl-2">Single Architecture</span></li></ul>
+            </span>
+             
+        <div *ngIf="e.hasLinkedProposal || e.parentGroupId" class="group-heading justify-content-between">
+            <h3>{{e.groupName}}</h3> 
+            <ul class="tile-list cross-architecture-list">
+                <li class="pr-0" (click)="getLinkedProposalData(e)"><span class="icon-cross-arch"></span> Cross Architecture</li>
+                <div *ngIf="e.clickCross">
+                    <div class="dropdown-menu">
+                        <span class="icon-arrow-up"><span class="path1"></span><span class="path2"></span></span>
+                        <div class="cross-hover-info">
+                            <h6>Proposal is tied to architecture {{this.matchingArchName}} and {{this.matchingArchName1}}</h6>
+                            <table width="100%" class="proposal-list-arc">
+                                <thead>
+                                    <tr>
+                                        <th widh="60%">{{localeService.getLocalizedString('common.PROPOSAL')}} {{localeService.getLocalizedString('qual.whoinvolved.NAME')}}</th>
+                                        <th widh="40%">{{localeService.getLocalizedString('common.ARCH')}}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let d of linkedProposalData">
+                                        <td><span class="ellipsis">{{d.name}}</span></td>
+                                        <td>{{d.architecture}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </ul>
+            <!--to display common footer for linked proposals -->
+        </div>        
+        <div class="default-list-wrap px-2" *ngIf='e.crossProposal && !proposalData.isProposalOnDashboard'>
+            <div class="list-item row mt-3 justify-content-between" *ngIf='!disableEditIcon(e)'>
+                <ul class="tile-list">
+                    <li><a href="javascript:void(0)" (click)="openManageModal(e)">{{localeService.getLocalizedString('common.MANAGE_TEAM')}}</a></li>
+                    <li><a href="javascript:void(0)" (click)="openLinkProposalModal(e, false)">{{localeService.getLocalizedString('common.LINK_NEW_PROPOSAL')}}</a></li>
+                </ul>
+                <!-- <ul class="tile-list">
+                    <li><a href="javascript:void(0)" (click)="groupDocumentCenter(e)" >{{localeService.getLocalizedString('proposal.summary.DOCUMENT_CENTER_BUTTON')}}</a></li>
+                    <li><a href="javascript:void(0)" (click)="previewQuote(e)">{{localeService.getLocalizedString('proposal.summary.PREVIEW_QUOTE')}}</a></li>
+                </ul> -->
+            </div>
+            <div class="list-item row mt-3 justify-content-between" *ngIf='disableEditIcon(e)'>
+                <ul class="tile-list">
+                    <li><a href="javascript:void(0)" class='disabled'>{{localeService.getLocalizedString('common.MANAGE_TEAM')}}</a></li>
+                    <li><a href="javascript:void(0)" class='disabled'>{{localeService.getLocalizedString('common.LINK_NEW_PROPOSAL')}}</a></li>
+                </ul>
+                <!-- <ul class="tile-list">
+                    <li><a href="javascript:void(0)" class='disabled'>{{localeService.getLocalizedString('proposal.summary.DOCUMENT_CENTER_BUTTON')}}</a></li>
+                    <li><a href="javascript:void(0)" class='disabled'>{{localeService.getLocalizedString('proposal.summary.PREVIEW_QUOTE')}}</a></li>
+                </ul> -->
+            </div>
+        </div>
+        <div class="row list-style mb-3 active" [ngClass]="{'active-list': e.hasLinkedProposal || e.parentGroupId}">
+            <div class="col p-0">
+                <div class="list-item--name align-items-center">
+                    <div class="col-6 d-flex">
+                            <span class="title-icon" *ngIf="e.archName !== 'INVALID' || !e.hasMultipleOffer">
+                                    <span  placement="top-left" container="body"
+                                    ngbTooltip="Cisco Data Center" *ngIf="e.archName === constantsService.DC" class="icon-data-center-indigo">
+                                            <span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span><span class="path8"></span><span class="path9"></span><span class="path10"></span><span class="path11"></span><span class="path12"></span><span class="path13"></span><span class="path14"></span><span class="path15"></span><span class="path16"></span>
+                                            </span>
+                                            <span  placement="top-left" container="body"
+                                            ngbTooltip="Cisco DNA" *ngIf="e.archName === constantsService.DNA" class="icon-dna-indigo">
+                                            <span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span>
+                                            </span>
+                                            <span  placement="top-left" container="body"
+                                                ngbTooltip="Cisco Security Choice" *ngIf="e.archName === constantsService.SECURITY" class="icon-security">
+                                            <span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span><span class="path8"></span><span class="path9"></span><span class="path10"></span><span class="path11"></span>
+                                            </span>
+
+                                            <span placement="top-left" container="body"
+                                            *ngIf="e.archName === 'CX'" class="icon-cx-logo-circle">
+                                            <span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span>
+                                        </span>
+                                    </span>
+    
+                        <h3 class="heading ellipsis">
+                            <ng-template #tipContent >{{e.name}} ({{e.id}})</ng-template>
+                            <a placement="top" isTooltip [tooltipContent]="tipContent" [ellipsis]="true" [id]='appDataService.createUniqueId(e.name,appDataService.pageContext)'
+                                href="javascript:void(0);" stickyTooltip (click)="goToProposalSummary(e)">{{e.name}} ({{e.id}})</a>
+                            <a href="javascript:void(0);" [id]='appDataService.createUniqueId(e.name+"_EDIT",appDataService.pageContext)'
+                                *ngIf="!proposalData.isProposalOnDashboard" (click)="editProposalName(e)"
+                                class="icon-header-edit ml-2" placement="top-left" container="body"
+                                ngbTooltip="{{localeService.getLocalizedMessage('proposalList.NOT_EDITIABLE_TOOLTIP')}}"
+                                [ngClass]="{'disabled': disableEditIcon(e)}"></a>
+                                <span *ngIf="e?.groupId && recentlySplitGroupId === e.groupId" class="recently-split">{{localeService.getLocalizedString('proposal.list.RECENTLY_SPLIT')}}</span>
+                        </h3>
+                    </div>
+                    <div class="col-6 text-right">
+                        <ul class="tile-list">
+                                <li *ngIf='e.demoProposal' class="">DEMO PURPOSE ONLY</li>
+                                <li *ngIf='e.renewal'><app-linked-subscription [subscriptionData] = 'e.renewalParams'></app-linked-subscription></li>
+                                <li *ngIf='!e.partnerDeal && !partnerFlow' class="">{{localeService.getLocalizedString('qualproposallist.CISCO_LED')}}</li>
+                                <li *ngIf='e.partnerDeal && !partnerFlow' class="">{{localeService.getLocalizedString('qualproposallist.PARTNER_LED')}}</li>
+                                <li *ngIf='e.renewal' class="">{{e.renewalType}}</li>
+
+                                <li class="approver-team" *ngIf="e.approverTeamDetails && checkProposalStatus(e)">{{localeService.getLocalizedString('qualproposallist.APPROVER_TEAM')}} 
+                                    <span class="dropdown select-dropdown custom-appr-dropdown">
+                                        <span [attachOutsideOnClick]=true (clickOutside)="approverTeamDropOutside($event,e)" (click)="e.showApproverTeamDropdown = !e.showApproverTeamDropdown" class="dropdown-toggle pr-3">{{e.selectedApproverTeamName}}<span class="icon-arrow-stroke-right"></span></span>
+                                        <span *ngIf="e.showApproverTeamDropdown" class="dropdown-menu custom-appr-dropdown-menu">
+                                            <div class="smart-list-scroll">  
+                                                <table class="primary-table fixed-header">
+                                                    <thead>
+                                                        <tr>
+                                                            <th width="40%">Reviewer Team(s)</th>
+                                                            <th width="20%">Status</th>
+                                                            <th width="40%">Time taken</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let approverTeam of e.approverTeamDetails">
+                                                            <!--<td *ngIf="approverTeam.exceptionStatus === 'Pending'">{{approverTeam.approverTeamName}}</td>-->
+                                                            <td>{{approverTeam.approverTeamName}}</td>
+                                                            <td *ngIf="approverTeam.exceptionStatus ==='Pending'"><span style='color:#f49c56'>{{approverTeam.exceptionStatus}}</span></td>
+                                                            <td *ngIf="approverTeam.exceptionStatus ==='Rejected'"><span style='color:#f49c56'>{{approverTeam.exceptionStatus}}</span></td>
+                                                            <td *ngIf="approverTeam.exceptionStatus ==='Approved'"><span style='color:#88cb6c'>{{approverTeam.exceptionStatus}}</span></td>
+                                                            <td *ngIf="approverTeam.exceptionStatus ==='Complete'"><span style='color:#88cb6c'>{{approverTeam.exceptionStatus}}</span></td>
+                                                            <td *ngIf="approverTeam.exceptionStatus != 'Pending' && approverTeam.exceptionStatus != 'Approved' && approverTeam.exceptionStatus != 'Rejected' && approverTeam.exceptionStatus != 'Complete'">{{approverTeam.exceptionStatus}}</td>
+                                                            <td *ngIf="approverTeam.timeElapsed">{{approverTeam.timeElapsed}}</td>
+                                                            <td *ngIf="!approverTeam.timeElapsed">--</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </span>
+                                    </span>
+                                </li>
+                                <li *ngIf="e.elapsedTime">Elapsed Time: <span class="bold-txt" [ngClass]="{'warning-txt': (e.elapsedTimeInStr >= 12 && e.elapsedTimeInStr <=24) && e.elapsedTimeInHours, 'danger-txt':e.elapsedTimeInStr > 24 && e.elapsedTimeInHours}">{{e.elapsedTime}}</span></li>
+                                <!-- <span class="sep-info" *ngIf="e.status !== constantsService.IN_PROGRESS_STATUS && e.status !== constantsService.QUALIFICATION_COMPLETE && e.elapsedTime">Elapsed Time: <span class="bold-txt" [ngClass]="{'warning-txt': (e.elapsedTime >= 12 && e.elapsedTime <=24), 'danger-txt':e.elapsedTime > 24}">{{e.elapsedTime}} {{e.elapsedTime > 1 ? 'Hours': 'Hour'}}</span></span> -->
+                                <!--*ngIf="e.hasLinkedProposal"-->
+                                <li *ngIf="e.hasMultipleOffer"><span class="icon-multi-arch"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span></span> Multi Architecture</li>
+                                <!-- <span class="sep-info" *ngIf="e.archName !== 'INVALID' || !e.hasMultipleOffer">
+                                    <span *ngIf="e.archName === constantsService.DC" class="icon-infra-dna"><span class="path1"></span><span class="path2"></span><span
+                                            class="path3"></span>
+                                    </span>
+                                    <span *ngIf="e.archName === constantsService.DNA" class="icon-DNA"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span>
+                                    </span>
+                                    <span style="display: inline-block; vertical-align: middle;">{{e.architecture}}</span></span> -->
+                            <li class="pr-0">
+                                <span class="badge badge-in-progress badge-t3"
+                                *ngIf="e.status === constantsService.IN_PROGRESS_STATUS">{{e.status}}</span>
+                                <span class="badge badge-validated badge-t3"
+                                *ngIf="e.status === constantsService.QUALIFICATION_COMPLETE">{{e.status}}</span>
+                                <span class="badge badge-in-progress badge-t3"
+                                *ngIf="e.status !== constantsService.IN_PROGRESS_STATUS && e.status !== constantsService.QUALIFICATION_COMPLETE">{{e.status}}</span>
+                            </li>
+                        </ul>
+                    </div>
+                <div>
+                </div>
+                </div>
+        
+                <div class="list-item border--top solid">
+                    <!-- <ng-container *ngIf="!proposalData.isCreatedByMe">
+                                    <label>CREATED BY</label>
+                                    <h4 class="label-name">{{e.createdByName}}</h4>
+                                </ng-container> -->
+                    <div class="list-item--val col-3 overflow-hidden">
+                        <label>{{localeService.getLocalizedString('qualproposallist.CUSTOMER_NAME')}}</label>
+                        <h4 class="label-name">
+                            <span class="ellipsis" placement="top" container="body"
+                                ngbTooltip="{{e.customerName}}">{{e.customerName}}</span>
+                        </h4>
+                    </div>
+                    <div class="list-item--val col-3">
+                        <label>{{localeService.getLocalizedString('qual.create.DEAL')}}
+                            {{localeService.getLocalizedString('qual.create.ID')}}</label>
+                        <h4 class="label-name">{{e.dealId}}</h4>
+                    </div>
+                    <div class="list-item--val col-3">
+                        <label>{{localeService.getLocalizedString('common.QUALIFICATION')}}
+                            {{localeService.getLocalizedString('qual.whoinvolved.NAME')}}</label>
+                        <h4 class="label-name">
+                            <span class="ellipsis" placement="top" container="body"
+                                ngbTooltip="{{e.qualificationName}}">{{e.qualificationName}}</span>
+                        </h4>
+                    </div>
+                    <div class="list-item--val col-3">
+                        <label>{{localeService.getLocalizedString('prospectdetails.SUITES')}}</label>
+                        <h4 class="label-name">
+                            <span class="ellipsis" placement="top" container="body"
+                                ngbTooltip="{{e.suites}}">{{(e.suites) ? (e.suites) : this.localeService.getLocalizedString('common.NOT_DEFINED')}}</span>
+                            <!--a href="javascript:void(0)">+3</a-->
+                        </h4>
+                    </div>
+                </div>
+    
+                <div class="list-item border--top solid">
+                    <div class="list-item--val col-3 overflow-hidden">
+                        <label>{{localeService.getLocalizedString('qualproposallist.BILLING_MODEL_TERM')}}</label>
+                        <h4 class="label-name"><span class="ellipsis" placement="top" container="body"
+                            ngbTooltip="{{this.utilitiesService.checkDecimalOrIntegerValue(e.eaTermInMonths)}} {{months}}">{{e.billingModel}} /
+                            <span>{{this.utilitiesService.checkDecimalOrIntegerValue(e.eaTermInMonths)}} {{months}}</span></span>
+                        </h4>
+                    </div>
+                    <div class="list-item--val col-3">
+                        <label>{{localeService.getLocalizedString('proposal.create.COUNTRY_OF_TRANSACTION')}}</label>
+                        <h4 class="label-name"><span class="ellipsis" placement="top" container="body"
+                                ngbTooltip="{{e.countryOfTransactionName}}">{{e.countryOfTransactionName}}</span></h4>
+                    </div>
+                    <div class="list-item--val col-3">
+                        <label>{{localeService.getLocalizedString('proposal.create.EXPECTED_START_DATE')}}</label>
+                        <h4 class="label-name">{{e.eaStartDateDdMmmYyyyStr}}</h4>
+                    </div>
+                    <div class="list-item--val col-3">
+                        <label>{{localeService.getLocalizedString('qualproposallist.TOTAL_NET_PRICE')}}</label>
+                        <h4 class="label-name" *ngIf="e.totalNetPrice && e.currencyCode && !appDataService.isTwoTierUser(e.buyMethodDisti)">{{e.currencyCode}}
+                            {{utilitiesService.formatWithNoDecimal(e.totalNetPrice)}}</h4>
+                        <h4 class="label-name" *ngIf="!e.totalNetPrice || !e.currencyCode || appDataService.isTwoTierUser(e.buyMethodDisti)"> -- </h4>
+                    </div>
+                </div>
+
+                <div class="list-item border--top solid footer justify-content-between" *ngIf="!proposalData.isProposalOnDashboard">
+                    <ul class="tile-list"
+                        *ngIf="!proposalData.isProposalOnDashboard && !disableEditIcon(e)">
+                        <li><a [id]="appDataService.createUniqueId('CLONE',appDataService.pageContext)" (click)="copyProposal(e.id)"
+                            href="javascript:void(0)" *ngIf='!e.hasMultipleOffer'
+                            [ngClass]="{'disabled':disableClone(e)}">{{localeService.getLocalizedString('common.CLONE')}}</a>
+                        </li>
+                        <li>
+                            <a [id]="appDataService.createUniqueId('DELETE',appDataService.pageContext)"
+                            (click)="deleteProposal(e.id, e)" placement="top-left" container="body"
+                            ngbTooltip="{{localeService.getLocalizedMessage('proposalList.DELETE_TOOLTIP')}}"
+                            [ngClass]="{'disabled':disableDelete(e)}"
+                            href="javascript:void(0)">{{localeService.getLocalizedString('common.DELETE')}}</a>
+                        </li>
+                        <li [id]="appDataService.createUniqueId('MANAGE_TEAM',appDataService.pageContext)" *ngIf="!e.crossProposal">
+                            <a
+                            href="javascript:void(0);"
+                            [ngClass]="{'disabled':disableManageteam(e)}"
+                            placement="top-left" container="body"
+                            ngbTooltip="{{localeService.getLocalizedMessage('proposalList.NOT_EDITIABLE_TOOLTIP')}}"
+                            (click)="openManageModal(e)">{{localeService.getLocalizedString('common.MANAGE_TEAM')}}</a>
+                        </li>
+                        <li>
+                        <a *ngIf="!e.hasLinkedProposal && !e.hasMultipleOffer" [id]="linkProposal" href="javascript:void(0);"
+                            [ngClass]="{'disabled':disableLinkDelink(e)}"
+                            (click)="openLinkProposalModal(e, false)">{{localeService.getLocalizedString('common.LINK_PROPOSAL')}}</a>
+                            <a *ngIf="e.hasLinkedProposal && !e.hasMultipleOffer" [id]="deLinkProposal" href="javascript:void(0);"
+                            [ngClass]="{'disabled':disableLinkDelink(e) || e.relatedCxProposalId}"
+                            (click)="openLinkProposalModal(e,true)">{{localeService.getLocalizedString('common.DE_LINK_PROPOSAL')}}</a>
+                        </li>
+                    </ul>
+            
+                    <ul class="tile-list"
+                        *ngIf="!proposalData.isProposalOnDashboard && disableEditIcon(e)">
+                        <li>
+                            <a [id]="appDataService.createUniqueId('CLONE',appDataService.pageContext)" href="javascript:void(0)"
+                            [ngClass]="{'disabled':disableClone(e)}">{{localeService.getLocalizedString('common.CLONE')}}</a>
+                        </li>
+                        <li>
+                            <a [id]="appDataService.createUniqueId('DELETE',appDataService.pageContext)"
+                            placement="top-left" container="body"
+                            ngbTooltip="{{localeService.getLocalizedMessage('proposalList.DELETE_TOOLTIP')}}"
+                            [ngClass]="{'disabled':disableDelete(e)}"
+                            href="javascript:void(0)">{{localeService.getLocalizedString('common.DELETE')}}</a>
+                        </li>
+                        <li>
+                            <a [id]="appDataService.createUniqueId('MANAGE_TEAM',appDataService.pageContext)"
+                            href="javascript:void(0);"
+                            [ngClass]="{'disabled':disableManageteam(e)}"
+                            placement="top-left" container="body"
+                            ngbTooltip="{{localeService.getLocalizedMessage('proposalList.NOT_EDITIABLE_TOOLTIP')}}">{{localeService.getLocalizedString('common.MANAGE_TEAM')}}</a>
+                        </li>
+                        <li>
+                            <a *ngIf="!e.hasLinkedProposal && !e.hasMultipleOffer" [id]="linkProposal" href="javascript:void(0);"
+                            [ngClass]="{'disabled':disableLinkDelink(e)}">{{localeService.getLocalizedString('common.LINK_PROPOSAL')}}</a>
+                            <a *ngIf="e.hasLinkedProposal && !e.hasMultipleOffer" [id]="deLinkProposal" href="javascript:void(0);"
+                            [ngClass]="{'disabled':disableLinkDelink(e) || e.relatedCxProposalId}">{{localeService.getLocalizedString('common.DE_LINK_PROPOSAL')}}</a>
+                        </li>
+                    </ul>
+
+                    <ul class="tile-list">
+                        <li>
+                            <a [ngClass]="{'disabled':(e.status !== constantsService.COMPLETE_STATUS) || disableToTco(e) || e.hasMultipleOffer}" [id]="appDataService.createUniqueId('SALES_READINESS',appDataService.pageContext)"
+                                (click)="goToTCOList(e)" 
+                                href="javascript:void(0); ">{{localeService.getLocalizedString('tco.VIEW_TCO_PROPOSALS')}}</a>
+                        </li>
+                        <li>
+                            <a [ngClass]="{'disabled': disableSalesReadiness(e) || e.hasMultipleOffer}" [id]="appDataService.createUniqueId('SALES_READINESS',appDataService.pageContext)"
+                                (click)="salesReadiness(e) " 
+                                href="javascript:void(0); ">{{localeService.getLocalizedString('common.SALES_READINESS')}}
+                                {{localeService.getLocalizedString('common.CHECKLIST')}}</a>
+                        </li>
+                        <li>
+                            <a [ngClass]="{'disabled': disableDocCenter(e) || e.hasMultipleOffer}" [id]="appDataService.createUniqueId('DOCUMENT_CENTER_BUTTON',appDataService.pageContext)"
+                                (click)="documentCenter(e)"
+                                href="javascript:void(0);">{{localeService.getLocalizedString('proposal.summary.DOCUMENT_CENTER_BUTTON')}}</a>
+                        </li>
+                        <li>
+                            <a [ngClass]="{'disabled': disablePreviewQuote(e) || e.hasMultipleOffer}" [id]="appDataService.createUniqueId('PREVIEW_QUOTE',appDataService.pageContext)"
+                                (click)="generateQuote(e)"
+                                href="javascript:void(0); ">{{localeService.getLocalizedString('proposal.summary.PREVIEW_QUOTE')}}</a>
+                        </li>
+                        <!-- <li [ngClass]="{'disabled':!(e.status === constantsService.COMPLETE_STATUS && e.userAccessType === constantsService.USER_READ_WRITE_ACCESS)}">
+                        <a href="javascript:void(0); ">Add Team members</a>
+                    </li> -->
+                    </ul>
+                </div>
+            <!--Alert Message-->
+            <div class="prop-inconsistent" *ngIf="!proposalData.isProposalOnDashboard && e?.linkParamChanged && e.lastProposalInGroup">
+                <div  class="alert alert--warning alert-dismissable">
+                    <span class="alert-icon">
+                        <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                    </span>
+                    <span>{{localeService.getLocalizedMessage('header.proposal.CROSS_ARCH_PARAM_INCONSISTENT')}}</span>
+                </div>
+            </div>
+            
+            <div *ngIf="!proposalData.isProposalOnDashboard && e.hasMultipleOffer && !disableEditIcon(e) && e.lastProposalInGroup">
+                <div class="alert alert--warning alert-dismissable mb-0 mt-0">
+                    <span class="alert-icon">
+                        <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                    </span>
+                    <span>{{localeService.getLocalizedString('proposal.list.SPLIT')}}</span>
+                    <span class="float-right"><a href="javascript:void(0)" [ngClass]="{'disabled':disableEditIcon(e)}" (click)='openSplitModal(e)'>Split Proposal</a></span>
+                </div>
+            </div> 
+            <div *ngIf="!proposalData.isProposalOnDashboard && e.hasMultipleOffer && disableEditIcon(e) && e.lastProposalInGroup">
+                 <div class="alert alert--warning alert-dismissable mb-0 mt-0">
+                    <span class="alert-icon">
+                        <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                    </span>
+                    <span>{{localeService.getLocalizedString('proposal.list.SPLIT')}}</span>
+                     <span class="float-right"><a [ngClass]="{'disabled':disableEditIcon(e)}">Split Proposal</a></span>
+                 </div>
+            </div>
+            <!-- End of Block - Accordion Inner Content - 1 -->
+         
+        
+            </div>
+        </div>  
+        </div>
+    </ng-container>
+</div>
+
+<div class="create-proposal" *ngIf="proposalData.data.length === 0 && proposalDeleted">
+    <!--<span class="icon-new-proposal">
+        <span class="path1"></span><span class="path2"></span></span>-->
+    <h4>{{localeService.getLocalizedString('proposal.summary.NO_PROPOSAL')}}</h4>
+    <h5>{{localeService.getLocalizedString('proposal.summary.CREATE_NEW_PROPOSAL')}}</h5>
+</div>
+<div class="clearfix mt-4" id="noSearchData"
+    *ngIf="((proposalData.data | searchFilter: searchProposal : searchArray).length === 0 && searchProposal && !listProposalService.displayGridView) || (proposalData.data.length === 0 && !listProposalService.displayGridView)">
+    <img src="assets/images/no-data-available.svg">
+    <h6>{{localeService.getLocalizedString('proposal.list.NO_PROPOSAL_FOUND')}}</h6>
+</div>  

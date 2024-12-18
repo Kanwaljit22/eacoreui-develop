@@ -1,0 +1,30 @@
+<div class="vNext container-fluid mt-4">
+    <h3 class="col-11">Enter Details to continue</h3>
+    <div class="d-flex mt-4">
+        <div class="col-4 form-group mt-0 text-left px-3">
+            <label  class="customer-label">{{'common.DEAL_ID' | localizationPipe : localizationService.localizedkeySet.size}}<sup>*</sup></label>
+            <div class="position-relative w-100 d-flex">
+                <input appelementfocus="" class="form-control paddingR35" attr.action-id="{{dataIdConstantsService.eaLanding_text_dealId}}" [(ngModel)]="dealId" type="text" id="">
+            </div>
+        </div>
+        <div class="col-4 form-group mt-0 text-left px-3">
+            <label  class="customer-label">{{'common.QUOTE_ID' | localizationPipe : localizationService.localizedkeySet.size}}</label>
+            <div class="position-relative w-100 d-flex">
+                <input appelementfocus="" class="form-control paddingR35" attr.action-id="{{dataIdConstantsService.eaLanding_text_quoteId}}" [(ngModel)]="quoteId" type="text" id="">
+            </div>
+        </div>
+        <div class="col-4 form-group mt-0 text-left px-3">
+            <label  class="customer-label">{{'common.SOURCE_PROFILE_ID' | localizationPipe : localizationService.localizedkeySet.size}}</label>
+            <div class="position-relative w-100 d-flex">
+                <input appelementfocus="" class="form-control paddingR35" attr.action-id="{{dataIdConstantsService.eaLanding_text_sid}}" [(ngModel)]="sId" type="text" id="">
+            </div>
+        </div>
+    </div>
+    <div class="text-center">
+        <button class="btn btn-primary" [disabled]="!(dealId || (dealId && quoteId && sId))" attr.action-id="{{dataIdConstantsService.eaLanding_button_submit}}" (click)='redirectTo()'>{{'common.SUBMIT' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+    </div>
+    
+</div>
+
+
+

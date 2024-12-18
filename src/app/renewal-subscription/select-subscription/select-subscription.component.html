@@ -1,0 +1,21 @@
+<div id="filter-area" class="container-fluid mb-2">
+    <div class="row clearfix">
+        <div class="col-12">
+            <ul class="qualify-btn">
+                <!-- <li><button [id]="appDataService.createUniqueId('BACK',appDataService.pageContext)"
+                        class="btn btn-secondary btn-back" (click)="goToQual()" type="button"><span class="icon-btn-back"></span> <span
+                            class="mid-text">{{localeService.getLocalizedString('common.BACK')}}</span></button></li> -->
+                            <!-- [ngClass]="{'disabled': selectedSubscriptions.length === 0}" Add this later after dev is done-->
+                <li><button [id]="appDataService.createUniqueId('CONTINUE',appDataService.pageContext)"
+                        class="btn btn-primary btn-continue" type="button" (click)="continueToParameter()" [ngClass]="{'disabled': selectedSubscriptions.length === 0}"><span
+                            class="mid-text">{{localeService.getLocalizedString('common.CONTINUE')}}</span> <span
+                            class="icon-btn-continue"></span></button>
+                </li>
+            </ul>
+        </div>
+        <message class="container-fluid"></message>
+        <div class="container-fluid mt-3 px-3" *ngIf="isSubscriptionApiCalled">
+            <app-coterm-subscription [subscriptionList] = 'subscriptionList' [subscriptionIdList] = 'subscriptionIdList' [initiateRenewalPage] = 'true' (selectedSubForRenewal)='selectSubscription($event)'></app-coterm-subscription>
+        </div>
+    </div>
+</div>

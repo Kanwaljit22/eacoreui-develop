@@ -1,0 +1,188 @@
+<table class="primary-table" *ngIf="swEnrollmentData?.pools.length">
+    <thead>
+        <tr>
+            <th>Suites</th>
+            <th width="220px"  class="upgrade-col">Migrate To</th>
+            <th width="150px">
+                    SW Tier
+            </th>
+            <th width="160px">Migration Type</th>
+        </tr>
+    </thead>
+    <tbody>
+        <ng-container *ngFor='let pool of swEnrollmentData?.pools'>
+            <ng-container *ngIf='pool.eligibleForMigration'>
+            <tr class="main-row">
+                <td>
+                <span class="expCol-wrap">
+                    <span class="mr-2" attr.action-id="{{dataIdConstantsService.migrateSuites_icon_collapse_pool}}{{pool?.desc}}" [ngClass]="{'i-vNext-tree-close': !pool.collapse, 'i-vNext-tree-open': pool.collapse}" (click)="pool.collapse = !pool.collapse"></span>
+                </span>{{pool.desc}}</td>
+                <td colspan="3" ></td>
+            </tr>
+            <ng-container *ngFor='let suite of pool.suites'>
+                <ng-container *ngIf='suite.eligibleForMigration'>
+                <tr *ngIf="!pool.collapse">
+                    <td>
+                        <div class="align-items-center ml-4" ><span>{{suite.desc}}
+                            <span *ngIf="suite?.lowerTierAto?.desc"><i> - {{suite?.lowerTierAto?.desc}}</i></span>
+                            <ng-template #incompatibleTipContent>
+                                <span *ngFor="let suites of errorSuiteArray; let i = index">{{suites}}{{i < (errorSuiteArray.length - 2) ? ',' : ''}} {{i === (errorSuiteArray.length - 2) ? ' and ' : ''}}</span>{{'add-suites.MIGRATE_SUITE_TIERS_ERROR' | localizationPipe : localizationService.localizedkeySet.size}}
+
+                            </ng-template>
+                            <ng-template #incompatibleMigrationSuiteTip>
+                                {{suite.incompatibleMigrationSuite.join(' ,')}} is blocking {{suite.migratedTo.desc}} and vice versa, hence they cannot be purchased together. Please adjust the Target suite selection to proceed with migration.
+                            </ng-template>
+                            <span class="icon-error-icon mr-2" *ngIf="suite.differentTierError" #incompatibleSuiteTip="ngbTooltip"
+                                [ngbTooltip]="incompatibleTipContent" placement="top-left"><span class="path1"></span><span
+                                    class="path2"></span><span class="path3"></span></span> 
+
+                                    <span class="icon-error-icon mr-2" *ngIf="suite.incompatibleMigrationSuite?.length" #incompatibleSuiteTip="ngbTooltip"
+                                [ngbTooltip]="incompatibleMigrationSuiteTip" placement="top-left"><span class="path1"></span><span
+                                    class="path2"></span><span class="path3"></span></span> 
+                            </span>
+                            
+                            <ng-container *ngIf="suite.pendingMigration && !suite.migrated">
+                                <ng-template #pendingMigrateTipContent>
+                                    <span class="bold-txt">{{'common.MIGRATION_PENDING' | localizationPipe : localizationService.localizedkeySet.size}}</span><br>
+                                    <span>{{'common.SELECT_TARGET_SUITE_TO_MIGRATE' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                                </ng-template>
+                                <button *ngIf="!suite?.pendingMigrationCancelled" class="warning-btn btn small-btn ml-2" #pendingMigrateTip="ngbTooltip" [ngbTooltip]="pendingMigrateTipContent" placement="top-right">
+                                    Pending Migration <span class="icon-warning1 ml-2"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                                </button>
+                                <span class="icon-warning1 ml-2" *ngIf="suite?.pendingMigrationCancelled" ngbTooltip="{{'common.YOU_HAVE_CANCELLED_PARTIAL_MIGRATION_WARNING' | localizationPipe : localizationService.localizedkeySet.size}}" placement="top"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                            </ng-container>
+                        </div>
+                    </td>
+                    <td>
+                        <!--Migrate To start-->
+                        <ul class="inline-listing border-right-li w-100px">
+                            <li class="dropdown">
+                                <ng-template #migrateDisableTip>
+                                    <span class="migrate-disable-tip">
+                                        <ng-container *ngIf="suite.upgradedTier?.desc">
+                                            Upgraded to {{suite.upgradedTier.desc}}.
+                                        </ng-container>
+                                        <ng-container *ngIf="suite.hasSwRelatedCxUpgraded && !suite.upgradedTier?.desc">
+                                            Services Upgrade is in progress.
+                                        </ng-container>
+                                    </span>
+                                </ng-template>
+                                <a href="javascript:void(0)" *ngIf="suite.isSwTierUpgraded || suite.hasSwRelatedCxUpgraded" [ngbTooltip]="migrateDisableTip" placement="top" #migrateDisableTipContent="ngbTooltip"
+                                    class="upgrade-drop disabled">Select<span class="ico-dropdown"></span></a>
+
+                                <a href="javascript:void(0)" *ngIf="!suite.isSwTierUpgraded && !suite.hasSwRelatedCxUpgraded" #swMigrate="ngbPopover" popoverClass="ag-dropdown-wrap" 
+                                [ngbPopover]="swMigrateTemplate" placement="bottom" [outsideClick]="false"
+                                (click)="showMigrateDrop = true;" attr.action-id="{{dataIdConstantsService.migrateSuites_dropdown_migrateToSuite}}{{suite?.name}}"
+                                    class="upgrade-drop">{{(suite?.migratedTo?.desc) ?
+                                    suite.migratedTo.desc : 'Select'}}<span class="ico-dropdown"></span></a>
+                                <ng-template #swMigrateTemplate>
+                                    <ul class="ag-dropdown-menu tp-dropdown-menu" *ngIf="showMigrateDrop">
+                                        <ng-container *ngFor="let migrateToSuite of suite.migrateToSuites">
+                                            <li attr.action-id="{{dataIdConstantsService.migrateSuites_link_migrateToSuiteObj}}{{suite?.name}}"
+                                                (click)="selectSwMigrateSuite(migrateToSuite, suite); swMigrate?.close();">
+                                                <a href="javascript:void(0);">{{migrateToSuite.desc}}</a>
+                                            </li>
+                                        </ng-container>
+                                    </ul>
+                                </ng-template>
+                            </li>
+                        </ul>
+                        <span *ngIf="suite.migrated">
+                            <a href="javascript:void(0);" class="restore-upgrade"
+                            attr.action-id="{{dataIdConstantsService.migrateSuites_link_cancelMigration}}{{suite?.name}}"
+                                (click)="restoreMigrateSuite(suite)">Cancel Migration</a>
+                        </span>
+                    </td>
+                    <!--Migrate To End-->
+                    <!--Migrate suite tier start-->
+                    <td>
+                        <ul class="inline-listing border-right-li w-100px">
+                            <li class="dropdown" *ngIf="(suite.migrated && suite.migratedTo?.tiers?.length) || !suite.migrated">
+                                <a href="javascript:void(0)" [class.disabled]="!suite.migratedTo?.name" #swTier="ngbPopover" popoverClass="ag-dropdown-wrap"
+                                [ngbPopover]="swTierTemplate" placement="bottom" [outsideClick]="false"
+                                (click)="showTierDrop = true;"
+                                attr.action-id="{{dataIdConstantsService.migrateSuites_dropdown_migrateToSuiteTierDesc}}{{suite?.name}}"
+                                    class="upgrade-drop">{{(suite?.migratedTo?.selectedTierDesc) ?
+                                    suite.migratedTo.selectedTierDesc : 'Select'}}<span class="ico-dropdown"></span></a>
+                                <ng-template #swTierTemplate>
+                                    <ul class="ag-dropdown-menu tp-dropdown-menu" *ngIf="showTierDrop">
+                                        <ng-container *ngFor="let tier of suite.migratedTo?.tiers;">
+                                            <li
+                                            attr.action-id="{{dataIdConstantsService.migrateSuites_link_migrateToSuiteTierObj}}{{suite?.name}}"
+                                                (click)="selectMigrateSuiteTier(tier, suite); swTier?.close();">
+                                                <a href="javascript:void(0);">{{tier.desc}}</a>
+                                            </li>
+                                        </ng-container>
+                                    </ul>
+                                </ng-template>
+                            </li>
+                        </ul>
+                        <!-- <span *ngIf="suite.isSwTierUpgraded">
+                            <a href="javascript:void(0);" class="restore-upgrade"
+                                (click)="restoreSuiteTier(suite)">Restore</a>
+                        </span> -->
+                    </td>
+                    <!--Migrate suite tier end-->
+                    <td class="migrate-type">
+                        <ng-container *ngIf="suite.migratedTo?.desc">
+                            <ng-container *ngIf="suite.migratedTo?.mappingType?.length > 1">
+                                <ng-container *ngIf="suite.suiteModified || (!suite.suiteModified && suite.migratedTo?.migrationType === constantsService.FULL)">
+                                    <ng-template #suiteModifiedTipContent>
+                                        <span class="">To fully migrate this suite, please revert the configuration changes by navigating to the Quote.</span>
+                                    </ng-template>
+                                    <ng-template #licenseQuantitiesTipContent>
+                                        <span class="">If you intend to partially migrate some license  then, please adjust the license quantities accordingly for your existing suite(s).</span>
+                                    </ng-template>
+                                    <span class="i-vNext-info cursor-pointer" #suiteModifiedTip="ngbTooltip" [ngbTooltip]="suite.suiteModified ?suiteModifiedTipContent : licenseQuantitiesTipContent" placement="top-left"></span> 
+                                 </ng-container>
+
+                                 <ng-container *ngIf="(!suite.suiteModified && suite.migratedTo?.migrationType !== constantsService.FULL)">
+                                <span class="icon-msg-warning" #pendingActionTip="ngbTooltip"
+                                [ngbTooltip]="pendingAction" placement="top-left" ><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+
+                                <ng-template #pendingAction>
+                                    <span >You have pending action that require attention, kindly adjust the source suite license quantities in the Quote.</span>
+                                </ng-template>
+                                 </ng-container>
+                                {{suite.migratedTo?.mappingType[0]}} 
+                                <ng-template #fullyMigrateTipContent>
+                                    <span *ngIf="suite.suiteModified" class="">{{'add-suites.TO_FULLY_MIGRATE_THE_SUITE' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                                    <span *ngIf="suite.fullMigrationNotEligible" class="">This migration is currently unavailable as the existing Software suite has hardware services already purchased.</span>
+                                </ng-template>
+                                <div class="vNext-switch" #fullyMigrateTip="ngbTooltip" [ngbTooltip]="(suite.suiteModified || suite.fullMigrationNotEligible)? fullyMigrateTipContent : ''" placement="top-right">
+                                    <label class="switch-button" >
+                                        <input type="checkbox" attr.data-id="" [disabled]="suite.suiteModified || suite.fullMigrationNotEligible" [checked]="suite.migratedTo?.migrationType === suite.migratedTo?.mappingType[1]" 
+                                        (click)="updateMigrateType(suite)" attr.action-id="{{dataIdConstantsService.migrateSuites_link_updateMigrateType}}{{suite?.name}}">
+                                        <span class="slider round" attr.action-id=""></span>
+                                    </label>
+                                </div>
+                                 {{suite.migratedTo?.mappingType[1]}}
+                                <!--update code for toggle-->
+                            </ng-container>
+                            <ng-container *ngIf="suite.migratedTo?.mappingType?.length === 1">
+                                <ng-container *ngIf="(!suite.suiteModified && suite.migratedTo?.migrationType !== constantsService.FULL)">
+                                    <span class="icon-msg-warning" #pendingActionTip="ngbTooltip"
+                                    [ngbTooltip]="pendingAction" placement="top-left" ><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+    
+                                    <ng-template #pendingAction>
+                                        <span >You have pending action that require attention, kindly adjust the source suite license quantities in the Quote.</span>
+                                    </ng-template>
+                                     </ng-container>
+                                {{suite.migratedTo?.mappingType[0]}}
+                            </ng-container>  
+                        </ng-container>
+                    </td>
+                </tr>
+            </ng-container>
+            </ng-container>
+            </ng-container>
+        </ng-container>
+    </tbody>
+</table>
+
+<!-- <div class="alert alert--info alert-dismissable mt-2" *ngIf="!swEnrollmentData?.pools.length">
+    <span class="alert-icon">
+        <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+    </span>
+    <span>{{'add-suites.NO_MIGRATION_SUITE' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+</div> -->

@@ -1,0 +1,137 @@
+[
+    {
+        "theater": "North America",
+        "netEaLicenseAmount": "152,469,372",
+        "netEaServiceAmount": "104,567,000",
+        "children": [
+            {
+                "theater": "United States",
+                "netEaLicenseAmount": "8,130,600",
+                "netEaServiceAmount": "8,130,600"
+            },
+            {
+                "theater": "United States Outlying Pacific Islands",
+                "netEaLicenseAmount": "12,259,588",
+                "netEaServiceAmount": "12,259,588"
+            },
+            {
+                "theater": "Canada",
+                "netEaLicenseAmount": "0",
+                "netEaServiceAmount": "0"
+            },
+            {
+                "theater": "Mexico",
+                "netEaLicenseAmount": "2,960,125",
+                "netEaServiceAmount": "2,960,125"
+            }
+        ]
+    },
+    {
+        "theater": "South America",
+        "netEaLicenseAmount": "5,593,000",
+        "netEaServiceAmount": "3,909,000",
+        "children": [
+            {
+                "theater": "United States",
+                "netEaLicenseAmount": "8,130,600",
+                "netEaServiceAmount": "8,130,600"
+            },
+            {
+                "theater": "United States Outlying Pacific Islands",
+                "netEaLicenseAmount": "12,259,588",
+                "netEaServiceAmount": "12,259,588"
+            },
+            {
+                "theater": "Canada",
+                "netEaLicenseAmount": "0",
+                "netEaServiceAmount": "0"
+            },
+            {
+                "theater": "Mexico",
+                "netEaLicenseAmount": "2,960,125",
+                "netEaServiceAmount": "2,960,125"
+            }
+        ]
+    },
+    {
+        "theater": "Europe",
+        "netEaLicenseAmount": "0",
+        "netEaServiceAmount": "0",
+        "children": [
+            {
+                "theater": "United States",
+                "netEaLicenseAmount": "8,130,600",
+                "netEaServiceAmount": "8,130,600"
+            },
+            {
+                "theater": "United States Outlying Pacific Islands",
+                "netEaLicenseAmount": "12,259,588",
+                "netEaServiceAmount": "12,259,588"
+            },
+            {
+                "theater": "Canada",
+                "netEaLicenseAmount": "0",
+                "netEaServiceAmount": "0"
+            },
+            {
+                "theater": "Mexico",
+                "netEaLicenseAmount": "2,960,125",
+                "netEaServiceAmount": "2,960,125"
+            }
+        ]
+    },
+    {
+        "theater": "Asia",
+        "netEaLicenseAmount": "223,550,000",
+        "netEaServiceAmount": "154,923",
+        "children": [
+            {
+                "theater": "United States",
+                "netEaLicenseAmount": "8,130,600",
+                "netEaServiceAmount": "8,130,600"
+            },
+            {
+                "theater": "United States Outlying Pacific Islands",
+                "netEaLicenseAmount": "12,259,588",
+                "netEaServiceAmount": "12,259,588"
+            },
+            {
+                "theater": "Canada",
+                "netEaLicenseAmount": "0",
+                "netEaServiceAmount": "0"
+            },
+            {
+                "theater": "Mexico",
+                "netEaLicenseAmount": "2,960,125",
+                "netEaServiceAmount": "2,960,125"
+            }
+        ]
+    },
+    {
+        "theater": "Africa",
+        "netEaLicenseAmount": "65,063,00",
+        "netEaServiceAmount": "46,318,000",
+        "children": [
+            {
+                "theater": "United States",
+                "netEaLicenseAmount": "8,130,600",
+                "netEaServiceAmount": "8,130,600"
+            },
+            {
+                "theater": "United States Outlying Pacific Islands",
+                "netEaLicenseAmount": "12,259,588",
+                "netEaServiceAmount": "12,259,588"
+            },
+            {
+                "theater": "Canada",
+                "netEaLicenseAmount": "0",
+                "netEaServiceAmount": "0"
+            },
+            {
+                "theater": "Mexico",
+                "netEaLicenseAmount": "2,960,125",
+                "netEaServiceAmount": "2,960,125"
+            }
+        ]
+    }
+]

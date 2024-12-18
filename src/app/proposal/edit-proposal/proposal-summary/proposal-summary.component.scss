@@ -1,0 +1,209 @@
+/*  Alert Danger Message with Errors  */
+.alert .import {
+    display: inline-block;
+}
+
+.alert .import>span {
+    cursor: pointer;
+}
+
+.error-list {
+    display         : none;
+    border          : 1px solid #E12826;
+    position        : absolute;
+    z-index         : 99;
+    left            : 0;
+    right           : 0;
+    width           : calc(100% + 0px);
+    background-color: #fff;
+    margin          : 0;
+    padding         : 0;
+    list-style-type : none;
+    top             : calc(100% - 0px);
+}
+
+.alert .import:hover .error-list.alert-error {
+    display: block;
+}
+
+.error-list .alert {
+    border : 0px !important;
+    margin : 0;
+    padding: 7px 10px 0 25px !important;
+    cursor : default;
+}
+
+.error-list .alert:last-child {
+    padding-bottom: 5px !important;
+}
+
+.error-list .alert .icon-alert-error-bg {
+    //display   : none;
+    position  : absolute;
+    top       : 8px;
+    left      : 10px;
+    width     : 18px;
+    height    : 18px;
+    background: url("../../../../assets/images/cross-red.svg") no-repeat;
+}
+
+.error-list.alert-error::before {
+    content            : "";
+    backface-visibility: hidden;
+    position           : absolute;
+    top                : -8px;
+    height             : 9px;
+    width              : 21px;
+    left               : 105px;
+    background         : url("../../../../assets/images/arrow-red.svg") no-repeat;
+}
+
+/*  End of Alert Danger Message with Errors  */
+
+.error-list.warning-list {
+    border-color: #F47421;
+}
+
+.alert-warning-text {
+    color  : #F47421;
+    cursor : pointer;
+    display: inline-block;
+}
+
+.alert-warning-text>span {
+    cursor: pointer;
+}
+
+.alert-warning-text:hover .error-list.warning-list {
+    display: block;
+    z-index: 99991;
+}
+
+.error-list .alert .icon-alert-warning-bg {
+    position  : absolute;
+    top       : 10px;
+    left      : 15px;
+    width     : 18px;
+    height    : 18px;
+    background: url("../../../../assets/images/warning-icon.svg") no-repeat;
+}
+
+.error-list.warning-list::before {
+    content   : "";
+    position  : absolute;
+    top       : -8px;
+    height    : 25px;
+    width     : 36px;
+    left      : 110px;
+    background: url("../../../../assets/images/warning-arrow.svg") no-repeat;
+}
+
+.alert-info .error-list.warning-list:before {
+    content   : "";
+    position  : absolute;
+    top       : -8px;
+    height    : 25px;
+    width     : 36px;
+    left      : 110px;
+    background: url("../../../../assets/images/info-arrow.svg") no-repeat;
+}
+
+.error-list.warning-list.info-list:before {
+    content: "";
+    background: url("../../../../assets/images/info-arrow.svg") no-repeat;
+}
+
+/* Multiple alert Messages */
+.multiple-alert {
+    width: 100%;
+}
+
+.multiple-alert>.alert {
+    margin-bottom: 0 !important;
+}
+
+.multiple-alert .error-list.warning-list {
+    display      : none;
+    margin-left  : 32px;
+    position     : static;
+    border-radius: 0 0 5px 5px;
+    width        : calc(100% - 32px);
+    overflow     : hidden;
+    border-top   : transparent;
+}
+
+.multiple-alert .error-list.warning-list::before {
+    display: none;
+}
+
+/*  End of Alert Warning Message with Errors  */
+
+
+/* start of Info Messages styling */
+.error-list.warning-list.info-list {
+    border-color: #005073;
+}
+
+.error-list.warning-list.info-list .alert .alert-icon {
+    display: none;
+}
+
+.alert-info-text {
+    color  : #005073;
+    cursor : pointer;
+    display: inline-block;
+}
+
+.alert-info-text>span {
+    cursor: pointer;
+}
+
+.alert-info-text:hover .error-list.warning-list.info-list {
+    display: block;
+    z-index: 99991;
+}
+
+.alert-info-text:hover .error-list .icon-info-line-level {
+    position : absolute;
+    left     : 15px;
+    font-size: 20px;
+    top      : 5px;
+}
+.approver-comment {
+    min-width: 21rem;
+}
+
+/* css for security architecture proposal success page */
+.propComplete {
+    bottom: auto;
+    top: 87px;
+}
+
+.propNotComplete {
+    margin-top: 82px;
+}
+
+.aprrovalFlow-submit {
+    padding-top: 236px;
+}
+
+.card-header-title {
+    font-weight: 600;
+    padding    : 8px 0;
+    color      : #333;
+}
+
+.card-header-title .price-usd {
+    float      : right;
+    display    : inline-flex;
+    line-height: 1;
+    font-weight: 400;
+    font-size  : 14px;
+}
+.w-auto{
+    width: auto;
+}
+.alert-group-wrap {
+
+    top: 0;
+}

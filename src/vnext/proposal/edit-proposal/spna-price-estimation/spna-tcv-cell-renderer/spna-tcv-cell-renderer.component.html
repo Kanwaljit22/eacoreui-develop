@@ -1,0 +1,32 @@
+<div class="d-flex align-items-center">
+    <ng-template #tcvTipContent>
+      <div class="tcv-tip">
+        <div class="tip-content">
+            <span class="content-head">Net Change Value</span><br>
+            <span class="content-value" [ngClass]="{'success': params?.data?.upsell, 'danger': !params?.data?.upsell && (params?.data?.netChangeInTotalNet !== '0.00')}"><span *ngIf="params?.data?.upsell">+</span>{{params?.data?.netChangeInTotalNet}}</span>
+        </div>
+        <div class="tip-content mt-2">
+            <span  class="content-head">Previous Value</span><br>
+            <span  class="content-value">{{utilitiesService.formatValue(utilitiesService.getFloatValue(params?.data?.lowerTierAto?.priceInfo?.totalNet))}}</span>
+        </div>
+      </div>
+    </ng-template>
+    <ng-container *ngIf="eaService.isUpgradeFlow && params.value && params.value !== '--' && params.value !== '0.00' && params.node.level === 1">
+        <svg *ngIf="!params?.data?.upsell && (params?.data?.netChangeInTotalNet !== '0.00')" #tooltip="ngbTooltip" [ngbTooltip]="tcvTipContent" placement='top' xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none">
+            <path d="M20 10C20 15.5228 15.5228 20 10 20C4.47715 20 0 15.5228 0 10C0 4.47715 4.47715 0 10 0C15.5228 0 20 4.47715 20 10Z" fill="#E17F7F"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M10.906 16.6755C10.4041 17.1548 9.59539 17.1496 9.09965 16.664L5.39982 13.0731C4.90407 12.5875 4.90906 11.8054 5.41096 11.3262C5.91286 10.8469 6.7216 10.8521 7.21734 11.3377L8.75014 12.806L8.80466 4.25899C8.80901 3.57677 9.38441 3.02737 10.0898 3.03187C10.7953 3.03637 11.3636 3.59307 11.3593 4.27529L11.3047 12.8223L12.8561 11.3737C13.358 10.8944 14.1668 10.8996 14.6625 11.3852C15.1583 11.8708 15.1533 12.6529 14.6514 13.1321L10.906 16.6755Z" fill="white"/>
+        </svg>
+        <span *ngIf="params?.data?.upsell">
+            <svg xmlns="http://www.w3.org/2000/svg" #tooltip="ngbTooltip" [ngbTooltip]="tcvTipContent" placement='top' width="18" height="18" viewBox="0 0 20 20" fill="none">
+                <path d="M20 10C20 15.5228 15.5228 20 10 20C4.47715 20 0 15.5228 0 10C0 4.47715 4.47715 0 10 0C15.5228 0 20 4.47715 20 10Z" fill="#6ABF4B"/>
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M10.906 3.38793C10.4041 2.90871 9.59539 2.91387 9.09965 3.39945L5.39982 6.99037C4.90407 7.47596 4.90906 8.25809 5.41096 8.73731C5.91286 9.21653 6.7216 9.21137 7.21734 8.72578L8.75014 7.25751L8.80466 15.8045C8.80901 16.4867 9.38441 17.0361 10.0898 17.0316C10.7953 17.0271 11.3636 16.4704 11.3593 15.7882L11.3047 7.24121L12.8561 8.68981C13.358 9.16903 14.1668 9.16387 14.6625 8.67829C15.1583 8.1927 15.1533 7.41057 14.6514 6.93135L10.906 3.38793Z" fill="white"/>
+                </svg>
+        </span>
+    </ng-container>
+    <ng-container>
+        <span *ngIf="eaService.isUpgradeFlow && params.node.level === 2 && showChargesReimbusreMsg(params)" class="i-vNext-info ml-1 cursor-pointer" #target placement='top' 
+            ngbTooltip="{{'common.CHARGES_REIMBURSED_MSG_UPGRADE' | localizationPipe : localizationService.localizedkeySet.size}}" [positionTarget]="target"></span>
+    </ng-container>
+   <span class="ml-2" >{{params.value}}</span>
+
+</div>

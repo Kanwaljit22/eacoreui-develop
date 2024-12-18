@@ -1,0 +1,157 @@
+.border-bottom-tile {
+    border-bottom: 2px solid #E8E8E8;
+    float: left;
+    background: #fff;
+}
+
+.border-bottom-tile .secondary-text {
+    font-size: 12px;
+    color: #666666;
+}
+
+.sale-signed {
+    color: #12866C;
+    border: 1px solid #12866C;
+    display: inline-block;
+    border-radius: .25rem;
+    font-size: 12px;
+    font-weight: 400;
+    padding: 4px 10px;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.7);
+    line-height: 1;
+    min-width: 100%;
+}
+
+.validate-text { font-size: 11px; color: #999; line-height: 1; padding-top: 7px;}
+
+.upload-options > li {
+    padding-left: 15px;
+}
+.upload-options * {
+    font-size: 13px !important;
+    color: #005073 !important;
+}
+.upload-options .dropdown-menu li:hover {
+    color:white !important;
+}
+
+.upload-options {
+    display: inline-block;
+}
+.seperator {
+    border-right: 1px solid #ccc;
+    margin-right: 5px;
+
+}
+
+/*  Tile SCSS  */
+
+.tab-head {
+    font-size: 16px;
+    color: #333;
+    padding: 20px 0 0px;
+    margin-bottom: 5px;
+}
+
+.tab-head .info {
+    color: #e89400;
+}
+
+.tab-head .completed {
+    color: #129e12;
+}
+
+.tab-head-loa-browse {
+    padding-bottom: 10px;
+    color: #999;
+    font-family: 'CiscoSans';
+    font-weight: normal;
+    font-size: 13px;
+    padding: 20px 0 0px;
+    margin-bottom: 5px;
+}
+
+.steps {
+    float: right;
+    font-size: 16px;
+    font-weight: 400;
+    text-transform: none;
+    color: #666;
+}
+
+.steps span {
+    color: #333;
+}
+
+.doc-info {
+    padding: 0 20px 0 20px;
+}
+
+.doc-info>span {
+    font-size: 13px;
+    font-weight: 400;
+    color: #999999;
+    display: inline-block;
+    padding-top: 0px;
+}
+
+.doc-info .label-check {
+    margin-right: 80px;
+    margin-bottom: 15px;
+    max-width: 100%;
+    width: auto;
+}
+
+.tab-description {
+    font-size: 11px;
+    line-height: 15px;
+    color: #999;
+}
+
+/*ALert Popover
+============================*/
+.approve-disapprove {
+    border-color: #ff8a00;
+    display     : inline-block;
+    padding-left: 10px;
+}
+
+.approve-disapprove .icon-warning {
+    font-size   : 24px;
+    margin-right: 10px;
+}
+
+.approve-disapprove span.infoTxt {
+    width      : auto;
+    line-height: 25px;
+}
+
+i.arrow {
+    border      : solid #ff8a00;
+    border-width: 0 1px 1px 0;
+    display     : inline-block;
+    padding     : 3px;
+    position    : absolute;
+    top         : -4px;
+    left        : 97px;
+    background-color: #fef1e8;
+}
+
+.arrow.up {
+    transform        : rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+}
+
+.doc-info i.arrow {
+    left: 100px;
+}
+
+.tab-footer {
+    border-top: 1px dashed #cccccc;
+    padding: 20px;
+}
+
+.tab-footer button {
+    margin: 10px 20px 10px 0;
+}

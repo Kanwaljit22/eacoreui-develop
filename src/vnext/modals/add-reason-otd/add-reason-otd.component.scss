@@ -1,0 +1,16 @@
+
+textarea.form-control.active {
+    height: 42px !important;
+}
+
+.i-vNext-info {
+    &::before {
+        color: #a4b9d1;
+    }
+}
+
+textarea.form-control.resizeTextArea{
+    min-height: 80px;
+    max-height: 200px;
+    resize: vertical;
+}

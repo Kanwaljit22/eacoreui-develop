@@ -1,0 +1,275 @@
+<div class="row">
+    <div class="col-12">
+        <div class="alert alert--info alert-dismissable justify-content-between mb-3" *ngIf="showCountInfo">
+            <div class="d-flex align-items-center">
+            <span class="alert-icon">
+                <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span
+                        class="path3"></span></span>
+            </span>
+            <span>{{'add-suites.qna.USER_COUNT_PREPOPULATED_HYBRID_MSG' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+            </div>
+            <span class="icon-close-btn" (click)="showCountInfo = false;" attr.action-id="{{dataIdConstantsService.qna_icon_closeUserCountMsg}}"></span>
+        </div>
+        
+        <div class="alert alert--danger" *ngIf="showCountError">
+            <span class="alert-icon">
+                <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+            </span>
+            <span>{{'add-suites.qna.MINIMUM_USER_COUNT_MSG' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+        </div>
+    </div>
+   
+    <ng-container *ngFor="let question of firstLevelQuestions; let first = first; let firstLevelQnaIndex = index;">
+        <div class="col-12 mb-3 first-row">
+
+            <div *ngIf="question.parentId === 'scuRange'; else notTier">
+                <div class="row"  *ngIf="question.id === 'tier'">
+
+                     <!-- HTML for selling model for Security -->
+                    <div class="col-12 mb-4">
+                        <label class="customer-label heading--h6 mb-2">{{'add-suites.qna.SELECT_SELLING_MODEL' | localizationPipe : localizationService.localizedkeySet.size}}</label>
+                        <ul class="questions-tabs">
+                             <li class="new-tab-style" (click)="selectSellingModel('commitment', question)" attr.action-id="{{dataIdConstantsService.qna_link_tab_selectCommitmentTiers}}" [ngClass]="{'active': selectedTierObj?.id !== 'tier_qna_tier0', 'disabled': proposalStoreService.isReadOnly || disableCommitment}">
+                                <h2 class="top-text">{{'add-suites.qna.ENTERPRISE_WIDE_COMMITMENT' | localizationPipe : localizationService.localizedkeySet.size}}<span class="i-vNext-tick-check"></span></h2>
+                                <p>{{'add-suites.qna.MAXIMIZED_SECURITY_EA_BENEFITS' | localizationPipe : localizationService.localizedkeySet.size}}</p>
+                                <ul class="lists">
+                                <li>{{'add-suites.qna.COMMITTED_SCU_COUNT_DEFINED' | localizationPipe : localizationService.localizedkeySet.size}}</li>
+                                <li>{{'add-suites.qna.PARTNER_OWNERSHIP_OF_SECURITY' | localizationPipe : localizationService.localizedkeySet.size}}*</li>
+                                </ul>
+                                <span class="light-text">*{{'add-suites.qna.CUSTOMER_MAY_GRANT_ENTRY' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                            </li>
+                            <li class="new-tab-style" (click)="selectSellingModel('access', question)" attr.action-id="{{dataIdConstantsService.qna_link_tab_selectAccessTier}}"  [ngClass]="{'active': selectedTierObj?.id === 'tier_qna_tier0', 'disabled': disableAccess || proposalStoreService.isReadOnly}">
+                                <h2 class="top-text">{{'add-suites.qna.MULTIARCHITECTURE_SECURITY_ATTACH' | localizationPipe : localizationService.localizedkeySet.size}} <span class="i-vNext-tick-check"></span></h2>
+                                <p>{{'add-suites.qna.LOW_BARRIER_ENTRY' | localizationPipe : localizationService.localizedkeySet.size}}</p>
+                                <ul class="lists">
+                                <li>{{'add-suites.qna.REQUIRES_FULL_COMMITMENT' | localizationPipe : localizationService.localizedkeySet.size}}</li>
+                                <li>{{'add-suites.qna.PARTNER_OWNERSHIP_OF_PURCHASED' | localizationPipe : localizationService.localizedkeySet.size}}</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-12 mb-4" *ngIf="selectedTierObj?.id !== 'tier_qna_tier0'">
+                        <div class="mb-3">
+                            <div class="alert alert--danger mb-3" *ngIf="showScuError">
+                                <span class="alert-icon">
+                                    <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                                </span>
+                                <span>{{'add-suites.qna.SCU_COUNT_ERROR' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                            </div>
+                            <h6 class="heading--h6 light">{{question?.scuCountInfo[0].desc}}<sup>*</sup>
+                                <span class="i-vNext-help-filled ml-2" ngbTooltip="{{'add-suites.qna.SECURITY_COUNT_USERS_VALIDATED_INFO' | localizationPipe : localizationService.localizedkeySet.size}}" placement="top" ></span>
+                            </h6>
+                            <div class="form-group mt-2 w-100px">
+                                <input type="number" [(ngModel)]="question?.scuCountInfo[0].value" attr.data-id="{{dataIdConstantsService.qna_number}}{{question.scuCountInfo[0]?.id}}" (ngModelChange)="scuCountChange(question, question?.scuCountInfo[0].value)" placeholder="" class="form-control" [ngClass]="{'error': showScuError, 'disabled': proposalStoreService.isReadOnly || question?.scuCountInfo[0]?.disabled || disableCommitment}">
+                                <div class="number-toggle">
+                                    <span class="i-vNext-arrow-up-heavy"></span>
+                                    <span class="i-vNext-arrow-down-heavy"></span>
+                                </div>
+                                </div>
+                            </div>
+                            <div class="alert alert--warning alert-dismissable justify-content-between mb-3" *ngIf="showExceptionForScu">
+                                <div class="d-flex align-items-center">
+                                <span class="alert-icon">
+                                    <span class="icon-msg-warning"><span class="path1"></span><span class="path2"></span><span
+                                            class="path3"></span></span>
+                                </span>
+                                <span>{{'add-suites.qna.SCU_LOWER_RANGE_WARNING' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                                </div>
+                                <span class="icon-close-btn" (click)="showExceptionForScu = false;" attr.action-id="{{dataIdConstantsService.qna_icon_exceptinMsgClose}}"></span>
+                            </div>
+                        <label class="customer-label heading--h6 mb-2">{{'add-suites.qna.SELECT_AN_SCU_RANGE' | localizationPipe : localizationService.localizedkeySet.size}}</label>
+                        <table class="primary-table tier-table">
+                            <thead>
+                                <tr>
+                                    <th>{{'common.SUITES' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                                     <ng-container *ngFor="let answer of question.answers; let i = index;">
+                                        <!-- <th class="text-center" [ngClass]="{'tierToggle': i === recomendedIndex, 'disabled': i <= inEligibleTierIndex}" width="110px" *ngIf=" i > 0">
+                                            <span class="badge" *ngIf="i === recomendedIndex">{{localizationService.getLocalizedString('add-suites.qna.RECOMMENDED')}}</span>
+                                            <span class="big-head">SCU</span>
+                                            <span class="small-head">{{answer.min}}+</span>
+                                            <ng-container *ngIf="recomendedIndex > 0">
+                                                <ng-container *ngIf="i <= inEligibleTierIndex">
+                                                    <span class="ineligible-text">Ineligible</span>
+                                                </ng-container>
+                                                <ng-container *ngIf="i > inEligibleTierIndex">
+                                                    <ng-container>
+                                                        <button type="button" class="btn btn-primary btn-green"  *ngIf=" selectedTierObj?.desc === answer.desc">{{'common.SELECTED' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                                                        <button type="button" class="btn btn-primary" *ngIf="selectedTierObj?.desc !== answer.desc && i === (recomendedIndex - 1)">Request</button>
+                                                        <button type="button" *ngIf=" selectedTierObj?.desc !== answer.desc && i >= recomendedIndex" class="btn btn-primary" (click)="getChildQuestion(question,answer)">{{'common.SELECT' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                                                    </ng-container>
+                                                    <ng-container *ngIf="answer.disabled || proposalStoreService.isReadOnly">
+                                                        <button type="button" class="btn btn-primary disabled">{{'common.SELECT' | localizationPipe : localizationService.localizedkeySet.size}} </button>
+                                                    </ng-container>
+                                                </ng-container>
+                                           </ng-container>
+                                           <ng-container *ngIf="recomendedIndex === 0">
+                                            <button type="button" class="btn btn-primary disabled">{{'common.SELECT' | localizationPipe : localizationService.localizedkeySet.size}} </button>
+                                        </ng-container>
+                                        </th> -->
+                                        <th class="text-center" [ngClass]="{'tierToggle': i === recomendedIndex, 'disabled': i <= inEligibleTierIndex}" width="110px" *ngIf=" i > 0">
+                                            <span class="badge" *ngIf="i === recomendedIndex">{{localizationService.getLocalizedString('add-suites.qna.RECOMMENDED')}}</span>
+                                            <span class="big-head">SCU</span>
+                                            <span class="small-head">{{answer.min}}+</span>
+                                            <ng-container *ngIf="recomendedIndex > 0">
+                                                <ng-container *ngIf="i <= inEligibleTierIndex">
+                                                    <span class="ineligible-text" ngbTooltip="Proposal ineligible for this SCU range based on the SCU count provided">{{'common.INELIGIBLE' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                                                </ng-container>
+                                                <ng-container *ngIf="i > inEligibleTierIndex">
+                                                    <ng-container *ngIf="!answer.disabled && !proposalStoreService.isReadOnly">
+                                                        <button type="button" attr.action-id="{{dataIdConstantsService.qna_button_selected}}{{answer?.value}}" class="btn btn-primary btn-green" *ngIf=" selectedTierObj?.desc === answer.desc && i !== (recomendedIndex - 1)">{{'common.SELECTED' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                                                        <button type="button" attr.action-id="{{dataIdConstantsService.qna_button_request}}{{answer?.value}}" class="btn btn-secondary" *ngIf="selectedTierObj?.desc !== answer.desc && i === (recomendedIndex - 1)" (click)="getChildQuestion(question,answer)">{{'common.REQUEST' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                                                        <button type="button" attr.action-id="{{dataIdConstantsService.qna_button_requested}}{{answer?.value}}" class="btn btn-primary btn-green" *ngIf="selectedTierObj?.desc === answer.desc && i === (recomendedIndex - 1)">{{'common.REQUESTED' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                                                        <button type="button" attr.action-id="{{dataIdConstantsService.qna_button_select}}{{answer?.value}}" *ngIf=" selectedTierObj?.desc !== answer.desc && i >= recomendedIndex" class="btn btn-primary" (click)="getChildQuestion(question,answer)">{{'common.SELECT' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                                                    </ng-container>
+                                                    <ng-container *ngIf="answer.disabled || proposalStoreService.isReadOnly">
+                                                        <button type="button" class="btn btn-primary btn-green disabled" *ngIf=" selectedTierObj?.desc === answer.desc && i !== (recomendedIndex - 1)">{{'common.SELECTED' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                                                        <button type="button" class="btn btn-secondary disabled" *ngIf="selectedTierObj?.desc !== answer.desc && i === (recomendedIndex - 1)">{{'common.REQUEST' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                                                        <button type="button" class="btn btn-primary btn-green disabled" *ngIf="selectedTierObj?.desc === answer.desc && i === (recomendedIndex - 1)">{{'common.REQUESTED' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                                                        <button type="button" *ngIf=" selectedTierObj?.desc !== answer.desc && i >= recomendedIndex" class="btn btn-primary disabled">{{'common.SELECT' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                                                    </ng-container>
+                                                </ng-container>
+                                           </ng-container>
+                                           <ng-container *ngIf="recomendedIndex === 0">
+                                            <button type="button" class="btn btn-primary disabled">{{'common.SELECT' | localizationPipe : localizationService.localizedkeySet.size}} </button>
+                                        </ng-container>
+                                        </th>
+                                     </ng-container>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="b-grey">
+                                    <td class="bold-text">{{'common.SECURITY_SUITES' | localizationPipe : localizationService.localizedkeySet.size}}</td>
+                                    <td class="bold-text text-center" [attr.colspan]="commitmentTierArr.length + 1">{{'add-suites.qna.FULL_COMMIT_LICENSE_MINIMUM' | localizationPipe : localizationService.localizedkeySet.size}}</td>
+                                </tr>
+                                <tr *ngFor="let tiers of commitmentTierArr; let i = index">
+                                    <td>
+                                        <span class="suites-name" *ngFor="let item of tiers.suites">{{item}}</span>
+                                        <span class="mg">({{tiers.suiteType}})</span>
+                                    </td>
+                                    <ng-container *ngFor="let tier of tiers.tiersArr; let j = index">
+                                     <td class="text-center" *ngIf="j > 0"  [ngClass]="{'tierToggle': recomendedIndex === j, 'big': i === 0}">{{tier}}</td>
+                                    </ng-container>
+                                    <!-- <td class="text-center" [ngClass]="{'tierToggle': selectedTierObj?.id === 'tier_qna_tier1', 'big': i === 0}">{{tiers.TIER_1}}</td>
+                                    <td class="text-center" [ngClass]="{'tierToggle': selectedTierObj?.id === 'tier_qna_tier2', 'big': i === 0}">{{tiers.TIER_2}}</td>
+                                    <td class="text-center" [ngClass]="{'tierToggle': selectedTierObj?.id === 'tier_qna_tier3', 'big': i === 0}">{{tiers.TIER_3}}</td>
+                                    <td class="text-center" [ngClass]="{'tierToggle': selectedTierObj?.id === 'tier_qna_tier4', 'big': i === 0}">{{tiers.TIER_4}}</td>
+                                    <td class="text-center" [ngClass]="{'tierToggle': selectedTierObj?.id === 'tier_qna_tier5', 'big': i === 0}">{{tiers.TIER_5}}</td>
+                                    <td class="text-center" [ngClass]="{'tierToggle': selectedTierObj?.id === 'tier_qna_tier6', 'big': i === 0}">{{tiers.TIER_6}}</td> -->
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div> 
+                    <!-- <div class="col-3">
+                        <div class="form-group mb-2">
+                            <label class="customer-label heading--h6">{{localizationService.getLocalizedString('add-suites.qna.SELECT_TIER')}}</label>
+                            <div class="select-items dropdown" (clickOutside)="showTiers = false;" [ngClass]="{'disabled': proposalStoreService.isReadOnly}">
+                                <span class="dropdown--typeAhead__arrow-management">
+                                    <button type="button" class="btn--text drop-button dropdown-toggle" (click)="showTiers = !showTiers">{{selectedTierObj?.desc}}</button>
+                                </span>
+                                <div class="dropdown-menu" [class.show]="showTiers && !proposalStoreService.isReadOnly">
+                                    <ul>
+                                        <ng-container *ngFor="let answer of question.answers">
+                                            <li *ngIf="!answer.disabled" (click)="getChildQuestion(question,answer)">{{answer.desc}}</li>
+                                        </ng-container>
+                                    </ul>
+                                </div> 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12" *ngIf="question.additionalInfo">
+                        <div class="alert alert--info justify-content-between">
+                            <div class="d-flex align-items-center">
+                                <span class="alert-icon">
+                                    <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span
+                                            class="path3"></span></span>
+                                </span>
+                                <span class="txt" *ngIf="!displayTooltipArray?.length">{{localizationService.getLocalizedString('add-suites.qna.SUITES_PARTIALLY_COMMITTED')}}
+                                    </span>
+                                <span class="txt" *ngIf="displayTooltipArray?.length && !showDetails">{{localizationService.getLocalizedString('common.MINIMUM_COMMITMENT_FOR_FULL_COMMIT')}}
+                                     <a href="javascript:void();" (click)="showMinCommitmentRules()">{{localizationService.getLocalizedString('common.CLICK_HERE')}}
+                                        </a> {{localizationService.getLocalizedString('add-suites.qna.FOR_DETAILS')}}</span>
+                                <span class="txt" *ngIf="displayTooltipArray?.length && showDetails">{{localizationService.getLocalizedString('common.MINIMUM_COMMITMENT_FOR_FULL_COMMIT')}}
+                                     <a href="javascript:void();" (click)="showMinCommitmentRules()">{{localizationService.getLocalizedString('common.CLICK_HERE')}}
+                                        </a> {{localizationService.getLocalizedString('add-suites.qna.TO_HIDE_DETAILS')}}</span>
+                            </div>
+                        </div>
+                        <div class="table-wrapper" *ngIf="showDetails">
+                            <h3>{{localizationService.getLocalizedString('add-suites.qna.SUITES_COMMITMENT_VALUE')}}</h3>
+                            <table class="primary-table">
+                                <thead>
+                                    <tr>
+                                        <th>{{localizationService.getLocalizedString('common.SUITES')}}</th>
+                                        <th width="170px">{{localizationService.getLocalizedString('add-suites.qna.COMMITMENT_VALUE')}}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let threshold of displayTooltipArray">
+                                        <td>{{threshold.suiteName}}</td>
+                                        <td>{{threshold.count}} ({{threshold.qtyUnit}})</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+            <ng-template #notTier>
+                <h6 class="heading--h6 bold mb-1">{{question.desc}}<sup *ngIf='question.mandatory'> *</sup></h6>
+                <div class="clearfix"></div>
+                <span class="user-count-msg">{{'add-suites.qna.USER_COUNT_FOR_EACH_SUITE_MSG' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                <div class="clearfix"></div>
+                <ng-container *ngFor="let answer of question.answers; let answerIndex = answer;">
+                    <div *ngIf="question.displayType === 'radio'" class="card-title custom-card-title radio-custom mr-4 mt-2">
+                        <input *ngIf="!answer.selected;else selectedAnswer" [disabled]="answer.disabled || proposalStoreService.isReadOnly" attr.data-id="{{dataIdConstantsService.qna_radio}}{{answer.id}}{{answerIndex}}"
+                            [value]="answer.id" [id]="question.id" [name]="question.id" type="radio" (click)="getChildQuestion(question,answer)">
+                        <ng-template #selectedAnswer>
+                            <input [checked]="checkForChildQuestion(question,answer)" [value]="answer.id" [disabled]="answer.disabled || proposalStoreService.isReadOnly" attr.data-id="{{dataIdConstantsService.qna_radio}}{{answer.id}}{{answerIndex}}"
+                                [id]="question.id" [name]="question.id" type="radio">
+                        </ng-template>
+                        <label for="tier1">
+                            <span class="custom-radio-btn"><span class="path1"></span><span class="path2"></span></span>
+                            <span><span></span></span> {{answer.desc}} <span *ngIf="question.additionalInfo" class="i-vNext-help-filled"
+                                triggers="manual" (click)="getTierDetails(answer.value)" attr.action-id="{{dataIdConstantsService.qna_icon_getTierDetails}}{{answerIndex}}"></span>
+                        </label>
+                        <span class="i-vNext-arrow-filled-up"></span>
+                    </div>
+                    <div *ngIf="question.displayType === 'number'" class="col-12 pl-0">
+                        <!-- <h6 class="heading--h6 light"><small>Minimum value should be 250 for meeting users.</small></h6>-->
+                        <div class="clearfix"></div>
+                        <div class="form-group mt-2 w-100px">
+                            <input #textValue type="number" placeholder="" class="form-control" [value]="question.answers[0]?.value" attr.data-id="{{questions[0].id === 'user_count' ? dataIdConstantsService.qna_number  : dataIdConstantsService.qna_number}}{{question.answers[0]?.id}}{{answerIndex}}"
+                                (keyup)="checkUpdatedValue($event, question, textValue.value)" (blur)="updateTextboxValue(question,textValue.value)"
+                                [ngClass]="{'disabled': proposalStoreService.isReadOnly}">
+                            <div class="number-toggle">
+                                <span class="i-vNext-arrow-up-heavy"></span>
+                                <span class="i-vNext-arrow-down-heavy"></span>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+            </ng-template>
+            <!-- <div class="tier-info-wrap" *ngIf="showDetails && first">
+            <ng-container *ngIf="!displayTooltipArray.length">
+                <h6 class="heading--h6 bold mb-1">No commitment. All the suites will be marked as partially committed.
+                </h6>
+                <button class="icon-close-btn" type="button" (click)="showDetails = false;"></button>
+            </ng-container>
+            <ng-container *ngIf="displayTooltipArray.length">
+                <h6 class="heading--h6 bold mb-1">Minimum criteria to meet the full commitment.</h6>
+                <button class="icon-close-btn" type="button" (click)="showDetails = false;"></button>
+                <div class="row justify-content-between">
+                    <div class="col-auto" *ngFor="let threshold of displayTooltipArray">
+                        <div class="digit">{{threshold.suiteName}}</div>
+                        <div class="val">{{threshold.count}} ({{threshold.qtyUnit}})</div>
+                    </div>
+                </div>
+            </ng-container>
+        </div> -->
+        </div>
+
+
+        <div class="quest-sub-opt">
+            <app-qna *ngIf="question.questions?.length" [questions]="question.questions" [firstLevel]="false"></app-qna>
+        </div>
+    </ng-container>
+</div>

@@ -1,0 +1,537 @@
+<div class="custom-flyout-overlay"></div>
+<div class="custom-flyout vNext cust-md">
+    <div class="heading">
+        <div class="d-flex justify-content-between align-items-center mb-0">
+            <div class="heading-title">
+                <h2 class="heading--h2 mb-3">{{'edit-proposal-parameters.EDIT_PROPOSAL' | localizationPipe : localizationService.localizedkeySet.size}}</h2>
+                <p class="d-flex align-items-start"><span class="icon-info-cr mr-2 cursor-pointer" style="margin-top: 3px;"></span>
+                    <span>{{'edit-proposal-parameters.FORCE_PORTFOLIO_UPDATE' | localizationPipe : localizationService.localizedkeySet.size}}</span></p>
+            </div>
+            <div class="d-flex flex-column align-items-end">
+                <div class="d-flex align-items-center">
+                    <button class="icon-close-btn mt-0" (click)="close(false)" attr.action-id="{{dataIdConstantsService.editPropParam_button_close}}" type="button"></button>
+                </div>
+                <div class="mt-4 pt-4 d-flex justify-content-end">
+                    <button class="btn btn-secondary sm" (click)="close(false)" attr.action-id="{{dataIdConstantsService.editPropParam_button_cancel}}" id="{{elementIdConstantsService.EDIT_PROPOSAL_PARAMETER_CANCEL}}">{{'common.CANCEL' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                    <button class="btn btn-primary sm ml-2" *ngIf='updatedProposalparamsMap.size && selectedProposalParamsObj.proposalName  && !proposalStoreService.isReadOnly && !displayDurationMsg && !disabledForMsa && selectedProposalParamsObj.selectedDuration !== null && ((coTerm && selectedSubscription?.subRefId) || !coTerm || (coTerm && !selectedSubscription && eaService.features?.COTERM_SEPT_REL)) || updateMsp; else disableUpdate' attr.action-id="{{dataIdConstantsService.editPropParam_button_update}}" (click)="updateProposal()">{{'common.UPDATE' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                    <ng-template #disableUpdate>
+                        <button type="button" class="btn btn-primary sm ml-2 disabled">{{'common.UPDATE' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End of Heading -->
+    <div class="col-12 px-40">
+        <app-message></app-message>
+        <!-- start of CX-RSD message -->
+        <!-- <div class="alert alert--info alert-dismissable mt-2" *ngIf="priceEstimateStoreService.isCxPresent">
+            <span class="alert-icon">
+                <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+            </span>
+            <span class="txt">{{'edit-proposal-parameters.CX_RSD_MESSAGE' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+        </div> -->
+        <div class="alert alert--danger alert-dismissable mt-2" *ngIf='eaService.features.MSEA_REL && showEntitledError'>
+            <span class="alert-icon">
+                <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span
+                        class="path3"></span></span>
+            </span>
+            <span>{{'common.ENTITLED_ERROR_MSG' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+            
+        </div>
+        <div class="alert alert--info alert-dismissable mt-2" *ngIf="proposalStoreService.proposalData.dealInfo?.referrerQuoteId">
+            <span class="alert-icon">
+                <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+            </span>
+            <span class="txt">{{'edit-proposal-parameters.NEW_QUOTE_MSG' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+        </div>
+        <div class="alert alert--info alert-dismissable mt-2" *ngIf="checkToShowEamsInfoMsg()">
+            <span class="alert-icon">
+                <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+            </span>
+            <span class="txt">{{'edit-proposal-parameters.REVIEW_EAMS_DELIVERY_OPTION' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+        </div>
+
+        <ng-container>
+            <div class="alert alert--info alert-dismissable mt-2" *ngIf="proposalStoreService.proposalData?.dealInfo?.subscriptionUpgradeDeal">
+                <span class="alert-icon">
+                    <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                </span>
+                <span class="txt">{{'edit-proposal-parameters.UPGRADE_CX_RSD_MESSAGE' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+            </div>
+        </ng-container>
+        <!-- End of CX-RSD message -->
+    </div>
+    <div class="body">
+        <ul class="navigation-tabs">
+            <li class="nav-items" (click)="showProposalParameter = true;" attr.action-id="{{dataIdConstantsService.editPropParam_link_nav_showProposalParam}}">
+                <a class="" attr.action-id="{{dataIdConstantsService.editPropParam_link_propBasicInfo}}" [class.active]="showProposalParameter" href="javascript:void(0);">{{'edit-proposal-parameters.PROPOSAL_BASIC_INFORMATION' | localizationPipe : localizationService.localizedkeySet.size}}</a>
+            </li>
+            <li class="nav-items" (click)="showProposalParameter = false;" attr.action-id="{{dataIdConstantsService.editPropParam_link_nav_showPartnerInfo}}">
+                <a href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.editPropParam_link_partnerInfo}}" [class.active]="!showProposalParameter">{{'edit-proposal-parameters.PARTNER_INFORMATION' | localizationPipe : localizationService.localizedkeySet.size}}</a>
+            </li>
+        </ul>
+
+        <div class="row" *ngIf="showProposalParameter">
+            <div class="col-12 px-0">
+                <div class="d-flex">
+                    <div class="form-group mt-0 col-6">
+                        <label class="customer-label bold-txt mb-1">{{'common.PROPOSAL_NAME' | localizationPipe : localizationService.localizedkeySet.size}}<sup>*</sup></label>
+                        <input placeholder="{{'common.PROPOSAL_NAME' | localizationPipe : localizationService.localizedkeySet.size}}" required="" type="text" id="" maxlength="250"
+                            class="form-control ng-pristine ng-invalid ng-touched" ng-reflect-required="" attr.data-id="{{dataIdConstantsService.editPropParam_text_proposalName}}"
+                            ng-reflect-model="" [ngModel]="selectedProposalParamsObj.proposalName" (blur)="updateProposalName($event)" [ngClass]="{'disabled': proposalStoreService.isReadOnly}">
+                        <small class="text-danger" *ngIf="!selectedProposalParamsObj.proposalName"><i class="icon-error-icon"></i><span>{{'common.FIELD_REQUIRED' | localizationPipe : localizationService.localizedkeySet.size}}</span></small>
+                    </div>
+                    <div class="col-6"></div>
+                </div>
+                <div class="d-flex">
+                    <div class="form-group mt-0 mb-1 col-6">
+                        <label class="customer-label bold-txt mb-1">{{'common.COUNTRY_SERVICE' | localizationPipe : localizationService.localizedkeySet.size}}<sup>*</sup></label>
+                        <div class="select-items dropdown" *ngIf='countryOfTransactionArray?.length'
+                             [ngClass]='{"disabled": proposalStoreService.isReadOnly}'>
+                            <span class="dropdown--typeAhead__arrow-management">
+                                    <input class="btn--text drop-button dropdown-toggle drop-button-input" [ngClass]='{"disable-arrow": countryOfTransactionArray?.length === 1 || proposalStoreService.isReadOnly}'
+                                    (focus)="showModalDropObj.showCountryDrop = true" (blur)="checkCountry()" attr.data-id="{{dataIdConstantsService.editPropParam_text_country}}"
+                                    type="text" [(ngModel)]="countrySearch" (ngModelChange)="search()" id="searchCountry" name="searchCountry">
+                                    <span class="icon-arrow-stroke" (click)="showModalDropObj.showCountryDrop = !showModalDropObj.showCountryDrop" attr.action-id="{{dataIdConstantsService.editPropParam_icon_countryDrop}}"></span>
+                            </span>
+                            <div class="dropdown-menu" *ngIf='countryOfTransactionArray.length > 1 && !proposalStoreService.isReadOnly'
+                                [class.show]="showModalDropObj.showCountryDrop">
+                                <ul>
+                                    <li *ngFor='let country of countryOfTransactionArray | searchFilter : countrySearch : searchArray: true; let index = index;'
+                                        (click)="selectCountryOfTransaction(country)" attr.data-id="{{dataIdConstantsService.editPropParam_dropdown_country}}{{index}}">{{country.countryName}}</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <small class="text-danger d-none"><i class="icon-error-icon"></i><span>{{'common.FIELD_REQUIRED' | localizationPipe : localizationService.localizedkeySet.size}}</span></small>
+                    </div>
+                    <div class="form-group mt-0 mb-1 col-6" (clickOutside)="showModalDropObj.showPriceListDrop = false;">
+                        <label class="customer-label bold-txt mb-1">{{'common.PRICE_LIST' | localizationPipe : localizationService.localizedkeySet.size}}<sup>*</sup></label>
+                        <div class="select-items dropdown" *ngIf='priceListArray?.length'
+                            [ngClass]='{"no-select": priceListArray?.length === 1, "disabled": proposalStoreService.isReadOnly}'>
+                            <span class="dropdown--typeAhead__arrow-management">
+                                <button class="btn--text drop-button dropdown-toggle" type="button" attr.action-id="{{dataIdConstantsService.editPropParam_button_selectPriceList}}"
+                                    [ngClass]='{"disable-arrow": priceListArray?.length === 1 || proposalStoreService.isReadOnly}'
+                                    (click)="showModalDropObj.showPriceListDrop = !showModalDropObj.showPriceListDrop" attr.action-id="{{dataIdConstantsService.editPropParam_icon_priceListDrop}}">{{selectedProposalParamsObj.selectedPriceList?.description}}</button>
+                            </span>
+                            <div class="dropdown-menu" *ngIf='priceListArray.length > 1 && !proposalStoreService.isReadOnly'
+                                [class.show]="showModalDropObj.showPriceListDrop">
+                                <ul>
+                                    <li *ngFor='let priceList of priceListArray; let index = index;' (click)='selectPriceList(priceList)' attr.data-id="{{dataIdConstantsService.editPropParam_dropdown_priceList}}{{index}}">
+                                        {{priceList?.description}}</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <small class="text-danger d-none"><i class="icon-error-icon"></i><span>{{'common.FIELD_REQUIRED' | localizationPipe : localizationService.localizedkeySet.size}}</span></small>
+                    </div>
+                </div>
+                <hr class="weight-1 mx-3 my-22">
+                <div class="d-flex">
+                    <div class="form-group mt-0 col-6" (clickOutside)="showModalDropObj.showBillingModalDrop = false">
+                        <label class="customer-label bold-txt mb-1">{{'common.BILLING_MODEL' | localizationPipe : localizationService.localizedkeySet.size}}<sup>*</sup></label>
+                        <div class="select-items dropdown" [ngClass]="{'disabled': proposalStoreService.isReadOnly || isChangeSubFlow || isFreqSelected }">
+                            <span class="dropdown--typeAhead__arrow-management">
+                                <button class="btn--text drop-button dropdown-toggle" *ngIf = "billingData" attr.action-id="{{dataIdConstantsService.editPropParam_button_selectBillingModal}}"
+                                    [ngClass]='{"disable-arrow": billingData?.length === 1 || proposalStoreService.isReadOnly}'
+                                    (click)="showModalDropObj.showBillingModalDrop = !showModalDropObj.showBillingModalDrop" attr.action-id="{{dataIdConstantsService.editPropParam_icon_billingModalDrop}}"
+                                    type="button">{{billingModelDisplayName}}</button>
+                            </span>
+                            <div class="dropdown-menu" [class.show]="showModalDropObj.showBillingModalDrop && !proposalStoreService.isReadOnly">
+                                <ul>
+                                    <li *ngFor='let billingModel of billingData; let index = index;'
+                                        (click)="selectBillingModal(billingModel)" attr.data-id="{{dataIdConstantsService.editPropParam_dropdown_billingModal}}{{index}}">{{billingModel?.uiOption?.displayName}}</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <small class="text-danger d-none"><i class="icon-error-icon"></i><span>{{'common.FIELD_REQUIRED' | localizationPipe : localizationService.localizedkeySet.size}}</span></small>
+                        <small class="text-info mt-2" *ngIf="frequencyModelDisplayName && isBillingTermUpdatedForCapital">
+                            <!-- <i class="icon-warning1-icon"></i> -->
+                            <span class="icon-msg-Info mr-1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                            <span>{{'common.CAPITAL_FREQUENCY_SELECTION_WARN_MSG' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                        </small>
+                    </div>
+                    <div class="col-3">
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group datePicker mt-0" (click)="onUserClickDateSelection()" attr.action-id="{{dataIdConstantsService.editPropParam_link_userDateSelection}}">
+                                    <label class="customer-label bold-txt mb-1">{{'common.REQUESTED_START_DATE' | localizationPipe : localizationService.localizedkeySet.size}}<sup>*</sup>
+                                    </label>
+                                    <ng-container>
+                                            <span *ngIf="proposalStoreService.proposalData.dealInfo?.subscriptionUpgradeDeal" class="i-vNext-info ml-1 cursor-pointer" #target placement='top' 
+                                        ngbTooltip="{{'common.RSD_RESTRICTED_UPGRADE_INFO' | localizationPipe : localizationService.localizedkeySet.size}}" [positionTarget]="target"></span>
+                                    </ng-container>
+                                    <input appElementFocus readonly="true" type="text" class="form-control"
+                                        #dpFull="bsDatepicker" [(ngModel)]="selectedProposalParamsObj.rsd" placement="bottom right"
+                                        [minDate]="todaysDate" [maxDate]="expectedMaxDate" bsDatepicker
+                                        (bsValueChange)="onDateSelection($event)" attr.data-id="{{dataIdConstantsService.editPropParam_text_datePicker}}"
+                                        [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY', showWeekNumbers: false }" [bsConfig]="{containerClass:'theme-vNext'}" [datesDisabled]="datesDisabled"  [ngClass]="{'disabled': proposalStoreService.isReadOnly}">
+
+                                    <span class="cal-wrap" (click)="dpFull.toggle();" attr.action-id="{{dataIdConstantsService.editPropParam_icon_calendar}}"
+                                        [attr.aria-expanded]="dpFull.isOpen" *ngIf="!proposalStoreService.isReadOnly"><span
+                                            class="i-vNext-calendar"></span></span>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- New Changes for Capital Financing Frequency Sep 23 release starts -->
+                <div class="d-flex">
+
+                    <div class="col-12 mb-4">
+                        <h6 class="customer-label bold-txt mb-2">{{'common.CAPITAL_FINANCING_FREQUENCY' | localizationPipe : localizationService.localizedkeySet.size}} 
+                            <span class="i-vNext-info mr-2 cursor-pointer" ngbTooltip="{{'common.CAPITAL_FINANCING_TIP' | localizationPipe : localizationService.localizedkeySet.size}}" container="body" placement="top"></span></h6>
+                        
+                        <div class="mr-3 radio-custom">
+                            <input id="noSelect" type="radio" name="capitalFinanceRadioNone" value="noSelect" [checked]="!frequencyModelDisplayName || !capitalFrequencyData.length"
+                            attr.data-id="{{dataIdConstantsService.editPropParam_input_selectOptedcff}}" (change)="selectOpted()" [disabled]="proposalStoreService.isReadOnly || isChangeSubFlow">
+                            <label for="noSelect">
+                                <span class="custom-radio-btn"><span class="path1"></span><span class="path2"></span></span><span><span></span></span>None
+                            </label>
+                        </div>
+        
+                        <div class="mr-3 radio-custom" *ngFor = "let capitalFinance of capitalFrequencyData; let index = index;">
+                            <input id="annual" type="radio" name="capitalFinanceRadio" value="annual" [checked]="frequencyModelDisplayName === capitalFinance?.id" [value]="capitalFinance?.uiOption?.displayName"
+                            attr.data-id="{{dataIdConstantsService.editPropParam_input_frequencyOptioncff}}{{capitalFinance?.id}}" (change)="selectFrequencyModal(capitalFinance)" [disabled]="proposalStoreService.isReadOnly || (isChangeSubFlow && !frequencyModelDisplayName)">
+                            <label for="annual">
+                                <span class="custom-radio-btn"><span class="path1"></span><span class="path2"></span></span><span><span></span></span>{{capitalFinance?.uiOption?.displayName ? capitalFinance?.uiOption.displayName : capitalFinance?.id}}
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- <div class="form-group mt-0 col-6" (clickOutside)="showModalDropObj.showFrequencyDrop = false" attr.action-id="{{dataIdConstantsService.editPropParam_dropdown_closecff}}">
+                        <label class="customer-label bold-txt mb-1" attr.data-id="{{dataIdConstantsService.editPropParam_label_titlecff}}">{{'common.CAPITAL_FINANCING_FREQUENCY' | localizationPipe : localizationService.localizedkeySet.size}} 
+                            <span class="i-vNext-info mr-2 cursor-pointer" ngbTooltip="{{'common.CAPITAL_FINANCING_TIP' | localizationPipe : localizationService.localizedkeySet.size}}" container="body" placement="top"
+                            attr.data-id="{{dataIdConstantsService.editPropParam_label_tooltipcff}}"></span></label>
+                        <div class="select-items dropdown" [ngClass]="{'disabled': proposalStoreService.isReadOnly || (isChangeSubFlow && !frequencyModelDisplayName) }">
+                            <span class="dropdown--typeAhead__arrow-management">
+                                <button class="btn--text drop-button dropdown-toggle" *ngIf = "capitalFrequencyData" attr.action-id="{{dataIdConstantsService.editPropParam_button_selectCapitalFrequency}}"
+                                [ngClass]='{"disable-arrow": (isChangeSubFlow && !frequencyModelDisplayName) || proposalStoreService.isReadOnly}' (click)="showModalDropObj.showFrequencyDrop = !showModalDropObj.showFrequencyDrop" type="button">{{frequencyModelDisplayName != '' ? frequencyModelDisplayName : "Select"}}</button>
+                            </span>
+                            <div class="dropdown-menu" [class.show]="showModalDropObj.showFrequencyDrop && !proposalStoreService.isReadOnly" attr.action-id="{{dataIdConstantsService.editPropParam_dropdown_showcff}}">
+                                <ul>
+                                    <li *ngIf = "!isChangeSubFlow || (isChangeSubFlow && !frequencyModelDisplayName)" (click)="selectOpted()" attr.action-id="{{dataIdConstantsService.editPropParam_dropdown_selectOptedcff}}">Select</li>
+                                    <li *ngFor='let capitalFrequencyModel of capitalFrequencyData; let index = index;'
+                                        (click)="selectFrequencyModal(capitalFrequencyModel)" attr.data-id="{{dataIdConstantsService.editPropParam_dropdown_frequencyOptioncff}}{{index}}">{{capitalFrequencyModel?.id}}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div> -->
+                   
+                </div>
+                <!-- Changes for Capital Financing Frequency Sep 23 release end-->
+                
+                <div class="d-flex">
+                    <div class="w-50 pb-3 col-6">
+                        <h6 class="card-title heading--h6 bolder mb-2">{{'common.DURATION' | localizationPipe : localizationService.localizedkeySet.size}}<sup>*</sup></h6>
+                        <div class="d-flex edit-prop-radio" [ngClass]="{'disabled': proposalStoreService.isReadOnly}">
+                            <div class="mr-3 radio-custom"
+                                [class.active-arrow]="selectedProposalParamsObj.selectedDuration === 36 && !(coTerm || customDate)">
+                                <input id="radio36" type="radio" name="durationRadio" attr.data-id="{{dataIdConstantsService.editPropParam_radio_months36}}"
+                                    [checked]="selectedProposalParamsObj.selectedDuration === 36 && !coTerm" [value]="durationTypes.MONTHS36"
+                                    (change)="checkDurationsSelected($event)" [disabled]="isChangeSubFlow">
+                                <label for="radio36">
+                                    <span class='custom-radio-btn'>
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                    </span>
+                                    <span>
+                                        <span></span>
+                                    </span>36</label>
+                            </div>
+                            <div class="mr-3 radio-custom"
+                                [class.active-arrow]="selectedProposalParamsObj.selectedDuration === 60 && !(coTerm || customDate)">
+                                <input id="radio60" type="radio" name="durationRadio" attr.data-id="{{dataIdConstantsService.editPropParam_radio_months60}}"
+                                    [checked]="selectedProposalParamsObj.selectedDuration === 60 && !coTerm" [value]="durationTypes.MONTHS60"
+                                    (change)="checkDurationsSelected($event)" [disabled]="isChangeSubFlow">
+                                <label for="radio60">
+                                    <span class='custom-radio-btn'>
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                    </span>
+                                    <span>
+                                        <span></span>
+                                    </span>60</label>
+                            </div>
+                            <div class="mr-3 radio-custom"
+                                [class.active-arrow]="(selectedProposalParamsObj.selectedDuration === 0 || selectedProposalParamsObj.selectedDuration !== 60 && selectedProposalParamsObj.selectedDuration !== 36) && !coTerm">
+                                <input id="radio-ctm" type="radio" name="durationRadio" attr.data-id="{{dataIdConstantsService.editPropParam_radio_customMonths}}"
+                                    [checked]="(selectedProposalParamsObj.selectedDuration === 0 || selectedProposalParamsObj.selectedDuration !== 60 && selectedProposalParamsObj.selectedDuration !== 36) && !coTerm"
+                                    [value]="durationTypes.MONTHSCUSTOM" (change)="checkDurationsSelected($event)" [disabled]="isChangeSubFlow">
+                                <label for="radio-ctm">
+                                    <span class='custom-radio-btn'>
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                    </span>
+                                    <span>
+                                        <span></span>
+                                    </span>{{'common.CUSTOM' | localizationPipe : localizationService.localizedkeySet.size}}</label>
+                            </div>
+                             <div class="mr-3 radio-custom">
+                                <input id="radio-coterm" type="radio" [value]="durationTypes.MONTHSCOTERM"
+                                    [checked]='coTerm' name="durationRadio" attr.data-id="{{dataIdConstantsService.editPropParam_radio_coterm}}"
+                                    (change)="checkDurationsSelected($event)">
+                                <label for="radio-coterm">
+                                    <span class='custom-radio-btn'>
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                    </span>
+                                    <span>
+                                        <span></span>
+                                    </span>{{'common.CO-TERM' | localizationPipe : localizationService.localizedkeySet.size}}</label>
+                            </div> 
+                        </div>
+
+                        <div class="border--top solid py-0 pt-3 mt-3 vNext-rageSlider pr-0" *ngIf='!coTerm'>
+                            <!--h6 class="card-title heading--h6 bolder mb-1 w-100">Duration</h6-->
+                            <ngx-slider [(value)]="simpleSlider.value" [options]="options"
+                                (userChangeEnd)="sliderChange(simpleSlider.value, 'slider')" [ngClass]="{'disabled': proposalStoreService.isReadOnly}"></ngx-slider>
+                        </div>
+                    </div>
+
+                    <div class="col w-170" >
+                        <div class="form-group mt-0 mb-3">
+                            <h6 class="card-title heading--h6 bolder mb-1">{{'common.SELECTED_DURATION' | localizationPipe : localizationService.localizedkeySet.size}}</h6>
+                            <input appelementfocus="" class="form-control disabled highlightRed" attr.data-id="{{dataIdConstantsService.editPropParam_text_duration}}" *ngIf="eaService.features?.COTERM_SEPT_REL && coTerm && selectedProposalParamsObj.selectedDuration == null; else oldFlow"
+                                     type="number" disabled>
+                            <ng-template #oldFlow>
+                                <input appelementfocus="" class="form-control" attr.data-id="{{dataIdConstantsService.editPropParam_text_duration}}"
+                                (keydown)='utilitiesService.allowOnlyNumber($event)' [(ngModel)]="selectedProposalParamsObj.selectedDuration"
+                                (blur)='updateDuration()' type="number" [ngClass]="{'disabled': proposalStoreService.isReadOnly || coTerm , 'highlightRed' : selectedProposalParamsObj.selectedDuration == null}">
+                            </ng-template>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="displayDurationMsg && (isChangeSubFlow || (eaService.features?.COTERM_SEPT_REL && coTerm))" class="alert alert--danger alert-dismissable mb-2">
+                <span class="alert-icon">
+                    <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                </span>
+                <span *ngIf="isChangeSubFlow || (!eaService.features?.COTERM_SEPT_REL && coTerm)">{{'common.COTERM_DURATION_MESSAGE_COTERM_FLOW' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                <span *ngIf="eaService.features?.COTERM_SEPT_REL && coTerm && !isChangeSubFlow">{{'common.COTERM_DURATION_MESSAGE_COTERM_FLOW_NEW' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+            </div>
+            <div class="edit-prop-co-term" *ngIf="subscriptionSelectionMessage && coTerm && !isChangeSubFlow">
+                <div class="alert alert--success alert-dismissable">
+                    <span class="alert-icon">
+                    <span class="icon-done1"><span class="path1"></span><span class="path2"></span></span>
+                    </span>
+                    <span>{{'common.SUCCESSFULLY_SELECTED_SUBSCRIPTION' | localizationPipe : localizationService.localizedkeySet.size}} </span>
+                </div>
+            </div>
+
+            <!-- coterm End date section starts here -->
+            <div class="col-12 pt-3" *ngIf="coTerm && !isChangeSubFlow && eaService.features?.COTERM_SEPT_REL">
+                <div class="row">
+                    <div class="w-35">
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group datePicker" (click)="onUserClickEndDateSelection()">
+                                    <label class="customer-label">{{'common.COTERM_END_DATE_LABEL' | localizationPipe : localizationService.localizedkeySet.size}}<sup>*</sup>
+                                    </label>
+
+                                    <input appElementFocus readonly="true" type="text" class="form-control" *ngIf="!showCotermSelection && !isCotermAdded" placeholder="Select Date" (click)="allowCotermSelection()">
+
+                                    <input appElementFocus readonly="true" type="text" class="form-control" *ngIf="showCotermSelection"
+                                        #coDpFull="bsDatepicker" [(ngModel)]="cotermEndDate" placement="bottom right"
+                                        [minDate]="cotermEndDateMin" [maxDate]="cotermEndDateMax" bsDatepicker
+                                        (bsValueChange)="onEndDateSelection($event)" attr.data-id="{{dataIdConstantsService.editPropParam_text_datePicker_cotermEndDate}}" [isOpen]="isCoOpen"
+                                        [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY', showWeekNumbers: false, containerClass:'theme-vNext'}" [datesDisabled]="cotermEndDatesDisabled" [ngClass]="{'disabled': selectedSubscription || proposalStoreService.isReadOnly}">
+
+                                    <span class="cal-wrap" (click)="cotermCalendarOpen()" attr.action-id="{{dataIdConstantsService.editPropParam_icon_calendar_cotermEndDate}}"><span class="i-vNext-calendar" *ngIf="!selectedSubscription && !proposalStoreService.isReadOnly"></span></span>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-65 px-0 pb-3 pt-4" style="padding-left: 10.5rem !important;">
+                        <button type="button" class="btn btn-primary" (click)="lookUpSubscription()" attr.action-id="{{dataIdConstantsService.editPropParam_button_lookUpSubscription}}" id="{{elementIdConstantsService.EDIT_PROPOSAL_PARAMETER_LOOKUP_SUBSCRIPTION}}">{{'common.LOOKUP_SUBSCRIPTION' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                    </div>
+                </div>
+            </div>
+            <!-- coterm End date section ends here -->
+            
+            <app-subscription-list  [selectedSubscription]="selectedSubscription"  [startDate] = "selectedProposalParamsObj.rsd" [cotermSelected]="coTerm" (subscriptionSelected)='selectSubscription($event)' *ngIf="coTerm && showProposalParameter && !isChangeSubFlow" [isChangeSubFlow]="false" [isReadOnly]="proposalStoreService.isReadOnly"> </app-subscription-list>
+            <app-subscription-list  [selectedSubscription]="selectedSubscription"  [startDate] = "selectedProposalParamsObj.rsd" [cotermSelected]="coTerm" (subscriptionSelected)='selectSubscription($event)' *ngIf="coTerm && showProposalParameter && isChangeSubFlow && subSearchApiCalled" [isChangeSubFlow]="true" [isReadOnly]="proposalStoreService.isReadOnly"> </app-subscription-list>
+
+            <!-- <div class="mt-3">
+                <div class="row">
+                    <hr class="weight-1 mx-3 my-22 w-100">
+                    <div class="col-12"> -->
+                        <!-- <div class="input-group" [ngClass]="{'disabled': proposalStoreService.isReadOnly}">
+                            <p class="mr-3">{{localizationService.getLocalizedString('common.EA_SCOPE')}}<sup>&nbsp;*</sup></p>
+                            <div class="radio-wrapper radio-custom mr-4">
+                                <input type="radio" name="customerScope" id="yes" value="Yes" (change)="updateScopeParams($event)"
+                                    [checked]="selectedProposalParamsObj.subscriptionInfo.existingCustomer">
+                                <label for="yes">
+                                    <span class='custom-radio-btn'>
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                    </span>
+                                    <span>{{localizationService.getLocalizedString('common.Yes')}}</span>
+                                </label>
+                            </div>
+                            <div class="radio-wrapper radio-custom mr-4">
+                                <input type="radio" name="customerScope" id="no" value="No" (change)="updateScopeParams($event)"
+                                    [checked]="!selectedProposalParamsObj.subscriptionInfo.existingCustomer">
+                                <label for="no">
+                                    <span class='custom-radio-btn'>
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                    </span>
+                                    <span>{{localizationService.getLocalizedString('common.No')}}</span>
+                                </label>
+                            </div>
+                        </div> -->
+                    <!-- </div>
+                </div>
+            </div> -->
+           
+            <div class="mt-2" *ngIf="showMspQues">
+                <div class="row">
+                    <hr class="weight-1 mx-3 my-22 w-100">
+                    <div class="col-12">
+                        <app-managed-service-provider (updateMspSelection)="updateMspSelection($event)" [isEditProposal]=true [isMsea]="isMsea" [isChangeSubFlow]="isChangeSubFlow"></app-managed-service-provider>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-2" *ngIf="eaService.isSpnaFlow && eaService.features.SPNA_REL">
+                <div class="row">
+                    <hr class="weight-1 mx-3 my-22 w-100" *ngIf="!showMspQues">
+                    <div class="col-12">
+                        <app-master-agreement  (updateMsaSelection)="updateMsaSelection($event)"  [isEditProposal]=true></app-master-agreement>
+                        <!-- to replace after span enabled for fixing defect -->
+                        <!-- <app-master-agreement  (updateMsaSelection)="updateMsa($event)"  [isEditProposal]=true></app-master-agreement> -->
+                    </div>
+                </div>
+            </div>
+            <div class="mt-3" *ngIf="!eaService.isSpnaFlow">
+                    <div class="row">
+                        <hr class="weight-1 mx-3 my-22 w-100">
+                        <div class="col-12">
+                    <!-- <div *ngIf="displayJustificationWarning" class="alert alert--warning alert-dismissable">
+                            <span class="alert-icon">
+                            <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                            </span>
+                            <span>{{localizationService.getLocalizedString('common.JUSTIFICATION_WARN')}}</span>
+                            <a href="javascript:void(0);" (click)='displayJustificationWarning = false;' class="cross-button"><span class="icon-close-btn"></span></a>
+                            </div>
+                            <div *ngIf="displayJustificationPartnerWarning" class="alert alert--warning alert-dismissable">
+                            <span class="alert-icon">
+                            <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                            </span>
+                            <span>{{localizationService.getLocalizedString('common.JUSTIFICATION_WARN_PARTNER')}}</span>
+                            <a href="javascript:void(0);" (click)='displayJustificationPartnerWarning = false;' class="cross-button"><span class="icon-close-btn"></span></a>
+                            </div> -->
+                <h5 class="customer-label bold-txt">
+                    {{'common.RENEWAL_DETAILS' | localizationPipe : localizationService.localizedkeySet.size}}</h5>
+                <small class="d-block">{{'common.INCLUDE_SUBSCRIPTION_IDS' | localizationPipe : localizationService.localizedkeySet.size}}</small>
+                <textarea id="renewalDetails" type="text" class="form-control" name="renewalDetails"
+                    [ngModel]="selectedProposalParamsObj.subscriptionInfo.justification" attr.data-id="{{dataIdConstantsService.editPropParam_textarea_text_renewalDetails}}"
+                    (ngModelChange)="updateJustification($event)" rows="4" cols="100" 
+                    [placeholder]="localizationService.getLocalizedString('common.TYPE_HERE')" [ngClass]="{'disabled': proposalStoreService.isReadOnly }"></textarea>
+            </div></div></div>
+        </div>
+        
+        <div class="row" *ngIf="!showProposalParameter">
+            <!-- <div class="col-md-12">
+                <h5 class="heading--h5 dark">Partner Information</h5>
+            </div> -->
+            <div class="col-6">
+                <div class="form-group" *ngIf="projectStoreService.projectData?.dealInfo?.directRTM">
+                    <label class="customer-label bold-txt mb-1">{{'common.PARTNER_NAME' | localizationPipe : localizationService.localizedkeySet.size}}<sup *ngIf='selectedProposalParamsObj.selectedPartner?.beGeoName'>*</sup></label>
+                        <div class="select-items dropdown" *ngIf='selectedProposalParamsObj.selectedPartner?.beGeoName'
+                        (clickOutside)="showModalDropObj.showPartnerDropdown = false;" [ngClass]='{"no-select": partnersArray?.length === 1 && selectedProposalParamsObj.selectedPartner , "disabled": proposalStoreService.isReadOnly || (proposalStoreService.proposalData?.scopeInfo?.returningCustomer && !proposalStoreService.proposalData?.scopeInfo?.newEaidCreated) || (!proposalStoreService.proposalData.dealInfo?.partnerDeal && isPartnerUserLoggedIn)}'>
+                        <span class="dropdown--typeAhead__arrow-management">
+                            <button class="btn--text drop-button dropdown-toggle" [ngClass]='{"disable-arrow": (partnersArray?.length === 1 && selectedProposalParamsObj.selectedPartner) || (proposalStoreService.proposalData?.scopeInfo?.returningCustomer && !proposalStoreService.proposalData?.scopeInfo?.newEaidCreated) || proposalStoreService.isReadOnly}'
+                                (click)="showModalDropObj.showPartnerDropdown = !showModalDropObj.showPartnerDropdown" attr.action-id="{{dataIdConstantsService.editPropParam_button_selectPartner}}"
+                                type="button">{{selectedProposalParamsObj.selectedPartner?.beGeoName ? selectedProposalParamsObj.selectedPartner?.beGeoName : ('common.SELECT_PARTNER' | localizationPipe : localizationService.localizedkeySet.size) }}</button>
+                        </span>
+                        <div class="dropdown-menu" *ngIf='(partnersArray.length > 1 || (partnersArray?.length === 1 && !selectedProposalParamsObj.selectedPartner)) && (!proposalStoreService.proposalData?.scopeInfo?.returningCustomer || (proposalStoreService.proposalData?.scopeInfo?.returningCustomer && proposalStoreService.proposalData?.scopeInfo?.newEaidCreated)) && !proposalStoreService.isReadOnly' [class.show]="showModalDropObj.showPartnerDropdown">
+                            <ul>
+                                <li *ngFor='let partner of partnersArray; let index = index;' (click)="setSelectedPartner(partner)" attr.data-id="{{dataIdConstantsService.editPropParam_dropdown_partnerList}}">
+                                    {{partner?.beGeoName}}</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div *ngIf="!selectedProposalParamsObj.selectedPartner?.beGeoName && partnerApiCalled">
+                        <div><br />
+                            <div>
+                                <span class="alert-icon">
+                                    <span class="icon-warning1"><span class="path1"></span><span class="path2"></span>
+                                        <span class="path3"></span></span></span>
+                                <span *ngIf='projectStoreService.projectData?.dealInfo?.partnerDeal && !(projectStoreService.projectData?.changeSubscriptionDeal && projectStoreService.projectData.dealInfo?.directRTM); else ciscoDeal'> {{'common.NO_PARTNER_AVAILABLE_DEAL_PROPOSAL_COLLABORATE_COMPLIANCE_HOLD' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                                    <ng-template #ciscoDeal>
+                                        <span> {{'common.NO_PARTNER_AVAILABLE_DEAL_PROPOSAL' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                                    </ng-template>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" *ngIf="!projectStoreService.projectData?.dealInfo?.directRTM">
+                    <label class="customer-label bold-txt mb-1">{{'common.PARTNER_NAME' | localizationPipe : localizationService.localizedkeySet.size}}<sup>*</sup></label>
+                        <div class="select-items dropdown" *ngIf='partnersArray.length'
+                        (clickOutside)="showModalDropObj.showPartnerDropdown = false;" [ngClass]='{"no-select": partnersArray?.length === 1 && selectedProposalParamsObj.selectedPartner , "disabled": proposalStoreService.isReadOnly || (proposalStoreService.proposalData?.scopeInfo?.returningCustomer && !proposalStoreService.proposalData?.scopeInfo?.newEaidCreated) || (!proposalStoreService.proposalData.dealInfo?.partnerDeal && isPartnerUserLoggedIn)}'>
+                        <span class="dropdown--typeAhead__arrow-management">
+                            <button class="btn--text drop-button dropdown-toggle" [ngClass]='{"disable-arrow": (partnersArray?.length === 1 && selectedProposalParamsObj.selectedPartner) || (proposalStoreService.proposalData?.scopeInfo?.returningCustomer && !proposalStoreService.proposalData?.scopeInfo?.newEaidCreated) || proposalStoreService.isReadOnly}'
+                                (click)="showModalDropObj.showPartnerDropdown = !showModalDropObj.showPartnerDropdown" attr.action-id="{{dataIdConstantsService.editPropParam_button_selectPartner}}"
+                                type="button">{{selectedProposalParamsObj.selectedPartner?.beGeoName ? selectedProposalParamsObj.selectedPartner?.beGeoName : ('common.SELECT_PARTNER' | localizationPipe : localizationService.localizedkeySet.size) }}</button>
+                        </span>
+                        <div class="dropdown-menu" *ngIf='(partnersArray.length > 1 || (partnersArray?.length === 1 && !selectedProposalParamsObj.selectedPartner)) && (!proposalStoreService.proposalData?.scopeInfo?.returningCustomer || (proposalStoreService.proposalData?.scopeInfo?.returningCustomer && proposalStoreService.proposalData?.scopeInfo?.newEaidCreated)) && !proposalStoreService.isReadOnly' [class.show]="showModalDropObj.showPartnerDropdown">
+                            <ul>
+                                <li *ngFor='let partner of partnersArray; let index = index;' (click)="setSelectedPartner(partner)" attr.data-id="{{dataIdConstantsService.editPropParam_dropdown_partnerList}}">
+                                    {{partner?.beGeoName}}</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div *ngIf="!partnersArray.length && partnerApiCalled">
+                        <div><br />
+                            <div>
+                                <span class="alert-icon">
+                                    <span class="icon-warning1"><span class="path1"></span><span class="path2"></span>
+                                        <span class="path3"></span></span></span>
+                                <span *ngIf='projectStoreService.projectData?.dealInfo?.partnerDeal; else ciscoDeal'> {{'common.NO_PARTNER_AVAILABLE_DEAL_PROPOSAL_COLLABORATE_COMPLIANCE_HOLD' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                                    <ng-template #ciscoDeal>
+                                        <span> {{'common.NO_PARTNER_AVAILABLE_DEAL_PROPOSAL' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                                    </ng-template>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="selectedProposalParamsObj?.distiName && proposalStoreService.proposalData?.dealInfo?.distiDeal" class="col-6">
+                <!-- <div class="col-md-12">
+                    <h5 class="heading--h5 dark">{{localizationService.getLocalizedString('edit-proposal-parameters.DISTRIBUTOR_INFORMATION')}}</h5>
+                </div> -->
+                <div class="col-12">
+                    <div class="form-group">
+                        <label class="customer-label bold-txt mb-1">{{'common.DISTRIBUTOR_NAME' | localizationPipe : localizationService.localizedkeySet.size}}<sup>*</sup></label>
+                            <div class="select-items disabled" *ngIf='(partnersArray.length && selectedProposalParamsObj.distiName); else noDistiFound'>
+                                <input appelementfocus="" class="form-control" required="" type="text" id="" attr.data-id="{{dataIdConstantsService.editPropParam_text_distiName}}"
+                                    [ngModel]="selectedProposalParamsObj.distiName" disabled>
+                            </div>
+
+                            <ng-template #noDistiFound>
+                                <div><br />
+                                    <div>
+                                        <span class="alert-icon">
+                                            <span class="icon-warning1"><span class="path1"></span><span class="path2"></span>
+                                                <span class="path3"></span></span></span>
+                                        <span>{{'common.DISTRIBUTOR_NOT_AVAILABLE' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                                    </div>
+                                </div>
+                            </ng-template>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6"  *ngIf="intendedUse">
+                    <div class="form-group">
+                        <label class="customer-label bold-txt mb-1">{{'common.INTENTED_USE' | localizationPipe : localizationService.localizedkeySet.size}}</label>
+                        <input appelementfocus="" [(ngModel)]='intendedUse'
+                            class="form-control intended-Use" required="" type="text" disabled attr.data-id="">
+                    </div>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,191 @@
+<div class="custom-flyout-overlay"></div>
+<div class="custom-flyout cust-md vNext">
+    <div class="heading">
+        <div class="d-flex justify-content-between align-items-top">
+            <div class="heading-title">
+                <h2 class="heading--h2 d-flex align-items-center">{{'price-estimation.quantity-install-base-break-up.INSTALL_BASE_BREAKUP_2' | localizationPipe : localizationService.localizedkeySet.size}} {{selectedEnrollemnt.name}}
+                    <!-- &nbsp;
+                    <div class="dropdown" (clickOutside)="showDropMenu = false;">
+                        <a class="mb-0 dropdown-link" href="javascript:void(0);"
+                            (click)="showDropMenu = true;">{{selectedPoolName}}
+                            <span class="icon-arrow-stroke ml-2"></span>
+                        </a>
+                        <ul class="dropdown-menu" [class.show]="showDropMenu">
+                            <li *ngFor='let pool of quantityInstallBaseBreakupData'>
+                                <a href="javascript:void(0);" class="dropdown-item"
+                                    (click)="selectPool(pool)">{{pool.desc}}</a>
+                            </li>
+                        </ul>
+                    </div> -->
+                </h2>
+            </div>
+            <div>
+                <!-- <a class="mr-2" href="javascript:void(0)"><span class="icon-full-screen mr-0"></span></a> -->
+                <button class="icon-close-btn" (click)="priceEstimateService.showQuantityInstallBaseBreakUp  = false;" attr.action-id="{{dataIdConstantsService.qualityIbBreakUp_button_close}}"
+                    type="button"></button>
+            </div>
+        </div>
+    </div>
+    <!-- End of Flyout Heading -->
+
+    <div class="body">
+        <!-- <div class="alert alert--info alert-dismissable mb-2">
+            <span class="alert-icon">
+                <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+            </span>
+            <span>Your commitment is based on your software alliance commitment status</span>
+        </div> -->
+        <div class="row">
+
+            <div class="col-12 fixTableHead">
+                <table class="primary-table">
+
+                    <!-- This HTML is as per new Design Starts-->
+                    <thead>
+                        <tr>
+                            <th rowspan="2" style="vertical-align: bottom;">
+                                {{'common.SOLUTIONS_SUITES_ITEM_DESCRIPTION' | localizationPipe : localizationService.localizedkeySet.size}}
+                            </th>
+                            <th colspan="5" class="text-center">
+                                {{'price-estimation.quantity-install-base-break-up.QUANTITY_FOUND_IN_INSTALL_BASE_2' | localizationPipe : localizationService.localizedkeySet.size}}
+                            </th>
+                        </tr>
+                        <tr>
+                            <th width="180px" class="text-right">
+                                {{'price-estimation.quantity-install-base-break-up.PRODUCT_FAMILIES' | localizationPipe : localizationService.localizedkeySet.size}}
+                            </th>
+
+                            <th width="115px"class="text-right">
+                                {{'price-estimation.quantity-install-base-break-up.UNCOVERED' | localizationPipe : localizationService.localizedkeySet.size}}
+                            </th>
+
+                            <th width="115px" class="text-right" >
+                                {{'price-estimation.quantity-install-base-break-up.COVERED' | localizationPipe : localizationService.localizedkeySet.size}}
+                            </th>
+
+                            <th width="115px"class="text-right">
+                                {{'price-estimation.quantity-install-base-break-up.TAKE OVER' | localizationPipe : localizationService.localizedkeySet.size}}
+                            </th>
+                            <th width="115px"class="text-right" style="border-right: 1px dashed #e4e4e4">
+                                {{'common.TOTAL' | localizationPipe : localizationService.localizedkeySet.size}}
+                            </th>
+                        </tr>
+                    </thead> 
+                    <!-- This HTML is as per new Design Ends-->
+
+                    <tbody>
+                        <!-- Start of Main Title Row -->
+                        <ng-container *ngFor="let pool of selectedEnrollemnt.pools; let index = index;">
+                                <tr class="main-row">
+                                        <td>
+                                            <span class="expCol-wrap mr-1">
+                                                <span class="i-vNext-tree-close" *ngIf="!pool.expand"
+                                                    (click)="expand(pool)" attr.action-id="{{dataIdConstantsService.qualityIbBreakUp_icon_expandPool}}{{index}}"></span>
+                                                <span class="i-vNext-tree-open" *ngIf="pool.expand"
+                                                    (click)="expand(pool)" attr.action-id="{{dataIdConstantsService.qualityIbBreakUp_icon_collapsePool}}{{index}}"></span>
+                                            </span>
+                                            <span class="ellipsis" placement="top" container="body" ngbTooltip="{{pool.desc}}">{{pool.desc}}</span>
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                        <ng-container *ngIf="!pool.expand">
+                        <ng-container *ngFor="let suite of pool.suites; let j = index;">
+                            <tr *ngIf = 'suite.inclusion' class="table-sub-row">
+                                <td>
+                                    <span class="expCol-wrap mr-1">
+                                        <span class="i-vNext-tree-close" *ngIf="suite.expand"
+                                            (click)="expand(suite)" attr.action-id="{{dataIdConstantsService.qualityIbBreakUp_icon_expandsuite}}{{j}}"></span>
+                                        <span class="i-vNext-tree-open" *ngIf="!suite.expand"
+                                            (click)="expand(suite)" attr.action-id="{{dataIdConstantsService.qualityIbBreakUp_icon_collapsesuite}}{{j}}"></span>
+                                    </span> 
+                                    <span class="ellipsis" placement="top" container="body" ngbTooltip="{{suite.desc}}">{{suite.desc}}</span>
+
+                                </td>
+
+                                <ng-container>
+                                    <td class="text-right">{{suite.cxIbQty?.productFamilyCount  ?
+                                        (suite.cxIbQty?.productFamilyCount)
+                                        : '--'}}</td>
+                                    <td class="text-right">{{suite.cxIbQty?.uncovered ? 
+                                        (suite.cxIbQty?.uncovered)
+                                        : '--'}}</td>
+                                    <td class="text-right">{{suite.cxIbQty?.owned ? 
+                                        (suite.cxIbQty?.owned)
+                                        : '--'}}</td>
+                                    <td class="text-right">{{suite.cxIbQty?.takeover ? 
+                                        (suite.cxIbQty?.takeover)
+                                        : '--'}}</td>
+                                    <td class="text-right">{{suite.cxIbQty?.total ? 
+                                        (suite.cxIbQty?.total)
+                                        : '--'}}</td>
+                                </ng-container>
+                            </tr>
+                            <ng-container *ngIf="suite.expand">
+                                <ng-container *ngIf="selectedEnrollemnt.primary; else checkForPids">
+                                    <tr *ngFor="let line of suite.lines" class="table-sub-row level-2">
+                                        <td><span class="ellipsis" placement="top" container="body" ngbTooltip="{{line.desc}}">{{line.desc}}</span></td>
+
+                                    <ng-container class="d-none">
+
+                                    <td class="text-right">{{line.cxIbQty?.productFamilyCount  ? 
+                                        (line.cxIbQty?.productFamilyCount)
+                                        : '--'}}</td>
+                                    <td class="text-right">{{line.cxIbQty?.uncovered ? 
+                                        (line.cxIbQty?.uncovered)
+                                        : '--'}}</td>
+                                    <td class="text-right">{{line.cxIbQty?.owned ? 
+                                        (line.cxIbQty?.owned)
+                                        : '--'}}</td>
+                                    <td class="text-right">{{line.cxIbQty?.takeover ? 
+                                        (line.cxIbQty?.takeover)
+                                        : '--'}}</td>
+                                    <td class="text-right">{{line.cxIbQty?.total ?
+                                        (line.cxIbQty?.total)
+                                        : '--'}}</td>
+                                        </ng-container>
+                                    </tr>
+                                </ng-container>
+                                
+                                <ng-container>
+                                <ng-template #checkForPids>
+                                    <tr *ngFor="let pid of suite.pids" class="table-sub-row level-2">
+                                        <td><span class="ellipsis" placement="top" container="body" ngbTooltip="{{pid.desc}}">{{pid.desc}}</span></td>
+
+                                    <ng-container class="d-none">
+
+                                    <td class="text-right">{{pid.cxIbQty?.productFamilyCount  ? 
+                                        (pid.cxIbQty?.productFamilyCount)
+                                        : '--'}}</td>
+                                    <td class="text-right">{{pid.cxIbQty?.uncovered ? 
+                                        (pid.cxIbQty?.uncovered)
+                                        : '--'}}</td>
+                                    <td class="text-right">{{pid.cxIbQty?.owned ? 
+                                        (pid.cxIbQty?.owned)
+                                        : '--'}}</td>
+                                    <td class="text-right">{{pid.cxIbQty?.takeover ? 
+                                        (pid.cxIbQty?.takeover)
+                                        : '--'}}</td>
+                                    <td class="text-right">{{pid.cxIbQty?.total ? 
+                                        (pid.cxIbQty?.total)
+                                        : '--'}}</td>
+                                        </ng-container>
+                                    </tr>
+                                </ng-template>
+                             </ng-container>
+
+                        </ng-container>
+                    </ng-container>
+                        </ng-container>
+                </ng-container>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- End of Flyout Body -->
+</div>

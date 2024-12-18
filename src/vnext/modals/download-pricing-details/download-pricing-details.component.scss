@@ -1,0 +1,19 @@
+.download-modal-body{
+    .modal-head{ 
+        display:flex;
+        flex-direction: column;
+        position: relative;
+        background: #fff;
+        padding: 16px 24px;
+        h5{
+            font-weight: bold;
+        }
+        .icon-close-btn{
+            position: absolute;
+
+        }
+    }
+    .modal-container {
+        padding: 16px 24px;
+    }
+}

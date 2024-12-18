@@ -1,0 +1,42 @@
+.timeline-dots-container {
+    width: calc(100% - 110px);
+    float: right;
+    display: block;
+    position: relative;
+    top: 2px;
+
+    .progress {
+        background: #dcdcdc;
+        height: 1px;
+        bottom: -2px;
+        position: relative;
+        width: 100% !important;
+        left: 0;
+    }
+
+    .timeline-dots-main {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        z-index: 98;
+        position: relative;
+
+        .dots {
+            height: 3px;
+            width: 3px;
+            border-radius: 100%;
+            display: inline-flex;
+            -webkit-transform: scale(2);
+            transform: scale(2);
+            transition: all 0.5s ease 0s;
+            -webkit-transition: all 0.5s ease 0s;
+        
+            &.dark-grey {
+                background: #707070;
+            }
+            &.light-grey {
+                background: #dcdcdc;
+            }
+        }
+    }
+}

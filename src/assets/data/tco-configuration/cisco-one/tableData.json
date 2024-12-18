@@ -1,0 +1,30 @@
+[
+    {
+        "buyingModel": "ALC (All Feature)",
+        "hw": 2208,
+        "hwService": 1491,
+        "sw": 2117,
+        "swService": 2117
+    },
+    {
+        "buyingModel": "BAU (Selected Feature)",
+        "hw": 431,
+        "hwService": 975,
+        "sw": 446,
+        "swService": 874
+    },
+    {
+        "buyingModel": "C1",
+        "hw": 1110,
+        "hwService": 980,
+        "sw": 466,
+        "swService": 900
+    },
+    {
+        "buyingModel": "EA",
+        "hw": 1000,
+        "hwService": 2239,
+        "sw": 1200,
+        "swService": 900
+    }
+]

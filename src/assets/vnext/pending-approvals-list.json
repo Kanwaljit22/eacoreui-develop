@@ -1,0 +1,233 @@
+{
+    "rid": "EAMP1630264267356",
+    "user": "rkedia",
+    "error": false,
+    "data": {
+        "proposals": [
+            {
+                "objId": "61156ec9db95d27876f6b509",
+                "id": 8884126,
+                "name": "TEST",
+                "ciscoLed": false,
+                "projectObjId": "610174dfae88dc75f53ae273",
+                "buyingProgram": "EA 3.0",
+                "currencyCode": "USD",
+                "totalNet": 0,
+                "crAt": "2021-08-12T18:56:09.881+0000",
+                "crBy": "rkedia",
+                "upAt": "2021-08-12T18:56:10.539+0000",
+                "upBy": "rkedia",
+                "elapsedTime": "195 Hours",
+                "customerName": "THE HEARST CORPORATION",
+                "proposalExceptionDetails": [
+                    {
+                      "exceptionType": "PURCHASE_ADJUSTMENT_REQUEST",
+                      "exceptionName": "Request Purchase Adjustment",
+                      "exceptionDescription": "Request Purchase Adjustment",
+                      "createdBy": "kacrocke"
+                    }
+                  ],
+                "approverTeamDetails": [
+                    {
+                        "approverTeamName": "Request PA",
+                        "exceptionStatus": "Pending",
+                        "timeElapsed": "5 days 4 hrs 15 mins "
+                    }
+                ]
+            },
+            {
+                "objId": "6104274f13bbdb24df568586",
+                "id": 8883357,
+                "name": "TEST",
+                "ciscoLed": false,
+                "projectObjId": "6104141da750327ff65d888c",
+                "buyingProgram": "EA 3.0",
+                "currencyCode": "USD",
+                "totalNet": 0,
+                "crAt": "2021-07-30T16:22:39.787+0000",
+                "crBy": "rkedia",
+                "upAt": "2021-07-30T16:27:41.975+0000",
+                "customerName": "THE HEARST CORPORATION",
+                "proposalExceptionDetails": [
+                    {
+                      "exceptionType": "PURCHASE_ADJUSTMENT_REQUEST",
+                      "exceptionName": "Request Purchase Adjustment",
+                      "exceptionDescription": "Request Purchase Adjustment",
+                      "createdBy": "kacrocke"
+                    }
+                  ],
+                "approverTeamDetails": [
+                    {
+                        "approverTeamName": "Request PA",
+                        "exceptionStatus": "Pending",
+                        "timeElapsed": "5 days 4 hrs 15 mins "
+                    }
+                ],
+                "elapsedTime": "195 Hours",
+                "upBy": "rkedia"
+            },
+            {
+                "objId": "60f85848e8002170f83db1bf",
+                "id": 8882900,
+                "name": "TEST-Support PIDS",
+                "ciscoLed": false,
+                "projectObjId": "60f7b7e56a0c9a6a0693941b",
+                "buyingProgram": "EA 3.0",
+                "currencyCode": "USD",
+                "totalNet": 0,
+                "crAt": "2021-07-21T17:24:24.903+0000",
+                "crBy": "rkedia",
+                "upAt": "2021-07-21T17:58:22.884+0000",
+                "customerName": "THE HEARST CORPORATION",
+                "proposalExceptionDetails": [
+                    {
+                      "exceptionType": "PURCHASE_ADJUSTMENT_REQUEST",
+                      "exceptionName": "Request Purchase Adjustment",
+                      "exceptionDescription": "Request Purchase Adjustment",
+                      "createdBy": "kacrocke"
+                    }
+                  ],
+                "approverTeamDetails": [
+                    {
+                        "approverTeamName": "Request PA",
+                        "exceptionStatus": "Pending",
+                        "timeElapsed": "5 days 4 hrs 15 mins "
+                    }
+                ],
+                "elapsedTime": "195 Hours",
+                "upBy": "rkedia"
+            },
+            {
+                "objId": "60f857b29e20e80787045cfa",
+                "customerName": "THE HEARST CORPORATION",
+                "id": 8882899,
+                "name": "TEST123",
+                "ciscoLed": false,
+                "projectObjId": "60f7b7e56a0c9a6a0693941b",
+                "buyingProgram": "EA 3.0",
+                "currencyCode": "USD",
+                "totalNet": 0,
+                "crAt": "2021-07-21T17:21:53.999+0000",
+                "crBy": "rkedia",
+                "upAt": "2021-07-21T17:22:43.986+0000",
+                "proposalExceptionDetails": [
+                    {
+                      "exceptionType": "PURCHASE_ADJUSTMENT_REQUEST",
+                      "exceptionName": "Request Purchase Adjustment",
+                      "exceptionDescription": "Request Purchase Adjustment",
+                      "createdBy": "kacrocke"
+                    }
+                  ],
+                "approverTeamDetails": [
+                    {
+                        "approverTeamName": "Request PA",
+                        "exceptionStatus": "Pending",
+                        "timeElapsed": "5 days 4 hrs 15 mins "
+                    }
+                ],
+                "elapsedTime": "45 Hours",
+                "upBy": "rkedia"
+            },
+            {
+                "objId": "60f737954d4d90538f649327",
+                "customerName": "THE HEARST CORPORATION",
+                "id": 8882839,
+                "name": "TEST1",
+                "ciscoLed": false,
+                "projectObjId": "60f07d7c757e795097de9087",
+                "buyingProgram": "EA 3.0",
+                "currencyCode": "USD",
+                "totalNet": 1237185,
+                "crAt": "2021-07-20T20:52:37.764+0000",
+                "crBy": "rkedia",
+                "upAt": "2021-07-21T11:48:19.579+0000",
+                "proposalExceptionDetails": [
+                    {
+                      "exceptionType": "PURCHASE_ADJUSTMENT_REQUEST",
+                      "exceptionName": "Request Purchase Adjustment",
+                      "exceptionDescription": "Request Purchase Adjustment",
+                      "createdBy": "kacrocke"
+                    }
+                  ],
+                "approverTeamDetails": [
+                    {
+                        "approverTeamName": "Request PA",
+                        "exceptionStatus": "Pending",
+                        "timeElapsed": "5 days 4 hrs 15 mins "
+                    }
+                ],
+                "elapsedTime": "197 Hours",
+                "upBy": "rkedia"
+            },
+            {
+                "objId": "60f72fc668010f45ceb7649c",
+                "customerName": "THE HEARST CORPORATION",
+                "id": 8882836,
+                "name": "TEST",
+                "ciscoLed": false,
+                "projectObjId": "60f07d7c757e795097de9087",
+                "buyingProgram": "EA 3.0",
+                "currencyCode": "USD",
+                "totalNet": 1237404.6,
+                "crAt": "2021-07-20T20:19:18.727+0000",
+                "crBy": "rkedia",
+                "upAt": "2021-07-20T20:49:31.493+0000",
+                "proposalExceptionDetails": [
+                    {
+                      "exceptionType": "PURCHASE_ADJUSTMENT_REQUEST",
+                      "exceptionName": "Request Purchase Adjustment",
+                      "exceptionDescription": "Request Purchase Adjustment",
+                      "createdBy": "kacrocke"
+                    }
+                  ],
+                "approverTeamDetails": [
+                    {
+                        "approverTeamName": "Request PA",
+                        "exceptionStatus": "Pending",
+                        "timeElapsed": "5 days 4 hrs 15 mins "
+                    }
+                ],
+                "elapsedTime": "395 Hours",
+                "upBy": "rkedia"
+            },
+            {
+                "objId": "60f72597acfb790d0bd7b0af",
+                "customerName": "THE HEARST CORPORATION",
+                "id": 8882834,
+                "name": "TEST",
+                "ciscoLed": false,
+                "projectObjId": "60f6d1eec55cc61f455984fb",
+                "buyingProgram": "EA 3.0",
+                "currencyCode": "USD",
+                "totalNet": 1236996,
+                "crAt": "2021-07-20T19:35:51.708+0000",
+                "crBy": "rkedia",
+                "upAt": "2021-07-20T20:17:45.957+0000",
+                "proposalExceptionDetails": [
+                    {
+                      "exceptionType": "PURCHASE_ADJUSTMENT_REQUEST",
+                      "exceptionName": "Request Purchase Adjustment",
+                      "exceptionDescription": "Request Purchase Adjustment",
+                      "createdBy": "kacrocke"
+                    }
+                  ],
+                "approverTeamDetails": [
+                    {
+                        "approverTeamName": "Request PA",
+                        "exceptionStatus": "Pending",
+                        "timeElapsed": "5 days 4 hrs 15 mins "
+                    }
+                ],
+                "elapsedTime": "155 Hours",
+                "upBy": "rkedia"
+            }
+        ],
+        "page": {
+            "pageSize": 10,
+            "currentPage": 0,
+            "noOfPages": 1,
+            "noOfRecords": 7
+        }
+    },
+    "currentDate": "2021-08-29T19:11:07.535+0000"
+}

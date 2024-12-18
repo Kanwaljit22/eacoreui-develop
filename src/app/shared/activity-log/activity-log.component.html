@@ -1,0 +1,306 @@
+<app-loader *ngIf="activityDataLoaded"></app-loader>
+<div style="position:relative;">
+    <div [ngClass]="{'debug-overlay':appDataService.openActivityLog}" (click)="closeActivityLog()"></div>
+    <div class="debug activity-flyout" [ngClass]="{'open':appDataService.openActivityLog}">
+        <div class="activity_log__content">
+            <!--<div class="activity__button" (click)="openActivityLog()"> <i class="icon-history"></i>
+                {{localeService.getLocalizedString('activity.ACTIVITY_LOG')}}</div>-->
+            <!-- <div class="admin-grid-list">  -->
+            <h1 class="guide-me--label mb-0">{{localeService.getLocalizedString('activity.ACTIVITY_LOG')}} 
+                
+                <!-- <span>{{this.proposalDataService.proposalDataObject.proposalData.name}} ({{this.proposalDataService.proposalDataObject.proposalId}})</span>
+                 -->
+                <span (click)="closeActivityLog()">
+                    <i class="icon-close-btn"></i>
+                </span></h1>
+
+            <div class="grid-block" *ngIf="isProposalContext">
+                <div class="row">
+                    <!-- align-items-center mb-3 <div class="col-6 recent-qualifications">
+                        <div class="tiles-toggle d-flex align-items-center">
+                            <div class="tiles-toggle-txt p-0">I want to view Logs by </div>
+                            <div class="dropdown select-dropdown">
+                                <button class="dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>All</span><i class="icon-arrow-stroke-right"></i>
+                                </button>
+                                <div class="dropdown-menu" *ngIf="openDealDrop">
+                                    <a class="dropdown-item" href="javascript:void(0)">All<span class="icon-tick"></span></a>
+                                    <a class="dropdown-item" href="javascript:void(0)">Link 1<span class="icon-tick"></span></a>
+                                    <a class="dropdown-item" href="javascript:void(0)">Link 2<span class="icon-tick"></span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                    <div class="col-4">
+                        <label class="label-text">Proposal Id</label>
+                        <h4 class="labe-val">{{this.proposalDataService.proposalDataObject.proposalId}}</h4>
+                    </div>
+                    <div class="col-4">
+                        <label class="label-text">Proposal Name</label>
+                        <h4 class="labe-val">{{this.proposalDataService.proposalDataObject.proposalData.name}}</h4>
+                    </div>
+                    <div class="col-4">
+                        <div class="custom-dropdown">
+                            <label class="label-text">Date Filter :</label>
+                            <div ngbDropdown class="select-items date-range" #myDropDates="ngbDropdown" (click)="myDropDates.open();">
+                                <span class="dropdown--typeAhead__arrow-management" >
+                                    <button type="button" appElementFocus class="btn--text drop-button" ngbDropdownAnchor dropdownManual>
+                                        {{ selectedDate}}</button>
+                                </span>
+                                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                                    <ul>
+                                        <li class="dropdown-item" *ngFor="let date of dates"
+                                            (click)="onDateChange(date)" [value]="date.value">{{date.viewValue}}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            </div>
+                    </div>
+                </div>
+
+                
+
+                <div class="user-list-grid-block mb-3" style="display: none;">
+<div class="user-list-grid">
+                <div class="grid-block">
+                    <div class="row">
+                        
+                        <div class="col-3">
+                            <label>Date and Time</label>
+                            <h4 class="label-name">
+                                <span>13-Jan-2019 01:52:01 AM</span>
+                            </h4>
+                        </div>
+                        <div class="col-2">
+                            <label>User</label>
+                            <h4>rbinwani</h4>
+                        </div>
+                        <div class="col-4">
+                            <label>Action</label>
+                            <h4 class="label-name">
+                                <span class="ellipsis" container="body" placement="top">ORDERING_RULE_EXECUTION</span>
+                            </h4>
+                        </div>
+                        <div class="col-3">
+                            <label>Field</label>
+                            <h4 class="label-name">
+                                <span class="ellipsis" container="body" placement="top" ng-reflect-placement="top">--</span>
+                                
+                            </h4>
+                        </div>
+                    </div>
+        
+                    <div class="user-list-sep">
+                        <div class="row">
+                            <div class="col-3">
+                                <label>Old Value</label>
+                                <h4 class="label-name"><span class="ellipsis" container="body" placement="top" ng-reflect-placement="top" ng-reflect-container="body" ng-reflect-ngb-tooltip="36 Months"><a href="javascript:void(0)">View Details</a></span>
+                                </h4>
+                            </div>
+                            <div class="col-3">
+                                <label>New Value</label>
+                                <h4 class="label-name"><span class="ellipsis" container="body" placement="top" ng-reflect-placement="top" ng-reflect-container="body" ng-reflect-ngb-tooltip="US"><a href="javascript:void(0)">View Details</a></span></h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="user-list-grid-block mb-3" style="display: none;">
+            <div class="user-list-grid">
+                            <div class="grid-block">
+                                <div class="row">
+                                    
+                                    <div class="col-3">
+                                        <label>Date and Time</label>
+                                        <h4 class="label-name">
+                                            <span>13-Jan-2019 01:52:01 AM</span>
+                                        </h4>
+                                    </div>
+                                    <div class="col-2">
+                                        <label>User</label>
+                                        <h4>rbinwani</h4>
+                                    </div>
+                                    <div class="col-4">
+                                        <label>Action</label>
+                                        <h4 class="label-name">
+                                            <span class="ellipsis" container="body" placement="top">Contact-Added-EST</span>
+                                        </h4>
+                                    </div>
+                                    <div class="col-3">
+                                        <label>Field</label>
+                                        <h4 class="label-name">
+                                            <span class="ellipsis" container="body" placement="top" ng-reflect-placement="top">--</span>
+                                            
+                                        </h4>
+                                    </div>
+                                </div>
+                    
+                                <div class="user-list-sep">
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <label>Old Value</label>
+                                            <h4 class="label-name"><span class="ellipsis" container="body" placement="top" ng-reflect-placement="top" ng-reflect-container="body" ng-reflect-ngb-tooltip="36 Months">--</span>
+                                            </h4>
+                                        </div>
+                                        <div class="col-3">
+                                            <label>New Value</label>
+                                            <h4 class="label-name"><span class="ellipsis" container="body" placement="top" ng-reflect-placement="top" ng-reflect-container="body" ng-reflect-ngb-tooltip="US"><a href="javascript:void(0)">View Details</a></span></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+
+            <div class="grid-block" *ngIf="isQualificationContext">
+                <div class="row">
+
+                    <div class="col-4">
+                        <label class="label-text">Qualification Id</label>
+                        <h4 class="labe-val">{{this.qualService.qualification.qualID}}</h4>
+                    </div>
+                    <div class="col-4">
+                        <label class="label-text">Qualification Name</label>
+                        <h4 class="labe-val">{{this.qualService.qualification.name}}</h4>
+                    </div>
+                    <div class="col-4">
+                        <div class="custom-dropdown">
+                            <label class="label-text">Date Filter :</label>
+                            <div ngbDropdown class="select-items date-range" #myDropDates="ngbDropdown" (click)="myDropDates.open();">
+                                <span class="dropdown--typeAhead__arrow-management" >
+                                    <button type="button" appElementFocus class="btn--text drop-button" ngbDropdownAnchor dropdownManual>
+                                        {{ selectedDate}}</button>
+                                </span>
+                                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                                    <ul>
+                                        <li class="dropdown-item" *ngFor="let date of dates"
+                                            (click)="onDateChange(date)" [value]="date.value">{{date.viewValue}}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+
+            
+
+            <div class="bottomActionsTab mb-3">
+                <ul class="nav">
+                    <li class="nav-item">
+                                <a [ngClass]="{'active':isAllSelected}" class="nav-link active"
+                                    (click)="showActivityLog('ALL')">{{'ALL'}}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a [ngClass]="{'active':isQualificatiosSelected}" class="nav-link"
+                            (click)="showActivityLog('QUALIFICATION')">{{'QUALIFICATION'}}</a>
+                    </li>
+                    <li class="nav-item" *ngIf="!isQualificationContext">
+                        <a [ngClass]="{'active':isProposalSelected}" class="nav-link"
+                            (click)="showActivityLog('PROPOSAL')">{{'PROPOSAL'}}</a>
+                    </li>
+                    <li class="nav-item" *ngIf="!isQualificationContext">
+                        <a [ngClass]="{'active':isTcoSelected}" class="nav-link"
+                            (click)="showActivityLog('TCO')">{{'TCO'}}</a>
+                    </li>
+                    <li class="nav-item" *ngIf="!isQualificationContext">
+                        <a [ngClass]="{'active':isDocusignSelected}" class="nav-link"
+                            (click)="showActivityLog('DOCUSIGN')">{{'DOCUSIGN'}}</a>
+                    </li>                
+                    <li class="nav-item" *ngIf="!isQualificationContext">
+                        <a [ngClass]="{'active':isQuoteSelected}" class="nav-link"
+                            (click)="showActivityLog('QUOTE')">{{'QUOTE'}}</a>
+                    </li>
+                    <li class="nav-item" *ngIf="!isQualificationContext">
+                        <a [ngClass]="{'active':isOrderSelected}" class="nav-link"
+                            (click)="showActivityLog('ORDER')">{{'ORDER'}}</a>
+                    </li>
+                </ul>
+            </div>
+
+
+            
+            <div class="clearfix" style="height: calc(100vh - 207px); overflow: auto;">
+
+                <table class="primary-table">
+
+                    <thead>
+                        <tr>
+                            <th width="22%">{{'Date and Time'}}</th>
+                            <th width="10%">{{'User'}}</th>
+                            <th width="12%">{{'Type'}}</th>
+                            <th width="15%">{{'Action'}}</th>
+                            <th width="25%">{{'Description'}}</th>
+                            <!--<th width="27%" *ngIf="isProposalContext && !isQualificatiosSelected">{{'Field'}}</th>
+                            <th width="27%" *ngIf="isQualificationContext || (isProposalContext && isQualificatiosSelected)">{{'Description'}}</th>-->
+                            <th width="8%">{{'Old Value'}}</th>
+                            <th width="8%">{{'New Value'}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let activity of activityData">
+                            <!--Date column-->
+                            <td>{{activity.date}}</td>
+                            <!--User column-->
+                            <td *ngIf="activity.newValue && activity.newValue.updatedBy">{{activity.newValue.updatedBy}}</td>
+                            <td *ngIf="activity.newValue && !activity.newValue.updatedBy && activity.newValue.createdBy">{{activity.newValue.createdBy}}</td>
+                            <td *ngIf="activity.newValue && !activity.newValue.updatedBy && !activity.newValue.createdBy && activity.newValue.user">{{activity.newValue.user}}</td>
+                            <td *ngIf="!activity.newValue && activity.oldValue && activity.oldValue.updatedBy">{{activity.oldValue.updatedBy}}</td>
+                            <td *ngIf="!activity.newValue && activity.oldValue && !activity.oldValue.updatedBy && activity.oldValue.createdBy">{{activity.oldValue.createdBy}}</td>
+                            <td *ngIf="!activity.newValue && activity.oldValue && !activity.oldValue.updatedBy && !activity.oldValue.createdBy && activity.oldValue.user">{{activity.oldValue.user}}</td>
+                            <td *ngIf="!activity.newValue && !activity.oldValue && activity.userId">{{activity.userId}}</td>
+                            <!--Type column-->
+                            <td *ngIf="activity.type">{{activity.type}}</td>
+                            <!--Action column-->
+                            <td *ngIf="activity.action">{{activity.action}}</td>
+                            <td *ngIf="!activity.action"></td>
+                            <!--<td *ngIf="isProposalContext && !isQualificatiosSelected && activity.change">
+                                <div>{{activity.change}}</div>
+                                <div><a href="javascript:void(0)" *ngIf="activity.viewMoreObj" (click)="openValueModal(activity.viewMoreObj,'View More')">View More</a></div>
+                            </td>
+                            <td *ngIf="isProposalContext && !isQualificatiosSelected && !activity.change "></td>-->
+                            <!--<td *ngIf="(isQualificationContext || (isProposalContext && isQualificatiosSelected)) && activity.description">
+                                <div style="width:250px ;overflow:auto"><pre>{{activity.description}}</pre></div>
+                                <div><a href="javascript:void(0)" *ngIf="activity.viewMoreObj" (click)="openValueModal(activity.viewMoreObj,'View More')">View More</a></div>
+                            </td>
+                            <td *ngIf="(isQualificationContext || (isProposalContext && isQualificatiosSelected)) && !activity.description && activity.differentials">
+                                <div style="width:250px ;overflow:auto"><pre>{{activity.differentials.description}}</pre></div>
+                                <div><a href="javascript:void(0)" *ngIf="activity.viewMoreObj" (click)="openValueModal(activity.viewMoreObj,'View More')">View More</a></div>
+                            </td>-->
+                            <!--Description column-->
+                            <td *ngIf="activity.description">
+                                <div style="width:250px ;overflow:auto"><pre>{{activity.description}}</pre></div>
+                                <div><a href="javascript:void(0)" *ngIf="activity.viewMoreObj" (click)="openValueModal(activity.viewMoreObj,'View More')">View More</a></div>
+                            </td>
+                            <td *ngIf="!activity.description && activity.differentials">
+                                <div style="width:250px ;overflow:auto"><pre>{{activity.differentials.description}}</pre></div>
+                                <div><a href="javascript:void(0)" *ngIf="activity.viewMoreObj" (click)="openValueModal(activity.viewMoreObj,'View More')">View More</a></div>
+                            </td>
+                            <td *ngIf="!activity.description && !activity.differentials"></td>
+                            <!--Old Value column-->
+                            <td *ngIf="activity.oldChangedValue">
+                                <div style="width:110px "><pre>{{activity.oldChangedValue}}</pre></div></td>         
+                            <td *ngIf="!activity.oldChangedValue && activity.oldValue">
+                                <a href="javascript:void(0)" (click)="openValueModal(activity.oldValue,'Old Value')"><span>View Details</span></a>
+                            </td>
+                            <td *ngIf="!activity.oldChangedValue && !activity.oldValue"></td>
+
+                            <!--New Value column-->
+                            <td *ngIf="activity.newChangedValue">
+                                <div style="width:110x "><pre>{{activity.newChangedValue}}</pre></div></td>
+                            <td *ngIf="!activity.newChangedValue && activity.newValue">
+                                    <a href="javascript:void(0)" (click)="openValueModal(activity.newValue,'New Value')"><span>View Details</span></a>
+                            </td>
+                            <td *ngIf="!activity.newChangedValue && !activity.newValue"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

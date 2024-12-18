@@ -1,0 +1,63 @@
+[
+      {
+        "headerName": "PART NUMBER",
+        "field": "partNumber",
+        "width": 150,
+        "suppressMenu": true
+      },
+      {
+        "headerName": "QTY",
+        "field": "qty",
+        "width": 90,
+        "headerClass": "text-center",
+        "cellClass": "text-center",
+        "suppressMenu": true
+      },
+      {
+        "headerName": "INITIAL TERM (MONTHS)",
+        "field": "initalTerm",
+        "width": 90,
+         "cellClass": "text-right",
+        "suppressMenu": true
+      },
+      {
+        "headerName": "AUTO RENEWAL TERM (MONTHS)",
+        "field": "autoRenewalTerm",
+        "width": 110,
+         "cellClass": "text-right",
+        "suppressMenu": true
+      },
+      {
+        "headerName": "BILLING MODEL",
+        "field": "billingModel",
+        "width": 110,
+        "suppressMenu": true
+      },
+      {
+        "headerName": "REQUESTED START DATE",
+        "field": "startDate",
+        "width": 110,
+        "suppressMenu": true
+      },
+      {
+        "headerName": "LIST PRICE (USD)",
+        "field": "listPrice",
+        "width": 110,
+        "suppressMenu": true
+      },
+      {
+        "headerName": "DISCOUNT (%)",
+        "field": "discount",
+        "width": 110,
+         "cellClass": "text-right",
+        "suppressMenu": true
+      },
+      {
+        "headerName": "PURCHASE ADJUSTMENT (USD)",
+        "field": "purchaseAdjustment",
+        "width": 110,
+         "cellClass": "text-right",
+        "suppressMenu": true
+      }
+
+]

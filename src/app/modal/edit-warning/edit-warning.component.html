@@ -1,0 +1,11 @@
+<div class="modal-body">
+  <div *ngIf="!confirmEdit" class="body-content info-alert-message">
+      <button class="icon-close-btn" (click)="activeModal.dismiss('Cross click')" data-dismiss="modal" type="button"></button>
+          <span class="icon-alert-info">
+                  <span class="path1"></span><span class="path2"></span><span class="path3"></span>
+                  </span>
+
+    <div class="info-txt">{{localeService.getLocalizedMessage('editwarning.CHANGE_DEAL_ID')}}</div>
+  <button type="button" class="btn btn-secondary"  data-dismiss="modal" (click)="activeModal.dismiss('Cross click')">{{localeService.getLocalizedString('common.CANCEL')}}</button>
+<button type="button" class="btn btn-primary marginL10 btn-continue" (click)="continueEdit()"><span class="mid-text">{{localeService.getLocalizedString('common.CONTINUE')}}</span> <span class="icon-btn-continue"></span></button>
+</div>

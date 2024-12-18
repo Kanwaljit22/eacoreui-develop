@@ -1,0 +1,8 @@
+<div class="hierachy-list">
+    <ag-grid-angular *ngIf="showGrid" #agGrid1 id="ag-grid1" style="width: 100%; height:250px" class="ag-fresh child-header-grid pin-right-brd"
+    
+         [columnDefs]="columns" [rowData]="rows"  [gridOptions]="gridOptions" 
+         (gridReady)="onGridReady($event)"
+        >
+    </ag-grid-angular>
+</div>

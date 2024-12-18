@@ -1,0 +1,71 @@
+.conf-text {
+    font-size: rem(14);
+    line-height: rem(20);
+    color: #333333;
+}
+.card.conf-card {
+    border: 0 !important;
+    display: block;
+}
+.confirm-modal input[type="text"] {
+    background: transparent;
+    height: 30px;
+    font-size: 14px;
+
+}
+
+
+.confirm-modal .calender-date {
+    top:38px;
+    right:8px;
+    width: 12px;
+}
+
+
+
+.confirm-label {
+    font-weight: normal;
+    font-size: rem(14);
+    line-height: rem(20);
+}
+.acknowldge-div {
+    background: #F8F8F8;
+    padding: 10px;
+    &.bold{
+        span{ font-weight: 900;}
+    }
+}
+
+.acknowldge-div span {
+    font-size: rem(14);
+    line-height: rem(19);
+    color: #4A4B57;
+}
+.modal-important-msg {
+    background: rgba(226, 35, 26, 0.1);
+    border: 1px solid rgba(226, 35, 26, 0.15);
+    border-radius: 3px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.modal-important-msg .heading {
+    text-transform: uppercase;
+    font-weight:900;
+    color: #E2231A;
+    margin-bottom:10px;
+}
+
+.modal-important-msg ul li {
+    padding-left: 20px;
+    position: relative;
+}
+.modal-important-msg li:before{
+content:"";
+display:inline-block;
+position:absolute;
+width:6px;height:6px;
+background:#000;
+left:0;border-radius:50%;
+top:5px;
+}

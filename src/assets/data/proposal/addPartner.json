@@ -1,0 +1,31 @@
+[{
+        "contactName": "Cisco Systems INC Service Operations",
+        "title": "Network Support",
+        "ciscoId": "memcgoni@cisco.com",
+        "emailId": "john@cisco.com",
+        "phoneNumber": "0123-456-7890",
+        "city": "Raleigh",
+        "state": "North Carolina",
+        "country": "USA"
+    },
+    {
+        "contactName": "Cisco Systems",
+        "title": "System / Sales",
+        "ciscoId": "sunChand@cisco.com",
+        "emailId": "smith@cisco.com",
+        "phoneNumber": "0123-456-7890",
+        "city": "Raleigh",
+        "state": "North Carolina",
+        "country": "USA"
+    },
+    {
+        "contactName": "Cisco Systems INC",
+        "title": "Teleconference",
+        "ciscoId": "dahyland@cisco.com",
+        "emailId": "john@cisco.com",
+        "phoneNumber": "0123-456-7890",
+        "city": "Raleigh",
+        "state": "North Carolina",
+        "country": "USA"
+    }
+]

@@ -1,0 +1,61 @@
+<!-- <div class="custom-flyout-overlay"></div> -->
+<section class="filter-slide">
+        <div class="filter-header">
+            <h3 class="heading--h3">{{'common.FILTERS' | localizationPipe : localizationService.localizedkeySet.size}}</h3>
+            <button type="button" class="icon-close-btn mt-0" attr.action-id="{{dataIdConstantsService.filerMenu_button_close}}" (click)="eaStoreService.showHideFilterMenu = false"></button>
+        </div>
+        <!-- End of Filter header -->
+    
+        <div class="filter-body">
+            <ng-container *ngFor="let filterData of filterMetaData; let index = index;">
+                <div class="filter-list" *ngIf='!filterData.checkForPartnerUser || isPartnerLoggedIn'>
+                    <div class="f-head">
+                        <h5 class="heading--h5">{{filterData.name}}</h5>
+                        <a href="javascript:void(0);" (click)="filterData.showFilters = !filterData.showFilters" attr.action-id="{{dataIdConstantsService.filerMenu_link_showFilters}}{{index}}">
+                            <span class="icon-arrow-stroke-right" [ngClass]="{'up': !filterData.showFilters}"></span>
+                        </a>
+                    </div>
+                    <!--End of Filter Header -->
+                    <div class="f-body" *ngIf="filterData.showFilters">
+                        <ul class="f-items" *ngIf="filterData.inputType === 'checkbox'">
+                            <li *ngFor="let filter of filterData.filters; let filterIndex = index;">
+                                <label class="label-check" (click)="selectFilter(filterData, filter)" attr.data-id="{{dataIdConstantsService.filerMenu_dropdown_selectFiler}}{{filterIndex}}">
+                                    <input class="form-check-input" type="checkbox" [checked]="filter.selected" attr.data-id="{{dataIdConstantsService.filerMenu_checkbox_filterSelect}}{{filterIndex}}">
+                                    <span class="custom-checkbox-btn i-vNext-fonts">
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                        <span class="path3"></span>
+                                    </span>
+                                    <span>{{filter.name}}</span>
+                                </label>
+                             </li>
+                        </ul>
+                        <!-- start of input type radio -->
+                        <ul class="f-items" *ngIf="filterData.inputType === 'radio'">
+                            <ng-container *ngFor="let filter of filterData.filters; let filterIndex = index;" >
+                                <li *ngIf='((!filter.checkForSuperUser || eaStoreService.isUserRwSuperUser || eaStoreService.isUserRoSuperUser) && !filter.checkForPartnerUser && !filter?.checkForPartnerSuperUser) || (filter.checkForPartnerUser && isPartnerLoggedIn && eaService.features.PARTNER_SUPER_USER_REL) || (filter?.checkForPartnerSuperUser && isPartnerLoggedIn && eaService.features.PARTNER_SUPER_USER_REL && eaStoreService.userInfo?.superUser)' class="mr-3 radio-custom" (click)="selectFilter(filterData, filter, 'radio')">
+                                    <input type="radio" name="creator" [checked]="filter.selected"  attr.data-id="{{dataIdConstantsService.filerMenu_radio_filterSelect}}{{filterIndex}}">
+                                    <label class="mr-2">
+                                        <span class='custom-radio-btn'>
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                        </span>{{filter.name}}
+                                    </label>
+                                </li>
+                            </ng-container>
+                        </ul>
+    
+                    </div>
+                    <!-- End of Filter Body -->
+                </div>
+            </ng-container>
+            <!-- End of Filter Block -->
+        </div>
+        <!-- End of Filter Body -->        
+    
+        <div class="filter-footer">
+            <button class="btn btn-secondary mx-1" (click)="clearAll()" attr.action-id="{{dataIdConstantsService.filerMenu_button_clearAll}}" id="{{elementIdConstantsService.FilterMenu_ClearAll}}">{{'common.CLEAR_ALL' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+            <button class="btn btn-primary mx-1" (click)="apply()" attr.action-id="{{dataIdConstantsService.filerMenu_button_apply}}" id="{{elementIdConstantsService.FilterMenu_Apply}}">{{'common.APPLY' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+        </div>
+        <!-- End of Filter Footer -->
+    </section>

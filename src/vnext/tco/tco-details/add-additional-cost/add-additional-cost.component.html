@@ -1,0 +1,91 @@
+<div class="custom-flyout-overlay"></div>
+<div class="custom-flyout vNext">
+    <div class="heading">
+        <div class="d-flex justify-content-between align-items-center mb-0">
+            <div class="heading-title">
+                <h2 class="heading--h2 d-flex align-items-center">{{'common.ADD_ADDITIONAL_COST' | localizationPipe : localizationService.localizedkeySet.size}}</h2>
+            </div>
+            <div>
+                <button class="icon-close-btn" (click)="tcoService.addAdditionalCost = false;" type="button"></button>
+            </div>
+        </div>
+        <div class="flex-basis d-flex gap-30 item-center justify-right my-3">
+            <a class="" (click)="tcoService.addAdditionalCost = false;">{{'additionalCost.CANCEL' | localizationPipe : localizationService.localizedkeySet.size}}</a>
+            <button class="btn btn-primary" [disabled]="isSaveDisabled()" (click)="saveAndContinue()">{{'additionalCost.SAVE_AND_CONTINUE' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+        </div>
+    </div>
+    <div class="body">
+        <section class="drawer drawer--right" id="add-additional-cost" data-drawer-target>
+            <div class="drawer__overlay" data-drawer-close tabindex="-1"></div>
+            <div class="drawer__wrapper drawer__view-details">
+                <div class="drawer__content">
+                    <section id="modeling-container">
+                        <div class="advanced-modeling-section" *ngFor="let cost of additionalCosts; let i = index">
+                            <div class="padding-B-16">
+                                <div class="key padding-B-4">{{'additionalCost.COST_NAME' | localizationPipe : localizationService.localizedkeySet.size}} <span class="text-danger">*</span></div>
+                                <div>
+                                    <input type="text" name="costName{{i}}" [placeholder]="'additionalCost.COST_NAME_PLACEHOLDER' | localizationPipe : localizationService.localizedkeySet.size" [(ngModel)]="cost.name" />
+                                </div>
+                            </div>
+                            <div class="d-flex item-center gap-10 w-full padding-B-16">
+                                <div class="w-1-2">
+                                    <div class="key padding-B-4">{{'additionalCost.PERCENTAGE' | localizationPipe : localizationService.localizedkeySet.size}} <span *ngIf="!hasValue(cost.swPercent) && !hasValue(cost.cxPercent)" class="text-danger">*</span></div>
+                                    <div class="input-container" [ngClass]="{'has-value': cost.swPercent}">
+                                        <input
+                                          type="number"
+                                          class="sw-input"
+                                          (dblclick)="onDoubleClick()"
+                                          [ngClass]="{'disabled': tcoStoreService.inflation.cxOnlyPurchased }"
+                                          name="swPercent{{i}}"
+                                          (keydown)="keyDown($event)" (blur)="blurEvent()"
+                                          [placeholder]="'additionalCost.ENTER_VALUE' | localizationPipe : localizationService.localizedkeySet.size"
+                                          [(ngModel)]="cost.swPercent"
+                                          (ngModelChange)="cost.swPercent = cost.swPercent === null ? '' : cost.swPercent"
+                                        />
+                                      </div>
+                                </div>
+                                <div class="w-1-2">
+                                    <div  class="key padding-B-4">{{'additionalCost.PERCENTAGE' | localizationPipe : localizationService.localizedkeySet.size}} <span *ngIf="!hasValue(cost.swPercent) && !hasValue(cost.cxPercent)" class="text-danger">*</span></div>
+                                    <div class="input-container" [ngClass]="{'has-value': cost.cxPercent}">
+                                        <input
+                                            type="number"
+                                            class="services-input"
+                                            (dblclick)="onDoubleClick()"
+                                            [ngClass]="{'disabled': !tcoStoreService.inflation.cxAvailable }"
+                                            name="cxPercent{{i}}"
+                                            (keydown)="keyDown($event)" (blur)="blurEvent()"
+                                            [placeholder]="'additionalCost.ENTER_VALUE' | localizationPipe : localizationService.localizedkeySet.size"
+                                            [(ngModel)]="cost.cxPercent"
+                                            (ngModelChange)="cost.cxPercent = cost.cxPercent === null ? '' : cost.cxPercent"
+                                        />
+                                        </div>
+                                    </div>
+                            </div>
+                            <div class="d-flex justify-between item-center">
+                                <div class="d-flex gap-8 item-stretch body-md">
+                                    <label class="font-400 mb-0">{{'additionalCost.APPLY_TO' | localizationPipe : localizationService.localizedkeySet.size}}</label>
+                                    <input type="checkbox" name="bau{{i}}" [(ngModel)]="cost.bau" id="business-as-usual-{{i}}">
+                                    <label for="business-as-usual-{{i}}" class="font-400 mb-0">{{'common.BAU' | localizationPipe : localizationService.localizedkeySet.size}}</label>
+                                    <input type="checkbox" name="ea{{i}}" [(ngModel)]="cost.ea" id="ea-3.0-{{i}}">
+                                    <label for="ea-3.0-{{i}}" class="font-400 mb-0" *ngIf="!isMsea">{{'common.EA3_LABEL' | localizationPipe : localizationService.localizedkeySet.size}}</label>
+                                    <label for="ea-3.0-{{i}}" class="font-400 mb-0" *ngIf="isMsea">{{'common.MSEA3_LABEL' | localizationPipe : localizationService.localizedkeySet.size}}</label>
+                                </div>
+                                <a *ngIf="additionalCosts?.length > 1" href="javascript:void(0)" (click)="removeCost(i)" class="body-md">{{'additionalCost.REMOVE' | localizationPipe : localizationService.localizedkeySet.size}}</a>
+                            </div>
+                        </div>
+                    </section>
+                    <div id="cost-section" class="d-flex justify-content-end">
+                        <button 
+                        id="add-cost-btn" 
+                        type="button" 
+                        class="btn btn-secondary" 
+                        [disabled]="isAddCostDisabled()" 
+                        (click)="addNewCost()">
+                        {{'additionalCost.ADD_NEW_COST' | localizationPipe : localizationService.localizedkeySet.size}}
+                      </button>                    
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

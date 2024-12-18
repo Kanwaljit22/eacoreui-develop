@@ -1,0 +1,352 @@
+<div class="custom-flyout-overlay"></div>
+<div class="custom-flyout vNext" [class.xl-width]="!isYearly">
+    <div class="heading">
+        <div class="d-flex justify-content-between align-items-center mb-0">
+                <div class="heading-title">
+                    <h2 class="heading--h2 d-flex align-items-center">Advanced Modelling for   
+                      <div class="select-items dropdown mb-2" (clickOutside)="showModelDropdown = false;">
+                        <span class="dropdown--typeAhead__arrow-management">
+                          <button class="btn--text drop-button dropdown-toggle" type="button"
+                            (click)="showModelDropdown = !showModelDropdown">{{selectedModelType?.name}}</button>
+                        </span>
+                        <div class="dropdown-menu" [class.show]="showModelDropdown">
+                          <ul>
+                            <li *ngFor='let type of modelTypeArr; let index = index;' (click)='selectType(type)'>
+                              {{type.name}}</li>
+                          </ul>
+                        </div>
+                      </div>
+                        </h2>
+                    </div>
+            <div>
+                <button class="icon-close-btn" (click)="close()" type="button"></button>
+            </div>
+        </div>
+        <div class="flex-basis d-flex gap-30 item-center justify-right">
+          <a href="javascript:void(0);"  (click)="close()">Cancel</a>
+          <button class="btn btn-primary" [ngClass]="{'disabled':!updatedByUser && !isToggleUpdated}" (click)="recalculate()">Save and Recalculate</button>
+        </div>
+    </div>
+    <!-- End of Heading -->
+
+    <div class="body">
+
+      <app-message [displayModalMsg]="true"></app-message>
+      <div *ngIf="bulkUpdateError" class="alert alert--danger alert-dismissable mb-2">
+        <span class="alert-icon">
+            <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+        </span>
+        <span>{{'advanced-modeling.BUK_PERCENTAGE_ERROR' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+    </div>
+    <!-- success message for bulkUpdate -->
+    <div *ngIf="bulkUpdateSuccess" class="alert alert--success alert-dismissable">
+      <span class="alert-icon">
+          <span class="icon-done1"><span class="path1"></span><span class="path2"></span></span>
+      </span>
+      <span>{{'advanced-modeling.BULK_UPDATE_SUCCESS' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+    </div>
+  <!-- partner modeling-->
+
+  <section class="drawer drawer--right" id="advanced-modelling">
+    <div class="drawer__overlay" data-drawer-close tabindex="-1"></div>
+    <div class="drawer__wrapper drawer__view-details">
+        <!-- <div class="drawer__header">
+            <h4 class="padding-B-26">Advanced Modelling For Growth Expenses</h4>
+            <button class="drawer__close" data-drawer-close aria-label="Close Drawer"></button>
+            <div class="flex-basis d-flex gap-30 item-center justify-right">
+              <a class="">Cancel</a><button class="button primary-button">Recalculate and Save  </button>
+            </div>
+        </div> -->
+        <div class="drawer__content">
+          <div class="page-heading padding-TB-10 "><h5>Advanced Modelling <span class="cs-info font-16" ngbTooltip="{{'advanced-modeling.TOOLTIP_MESSAGE' | localizationPipe : localizationService.localizedkeySet.size}}" container="body" placement="top"></span></h5>
+            <ul>
+              <li *ngIf="modelType === constantsService.GROWTH_EXPENSE">
+                <label class="toggle-btn-switch">
+                  <span class="toggle-label mr-2">Yearly</span>
+                  <input class="toggle-checkbox" type="checkbox" [checked]="!isYearly" (click)="changeViewType()">
+                  <div class="toggle-switch"></div>
+                  <span class="toggle-label ml-2">Quarterly</span>
+                </label>
+              </li>
+              <li class="sep gap-10">
+                <div class="bulk-action" [ngClass]="{'disabled':!selectedAtos.length}" (click)="editBulkUpdate()"><span class="cs-edit"></span><span>Bulk Update</span></div>
+                <div class="bulk-update up" *ngIf="openBulkUpdateTip">
+                  <div class="body-md padding-B-16 font-500">Bulk Update</div>
+                  <span class="close-icon" (click)="openBulkUpdateTip = false;">X</span>
+                  <div class="padding-B-16">
+                    <div class="key padding-B-4">Percentage</div>
+                    <div class="position-relative"><input type="text" (dblclick)="onDoubleClick()" [(ngModel)]="bulkPercentage" (keyup)="onPercentageChange($event)" placeholder="Enter Percentage" (keydown)="keyDown($event, true)">
+                      <span *ngIf="bulkPercentage" class="percentage-ico">%</span>
+                    </div>
+                  </div>
+                  <div class="padding-B-16">
+                    <div class="key item-center padding-B-4 d-flex gap-8">
+                      <span>Apply</span>
+                      <ng-template #incrementalTip>
+                        <ul class="incremental-tip">
+                          <li>
+                            {{'advanced-modeling.INCREMENTAL_TYPE_VALUE_INCREASE' | localizationPipe : localizationService.localizedkeySet.size}}
+                          </li>
+                          <li>
+                            {{'advanced-modeling.SAME_TO_ALL_VALUE_SELECT' | localizationPipe : localizationService.localizedkeySet.size}}
+                          </li>
+                        </ul>
+                      </ng-template>
+                      <span class="cs-info" [ngbTooltip]="incrementalTip" container="body" #toolTip="ngbTooltip" placement="top"></span></div>
+                    <div>
+                      <div class="select">
+                      <select class="custom-select" name="apply" (change)="selectBulkOption()" [(ngModel)]="bulkOption" placeholder="Select Type">
+                         <option value="{{option}}" *ngFor="let option of bulkOptions" >
+                          {{option}}</option>
+                      </select>
+                   </div>
+                  </div>
+                  </div>
+                  <div class="padding-B-16" *ngIf="isIncremental">
+                    <div class="key padding-B-4">Incremental Value</div>
+                    <div class="position-relative"><input type="text" placeholder="Enter Value" [(ngModel)]="incrementalValue" (keyup)="onIncrementalChange($event)" ><span *ngIf="incrementalValue" class="percentage-ico">%</span></div>
+                  </div>
+                  <div class="text-right"><button class="button primary-button" [class.disabled]="!(bulkPercentage && bulkOption) || (isIncremental && !incrementalValue)" (click)="applyBulkUpdate()">Apply</button></div>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <section class="advanced-growth-section">
+            <table class="grid-table-items freeze-first-col">
+                <thead>
+                  <tr>
+                    <th rowspan="2" width="35%" class="border-l-0">Portfolio, Solution & Suites</th>
+                    <ng-container *ngIf="isYearly">
+                      <th  [attr.colspan]="2" *ngFor="let a of maxTermArray; let index = index" class="text-center">Year {{ index+1 }}</th>
+                    </ng-container>
+                    <ng-container *ngIf="!isYearly">
+                      <th  [attr.colspan]="8" *ngFor="let a of quartelyYearArray; let index = index" class="text-center">Year {{ index+1 }}</th>
+                    </ng-container>
+                  </tr>
+                  <tr *ngIf="!isYearly">
+                    <ng-container *ngFor="let a of maxTermArray; let i = index">
+                        <th width="200px" class="text-center" [attr.colspan]="2">Q{{ (i%4)+1 }}</th>
+                    </ng-container>
+                  </tr>
+                </thead>
+                <ng-container *ngFor="let enrollmentObj of advanceModelingData?.enrollmentConf; let i = index">
+                <tbody *ngIf="!enrollmentObj.isCXEnrollment"> <!-- This is software rows-->
+                  <tr class="grid-table-major-row">
+                    <td class="border-l-0"><div class="portfolio-item">
+                      <div class="d-flex item-center gap-10"><span class="font-16 " [ngClass]="{'cs-collapse':enrollmentObj.expand,'cs-expand': !enrollmentObj.expand}" (click)="enrollmentObj.expand = !enrollmentObj.expand"></span>
+                        
+                        <label class="label-check">
+                          <input class="form-check-input" (change)="changeAllEnrollmentSelection(enrollmentObj)" [checked]="enrollmentObj.checked" type="checkbox" id="product1" name="product1"/>
+                          <span class="custom-checkbox-btn i-vNext-fonts">
+                            <span class="path1"></span>
+                            <span class="path2"></span>
+                            <span class="path3"></span>
+                          </span>
+                        </label>
+                        <div class="font-700 enoll-name" >{{enrollmentObj.name}}</div></div>
+                      <div class="d-flex item-center gap-10">
+                        <span class="widget-services software-cx">SW</span>
+                      </div>
+                      </div></td>
+                    <td [attr.colspan]="isYearly ? maxTermArray.length*2 : quartelyYearArray?.length*8" ></td>
+                   <!--<td *ngFor="let a of maxTermArray; let index = index"></td>--> 
+                  </tr>
+                  <ng-container *ngIf="enrollmentObj.expand">
+                    <ng-container *ngFor="let pool of enrollmentObj.pools; let i = index">
+                      <tr class="grid-table-minor-row">
+                        <td class="border-l-0"><div class="portfolio-item">
+                          <div class="d-flex item-center gap-10">
+                            <label class="label-check">
+                              <input  class="form-check-input" [checked]="pool.checked" (change)="changeAllSuiteSelection(pool, enrollmentObj)" type="checkbox" id="product1" name="product1"/>
+                              <span class="custom-checkbox-btn i-vNext-fonts">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                                <span class="path3"></span>
+                              </span>
+                            </label>
+                            <div class="font-700 enoll-name">{{pool.name}}</div></div>
+                          <div class="d-flex item-center gap-10">
+                          </div>
+                          </div></td>
+                          <td [attr.colspan]="isYearly ? maxTermArray.length*2 : quartelyYearArray?.length*8" ></td>
+                      </tr>
+                      <ng-container *ngFor="let suite of pool.atos">
+                      <tr class="grid-table-minor-row minor--indent">
+                        <td class="border-l-0"><div class="portfolio-item">
+                          <div class="d-flex item-center gap-10">
+                            <label class="label-check">
+                              <input  class="form-check-input" (change)="changeSuiteSelection(suite, pool, enrollmentObj)" type="checkbox" [checked]="suite.checked" id="product1" name="product1"/>
+                              <span class="custom-checkbox-btn i-vNext-fonts">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                                <span class="path3"></span>
+                              </span>
+                            </label>
+                            <div class="enoll-name">{{suite.suiteName}}</div></div>
+                          <div class="d-flex item-center gap-10">
+                            <span *ngIf="suite?.isEligibleForGA && suite?.growthAllowance" ngbTooltip="For this suite, Growth allowance is exempted till the allowed limit of {{suite.growthAllowance}}%." container="body" placement="top"><span class="widget-growth">GA</span></span><span [ngClass]="{'cs-full-commit':suite.commitStatus === 'FULL_COMMIT', 'cs-partial-commit':suite.commitStatus !=='FULL_COMMIT'}" class="font-16" ngbTooltip="{{suite.commitStatus === 'FULL_COMMIT' ? 'Full Commit' : 'Partial Commit'}}" container="body" placement="top" ></span>
+                          </div>
+                          </div>
+                        </td>
+                          <td [attr.colspan]="2" *ngFor="let a of maxTermArray; let i = index">
+                            <ng-container *ngIf="suite.termDetails?.length && suite.termDetails[i]?.term === (i+1); else elseBlock">
+                              <div class="cx-input">
+                                <input type="text" (dblclick)="onDoubleClick()" [ngModel]="suite.termDetails[i].swPercent" (keydown)="keyDown($event)" (keyup)="keyUp($event,suite,suite.termDetails[i], 'swPercent')" (blur)="updateValue($event, suite, enrollmentObj, 'swPercent')" />
+                              </div>
+                            </ng-container>
+                            <ng-template #elseBlock>
+                              <input type="text" disabled value="--"/>
+                            </ng-template>
+                          </td>
+                      </tr>
+                      </ng-container>
+                      </ng-container>
+                  </ng-container>
+                 
+                </tbody>
+             
+           <!-- This tboday is just for reference     <tbody>
+                  <tr class="grid-table-major-row">
+                    <td><div class="portfolio-item">
+                      <div class="d-flex item-center gap-10"><span class="font-16 cs-collapse"></span><input type="checkbox" id="product1" name="product1"/><div class="font-700">Applications Infrastructure</div></div>
+                      <div class="d-flex item-center gap-10">
+                        <span class="widget-services software-cx">SW</span>
+                      </div>
+                      </div></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr class="grid-table-minor-row">
+                    <td><div class="portfolio-item">
+                      <div class="d-flex item-center gap-10"><input type="checkbox" id="product1" name="product1"/><div class="font-700">Full Stack Observability</div></div>
+                      <div class="d-flex item-center gap-10">
+                      </div>
+                      </div></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr class="grid-table-minor-row minor--indent">
+                    <td><div class="portfolio-item">
+                      <div class="d-flex item-center gap-10"><input type="checkbox" id="product1" name="product1"/><div>Intersight</div></div>
+                      <div class="d-flex item-center gap-10">
+                        <span  tooltip-text="This Suite is applicable for growth allowances"><span class="widget-growth">GA</span></span><span class="cs-partial-commit font-16"></span>
+                      </div>
+                      </div></td>
+                    <td><input type="text" value="12%"/></td>
+                    <td><input type="text" value="12%"/></td>
+                    <td><input type="text" value="12%"/></td>
+                    <td><input type="text" disabled value="--"/></td>
+                    <td><input type="text" disabled value="--"/></td>
+                  </tr>
+                  <tr class="grid-table-minor-row minor--indent">
+                    <td><div class="portfolio-item">
+                      <div class="d-flex item-center gap-10"><input type="checkbox" id="product1" name="product1"/><div>AppDynamics</div></div>
+                      <div class="d-flex item-center gap-10">
+                        <span class="cs-full-commit font-16"></span>
+                      </div>
+                      </div></td>
+                    <td><input type="text" value="12%"/></td>
+                    <td><input type="text" value="12%"/></td>
+                    <td><input type="text" value="12%"/></td>
+                    <td><input type="text" value="12%"/></td>
+                    <td><input type="text" value="12%"/></td>
+                  </tr>
+                  <tr class="grid-table-minor-row minor--indent">
+                    <td><div class="portfolio-item">
+                      <div class="d-flex item-center gap-10"><input type="checkbox" id="product1" name="product1"/><div>ThousandEyes</div></div>
+                      <div class="d-flex item-center gap-10">
+                        <span class="cs-partial-commit font-16"></span>
+                      </div>
+                      </div></td>
+                    <td><input type="text" value="12%"/></td>
+                    <td><input type="text" value="12%"/></td>
+                    <td><input type="text" value="12%"/></td>
+                    <td><input type="text" disabled value="--"/></td>
+                    <td><input type="text" disabled value="--"/></td>
+                  </tr>
+                </tbody> -->
+                <tbody *ngIf="enrollmentObj.isCXEnrollment"> <!-- This is CX rows-->
+                  <tr class="grid-table-major-row">
+                    <td class="border-l-0"><div class="portfolio-item">
+                      <div class="d-flex item-center gap-10"><span class="font-16 " [ngClass]="{'cs-collapse':enrollmentObj.expand,'cs-expand': !enrollmentObj.expand}" (click)="enrollmentObj.expand = !enrollmentObj.expand"></span>
+                        <label class="label-check">
+                          <input  class="form-check-input" (change)="changeAllEnrollmentSelection(enrollmentObj, true)" [checked]="enrollmentObj.checked" type="checkbox" id="product1" name="product1"/>
+                          <span class="custom-checkbox-btn i-vNext-fonts">
+                            <span class="path1"></span>
+                            <span class="path2"></span>
+                            <span class="path3"></span>
+                          </span>
+                        </label>
+                        <div class="font-700 enoll-name">{{enrollmentObj.name}}</div></div>
+                      <div class="d-flex item-center gap-10">
+                        <span class="widget-services software-cx"><span class="cs-service font-16"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></span></span>
+                      </div>
+                      </div></td>
+                      <td [attr.colspan]="isYearly ? maxTermArray.length*2 : quartelyYearArray?.length*8"></td>
+                  </tr>
+                  <ng-container *ngIf="enrollmentObj.expand">
+                    <tr class="grid-table-minor-row">
+                      <td class="border-l-0">&nbsp;</td>
+                      <ng-container *ngFor="let a of maxTermArray; let i = index">
+                          <td class="text-center"><img src="../../../../assets/images/tco/sw-cx.svg" />
+                          </td>
+                          <td class="text-center"><img src="../../../../assets/images/tco/hw-cx.svg" /></td>
+                      </ng-container>
+                    </tr>
+                    <ng-container *ngFor="let pool of enrollmentObj.pools; let i = index">
+                      <ng-container *ngFor="let suite of pool.atos">
+                        <tr class="grid-table-minor-row">
+                          <td class="border-l-0"> <div class="portfolio-item">
+                              <div class="d-flex item-center gap-10"><label class="label-check">
+                                <input class="form-check-input" (change)="changeSuiteSelection(suite, pool, enrollmentObj, true)" [checked]="suite.checked" type="checkbox" id="product1" name="product1"/>
+                                <span class="custom-checkbox-btn i-vNext-fonts">
+                                  <span class="path1"></span>
+                                  <span class="path2"></span>
+                                  <span class="path3"></span>
+                                </span>
+                              </label>
+                               
+                                <div class="enoll-name">{{suite.suiteName}}</div></div>
+                              <div class="d-flex item-center gap-10">
+                                <span [ngClass]="{'cs-full-commit':suite.commitStatus === 'FULL_COMMIT', 'cs-partial-commit':suite.commitStatus !=='FULL_COMMIT'}" class="font-16" ngbTooltip="{{suite.commitStatus === 'FULL_COMMIT' ? 'Full Commit' : 'Partial Commit'}}" container="body" placement="top" ></span>
+                              </div>
+                            </div></td>
+                            <ng-container *ngFor="let a of maxTermArray; let i = index">                  
+                              <ng-container *ngIf="suite.termDetails?.length && suite.termDetails[i]?.term === (i+1) && suite.termDetails[i].swCxAvailable; else elseBlock">
+                                <td [ngClass]="{'quartely': !isYearly}">
+                                  <div  class="cx-input">
+                                    <input type="text" (dblclick)="onDoubleClick()" [ngModel]="suite.termDetails[i].swCxPercent" (keydown)="keyDown($event)" (keyup)="keyUp($event,suite,suite.termDetails[i], 'swCxPercent')" (blur)="updateValue($event, suite, enrollmentObj, 'swCxPercent')" />
+                                  </div></td>
+                              </ng-container>
+                              <ng-container *ngIf="suite.termDetails?.length && suite.termDetails[i]?.term === (i+1) && suite.termDetails[i].hwCxAvailable; else elseBlock">
+                                <td [ngClass]="{'quartely': !isYearly}">
+                                  <div  class="cx-input">
+                                    <input type="text" (dblclick)="onDoubleClick()" [ngModel]="suite.termDetails[i].hwCxPercent" (keydown)="keyDown($event)" (keyup)="keyUp($event,suite,suite.termDetails[i],'hwCxPercent')" (blur)="updateValue($event, suite, enrollmentObj, 'hwCxPercent')" />
+                                  </div></td>
+                              </ng-container>
+                              <ng-template #elseBlock>
+                                <td><input type="text" disabled value="--"/></td>
+                              </ng-template>
+                            </ng-container>
+                    
+                        </tr>
+                      </ng-container>
+                    </ng-container>
+                  </ng-container>
+                 
+                </tbody>
+              </ng-container>
+            </table>
+          </section>
+        </div>
+    </div>
+  </section>
+    </div>
+</div>
+

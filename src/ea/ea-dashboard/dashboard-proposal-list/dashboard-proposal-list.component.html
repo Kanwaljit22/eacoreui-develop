@@ -1,0 +1,126 @@
+<div class="row">
+    <div class="col-12 marginT20 marginB10 d-flex justify-content-end align-items-center" *ngIf="!eaStoreService.selectedDealData?.dealId">
+        <!-- <div class="marginL15">
+            <a class="filters" href="javascript:void(0);">
+                <span class="i-vNext-filter"></span>
+                Filters
+            </a>
+        </div> -->
+
+        <!-- <ul class="inline-listing border-right-li">
+            <li class="dropdown">
+                <label class="created-label mb-0">View Proposals:</label>
+                <a href="javascript:void(0);" class="ml-2" (click)="openDrop = !openDrop" (clickOutside)="openDrop = false;" >{{selectedView}}<span class="i-vNext-arrow-down-heavy ml-1"></span></a>
+                <ul class="dropdown-menu right" [class.show]="openDrop">
+                    <li *ngFor="let a of viewOptions">
+                        <a href="javascript:void(0);" class="dropdown-item" [ngClass]="{'active': selectedQualView === a}" (click)="selectedCreatedBy(a)">{{a}}</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <div class="form-group search-wrap my-0 mr-0">
+                    <div class="d-flex w-100">
+                        <input appelementfocus="" placeholder="{{localizationService.getLocalizedString('common.SEARCH_PROPOSAL_PLACEHOLDER')}}" 
+                            class="form-control" required="" type="text" [(ngModel)]="searchParam" (keyup.enter)="searchProposals()">
+                        <span  *ngIf  = "searchParam || !isSearchedData" class="i-vNext-search" [disabled]="!searchParam" (click)="searchProposals()"></span>
+                        <span *ngIf  = "isSearchedData && !searchParam" class="i-vNext-close" (click)="getProposalListData()"></span>
+
+                    </div>
+                </div>
+            </li>
+        </ul> -->
+    </div>
+    <div *ngIf="messagesObj.errors?.length > 0" class="col-12">
+        <div *ngFor="let message of messagesObj.errors" class="alert alert--danger alert-dismissable">
+            <span class="alert-icon">
+                <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+            </span>
+            <span [innerHTML]="message.text | eAstringToHtml"></span>
+            <!-- <a class="close" style="cursor: pointer;" (click)="removeAlert(message)">&times;</a> -->
+        </div>
+    </div>
+    <ng-container *ngIf='displayGrid'>
+    <!-- Table View -- Starts here  -->
+    <div class="col-12 table-wrapper" *ngIf="proposalList?.length; else noData">
+        <table class="primary-table mx-15 mb-0">
+            <thead>
+                <tr>
+                    <th style="width: 25%;">{{localizationService.getLocalizedString('common.PROPOSAL_NAME')}}</th>
+                    <th style="width: 25%">{{'ea_dashboard.PORTFOLIOS_HEADER' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                    <th style="width: 12%;">{{localizationService.getLocalizedString('common.sub-header.PROPOSAL_STATUS')}}</th>
+                    <th style="width: 11%;" *ngIf="eaStoreService.selectedDealData?.projectObjId">{{localizationService.getLocalizedString('common.QUOTE_ID')}}</th>
+                    <th style="width: 12%;" *ngIf="eaService.features.MSEA_REL">{{localizationService.getLocalizedString('common.EA_MOTION')}}</th>
+                    <th class="text-right" style="width: 15%;" *ngIf="!((eaStoreService.dashboardCreatorFilter?.searchValue === constantsService.SHARED_BY_CISCO) && eaService.features.PARTNER_SUPER_USER_REL)">{{localizationService.getLocalizedString('common.TOTAL_CONTRACT_VALUE')}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let proposal of proposalList; let index = index;">
+                    <td>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <a href="javascript:void();" id="{{elementIdConstantsService.DASHBOARD_PROPOSAL_LIST_GO_TO_PROPOSAL}}" (click)="goToProposal(proposal)" attr.action-id="{{dataIdConstantsService.dashboardProposalList_link_goToProposal}}{{index}}">{{proposal?.name}} ({{proposal?.proposalId}})</a>
+                           <!-- <ul class="inline-listing border-right-li">
+                                <li><span class="proposal-type">{{proposal?.ciscoLed ? localizationService.getLocalizedString('common.CISCO') : localizationService.getLocalizedString('common.PARTNER')}}</span></li>
+                                <li class="dropdown"><a href="javascript:void(0);"><span
+                                            class="i-vNext-more-vertical"></span></a>
+                                    <ul class="dropdown-menu right">
+                                        <li>
+                                            <a href="javascript:void(0);" class="dropdown-item">
+                                                <span class="listing-icon i-vNext-copy"></span> Copy Proposal</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0);" class="dropdown-item">
+                                                <span class="listing-icon i-vNext-trash-bold"></span> Delete</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0);" class="dropdown-item">
+                                                <span class="listing-icon i-vNext-customer"></span> Manage Team</a>
+                                        </li>
+                                    </ul>
+                                </li> 
+                            </ul> -->
+                        </div>
+                    </td>
+                    <td>
+                        <span *ngFor="let enrollment of proposal?.enrollments ; let i = index;">{{enrollment}}
+                            <span *ngIf='proposal?.enrollments.length > (i+1)'>, </span>
+                        </span>
+                    </td>
+                    <td><span class="badge" [ngClass]="{'badge-valid': proposal?.status === 'Complete' , 'badge-in-progress': proposal?.status !== 'Complete'}">{{proposal?.status === 'IN_PROGRESS'? 'In Progress' : proposal?.status}}</span></td>
+                    <td *ngIf="eaStoreService.selectedDealData?.projectObjId">
+                        <span *ngIf="!proposal?.quoteId">--</span>
+                        <span *ngIf="proposal?.quoteId"><a href="javascript:void(0);" id="{{elementIdConstantsService.DASHBOARD_PROPOSAL_LIST_GO_TO_QUOTE}}" (click)="openQuoteUrl(proposal)" attr.action-id="{{dataIdConstantsService.dashboardProposalList_link_goToQuote}}{{index}}">{{proposal?.quoteId}}</a></span>
+                    </td>
+                    <td *ngIf="eaService.features.MSEA_REL">
+                        <span *ngIf="proposal?.buyingProgramTransactionType === constantsService.MSEA">{{'common.MSEA' | localizationPipe : localizationService.localizedkeySet.size}} </span>
+                        <span *ngIf="proposal?.buyingProgramTransactionType === constantsService.MSP_EA">
+                            {{'common.EA' | localizationPipe : localizationService.localizedkeySet.size}}
+                        </span>
+                    </td>
+                    <td class="text-right" *ngIf="!((eaStoreService.dashboardCreatorFilter?.searchValue === constantsService.SHARED_BY_CISCO) && eaService.features.PARTNER_SUPER_USER_REL)">{{proposal?.tcv ? eaUtilitiesService.formatValue(eaUtilitiesService.getFloatValue(proposal?.tcv)) : '--'}}{{proposal?.tcv? ' ('+ proposal?.currencyCode +')' :''}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <ng-template #noData>
+        <div *ngIf="eaStoreService.selectedDealData?.noProposal; else noProposals" class="d-flex w-100 align-items-center justify-content-center empty-proposal flex-column">
+            <img src="../../../../assets/images/icons/empty-enrollment.svg">
+            <h4 class="heading--h4 mt-10 noProposal">{{'ea_dashboard.NO_PROPOSAL_FOUND' | localizationPipe : localizationService.localizedkeySet.size}}</h4>
+        </div>
+        <ng-template #noProposals>
+            <div class="col-12">
+                <div class="alert alert--info alert-dismissable">
+                    <span class="alert-icon">
+                        <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                    </span>
+                    <span *ngIf="!eaStoreService.selectedDealData?.dealID">{{'ea_dashboard.NO_PROPOSALS_FOUND_USER' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                    <span *ngIf="eaStoreService.selectedDealData?.dealID">{{'ea_dashboard.NO_PROPOSALS_FOUND_DEAL' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                </div>
+            </div>
+        </ng-template>
+    </ng-template>
+</ng-container>
+    <!-- Table View -- Ends here  -->
+    <div *ngIf='paginationObject && proposalList?.length && !eaStoreService.selectedDealData?.dealID' class="col-12">
+        <app-ea-ng-pagination [paginationObject]="paginationObject" (updatedPaginationObject) = "paginationUpdated($event)"></app-ea-ng-pagination>
+    </div>
+</div>

@@ -1,0 +1,108 @@
+<div class="manage-bp-steps-container py-3 vNext" *ngIf="eaIdStoreService.eaIdData?.scopeChangeDetails?.requestId && !eaIdStoreService.scopeChangeComplete">
+    <div class="container-fluid roadmap-cont">
+        <div class="col-12 d-flex justify-content-between align-items-center">
+            <ul class="roadmap-steps vNext">
+                <ng-container *ngFor="let steps of roadmapSteps; let i = index">
+                    <li class="step cursor-pointer" attr.action-id="{{dataIdConstantsService.eaid_roadmap}}{{steps.name}}" (click)="goToStep(i)" [ngClass]="{'active': currentStep === i, 'completed': i < currentStep, 'disabled': eaIdStoreService.viewOnlyScopeMode || i > currentStep}">
+                        <span class="step--icon"><span class="icon-tick-01"></span></span>
+                        <span class="step--label" attr.data-id="{{dataIdConstantsService.eaid_roadmap_label}}{{steps.name}}">{{steps.name}}</span>
+                    </li>
+                </ng-container>
+            </ul>
+            <div *ngIf="eaIdStoreService.eaIdData?.scopeChangeDetails?.requestId">
+                 <a href="javascript:void(0);"  (click)="openCancelScopeChange()" *ngIf="!eaIdStoreService.viewOnlyScopeMode; else disableCancelSopeChange" attr.action-id="{{dataIdConstantsService.eaid_link_cancelScopeChange}}" id="{{elementIdConstantsService.EaId_Cancel}}">{{'common.CANCEL_SCOPE_CHANGE' | localizationPipe : localizationService.localizedkeySet.size}}</a>
+                 <ng-template #disableCancelSopeChange>
+                    <a href="javascript:void(0);" class="disabled" attr.action-id="{{dataIdConstantsService.eaid_link_cancelScopeChange_disabled}}">{{'common.CANCEL_SCOPE_CHANGE' | localizationPipe : localizationService.localizedkeySet.size}}</a>
+                </ng-template>
+
+                <ng-container *ngIf="currentStep === 0">
+                <ng-container *ngIf="showSubsidiaries">
+                    <button class="btn btn-secondary ml-4" (click)="save()" attr.action-id="{{dataIdConstantsService.eaid_button_save}}" *ngIf="!eaIdStoreService.viewOnlyScopeMode && (eaIdStoreService.selectedBuMap?.size || eaIdStoreService.partiesSelectionMap?.size) && eaIdStoreService.isAnyBuSelected; else disableSave">Save</button>
+                    <ng-template #disableSave>
+                        <button class="btn btn-secondary ml-4 disabled" *ngIf="currentStep === 0" attr.action-id="{{dataIdConstantsService.eaid_button_save_disabled}}">Save</button>
+                    </ng-template>
+                </ng-container>
+                </ng-container>
+                <ng-container *ngIf="currentStep !== 0">
+                    <button class="btn btn-secondary ml-4" (click)="back()" *ngIf="!eaIdStoreService.viewOnlyScopeMode; else disableBack" attr.action-id="{{dataIdConstantsService.eaid_button_back}}">{{'common.BACK' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                    <ng-template #disableBack>
+                        <button class="btn btn-secondary ml-4 disabled" *ngIf="currentStep !== 0" attr.action-id="{{dataIdConstantsService.eaid_button_disabled}}">{{'common.BACK' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                    </ng-template>
+                </ng-container>
+
+                <ng-container *ngIf="currentStep !== 2">
+                    <button class="btn btn-primary ml-4 disabled" attr.action-id="{{dataIdConstantsService.eaid_button_continue_disabled}}"  *ngIf="eaIdStoreService.viewOnlyScopeMode || (currentStep === 1 && eaIdStoreService.subscriptionsNotPresent) || (currentStep === 0 && (!eaIdStoreService.isAnyBuSelected || eaIdStoreService.isShowBuOverlapMessage || eaIdStoreService.disableContinue) ); else enableContinue">{{'common.CONTINUE' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                    <ng-template #enableContinue>
+                        <button class="btn btn-primary ml-4" id="{{elementIdConstantsService.EAID_CONTINUE}}" (click)="continue()" attr.action-id="{{dataIdConstantsService.eaid_button_continue}}">{{'common.CONTINUE' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                    </ng-template>
+                </ng-container>
+                
+                <ng-container *ngIf="currentStep === 2">
+                    <button class="btn btn-primary ml-4" (click)="submitScopeChange()" attr.action-id="{{dataIdConstantsService.eaid_button_submitScopeChange}}" *ngIf="!eaIdStoreService.viewOnlyScopeMode && (eaIdStoreService.confirmationToSubmitScopeChange && eaIdStoreService.allowSubmitScopeChange) && !eaIdStoreService.isShowBuOverlapMessage; else disableSubmitSopeChange">{{'eaid.SUBMIT_SCOPE_CHANGE' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                    <ng-template #disableSubmitSopeChange>
+                        <button class="btn btn-primary ml-4 disabled" attr.action-id="{{dataIdConstantsService.eaid_button_submitScopeChange_disabled}}">{{'eaid.SUBMIT_SCOPE_CHANGE' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                    </ng-template>
+                </ng-container>
+            </div>
+        </div>
+        
+    </div>
+</div>
+<div class="container-fluid mt-4 vNext">
+    
+    <div class="alert alert--success alert-dismissable" *ngIf="currentStep === 0 && eaIdStoreService.scopeChangeComplete">
+        <span class="alert-icon">
+            <span class="icon-done1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+        </span>
+        <span>{{'eaid.SCOPE_CHANGE_SUCCESS_MESSAGE' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+    </div>
+
+    <!-- start of overlap bu message in cav and review page -->
+    <div class="alert alert--danger alert-dismissable" *ngIf="(currentStep === 0 || currentStep === 2) && eaIdStoreService.isShowBuOverlapMessage">
+        <span class="alert-icon">
+            <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+        </span>
+        <a #downloadZipLink [hidden]="true"></a>
+        <span>{{'eaid.BU_OVERLAP_CHECK_MESSAGE_1' | localizationPipe : localizationService.localizedkeySet.size}} <a href="javascript:void(0);" (click)="downloadOverLapBu()" attr.action-id="{{dataIdConstantsService.eaid_link_downloadOverlapBu}}">{{'common.CLICK_HERE' | localizationPipe : localizationService.localizedkeySet.size}}</a> {{'eaid.BU_OVERLAP_CHECK_MESSAGE_2' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+    </div>
+
+    <div class="mb-3"><app-message class="project-alert"></app-message></div>
+    <ng-container *ngIf="currentStep === 0">
+        <div id="filter-area" class="vNext mb-3" *ngIf="eaIdStoreService.eaIdData?.eaid">
+            <div class="row align-items-center ">
+                <div class="col-md-5">
+                    <ul class="inline-listing nav-tabs">
+                        <li [ngClass]="{'active': showSubsidiaries}">
+                            <a class="px-0" href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.eaid_link_subsidiaries}}" (click)="toggleHeader(true)">{{localizationService.getLocalizedString('common.SUBSIDIARY')}}</a>
+                        </li>
+                        <li [ngClass]="{'active': !showSubsidiaries}">
+                            <a class="px-0" href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.eaid_link_orgIds}}" (click)="toggleHeader(false)">{{localizationService.getLocalizedString('common.ORG_ID')}}</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-7" *ngIf="!eaIdStoreService.eaIdData?.scopeChangeDetails?.requestId || eaIdStoreService.scopeChangeComplete">
+                <ul class="d-flex justify-content-end">
+                    <li  (click)="reqScopeChange()" *ngIf="!eaIdStoreService.viewOnlyScopeMode; else disableScopeChangeButton"> 
+                        <button class="btn btn-primary" attr.action-id="{{dataIdConstantsService.eaid_button_requestScopeChange}}">{{'eaid.REQUEST_SCOPE_CHANGE' | localizationPipe : localizationService.localizedkeySet.size}}</button></li>
+                        <ng-template #disableScopeChangeButton>
+                            <li> 
+                                <button class="btn btn-primary disabled" attr.action-id="{{dataIdConstantsService.eaid_button_requestScopeChange_disabled}}">{{'eaid.REQUEST_SCOPE_CHANGE' | localizationPipe : localizationService.localizedkeySet.size}}</button></li>
+                        </ng-template>
+                </ul>
+                </div>
+            </div>
+        </div>
+       <app-meraki-org-ids *ngIf="!showSubsidiaries" (cancelOrgIdEdit)="cancelOrgIdEdit($event)"></app-meraki-org-ids>
+        <div class="search-cont" *ngIf="showSubsidiaries">
+            <div *ngIf="cavDetails.length" class="vNext">
+                <app-cav-id-details [subsidiariesData] = "cavDetails[0]?.bus" (moveToNextStep)="moveToNextStep()" [isEaidFlow] = 'true' ></app-cav-id-details>
+            </div>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="currentStep === 1">
+        <app-associated-subscriptions></app-associated-subscriptions>
+     </ng-container>
+     <ng-container *ngIf="currentStep === 2">
+         <app-review-submit-scope></app-review-submit-scope>
+     </ng-container>
+</div>

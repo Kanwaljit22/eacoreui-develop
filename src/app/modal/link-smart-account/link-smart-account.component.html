@@ -1,0 +1,69 @@
+<div class="modal-header">
+    <h5 class="modal-title">Link New Smart Account</h5>
+  </div>
+  <div class="modal-body">
+    <div class="bar" *ngIf='!showSelectedValues'>
+      <!-- <div class="smart-switch-wrapper">
+      <span class="smart-switch"></span> <span class="label">Show Active Only</span>
+    </div> -->
+            <div class="searchbar">
+                <input appelementfocus="" class="form-control ng-untouched ng-pristine ng-invalid" [(ngModel)]="searchValue" (ngModelChange)='search(searchValue)' kdfapp="enterpriseAgreement" kdfid="searchInput" kdfpage="enterpriseAgreement" name="searchInput" required="" type="text" placeholder="Search by customer name..." id="ProspectDashboard_searchInput">
+                <!-- <label class="form-control-placeholder" for="searchInput">Search by customer name...</label> -->
+                <em class="icon-search"></em>
+            </div>
+        
+    </div>
+    <div class="smartAccountWrapper mt-3" *ngIf='linkSmartAccountService.showTable && displayContent'>
+    <table class="primary-table link-new-smart-account-table">
+      <thead>
+        <tr>
+          <th>Smart Account Name</th>
+          <th width="10%">Smart Account ID</th>
+          <th width="20%">Account Domain</th>
+          <th width="12%">Type</th>
+          <th width="8%">Status</th>
+          <th width="19%">Action</th>
+        </tr>
+      </thead>
+      <tbody *ngIf='!showSelectedValues'>
+        <tr *ngFor='let smartAccount of linkSmartAccountService.smartAccountData'>
+          <td>{{smartAccount.account_name}}</td>
+          <td>{{smartAccount.account_identifier}}</td>
+          <td>{{smartAccount.domain}}</td>
+          <td>{{smartAccount.account_type}}</td>
+          <td>{{smartAccount.account_status}}</td>
+          <td *ngIf='smartAccount.linked' (click)='linkSmartAccount(smartAccount)'><span class="link">Linked</span><em class="icon-tick"></em></td>
+          <td *ngIf='!smartAccount.linked' (click)='linkSmartAccount(smartAccount)'><span class="link">Link Smart Account</span></td>
+        </tr>
+      </tbody>
+      <tbody *ngIf='showSelectedValues'>
+        <tr *ngFor='let smartAccount of linkNewSmartAccount'>
+          <td>{{smartAccount.smartAccountName}}</td>
+          <td>{{smartAccount.smartAccountId}}</td>
+          <td>{{smartAccount.smartAccountDomain}}</td>
+          <td>{{smartAccount.smartAccountType}}</td>
+          <td>{{smartAccount.smartAccountStatus}}</td>
+          <td *ngIf='smartAccount.linked' (click)='linkSmartAccount(smartAccount)'><span class="link">Linked</span><em class="icon-tick"></em></td>
+          <td *ngIf='!smartAccount.linked' (click)='linkSmartAccount(smartAccount)'><span class="link">Link Smart Account</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div *ngIf='!linkSmartAccountService.showTable && displayContent' class="alert alert--info alert-dismissable mt-3">
+    <span class="alert-icon">
+      <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+    </span>
+    <span> Please Search Smart Account to Link with this Prospect </span>
+ </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-secondary activity-btn" (click)="close()"
+      type="button">{{localeService.getLocalizedString('common.CANCEL')}}</button>
+      <button *ngIf='linkNewSmartAccount.length > 0 && !showSelectedValues' class="btn btn-secondary activity-btn" (click)="verify()"
+      type="button">Next</button>
+      <button *ngIf='linkNewSmartAccount.length > 0 && showSelectedValues' class="btn btn-secondary activity-btn" (click)="verify()"
+        type="button">Back</button>
+      <button class="btn btn-primary activity-btn" *ngIf='showSelectedValues'  (click)='addSmartAccount()'
+      type="button" [ngClass]="{'disabled': linkNewSmartAccount.length === 0}">Update</button>
+  
+  </div>

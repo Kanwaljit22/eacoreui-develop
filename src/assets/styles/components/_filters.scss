@@ -1,0 +1,218 @@
+#sidebar-container{
+
+    display:flex;
+    width:380px;
+    flex-direction: column;
+    position: absolute;
+    left: -380px;
+    transition: all 0.5s ease 0s;
+    top:67px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+    z-index: 11;
+    &.active{
+        left:0;
+        .fixed-bottom{
+            left:0;
+        }
+    }
+
+    .fixed-bottom {
+        position: fixed;
+        bottom: 40px;
+        width: 380px;
+        display: flex;
+        background: #fff;
+        justify-content: center;
+        box-shadow: 0px -8px 14px -2px rgba(0, 0, 0, 0.48);
+        padding: 20px 0;
+        left: -380px;
+        transition: all 0.5s ease 0s;
+    }
+
+    .sidebar-header {
+        background: #005073;
+        color: #fff;
+        padding: 10px;
+        .filter-tabs {
+            
+            a {
+            color: #fff;
+            font-size: rem(22);
+            font-weight: 100;
+            }
+           li {
+               display: flex;
+               justify-content: space-between;
+           }
+           
+           .filter-close {
+               color: #fff;
+                margin-top:0;
+               &::before {
+                    color: #fff;
+                }
+            }
+        }  
+    }
+
+    .sidebar-opt-content {
+        display: flex;
+        flex-direction: column;
+        background: #fff;
+        height: calc(100vh - 221px);
+        overflow: auto;
+        .accordion {
+            &-header {
+                    border: 0;
+                    padding: 0;
+                    border-radius: 0;
+                    background: transparent;
+                    margin: 0;
+            
+                    p {
+                        color: $primary-text;
+                        font-size: rem(14);
+                        font-weight: 600;
+                        display: inline-block;
+                        width: 300px;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+            
+                        span:after {
+                            display: none;
+                        }
+                    }
+            
+            
+            
+                    span:last-child {
+            
+                        transition: all 0.5s ease 0s;
+            
+                        &:after {
+                            content: "\e9ba";
+                            font-family: "enterpriseAgreement";
+                            font-size: rem(8);
+                            color: #005073;
+                        }
+                    }
+                    .accordion-button {
+                        color: #333;
+                        text-decoration: none;
+                        font-size: rem(16);
+                        display: block;
+                        width: 100%;
+                        text-align: left;
+                        padding-left: 15px;
+                        padding-right: 0;
+                        border-bottom:1px solid #D6D6D6 !important;
+                        border-radius: 0;
+                        background: #fff;
+                        border: 0;
+                
+                        &[aria-expanded="true"]{
+                            border-bottom:1px solid transparent !important;
+                
+                            .card-header span{ transform:rotate(180deg);}
+                        }
+                    }
+                }
+            &-body{
+                padding:5px 20px 5px 0;            
+            }   
+        }
+    
+    .card, .accordion-item {
+        padding: 0;
+        border-radius: 0;
+        background: #fff;
+        border: 0 !important;
+        margin-bottom: 0;
+
+    
+    &-header {
+            border:0;
+            padding: 0;
+            border-radius: 0;
+            background: transparent;
+            margin: 0;
+        p {
+            color: $primary-text;
+            font-size: rem(14);
+            font-weight: 600;
+            display: inline-block;
+            width: 300px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            span:after{
+                display: none;
+            }
+        }
+        
+        
+        
+        span:last-child{ 
+            
+            transition: all 0.5s ease 0s;
+
+            &:after{
+            content: "\e9ba";
+            font-family: "enterpriseAgreement";
+            font-size: rem(8);
+            color: #005073;
+        }
+    }
+    
+        .btn-link {
+        color: #333;
+        text-decoration: none;
+        font-size: rem(16);
+        display: block;
+        width: 100%;
+        text-align: left;
+        padding-left: 15px;
+        padding-right: 0;
+        border-bottom:1px solid #D6D6D6;
+        border-radius: 0;
+
+        &[aria-expanded="true"]{
+            border-bottom:1px solid transparent;
+
+            .card-header span{ transform:rotate(180deg);}
+        }
+    }
+}
+        &-body{
+            padding:5px 20px 5px 0;            
+        }
+    }
+}
+}
+    
+    
+.filter-open {
+    .grid {
+    margin-left: 380px;
+}
+        &-page{
+            left:380px;
+        
+        }
+}
+.dashboard {
+    .grid{
+    transition: all 0.5s ease 0s;
+    }
+    .sidebar-opt-content{
+        height:calc(100vh - 208px);
+    }
+    #sidebar-container {
+        top:-52px;
+    }
+}
+
+.card-block .cover {
+    padding-left: 15px;
+    border-bottom:1px solid #d6d6d6;
+    padding-bottom: 10px !important;
+}

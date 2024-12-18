@@ -1,0 +1,24 @@
+.tco-scenario-block .percentage-val .form-control {
+    padding-right: 15px;
+    position     : relative;
+}
+
+.percentage-val::before {
+    content  : '%';
+    top      : 5px;
+    right    : 0px;
+    position : absolute;
+    font-size: 16px;
+    color    : #005073;
+}
+
+.borderBottom {
+    border-bottom : 1px solid #e8e8e8;
+    margin        : 20px 20px 0px;
+    padding-bottom: 10px;
+}
+
+/* styling for makig net price bold */
+.bold-text {
+    font-weight: 600;
+}

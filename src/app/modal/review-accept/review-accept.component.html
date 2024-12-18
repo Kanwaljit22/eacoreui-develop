@@ -1,0 +1,74 @@
+<div class="modal-header">
+  <h5 class="modal-title">
+    {{localeService.getLocalizedString('common.REVIEW')}}
+    <!--span class="info-icon">i</span-->
+  </h5>
+  <button type="button" class="icon-close-btn" data-dismiss="modal" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+<div class="modal-body review-accept">
+  <h2>{{localeService.getLocalizedString('common.HELLO')}} {{qualService.appDataService.userInfo.firstName}},</h2>
+  <div *ngIf="showQualification">
+    <h3>{{localeService.getLocalizedMessage('review.QUAL_CREATION_MESSAGE_01')}}</h3>
+    <div class="message">{{localeService.getLocalizedMessage('review.QUAL_CREATION_MESSAGE_02')}}
+       <a target="_blank" href="http://wwwin.cisco.com/c/cec/organizations/legal/ethics/cobc.html">{{localeService.getLocalizedMessage('review.QUAL_CREATION_MESSAGE_03')}}</a> {{localeService.getLocalizedMessage('review.QUAL_CREATION_MESSAGE_04')}} </div>
+
+  <div class="note-area">
+    <label class="label-check">
+      <input [id]="appDataService.createUniqueId('CHECKBOX_QUAL','REVIEW_ACCEPT')" (change)="reviewChange()" class="form-check-input" type="checkbox" value="">
+      <span class="custom-checkbox-btn">
+        <span class="path1"></span>
+        <span class="path2"></span>
+    </span>
+      <span class="form-check-span"></span>
+      <span [id]="appDataService.createUniqueId('CHECKBOX_QUAL_LABEL','REVIEW_ACCEPT')" class="note">{{localeService.getLocalizedMessage('review.QUAL_CREATION_MESSAGE_05')}}</span>
+    </label>
+
+    <div class="clearfix"></div>
+  </div>
+</div>
+
+<div *ngIf="!showQualification">
+    <ng-container *ngIf="!shareWithDisti">
+    <h3>{{localeService.getLocalizedMessage('review.PROPOSAL_CREATION_MESSAGE_06')}}</h3>
+    <div class="message">{{localeService.getLocalizedMessage('review.PROPOSAL_CREATION_MESSAGE_07')}} <a target="_blank" href="http://wwwin.cisco.com/c/cec/organizations/legal/ethics/cobc.html">Code of Business Conduct</a> to knowingly provide false information. </div>
+
+  <div class="note-area">
+    <label class="label-check">
+      <input [id]="appDataService.createUniqueId('CHECKBOX_PROPOSAL','REVIEW_ACCEPT')" (change)="reviewChange()" class="form-check-input" type="checkbox" value="">
+      <span class="custom-checkbox-btn">
+        <span class="path1"></span>
+        <span class="path2"></span>
+    </span>
+      <span [id]="appDataService.createUniqueId('CHECKBOX_PROPOSAL_LABEL','REVIEW_ACCEPT')" class="note">{{localeService.getLocalizedMessage('review.PROPOSAL_CREATION_MESSAGE_08')}}</span>
+    </label>
+
+    <div class="clearfix"></div>
+  </div>
+</ng-container>
+<ng-container *ngIf="shareWithDisti">
+    <h3>{{localeService.getLocalizedMessage('review.PROPOSAL_CREATION_MESSAGE_06')}}</h3>
+    <div class="message mb-0">{{localeService.getLocalizedMessage('review.PROPOSAL_CREATION_MESSAGE_09')}} </div>
+    <div class="message mb-0">{{localeService.getLocalizedMessage('review.PROPOSAL_CREATION_MESSAGE_10')}} </div>
+    <div class="message">{{localeService.getLocalizedMessage('review.PROPOSAL_CREATION_MESSAGE_07')}} <a target="_blank" href="http://wwwin.cisco.com/c/cec/organizations/legal/ethics/cobc.html">Code of Business Conduct</a> to knowingly provide false information. </div>
+
+  <div class="note-area">
+    <label class="label-check">
+      <input [id]="appDataService.createUniqueId('CHECKBOX_PROPOSAL','REVIEW_ACCEPT')" (change)="reviewChange()" class="form-check-input" type="checkbox" value="">
+      <span class="custom-checkbox-btn">
+        <span class="path1"></span>
+        <span class="path2"></span>
+    </span>
+    <span [id]="appDataService.createUniqueId('CHECKBOX_PROPOSAL_LABEL','REVIEW_ACCEPT')" class="note">{{localeService.getLocalizedMessage('review.PROPOSAL_CREATION_MESSAGE_08')}}</span>
+      <span [id]="appDataService.createUniqueId('CHECKBOX_PROPOSAL_LABEL','REVIEW_ACCEPT')" class="note">{{localeService.getLocalizedMessage('review.PROPOSAL_CREATION_MESSAGE_09')}}</span>
+    </label>
+
+    <div class="clearfix"></div>
+  </div>
+</ng-container>
+</div>
+<div class="clearfix"></div>
+</div>
+<div class="modal-footer">
+  <button [id]="appDataService.createUniqueId('CANCEL','REVIEW_ACCEPT')" type="button" class="btn btn-secondary mr-0" (click)="activeModal.dismiss('Cross click')">{{localeService.getLocalizedString('common.CANCEL')}}</button>
+  <button [id]="appDataService.createUniqueId('ACCEPT','REVIEW_ACCEPT')" type="button" class="btn btn-primary" data-dismiss="modal" [disabled]="disableAccept" (click)="accept()">{{localeService.getLocalizedString('common.ACCEPT')}}</button>
+</div>

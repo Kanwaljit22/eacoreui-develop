@@ -1,0 +1,161 @@
+.pageTitleWrap {
+    border-bottom: 2px solid #e5e5e5;
+}
+
+.pageHeaderTitle {
+    font-size  : 24px;
+    font-weight: 100;
+    line-height: 40px;
+}
+
+.w-50 {
+    width: 52% !important;
+}
+
+.btn-secondary {
+    background-color: #fff;
+}
+
+.customHeightScroll {
+    display: block;
+}
+
+table.customHeightScroll thead,
+table.customHeightScroll tbody.customTbodyScroll {
+    display   : table-row;
+    float     : left;
+    width     : 100%;
+    overflow-y: scroll;
+}
+
+table.customHeightScroll tbody {
+    display: block;
+}
+
+table.customHeightScroll tbody.customTbodyScroll {
+    border-bottom: 1px solid #ddd;
+    min-height   : 0;
+    max-height   : 300px;
+    overflow-y   : scroll;
+    display      : table-row;
+    width        : 100%;
+    float        : left;
+}
+
+table.customHeightScroll tr {
+    display: table;
+    width  : 100%;
+}
+
+.custom-scroll--height {
+    border: 0px;
+}
+
+.custom-scroll--height thead {
+    float           : left;
+    width           : 100%;
+    /* padding-right: 30px; */
+    overflow-y      : scroll;
+    height          : 36px;
+    display         : block !important;
+    position        : relative;
+    overflow-x      : hidden;
+    box-sizing      : border-box;
+    margin-bottom   : -1px;
+    border          : 0px;
+}
+
+.custom-scroll--height th:first-child {
+    border-top : 1px solid #ccc;
+    border-left: 1px solid #ccc;
+}
+
+.custom-scroll--height th:last-child {
+    width        : 19%;
+    /* position  : relative; */
+    /* left      : -14px; */
+    /* z-index   : 1000000; */
+    padding-right: 22px;
+    border-top   : 1px solid #ccc;
+}
+
+.preview .federal-customer {
+    margin     : 10px 0px 0px 0px;
+    border-top : 1px dashed #ccc;
+    width      : 100%;
+    padding    : 15px 0px 0px;
+    line-height: 10px;
+}
+
+.mr-50 {
+    margin-right: 50px;
+}
+
+
+/* for see mroe and see less styles */
+.hidden {
+    max-height: 0px;
+}
+
+.visible-more {
+    height        : 120px;
+    padding-bottom: 20px;
+}
+
+.visible-more span {
+    display: inline !important;
+}
+
+.visible-more .content-more {
+    height  : 100px;
+    overflow: hidden;
+}
+
+.extend {
+    height: auto;
+}
+
+.extend .content-more {
+    height: auto;
+}
+
+.see {
+    color     : #005073 !important;
+    font-size : 13px;
+    position  : absolute;
+    bottom    : -20px;
+    right     : 20px;
+    cursor    : pointer;
+    background: white;
+    padding   : 0px 5px;
+}
+
+.extend .more {
+    display: none;
+}
+
+.extend .less {
+    display: block;
+}
+
+.more {
+    display: block;
+}
+
+.less {
+    display: none;
+}
+
+.less .icon-arrow-stroke {
+    display  : inline-block;
+    transform: rotate(-180deg);
+}
+
+.new-pop-custom {
+    top: 65px !important;
+}
+
+.new-pop-custom.top-side {
+	top: auto !important;
+	bottom: 40px !important;
+}

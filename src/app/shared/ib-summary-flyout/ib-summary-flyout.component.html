@@ -1,0 +1,138 @@
+<div class="debug-overlay" (click)="accountHealthInsightService.showIbSummaryFlyout = false;"></div>
+<div class="right-flyout open w-75">
+  <div *ngIf="ibSummaryView">
+    <h1 class="right-flyout--heading mb-0"  id="page-header">Customer Install Base Footprint {{title}}<span><i class="icon-close-btn"
+          (click)="close()"></i></span></h1>
+          <app-copy-link></app-copy-link>
+    <div class="" class="right-flyout_content">
+      <div id="filter-area'">
+      <ul class="nav nav-tabs bborder-tab" >
+        <li class="nav-item" (click)="changeNavSelection('salesOrders')">
+          <a class="nav-link" [ngClass]="{'active': selectedNav === 'salesOrders'}" href="javascript:void(0)">Sales
+            Orders</a>
+        </li>
+        <li class="nav-item" (click)="changeNavSelection('contractNumbers')">
+          <a class="nav-link" [ngClass]="{'active': selectedNav === 'contractNumbers'}"
+            href="javascript:void(0)">Contract Numbers</a>
+        </li>
+        <li *ngIf='appDataService.archName !== "SEC"' class="nav-item" (click)="changeNavSelection('installSites')">
+          <a class="nav-link" [ngClass]="{'active': selectedNav === 'installSites'}" href="javascript:void(0)">Install
+            Sites</a>
+        </li>
+        <li class="nav-item" (click)="changeNavSelection('serialNumber')">
+          <a class="nav-link" [ngClass]="{'active': selectedNav === 'serialNumber'}" href="javascript:void(0)">Serial
+            Number</a>
+        </li>
+        <li *ngIf='appDataService.archName !== "SEC"' class="nav-item" (click)="changeNavSelection('subscription')">
+          <a class="nav-link" [ngClass]="{'active': selectedNav === 'subscription'}" href="javascript:void(0)">Subscription</a>
+        </li>
+        <li class="fullScreenBtn" (click)="openSearchLocate()">
+          <a href=" javascript: ">
+            <span class="icon-search "></span>
+            <!--Full Screen-->
+          </a>
+        </li>
+        <li *ngIf='appDataService.archName !== "ALL"' class="fullScreenBtn " (click)="requestIba()">
+          <a href=" javascript: ">
+              <span class="icon-request-report "></span>
+              <!--Full Screen-->
+          </a>
+      </li>
+      </ul>
+    </div>
+      <div class="revenue-generated">
+
+        <!-- start of search and locate message  -->
+        <div id=" " *ngIf="ibSummaryService.isSearchAndLocate ">
+          <div class="approve-disapprove refine-result alert alert--warning">
+            <span class="alert-icon">
+              <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+          </span>
+            <span class="infoTxt" *ngIf="ibSummaryService.showInside ">
+              {{localeService.getLocalizedString('ibsummary.SHOWING')}}
+              <strong>{{ibSummaryService.customerSearchResult.length}}
+                {{localeService.getLocalizedString('ibsummary.RESULTS')}}</strong>
+              {{localeService.getLocalizedString('ibsummary.FOUND_WITHIN')}} {{appDataService.customerName}}.
+              <a href="javascript:void(0) " (click)="showOutsideResults() ">{{ibSummaryService.nonCustomerSearchResult.length}}
+                {{localeService.getLocalizedString('ibsummary.RESULTS')}}</a>
+              {{localeService.getLocalizedString('ibsummary.FOUND_OUTSIDE')}} {{appDataService.customerName}}.
+              <a class="dropdown " href="javascript:void(0) " (mouseenter)="shownoresult = true" (mouseleave)="shownoresult = false" >{{ibSummaryService.notFoundSearchResult.length}}
+                {{localeService.getLocalizedString('ibsummary.RESULTS')}}
+                <div class="dropdown-menu results-list" *ngIf="ibSummaryService.notFoundSearchResult.length > 0 && shownoresult">
+                  <span class="icon-arrow-up "><span class="path1 "></span><span class="path2 "></span></span>
+                  <ul>
+                    <li *ngFor="let a of ibSummaryService.notFoundSearchResult ">
+                      <a href="javascript:void(0); ">{{a}}</a>
+                    </li>
+                  </ul>
+                </div>
+              </a> {{localeService.getLocalizedString('ibsummary.FOUND_NO_MATCHES')}}
+            </span>
+            <ul class="refine-search" *ngIf="ibSummaryService.showInside ">
+              <li>
+                <a href="javascript:void(0)" class="mr-2"
+                  (click)="openSearchLocate() ">{{localeService.getLocalizedString('ibsummary.REFINE_SEARCH')}}</a>
+                <button class="icon-close-btn " data-dismiss="modal " type="button " (click)="closeSearch() "></button>
+              </li>
+            </ul>
+            <span class="infoTxt" *ngIf="!ibSummaryService.showInside ">
+              {{localeService.getLocalizedString('ibsummary.SHOWING')}}
+              <strong>{{ibSummaryService.nonCustomerSearchResult.length}}
+                {{localeService.getLocalizedString('ibsummary.RESULTS')}}</strong>
+              {{localeService.getLocalizedString('ibsummary.FOUND_OUTSIDE')}} {{appDataService.customerName}}.
+              <a href="javascript:void(0) " (click)="showInsideResults() ">{{ibSummaryService.customerSearchResult.length}}
+                {{localeService.getLocalizedString('ibsummary.RESULTS')}}</a>
+              {{localeService.getLocalizedString('ibsummary.FOUND_WITHIN')}} {{appDataService.customerName}}.
+              <a class="dropdown " href="javascript:void(0) " (mouseenter)="shownoresult = true" (mouseleave)="shownoresult = false" >{{ibSummaryService.notFoundSearchResult.length}}
+                {{localeService.getLocalizedString('ibsummary.RESULTS')}}
+                <div class="dropdown-menu results-list" *ngIf="ibSummaryService.notFoundSearchResult.length > 0 && shownoresult">
+                  <span class="icon-arrow-up "><span class="path1 "></span><span class="path2 "></span>
+                  </span>
+                  <ul>
+                    <li *ngFor="let a of ibSummaryService.notFoundSearchResult ">
+                      <a href="javascript:void(0); ">{{a}}</a>
+                    </li>
+                  </ul>
+                </div>
+              </a> {{localeService.getLocalizedString('ibsummary.FOUND_NO_MATCHES')}}
+            </span>
+            <ul class="refine-search" *ngIf="!ibSummaryService.showInside ">
+              <li>
+                <a href="javascript:void(0)" class="mr-2"
+                  (click)="openSearchLocate() ">{{localeService.getLocalizedString('ibsummary.REFINE_SEARCH')}}</a>
+                <button class="icon-close-btn " data-dismiss="modal " type="button " (click)="closeSearch() "></button>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <!-- End of search and locate message -->
+
+        <app-ib-summary-sales-order *ngIf="selectedNav === 'salesOrders'"></app-ib-summary-sales-order>
+        <app-ib-summary-serial-number *ngIf="selectedNav === 'serialNumber'"></app-ib-summary-serial-number>
+        <app-ib-summary-install-site-number *ngIf="selectedNav === 'installSites'"></app-ib-summary-install-site-number>
+        <app-ib-summary-contract-number *ngIf="selectedNav === 'contractNumbers'"></app-ib-summary-contract-number>
+        <app-ib-summary-subscription-number *ngIf="selectedNav === 'subscription'"></app-ib-summary-subscription-number>
+
+      </div>
+    </div>
+  </div>
+  <div *ngIf="!ibSummaryView">
+    <h1 class="right-flyout--heading mb-0">Prospect Details<span><i class="icon-close-btn"
+          (click)="close()"></i></span></h1>
+    <div class="" class="right-flyout_content">
+      <ul class="nav nav-tabs bborder-tab">
+        <li class="nav-item" (click)="changeProspectSelection('geography')">
+          <a class="nav-link" [ngClass]="{'active': selectedNav === 'geography'}" href="javascript:void(0)">Geography</a>
+        </li>
+        <li class="nav-item" (click)="changeProspectSelection('subsidiary')">
+          <a class="nav-link" [ngClass]="{'active': selectedNav === 'subsidiary'}"
+            href="javascript:void(0)">Subsidiaries</a>
+        </li>
+      </ul>
+      <div class="revenue-generated" >
+        <app-prospect-detail-subsidiary *ngIf="selectedNav === 'subsidiary'" [allArchitectureView]="true"></app-prospect-detail-subsidiary>
+        <app-prospect-detail-region *ngIf="selectedNav === 'geography'" [allArchitectureView]="true"></app-prospect-detail-region>
+      </div>
+    </div>
+  </div>
+</div>

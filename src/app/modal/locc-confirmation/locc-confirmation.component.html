@@ -1,0 +1,39 @@
+<!-- <div class="modal-header">
+<h5 class="modal-title">{{localeService.getLocalizedString('partner.LOA_NOTSIGNED')}}</h5>
+<button class="icon-close-btn" type="button" (click)="close()" ></button>
+</div>
+<div class="modal-body">
+<div class="deal-check">
+        <label class="label-check">
+          <span></span>
+          <span>{{message}}</span>
+        </label>
+  </div>
+
+<div class="modal-footer">
+    <button class="btn btn-secondary" (click)="cancel()"  type="button">{{localeService.getLocalizedString('common.NO')}}</button>
+    <button class="btn btn-primary" type="button"  (click)="continue()" >{{localeService.getLocalizedString('common.YES')}}</button>
+    
+</div> 
+ -->
+
+
+<div class="modal-header">
+   <h5 class="modal-title">{{localeService.getLocalizedString('partner.LOA_NOTSIGNED')}}</h5> 
+  <button class="icon-close-btn" type="button" (click)="close()"></button>
+</div>
+<div class="modal-body">
+  <div class="body-content info-alert-message">
+    <div class="info-txt">{{localeService.getLocalizedMessage('partner.locc.CONFIRMATION_MESSAGE1')}}<br/><br/>
+        {{localeService.getLocalizedMessage('partner.locc.CONFIRMATION_MESSAGE2')}}<br/>
+        {{localeService.getLocalizedMessage('partner.locc.CONFIRMATION_MESSAGE3')}}<br/>
+        {{localeService.getLocalizedMessage('partner.locc.CONFIRMATION_MESSAGE4')}}<br/><br/>
+        {{localeService.getLocalizedMessage('partner.locc.CONFIRMATION_MESSAGE5')}}<br/><br/>
+        {{localeService.getLocalizedMessage('partner.locc.CONFIRMATION_MESSAGE6')}}<br/>
+    </div>    
+</div>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-secondary" type="button" (click)="cancel()">{{localeService.getLocalizedString('common.NO')}}</button>
+  <button class="btn btn-primary" (click)="continue()" type="button"><span class="mid-text">{{localeService.getLocalizedString('common.YES')}}</span></button>
+</div>

@@ -1,0 +1,347 @@
+<!-- <div class="breadcrumbWrapper vNext" id="breadcrumbWrapper">
+    <div class="container-fluid">
+        <div class="row align-items-center">
+            <div class="col-lg-12">
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="javascript:void(0);">Home</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="javascript:void(0);">Prospects</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="javascript:void(0);" class="active">Google INC</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+<ng-container *ngIf="!eaService.isManageBpScope">
+    <section id="deal-info"  class="subHeaderWrap vNext " attr.page-id="{{dataIdConstantsService.subHeader_page_subHeaderPage}}">
+        <div class="container-fluid">
+            <div class="row align-items-center clearfix">
+                <div class="col-6">
+                    <div class="page-sub-title">
+                    
+                        <h2>
+                            <span class="sub-header--text" placement="top" container="body" ngbTooltip="{{proposalStoreService.proposalData?.id ? proposalStoreService.proposalData?.name : projectStoreService.projectData?.name}}" *ngIf="!eaStoreService.editName">{{proposalStoreService.proposalData?.id ? proposalStoreService.proposalData?.name : projectStoreService.projectData?.name}}</span>
+                            <div class="d-flex w-90" *ngIf="eaStoreService.editName">
+                                <textarea *ngIf="proposalStoreService.proposalData?.id"
+                                class="form-control rename-proposal" type="text" [(ngModel)]="proposalName">
+                                </textarea>
+                                <textarea *ngIf="!proposalStoreService.proposalData?.id" attr.data-id="{{dataIdConstantsService.subHeader_textarea_projectName}}"
+                                class="form-control rename-proposal" type="text" [(ngModel)]="projectName">
+                                </textarea>
+                                <ul class="rename-actions">
+                                    <li *ngIf="!proposalStoreService.proposalData?.id" [ngClass]="{'disabled': !projectName || (projectName && (projectStoreService.projectData?.name === projectName.trim()))}">
+                                        <a href="javascript:void();" (click)="saveUpdatedName(false, projectStoreService.projectData?.name, projectName)"  attr.action-id="{{dataIdConstantsService.subHeader_link_saveUpdatedProjectName}}">
+                                            <span class="i-vNext-Full-1"><span class="path1"></span><span class="path2"></span></span>
+                                        </a>
+                                    </li>
+                                    <li *ngIf="proposalStoreService.proposalData?.id" [ngClass]="{'disabled': !proposalName || (proposalName && (proposalStoreService.proposalData?.name === proposalName.trim()))}">
+                                        <a href="javascript:void();" attr.action-id="{{dataIdConstantsService.subHeader_link_saveUpdatedName}}" (click)="saveUpdatedName(true, proposalStoreService.proposalData?.name, proposalName)">
+                                            <span class="i-vNext-Full-1"><span class="path1"></span><span class="path2"></span></span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void();" (click)="cancelNameChange()" attr.action-id="{{dataIdConstantsService.subHeader_link_cancelNameChange}}">
+                                            <span class="i-vNext-close-circle"></span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        
+                            <span class="i-vNext-edit-filled px-2" (click)="editProjectName()" attr.action-id="{{dataIdConstantsService.subHeader_icon_editProjectName}}" *ngIf="!eaStoreService.editName && !projectStoreService.projectReadOnlyMode && projectStoreService.projectData.status === 'COMPLETE' && !proposalStoreService.proposalData?.id && (vnextStoreService.currentPageContext === vnextStoreService.applicationPageContextObject.PROJECT_CONTEXT || vnextStoreService.currentPageContext === vnextStoreService.applicationPageContextObject.PROPOSAL_LIST_CONTEXT) && projectStoreService.projectReopenAccess && !projectStoreService.projectData?.dealInfo?.subscriptionUpgradeDeal"></span>
+                            <span class="i-vNext-edit-filled px-2" (click)="editProjectName()" attr.action-id="{{dataIdConstantsService.subHeader_icon_editProposalName}}" *ngIf="!eaStoreService.editName && proposalStoreService.allowProposalEditName && !proposalStoreService.showPriceEstimate"></span>
+                            <span  class="text--link" (click)="proposalStoreService.editProposalParamter = true;" attr.action-id="{{dataIdConstantsService.subHeader_link_editProposalDetails}}" *ngIf="proposalStoreService.showPriceEstimate && proposalStoreService.proposalEditAccess && proposalStoreService.proposalData?.statusDesc === 'In Progress' && !eaStoreService.isValidationUI">{{localizationService.getLocalizedString('common.EDIT_DETAILS')}}</span>
+                            <span  class="text--link" (click)="proposalStoreService.editProposalParamter = true;" attr.action-id="{{dataIdConstantsService.subHeader_link_editProposalDetails}}" *ngIf="proposalStoreService.showPriceEstimate && ((proposalStoreService.proposalEditAccess && proposalStoreService.proposalData?.statusDesc !== 'In Progress') ||  (!proposalStoreService.proposalEditAccess && (eaStoreService.isUserRoSuperUser || (isPartnerLoggedIn && eaStoreService.userInfo?.superUser && eaStoreService.userInfo?.superUser === constantsService.PARTNER_RO_SUPER_USER)))) && !eaStoreService.isValidationUI">{{localizationService.getLocalizedString('common.VIEW_DETAILS')}}</span>
+                            <!-- <span class="i-vNext-trash px-2"></span> -->
+
+                        </h2>
+                    </div>
+                    <!-- Smart Account -- New Component Added -->
+                    <ul class="smart-acnt-subheader-bar" *ngIf="!eaStoreService.isValidationUI && !tcoStoreService.tcoData?.objId">
+                        <li *ngIf="showSmartAcc()">
+                            <span class="sub-title-inner">{{localizationService.getLocalizedString('common.sub-header.SMART_ACCOUNT')}}</span>
+                            <span class="sub-data-inner position-relative" (clickOutside)="onClickedOutside($event)">
+                                <span class="sub-data-text" placement="top" container="body" ngbTooltip="{{projectStoreService.projectData?.smartAccount?.smrtAccntName ? projectStoreService.projectData?.smartAccount?.smrtAccntName : '--'}}">{{projectStoreService.projectData?.smartAccount?.smrtAccntName ? projectStoreService.projectData?.smartAccount?.smrtAccntName : '--'}}</span>
+                                <span class="i-vNext-edit-filled ml-1"  id="{{elementIdConstantsService.SUB_HEADER_EDIT_SMART_ACCOUNT}}" (click)="openSmartAccount()" attr.action-id="{{dataIdConstantsService.subHeader_icon_openSmartAccount}}" *ngIf="!eaStoreService.isUserApprover && allowSmartAccountAccess() && eaStoreService.pageContext !== eaStoreService.pageContextObj.RENEWAL_SUBSCRIPTION_PAGE && !eaStoreService.changeSubFlow && !eaStoreService.isValidationUI"></span>
+                                <!-- <span class="i-vNext-trash-bold px-2" *ngIf="projectStoreService.projectData?.smartAccount?.smrtAccntName && !eaStoreService.isUserApprover && allowSmartAccountAccess()" (click)="deleteSmartAccount()" placement="top" container="body" ngbTooltip="{{localizationService.getLocalizedString('delete-smart-account.REMOVE_ACCOUNT_ASSIGNMENT')}}"></span> -->
+                                <div class="dropdown-menu" [class.show]="showSmartAccount">
+                                    <div class="form-group search-wrap">
+                                        <input placeholder="Search Smart Account, Domain/Identifier..." type="text" [(ngModel)] ="searchText"
+                                            class="form-control" attr.data-id="{{dataIdConstantsService.subHeader_text_smartAcctSearchText}}" >
+                                        <span class="i-vNext-search"></span>
+                                    </div>
+                                    <div class="list-header mb-2 mt-2">
+                                        <span>{{localizationService.getLocalizedString('common.sub-header.SMART_ACCOUNT_NAME')}}</span>
+                                        <span>{{localizationService.getLocalizedString('common.sub-header.ACCOUNT_DOMAIN_IDENTIFIER')}}</span>
+                                    </div>
+                                    <ul class="smart-account-dropdown">
+                                    <li *ngFor='let smartAcc of smartAccountData | searchFilter: searchText : searchArray' (click)="selectSmartAccount(smartAcc)" [ngClass]="{'active':projectStoreService?.projectData?.smartAccount?.domain === smartAcc?.domain}">
+                                            <span placement="top" container="body" ngbTooltip="{{smartAcc?.smrtAccntName}}">{{smartAcc?.smrtAccntName}} <span class="i-vNext-check"></span></span>
+                                            <span>{{smartAcc?.domain}}</span>
+                                        </li>
+                                    </ul>
+                                    <!-- Added "Create New Smart Account" -->
+                                    <div class="smart-account-footer">
+                                        <a href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.subHeader_link_requestNewSmartAccount}}" (click)='requestNewSmartAccount()'>{{localizationService.getLocalizedString('common.sub-header.CREATE_SMART_ACCOUNT')}}</a>
+                                    </div>
+                                </div>
+                            </span>
+                        </li>
+
+                    </ul>
+                    <!-- Smart Account -- New Component Added -- Ends Here -->
+                </div>
+
+                <div class="col-6 d-flex justify-content-end" *ngIf="!proposalStoreService.proposalData?.id || vnextService.roadmapStep === 1">
+                    <div class="data-column" *ngIf='projectStoreService.projectData?.scopeInfo?.masterAgreementId && projectStoreService.projectData?.status === "COMPLETE"'>
+                        <h4 class="digit">{{localizationService.getLocalizedString('common.BUYING_PROGRAM_ID')}}</h4>
+                        <h2 class="val">{{projectStoreService.projectData.scopeInfo.masterAgreementId}}</h2>
+                    </div>
+                    <div class="data-column">
+                        <h4 class="digit">{{localizationService.getLocalizedString('common.DEAL_ID')}}</h4>
+                        <h2 class="val">{{projectStoreService.projectData?.dealInfo?.id}}</h2>
+                    </div>
+
+                    <!-- <div class="data-column" *ngIf="projectStoreService.projectData?.dealInfo?.statusDesc">
+                        <h4 class="digit">{{localizationService.getLocalizedString('common.DEAL_STATUS')}}</h4>
+                        <span class="badge badge-valid" [ngClass]="{'badge-valid': projectStoreService.projectData.dealInfo.statusDesc === 'Qualified' , 'badge-in-progress': projectStoreService.projectData.dealInfo.statusDesc !== 'Qualified' && projectStoreService.projectData.dealInfo.statusDesc !== 'Not Submitted', 'badge-closed': projectStoreService.projectData.dealInfo.statusDesc === 'Not Submitted'}">{{projectStoreService.projectData.dealInfo.statusDesc}}</span>
+                    </div> -->
+
+                    <div class="data-column">
+                        <h4 class="digit">{{localizationService.getLocalizedString('common.DEAL_OWNER')}}</h4>
+                        <h2 class="val">{{projectStoreService.projectData?.dealInfo?.optyOwner}}</h2>
+                    </div>
+                    <div class="data-column" *ngIf="projectStoreService.projectData?.selectedQuote?.quoteId">
+                        <h4 class="digit">{{localizationService.getLocalizedString('common.QUOTE_ID')}}</h4>
+                        <h2 class="val">{{projectStoreService.projectData?.selectedQuote?.quoteId}}</h2>
+                    </div>
+
+                    <div class="data-column" *ngIf="projectStoreService.projectData?.dealInfo?.expectedBookDate">
+                        <h4 class="digit">{{localizationService.getLocalizedString('common.EXPECTED_BOOK_DATE')}}</h4>
+                        <h2 class="val">{{projectStoreService.projectData.dealInfo.expectedBookDate}}</h2>
+                    </div>
+
+                    
+                    <app-locc-status
+                            *ngIf="projectStoreService.projectData?.dealInfo?.partnerDeal && !(projectStoreService.projectData?.changeSubscriptionDeal && projectStoreService.projectData?.dealInfo?.directRTM)">
+                    </app-locc-status>
+                </div>
+                <div class="col-6 d-flex justify-content-end" *ngIf="proposalStoreService.proposalData?.name && vnextService.roadmapStep !== 1">
+                    <div *ngIf='!eaStoreService.isValidationUI && proposalStoreService.proposalData?.scopeInfo?.masterAgreementId' class="data-column">
+                        <h4 class="digit">{{localizationService.getLocalizedString('common.BUYING_PROGRAM_ID')}}</h4>
+                        <h2 class="val">{{proposalStoreService.proposalData.scopeInfo.masterAgreementId}}</h2>
+                    </div>
+                    <div class="data-column" *ngIf="!eaStoreService.isValidationUI">
+                        <h4 class="digit">{{localizationService.getLocalizedString('common.DEAL_ID')}}</h4>
+                        <h2 class="val">{{proposalStoreService.proposalData?.dealInfo?.id}}</h2>
+                    </div>
+
+                
+                        <div class="data-column" *ngIf="proposalStoreService.showProposalDashboard && !(proposalStoreService.proposalData?.dealInfo?.referrerQuoteId || projectStoreService.projectData?.selectedQuote?.quoteId)">
+                            <h4 class="digit">{{'common.QUOTE_ID' | localizationPipe : localizationService.localizedkeySet.size}}</h4>
+                            <h2 class="val" *ngIf="proposalStoreService.proposalData?.quoteInfo?.quoteId"><a href="javascript:void(0);" (click)="openQuoteUrl()">{{proposalStoreService.proposalData?.quoteInfo?.quoteId}}</a></h2>
+                            <h2 class="val" *ngIf="!proposalStoreService.proposalData?.quoteInfo?.quoteId">--</h2>
+                        </div>
+                
+
+                    <div class="data-column" *ngIf="proposalStoreService.proposalData?.dealInfo?.referrerQuoteId || projectStoreService.projectData?.selectedQuote?.quoteId">
+                        <h4 class="digit">{{localizationService.getLocalizedString('common.QUOTE_ID')}}</h4>
+                        <ng-container *ngIf="proposalStoreService.proposalData?.dealInfo?.referrerQuoteId; else selectedQuoteId">
+                            <a href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.subHeader_link_openQuoteUrl}}" (click)='openQuoteUrl()'class="val" style="color: #227bb1">
+                                {{proposalStoreService.proposalData?.dealInfo.referrerQuoteId}}
+                            </a>
+                    </ng-container>
+                        <ng-template #selectedQuoteId>
+                            <a href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.subHeader_link_openQuoteUrl}}" (click)='openQuoteUrl()'class="val" style="color: #227bb1">
+                                {{projectStoreService.projectData?.selectedQuote?.quoteId}}
+                            </a>
+                        </ng-template>
+                    </div>
+                    <div class="data-column" *ngIf="proposalStoreService.proposalData?.dealInfo?.subscriptionUpgradeDeal && !proposalStoreService.showProposalDashboard && proposalStoreService.proposalData?.quoteInfo?.quoteId && eaService.features?.CROSS_SUITE_MIGRATION_REL">
+                        <h4 class="digit">{{localizationService.getLocalizedString('common.QUOTE_ID')}}</h4>
+                        
+                            <a href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.subHeader_link_openQuoteUrl}}" (click)='openQuoteUrl()'class="val" style="color: #227bb1">
+                                {{proposalStoreService.proposalData.quoteInfo.quoteId}}
+                            </a>
+                    </div>
+
+                    <div class="data-column"  *ngIf="!eaStoreService.isValidationUI">
+                        <h4 class="digit">{{localizationService.getLocalizedString('common.sub-header.PROPOSAL_ID')}}</h4>
+                        <h2 class="val">{{proposalStoreService.proposalData?.id}}</h2>
+                    </div>
+
+                    <div class="data-column"*ngIf="eaStoreService.isValidationUI" >            
+                        <h4 class="digit">{{localizationService.getLocalizedString('common.sub-header.SYSTEM_DATE')}}</h4>
+                        <div class="d-flex">
+                            <h4 class="val" attr.data-id="{{dataIdConstantsService.subHeader_systemDate}}">{{vnextStoreService.systemDate}}</h4>
+                            <span  class="i-vNext-edit-filled ml-1 mt-1 cursor-pointer" (click)="updateSystemDateOpen()" attr.action-id="{{dataIdConstantsService.subHeader_icon_edit_systemDate}}" ></span>
+                        </div>
+                        
+                    </div>
+
+                    <div *ngIf="!eaStoreService.isValidationUI" class="data-column">
+                        <h4 class="digit">{{localizationService.getLocalizedString('common.sub-header.PROPOSAL_STATUS')}}</h4>
+                        <span class="badge badge-valid" [ngClass]="{'badge-valid': proposalStoreService.proposalData?.statusDesc === 'Complete' , 'badge-in-progress': proposalStoreService.proposalData?.statusDesc !== 'Complete'}">{{proposalStoreService.proposalData?.statusDesc}}</span>
+                    </div>
+                    <div class="data-column">
+                        <h4 class="digit">{{localizationService.getLocalizedString('common.sub-header.TOTAL_VALUE')}} ({{proposalStoreService.proposalData?.currencyCode ? proposalStoreService.proposalData?.currencyCode : 'USD'}})</h4>
+                        <h2 class="val">{{proposalStoreService.proposalData?.priceInfo?.totalNet ? utilitiesService.formatValue(utilitiesService.getFloatValue(proposalStoreService.proposalData.priceInfo.totalNet)) : '--'}} 
+                        <span *ngIf="proposalStoreService.proposalData?.priceInfo?.totalNet" attr.action-id="{{dataIdConstantsService.subHeader_icon_financialSummary}}" class="icon-arrow-stroke ml-2" style="cursor: pointer;" (click)="proposalStoreService.showFinancialSummary = true;"></span>
+                        </h2>              
+                    </div>
+                    
+                    
+                    <!-- <app-locc-status
+                        *ngIf="projectStoreService.projectData?.dealInfo?.partnerDeal">
+                    </app-locc-status> -->
+
+                        <app-locc-status 
+                        *ngIf="(projectStoreService.projectData?.dealInfo?.partnerDeal && !(projectStoreService.projectData?.changeSubscriptionDeal && projectStoreService.projectData?.dealInfo?.directRTM)) || (!projectStoreService.projectData?.dealInfo?.partnerDeal && proposalStoreService.proposalData?.partnerInfo?.beGeoId)">
+                        </app-locc-status>
+
+
+                </div>
+
+                <div class="col-lg-7 d-flex justify-content-end" style="display: none !important;">
+                    <div class="data-column">
+                        <h4 class="digit">{{localizationService.getLocalizedString('common.DEAL_ID')}}</h4>
+                        <h2 class="val">{{projectStoreService.projectData?.dealInfo?.dealId}}</h2>
+                    </div>
+
+                    <div class="data-column">
+                        <h4 class="digit">{{localizationService.getLocalizedString('common.DEAL_STATUS')}}</h4>
+                        <span class="badge badge-closed">Not Submitted</span>
+                    </div>
+
+                    <div class="data-column">
+                        <h4 class="digit">{{localizationService.getLocalizedString('common.DEAL_OWNER')}}</h4>
+                        <h2 class="val">{{projectStoreService.projectData?.dealInfo?.optyOwner}}</h2>
+                    </div>
+
+                    <div class="data-column">
+                        <h4 class="digit">{{localizationService.getLocalizedString('common.EXPECTED_BOOK_DATE')}}</h4>
+                        <h2 class="val">10-Mar-2021</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-end pt-2" *ngIf="!eaStoreService.isValidationUI && !tcoStoreService.tcoData?.objId">
+                <div></div>
+                <div class="d-flex flex-row text-body digit mr-2 pr-2 border--right" *ngIf="eaService.features?.MSEA_REL && proposalStoreService.proposalData?.name && vnextService.roadmapStep !== 1 && proposalStoreService.proposalData?.buyingProgramTransactionType"><strong class="pr-1">{{'common.EA_MOTION' | localizationPipe : localizationService.localizedkeySet.size}}: </strong>
+                    <span *ngIf="proposalStoreService.proposalData?.buyingProgramTransactionType === constantsService.MSEA">{{'common.MSEA' | localizationPipe : localizationService.localizedkeySet.size}} </span>
+                    <span *ngIf="proposalStoreService.proposalData?.buyingProgramTransactionType === constantsService.MSP_EA">
+                        {{'common.EA' | localizationPipe : localizationService.localizedkeySet.size}}
+                    </span>
+                   </div>
+                <div class="d-flex flex-row text-body digit" *ngIf="proposalStoreService.proposalData?.name && vnextService.roadmapStep !== 1 && proposalStoreService.proposalData?.priceList?.description"><strong class="pr-1">{{localizationService.getLocalizedString('common.sub-header.PRICE_LIST')}}</strong><span>{{proposalStoreService.proposalData?.priceList?.description}} ({{proposalStoreService.proposalData?.currencyCode ? proposalStoreService.proposalData?.currencyCode : 'USD'}})</span></div>
+            </div>
+        </div>
+    </section>
+
+<!--Start Disti flow for sept release--> 
+    <div class="subHeaderWrap vNext border-0 py-3" *ngIf="!tcoStoreService.tcoData?.objId" attr.page-id="{{dataIdConstantsService.subHeader_page_subHeaderPage}}"> 
+        <div class="container-fluid">
+           
+                <button type="button" class="btn btn-secondary sm" id="{{elementIdConstantsService.SUB_HEADER_REOPEN_PROJECT}}" attr.action-id="{{dataIdConstantsService.subHeader_button_reOpenProject}}" (click)="editProject()" *ngIf=" !projectStoreService.projectReadOnlyMode && projectStoreService.projectData.status === 'COMPLETE' && !proposalStoreService.proposalData?.id && vnextStoreService.currentPageContext === vnextStoreService.applicationPageContextObject.PROJECT_CONTEXT && projectStoreService.projectReopenAccess && !(!projectStoreService.projectData.dealInfo?.partnerDeal && isPartnerLoggedIn)">
+                    {{'edit-project.REOPEN_PROJECT' | localizationPipe : localizationService.localizedkeySet.size}}
+                </button>
+            <ul class="smart-acnt-subheader-bar mt-0 justify-content-end align-items-center" *ngIf="(proposalStoreService.proposalData?.id || projectStoreService.projectData?.selectedQuote) && !eaStoreService.isValidationUI && !tcoStoreService.tcoData?.objId">
+                <li class="pr-0" *ngIf='proposalStoreService?.porConsentNeeded && !proposalStoreService.proposalData?.dealInfo?.subscriptionUpgradeDeal'>
+                    <a href="javascript:void(0);" class="sub-data-inner view-doc-center" attr.action-id="{{dataIdConstantsService.subHeader_link_viewDocumentCenter}}" (click)="viewDocumentCenter()">View Document Center</a>
+                </li>
+                
+                    <li class="align-items-center" *ngIf="proposalStoreService.proposalData?.dealInfo?.distiDeal && proposalStoreService.proposalData?.dealInfo?.distiDetail">
+                        <span class="sub-title-inner">{{'common.sub-header.DISTRIBUTOR' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                        <span class="sub-data-inner  ellipsis"  container="body"  placement="top" ngbTooltip="{{proposalStoreService.proposalData?.dealInfo?.distiDetail?.name}}">{{proposalStoreService.proposalData?.dealInfo?.distiDetail?.name}}</span>
+                        <ng-container *ngIf = "proposalStoreService.showPriceEstimate && proposalStoreService.proposalData?.status !== 'COMPLETE' && !(!proposalStoreService.proposalData.dealInfo?.partnerDeal && isPartnerLoggedIn)">
+                            <button type="button" class="btn btn-primary sm ml-2" *ngIf="eaService.isResellerOpty && eaService.isResellerLoggedIn && !proposalStoreService.proposalData?.sharedWithDistributor" attr.action-id="{{dataIdConstantsService.subHeader_button_transferToDisti}}" (click)="shareProposal('transfer')">{{'common.sub-header.TRANSFER_TO_DISTRIBUTOR' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                            <button type="button" class="btn btn-primary sm ml-2" *ngIf="eaService.isResellerOpty  && eaService.isResellerLoggedIn && proposalStoreService.proposalData?.sharedWithDistributor" attr.action-id="{{dataIdConstantsService.subHeader_button_withdrawFromDisti}}" (click)="shareProposal('withdraw')">{{'common.sub-header.WITHDRAW_FROM_DISTRIBUTOR' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                        </ng-container>
+                    </li>
+                <li class="pr-0" *ngIf="proposalStoreService.proposalData?.partnerInfo?.beGeoId || projectStoreService.projectData?.selectedQuote?.partnerInfo?.beGeoName">
+                    <span class="sub-title-inner">{{localizationService.getLocalizedString('common.sub-header.PARTNER')}}</span>
+                    <ng-container  *ngIf='proposalStoreService.proposalData?.partnerInfo?.beGeoId; else selectedQuoteData' >
+                    <span class="sub-data-inner ellipsis"container="body"  placement="top" ngbTooltip="{{proposalStoreService.proposalData?.partnerInfo?.beGeoName}}">{{proposalStoreService.proposalData?.partnerInfo?.beGeoName}}</span>
+                    </ng-container>
+                    <ng-template #selectedQuoteData>
+                    <span class="sub-data-inner ellipsis" container="body"  placement="top" ngbTooltip="{{projectStoreService.projectData?.selectedQuote?.partnerInfo.beGeoName}}">{{projectStoreService.projectData?.selectedQuote?.partnerInfo?.beGeoName}}</span>
+                    </ng-template>
+                    <a href="javascript:void(0);" class="sub-data-inner" attr.action-id="{{dataIdConstantsService.subHeader_link_viewAuth}}"  (click)="viewAuth()">{{localizationService.getLocalizedString('common.sub-header.VIEW_AUTHORIZATION')}}</a>
+                </li>
+            </ul>
+            <ul class="smart-acnt-subheader-bar mt-0 justify-content-end align-items-center" *ngIf="!proposalStoreService.proposalData?.id">
+             
+                    <li class="align-items-center" *ngIf="projectStoreService.projectData?.dealInfo?.distiDeal && projectStoreService.projectData?.dealInfo?.distiDetail">
+                        <span class="sub-title-inner">{{'common.sub-header.DISTRIBUTOR' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                        <span class="sub-data-inner ellipsis"  container="body"  placement="top" ngbTooltip="{{projectStoreService.projectData?.dealInfo?.distiDetail?.name}}">{{projectStoreService.projectData?.dealInfo?.distiDetail?.name}}</span>
+                        <ng-container *ngIf = "proposalStoreService.showPriceEstimate && proposalStoreService.proposalData?.status !== 'COMPLETE' && !(!projectStoreService.projectData.dealInfo?.partnerDeal && isPartnerLoggedIn)">
+                            <button type="button" class="btn btn-primary sm ml-2" attr.action-id="{{dataIdConstantsService.subHeader_button_transferToDisti}}" *ngIf="eaService.isResellerOpty && eaService.isResellerLoggedIn && !proposalStoreService.proposalData?.sharedWithDistributor" (click)="shareProposal('transfer')">{{'common.sub-header.TRANSFER_TO_DISTRIBUTOR' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                            <button type="button" class="btn btn-primary sm ml-2" attr.action-id="{{dataIdConstantsService.subHeader_button_withdrawFromDisti}}" *ngIf="eaService.isResellerOpty  && eaService.isResellerLoggedIn && proposalStoreService.proposalData?.sharedWithDistributor" (click)="shareProposal('withdraw')">{{'common.sub-header.WITHDRAW_FROM_DISTRIBUTOR' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                        </ng-container>
+                    </li>  
+                <li class="pr-0" *ngIf='projectStoreService.projectData?.partnerInfo?.beGeoId'>
+                    <span class="sub-title-inner">{{localizationService.getLocalizedString('common.sub-header.PARTNER')}}</span>
+                    <span class="sub-data-inner ellipsis"  container="body"  placement="top" ngbTooltip="{{projectStoreService.projectData?.partnerInfo?.beGeoName}}">{{projectStoreService.projectData?.partnerInfo?.beGeoName}}</span>
+                    <a href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.subHeader_link_viewAuth}}" class="sub-data-inner"  (click)="viewAuth()">{{localizationService.getLocalizedString('common.sub-header.VIEW_AUTHORIZATION')}}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</ng-container>
+<!--End Disti flow for sept release-->
+
+<section *ngIf="eaService.isManageBpScope && eaService.features?.EDIT_EAID_REL && eaIdStoreService.eaIdData?.eaid" id="deal-info" class="subHeaderWrap vNext" attr.page-id="{{dataIdConstantsService.subHeader_page_subHeaderPage}}">
+    <div class="container-fluid">
+        <div class="row align-items-center clearfix">
+            <div class="col-6">
+                <div class="page-sub-title">
+                   
+                    <h2>
+                        <span class="sub-header--text">Manage Buying Program Scope</span>
+                    </h2>
+                </div>
+                <ul class="smart-acnt-subheader-bar">
+                    <li>
+                        <span class="sub-title-inner">{{localizationService.getLocalizedString('common.BUYING_PROGRAM_ID')}}:</span>
+                          <span class="sub-data-inner position-relative" >
+                              <span class="sub-data-text">{{eaIdStoreService.eaIdData?.eaid}}</span>
+                        </span>
+                    </li>
+
+                </ul>
+            </div>
+            <div class="col-6 d-flex justify-content-end" >
+                <ng-container *ngIf="eaIdStoreService.eaIdData?.scopeChangeDetails?.requestId && !eaIdStoreService.scopeChangeComplete">
+                    <div class="data-column">
+                        <h4 class="digit">Request ID <span class="icon-info-line-level-fill ml-2" placement="top" container="body" ngbTooltip="An acquisition has occurred, and the customer needs to add sites to existing customer scope"><span class="path1"></span><span class="path2"></span><span
+                            class="path3"></span></span></h4>
+                        <h2 class="val">{{eaIdStoreService.eaIdData.scopeChangeDetails.requestId}}</h2>
+                    </div>
+                    <div class="data-column">
+                        <h4 class="digit">Request Expiration Date</h4>
+                        <h2 class="val">{{eaIdStoreService.eaIdData.scopeChangeDetails?.expirationDate ? eaIdStoreService.eaIdData.scopeChangeDetails.expirationDate : ''}} <span *ngIf="eaIdStoreService.eaIdData.scopeChangeDetails?.expirationDate" class="icon-warning1 ml-2" placement="top" container="body" ngbTooltip="Scope changes should be completed/submitted by {{eaIdStoreService.eaIdData.scopeChangeDetails.expirationDate}} in order to avoid being revoked by system automatically"><span class="path1"></span><span class="path2"></span><span
+                            class="path3"></span></span></h2>
+                    </div>
+                    <div class="data-column">
+                        <h4 class="digit">Request Status</h4>
+                        <span class="badge" [ngClass]="{'badge-valid': eaIdStoreService.eaIdData.scopeChangeDetails?.status === 'Completed' , 'badge-in-progress': eaIdStoreService.eaIdData.scopeChangeDetails?.status !== 'Completed'}">{{eaIdStoreService.eaIdData.scopeChangeDetails?.status}}</span>
+                    </div>  
+                </ng-container>
+                <ng-container *ngIf="eaIdStoreService.scopeChangeComplete">
+                    <div class="data-column">
+                        <h4 class="digit">Request Status</h4>
+                        <span class="badge badge-valid">{{localizationService.getLocalizedString('common.sub-header.COMPLETED')}}</span>
+                    </div>  
+                </ng-container>
+                <div class="data-column">
+                    <h4 class="digit">CAV ID</h4>
+                    <h2 *ngIf="eaIdStoreService.eaIdData?.cavs?.length" class="val">{{eaIdStoreService.eaIdData.cavs[0]?.cavName}} ({{eaIdStoreService.eaIdData.cavs[0]?.cavId}}) </h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,39 @@
+[{
+        "headerName": "",
+        "field": "days",
+        "minWidth": 60,
+        "suppressMenu": true
+    },
+    {
+        "headerName": "Net Price",
+        "children": [{
+                "headerName": "A-la-carte (ALC)",
+                "field": "alc",
+                "minWidth": 60,
+                "suppressMenu": true,
+                "cellClass": "text-right"
+            },
+            {
+                "headerName": "Business As Usual (BAU)",
+                "field": "bau",
+                "minWidth": 60,
+                "suppressMenu": true,
+                "cellClass": "text-right"
+            },
+            {
+                "headerName": "Cisco ONE (C1)",
+                "field": "c1",
+                "minWidth": 60,
+                "suppressMenu": true,
+                "cellClass": "text-right"
+            },
+            {
+                "headerName": "Enterprise Agreement (EA)",
+                "field": "ea",
+                "minWidth": 60,
+                "suppressMenu": true,
+                "cellClass": "text-right"
+            }
+        ]
+    }
+]

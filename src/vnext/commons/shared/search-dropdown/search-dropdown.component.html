@@ -1,0 +1,15 @@
+<div class="input-group search-wrap with-select" [class.manage-bp-scope]="isManageBpScope" [ngClass]="{'w-100' : fullWidth}">
+    <button *ngIf="!disableSelectedDropValue" type="button" class="btn dropdown-toggle-split" attr.data-id="{{dataIdConstantsService.searchDropdown_button_searchDropdown}}" [ngClass]="{'dropdown-toggle' : searchDropdown.length > 1}" (click)="showSearchDrop = true" (clickOutside)="showSearchDrop = false;">
+        <span class="visually-hidden">{{selectedDropValue.name}}</span>
+    </button>
+    <ul class="dropdown-menu w-100" *ngIf='!disableSelectedDropValue && searchDropdown.length > 1' [class.show]="showSearchDrop">
+        <li *ngFor="let value of searchDropdown; let index = index" (click)="selectDrop(value)">
+            <a href="javascript:void(0);" class="dropdown-item" attr.action-id="{{dataIdConstantsService.searchDropdown_link_searchDropdownValue}}{{index}}">{{value.name}}</a>
+        </li>
+    </ul>
+    <input type="text" class="form-control" [ngClass]="{'input-rounded' : roundedInput}" attr.data-id="{{dataIdConstantsService.searchDropdown_text_searchValue}}" (keydown)="onKeyup($event)" [(ngModel)]="searchValue" placeholder="{{searchPlaceHolder}}" (ngModelChange)="onChange(searchValue)" (keyup.enter)="search()">
+    <button type="button" class="btn action-button borderRad-l0">
+        <span class="i-vNext-search" *ngIf="!showClose" attr.action-id="{{dataIdConstantsService.searchDropdown_button_search}}" (click)="search()"></span>
+        <span class="i-vNext-close" *ngIf="showClose" attr.action-id="{{dataIdConstantsService.searchDropdown_button_closeSearch}}" (click)="closeSearch()"></span>
+    </button>
+</div>

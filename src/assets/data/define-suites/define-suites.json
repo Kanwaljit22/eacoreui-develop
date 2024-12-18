@@ -1,0 +1,252 @@
+{
+    "rid": "EAMP1733953737910",
+    "user": "trzope",
+    "error": false,
+    "data": {
+        "enrollments": [
+            {
+                "id": 1,
+                "name": "Networking Infrastructure",
+                "primary": true,
+                "enrolled": false,
+                "displayQnA": false,
+                "displaySeq": 1,
+                "noRenewalBillToOrAttachRate": false,
+                "billingTerm": {
+                    "rsd": "20241211",
+                    "billingModel": "Prepaid",
+                    "billingModelName": "Prepaid Term",
+                    "term": 36,
+                    "eaEndDateStr": "20271210"
+                },
+                "commitInfo": {
+                    "committed": false,
+                    "fcSuiteCount": 0,
+                    "pcSuiteCount": 0
+                },
+                "pools": [
+                 
+
+                    {
+                        "name": "Cisco DNA Software",
+                        "desc": "Cisco DNA Software",
+                        "displaySeq": 1480,
+                        "display": true,
+                        "suites": [
+                          
+                            {
+                                "name": "Cisco DNA Switching",
+                                "desc": "Cisco DNA Switching",
+                                "ato": "E3-N-AS",
+                                "autoSelected": true,
+                                "inclusion": true,
+                                "displaySeq": 1050,
+                                "tiers": [
+                                    {
+                                        "name": "E3-N-AS",
+                                        "desc": "DNA",
+                                        "cxOptIn": false,
+                                        "displaySeq": 1000,
+                                        "cxSelectedTier": "E3-AS-SVS-T1",
+                                        "cxTierOptions": [
+                                            {
+                                                "name": "E3-AS-SVS-T1",
+                                                "desc": "Success Track Level 1",
+                                                "cxOptIn": false,
+                                                "displaySeq": 5010
+                                            },
+                                            {
+                                                "name": "E3-AS-SVS-T2",
+                                                "desc": "Success Track Level 2",
+                                                "cxOptIn": false,
+                                                "displaySeq": 5020
+                                            },
+                                            {
+                                                "name": "E3-AS-SVS1",
+                                                "desc": "Services Tier 1",
+                                                "cxOptIn": false,
+                                                "displaySeq": 5000
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "E3-N-AS-DNX",
+                                        "desc": "DNX",
+                                        "cxOptIn": false,
+                                        "displaySeq": 1050,
+                                        "coverageTypes": [
+                                            {
+                                                "name": "FULL",
+                                                "desc": "Full",
+                                                "selected": false
+                                            },
+                                            {
+                                                "name": "PARTIAL",
+                                                "desc": "Partial",
+                                                "selected": false
+                                            }
+                                        ],
+                                        "cxTierOptions": [
+                                            {
+                                                "name": "E3-AS-DNX-SVS-T1",
+                                                "desc": "Success Track Level 1",
+                                                "cxOptIn": false,
+                                                "displaySeq": 7501
+                                            },
+                                            {
+                                                "name": "E3-AS-DNX-SVS-T2",
+                                                "desc": "Success Track Level 2",
+                                                "cxOptIn": false,
+                                                "displaySeq": 7502
+                                            }
+                                        ],
+                                        "hasEmbeddedHwSupport": true,
+                                        "serviceAttachMandatory": true,
+                                        "eaSuiteType": "DNX"
+                                    }
+                                ],
+                                "displayGroup": true,
+                                "disabled": false,
+                                "active": true,
+                                "cxOptIn": false,
+                                "displayDiscount": false,
+                                "includedInEAID": false,
+                                "consentRequired": false,
+                                "onlyCxAllowed": false
+                            },
+
+                            {
+                                "name": "Cisco DNA Wireless",
+                                "desc": "Cisco DNA Wireless",
+                                "ato": "E3-N-AIR",
+                                "inclusion": true,
+                                "autoSelected": true,
+                                "displaySeq": 1100,
+                                "displayGroup": false,
+                                "disabled": false,
+                                "active": true,
+                                "cxOptIn": false,
+                                "displayDiscount": false,
+                                "includedInEAID": false,
+                                "consentRequired": false,
+                                "cxSelectedTier": "E3-AIR-SVS-T1",
+                                "cxHwSupportAvailable": true,
+                                "cxHwSupportOptional": false,
+                                "cxTierOptions": [
+                                    {
+                                        "name": "E3-AIR-SVS-T1",
+                                        "desc": "Success Track Level 1",
+                                        "cxOptIn": false,
+                                        "displaySeq": 5110
+                                    },
+                                    {
+                                        "name": "E3-AIR-SVS-T2",
+                                        "desc": "Success Track Level 2",
+                                        "cxOptIn": false,
+                                        "displaySeq": 5120
+                                    }
+                                ],
+                                "onlyCxAllowed": true
+                            }
+  
+                        ],
+                        "selectedMerakiSuites": [],
+                        "selectedBonfireSuites": []
+                    },
+                    {
+                        "name": "Cisco Networking",
+                        "desc": "Cisco Networking",
+                        "displaySeq": 1806,
+                        "display": true,
+                        "suites": [
+                            {
+                                "name": "Systems Manager",
+                                "desc": "Systems Manager",
+                                "ato": "E3-N-SM",
+                                "displaySeq": 1705,
+                                "displayGroup": false,
+                                "disabled": false,
+                                "active": true,
+                                "cxOptIn": false,
+                                "type": "MERAKI",
+                                "displayDiscount": false,
+                                "includedInEAID": false,
+                                "consentRequired": false,
+                                "eaSuiteType": "BONFIRE"
+                            },
+                            {
+                                "name": "Networking",
+                                "desc": "Networking",
+                                "ato": "E3-N-NW",
+                                "displaySeq": 1703,
+                                "displayGroup": true,
+                                "disabled": false,
+                                "active": true,
+                                "cxOptIn": false,
+                                "type": "MERAKI",
+                                "displayDiscount": false,
+                                "includedInEAID": false,
+                                "consentRequired": false,
+                                "eaSuiteType": "BONFIRE"
+                            },
+                            {
+                                "name": "Camera Systems",
+                                "desc": "Camera Systems",
+                                "ato": "E3-N-CS",
+                                "displaySeq": 1704,
+                                "displayGroup": false,
+                                "disabled": false,
+                                "active": true,
+                                "cxOptIn": false,
+                                "type": "MERAKI",
+                                "displayDiscount": false,
+                                "includedInEAID": false,
+                                "consentRequired": false,
+                                "eaSuiteType": "BONFIRE"
+                            },
+                            {
+                                "name": "Cisco Networking Wireless",
+                                "desc": "Cisco Networking Wireless",
+                                "ato": "E3-N-CNS-CW",
+                                "displaySeq": 1806,
+                                "displayGroup": false,
+                                "disabled": false,
+                                "active": true,
+                                "cxOptIn": false,
+                                "type": "MERAKI",
+                                "displayDiscount": false,
+                                "includedInEAID": false,
+                                "consentRequired": false,
+                                "coverageTypes": [
+                                    {
+                                        "name": "FULL",
+                                        "desc": "Full",
+                                        "selected": false
+                                    },
+                                    {
+                                        "name": "PARTIAL",
+                                        "desc": "Partial",
+                                        "selected": false
+                                    }
+                                ],
+                                "eaSuiteType": "CISCO_NETWORKING_SOLUTION"
+                            }
+                        ],
+                        "selectedMerakiSuites": [],
+                        "selectedBonfireSuites": []
+                    }
+                ],
+                "disabled": false,
+                "includedInEAID": false,
+                "active": true,
+                "externalConfiguration": false,
+                "cxOptInAllowed": true,
+                "cxAttached": false,
+                "service": false,
+                "disableRsdAndTermUpdate": false,
+                "embeddedHwSupportAttached": false,
+                "someCxSuitesAreNotAvailableToSelect": false
+            }
+        ]
+    }
+}

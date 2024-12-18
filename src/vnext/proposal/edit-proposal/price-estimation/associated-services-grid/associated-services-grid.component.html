@@ -1,0 +1,346 @@
+<ng-container *ngIf="priceEstimateStoreService.selectedEnrollment.cxAttached">
+<div class="vNext border-w-t15 mt-3" (window:resize)="onResize($event)">
+    <app-success-popover *ngIf="!enrollmentData?.cxSoftwareSupportOnly && showIbFetchSuccess && vnextStoreService.toastMsgObject.isIbFetchCompleted && !eaService.features.IB_OPTIMIZATION"></app-success-popover>
+    
+    <ng-container *ngIf="!eastoreService.isValidationUI">
+        <div *ngIf="!eaService.features.IB_OPTIMIZATION && !priceEstimateStoreService.viewAllSelected && priceEstimateStoreService.showServiceHardwareWarning && !enrollmentData?.lineInError && enrollmentData?.hwSupportLinesState !== 'QUOTE_CREATION_FAILED'" class="alert alert--warning alert-dismissable mb-2">
+            <span class="alert-icon d-flex">
+            <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+            </span>
+           <span>{{'price-estimation.associated-services-grid.HARDWARE_INSTALL_BASE_INPROGRESS_NEW_2' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+        </div>
+        <!-- new ib in progress message -->
+        <ng-container *ngIf="eaService.features.IB_OPTIMIZATION && !priceEstimateStoreService.viewAllSelected && !enrollmentData?.lineInError && enrollmentData?.hwSupportLinesState !== 'QUOTE_CREATION_FAILED'">
+            <div class="alert alert--warning alert-dismissable mt-2" *ngIf="proposalStoreService.proposalData?.syncStatus?.cxCcwrRipFlag">
+                <span class="alert-icon d-flex">
+                    <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                </span>
+                <span class="infoTxt">{{'price-estimation.associated-services-grid.IB_INPROGRESS_MESSAGE' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+            </div>
+        </ng-container>
+
+        <!-- show error message for partner accessing sfdc deal with locc not signed  --> 
+        <div class="alert alert--warning alert-dismissable mt-2" *ngIf="(proposalStoreService.isPartnerAccessingSfdcDeal && !vnextStoreService.loccDetail?.loccSigned)">  
+            <span class="alert-icon d-flex">
+                <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+            </span>
+            <span class="infoTxt">{{'price-estimation.associated-services-grid.LOCC_NOT_SIGNED_TO_CONFIGURE_CX' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+        </div>
+
+        <div *ngIf="eaService.features.IB_OPTIMIZATION && proposalStoreService.proposalData?.syncStatus?.cxEditFlag && !proposalStoreService.proposalData?.syncStatus?.cxCcwrRipFlag && enrollmentData?.lineInError && !proposalStoreService.isReadOnly && !priceEstimateStoreService.viewAllSelected && !enrollmentData?.cxSoftwareSupportOnly && (!priceEstimateStoreService.displayIbPullMsg || (eaService.isUpgradeFlow && enrollmentData?.ibAssementRequiredForCxUpgradeType))">
+            <div class="alert alert--danger alert-dismissable">
+                <span class="alert-icon">
+                    <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                </span>
+                <span class="infoTxt">{{'price-estimation.associated-services-grid.HW_ERRORS_PRESENT_AND_REQUIRED_TO_UPDATE_IB' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+            </div>
+        </div>
+
+        <div class="alert alert--danger alert-dismissable mt-2" *ngIf="eastoreService.ibRepullFeatureFlag && priceEstimateStoreService.displayIbPullMsg && showIbPullMsg && !(priceEstimateStoreService.showServiceHardwareWarning && !enrollmentData?.lineInError) && (!eaService.features.IB_OPTIMIZATION || (eaService.features.IB_OPTIMIZATION && !proposalStoreService.proposalData?.syncStatus?.cxEditFlag))">  
+            <span class="alert-icon">
+                <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+            </span>
+            <span class="infoTxt">{{'price-estimation.associated-services-grid.IB_SYSTEMATIC_REPULL_MSG_PART1' | localizationPipe : localizationService.localizedkeySet.size}}  {{diffInDaysForSystematicIbRepull}}  {{'price-estimation.associated-services-grid.IB_SYSTEMATIC_REPULL_MSG_PART2' | localizationPipe : localizationService.localizedkeySet.size}}<a href="javascript:void();" (click)="onDemandIbRepull()" attr.action-id="{{dataIdConstantsService.servicesGrid_link_sysytematicIbPull}}" [ngClass]="{'disabled': (proposalStoreService.isPartnerAccessingSfdcDeal && !vnextStoreService.loccDetail?.loccSigned) || proposalStoreService.proposalData?.cxBillToWipedOff || proposalStoreService.isReadOnly}">click here </a> {{'price-estimation.associated-services-grid.IB_SYSTEMATIC_REPULL_MSG_PART3' | localizationPipe : localizationService.localizedkeySet.size}} </span>
+            <span class="alert-action"><button type="button" class="icon-close-btn mt-2" (click)="closeIbPullMsg()" attr.action-id="{{dataIdConstantsService.servicesGrid_button_closeIbPullMsg}}"></button></span>
+        </div>
+        
+    
+        <ng-container >
+        <div class="alert alert--danger alert-dismissable" *ngIf="!priceEstimateStoreService.viewAllSelected && enrollmentData?.hwSupportLinesState === 'QUOTE_CREATION_FAILED' && enrollmentData?.hwSupportReqFailedReason">
+            <span class="alert-icon">
+                <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+            </span>
+            <span *ngIf="enrollmentData.hwSupportReqFailedReason !== constantsService.CCWR_ACCESS_ISSUE">{{'price-estimation.associated-services-grid.HW_IB_ERRORS_MSG_2' | localizationPipe : localizationService.localizedkeySet.size}} <b>{{'price-estimation.associated-services-grid.PRO_TIP' | localizationPipe : localizationService.localizedkeySet.size}}</b> 
+                <span *ngIf="enrollmentData.hwSupportReqFailedReason === constantsService.INVALID_BILL_TO_ID"> {{'price-estimation.associated-services-grid.INVALID_BILL_TO_ID' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                <span *ngIf="enrollmentData.hwSupportReqFailedReason === constantsService.INVALID_RESELLER_BILL_TO_ID"> {{'price-estimation.associated-services-grid.INVALID_RESELLER_BILL_TO_ID' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                <span *ngIf="enrollmentData.hwSupportReqFailedReason === constantsService.INVALID_DISTI_BILL_TO_ID"> {{'price-estimation.associated-services-grid.INVALID_DISTI_BILL_TO_ID' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                <span *ngIf="enrollmentData.hwSupportReqFailedReason === constantsService.INVALID_DISTI_RESELLER_BILL_TO_ID"> {{'price-estimation.associated-services-grid.INVALID_DISTI_RESELLER_BILL_TO_ID' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+            </span>
+            <span *ngIf="enrollmentData.hwSupportReqFailedReason === constantsService.CCWR_ACCESS_ISSUE && !eaService.features.IB_OPTIMIZATION"> {{'price-estimation.associated-services-grid.VERIFY_YOUR_ACCESS_GET_ACCESS' | localizationPipe : localizationService.localizedkeySet.size}}
+                <a href="javascript:void(0);" (click)='goToTroubleShooting()' attr.action-id="{{dataIdConstantsService.servicesGrid_link_goToTroubleShooting}}">{{'price-estimation.associated-services-grid.TROUBLESHOOTING_STEPS' | localizationPipe : localizationService.localizedkeySet.size}}</a>
+            </span>
+            <span *ngIf="enrollmentData.hwSupportReqFailedReason === constantsService.CCWR_ACCESS_ISSUE && eaService.features.IB_OPTIMIZATION"> {{'price-estimation.associated-services-grid.CCWR_ACCESS_REQUIRED_VISIT' | localizationPipe : localizationService.localizedkeySet.size}}
+                <a href="javascript:void(0);" (click)='goToTroubleShooting()' attr.action-id="{{dataIdConstantsService.servicesGrid_link_goToTroubleShooting}}">{{'price-estimation.associated-services-grid.TROUBLESHOOTING_STEPS' | localizationPipe : localizationService.localizedkeySet.size}}</a> {{'price-estimation.associated-services-grid.FOR_ASSISTANCE' | localizationPipe : localizationService.localizedkeySet.size}}
+            </span>
+        </div>
+        <div class="alert alert--danger alert-dismissable" *ngIf="!priceEstimateStoreService.viewAllSelected && enrollmentData?.hwSupportLinesState === 'QUOTE_CREATION_FAILED' && !enrollmentData?.hwSupportReqFailedReason">
+            <span class="alert-icon">
+                <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+            </span>
+            <span>{{'price-estimation.associated-services-grid.TIMEOUT_ERROR' | localizationPipe : localizationService.localizedkeySet.size}} <b>{{'price-estimation.associated-services-grid.PROTIP' | localizationPipe : localizationService.localizedkeySet.size}}</b> {{'price-estimation.associated-services-grid.VERIFY_YOUR_ACCESS' | localizationPipe : localizationService.localizedkeySet.size}} <a href="javascript:void(0);" (click)='goToTroubleShooting()' attr.action-id="{{dataIdConstantsService.servicesGrid_link_goToTroubleShooting}}">{{'price-estimation.associated-services-grid.TROUBLESHOOTING_STEPS' | localizationPipe : localizationService.localizedkeySet.size}}</a></span>
+        </div>
+        <div class="alert alert--danger alert-dismissable" *ngIf="eaService.features.RENEWAL_SEPT_REL && priceEstimateStoreService.selectedCxEnrollment?.noRenewalBillToAttachRate">
+            <span class="alert-icon">
+                <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+            </span>
+            <span>{{'price-estimation.associated-services-grid.BILL_TO_AND_ATTACH_RATE_MSG' | localizationPipe : localizationService.localizedkeySet.size}} <b>{{'price-estimation.associated-services-grid.PROTIP' | localizationPipe : localizationService.localizedkeySet.size}}</b> {{'price-estimation.associated-services-grid.VERIFY_YOUR_ACCESS' | localizationPipe : localizationService.localizedkeySet.size}} <a href="javascript:void(0);" (click)='goToTroubleShooting()' attr.action-id="{{dataIdConstantsService.servicesGrid_link_goToTroubleShooting}}">{{'price-estimation.associated-services-grid.TROUBLESHOOTING_STEPS' | localizationPipe : localizationService.localizedkeySet.size}}</a></span>
+        </div>
+        <div class="alert alert--info alert-dismissable mb-2 " *ngIf="!priceEstimateStoreService.selectedCxEnrollment.awaitingResponse && showDnxOptionalMsg ">
+            <span class="alert-icon">
+                <span class="icon-msg-Info mr-2"><span class="path1"></span><span class="path2"></span><span
+                class="path3"></span></span>
+        
+            </span>
+            <span>{{'price-estimation.associated-services-grid.DNX_OPTIONAL_INFO_FOR_CX' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+        </div>
+        <div class="alert alert--info alert-dismissable mb-2 " *ngIf="!priceEstimateStoreService.selectedCxEnrollment.awaitingResponse && showUnxOptionalMsg ">
+            <span class="alert-icon">
+                <span class="icon-msg-Info mr-2"><span class="path1"></span><span class="path2"></span><span
+                class="path3"></span></span>
+        
+            </span>
+            <span>{{'price-estimation.associated-services-grid.UNX_OPTIONAL_INFO_FOR_CX' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+        </div>
+        <div class="alert alert--info alert-dismissable mb-2 " *ngIf="!priceEstimateStoreService.selectedCxEnrollment.awaitingResponse && l0CXnotFoundSucessForDnx">
+            <span class="alert-icon">
+                <span class="icon-msg-Info mr-2"><span class="path1"></span><span class="path2"></span><span
+                class="path3"></span></span>
+        
+            </span>
+            <span>{{'price-estimation.associated-services-grid.DNX_MANDATORY_INFO_FOR_CX' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+        </div>
+        <div class="alert alert--info alert-dismissable mb-2 " *ngIf="!priceEstimateStoreService.selectedCxEnrollment.awaitingResponse && l0CXnotFoundSucessForUnx">
+            <span class="alert-icon">
+                <span class="icon-msg-Info mr-2"><span class="path1"></span><span class="path2"></span><span
+                class="path3"></span></span>
+        
+            </span>
+            <span>{{'price-estimation.associated-services-grid.UNX_MANDATORY_INFO_FOR_CX' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+        </div>
+        </ng-container>
+
+        <!-- new ib messages start -->
+        <div class="alert alert--warning alert-dismissable mt-2" *ngIf="eaService.features.IB_OPTIMIZATION && proposalStoreService.proposalData?.syncStatus?.cxEditFlag && !proposalStoreService.proposalData?.syncStatus?.cxCcwrRipFlag && !enrollmentData?.hwLastIbPulledAtDate && enrollmentData?.hwSupportLinesState !== 'QUOTE_CREATION_FAILED'">  
+            <span class="alert-icon d-flex">
+                <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+            </span>
+            <span class="infoTxt">{{'price-estimation.associated-services-grid.COMPLETE_CHANGES_PRIOR_TO_INITIATE_IB_MSG' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+        </div>
+
+        <div class="alert alert--warning alert-dismissable mt-2" *ngIf="eaService.features.IB_OPTIMIZATION && proposalStoreService.proposalData?.syncStatus?.cxEditFlag && !proposalStoreService.proposalData?.syncStatus?.cxCcwrRipFlag && enrollmentData?.hwLastIbPulledAtDate && enrollmentData?.hwSupportLinesState !== 'QUOTE_CREATION_FAILED'">  
+            <span class="alert-icon d-flex">
+                <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+            </span>
+            <span class="infoTxt">{{'price-estimation.associated-services-grid.COMPLETE_CHANGES_PRIOR_TO_UPDATE_IB_MSG' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+        </div>
+        <!-- new ib messages end -->
+    </ng-container>
+    <div>
+        <div class="row align-items-center vNext mb-2">
+            <div class="col-md-4 d-flex align-items-center">
+                <h5 class="heading--h5">{{'price-estimation.associated-services-grid.ASSOCIATED_SERVICES' | localizationPipe : localizationService.localizedkeySet.size}} </h5>
+            </div>
+        <div class="col-md-8" *ngIf="!eaService.features.IB_OPTIMIZATION">
+            <ul class="inline-listing justify-content-end border-right-li mt-2">
+                <li *ngIf="!priceEstimateStoreService.viewAllSelected && enrollmentData?.hwLastIbPulledAtDate" class="position-relative ib-repull-date" >
+                    <span>{{'price-estimation.associated-services-grid.LAST_IB_REPROCESS_DATE' | localizationPipe : localizationService.localizedkeySet.size}}{{enrollmentData?.hwLastIbPulledAtDate | date:"dd MMM yyyy"}} {{enrollmentData?.hwLastIbPulledAtDate | date:"HH:mm aa"}}</span>
+                </li>
+                <li *ngIf="eastoreService.ibRepullFeatureFlag && !eastoreService.isValidationUI" class="position-relative" >
+                    <a href="javascript:void(0);" class="disabled" *ngIf="!(enrollmentData?.hardwareLinePricesInSync || enrollmentData?.discountCascadePending) || priceEstimateStoreService.viewAllSelected || enrollmentData?.cxSoftwareSupportOnly || proposalStoreService.isReadOnly || (eaService.isUpgradeFlow && !enrollmentData?.ibAssementRequiredForCxUpgradeType) || (proposalStoreService.isPartnerAccessingSfdcDeal && !vnextStoreService.loccDetail?.loccSigned); else enableReprocesIbAssessment" attr.action-id="{{dataIdConstantsService.servicesGrid_link_reProcessIb_disabled}}">
+                        <span class="i-vNext-scanning mr-2"></span>{{'price-estimation.associated-services-grid.REPROCESS_IB_ASSESSMENT' | localizationPipe : localizationService.localizedkeySet.size}}
+                    </a>
+                <ng-template #enableReprocesIbAssessment>
+                    <a href="javascript:void(0);" (click)="onDemandIbRepull()" attr.action-id="{{dataIdConstantsService.servicesGrid_link_reProcessIb}}"><span class="i-vNext-scanning mr-2"></span>{{'price-estimation.associated-services-grid.REPROCESS_IB_ASSESSMENT' | localizationPipe : localizationService.localizedkeySet.size}}</a>
+                    <div class="ib-popup" *ngIf="ibQuantityPopup">
+                        <button type="button" class="icon-close-btn" (click)="closePopup()" attr.action-id="{{dataIdConstantsService.servicesGrid_button_reProcessIbPullMsg}}"></button>
+                        <h5 class="mb-2"><b>{{'price-estimation.associated-services-grid.REPROCESS_LIMIT_REACHED' | localizationPipe : localizationService.localizedkeySet.size}}</b></h5>
+                        <p>{{'price-estimation.associated-services-grid.REPROCESS_TRY_AGAIN' | localizationPipe : localizationService.localizedkeySet.size}}</p>
+                        <p><b>{{nextIbPullTimeStamp[0]}}</b>{{'common.HOUR' | localizationPipe : localizationService.localizedkeySet.size}}<b>{{nextIbPullTimeStamp[1]}}</b>{{'common.MINUTES' | localizationPipe : localizationService.localizedkeySet.size}}</p>
+                    </div>
+                </ng-template>
+                </li>
+                <li>
+                    <a href="javascript:void(0);" *ngIf="proposalStoreService.isReadOnly || !enrollmentData?.discountCascadePending || isCascadeApplied || priceEstimateStoreService.viewAllSelected || proposalStoreService.isPartnerAccessingSfdcDeal; else enableCascade" class="disabled">
+                        <span class="listing-icon i-vNext-multi-discount disabled"></span>{{'common.CASCADE_DISCOUNT' | localizationPipe : localizationService.localizedkeySet.size}}
+                    </a>
+                    <ng-template #enableCascade>
+                        <a href="javascript:void(0);" (click)='cascadeDiscount()' attr.action-id="{{dataIdConstantsService.servicesGrid_link_cascadeDiscount}}">
+                            <span class="listing-icon i-vNext-multi-discount"></span>{{'common.CASCADE_DISCOUNT' | localizationPipe : localizationService.localizedkeySet.size}}
+                        </a>
+                    </ng-template>
+                </li>  
+                <li *ngIf="!eastoreService.isValidationUI">
+                    <a href="javascript:void(0);" class="disabled" *ngIf="!(enrollmentData?.hardwareLinePricesInSync || enrollmentData?.discountCascadePending) || priceEstimateStoreService.viewAllSelected || enrollmentData?.cxSoftwareSupportOnly || priceEstimateStoreService.displayIbPullMsg || (eaService.isUpgradeFlow && !enrollmentData?.ibAssementRequiredForCxUpgradeType) || (proposalStoreService.isPartnerAccessingSfdcDeal && !vnextStoreService.loccDetail?.loccSigned); else enableHwSupport">
+                        <span class="listing-icon i-vNext-discount disabled"></span>{{'common.HARDWARE_SUPPORT_DETAILS' | localizationPipe : localizationService.localizedkeySet.size}}
+                    </a>
+                    <ng-template #enableHwSupport>
+                        <a href="javascript:void(0);" (click)='viewAndEditHardwareSupport()' attr.action-id="{{dataIdConstantsService.servicesGrid_link_viewAndEditHardwareSupport}}">
+                            <span class="listing-icon i-vNext-discount"></span>{{'common.HARDWARE_SUPPORT_DETAILS' | localizationPipe : localizationService.localizedkeySet.size}}
+                        </a>
+                    </ng-template>
+                </li>
+            </ul>
+        </div>
+
+        <!-- updated changes when ib flag on -->
+        <div class="col-md-8" *ngIf="eaService.features.IB_OPTIMIZATION">
+            <ul class="inline-listing justify-content-end border-right-li mt-2" *ngIf="proposalStoreService.proposalData?.syncStatus?.showIbAssessmentButton">
+                <li *ngIf="!priceEstimateStoreService.viewAllSelected && enrollmentData?.hwLastIbPulledAtDate" class="position-relative ib-repull-date" >
+                    <span>{{'price-estimation.associated-services-grid.LAST_IB_UPDATE_DATE' | localizationPipe : localizationService.localizedkeySet.size}}{{enrollmentData?.hwLastIbPulledAtDate | date:"dd MMM yyyy"}} {{enrollmentData?.hwLastIbPulledAtDate | date:"HH:mm aa"}}</span>
+                </li>
+                <!-- need extra conditions for view and edit -->
+                <li *ngIf="!eastoreService.isValidationUI">
+                    <a href="javascript:void(0);" class="view-edit-details disabled" *ngIf="!(enrollmentData?.hardwareLinePricesInSync || enrollmentData?.discountCascadePending) || priceEstimateStoreService.viewAllSelected || (eaService.features?.RENEWAL_SEPT_REL && isEnrollmentLocked) || enrollmentData?.cxSoftwareSupportOnly || priceEstimateStoreService.displayIbPullMsg || (eaService.isUpgradeFlow && !enrollmentData?.ibAssementRequiredForCxUpgradeType) || (proposalStoreService.isPartnerAccessingSfdcDeal && !vnextStoreService.loccDetail?.loccSigned) || (!eaService.features.IB_OPTIMIZATION || (eaService.features.IB_OPTIMIZATION && (proposalStoreService.proposalData?.syncStatus?.cxCcwrRipFlag || proposalStoreService.proposalData?.syncStatus?.cxEditFlag))) || (eaService.features?.PARTNER_SUPER_USER_REL && proposalStoreService.isPartnerAccessingSfdcDeal && (eastoreService.userInfo?.superUser && (eastoreService.userInfo?.superUser === constantsService.PARTNER_RO_SUPER_USER)) ); else enableHwSupport" #viewAndEditIbDisableMsgTooltip="ngbTooltip" [ngbTooltip]="(eaService.features.IB_OPTIMIZATION && (proposalStoreService.proposalData?.syncStatus?.cxCcwrRipFlag || proposalStoreService.proposalData?.syncStatus?.cxEditFlag)) ?  viewAndEditDisableTooltip: ''" container="body" placement="top" attr.action-id="{{dataIdConstantsService.servicesGrid_link_viewAndEditHardwareSupport_disabled}}">
+                        <span class="listing-icon i-vNext-discount disabled"></span>{{'common.HARDWARE_SUPPORT_DETAILS' | localizationPipe : localizationService.localizedkeySet.size}}
+                    </a>
+                    <ng-template #viewAndEditDisableTooltip>
+                        {{'price-estimation.associated-services-grid.VIEW_EDIT_DISABLE_TOOLTOP_MSG' | localizationPipe : localizationService.localizedkeySet.size}}
+                    </ng-template>
+                    <ng-template #enableHwSupport>
+                        <a href="javascript:void(0);" (click)='viewAndEditHardwareSupport()' attr.action-id="{{dataIdConstantsService.servicesGrid_link_viewAndEditHardwareSupport}}">
+                            <span class="listing-icon i-vNext-discount"></span>{{'common.HARDWARE_SUPPORT_DETAILS' | localizationPipe : localizationService.localizedkeySet.size}}
+                        </a>
+                    </ng-template>
+                </li>
+                <li *ngIf="!eastoreService.isValidationUI && !enrollmentData?.hwLastIbPulledAtDate" class="position-relative">
+                    <button class="position-relative btn btn-secondary re-processIb" (click)="callIbReprocessOptimization(false, 'initiateIb')" *ngIf="proposalStoreService.proposalData?.syncStatus?.cxEditFlag && !proposalStoreService.proposalData?.syncStatus?.cxCcwrRipFlag && !proposalStoreService.isReadOnly && (!eaService.features?.RENEWAL_SEPT_REL || (!isEnrollmentLocked && eaService.features?.RENEWAL_SEPT_REL)) && !proposalStoreService.proposalData?.cxBillToWipedOff; else disableInitiateIbButton" attr.action-id="{{dataIdConstantsService.servicesGrid_button_initiateIb}}">
+                        <span class="eaicon-scan mr-1"></span>{{'common.INITATE_IB_ASSESSMENT' | localizationPipe : localizationService.localizedkeySet.size}}
+                    </button>
+                    <ng-template #disableInitiateIbButton>
+                        <button class="position-relative btn btn-secondary re-processIb disabled" #initIbDisableMsgTooltip="ngbTooltip" [ngbTooltip]="initIbDisableTooltip" container="body" placement="top-right" attr.action-id="{{dataIdConstantsService.servicesGrid_button_initiateIb_disabled}}">
+                            <span class="eaicon-scan disabled mr-1"></span>{{'common.INITATE_IB_ASSESSMENT' | localizationPipe : localizationService.localizedkeySet.size}}
+                        </button>
+                        <ng-template #initIbDisableTooltip>
+                            {{'price-estimation.associated-services-grid.INITIATE_IB_INPROGRESS_TOOLTIP_MSG' | localizationPipe : localizationService.localizedkeySet.size}}
+                        </ng-template>
+                    </ng-template>
+                </li>
+
+                <li *ngIf="!eastoreService.isValidationUI && !enrollmentData?.discountCascadePending && enrollmentData?.hwLastIbPulledAtDate && !proposalStoreService.proposalData?.syncStatus?.cxEditFlag && (!proposalStoreService.proposalData?.syncStatus?.ibAssessmentLastState || (proposalStoreService.proposalData?.syncStatus?.ibAssessmentLastState === 'repullIb'))" class="position-relative">
+                    <button class="position-relative btn btn-secondary re-processIb disabled" *ngIf="!(enrollmentData?.hardwareLinePricesInSync || enrollmentData?.discountCascadePending) || priceEstimateStoreService.viewAllSelected || enrollmentData?.cxSoftwareSupportOnly || proposalStoreService.isReadOnly || (eaService.isUpgradeFlow && !enrollmentData?.ibAssementRequiredForCxUpgradeType) || (proposalStoreService.isPartnerAccessingSfdcDeal && !vnextStoreService.loccDetail?.loccSigned) || !checkIfLastRepullPassed24Hrs() || proposalStoreService.proposalData?.syncStatus?.cxCcwrRipFlag || proposalStoreService.proposalData?.cxBillToWipedOff; else enableReprocesIbAssessmentForRel" #reprocessIbDisableMsgTooltip="ngbTooltip" [ngbTooltip]="reprocessIbDisableTooltip" container="body" placement="top-right" attr.action-id="{{dataIdConstantsService.servicesGrid_button_reprocessIb_disabled}}">
+                        <span class="eaicon-scan disabled mr-1"></span>{{'price-estimation.associated-services-grid.REPROCESS_IB_ASSESSMENT_NEW' | localizationPipe : localizationService.localizedkeySet.size}}
+                    </button>
+                    <ng-template #reprocessIbDisableTooltip>
+                        {{'price-estimation.associated-services-grid.REPROCESS_IB_DISABLED_TOOLTIP_MESSAGE' | localizationPipe : localizationService.localizedkeySet.size}}
+                    </ng-template>
+                    <ng-template #enableReprocesIbAssessmentForRel>
+                        <button class="position-relative btn btn-secondary re-processIb" (click)="callIbReprocessOptimization(true, 'repullIb')" attr.action-id="{{dataIdConstantsService.servicesGrid_button_reprocessIb}}">
+                            <span class="eaicon-scan mr-1"></span>{{'price-estimation.associated-services-grid.REPROCESS_IB_ASSESSMENT_NEW' | localizationPipe : localizationService.localizedkeySet.size}}
+                        </button>
+                    </ng-template>
+                </li>
+                <li *ngIf="!eastoreService.isValidationUI && enrollmentData?.hwLastIbPulledAtDate && (proposalStoreService.proposalData?.syncStatus?.cxEditFlag || (proposalStoreService.proposalData?.syncStatus?.ibAssessmentLastState && (proposalStoreService.proposalData?.syncStatus?.ibAssessmentLastState === 'updateIb' || proposalStoreService.proposalData?.syncStatus?.ibAssessmentLastState === 'updateAndReprocessIb' )))" class="position-relative">
+                    <span class="btn-icon-drp disabled" *ngIf="proposalStoreService.proposalData?.syncStatus?.cxCcwrRipFlag || !proposalStoreService.proposalData?.syncStatus?.cxEditFlag || proposalStoreService.isReadOnly || proposalStoreService.proposalData?.cxBillToWipedOff; else enableUpdate">
+                        <span class="eaicon-scan disabled"></span>
+                        <a href="javascript:void(0)" class="drp-dwn-txt disabled" (click)="callIbReprocessOptimization(false, 'updateIb')" attr.action-id="{{dataIdConstantsService.servicesGrid_link_updateIb}}">{{'common.UPDATE_IB_ASSESSMENT' | localizationPipe : localizationService.localizedkeySet.size}}</a>
+                        <a href="javascript:void(0)" class="drp-dwn disabled">
+                            <span class="eaicon-arrow-down-fill disabled"></span>
+                        </a>
+                    </span>
+                    <ng-template #enableUpdate>
+                        <span class="btn-icon-drp">
+                            <span class="eaicon-scan"></span>
+                            <a href="javascript:void(0)" class="drp-dwn-txt" (click)="callIbReprocessOptimization(false, 'updateIb')" attr.action-id="{{dataIdConstantsService.servicesGrid_link_updateIb}}">{{'common.UPDATE_IB_ASSESSMENT' | localizationPipe : localizationService.localizedkeySet.size}}</a>
+                            <a href="javascript:void(0)" class="drp-dwn" (click)="openUpdateIbDropDown()" (clickOutside)="closeUpdateIbDropDown()">
+                                <span class="eaicon-arrow-down-fill"></span>
+                                <ul *ngIf="openUpdateIbDrop" [class.show]="openUpdateIbDrop">
+                                    <li>
+                                        <a href="javascript:void(0)" (click)="callIbReprocessOptimization(true, 'updateAndReprocessIb')" [ngClass]="{'disabled': !checkIfLastRepullPassed24Hrs()}" attr.action-id="{{dataIdConstantsService.servicesGrid_link_updateRprocessIb}}">{{'price-estimation.associated-services-grid.UPDATE_AND_REPROCESS_IB_ASSESSMENT' | localizationPipe : localizationService.localizedkeySet.size}}</a>
+                                    </li>
+                                </ul>
+                            </a>
+                        </span>
+                    </ng-template>
+                    <span class="i-vNext-help-filled ml-2 cursor-pointer"  #updateIbMsgTooltip="ngbTooltip" [ngbTooltip]="updateIbTooltip" placement='top-right'></span>
+                  <ng-template #updateIbTooltip>
+                    <span>
+                        <b>{{'common.UPDATE_IB_ASSESSMENT' | localizationPipe : localizationService.localizedkeySet.size}}</b>{{'price-estimation.associated-services-grid.CLICK_UPDATE_IB_TOOLTIP_MSG' | localizationPipe : localizationService.localizedkeySet.size}}
+                    </span><br/><br/>
+                    <span>
+                        <b>{{'price-estimation.associated-services-grid.UPDATE_AND_REPROCESS_IB_ASSESSMENT' | localizationPipe : localizationService.localizedkeySet.size}}</b>{{'price-estimation.associated-services-grid.CLICK_UPDATE_REPROCESS_IB_TOOLTIP_MSG' | localizationPipe : localizationService.localizedkeySet.size}}
+                    </span>
+                </ng-template>
+                </li>
+            </ul>
+        </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div *ngIf="priceEstimateStoreService.hardwareIbSuccess && !eaService.features.IB_OPTIMIZATION" class="alert alert--success alert-dismissable mb-2">
+                    <span class="alert-icon d-flex">
+                    <span class="icon-done1"><span class="path1"></span><span class="path2"></span></span>
+                    </span>
+                   <span>{{'common.HW_IB_SUCCESS_2' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                </div>
+            <div *ngIf="!priceEstimateStoreService.errorMessagesPresentForCx && priceEstimateStoreService.displaySuccessMsgForPrices && !enrollmentData?.lineInError && !eaService.features.IB_OPTIMIZATION" class="alert alert--success alert-dismissable">
+                <span class="alert-icon">
+                    <span class="icon-done1"><span class="path1"></span><span class="path2"></span></span>
+                </span>
+                <span>{{'price-estimation.associated-services-grid.SERVICES_SUCCESSFULLY_PRICED' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+            </div>
+            
+            <!-- new ib success message -->
+            <div *ngIf="eaService.features.IB_OPTIMIZATION && proposalStoreService.proposalData?.syncStatus?.showIbAssessmentButton && !proposalStoreService.proposalData?.syncStatus?.cxCcwrRipFlag && enrollmentData?.hwLastIbPulledAtDate && !enrollmentData?.lineInError && !priceEstimateStoreService.errorMessagesPresentForCx" class="alert alert--success alert-dismissable mb-2">
+                <span class="alert-icon d-flex">
+                <span class="icon-done1"><span class="path1"></span><span class="path2"></span></span>
+                </span>
+               <span>{{'price-estimation.associated-services-grid.IB_ASSESSMENT_SUCCESS_MSG' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+            </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 mb-2" *ngIf="enrollmentData?.lineInError && !proposalStoreService.isReadOnly && !priceEstimateStoreService.viewAllSelected && !enrollmentData?.cxSoftwareSupportOnly && (!priceEstimateStoreService.displayIbPullMsg || (eaService.isUpgradeFlow && enrollmentData?.ibAssementRequiredForCxUpgradeType)) && (!eaService.features.IB_OPTIMIZATION || (eaService.features.IB_OPTIMIZATION && !proposalStoreService.proposalData?.syncStatus?.cxEditFlag && !proposalStoreService.proposalData?.syncStatus?.cxCcwrRipFlag))">
+                <div class="alert alert--danger alert-dismissable">
+                    <span class="alert-icon">
+                        <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                    </span>
+                    <span *ngIf="!eaService.features.IB_OPTIMIZATION">{{'price-estimation.associated-services-grid.ERRORS_ON_THE_HARDWARE_INSTALL_BASE_DATA_2' | localizationPipe : localizationService.localizedkeySet.size}} <a href="javascript:void(0);" (click)='viewAndEditHardwareSupport()' attr.action-id="{{dataIdConstantsService.servicesGrid_link_hardwareSupportDetails}}" [ngClass]="{'disabled': (proposalStoreService.isPartnerAccessingSfdcDeal && !vnextStoreService.loccDetail?.loccSigned)}">{{'common.HARDWARE_SUPPORT_DETAILS' | localizationPipe : localizationService.localizedkeySet.size}}</a> {{'price-estimation.associated-services-grid.ADDRESS_ERRORS' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                    <span *ngIf="eaService.features.IB_OPTIMIZATION">{{'price-estimation.associated-services-grid.HW_IB_ERRORS_MSG_1' | localizationPipe : localizationService.localizedkeySet.size}} <a href="javascript:void(0);" (click)='viewAndEditHardwareSupport()' attr.action-id="{{dataIdConstantsService.servicesGrid_link_hardwareSupportDetails}}" [ngClass]="{'disabled': (proposalStoreService.isPartnerAccessingSfdcDeal && !vnextStoreService.loccDetail?.loccSigned) || (eaService.features?.PARTNER_SUPER_USER_REL && proposalStoreService.isPartnerAccessingSfdcDeal && (eastoreService.userInfo?.superUser && eastoreService.userInfo?.superUser === constantsService.PARTNER_RO_SUPER_USER) )}">{{'common.HARDWARE_SUPPORT_DETAILS' | localizationPipe : localizationService.localizedkeySet.size}}</a> {{'price-estimation.associated-services-grid.HW_IB_ERRORS_MSG_2' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                </div>
+            </div>
+
+            <div class="col-12 mb-2" *ngIf="enrollmentData.hwDeLinkEligibility && proposalStoreService.proposalData?.syncStatus?.showIbAssessmentButton && enrollmentData?.hwLastIbPulledAtDate">
+                <div class="alert alert--danger alert-dismissable">
+                    <span class="alert-icon">
+                        <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                    </span>
+                    <span>{{'price-estimation.CX_HW_DELINK_MSG' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                    <button class="btn btn-primary sm" type="button" (click) = "delinkHwCx()" attr.action-id="{{dataIdConstantsService.servicesGrid_button_confirm}}" [ngClass]="{'disabled': (proposalStoreService.isPartnerAccessingSfdcDeal && !vnextStoreService.loccDetail?.loccSigned)}" >{{'common.CONFIRM' | localizationPipe : localizationService.localizedkeySet.size}} </button>
+                </div>
+            </div>
+            <div class="col-12 mb-2" *ngIf="priceEstimateStoreService.hasRSDError">
+                <div class="alert alert--danger alert-dismissable">
+                    <span class="alert-icon">
+                        <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                    </span> 
+                    <span>{{priceEstimateStoreService.rsdErrorMsg}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="!eaService.features.IB_OPTIMIZATION">
+            <div class="col-12 mb-2" *ngIf="isDiscountApplied && enrollmentData?.discountCascadePending && !isCascadeApplied && !proposalStoreService.isReadOnly && !priceEstimateStoreService.viewAllSelected">
+                <div class="alert alert--info alert-dismissable">
+                    <span class="alert-icon">
+                        <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                    </span>
+                    <span>{{'price-estimation.associated-services-grid.APPLIED_DISCOUNT' | localizationPipe : localizationService.localizedkeySet.size}} <a href="javascript:void(0);" (click)='cascadeDiscount()' attr.action-id="{{dataIdConstantsService.servicesGrid_link_applyCascadeDiscount}}" [ngClass]="{'disabled': proposalStoreService.isPartnerAccessingSfdcDeal}"> {{'common.CASCADE_DISCOUNT' | localizationPipe : localizationService.localizedkeySet.size}}</a> {{localizationService.getLocalizedString('associated-services-grid.APPLY_AT_HARDWARE_INSTALL_BASE')}}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" *ngIf="eaService.features.IB_OPTIMIZATION">
+            <div class="col-12 mb-2" *ngIf="isDiscountApplied && enrollmentData?.discountCascadePending && !isCascadeApplied && !proposalStoreService.isReadOnly && !priceEstimateStoreService.viewAllSelected">
+                <div class="alert alert--info alert-dismissable">
+                    <span class="alert-icon">
+                        <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                    </span>
+                    <span>{{'price-estimation.associated-services-grid.APPLIED_DISCOUNT_IB_OPTIMIZATION' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 mb-3">
+                <ag-grid-angular #agGridCx id="ag-grid-Cx" style="width: 100%;" class="ag-fresh vNext header-expandCollapse mt-0" (gridReady)="onGridReady($event)" [gridOptions]="gridOptions" (click)="onHeaderClick($event)" attr.action-id="{{dataIdConstantsService.servicesGrid_link_headerClick}}"  [getNodeChildDetails]="getNodeChildDetails" (cellClicked)="onCellClicked($event)" (rowSelected)="onRowSelected($event)" [columnDefs]="columnDefs" [rowData]="rowData" [sideBar]="false" [groupSelectsChildren]="true" toolPanelSuppressGroups toolPanelSuppressValues debug rowHeight="40" [suppressRowClickSelection]="true">
+                </ag-grid-angular>
+            </div>
+        </div>
+
+    </div>
+</div>    
+</ng-container>
+
+<app-quantity-install-base-break-up *ngIf="priceEstimateService.showQuantityInstallBaseBreakUp" [selectedEnrollemnt]='enrollmentData'></app-quantity-install-base-break-up>
+<app-service-purchase-adjustment-break-up *ngIf="priceEstimateService.showServicePurchaseAdjustmentBaseBreakUp" [selectedEnrollemnt]='enrollmentData'></app-service-purchase-adjustment-break-up>

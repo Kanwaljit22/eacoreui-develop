@@ -1,0 +1,103 @@
+.cxEligibleSuites {
+    padding-left: 8px;
+    position: relative;
+    top: 2px;
+    font-weight: 700;
+}
+
+.icon-alert-info1 {
+    background-color: transparent;
+    // left: auto;
+    // height: 18px;
+    // top: 50%;
+    // right: 30px;
+    // bottom: 0px;
+    // cursor: pointer;
+    // margin-top: -9px;
+    // position: absolute;
+}
+
+.icon-alert-info1:before {
+    color: #005073 !important;
+}
+
+.error-list {
+    display         : none;
+    border          : 1px solid #E12826;
+    position        : absolute;
+    z-index         : 99;
+    left            : 0;
+    right           : 0;
+    width           : calc(100% + 0px);
+    background-color: #fff;
+    margin          : 0;
+    padding         : 0;
+    list-style-type : none;
+    top             : calc(100% - 0px);
+}
+
+.alert .import:hover .error-list.alert-error {
+    display: block;
+}
+
+.error-list .alert {
+    border : 0px !important;
+    margin : 0;
+    padding: 7px 10px 0 20px !important;
+    cursor : default;
+}
+
+.error-list .alert:last-child {
+    padding-bottom: 5px !important;
+}
+
+.error-list .alert .icon-alert-error-bg {
+    display   : none;
+    position  : absolute;
+    top       : 10px;
+    left      : 15px;
+    width     : 18px;
+    height    : 18px;
+    background: url("../../../../assets/images/cross-red.svg") no-repeat;
+}
+
+.error-list.alert-error::before {
+    content            : "";
+    backface-visibility: hidden;
+    position           : absolute;
+    top                : -8px;
+    height             : 9px;
+    width              : 21px;
+    left               : 105px;
+    background         : url("../../../../assets/images/arrow-red.svg") no-repeat;
+}
+
+.alert--success a {
+    color: #6CC04A !important;
+}
+
+#filter-area .row > .btn.seperator-left:first-child {
+    border-left: 0 !important;
+}
+.i-vNext-scanning::before{
+    color: #005073;
+}
+.ib-popup{
+    background: #ffffff;
+    color: #58585b;
+    box-shadow: 0 3px 9px 2px rgb(0 0 0 / 20%);
+    font-size: 13px;
+    width: 330px;
+    padding: 15px;
+    position: absolute;
+    right: 100%;
+    z-index: 99;
+    transform: translateY(-60%);
+    .icon-close-btn {
+        position: absolute;
+        right: 15px;
+        padding: 0;
+        top: 15px;
+        font-size: 12px;
+    }
+}

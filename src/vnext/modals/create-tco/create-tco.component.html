@@ -1,0 +1,295 @@
+<div id="tcoModal" class="modal-body vNext modal-without-header">
+        <!-- Step 1 -->
+        <div>
+          <button class="icon-close-btn" (click)="close()" type="button" attr.action-id="{{dataIdConstantsService.CREATE_TCO_CLOSE_ICON}}"></button>
+      </div>
+        <div id="step-1" class="step-tco active" *ngIf = "isPartnerMarkup">
+          <div class="steps-container">
+            <div class="new-slide">
+              <h2>Unlocking EA <span>Savings</span> Comparison <br/>with TCO Modeling</h2>
+              <ul>
+                <li>
+                  <h4>Pricing</h4>
+                  <p>Compare the initial cost of getting the software / service, factoring in any discounts and adjustments.</p>
+                </li>
+                <li>
+                  <h4>Partner Markup</h4>
+                  <p>Calculate the upfront cost for the customer by including the partner's margin.</p>
+                </li>
+                <li>
+                  <h4>Growth Expense</h4>
+                  <p>Extra costs that come up as the customer expands their business and scales operations to support growth.</p>
+                </li>
+                <li>
+                  <h4>Time Value of Money</h4>
+                  <p>Evaluate current costs and future expansion expenses, considering inflation.</p>
+                </li>
+                <li>
+                  <h4>Additional Cost</h4>
+                  <p>Unplanned expenses, quick turnaround requirements, and any extra benefits. </p>
+                </li>
+              </ul>
+              <div class="text-center">
+                <img src="../../../../assets/images/tco/tco-image.png" height="150" alt="TCO Modelling"/>
+              </div>
+            </div>
+            <div class="create-new-tco">
+              <div class="steps-body">
+                <h1>{{'create-tco.MODAL_HEADER' | localizationPipe : localizationService.localizedkeySet.size}}</h1>
+                <p>
+                  {{'create-tco.FILL_TCO_REQUIRED_FIELDS_MESSAGE' | localizationPipe : localizationService.localizedkeySet.size}}
+                </p>
+                <div class="steps-heading">
+                  <span>1</span>
+                  <h2>{{'common.PARTNER_MARKUP' | localizationPipe : localizationService.localizedkeySet.size}}</h2>
+                </div>
+                <label>{{'common.PARTNER_MARKUP_DESCRIPTION' | localizationPipe : localizationService.localizedkeySet.size}}</label>
+                <div class="range-input mb-4">
+                  <div class="range-item">
+                    <!-- most basic, used for Knobs demo -->
+                    <!-- <div
+                      class="range-slider"
+                      style="
+                        --min: 0;
+                        --max: 100;
+                        --step: 5;
+                        --value: 15;
+                        --text-value: '15';
+                      "
+                    >
+                      <input
+                        type="range"
+                        min="0"
+                        max="100"
+                        step="5"
+                        value="15"
+                        oninput="this.parentNode.style.setProperty('--value',this.value); this.parentNode.style.setProperty('--text-value', JSON.stringify(this.value))"
+                      />
+                      <div class="range-slider__progress"></div>
+                    </div> -->
+                    <div class="vNext-rageSlider vNext-rageSlider-minmax mb-4 px-0">
+                      <ngx-slider [(value)]="partnerMarkupDiscount.minDiscount" [minLimit]="partnerMarkupDiscount.minDiscount" [(highValue)]="partnerMarkupDiscount.selectedValue" [options]="options"
+                      (userChangeEnd)="sliderChange($event, partnerMarkupDiscount)"></ngx-slider>
+                    </div>
+                  </div>
+                  <div class="d-flex align-items-center editable-input-section position-relative">
+                    <input type="text" (dblclick)="onDoubleClick()" [value]="partnerMarkupDiscount.selectedValue" class="tco-input" (blur)='checkMinValue($event,partnerMarkupDiscount)' (keydown)="keyDown($event)" (keyup)='inputValueChange($event,partnerMarkupDiscount)' attr.data-id="{{dataIdConstantsService.CREATE_TCO_PARTNER_MARKUP_INPUT}}">
+                    <span class="percentage-ico pl-2">%</span>
+                  </div>
+                  <!-- <input
+                    type="text"
+                    id="input-1"
+                    class="tco-input"
+                    value="15%"
+                  /> -->
+                </div>
+              </div>
+              <button id="next-1" class="next-btn btn-tco" (click) = "displayGrowthExpenses()" attr.action-id="{{dataIdConstantsService.CREATE_TCO_BUTTON_NEXT}}" id="{{elementIdConstantsService.CREATE_TCO_BUTTON_NEXT}}">
+              {{'common.NEXT' | localizationPipe : localizationService.localizedkeySet.size}}
+              </button>
+
+
+            </div>
+          </div>
+        </div>
+        <!-- Step 2 -->
+        <div id="step-2" class="step-tco active" *ngIf="isGrowthExpenses" >
+          <div class="steps-container">
+            <div class="new-slide">
+              <h2>Unlocking EA <span>Savings</span> Comparison <br/>with TCO Modeling</h2>
+              <ul>
+                <li>
+                  <h4>Pricing</h4>
+                  <p>Compare the initial cost of getting the software / service, factoring in any discounts and adjustments.</p>
+                </li>
+                <li>
+                  <h4>Partner Markup</h4>
+                  <p>Calculate the upfront cost for the customer by including the partner's margin.</p>
+                </li>
+                <li>
+                  <h4>Growth Expense</h4>
+                  <p>Extra costs that come up as the customer expands their business and scales operations to support growth.</p>
+                </li>
+                <li>
+                  <h4>Time Value of Money</h4>
+                  <p>Evaluate current costs and future expansion expenses, considering inflation.</p>
+                </li>
+                <li>
+                  <h4>Additional Cost</h4>
+                  <p>Unplanned expenses, quick turnaround requirements, and any extra benefits. </p>
+                </li>
+              </ul>
+              <div class="text-center">
+                <img src="../../../../assets/images/tco/tco-image.png" height="150" alt="TCO Modelling"/>
+              </div>
+            </div>
+            <div class="create-new-tco">
+              <div class="steps-body">
+                <h1>{{'create-tco.MODAL_HEADER' | localizationPipe : localizationService.localizedkeySet.size}}</h1>
+                <p>
+                  {{'create-tco.FILL_TCO_REQUIRED_FIELDS_MESSAGE' | localizationPipe : localizationService.localizedkeySet.size}}
+                </p>
+                <div class="steps-heading">
+                  <div class="previous-step-completed">
+                    <div class="d-flex gap-24">
+                      <span></span>
+                      <h2>{{'common.PARTNER_MARKUP' | localizationPipe : localizationService.localizedkeySet.size}}</h2>
+                    </div>
+                    <h3>{{partnerMarkupDiscount.selectedValue}}%</h3>
+                  </div>
+                  <span>2</span>
+                  <h2>{{'common.GROWTH_EXPENSES' | localizationPipe : localizationService.localizedkeySet.size}}</h2>
+                </div>
+                <label>{{'common.GROWTH_EXPENSES_DESCRIPTION' | localizationPipe : localizationService.localizedkeySet.size}}</label>
+                <div class="range-input mb-4">
+                  <div class="range-item">
+                    <!-- most basic, used for Knobs demo -->
+                    <!-- <div
+                      class="range-slider"
+                      style="
+                        --min: 0;
+                        --max: 100;
+                        --step: 5;
+                        --value: 15;
+                        --text-value: '15';
+                      "
+                    >
+                      <input
+                        type="range"
+                        min="0"
+                        max="100"
+                        step="5"
+                        value="15"
+                        oninput="this.parentNode.style.setProperty('--value',this.value); this.parentNode.style.setProperty('--text-value', JSON.stringify(this.value))"
+                      />
+                      <div class="range-slider__progress"></div>
+                    </div> -->
+                    <div class="vNext-rageSlider vNext-rageSlider-minmax mb-4 px-0">
+                      <ngx-slider [(value)]="growthExpDiscount.minDiscount" [minLimit]="growthExpDiscount.minDiscount" [(highValue)]="growthExpDiscount.selectedValue" [options]="options"
+                      (userChangeEnd)="sliderChange($event, growthExpDiscount)"></ngx-slider>
+                    </div>
+                  </div>
+                  <div class="d-flex align-items-center editable-input-section position-relative">
+                    <input type="text" (dblclick)="onDoubleClick()" [value]="growthExpDiscount.selectedValue" class="tco-input" (blur)='checkMinValue($event,growthExpDiscount)' (keydown)="keyDown($event)" (keyup)='inputValueChange($event,growthExpDiscount)' attr.data-id="{{dataIdConstantsService.CREATE_TCO_PARTNER_MARKUP_INPUT}}"/>
+                    <span class="percentage-ico">%</span>
+                  </div>
+                </div>
+              </div>
+               <div class="margin-T-68 d-flex gap-12">
+                          <button
+                            id="previous-2" attr.action-id="{{dataIdConstantsService.CREATE_TCO_BUTTON_BACK}}" id="{{elementIdConstantsService.CREATE_TCO_BUTTON_BACK}}"
+                            class="next-btn btn-tco" (click) = "displayPartnerMarkup()" >
+                          {{'common.BACK' | localizationPipe : localizationService.localizedkeySet.size}}
+                          </button>
+                          <button id="next-2" class="next-btn btn-tco" (click) = "displayTimeValueMoney()" attr.action-id="{{dataIdConstantsService.CREATE_TCO_BUTTON_NEXT}}" id="{{elementIdConstantsService.CREATE_TCO_BUTTON_NEXT}}">
+                            {{'common.NEXT' | localizationPipe : localizationService.localizedkeySet.size}}
+                          </button>
+                        </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div id="step-3" class="step-tco active" *ngIf = "isTimeValueMoney">
+          <div class="steps-container">
+            <div class="new-slide">
+              <h2>Unlocking EA <span>Savings</span> Comparison <br/>with TCO Modeling</h2>
+              <ul>
+                <li>
+                  <h4>Pricing</h4>
+                  <p>Compare the initial cost of getting the software / service, factoring in any discounts and adjustments.</p>
+                </li>
+                <li>
+                  <h4>Partner Markup</h4>
+                  <p>Calculate the upfront cost for the customer by including the partner's margin.</p>
+                </li>
+                <li>
+                  <h4>Growth Expense</h4>
+                  <p>Extra costs that come up as the customer expands their business and scales operations to support growth.</p>
+                </li>
+                <li>
+                  <h4>Time Value of Money</h4>
+                  <p>Evaluate current costs and future expansion expenses, considering inflation.</p>
+                </li>
+                <li>
+                  <h4>Additional Cost</h4>
+                  <p>Unplanned expenses, quick turnaround requirements, and any extra benefits. </p>
+                </li>
+              </ul>
+              <div class="text-center">
+              <img src="../../../../assets/images/tco/tco-image.png" height="150" alt="TCO Modelling"/>
+            </div>
+            </div>
+            <div class="create-new-tco">
+              <div class="steps-body">
+                <h1>{{'create-tco.MODAL_HEADER' | localizationPipe : localizationService.localizedkeySet.size}}</h1>
+                <p>
+                  {{'create-tco.FILL_TCO_REQUIRED_FIELDS_MESSAGE' | localizationPipe : localizationService.localizedkeySet.size}}
+                </p>
+                <div class="steps-heading">
+                  <div class="previous-step-completed">
+                    <div class="d-flex gap-24">
+                      <span></span>
+                      <h2>{{'common.PARTNER_MARKUP' | localizationPipe : localizationService.localizedkeySet.size}}</h2>
+                    </div>
+                    <h3>{{partnerMarkupDiscount.selectedValue}}%</h3>
+                  </div>
+                  <div class="previous-step-completed">
+                    <div class="d-flex gap-24">
+                      <span></span>
+                      <h2>{{'common.GROWTH_EXPENSES' | localizationPipe : localizationService.localizedkeySet.size}}</h2>
+                    </div>
+                    <h3>{{growthExpDiscount.selectedValue}}%</h3>
+                  </div>
+                  <span>3</span>
+                  <h2>{{'common.TIME_VALUE_MONEY' | localizationPipe : localizationService.localizedkeySet.size}}</h2>
+                </div>
+                <label>{{'common.TIME_VALUE_MONEY_DESCRIPTION' | localizationPipe : localizationService.localizedkeySet.size}}</label>
+                <div class="range-input mb-4">
+                  <div class="range-item">
+                    <!-- most basic, used for Knobs demo -->
+                    <!-- <div
+                      class="range-slider"
+                      style="
+                        --min: 0;
+                        --max: 100;
+                        --step: 5;
+                        --value: 15;
+                        --text-value: '15';
+                      "
+                    >
+                      <input
+                        type="range"
+                        min="0"
+                        max="100"
+                        step="5"
+                        value="15"
+                        oninput="this.parentNode.style.setProperty('--value',this.value); this.parentNode.style.setProperty('--text-value', JSON.stringify(this.value))"
+                      />
+                      <div class="range-slider__progress"></div>
+                    </div> -->
+                    <div class="vNext-rageSlider vNext-rageSlider-minmax mb-4 px-0">
+                      <ngx-slider [(value)]="timeValueMoneyDiscount.minDiscount" [minLimit]="timeValueMoneyDiscount.minDiscount" [(highValue)]="timeValueMoneyDiscount.selectedValue" [options]="options"
+                      (userChangeEnd)="sliderChange($event, timeValueMoneyDiscount)"></ngx-slider>
+                    </div>
+                  </div>
+                  <div class="d-flex align-items-center editable-input-section position-relative">
+                    <input type="text" (dblclick)="onDoubleClick()" [value]="timeValueMoneyDiscount.selectedValue" class="tco-input" (blur)='checkMinValue($event,timeValueMoneyDiscount)' (keydown)="keyDown($event)" (keyup)='inputValueChange($event,timeValueMoneyDiscount)' attr.data-id="{{dataIdConstantsService.CREATE_TCO_TIME_VALUE_MONEY_INPUT}}"/>
+                    <span class="percentage-ico">%</span>
+                  </div>
+                </div>
+              </div>
+              <div class="margin-T-68 d-flex gap-12">
+                <button
+                  id="previous-2" attr.action-id="{{dataIdConstantsService.CREATE_TCO_BUTTON_BACK}}" id="{{elementIdConstantsService.CREATE_TCO_BUTTON_BACK}}"
+                  class="next-btn btn-tco" (click) = "displayGrowthExpenses()">
+                {{'common.BACK' | localizationPipe : localizationService.localizedkeySet.size}}
+                </button>
+                <button id="next-3" class="next-btn btn-tco" (click) = "continue()" attr.action-id="{{dataIdConstantsService.CREATE_TCO_BUTTON_GET_STARTED}}"  id="{{elementIdConstantsService.CREATE_TCO_BUTTON_GET_STARTED}}">
+                  {{'common.GET_STARTED' | localizationPipe : localizationService.localizedkeySet.size}}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>

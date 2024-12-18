@@ -1,0 +1,136 @@
+<div class="modal-body vNext modal-without-header">
+  <button type="button" class="icon-close-btn" (click) ="close()" attr.action-id="{{dataIdConstantsService.upgradeSummaryModal_button_closeIcon}}"></button>
+  <h2 attr.data-id="{{dataIdConstantsService.upgradeSummaryModal_label_title}}" *ngIf="!eaService.features.CROSS_SUITE_MIGRATION_REL">{{localizationService.getLocalizedString('view-upgradeSummary.header')}}</h2>
+  <h2 attr.data-id="{{dataIdConstantsService.upgradeSummaryModal_label_title}}" *ngIf="eaService.features.CROSS_SUITE_MIGRATION_REL">{{localizationService.getLocalizedString('common.MIGRATION_UPGRADE_SUMMARY')}}</h2>
+  <h5 class="text-center" *ngIf="!eaService.features.CROSS_SUITE_MIGRATION_REL" attr.data-id="{{dataIdConstantsService.upgradeSummaryModal_label_subHeader}}">{{localizationService.getLocalizedString('view-upgradeSummary.sub-header')}}</h5>
+</div>
+<div class="modal-body vNext">
+
+  <div *ngIf="downsellCount" class="alert alert--danger alert-dismissable mt-2"><span class="alert-icon"><span class="icon-msg-error"><span
+          class="path1"></span><span class="path2"></span><span class="path3"></span></span></span>
+          <span attr.data-id="{{dataIdConstantsService.upgradeSummaryModal_message_alert}}" *ngIf="!eaService.features.CROSS_SUITE_MIGRATION_REL">{{localizationService.getLocalizedString('view-upgradeSummary.error-message')}}</span>
+          <span attr.data-id="{{dataIdConstantsService.upgradeSummaryModal_message_alert}}" *ngIf="eaService.features.CROSS_SUITE_MIGRATION_REL">{{localizationService.getLocalizedString('view-upgradeSummary.UPGRADE_MIGRATION_DOWNSELL_ERROR_MESSAGE')}}</span>
+  </div>
+
+  <div *ngIf="!downsellCount && eaService.features.CROSS_SUITE_MIGRATION_REL" class="alert alert--success alert-dismissable mb-2">
+    <span class="alert-icon d-flex">
+    <span class="icon-done1"><span class="path1"></span><span class="path2"></span></span>
+    </span>
+   <span>{{'view-upgradeSummary.UPGRADE_MIGRATION_SUCCESS_MESSAGE' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+</div>
+
+  <div class="scroll-table mt-4 upg_Summary">
+    <div class="row align-items-center" *ngIf="eaService.features.CROSS_SUITE_MIGRATION_REL">
+      <div class="d-flex align-items-center col-8">
+        <h5 class="heading--h5 marginB-10">
+          {{localizationService.getLocalizedString('view-upgradeSummary.TITLE_UPGRADE_MIGRATION')}}</h5>
+      </div>
+      <div class="inline-listing justify-content-end border-right-li mt-2 col-4">
+        <a #downloadZipLink [hidden]="true"></a>
+        <a href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.pe_link_downlaod_pe}}" class="dropdown-item"
+          (click)="downloadUpgradeMigrationSummary()">
+          <span class="i-vNext-download listing-icon"></span>
+          {{'common.DOWNLOAD_SUMMARY' | localizationPipe : localizationService.localizedkeySet.size}}
+        </a>
+      </div>
+    </div>
+    <table class="primary-table customHeightScroll" *ngIf="!eaService.features.CROSS_SUITE_MIGRATION_REL">
+      <thead>
+        <tr class="text-class">
+          <th width="450" attr.data-id="{{dataIdConstantsService.upgradeSummaryModal_label_enrollmentName}}">{{localizationService.getLocalizedString('view-upgradeSummary.tableheader1')}}</th>
+          <th width="200" attr.data-id="{{dataIdConstantsService.upgradeSummaryModal_label_upgradeType}}">{{localizationService.getLocalizedString('view-upgradeSummary.tableheader2')}}</th>
+          <th width="200" attr.data-id="{{dataIdConstantsService.upgradeSummaryModal_label_commitStatus}}">{{localizationService.getLocalizedString('view-upgradeSummary.tableheader3')}}</th>
+          <th width="200" attr.data-id="{{dataIdConstantsService.upgradeSummaryModal_label_existingTCV}}">{{localizationService.getLocalizedString('view-upgradeSummary.tableheader4')}} <span class="plain-txt">({{proposalStoreService.proposalData?.currencyCode}})</span></th>
+          <th width="200" attr.data-id="{{dataIdConstantsService.upgradeSummaryModal_label_upgradeTCV}}">{{localizationService.getLocalizedString('view-upgradeSummary.tableheader5')}} <span class="plain-txt">({{proposalStoreService.proposalData?.currencyCode}})</span></th>
+          <th width="200" attr.data-id="{{dataIdConstantsService.upgradeSummaryModal_label_netChange}}">{{localizationService.getLocalizedString('view-upgradeSummary.tableheader6')}} <span class="plain-txt">({{proposalStoreService.proposalData?.currencyCode}})</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let data of tableData; let i = index;">
+          <ng-container *ngIf="data?.enrolled || data?.cxAttached">
+            <tr> 
+              <td colspan="6" class="arc-line-header border-bottom dotted">
+                <h6 class="paddingL10">
+                <a href="javascript:void(0);" (click)="expand(data)" attr.action-id="{{dataIdConstantsService.upgradeSummaryModal_link_expandSummaryData}}{{index}}">
+                  <span class="expCol-wrap mr-1" attr.data-id="{{dataIdConstantsService.upgradeSummaryModal_label_collapseRowSuiteName}}{{data.enrollmentName}}">
+                    <span class="i-vNext-tree-open" *ngIf="!data.expanded" attr.action-id="{{dataIdConstantsService.upgradeSummaryModal_icon_expand}}{{index}}"></span>
+                    <span class="i-vNext-tree-close" *ngIf="data.expanded" attr.action-id="{{dataIdConstantsService.upgradeSummaryModal_icon_close}}{{index}}"></span>
+                  </span> {{data.enrollmentName}}
+                </a>
+                </h6>
+              </td>
+            </tr>
+            <ng-container *ngIf="data.expanded">
+                <ng-container *ngFor="let suite of data.suites">
+                  <tr class="minor-lines" *ngIf="!suite.disabled">
+                    <td class="up_Summ_first" width="450" attr.data-id="{{dataIdConstantsService.upgradeSummaryModal_data_enrollmentname}}{{suite.name}}">{{suite.name}}</td>
+                    <td width="200" attr.data-id="{{dataIdConstantsService.upgradeSummaryModal_data_upgradeType}}{{suite.upgradeType}}">{{suite?.upgradeType}}</td>
+                    <td width="200" attr.data-id="{{dataIdConstantsService.upgradeSummaryModal_data_commitStatus}}{{suite.commitStatus}}">{{suite?.commitStatus}}</td>
+                    <td width="200" attr.data-id="{{dataIdConstantsService.upgradeSummaryModal_data_existingTcv}}{{suite.existingTcv}}">{{utilitiesService.formatValue(utilitiesService.getFloatValue(suite?.existingTcv))}}</td>
+                    <td width="200" attr.data-id="{{dataIdConstantsService.upgradeSummaryModal_data_upgradeTcv}}{{suite.upgradeTcv}}">{{utilitiesService.formatValue(utilitiesService.getFloatValue(suite?.upgradeTcv))}}</td>
+                    <td [ngClass]="{'up_summ_green' : suite?.upSell && suite?.netChange, 'up_summ_red': !suite?.upSell && suite?.netChange}" width="200" attr.data-id="{{dataIdConstantsService.upgradeSummaryModal_data_netChange}}{{suite.netChange}}">
+                      <span *ngIf="suite?.upSell">+</span>
+                      <!-- <span *ngIf="!suite?.upSell">-</span> -->
+                      {{utilitiesService.formatValue(utilitiesService.getFloatValue(suite?.netChange))}}
+                    </td>
+                  </tr>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+          </ng-container>
+        </tbody>
+    </table>
+
+    <table class="primary-table customHeightScroll" *ngIf="eaService.features.CROSS_SUITE_MIGRATION_REL">
+      <thead>
+        <tr class="text-class">
+          <th width="450" attr.data-id="{{dataIdConstantsService.upgradeSummaryModal_label_enrollmentName}}">Enrollment/Suite Name</th>
+          <th width="200" attr.data-id="{{dataIdConstantsService.upgradeSummaryModal_label_upgradeType}}">Upgrade/Migrate From</th>
+          <th width="200" attr.data-id="{{dataIdConstantsService.upgradeSummaryModal_label_commitStatus}}">Type</th>
+          <th width="200" attr.data-id="{{dataIdConstantsService.upgradeSummaryModal_label_existingTCV}}">{{localizationService.getLocalizedString('view-upgradeSummary.tableheader4')}} <span class="plain-txt">({{proposalStoreService.proposalData?.currencyCode}})</span></th>
+          <th width="200" attr.data-id="{{dataIdConstantsService.upgradeSummaryModal_label_upgradeTCV}}">Migrate/Upgrade TCV <span class="plain-txt">({{proposalStoreService.proposalData?.currencyCode}})</span></th>
+          <th width="200" attr.data-id="{{dataIdConstantsService.upgradeSummaryModal_label_netChange}}">{{localizationService.getLocalizedString('view-upgradeSummary.tableheader6')}} <span class="plain-txt">({{proposalStoreService.proposalData?.currencyCode}})</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let data of tableData; let i = index;">
+          <ng-container *ngIf="data?.enrolled || data?.cxAttached">
+            <tr> 
+              <td colspan="6" class="arc-line-header border-bottom dotted">
+                <h6 class="paddingL10">
+                <a href="javascript:void(0);" (click)="expand(data)" attr.action-id="{{dataIdConstantsService.upgradeSummaryModal_link_expandSummaryData}}{{index}}">
+                  <span class="expCol-wrap mr-1" attr.data-id="{{dataIdConstantsService.upgradeSummaryModal_label_collapseRowSuiteName}}{{data.enrollmentName}}">
+                    <span class="i-vNext-tree-open" *ngIf="!data.expanded" attr.action-id="{{dataIdConstantsService.upgradeSummaryModal_icon_expand}}{{index}}"></span>
+                    <span class="i-vNext-tree-close" *ngIf="data.expanded" attr.action-id="{{dataIdConstantsService.upgradeSummaryModal_icon_close}}{{index}}"></span>
+                  </span> {{data.enrollmentName}}
+                </a>
+                </h6>
+              </td>
+            </tr>
+            <ng-container *ngIf="data.expanded">
+                <ng-container *ngFor="let suite of data.suites">
+                  <tr class="minor-lines" *ngIf="!suite?.disabled">
+                    <td class="up_Summ_first" width="450" attr.data-id="{{dataIdConstantsService.upgradeSummaryModal_data_enrollmentname}}{{suite?.name}}">{{suite?.name}}</td>
+                    <td width="200" *ngIf="!suite?.migrated" attr.data-id="{{dataIdConstantsService.upgradeSummaryModal_data_upgradeType}}{{suite?.upgradeType}}">{{suite?.upgradedFrom}}</td>
+                    <td width="200" *ngIf="suite?.migrated" attr.data-id="{{dataIdConstantsService.upgradeSummaryModal_data_upgradeType}}{{suite?.upgradeType}}">{{suite.migratedFrom}}</td>
+                    <td width="200" attr.data-id="{{dataIdConstantsService.upgradeSummaryModal_data_commitStatus}}{{suite?.commitStatus}}">{{suite?.migrationUpgradeType}}</td>
+                    <td width="200" attr.data-id="{{dataIdConstantsService.upgradeSummaryModal_data_existingTcv}}{{suite?.existingTcv}}">{{utilitiesService.formatValue(utilitiesService.getFloatValue(suite?.existingTcv))}}</td>
+                    <td width="200" attr.data-id="{{dataIdConstantsService.upgradeSummaryModal_data_upgradeTcv}}{{suite?.upgradeTcv}}">{{utilitiesService.formatValue(utilitiesService.getFloatValue(suite?.upgradeTcv))}}</td>
+                    <td [ngClass]="{'up_summ_green' : suite?.upSell && suite?.netChange, 'up_summ_red': !suite?.upSell && suite?.netChange}" width="200" attr.data-id="{{dataIdConstantsService.upgradeSummaryModal_data_netChange}}{{suite?.netChange}}">
+                      <span *ngIf="suite?.upSell">+</span>
+                      <!-- <span *ngIf="!suite?.upSell">-</span> -->
+                      {{utilitiesService.formatValue(utilitiesService.getFloatValue(suite?.netChange))}}
+                    </td>
+                  </tr>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+          </ng-container>
+        </tbody>
+    </table>
+
+</div>
+
+<div class="text-center d-block px-5 mb-2 mt-4">
+  <button class="btn btn-primary" (click)='close()' attr.action-id="{{dataIdConstantsService.upgradeSummaryModal_button_close}}">{{localizationService.getLocalizedString('view-upgradeSummary.closeButton')}}</button>
+</div>

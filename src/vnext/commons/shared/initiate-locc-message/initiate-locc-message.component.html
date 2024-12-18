@@ -1,0 +1,20 @@
+
+        <div class="row" *ngIf="(projectStoreService.projectData?.dealInfo?.partnerDeal) && !vnextStoreService.loccDetail?.loccSigned">
+                <div class="col-12">
+                    <div class="alert alert--danger alert-dismissable mt-2 d-flex pr-2 justify-content-between" *ngIf="showLoccMessage">
+                    <div class="d-flex align-items-center">
+                        <span class="alert-icon">
+                            <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                        </span>
+                        <span>{{localizationService.getLocalizedString('initiate-locc-message.YOU_HAVE_NOT')}} {{ !vnextStoreService.loccDetail?.loccInitiated ? 'initiated' : 'signed'}} {{localizationService.getLocalizedString('initiate-locc-message.QUOTE_COMPLETE_BEFORE_CONVERTING')}}</span>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <button class="btn btn-primary sm" type="button" (click)="initiateLocc()" attr.action-id="{{dataIdConstantsService.initiateLoccMessageModal_button_initiateLocc}}">{{localizationService.getLocalizedString('initiate-locc.LABEL')}}</button>
+                        <a href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.initiateLoccMessageModal_link_closeMessage}}" (click)="showMessage()" class="ml-2 lh-1" style="text-decoration: none;">
+                            <span class="icon-close-btn"></span>
+                        </a>
+                    </div>
+                    </div>
+                </div>
+            </div>
+

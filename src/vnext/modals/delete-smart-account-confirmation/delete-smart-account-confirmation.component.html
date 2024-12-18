@@ -1,0 +1,13 @@
+<div class="modal-body vNext modal-without-header">
+    <button class="icon-close-btn" (click)="close()" attr.action-id="{{dataIdConstantsService.deleteSmartAccConfirm_button_close}}" type="button"></button>
+
+    <h2>{{localizationService.getLocalizedString('delete-smart-account.REMOVE_SMART_ACCOUNT_HEADER_LABEL')}}</h2>
+</div>
+<div class="modal-body vNext modal-without-header px-5 py-3">
+    <h5>{{localizationService.getLocalizedString('delete-smart-account.REMOVE_SMART_ACCOUNT_BODY_TEXT')}}</h5>
+    <h5 class="mt-1">{{localizationService.getLocalizedString('delete-smart-account.DO_YOU_WIH_TO_CONTINUE')}}</h5>
+</div>
+<div class="modal-footer justify-content-center">
+    <button type="button" class="btn btn-secondary sm cancel-btn" attr.action-id="{{dataIdConstantsService.deleteSmartAccConfirm_button_cancel}}" (click)="close()" id="{{elementIdConstantsService.DeleteSmartAccount_Cancel}}">{{localizationService.getLocalizedString('common.CANCEL')}}</button>
+    <button class="btn btn-primary ml-2" type="button" attr.action-id="{{dataIdConstantsService.deleteSmartAccConfirm_button_removeSA}}" (click) = "confirm()" >{{localizationService.getLocalizedString('delete-smart-account.REMOVE_ASSIGNMENTS')}}</button>
+</div>

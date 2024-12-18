@@ -1,0 +1,100 @@
+<div class="modal-body vNext modal-without-header">
+    <h2 class="mb-5">{{ (eaService.isSpnaFlow) ? ('view-authorization.YOUR_CISCO_SPNA_AUTHORIZATION' | localizationPipe : localizationService.localizedkeySet.size) :  ('view-authorization.YOUR_CISCO_EA_AUTHORIZATION' | localizationPipe : localizationService.localizedkeySet.size) }}</h2>
+    <button class="icon-close-btn" attr.action-id="{{dataIdConstantsService.viewAuth_button_closeIcon}}"  (click)="close()" type="button"></button>
+    
+    <ng-container *ngIf="!eaService.features.SEP_REL || (!purchaseAuthDataNew?.authorizedAtosByEnrollment?.length && !purchaseAuthDataNew?.unauthorizedAtosByEnrollment?.length)">
+        <div class="mb-1 px-5" *ngIf='purchaseAuthData.length'>
+            <h5 class="heading--h5">{{localizationService.getLocalizedString('view-authorization.AUTHORIZED')}}</h5>
+            <hr class="weight-1 mt-2 mb-0">
+            <div class="d-block" *ngFor="let data of purchaseAuthData; let index = index;">
+                <h6 class="border-bottom dotted py-2 paddingL10">
+                    <a href="javascript:void(0);" (click)="expand(data)" attr.action-id="{{dataIdConstantsService.viewAuth_link_expandAuthData}}{{index}}">
+                        <span class="expCol-wrap mr-1">
+                            <span class="i-vNext-tree-open" *ngIf="!data.expanded" attr.action-id="{{dataIdConstantsService.viewAuth_icon_expand}}{{index}}"></span>
+                            <span class="i-vNext-tree-close" *ngIf="data.expanded" attr.action-id="{{dataIdConstantsService.viewAuth_icon_collapse}}{{index}}"></span>
+                        </span> {{data.desc}} <span *ngIf='data.temporary'>(Authorized)</span>
+                    </a>
+                    </h6>
+                <ul class="border-bottom py-0 m-0 auth-lisiting" *ngIf="data.expanded">
+                    <li class="paddingL35 py-1" *ngFor="let suite of data.atos">{{suite.desc}}</li>
+                    <span class="scroll-indicator" [ngClass]="{'d-flex' : data.atos.length > 12 }">{{localizationService.getLocalizedString('common.SCROLL_TO_VIEW_MORE')}}</span>
+                </ul>
+            </div>
+        </div>
+    
+        <div class="py-2 px-5" *ngIf='purchaseTempAuthData.length'>
+            <h5 class="heading--h5">{{localizationService.getLocalizedString('view-authorization.UNAUTHORIZED')}}</h5>        
+            <hr class="weight-1 mt-2 mb-0">
+            <div class="d-block" *ngFor="let data of purchaseTempAuthData; let index = index;">
+                <h6 class="border-bottom dotted py-2 paddingL10">
+                    <a href="javascript:void(0);" (click)="expand(data)" attr.action-id="{{dataIdConstantsService.viewAuth_link_expandTempAuthData}}{{index}}">
+                        <span class="expCol-wrap mr-1">
+                            <span class="i-vNext-tree-open" *ngIf="!data.expanded" attr.action-id="{{dataIdConstantsService.viewAuth_icon_expandTempAuth}}{{index}}"></span>
+                            <span class="i-vNext-tree-close" *ngIf="data.expanded" attr.action-id="{{dataIdConstantsService.viewAuth_icon_collapseTempAuth}}{{index}}"></span>
+                        </span> {{data.desc}} <span *ngIf='data.temporary'>({{localizationService.getLocalizedString('view-authorization.TEMPORARY_AUTHORIZED')}})</span>
+                    </a>
+                    </h6>
+                <ul class="border-bottom py-0 m-0 auth-lisiting" *ngIf="data.expanded">
+                    <li class="paddingL35 py-1" *ngFor="let suite of data.atos">{{suite.desc}}</li>
+                    <span class="scroll-indicator" [ngClass]="{'d-flex' : data.atos.length > 12 }">{{localizationService.getLocalizedString('common.SCROLL_TO_VIEW_MORE')}}</span>
+                </ul>
+            </div>
+            
+        </div>
+        <div *ngIf="!purchaseTempAuthData.length && !purchaseAuthData.length">        
+                <h5 class="text-center">{{localizationService.getLocalizedString('YOU_HAVE_NO_CISCO_EA_AUTHORIZATIONS')}}</h5>        
+        </div>
+    </ng-container>
+    <ng-container *ngIf="(purchaseAuthDataNew?.authorizedAtosByEnrollment?.length || purchaseAuthDataNew?.unauthorizedAtosByEnrollment?.length)">
+        <div class="mb-1 px-5" *ngIf='purchaseAuthDataNew && purchaseAuthDataNew?.authorizedAtosByEnrollment?.length'>
+            <h5 class="heading--h5">{{localizationService.getLocalizedString('view-authorization.AUTHORIZED')}}</h5>
+            <hr class="weight-1 mt-2 mb-0">
+            <div class="d-block" *ngFor="let data of purchaseAuthDataNew?.authorizedAtosByEnrollment; let index = index;">
+                <h6 class="border-bottom dotted py-2 paddingL10">
+                    <a href="javascript:void(0);" (click)="expand(data)" attr.action-id="{{dataIdConstantsService.viewAuth_link_expandAuthData}}{{index}}">
+                        <span class="expCol-wrap mr-1">
+                            <span class="i-vNext-tree-open" *ngIf="!data.expanded" attr.action-id="{{dataIdConstantsService.viewAuth_icon_expand}}{{index}}"></span>
+                            <span class="i-vNext-tree-close" *ngIf="data.expanded" attr.action-id="{{dataIdConstantsService.viewAuth_icon_collapse}}{{index}}"></span>
+                        </span> {{data.enrollmentName}} <span *ngIf='data.temporary'>(Authorized)</span>
+                    </a>
+                    </h6>
+                <ul class="border-bottom py-0 m-0 auth-lisiting" *ngIf="data.expanded">
+                    <li class="paddingL35 py-1" *ngFor="let suite of data.atos">{{suite.desc}}</li>
+                    <span class="scroll-indicator" [ngClass]="{'d-flex' : data.atos.length > 12 }">{{localizationService.getLocalizedString('common.SCROLL_TO_VIEW_MORE')}}</span>
+                </ul>
+            </div>
+        </div>
+    
+        <div class="py-2 px-5" *ngIf='purchaseAuthDataNew && purchaseAuthDataNew?.unauthorizedAtosByEnrollment?.length'>
+            <h5 class="heading--h5">{{localizationService.getLocalizedString('view-authorization.UNAUTHORIZED')}}</h5>        
+            <hr class="weight-1 mt-2 mb-0">
+            <div class="d-block" *ngFor="let data of purchaseAuthDataNew?.unauthorizedAtosByEnrollment; let index = index;">
+                <h6 class="border-bottom dotted py-2 paddingL10">
+                    <a href="javascript:void(0);" (click)="expand(data)" attr.action-id="{{dataIdConstantsService.viewAuth_link_expandTempAuthData}}{{index}}">
+                        <span class="expCol-wrap mr-1">
+                            <span class="i-vNext-tree-open" *ngIf="!data.expanded" attr.action-id="{{dataIdConstantsService.viewAuth_icon_expandTempAuth}}{{index}}"></span>
+                            <span class="i-vNext-tree-close" *ngIf="data.expanded" attr.action-id="{{dataIdConstantsService.viewAuth_icon_collapseTempAuth}}{{index}}"></span>
+                        </span> {{data.enrollmentName}} <span *ngIf='data.temporary'>({{localizationService.getLocalizedString('view-authorization.TEMPORARY_AUTHORIZED')}})</span>
+                    </a>
+                    </h6>
+                <ul class="border-bottom py-0 m-0 auth-lisiting" *ngIf="data.expanded">
+                    <li class="paddingL35 py-1" *ngFor="let suite of data.atos">{{suite.desc}}</li>
+                    <span class="scroll-indicator" [ngClass]="{'d-flex' : data.atos.length > 12 }">{{localizationService.getLocalizedString('common.SCROLL_TO_VIEW_MORE')}}</span>
+                </ul>
+            </div>
+            
+        </div>
+        <div *ngIf="!purchaseAuthDataNew?.authorizedAtosByEnrollment?.length && !purchaseAuthDataNew?.unauthorizedAtosByEnrollment?.length">        
+                <h5 class="text-center">{{localizationService.getLocalizedString('YOU_HAVE_NO_CISCO_EA_AUTHORIZATIONS')}}</h5>        
+        </div>
+    </ng-container>
+    <div class="d-flex w-100 px-5 marginB30">
+        <a href="javascript:void(0);" (click)="enrollAdditionalAuthorization()" attr.action-id="{{dataIdConstantsService.viewAuth_link_clickHere}}">{{localizationService.getLocalizedString('common.CLICK_HERE')}}</a> &nbsp; {{localizationService.getLocalizedString('view-authorization.ADDITIONAL_AUTHORIZATIONS')}}
+    </div>
+
+
+    <div class="text-center d-block px-5 mb-2">
+        <!--button class="btn btn-secondary" type="button" (click)="enrollAdditionalAuthorization()">Enroll for Additional Authorizations</button-->
+        <button class="btn btn-primary" (click)='close()' attr.action-id="{{dataIdConstantsService.viewAuth_button_close}}">{{localizationService.getLocalizedString('common.CLOSE')}}</button>
+    </div>
+</div>

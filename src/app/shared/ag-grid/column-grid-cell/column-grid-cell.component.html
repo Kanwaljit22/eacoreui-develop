@@ -1,0 +1,26 @@
+<ng-container *ngIf="!params.colDef || params.colDef.field !== 'submittedBy'">
+    <ng-template #tipContent>{{params.value}}</ng-template>
+    <span #cellValue class="ellipsis" [ngbTooltip]="tipContent" placement='top-left' container="body" triggers="manual" #t="ngbTooltip" (mouseenter)="showTooltip(t)"
+    (mouseleave)="t.close()">{{params.value}}</span>
+</ng-container>
+<ng-container *ngIf="params?.colDef && params.colDef.field === 'submittedBy'">
+    <ng-template #tipContent>{{createdBy}}</ng-template>
+    <span #cellValue class="ellipsis" [ngbTooltip]="tipContent" placement='top-left' container="body" triggers="manual" #t="ngbTooltip" (mouseenter)="showTooltip(t)"
+    (mouseleave)="t.close()">{{createdBy}}</span>
+</ng-container>
+
+<!-- <ng-container *ngIf="params.colDef.field === 'suite'">
+    <span class="d-flex justify-content-between align-items-center">
+        <ng-template #tipEos> 
+            <div class="eol-eos">
+                <p>On {{params.data.nonOrderableMessages.eoExtDate}} Cisco has announced the following for <a href="javascript:void(0)">{{params.data.suite}}:</a></p>
+            <p><b>End of New Subscription Sale Date</b>:{{params.data.nonOrderableMessages.eosDate}}</p>
+            <p><b>End of Change/Renewal Date</b>:{{params.data.nonOrderableMessages.eocrDate}}</p>
+            <p><b>Last Date of Support</b>:{{params.data.nonOrderableMessages.ldosDate}}</p>
+            <p>For more information. click <a href="javascript:void(0)" (click)="redirect(params.data.nonOrderableMessages.eosBulletinLink)">here.</a></p>
+          </div>
+        </ng-template>
+        <span class="ellipsis">{{params.value}}</span>
+        <span class="warning-badge" *ngIf="params.node.level === 0 && params.data.nonOrderableMessages"   placement="top-left"  [autoClose]="true" triggers="click" #eTip="ngbTooltip"  container="body" tooltipClass="eosTip"  [ngbTooltip]="tipEos"> EOS</span>
+    </span>
+</ng-container> -->

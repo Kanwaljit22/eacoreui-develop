@@ -1,0 +1,134 @@
+
+    {
+        "priceComparison" : {
+                "bauDiscount": "45%",
+                "bauPrice": 4961248,
+                "eaPrice": 3540000,
+                "eaDiscount": "55%",
+                "eaBenefitValue": 1400248,
+                "eabenefitPerc": "28%"
+            }, 
+        "distribution": [
+            {
+                "name": "Pricing",
+                "list": [
+                    {
+                        "name": "Product List Price",
+                        "bauValue": 741000,
+                        "eavalue": 642000,
+                        "eaEdit": true,
+                        "bauEdit": true
+                    },
+                    {
+                        "name": "Service List Price",
+                        "bauValue": "-",
+                        "eavalue": "-",
+                        "eaEdit": true,
+                        "bauEdit": true
+                    },
+                    {
+                        "name": "Average Discount",
+                        "bauValue": "45%",
+                        "eavalue": "55%",
+                        "eaEdit": true,
+                        "bauEdit": true
+                    },
+                    {
+                        "name": "PurchaseAdjustment",
+                        "bauValue": 17000,
+                        "eavalue": 17000,
+                        "eaEdit": true,
+                        "bauEdit": true
+                    },
+                    {
+                        "name": "Mark up/Margin",
+                        "bauValue": "-",
+                        "eaEdit": false,
+                        "bauEdit": false,
+                        "eavalue": 167000,
+                        "eaPercentage": "5%",
+                        "eavalueOption": [
+                            {
+                                "option": "Mark up"
+                            },
+                            {
+                                "option": "Margin"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Net Price",
+                        "bauValue": 467000,
+                        "eaEdit": true,
+                        "bauEdit": true,
+                        "bauOption": [
+                            {
+                                "option": "Derived"
+                            }
+                        ],
+                        "eavalue": 430000
+                    }
+                ]
+            },
+            {
+                "name": "True Forward benefits",
+                "list": [
+                    {
+                        "name": "True Forward (BYON)",
+                        "bauValue": 5000,
+                        "eavalue": "-",
+                        "eaeEdit": false,
+                        "bauEdit": true
+                    }
+                ]
+            },
+            {
+                "name": "Growth benefits",
+                "list": [
+                    {
+                        "name": "Growth",
+                        "bauValue": 17000,
+                        "bauPercentage": "4%",
+                        "eavalue": "-",
+                        "eaEdit": false,
+                        "bauEdit": true
+                    },
+                    {
+                        "name": "Time Value of Money",
+                        "bauValue": 18000,
+                        "bauPercentage": "4%",
+                        "eavalue": "-",
+                        "eaEdit": false,
+                        "bauEdit": true
+                    },
+                    {
+                        "name": "A La Carte 1yr SKU",
+                        "bauValue": 25000,
+                        "bauPercentage": "4%",
+                        "eavalue": "-",
+                        "eaEdit": false,
+                        "bauEdit": true
+                    }
+                ]
+            },
+            {
+                "name": "Operational Efficiencies",
+                "list": [
+                    {
+                        "name": "OperationalEfficiency (BYON)",
+                        "bauValue": 7000,
+                        "eavalue": "-",
+                        "eaEdit": false,
+                        "bauEdit": true
+                    },
+                    {
+                        "name": "Additional Cost",
+                        "bauValue": 5000,
+                        "eavalue": "-",
+                        "eaEdit": false,
+                        "bauEdit": true
+                    }
+                ]
+            }
+        ]
+    }

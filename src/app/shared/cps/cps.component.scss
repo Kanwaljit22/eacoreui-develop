@@ -1,0 +1,113 @@
+.hide {
+    display: none;
+}
+
+.engage-CPS--block {
+    transition: top 1s ease;
+    position: absolute;
+    bottom: 20px;
+    width: calc(100% - 40px);
+    border: 1px dashed #005073;
+    border-radius: 3px;
+    margin: 0 20px;
+    padding: 10px 15px 10px;
+    background-color: #f3fbfe;
+}
+
+.engage-CPS--block .linkText {
+    display: inline-block;
+}
+
+textarea.form-control {
+    background: transparent;
+}
+
+textarea.form-control.active {
+    max-height: 125px !important;
+    line-height: 26px;
+    font-weight: 500;
+    background: transparent;
+    padding: 6px 0px 5px 0px
+}
+
+.cpc-wrapper {
+    padding-top: 10px;
+}
+
+.cpc-header {
+    font-size: 16px;
+    margin-bottom: 0;
+    /* border-bottom: 1px solid #ccc; */
+    padding-bottom: 5px;
+    position: absolute;
+    top: -38px;
+    left: 0px;
+    background: white;
+    width: 100%;
+    height: 32px;
+    font-weight: 600;
+}
+
+.engage-CPS--block .engage-CPS--block p.pos-relative {
+    padding-right: 20px;
+}
+
+.engage-CPS--block .rightArrow {
+    position: absolute;
+    right: 15px;
+    top: 19px;
+    margin-top: -4px;
+    z-index: 9;
+    font-size: 8px;
+}
+
+.engage-CPS--block.open {
+    top: 124px;
+}
+
+.engage-CPS--block.open .rightArrow {
+    transform: rotate(180deg);
+}
+
+.engage-CPS--block .cpc-content .btn {
+    float: right;
+    font-weight: 300;
+}
+
+.engage-CPS--block .cpc-content .form-control-placeholder {
+    background: #f3fbfe;
+    padding-bottom: 2px;
+    width: 100%
+}
+
+.price-quote--info {
+    position: relative;
+    text-align: center;
+}
+
+.price-quote--info p {
+    display: block;
+    line-height: 1;
+    font-size: 12px;
+    padding-bottom: 5px;
+}
+
+.price-quote--info ul {
+    display: block;
+}
+
+.price-quote--info ul li {
+    display: inline-block;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1;
+}
+
+.price-quote--info ul li:first-child {
+    margin-right: 6px;
+}
+
+.price-quote--info ul li.last-child {
+    border-left: 1px solid #333;
+    padding-left: 10px;
+}

@@ -1,0 +1,177 @@
+<!-- End of Conatiner Fluid -->
+
+<div id="filter-area" class="no-border error1">
+    <div class="container-fluid">
+        <div class="row" *ngIf="!createQualification">
+            <div class="col-md-7">
+                <h4>{{localeService.getLocalizedString('common.PROPOSALS')}}</h4>
+            </div>
+            <div class="col-md-5">
+                <ul class="qualify-btn">
+                    <li>
+                        <button [id]='appDataService.createUniqueId("CREATE_NEW_PROPOSAL",appDataService.pageContext)' type="button" class="btn btn-primary" *ngIf="proposalDataService.proposalDataObject.userEditAccess">{{localeService.getLocalizedString('qual.create.CREATE_NEW')}}</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Begin Filter Section-->
+<div class="container-fluid" id="filter-area" *ngIf="appDataService.userDashboardFLow === appDataService.CONSTANT_USER_DASHBOARD_FLOW" (clickOutside)="onClickedOutside($event)">
+    <div class="row align-items-center justify-content-between">
+        <div class="col-6">
+            <div class="searchbar">
+                <input [id]='appDataService.createUniqueId("PROPOSAL_SEARCH",appDataService.pageContext)' class="form-control" id="searchProposalBy" maxlength="65" name="searchProposalBy" [(ngModel)]="searchProposalBy" type="text" required appElementFocus />
+                <label class="form-control-placeholder" for="searchProposalBy" (click)="focusInput(appDataService.createUniqueId('PROPOSAL_SEARCH',appDataService.pageContext))">{{localeService.getLocalizedString('proposal.create.PROPOSAL_SEARCH')}}
+                            <i class="icon-search"></i>
+                        </label>
+
+            </div>
+        </div>
+        <div class="col-6 tiles-toggle">
+            <div class="tiles-toggle-txt">{{localeService.getLocalizedString('dashboard.proposal.I_WANT_TO_VIEW_PROPSALS')}}</div>
+            <div class="dropdown select-dropdown" (clickOutside)="onViewDrop($event)">
+                <button class="dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" (click)="dropdownClick()">
+                 <span>{{listProposalService.selectedDropdown.displayValue}}</span><i class="icon-arrow-stroke-right"></i>
+                </button>
+                <div class="dropdown-menu" *ngIf="openSharedDrop">
+                    <a *ngFor="let filter of listProposalService.arrDropDown" class="dropdown-item" [ngClass]="{'active': listProposalService.selectedDropdown.displayValue === filter.displayValue}" (click)="dropdownSelected(filter)" href="javascript:void(0)">{{filter.displayValue}}<span class="icon-tick"></span></a>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 tiles-status" style="display: none;">
+            <div class="dropdown select-dropdown float-right">
+                <button class="dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" (click)="openProposalStatusDrop = !openProposalStatusDrop">
+                      Proposal Status: All <i class="icon-arrow-stroke-right"></i>
+                    </button>
+                <div class="dropdown-menu" *ngIf="openProposalStatusDrop">
+                    <a class="dropdown-item" href="javascript:void(0)">All</a>
+                    <a class="dropdown-item" href="javascript:void(0)">In progress</a>
+                    <a class="dropdown-item" href="javascript:void(0)">Pending Approval</a>
+                    <a class="dropdown-item" href="javascript:void(0)">Completed</a>
+                    <a class="dropdown-item" href="javascript:void(0)">Closed</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End Filter Section-->
+<!-- Sub Heading -->
+<div class="container-fluid">
+    <message></message>
+    <!-- <div class="approve-disapprove refine-result mb-2" *ngIf="appDataService.userDashboardFLow !== 'userFlow' && !appDataService.isReadWriteAccess && !appDataService.userInfo.roSuperUser && showInfo">
+                <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                <span class="infoTxt">{{localeService.getLocalizedString('common.RW_ACCESS_MESSAGE')}} {{localeService.getLocalizedString('common.PROPOSAL')}}{{localeService.getLocalizedString('common.REQUEST_ACCESS')}} <a href="javascript:void(0)" (click)="appDataService.requestAccessForProposalOrQual(constantsService.QUALIFICATION,qualService.qualification.qualID)">{{localeService.getLocalizedString('common.CONTACT_OWNER')}}</a></span>
+                <ul class="refine-search">
+                    <li>
+                        <a href="javascript:void(0)" (click)="closeInfo()">
+                            <span class="icon-close-btn no-border"></span>
+                        </a>
+                    </li>
+                </ul>
+            </div> -->
+    <div class="no-border">
+        <div class="alert alert--info alert-dismissable mb-3 mt-3" *ngIf="proposalDataService.qualInProgressMsg && appDataService.userDashboardFLow !== 'userFlow'">
+            <span class="alert-icon">
+                        <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+            </span>
+            <span class="infoTxt">
+                               {{localeService.getLocalizedMessage('proposal.summary.QUAL_IN_PROGRESS_01')}}
+                               <a href="javascript:void(0)" (click)="deepLinktoQualification()">{{this.qualService.qualification.name}}</a> {{localeService.getLocalizedMessage('proposal.summary.QUAL_IN_PROGRESS_04')}}
+                         </span>
+        </div>
+
+        <div class="alert alert--info alert-dismissable mb-3 mt-3" *ngIf="proposalDataService.readOnlyAccessType && appDataService.userDashboardFLow !== 'userFlow'">
+            <span class="alert-icon">
+                        <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+            </span>
+            <span class="infoTxt">
+                        {{localeService.getLocalizedMessage('proposal.summary.READ_ONLY_ACCESS')}}
+                    </span>
+            <!-- commented out for further use
+                         <span class="infoTxt" *ngIf="appDataService.userInfo.rwSuperUser">
+                        {{localeService.getLocalizedMessage('propsoal.summary.RW_READ_ONLY_ACCESS')}}
+                    </span>  -->
+        </div>
+        <!-- show rw create access disable message starts -->
+        <div class="alert alert--info alert-dismissable mb-3 mt-3" *ngIf="proposalDataService.rwSuperUserAccessType && appDataService.userDashboardFLow !== 'userFlow'">
+            <span class="alert-icon">
+                        <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+            </span>
+            <span class="infoTxt">
+                        {{localeService.getLocalizedMessage('propsoal.summary.RW_READ_ONLY_ACCESS')}}
+                    </span>
+        </div>
+        <!-- show rw create access disable message ends -->
+        <!-- show rwsuper users and ro sales team create access disable message starts -->
+        <div class="alert alert--info alert-dismissable mb-3 mt-3" *ngIf="proposalDataService.roSalesteamAccessType && appDataService.userDashboardFLow !== 'userFlow'">
+            <span class="alert-icon">
+                        <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+            </span>
+            <span class="infoTxt">
+                        {{localeService.getLocalizedMessage('propsoal.summary.RW_RO_SALES_ACCESS')}}
+                    </span>
+        </div>
+        <!-- show rwsuper users and ro sales team create access disable message ends -->
+    </div>
+    <app-copy-link></app-copy-link>
+    <!-- this is for error message-->
+    <!-- Qualification Sections -->
+    <div class="row clearfix">
+        <div class="col-md-12">
+            <div class="row" *ngIf="appDataService.userDashboardFLow === 'userFlow'">
+                <!--<div class="col-xl-3">
+                        <h2 style="position:relative; top:10px;" class="user-heading" *ngIf="!globalView">{{localeService.getLocalizedString('dashboard.proposal.MY_PROPOSAL')}}</h2>
+                        <h2 style="position:relative; top:10px;" class="user-heading" *ngIf="globalView">{{localeService.getLocalizedString('dashboard.proposal.SHARED_PROPOSAL')}}</h2>
+                    </div>-->
+                <div class="col-xl-9">
+                    <!-- <div class="list-grid"><a *ngIf="!displayGridView" href="javascript:void(0)" (click)="showGridView()"><i class="icon-grid"></i><span>Grid View</span></a>
+                            <a *ngIf="displayGridView" href="javascript:void(0)" (click)="showListView()"><i class="icon-list"></i><span>List View</span></a>
+                        </div> -->
+                    <!-- <div class="globalSwitchWrap dashboardSwitchWrap float-right">
+                            <span>{{localeService.getLocalizedString('dashboard.prospect.CREATED_BY_ME')}}</span>
+                            <ui-switch kdfid="globalView" kdfapp="enterpriseAgreement" kdfpage="enterpriseAgreement" [(ngModel)]="globalView" checked size="small" color="#ABE3F2" switchColor="#00BCEA" (change)="globalSwitchChange($event)"></ui-switch>
+                            <span>{{localeService.getLocalizedString('dashboard.prospect.SHARED_WITH_ME')}}</span>
+                        </div> -->
+                    <!--Begin Search compo-->
+
+                    <!--End Search compo-->
+                </div>
+
+                <div class="col-md-12">
+                    <app-proposal-list class="" [changedData]="listproposalData.data" [proposalData]="listproposalData" [searchProposal]="searchProposalBy" style="width: 100%;" [searchFilter]="listProposalService.selectedDropdown"></app-proposal-list>
+                </div>
+                <!-- <div *ngIf="displayGridView" class="aggrid-wrapper-list" style="width: 100%; height: calc(100vh - 100px);margin-top:15px;">
+                        <ag-grid-angular #agGrid id="ag-grid" style="width: 100%; height: 100%" appTableHeight class="ag-fresh table-height qual-list-grid tco-configuration-grid pinned-shadow report-center mt-2" (gridReady)="onGridReady($event)"
+                        [gridOptions]="gridOptions" [columnDefs]="columnDefs" [rowData]="rowData"
+                       enableColResize enableSorting enableFilter groupHeaders suppressRowClickSelection toolPanelSuppressGroups toolPanelSuppressValues (cellMouseOver)="utilitiesService.onCellMouseOver($event, 1)"
+                       debug rowHeight="30" [headerHeight]="45" (cellClicked)="onCellClicked($event)"> 
+                       </ag-grid-angular>
+                    </div> -->
+            </div>
+            <div class="row" *ngIf="appDataService.userDashboardFLow !== 'userFlow'">
+
+                <div class="col-md-12">
+                    <!--Begin Search compo-->
+                    <div class="searchbar">
+                        <input [id]='appDataService.createUniqueId("PROPOSAL_SEARCH",appDataService.pageContext)' class="form-control" id="searchProposalBy" maxlength="65" name="searchProposalBy" [(ngModel)]="searchProposalBy" type="text" required appElementFocus />
+                        <label class="form-control-placeholder" for="searchProposalBy" (click)="focusInput(appDataService.createUniqueId('PROPOSAL_SEARCH',appDataService.pageContext))">{{localeService.getLocalizedString('proposal.create.PROPOSAL_SEARCH')}}
+                                                    <i class="icon-search"></i>
+                                                </label>
+
+                    </div>
+                    <!--End Search compo-->
+                    <app-proposal-list class="proposals-tiles" [proposalData]="listproposalData" [searchProposal]="searchProposalBy" style="width: 100%;"></app-proposal-list>
+                </div>
+                <!-- <div class="aggrid-wrapper-list" *ngIf="displayGridView" style="width: 100%; height: calc(100vh - 100px);margin-top:15px;">
+                        <ag-grid-angular #agGrid id="ag-grid" style="width: 100%; height: 100%" appTableHeight class="ag-fresh table-height tco-configuration-grid pinned-shadow report-center mt-2" (gridReady)="onGridReady($event)"
+                        [gridOptions]="gridOptions" [columnDefs]="columnDefs" [rowData]="rowData"
+                       enableColResize enableSorting enableFilter groupHeaders suppressRowClickSelection toolPanelSuppressGroups toolPanelSuppressValues
+                       debug rowHeight="30" [headerHeight]="45"> 
+                       </ag-grid-angular>
+                    </div> -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Qualification Sections ends-->

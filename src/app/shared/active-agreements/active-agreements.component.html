@@ -1,0 +1,384 @@
+<ng-container *ngIf="fromPage==='accountHealth'">
+  <div *ngIf="activeAgreementData?.data?.accounts?.length > 0" class="active_agreements mt-3" >
+    <div class="list-item active--border-left base--border-radius row border--all solid m-0 mb-3" *ngFor="let item of activeAgreementData?.data?.accounts">
+      <div class="col-3 d-flex">
+        <div class="d-inline-flex align-self-center">
+            
+            <span class="icon-DNA-new architecture--icon" *ngIf="item.architecture.toLowerCase().search('dna') > -1" ><span class="path1"></span><span class="path2"></span><span
+            class="path3"></span><span class="path4"></span><span class="path5"></span><span
+            class="path6"></span><span class="path7"></span></span>
+
+            <span class="icon-data-center-new architecture--icon" *ngIf="item.architecture.toLowerCase().search('data') > -1"  ><span class="path1"></span><span
+            class="path2"></span><span class="path3"></span><span class="path4"></span><span
+            class="path5"></span><span class="path6"></span><span class="path7"></span><span
+            class="path8"></span></span>
+
+            <span class="icon-security-new architecture--icon" *ngIf="item.architecture.toLowerCase().search('security') > -1" ><span class="path1"></span><span class="path2"></span><span
+            class="path3"></span></span>
+
+            <span class="icon-cisco-1 architecture--icon" *ngIf="item.architecture.toLowerCase().search('one') > -1"  ><span class="path1"></span><span
+            class="path2"></span><span class="path3"></span><span class="path4"></span><span
+            class="path5"></span><span class="path6"></span></span>
+
+
+            <!-- <span class="icon-white-cross-arch architecture--icon" *ngIf="item.architecture.toLowerCase().search('cross') > -1" ><span class="path1"></span><span class="path2"></span><span class="path3"></span></span> -->
+            <span class="icon-cross-arch-tile architecture--icon" *ngIf="item.architecture.toLowerCase().search('cross') > -1"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span><span class="path8"></span><span class="path9"></span><span class="path10"></span></span>
+
+            <!-- <span class="icon-cross-arch" *ngIf="item.architecture.toLowerCase().search('cross') === -1 
+            || item.architecture.toLowerCase().search('dna') === -1
+            || item.architecture.toLowerCase().search('data') === -1
+            || item.architecture.toLowerCase().search('security') === -1" >  </span> -->
+
+        </div>
+        <h2 class="agreement-title mb-0 ml-2 align-self-center" style="cursor: pointer;" (click)= "gotoConsumptionfromAccountHealth(item)" >{{item.name}}</h2>
+      </div>
+
+      <div class="col-9 pl-0">
+        <div class="list-item border--left solid pt-2 pb-2 row m-0">
+          <div class="col-md-3 list-item--val pl-5"><span class="value-title">Start Date</span>
+            <div class="value-data"> {{item.startDate}} 
+              <div class="timeline-dots-container">
+                <div class="progress">
+                  <div class="progress-bar"></div>
+                </div>
+                <div class="timeline-dots-main" [innerHTML]="getDotsTimeline(item.startDate,item.endDate,item.nextTrueForward)" >
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col list-item--val">
+            <span class="value-title">End Date</span>
+            <span class="value-data"> {{item.endDate}} </span>
+          </div>
+          <div class="col list-item--val">
+            <span class="value-title">Subscription ID</span>
+            <span class="value-data"> {{ item.subscriptionID }}</span>
+          </div>
+          <div class="col list-item--val">
+            <span class="value-title">Agreement Status</span>
+            <span class="value-data active text-success"> {{item.status}} </span>
+          </div>
+          <div class="col list-item--val"><span class="value-title">Next True Forward</span><span class="value-data"> 
+            {{ item.nextTrueForward }}
+              <span class="icon-stop-watch" ng-reflect-ng-class="[object Object]"></span></span>
+          </div>
+        </div>
+
+        <hr class="border--top solid m-0">
+
+        <div class="list-item border--left solid pt-2 pb-2 row m-0">
+          <div class="col-md-3 list-item--val pl-5">
+            <span class="value-title">Number of Suites</span>
+            <span class="value-data"> {{item.numberOfSuites}}  </span>
+          </div>
+          <div class="col list-item--val">
+            <span class="value-title">Total Entitlements</span>
+            <span class="value-data">
+            {{item.totalEntitlements}}
+          </span>
+          </div>
+          <div class="col list-item--val">
+            <span class="value-title">Total Consumption</span>
+            <span class="value-data">
+            {{item.totalConsumption}}
+          </span>
+          </div>
+          <div class="col list-item--val">
+            <span class="value-title">Remaining Entitlements</span>
+            <span class="value-data danger"><span class="icon-alert mr-1 danger"></span>
+            {{item.remainingEntitlements}}
+          </span>
+          </div>
+          <div class="col list-item--val">
+            <!-- <div class="custom-dropdown-wrap float-left value-data dropdown"><button class="btn  dropdown-toggle dropdown-toggle" id="dropdownManual" type="button">Download Report <span
+                  class="icon-drop-down"></span></button>
+              <div class="dropdown-menu right"><a class="dropdown-item">Consumption Report</a><a
+                  class="dropdown-item">Level 2</a><a class="dropdown-item">Level 3</a><a
+                  class="dropdown-item">Transaction Details</a></div>
+            </div> -->
+          </div>
+        </div>
+        <!-- <div class="recommend-block recommend-footerblock text-right" style="height: 45px;" >
+              <div class="float-left proposal-action">
+                  <a href="javascript:void(0)">Generate Additional Proposal</a><span
+                      class="sep"></span>
+                  <a href="javascript:void(0)">Generate TF Proposal</a>
+              </div>
+              <ul class="float-right">
+                  <li>
+                      <a href="javascript:void(0); ">Buy More Suites</a>
+                  </li>
+                  <li>
+                      <a href="javascript:void(0); ">Buy More Architectures</a>
+                  </li>
+                  <li>
+                      <a href="javascript:void(0);">Buy Additional Licenses</a>
+                  </li>
+                  <li>
+                      <a href="javascript:void(0); ">Renew Agreements</a>
+                  </li>
+              </ul>
+          </div> -->
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-xl-12" id="noSearchData" *ngIf="!activeAgreementData?.data || activeAgreementData?.data?.accounts?.length === 0 || !activeAgreementData?.data?.accounts || !allArchitectureViewService?.smartAccountId" >  
+    <div class="no-qual-list">
+        <img class="no-agreement-created-component" src="assets/images/no-data-available.svg">
+      <h6>No Active Agreements Available</h6></div>
+  </div>
+</ng-container>
+  
+<!--for agreements tabs-->
+<ng-container *ngIf="fromPage==='agreementTab'">
+  <div *ngIf="currentPage==='agreements'">
+      <!-- <div class="toggle-grid-list" *ngIf="activeAgreementData?.data?.accounts?.length > 0" ><a *ngIf="!displayGridView" href="javascript:void(0)" (click)="toggleView()"><i
+        class="icon-grid"></i><span>Grid View</span></a>
+      <a *ngIf="displayGridView" href="javascript:void(0)" (click)="toggleView()"><i class="icon-list"></i><span>List
+        View</span></a>
+      </div> -->
+
+    <!-- <div class="agreement-grid-table" *ngIf="displayGridView && activeAgreementData !== undefined">
+      <ag-grid-angular #agGrid id="ag-grid" style="width: 100%; height: 590px;" appTableHeight
+        class="ag-fresh table-height tco-configuration-grid pinned-shadow report-center-ag-grid"
+        (gridReady)="onGridReady($event)" [gridOptions]="gridOptions" [columnDefs]="columnDefs" [rowData]="rowData"
+        enableColResize enableSorting enableFilter groupHeaders suppressRowClickSelection toolPanelSuppressGroups
+        toolPanelSuppressValues debug rowHeight="30" (cellClicked)="onCellClicked($event)">
+      </ag-grid-angular>
+    </div> -->
+
+    <div *ngIf="!displayGridView">
+      <div class="active_agreements mt-3" *ngIf="activeAgreementData?.data?.accounts?.length > 0">
+        <div class="list-item active--border-left base--border-radius row border--all solid m-0 mb-3" *ngFor="let item of activeAgreementData?.data?.accounts">
+          <div class="col-3 d-flex">
+            <div class="d-inline-flex align-self-center">
+                    
+              <span class="icon-DNA-new architecture--icon" *ngIf="item.architecture.toLowerCase().search('dna') > -1" ><span class="path1"></span><span class="path2"></span><span
+              class="path3"></span><span class="path4"></span><span class="path5"></span><span
+              class="path6"></span><span class="path7"></span></span>
+
+              <span class="icon-data-center-new architecture--icon" *ngIf="item.architecture.toLowerCase().search('data') > -1"  ><span class="path1"></span><span
+              class="path2"></span><span class="path3"></span><span class="path4"></span><span
+              class="path5"></span><span class="path6"></span><span class="path7"></span><span
+              class="path8"></span></span>
+
+              <span class="icon-security-new architecture--icon" *ngIf="item.architecture.toLowerCase().search('security') > -1" ><span class="path1"></span><span class="path2"></span><span
+              class="path3"></span></span>
+
+              <!-- <span class="icon-white-cross-arch architecture--icon" *ngIf="item.architecture.toLowerCase().search('cross') > -1" ><span class="path1"></span><span class="path2"></span><span class="path3"></span></span> -->
+
+              <span class="icon-cross-arch-tile architecture--icon" *ngIf="item.architecture.toLowerCase().search('cross') > -1"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span><span class="path8"></span><span class="path9"></span><span class="path10"></span></span>
+
+              <span class="icon-cisco-1 architecture--icon" *ngIf="item.architecture.toLowerCase().search('one') > -1"  ><span class="path1"></span><span
+              class="path2"></span><span class="path3"></span><span class="path4"></span><span
+              class="path5"></span><span class="path6"></span></span>
+              
+              <!-- <span class="icon-cross-arch" *ngIf="item.architecture.toLowerCase().search('cross') === -1 
+              || item.architecture.toLowerCase().search('dna') === -1
+              || item.architecture.toLowerCase().search('data') === -1
+              || item.architecture.toLowerCase().search('security') === -1" >  </span> -->
+
+              </div>
+            <h2 class="agreement-title mb-0 ml-2 align-self-center" style="cursor: pointer;" (click)="gotoConsumption(item)" >{{item.name}}</h2>
+          </div>
+          <div class="col-9 pl-0">
+            <div class="list-item border--left solid pt-2 pb-2 row m-0">
+              <div class="col-md-3 list-item--val pl-5"><span class="value-title">Start Date</span>
+                <div class="value-data"> {{item.startDate}} 
+                  <div class="timeline-dots-container">
+                    <div class="progress">
+                      <div class="progress-bar"></div>
+                    </div>
+                    <div class="timeline-dots-main" [innerHTML]="getDotsTimeline(item.startDate,item.endDate,item.nextTrueForward)" >
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col list-item--val">
+                <span class="value-title">End Date</span>
+                <span class="value-data"> {{item.endDate}} </span>
+              </div>
+              <div class="col list-item--val">
+                <span class="value-title">Subscription ID</span>
+                <span class="value-data"> {{ item.subscriptionID }}</span>
+              </div>
+              <div class="col list-item--val">
+                <span class="value-title">Agreement Status</span>
+                <span class="value-data active text-success"> {{item.status}} </span>
+              </div>
+              <div class="col list-item--val">
+                <span class="value-title">Next True Forward</span>
+                <span class="value-data">{{ item.nextTrueForward }}
+                <span class="icon-stop-watch" ng-reflect-ng-class="[object Object]"></span></span>
+              </div>
+            </div>
+            
+            <hr class="border--top solid m-0">
+
+            <div class="list-item border--left solid pt-2 pb-2 row m-0">
+              <div class="col-md-3 list-item--val pl-5">
+                <span class="value-title">Number of Suites</span>
+                <span class="value-data"> {{item.numberOfSuites}}</span>
+              </div>
+              <div class="col list-item--val">
+                <span class="value-title">Total Entitlements</span>
+                <span class="value-data">{{item.totalEntitlements}}</span>
+              </div>
+              <div class="col list-item--val">
+                <span class="value-title">Total Consumption</span>
+                <span class="value-data">{{item.totalConsumption}}</span>
+              </div>
+              <div class="col list-item--val">
+                <span class="value-title">Remaining Entitlements</span>
+                <span class="value-data danger">
+                  <span class="icon-alert mr-1 danger"></span>
+                  {{item.remainingEntitlements}}
+              </span>
+              </div>
+              <div class="col list-item--val">
+                <!-- <div class="custom-dropdown-wrap float-left value-data dropdown"><button class="btn  dropdown-toggle dropdown-toggle" id="dropdownManual" type="button">Download Report <span
+                      class="icon-drop-down"></span></button>
+                  <div class="dropdown-menu right"><a class="dropdown-item">Consumption Report</a><a
+                      class="dropdown-item">Level 2</a><a class="dropdown-item">Level 3</a><a
+                      class="dropdown-item">Transaction Details</a></div>
+                </div> -->
+              </div>
+            </div>
+            <!--  <div class="recommend-block recommend-footerblock text-right" style="height: 45px;">
+                  <div class="float-left proposal-action">
+                      <a href="javascript:void(0)">Generate Additional Proposal</a><span
+                          class="sep"></span>
+                      <a href="javascript:void(0)">Generate TF Proposal</a>
+                  </div>
+                  <ul class="float-right">
+                      <li>
+                          <a href="javascript:void(0); ">Buy More Suites</a>
+                      </li>
+                      <li>
+                          <a href="javascript:void(0); ">Buy More Architectures</a>
+                      </li>
+                      <li>
+                          <a href="javascript:void(0);">Buy Additional Licenses</a>
+                      </li>
+                      <li>
+                          <a href="javascript:void(0); ">Renew Agreements</a>
+                      </li>
+                  </ul> 
+              </div>-->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center mt-4" id="noSearchData" *ngIf="!activeAgreementData?.data || activeAgreementData?.data?.accounts?.length === 0 || !activeAgreementData?.data?.accounts || !allArchitectureViewService?.smartAccountId" >
+      <img src="assets/images/no-data-available.svg">
+      <h6>No Active Agreements Available</h6>
+    </div>
+
+  </div>
+
+  <div *ngIf="currentPage==='consumption'" class="">
+      <div class="active_agreements mt-3 nav-type">
+        <div class="list-item active--border-left base--border-radius row border--all solid m-0 mb-3">
+          <div class="col-3 d-flex">
+            <div class="d-inline-flex align-self-center">
+              <em class="icon-carousel-left" style="cursor:pointer" (click)="backtoAgreements()"  ></em>
+              <span class="icon-DNA-new architecture--icon" *ngIf="selecteVirtualAccount?.architecture.toLowerCase().search('dna') > -1" ><span class="path1"></span><span class="path2"></span><span
+              class="path3"></span><span class="path4"></span><span class="path5"></span><span
+              class="path6"></span><span class="path7"></span></span>
+
+              <span class="icon-data-center-new architecture--icon" *ngIf="selecteVirtualAccount?.architecture.toLowerCase().search('data') > -1"  ><span class="path1"></span><span
+              class="path2"></span><span class="path3"></span><span class="path4"></span><span
+              class="path5"></span><span class="path6"></span><span class="path7"></span><span
+              class="path8"></span></span>
+
+              <span class="icon-security-new architecture--icon" *ngIf="selecteVirtualAccount?.architecture.toLowerCase().search('security') > -1" ><span class="path1"></span><span class="path2"></span><span
+              class="path3"></span></span>
+
+              <span class="icon-cisco-1 architecture--icon" *ngIf="selecteVirtualAccount?.architecture.toLowerCase().search('one') > -1"  ><span class="path1"></span><span
+              class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span></span>
+                      
+              <!-- <span class="icon-white-cross-arch architecture--icon" *ngIf="selecteVirtualAccount?.architecture.toLowerCase().search('cross') > -1" ><span class="path1"></span><span class="path2"></span><span class="path3"></span></span> -->
+
+              <span class="icon-cross-arch-tile architecture--icon" *ngIf="selecteVirtualAccount?.architecture.toLowerCase().search('cross') > -1"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span><span class="path8"></span><span class="path9"></span><span class="path10"></span></span>
+
+            </div>
+            <h2 class="agreement-title mb-0 ml-2 align-self-center"> {{ selecteVirtualAccount?.name}} </h2>
+            <div ngbDropdown class="headerTitleDrop align-self-center" #architectureDrop="ngbDropdown" (click)="architectureDrop.open();" name="architectureDrop">
+              <span class="dropdown--typeAhead__arrow-management active-agreement-arrow-management">
+                <button type="button" appElementFocus class="btn--text drop-button" id="dropdownManual" ngbDropdownAnchor
+                  dropdownManual></button>
+              </span>
+              <div class="custom-header-dropdown" ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                <ul>
+                  <li class="dropdown-item" (click)="gotoConsumption(item)" *ngFor="let item of activeAgreementData?.data?.accounts" > 
+                      <span class="icon-DNA-new architecture--icon" *ngIf="item.architecture.toLowerCase().search('dna') > -1" ><span class="path1"></span><span class="path2"></span><span
+                      class="path3"></span><span class="path4"></span><span class="path5"></span><span
+                      class="path6"></span><span class="path7"></span></span>
+        
+                      <span class="icon-data-center-new architecture--icon" *ngIf="item.architecture.toLowerCase().search('data') > -1"  ><span class="path1"></span><span
+                      class="path2"></span><span class="path3"></span><span class="path4"></span><span
+                      class="path5"></span><span class="path6"></span><span class="path7"></span><span
+                      class="path8"></span></span>
+        
+                      <span class="icon-security-new architecture--icon" *ngIf="item.architecture.toLowerCase().search('security') > -1" ><span class="path1"></span><span class="path2"></span><span
+                      class="path3"></span></span>
+        
+                      <span class="icon-cisco-1 architecture--icon" *ngIf="item.architecture.toLowerCase().search('one') > -1"  ><span class="path1"></span><span
+                      class="path2"></span><span class="path3"></span><span class="path4"></span><span
+                      class="path5"></span><span class="path6"></span></span>
+
+                      <!-- <span class="icon-white-cross-arch architecture--icon" *ngIf="item.architecture.toLowerCase().search('cross') > -1" ><span class="path1"></span><span class="path2"></span><span class="path3"></span></span> -->
+
+                      <span class="icon-cross-arch-tile architecture--icon" *ngIf="item.architecture.toLowerCase().search('cross') > -1"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span><span class="path8"></span><span class="path9"></span><span class="path10"></span></span>
+        
+                    {{item.name}} <span class="icon-tick" *ngIf="item.name===selecteVirtualAccount?.name"></span> </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-9 pl-0">
+            <div class="list-item border--left solid pt-2 pb-2 row m-0">
+              <!-- <div class="col"><span class="value-title more-detail-view">More Details <em class="icon-view"></em></span></div> -->
+              <div class="col list-item--val">
+                <span class="value-title">Subscription ID</span>
+                <span class="value-data"> {{ selecteVirtualAccount?.subscriptionID}} </span>
+              </div>
+
+              <div class="col list-item--val">
+                <span class="value-title">Status</span>
+                <span class="value-data active text-success" ng-reflect-klass="value-data" > {{ selecteVirtualAccount?.status}} </span>
+              </div>
+
+              <div class="col-md-3 list-item--val"><span class="value-title">Start Date</span>
+                <div class="value-data"> {{ selecteVirtualAccount?.startDate}}  
+                  <div class="timeline-dots-container">
+                    <div class="progress">
+                      <div class="progress-bar"></div>
+                    </div>
+                    <div class="timeline-dots-main" [innerHTML]="getDotsTimeline(selecteVirtualAccount?.startDate,selecteVirtualAccount?.endDate,selecteVirtualAccount?.nextTrueForward)" >
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col list-item--val">
+                <span class="value-title">End Date</span>
+                <span class="value-data">{{ selecteVirtualAccount?.endDate}} </span>
+              </div>
+
+              <div class="col list-item--val sep">
+                <span class="value-title">Your Next Milestone</span>
+                <span class="value-data">{{ selecteVirtualAccount?.nextTrueForward}}
+                  <span class="icon-time required"></span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <app-agreement-consumption [virtualAccountId]="virtualAccountId" [subscriptionId]="subscriptionId"> </app-agreement-consumption>
+  </div>  
+</ng-container>

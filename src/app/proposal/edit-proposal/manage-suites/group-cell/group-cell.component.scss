@@ -1,0 +1,65 @@
+.subscription_color {
+    color         : #005073;
+    float         : right;
+    border        : 1px solid #005073;
+    border-radius : 4px;
+    font-size     : 11px;
+    line-height   : 11px;
+    padding       : 2px 5px;
+    position      : relative;
+    top           : -3px;
+    text-transform: capitalize;
+}
+
+.cxEligibleSuites {
+    padding-left: 8px;
+    position: relative;
+    top: 2px;
+    font-weight: 700;
+}
+
+.icon-alert-info1 {
+    background-color: transparent;
+    // left: auto;
+    // height: 18px;
+    // top: 50%;
+    // right: 30px;
+    // bottom: 0px;
+    // cursor: pointer;
+    // margin-top: -9px;
+    // position: absolute;
+}
+
+.icon-alert-info1:before {
+    color: #005073 !important;
+}
+
+.cell-with-check {
+    width: 100%;
+    .cell-with-elements-inner {
+        max-width: calc(100% - 26px);
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    &.badge-combined {
+        width: 100%;
+    
+        .cell-with-elements-inner {
+            max-width: calc(100% - 65px);
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    
+        .warning-badge {
+            cursor: pointer;
+            position: absolute;
+            right: 8px;
+        }
+    }
+}
+
+.atoTierSelection {
+    cursor: pointer;
+    pointer-events:all
+}

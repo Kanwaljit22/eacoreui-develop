@@ -1,0 +1,486 @@
+.doc-wrap {
+    background: #f7f7f7;
+    margin-bottom: 15px;
+    -webkit-box-shadow: 0 1px 5px 1px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 5px 1px rgba(0, 0, 0, 0.1);
+}
+
+.doc-wrap:hover,
+.doc-wrap.active {
+    -webkit-box-shadow: 0 1px 13px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 13px 6px rgba(0, 0, 0, 0.1);
+}
+
+.doc-header {
+    background: #ffffff;
+    padding: 15px;
+    border-bottom: 2px solid #E8E8E8;
+}
+
+.doc-header h4 {
+    font-family: "CiscoSans";
+    font-size: 18px;
+    color: #666;
+    font-weight: 400;
+    margin-bottom: 0;
+}
+
+.doc-wrap.active .doc-header h4 {
+    color: #0dbae9;
+}
+
+.doc-header h4 span {
+    font-size: 14px;
+    max-width: 500px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.doc-header .flex-elem {
+    display: flex;
+    align-items: center;
+    padding-left: 50px;
+}
+
+.doc-header .flex-elem .inner-flex {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-flow: wrap;
+}
+
+.doc-header .flex-elem h4 {
+    flex: 0 1 100%;
+}
+
+.doc-header .flex-elem span[class^='icon-'] {
+    position: absolute;
+    left: -30px;
+    top: 50%;
+    margin-top: -15px;
+    font-size: 27px;
+    text-shadow: 0px 0px;
+}
+
+.docu-description {
+    width: 100%;
+}
+
+.lbl-desc {
+    color: #999999;
+    font-size: 12px;
+    width: 100%;
+    padding-top: 7px
+}
+
+.lbl-desc span {
+    color: #58585b;
+}
+
+.action-list {
+    margin-top: 4px;
+}
+
+.action-list li {
+    text-align: center;
+    float: right;
+    padding: 9px 12px;
+    font-size: 12px;
+}
+
+.action-list li a.icon-more-link {
+    color: #58585b;
+    padding: 11px 0 9px;
+    display: inline-block;
+}
+
+.action-list li .icon-request1,
+.action-list li .icon-download {
+    /*font-size   : 20px;*/
+    vertical-align: middle;
+}
+
+
+/* .action-list li:first-child { border-left:1px solid #d8d8d8; padding-left:20px; margin-left: 8px; } */
+
+.nav-link {
+    font-size: 12px;
+    color: #aaaaaa;
+    font-weight: 700;
+    border-radius: 0;
+    padding: 8px 20px;
+}
+
+.nav-tabs .nav-item.show .nav-link,
+.nav-tabs .nav-link.active {
+    background: #ffffff;
+    border-color: #ffffff #cccccc #ffffff #ffffff;
+}
+
+.nav-tabs .nav-item.show:last-child .nav-link,
+.nav-tabs .nav-item:last-child .nav-link.active {
+    background: #ffffff;
+    border-color: #ffffff #cccccc #ffffff #cccccc;
+}
+
+.nav-tabs .nav-link:hover {
+    background: #ffffff;
+    border-color: #ffffff #cccccc #cccccc #ffffff;
+    color: #58585b;
+}
+
+.nav-tabs {
+    border-bottom: 1px solid #cccccc;
+    border-top: 1px solid #cccccc;
+}
+
+.tab-content {
+    background: #ffffff;
+}
+
+.confirmation,
+.preview-doc {
+    padding: 0 20px 20px 40px;
+}
+
+.confirmation .icon-watch:before {
+    color: #c82439;
+}
+
+.confirmation .icon-success-01,
+.confirmation .icon-watch {
+    vertical-align: middle;
+    margin-right: 10px;
+    font-size: 30px;
+    position: relative;
+    top: 4px
+}
+
+.signed .icon-tick-01 {
+    font-size: 8px;
+    margin-right: 5px;
+}
+
+.status {
+    font-size: 14px;
+    color: #999999;
+}
+
+.status strong,
+.status span {
+    color: #58585b;
+}
+
+.btn-primary.focus,
+.btn-primary:focus {
+    box-shadow: none;
+}
+
+.file-wrap-container {
+    padding: 25px 35px 10px 20px;
+    text-align: center;
+}
+
+.file-wrap {
+    background: #FBFBFB;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    padding: 10px 40px 10px 10px;
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.tab-footer {
+    border-top: 1px dashed #cccccc;
+    padding: 20px;
+}
+
+.bg-blue {
+    background: #edfafe;
+}
+
+.upload-section {
+    display: inline-block;
+    margin: -20px;
+    padding: 20px;
+}
+
+.tab-footer ul li {
+    float: left;
+    margin-right: 20px;
+    height: 30px;
+    padding-right: 20px;
+    border-right: 1px solid #cccccc;
+}
+
+.tab-footer ul li:first-child {
+    padding-top: 5px;
+}
+
+.tab-footer ul li .label-check {
+    margin-top: 4px;
+}
+
+.tab-footer button {
+    margin: 10px 20px 10px 0;
+}
+
+.mandatory-info {
+    font-weight: 400;
+    font-size: 12px;
+    padding: 18px 0 18px 40px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.caret {
+    padding: 10px;
+}
+
+.uploaded-file-info {
+    padding: 0;
+}
+
+.uploaded-file-info ul {
+    padding: 15px 20px;
+}
+
+.uploaded-file-info button {
+    margin: 13px 20px 13px 0;
+}
+
+.file-wrap .lbl-desc {
+    font-size: 11px;
+}
+
+.file-wrap .icon-wrap {
+    position: absolute;
+    right: 20px;
+    top: 0;
+    bottom: 0;
+    border-left: 1px solid #cccccc;
+    padding-left: 20px;
+    padding-top: 20px;
+}
+
+.file-wrap .icon-delete {
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.file-wrap .icon-pdf-2,
+.file-wrap .icon-xls-2,
+.file-wrap .icon-ppt-2 {
+    font-size: 30px;
+    float: left;
+    margin-right: 10px;
+    margin-top: 3px;
+}
+
+.file-name {
+    font-size: 14px;
+    font-weight: 300;
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.badge {
+    font-size: 11px;
+    font-weight: 400;
+    width: auto;
+    height: auto;
+    padding: 3px 4px;
+    vertical-align: middle;
+    text-transform: uppercase;
+    max-width: 130px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.badge-info {
+    background: #e74c3c;
+}
+
+.doc-header .icon-pdf-2,
+.doc-header .icon-xls-2,
+.doc-header .icon-ppt-2 {
+    background: #FBFBFB;
+    border-radius: 50%;
+    float: left;
+    margin-right: 15px;
+    font-size: 20px;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    padding-top: 5px;
+}
+
+.noFilesUploaded {
+    color: #aaaaaa;
+    padding: 0 10px 10px 10px;
+    text-align: center;
+}
+
+.tab-head {
+    font-size: 14px;
+    color: #999999;
+    padding: 20px 0 3px;
+}
+
+.tab-head .info {
+    color: #c82439;
+}
+
+.tab-head .completed {
+    color: #129e12;
+}
+
+.steps {
+    float: right;
+    font-size: 12px;
+    font-weight: 300;
+    text-transform: none;
+}
+
+.steps span {
+    color: #58585b;
+}
+
+.doc-info {
+    padding: 0 20px 0 25px;
+}
+
+.doc-info>span {
+    font-size: 11px;
+    font-weight: 300;
+    color: #999999;
+    display: inline-block;
+    padding-top: 0px;
+}
+
+.doc-info .label-check {
+    margin-right: 80px;
+    margin-bottom: 15px;
+}
+
+.tab-description {
+    font-size: 11px;
+    line-height: 15px;
+    color: #999;
+}
+
+.doc-info i.arrow {
+    left: 102px;
+}
+
+
+/*-----------Alert Popover CSS starts here--------------*/
+
+.approve-disapprove {
+    border-color: #ff8a00;
+    display: inline-block;
+    padding-left: 10px;
+}
+
+.approve-disapprove .icon-warning {
+    font-size: 24px;
+    margin-right: 10px;
+}
+
+.approve-disapprove span.infoTxt {
+    width: auto;
+    line-height: 25px;
+}
+
+i.arrow {
+    border: solid #ff8a00;
+    border-width: 0 1px 1px 0;
+    display: inline-block;
+    padding: 3px;
+    position: absolute;
+    top: -4px;
+    left: 97px;
+    background-color: #fef1e8;
+}
+
+.arrow.up {
+    transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+}
+
+.refine-search li {
+    margin-right: 13px;
+}
+
+li.editRepInfoBtn {
+    float: right;
+    margin-bottom: 5px;
+}
+
+
+/*  Header CSS  */
+
+.docCenter-headerWrapper {
+    background-color: #eaeaea;
+    padding: 20px 10px;
+}
+
+.docCenter-headerWrapper .card-title {
+    font-weight: 600;
+    color: #999;
+}
+
+.docCenter-headerWrapper .btn {
+    padding: 10px 20px;
+    font-size: 13px;
+}
+
+.info-block {
+    width: 80%;
+    font-size: 13px;
+    display: table;
+    float: right;
+    margin-top: 10px;
+    margin-bottom: 0px;
+}
+
+.base-report-info {
+    clear: both;
+    background: #fff;
+    padding-left: 65px;
+}
+
+.base-report-action {
+    position: absolute;
+    top: 9px;
+    bottom: 7px;
+    right: -5px;
+}
+
+.base-report-list {
+    position: relative;
+    padding: 13px 0px;
+    padding-right: 185px;
+    margin-right: 20px;
+    border-bottom: 1px dashed #ccc;
+}
+
+.base-report-list:last-child {
+    border-bottom: 0px;
+}
+
+.doc-list li {
+    list-style-type: disc;
+    margin-left: 15px;
+    line-height: 19px;
+    padding-bottom: 3px;
+    padding-top: 2px;
+}

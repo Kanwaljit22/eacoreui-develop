@@ -1,0 +1,140 @@
+[
+    {
+        "subscribeName": "Subscription Id",
+        "subscribeId": "348754581",
+        "state": "Active",
+        "hideRecommend": true,
+        "innerData": [
+            {
+                "heading": "ACCOUNT NAME",
+                "value": "Adobe System Inc.",
+                "more": ""
+            },
+            {
+                "heading": "ARCHITECTURES",
+                "value": "Cisco One, Security",
+                "more": "1 more"
+            },
+            {
+                "heading": "SUITES",
+                "value": "Access Switching,",
+                "more": "7 more"
+            },
+            {
+                "heading": "START DATE",
+                "value": "Jul 1, 2018",
+                "more": ""
+            },
+            {
+                "heading": "END DATE",
+                "value": "Jul 1, 2021",
+                "more": ""
+            }
+        ],
+        "carouselData": [
+            [
+                {
+                    "heading": "1/3 Active Architectures",
+                    "value": "Initiate qual. with Security architecture",
+                    "bValue": "Initiate",
+                    "class": "icon-tree-menu-stroke"
+                },
+                {
+                    "heading": "1/5 Active Architectures",
+                    "value": "Initiate qual. with Collaboration architectures",
+                    "bValue": "Initiate",
+                    "class": "icon-tree-menu-stroke"
+                },
+                {
+                    "heading": "1/2 Active Architectures",
+                    "value": "Initiate qual. with 3 additional suites",
+                    "bValue": "Initiate",
+                    "class": "icon-checklist"
+                },
+                {
+                    "heading": "1/4 Active Architectures",
+                    "value": "Initiate qual. with Security architecturex",
+                    "bValue": "Initiate",
+                    "class": "icon-checklist"
+                }
+            ],
+            [
+                {
+                    "heading": "1/7 Active Architectures",
+                    "value": "Initiate qual. with Security architecture",
+                    "bValue": "Initiate",
+                    "class": "icon-tree-menu-stroke"
+                }
+            ]
+        ]
+    },
+    {
+        "subscribeName": "Subscription Id",
+        "subscribeId": "348754582",
+        "state": "Active",
+        "hideRecommend": false,
+        "innerData": [
+            {
+                "heading": "ACCOUNT NAME",
+                "value": "Adobe System Inc.",
+                "more": ""
+            },
+            {
+                "heading": "ARCHITECTURES",
+                "value": "Cisco One, Security",
+                "more": "1 more"
+            },
+            {
+                "heading": "SUITES",
+                "value": "Access Switching,",
+                "more": "7 more"
+            },
+            {
+                "heading": "START DATE",
+                "value": "Jul 1, 2018",
+                "more": ""
+            },
+            {
+                "heading": "END DATE",
+                "value": "Jul 1, 2021",
+                "more": ""
+            }
+        ],
+        "carouselData": [
+            [
+                {
+                    "heading": "1/3 Active Architectures",
+                    "value": "Initiate qual. with Security architecture",
+                    "bValue": "Initiate",
+                    "class": "icon-tree-menu-stroke"
+                },
+                {
+                    "heading": "1/4 Active Architectures",
+                    "value": "Initiate qual. with Collaboration architectures",
+                    "bValue": "Initiate",
+                    "class": "icon-tree-menu-stroke"
+                },
+                {
+                    "heading": "1/2 Active Architectures",
+                    "value": "Initiate qual. with 3 additional suites",
+                    "bValue": "Initiate",
+                    "class": "icon-checklist"
+                },
+                {
+                    "heading": "1/5 Active Architectures",
+                    "value": "Initiate qual. with Security architecturex",
+                    "bValue": "Initiate",
+                    "class": "icon-checklist"
+                }
+            ],
+            [
+                {
+                    "heading": "1/3 Active Architectures",
+                    "value": "Initiate qual. with Security architecture",
+                    "bValue": "Initiate",
+                    "class": "icon-tree-menu-stroke"
+                }
+            ]
+        ]
+    }
+]

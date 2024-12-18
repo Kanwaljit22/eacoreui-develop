@@ -1,0 +1,17 @@
+<div class="modal-body vNext modal-without-header">
+    <button class="icon-close-btn" (click)="close()" type="button" attr.action-id="{{dataIdConstantsService.addSecurityServiceEnroll_button_closeIcon}}"></button>
+    <h2>{{localizationService.getLocalizedString('common.ALL_SET_TO_GO')}}</h2>
+
+    <div class="content-security">
+        <div class="icon-animation-wrap"><img src="../../../assets/images/icons/security-service.gif"></div>
+        <h5 class="heading--h5">{{localizationService.getLocalizedString('add-security-service-enroll.BINGO_YOU_HAVE_ADDED')}} {{selectedEnrollemntName}}</h5>
+        <p>{{localizationService.getLocalizedString('add-security-service-enroll.PRIMARY_PORTFOLIOS')}}</p> 
+        <!-- add this in future--- "and Services" -->
+    </div>
+
+    <div class="justify-content-center d-flex pb-4 paddingT10">
+        <button class="btn btn-secondary sm" (click)="close()" attr.action-id="{{dataIdConstantsService.addSecurityServiceEnroll_button_closeButton}}">{{localizationService.getLocalizedString('add-security-service-enroll.NOT_NOW')}}</button>
+        <button class="btn btn-primary sm mx-2" *ngIf="isSecurityEnrollmentPresent && !securityEnrollmentObj?.enrolled" attr.action-id="{{dataIdConstantsService.addSecurityServiceEnroll_button_addSecurity}}" (click)="addEnrollment(securityEnrollmentObj)">{{localizationService.getLocalizedString('common.ADD_SECURITY')}}</button>
+        <!-- <button class="btn btn-primary sm" *ngIf="isServiceEnrollmentPresnt && !serivceEnrollmentObj?.enrolled"  (click)="addEnrollment(serivceEnrollmentObj)" >Add Services</button> -->
+    </div>
+</div>

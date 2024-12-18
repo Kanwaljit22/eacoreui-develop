@@ -1,0 +1,109 @@
+<!-- <ng-container [ngSwitch]="type">
+    <span *ngSwitchCase="types.GROUP">
+        {{params.value}}
+    </span>
+    <span *ngSwitchCase="types.PINNED">{{params.value}}</span>
+    <span *ngSwitchDefault>
+            {{params.value}} <span class="subscription_color" *ngIf="params.data && params.data.isSubcription">subscription</span>
+    </span>
+</ng-container> -->
+<ng-container  *ngIf="params.colDef.field === 'suite'">
+    <span *ngIf="params.data.architecture === 'security'">
+        <ng-container >
+            {{params.value}}
+            <div *ngIf="params.data.atos" class="select-dropdown dropdown security-select-dropdown" (clickOutside)="tierOutside($event)">
+                <div class="security-dropdown" *ngIf='permissionService.proposalEdit && !appDataService.roadMapPath && params.data.enable && !params.data.disabled' placement="bottom-left"  container="body"  [autoClose]="true" triggers="click"  tooltipClass="atosTip"  [ngbTooltip]="tip">
+                    <span class="dropdown-text">{{selectedTierValue}}</span>
+                    <span class="icon-arow-down" *ngIf='permissionService.proposalEdit && !appDataService.roadMapPath && params.data.enable && !params.data.disabled'></span>
+                </div>
+
+                <div class="security-dropdown" *ngIf='!(permissionService.proposalEdit && !appDataService.roadMapPath && params.data.enable && !params.data.disabled)'>
+                    <span class="dropdown-text">{{selectedTierValue}}</span>
+                </div>
+
+                <ng-template #tip>
+                <div class="dropdown-menu" *ngIf="(permissionService.proposalEdit && !appDataService.roadMapPath && params.data.enable && !params.data.disabled)">
+                    <a href="javascript:void(0)" class="dropdown-item" *ngFor="let ato of tierOptions" [ngClass]="{'active':ato.selected}" (click)="selectTier(ato)">{{ato.value}}<small>{{ato.description}}</small> <span class="icon-tick"></span></a>
+                </div>
+            </ng-template>
+            </div>
+            <span *ngIf="params.data.mandatory" class="legends solution--support">Qualified</span>
+            <span *ngIf="!params.data.mandatory" class="legends basic--support">Optional</span>
+        </ng-container>
+        <!-- <ng-container *ngIf="!params.data.mandatory">
+            {{params.value}}<span class="legends basic--support">Optional</span>
+        </ng-container> -->
+        <ng-container >
+        <ng-template #tipEos>
+            <div class="eol-eos">
+                <p>On {{params.data.nonOrderableMessages ? params.data.nonOrderableMessages.eoExtDate : params.data.selectedAto.nonOrderableMessages[0].eoExtDate}} Cisco has announced the following for <b>{{params.data.suite}}:</b></p>
+                <p><b>End of New Subscription Sale Date</b>:{{params.data.nonOrderableMessages ? params.data.nonOrderableMessages.eosDate : params.data.selectedAto.nonOrderableMessages[0].eosDate}}</p>
+                <p><b>End of Change/Renewal Date</b>:{{params.data.nonOrderableMessages ? params.data.nonOrderableMessages.eocrDate : params.data.selectedAto.nonOrderableMessages[0].eocrDate}}</p>
+                <p><b>Last Date of Support</b>:{{params.data.nonOrderableMessages ? params.data.nonOrderableMessages.ldosDate : params.data.selectedAto.nonOrderableMessages[0].ldosDate}}</p>
+                <p>For more information. click <a href="javascript:void(0)" (click)="redirect(params.data.nonOrderableMessages ? params.data.nonOrderableMessages.eosBulletinLink : params.data.selectedAto.nonOrderableMessages[0].eosBulletinLink)">here.</a></p>
+          </div>
+        </ng-template>
+        
+        <span class="warning-badge ml-2 custom-warning-badge" *ngIf="!params.node.rowPinned && params.node.level === 0 && isEOSSuite()"  placement="top-left"  container="body" tooltipClass="eosTip"  [autoClose]="true" triggers="click"  [ngbTooltip]="tipEos"> EOS</span>
+       <!-- <span class="warning-badge ml-2 custom-warning-badge" *ngIf="!params.node.rowPinned && params.node.level === 0 && params.data.nonOrderableMessages.eolDate && params.data.id !== 33"  placement="top-left"  container="body" tooltipClass="eosTip"  [autoClose]="true" triggers="click"  [ngbTooltip]="tipEos"> EOL</span> -->
+    </ng-container>
+    </span>
+
+    <span *ngIf="params.data.architecture !== 'security'" class="d-flex justify-content-between align-items-center cell-with-check" [class.badge-combined]="!params.node.rowPinned && params.node.level === 0 && params.data.nonOrderableMessages">
+        <span class="cell-with-elements-inner" container="body" placement="bottom-left"  ngbTooltip="{{params.value}}">{{params.value}}</span>
+        
+        <ng-template #tipEos>
+            <div class="eol-eos">
+                <p>On {{params.data.nonOrderableMessages ? params.data.nonOrderableMessages.eoExtDate : params.data.selectedAto.nonOrderableMessages[0].eoExtDate}} Cisco has announced the following for <b>{{params.data.name}}:</b></p>
+                <p><b>End of New Subscription Sale Date</b>:{{params.data.nonOrderableMessages ? params.data.nonOrderableMessages.eosDate : params.data.selectedAto.nonOrderableMessages[0].eosDate}}</p>
+                <p><b>End of Change/Renewal Date</b>:{{params.data.nonOrderableMessages ? params.data.nonOrderableMessages.eocrDate : params.data.selectedAto.nonOrderableMessages[0].eocrDate}}</p>
+                <p><b>Last Date of Support</b>:{{params.data.nonOrderableMessages ? params.data.nonOrderableMessages.ldosDate : params.data.selectedAto.nonOrderableMessages[0].ldosDate}}</p>
+                <p>For more information. click <a href="javascript:void(0)" (click)="redirect(params.data.nonOrderableMessages ? params.data.nonOrderableMessages.eosBulletinLink : params.data.selectedAto.nonOrderableMessages[0].eosBulletinLink)">here.</a></p>
+          </div>
+        </ng-template>
+        
+        <span class="warning-badge" *ngIf="!params.node.rowPinned && params.node.level === 0 && params.data.nonOrderableMessages"  placement="top-left"  container="body" tooltipClass="eosTip"  [autoClose]="true" [closeDelay]="3000" [ngbTooltip]="tipEos"> EOS</span>
+    </span>
+    
+</ng-container>
+
+<!-- Cx Suites column starts here -->
+<ng-container *ngIf="params.colDef.field === 'cxSuitesEligible' && (proposalDataService.cxEligible || proposalDataService.cxProposalFlow)">
+    <div class="d-flex" *ngIf="params.data.cxSuites">
+            <div class="custom-check d-inline-block">
+                    <label class="label-check">
+                      <input class="form-check-input" type="checkbox" value="" [name]="params.data.cxSuites[0].name" [id]="params.data.cxSuites[0].name" [(ngModel)]="params.data.cxSuites[0].inclusion" (change)="selectCxsuite(params.data.cxSuites[0])" [disabled] = '!params.node.selected || disableCheckBox || readOnlyMode || !proposalDataService.cxAllowed || params.data.cxSuites[0].partOfExistingSubscription || proposalDataService.cxNotAllowedMsg !== ""'>
+                      <span class="custom-checkbox-btn">
+                        <span class="path1"></span>
+                        <span class="path2"></span>
+                    </span>
+                      <span class="ag-icon ag-icon-checkbox-checked"></span>
+                    </label>
+      
+      </div>
+        <label class="text-left" [for]="params.data.cxSuites[0].name">{{params.data.cxSuites[0].name}}<span class=" cxEligibleSuites icon-alert-info1" placement="top" container="body" *ngIf="params.data.cxSuites[0]?.description"
+            ngbTooltip={{params.data.cxSuites[0]?.description}}></span>
+        </label>
+        
+    
+    </div>
+</ng-container>
+<!-- Cx Suites column ends here -->
+
+<!-- Cx Rate column starts here -->
+<ng-container *ngIf="params.colDef.field === 'cxAttachRate' && (this.proposalDataService.cxEligible || proposalDataService.cxProposalFlow)">
+    <div class="edit-box--input" [ngClass]="{'editableCell':params.data.cxSuites[0].name}" (clickOutside)="onClickedOutside($event, data, params.data.cxSuites[0].attachRate)" [attachOutsideOnClick]=true
+        (click)="onClick(params.data.cxSuites[0].attachRate)" *ngIf="params.data.cxSuites && params.data.cxSuites[0].inclusion && !readOnlyMode && proposalDataService.cxAllowed && !params.data.cxSuites[0].partOfExistingSubscription">
+
+        <input class="ag-cell-edit-input text-right" [(ngModel)]="params.data.cxSuites[0].attachRate" #inputSelected name="data" type="text" id="data" [hidden]="!edited"
+            (keyup)="keyUp($event, params.data.cxSuites[0].attachRate)" (blur)="onClickedOutside($event, data, params.data.cxSuites[0].attachRate) && edited" [disabled]="!params.data.cxSuites[0].inclusion || !params.node.selected || readOnlyMode">
+            <span [hidden]="edited">{{(params.data.cxSuites[0].attachRate == 0) ? "0.00" : this.utilitiesService.formatValue(this.utilitiesService.getFloatValue(params.data.cxSuites[0].attachRate))}}</span>
+            <span class="danger">*</span>
+
+    </div>
+    <!-- if disabled or unchecked the cx suites attach rate should be disabled -->
+    <div class="edit-box--input disabled" [ngClass]="{'editableCell':params.data.cxSuites[0].name}"  *ngIf="params.data.cxSuites && (!params.data.cxSuites[0].inclusion || !params.node.selected || readOnlyMode || !proposalDataService.cxAllowed || params.data.cxSuites[0].partOfExistingSubscription)">
+        <span [hidden]="edited">{{(params.data.cxSuites[0].attachRate == 0) ? "0.00" : this.utilitiesService.formatValue(this.utilitiesService.getFloatValue(params.data.cxSuites[0].attachRate))}}</span>
+    </div>
+</ng-container>
+<!-- Cx Rate column ends here -->

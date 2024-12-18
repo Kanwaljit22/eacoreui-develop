@@ -1,0 +1,41 @@
+<div class="modal-body vNext modal-without-header" attr.data-id="{{dataIdConstantsService.editProject_page_reOpenProject}}">
+    <button class="icon-close-btn" type="button" (click)="close()" attr.action-id="{{dataIdConstantsService.editProject_button_closeModal}}"></button>
+    <h2 class="mb-5">{{localizationService.getLocalizedString('edit-project.RE-OPEN_PROJECT')}}</h2>
+    <!-- End of header -->
+    
+    <div class="vNext-lookup-desc pb-2 px-5">
+        <p class="mb-4">{{localizationService.getLocalizedString('edit-project.PRICING_MAY_CHANGE')}}</p>
+
+        <div>
+            <div class="alert alert--warning align-items-start mt-2 mb-4">                
+                <span class="alert-icon">
+                    <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                </span>
+                <span class="infoTxt pl-1">
+                    <span class="warning-text">{{localizationService.getLocalizedString('edit-project.DO_NOT_REOPEN_PROJECT')}}</span>
+                    <!-- <ul class="pl-1 ml-1">
+                        <li>
+                            You have an approved quote unless you plan to regenerate the quote and resubmit for Approval
+                        </li>
+                        <li>
+                            You have to Manage Team, update the Customer Representative for the Legal docs, or upload a list of Customer Affiliates for the EUIF.
+                        </li>
+                    </ul> -->
+                </span>
+            </div> 
+        </div>
+
+        <div class="acknowldge-div mb-4">
+            <label class="label-check">
+                <input class="form-check-input" id="" type="checkbox" value="" (change)="acceptEdit()" [checked]="!disableButton" attr.data-id="{{dataIdConstantsService.editProject_checkbox_acceptEdit}}">
+                <span class="custom-checkbox-btn i-vNext-fonts"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                <span>{{localizationService.getLocalizedString('edit-project.PROPOSAL_AND_QUOTE_WILL_NEED_TO_BE_UPDATED')}}</span>
+            </label>
+        </div>
+    </div>
+
+    <div class="text-center d-block pb-4">
+        <button class="btn btn-secondary" type="button" (click)="close()" attr.action-id="{{dataIdConstantsService.editProject_button_closeModal}}" id="{{elementIdConstantsService.EditProject_Cancel}}">{{localizationService.getLocalizedString('common.CANCEL')}}</button>
+        <button class="btn btn-primary ml-3" type="button" id="{{elementIdConstantsService.EDIT_PROJECT_MODAL_EDIT}}" (click)="edit()" [disabled]="disableButton"  attr.action-id="{{dataIdConstantsService.editProject_button_edit}}">{{localizationService.getLocalizedString('edit-project.I_WANT_TO_EDIT')}}</button>
+    </div>
+</div>

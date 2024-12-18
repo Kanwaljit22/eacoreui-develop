@@ -1,0 +1,208 @@
+<div id="filter-area" class="mb-3">
+    <div class="container-fluid">
+        <div class="row align-items-center">
+            <div class="col-md-12">
+                <p class="disclaimer-text"><strong>Disclaimer:</strong> Per Cisco Policies, Customer pricing should not be shared without an approved DSA and Partner provided customer facing pricing.</p>
+            </div>
+          <div class="col-md-3"><ng-template #tipContent >{{this.tcoModelingData.name}}</ng-template> <h2 #value [ngbTooltip]="tipContent"  triggers="manual" #t="ngbTooltip" (mouseenter)="open(t, this.tcoDataObject.name)"
+            (mouseleave)="t.close()" class="ellipsis">{{tcoModelingData?.name}}</h2></div>
+          <div class="col-md-9">
+            <ul class="qualify-btn">
+            <li><button class="btn btn-secondary" *ngIf='appDataService.isReadWriteAccess' (click)='goToDocCenter()'>Document Center</button></li>
+            <li><button class="btn btn-secondary" *ngIf='appDataService.isReadWriteAccess' (click)='goToBom()'>Preview Quote</button></li>
+            <li><button class="btn btn-secondary" *ngIf='appDataService.isReadWriteAccess' (click)='goToProposalList()'>Proposal List</button></li>
+            <li><button class="btn btn-secondary" *ngIf='appDataService.isReadWriteAccess' (click)="gotToListPage()">{{this.localeService.getLocalizedString('tco.VIEW_TCO_PROPOSALS')}}</button></li>
+            <li class="btn-sep"><button *ngIf='appDataService.isReadWriteAccess' class="btn btn-secondary btn-back marginR7" (click)="backToOutcome()" type="button"><span class="icon-btn-back"></span> <span class="mid-text">{{this.localeService.getLocalizedString('common.BACK')}}</span></button></li>
+            <li><button *ngIf='appDataService.isReadWriteAccess' class="btn btn-primary btn-continue" (click)="saveModeling()"><span class="mid-text">{{this.localeService.getLocalizedString('common.SAVE')}} &amp; {{this.localeService.getLocalizedString('common.CONFIRM')}}</span> <span class="icon-btn-continue"></span></button></li>
+              </ul>
+          </div>
+              <div class="alert alert--warning alert-dismissable clearfix"
+                    *ngIf='!(appDataService.isReadWriteAccess)'
+                    style="width: 100%;">
+                    <span class="alert-icon">
+                      <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                    </span>
+                    <span>{{localeService.getLocalizedString('common.RW_ACCESS_MESSAGE')}}
+                        {{localeService.getLocalizedString('tco.list.TCO')}}{{localeService.getLocalizedString('common.REQUEST_ACCESS')}}
+                      <a href="javascript:void(0)"
+                            (click)="appDataService.requestAccessForProposalOrQual(constantsService.PROPOSAL,proposalDataService.proposalDataObject.proposalId)">{{localeService.getLocalizedString('common.CONTACT_OWNER')}}</a>
+                    </span>
+                    <span class="alert-action">
+                      <button class="icon-close-btn mt-0" type="button" (click)="closeInfo()" id=""></button>
+                    </span>
+              </div>  
+        </div>
+    </div>
+  </div>
+
+
+  <section id="tco-scenario-one">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-8">
+          <div class="col-wrapper">
+            <h4 class="float-left">{{this.localeService.getLocalizedString('price.est.financial.EA_FINANCIAL_SUMMARY')}}</h4><small class="float-right" style="margin-top:11px;">All prices in {{tcoModelingData?.currencyCode}}</small>
+            <div class="clearfix"></div>
+            <div class="card">
+              <div class="card-header">
+                <h5 class="card-title">{{this.localeService.getLocalizedString('tco.list.BUSINESS_AS_USUAL')}}</h5>
+              </div>
+              <div class="card-body">
+                <ul class="list-group">
+                  <li class="list-group-item">
+                    <span class="item-name">{{this.localeService.getLocalizedString('tco.PRODUCT')}}
+                      {{this.localeService.getLocalizedString('tco.list.LIST_PRICE')}}</span>
+                    <span
+                      class="item-value">{{this.utilitiesService.formatWithNoDecimalForDashboard(tcoModelingData?.businessAsUsual?.productListPrice)}}</span>
+                  </li>
+                  <li class="list-group-item">
+                    <span class="item-name">{{this.localeService.getLocalizedString('tco.SERVICE')}}
+                      {{this.localeService.getLocalizedString('tco.list.LIST_PRICE')}}</span>
+                    <span
+                      class="item-value">{{(tcoModelingData?.businessAsUsual?.serviceListPrice === 0) ? "0" : this.utilitiesService.formatWithNoDecimalForDashboard(tcoModelingData?.businessAsUsual?.serviceListPrice)}}</span>
+                  </li>
+                  <li class="list-group-item">
+                    <span class="item-name">{{this.localeService.getLocalizedString('tco.DISCOUNTS')}}</span>
+                    <span class="item-value">{{this.utilitiesService.formatValue(this.utilitiesService.getFloatValue(tcoModelingData?.businessAsUsual?.averageDiscount))}}%</span>
+                  </li>
+                  <li class="list-group-item">
+                    <span class="item-name">{{this.localeService.getLocalizedString('tco.TCO_MODELING_MARKUP')}}/{{this.localeService.getLocalizedString('tco.TCO_MODELING_MARGIN') }}</span>
+                    <span class="item-value">{{this.utilitiesService.formatWithNoDecimalForDashboard(tcoModelingData?.businessAsUsual?.markupMargin?.value)}}</span>
+                  </li>
+                  <li class="list-group-item">
+                    <span class="item-name">{{this.localeService.getLocalizedString('tco.list.ADD_COST')}}</span>
+                    <span class="item-value">{{this.utilitiesService.formatWithNoDecimalForDashboard(tcoModelingData?.businessAsUsual?.additionalCost)}}</span>
+                  </li>
+                </ul>
+              </div>
+              <div class="card-footer">
+                <ul class="list-group">
+                  <li class="list-group-item">
+                    <span class="item-name">{{this.localeService.getLocalizedString('tco.list.TCO')}}
+                      {{this.localeService.getLocalizedString('tco.VALUE')}}</span>
+                    <span
+                      class="item-value">{{this.utilitiesService.formatWithNoDecimalForDashboard(tcoModelingData?.businessAsUsual?.totalTcoValue)}}</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+  
+            <div class="card">
+              <div class="card-header">
+                <h5 class="card-title">{{this.localeService.getLocalizedString('tco.list.ENT_AGREEMENT')}}</h5>
+              </div>
+              <div class="card-body">
+                <ul class="list-group">
+                  <li class="list-group-item">
+                    <span class="item-name">{{this.localeService.getLocalizedString('tco.PRODUCT')}}
+                      {{this.localeService.getLocalizedString('tco.list.LIST_PRICE')}}</span>
+                    <span
+                      class="item-value">{{this.utilitiesService.formatWithNoDecimalForDashboard(tcoModelingData?.enterpriseAgreement?.productListPrice)}}</span>
+                  </li>
+                  <li class="list-group-item">
+                    <span class="item-name">{{this.localeService.getLocalizedString('tco.SERVICE')}}
+                      {{this.localeService.getLocalizedString('tco.list.LIST_PRICE')}}</span>
+                    <span
+                      class="item-value">{{(tcoModelingData?.enterpriseAgreement?.serviceListPrice === 0) ? "0" :this.utilitiesService.formatWithNoDecimalForDashboard(tcoModelingData?.enterpriseAgreement?.serviceListPrice)}}</span>
+                  </li>
+                  <li class="list-group-item">
+                    <span class="item-name">{{this.localeService.getLocalizedString('tco.DISCOUNTS')}}</span>
+                    <span class="item-value">{{this.utilitiesService.formatValue(this.utilitiesService.getFloatValue(tcoModelingData?.enterpriseAgreement?.averageDiscount))}}%</span>
+                  </li>
+                  <li class="list-group-item">
+                    <span class="item-name">{{this.localeService.getLocalizedString('tco.TCO_MODELING_MARKUP')}}/{{this.localeService.getLocalizedString('tco.TCO_MODELING_MARGIN') }}</span>
+                    <span class="item-value">{{this.utilitiesService.formatWithNoDecimalForDashboard(tcoModelingData?.enterpriseAgreement?.markupMargin?.value)}}</span>
+                  </li>
+                  <li class="list-group-item">
+                    <span class="item-name">{{this.localeService.getLocalizedString('tco.list.ADD_COST')}}</span>
+                    <span class="item-value">{{(tcoModelingData?.businessAsUsual?.enterpriseAgreement) ? this.utilitiesService.formatWithNoDecimalForDashboard(tcoModelingData?.enterpriseAgreement?.additionalCost) : "-"}}</span>
+                  </li>
+                </ul>
+              </div>
+              <div class="card-footer">
+                <ul class="list-group">
+                  <li class="list-group-item">
+                    <span class="item-name">{{this.localeService.getLocalizedString('tco.list.TCO')}}
+                      {{this.localeService.getLocalizedString('tco.VALUE')}}</span>
+                    <span
+                      class="item-value">{{this.utilitiesService.formatWithNoDecimalForDashboard(tcoModelingData?.enterpriseAgreement?.totalTcoValue)}}</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+  
+          <div class="col-wrapper">
+            <h4>{{this.localeService.getLocalizedString('tco.review.CUSTOMER_OUTCOMES_HEADER')}}</h4>
+            <!-- <div class="row outcomes-tile" *ngIf="tcoModelingData.cataglogue?.Enrollments && tcoModelingData.cataglogue?.Enrollments.length > 0">
+                  <div class="col-2 p-0">
+                    <span class="outcomes-title">Enrollments</span>
+                  </div>
+                  <div class="col-10 p-0" *ngFor="let enrollments of tcoModelingData.cataglogue?.Enrollments ; let i = index;">
+                    <ul>
+                      <li>
+                        <span class="outcomes-name">{{enrollments.name}}</span>
+                        <span class="outcomes-desc">{{enrollments.desc}}</span>
+                      </li>
+                      <hr *ngIf="tcoModelingData.cataglogue?.Enrollments.length > (i+1)">
+                    </ul>
+                  </div>
+                </div> -->
+            <div *ngIf="tcoSummaryData && tcoSummaryData.length > 0">
+              <div *ngFor="let a of tcoSummaryData">
+                <div class="row outcomes-tile">
+                  <!-- <div class="col-2 p-0">
+                    <span class="outcomes-title">{{a.title}}</span>
+                  </div> -->
+                  <div class="col-12 p-0">
+                    <ul *ngFor="let data of a.value ; let i = index;">
+                      <li>
+                        <span class="outcomes-name">{{data.name}}</span>
+                        <span class="outcomes-desc">{{data.desc}}</span>
+                      </li>
+                      <hr *ngIf="a.value.length > (i+1)">
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <div class="col-4 analysis">
+          <div class="col-wrapper">
+            <h4 class="borderBottom">{{this.localeService.getLocalizedString('tco.ANALYSIS')}}</h4>
+            <ul>
+              <li>
+                <span class="analysis-value">{{(tcoModelingData?.benefitsPercent) ? this.utilitiesService.formatValue(this.utilitiesService.getFloatValue(tcoModelingData?.benefitsPercent)) : 0.00 }}%
+                  <small>{{this.localeService.getLocalizedString('tco.BENEFITS')}}</small></span>
+                <span class="analysis-desc">{{this.localeService.getLocalizedString('tco.ANALYSIS_BENEFITS_MESSAGE_01')}}
+                    {{(tcoModelingData?.benefitsPercent) ? this.utilitiesService.formatValue(this.utilitiesService.getFloatValue(tcoModelingData?.benefitsPercent)) : 0.00}}{{this.localeService.getLocalizedString('tco.ANALYSIS_BENEFITS_MESSAGE_02')}}
+                  {{this.localeService.getLocalizedString('tco.list.BUSINESS_AS_USUAL')}}</span>
+              </li>
+              <hr class="dashed">
+              <li>
+                  <span class="tco-price-list">{{tcoModelingData?.currencyCode}}</span>
+                <span
+                  class="analysis-value">{{this.utilitiesService.formatWithNoDecimalForDashboard(tcoModelingData?.savings)}}
+                  <small>{{this.localeService.getLocalizedString('tco.SAVINGS')}}</small></span>
+                <span class="analysis-desc">{{this.localeService.getLocalizedString('tco.ANALYSIS_SAVINGS_MESSAGE_01')}}
+                  {{((tcoModelingData?.savings) ? tcoModelingData?.savings : 0.00 )| shortNumber}}
+                  {{this.localeService.getLocalizedString('tco.ANALYSIS_SAVINGS_MESSAGE_02')}}
+                  {{this.localeService.getLocalizedString('tco.list.ENT_AGREEMENT')}}</span>
+              </li>
+              <hr class="solid"/>
+            </ul>
+            <div class="tco-graph-values">
+              <ul>
+                <li><span class="value-title">{{this.localeService.getLocalizedString('tco.list.BUSINESS_AS_USUAL')}}</span><span class="value">{{tcoModelingData?.businessAsUsual?.totalTcoValue | shortNumber}}</span></li>
+                <li><span class="value-title">{{this.localeService.getLocalizedString('tco.list.ENT_AGREEMENT')}}</span><span class="value">{{tcoModelingData?.enterpriseAgreement?.totalTcoValue | shortNumber}}</span></li>
+              </ul>
+            </div>
+            <app-bar-stacked-chart class="tco-graph-wrapper" [data]="stackedBarData" [state]="state"></app-bar-stacked-chart>
+            <!-- <img src="assets/images/summary-graph.png"> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

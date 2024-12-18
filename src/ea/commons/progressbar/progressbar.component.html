@@ -1,0 +1,22 @@
+<!-- Block UI Container Starts -->
+<div data-loading kdfid="preloader" kdfapp="config" kdfpage="serviceui" id="preloader">
+    <div class="spinner">
+      <div class="rect1"></div>
+      <div class="rect2"></div>
+      <div class="rect3"></div>
+      <div class="rect4"></div>
+      <div class="rect5"></div>
+      <div class="rect6"></div>
+      <div class="rect7"></div>
+      <div class="rect8"></div>
+      <div class="rect9"></div>
+    </div>
+    <div class="loader-with-text" *ngIf="eaService.customProgressBarMsg.requestOverride || eaService.customProgressBarMsg.witdrawReqOverride">
+      <span class="loader-text-heading">{{'common.PLEASE_WAIT' | localizationPipe : localizationService.localizedkeySet.size}}</span><br>
+      <span class="loader-text" *ngIf="eaService.customProgressBarMsg.requestOverride">{{'common.REPRICING_FULLY_COMMITTED' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+      <span class="loader-text"*ngIf="eaService.customProgressBarMsg.witdrawReqOverride">{{'common.REPRICING_WITHOUT_OVERRIDE' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+    </div>
+  </div>
+  <!-- Block UI Container Ends -->
+  
+  

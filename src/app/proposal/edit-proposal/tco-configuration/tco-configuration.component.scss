@@ -1,0 +1,130 @@
+.tco-configuration .nav-pills li {
+    margin-right  : 20px;
+    text-transform: uppercase;
+    border-bottom : 4px solid transparent;
+    cursor        : pointer;
+    font-size     : 12px;
+    font-weight   : 700;
+    letter-spacing: 0.02rem;
+    padding-bottom: 6px;
+}
+
+.tco-configuration .nav-pills li a {
+    color: #585858;
+}
+
+.tco-configuration .nav-pills li.active a,
+.tco-configuration .nav-pills li:hover a {
+    color: #005073
+}
+
+.tco-configuration .nav-pills li:hover,
+.tco-configuration .nav-pills li.active {
+    color        : #005073;
+    border-bottom: 4px solid #005073;
+}
+
+
+.tco-configuration .heading-main {
+    font-weight  : 100;
+    font-size    : 32px;
+    margin-bottom: 17px;
+}
+
+.toggle-label {
+    color        : #005073;
+    cursor       : pointer;
+    font-size    : 16px;
+    font-weight  : 400;
+    margin-bottom: 10px;
+    position     : absolute;
+    top          : -35px;
+    left         : 0px;
+}
+
+.toggle-label.open {
+    -webkit-transform: rotate(-180deg);
+    transform        : rotate(-180deg);
+}
+
+.block-section {
+    margin  : 0px 55px 20px;
+    clear   : both;
+    position: relative;
+}
+
+.block-section--grey {
+    background: #f1f1f1;
+    clear     : both;
+}
+
+.block-section .sub--title__select {
+    float        : left;
+    margin-left  : 0px;
+    margin-bottom: 0px;
+    position     : relative;
+    width        : 100%;
+}
+
+.block-section .sub--title__select .price-usd {
+    position: absolute;
+    right   : 0px;
+    bottom  : -5px;
+}
+
+.tco-configure-wrap {
+    width           : 100%;
+    background-color: #fff;
+    border-radius   : 6px;
+    box-shadow      : 0px 5px 15px #2228;
+    padding         : 20px 10px;
+}
+
+.lbl-head {
+    font-size    : 16px;
+    font-weight  : 300 !important;
+    float        : left;
+    padding-right: 5px;
+}
+
+.toggle-label .carousel-control-next-icon {
+    vertical-align: middle;
+    margin-left   : 5px;
+    width         : 10px;
+    height        : 32px;
+    font-weight   : 600;
+    font-size     : 15px !important;
+    margin-top    : -1px;
+}
+
+.toggle-label.show .carousel-control-next-icon {
+    -webkit-transform: rotate(90deg);
+    transform        : rotate(90deg);
+    position         : relative;
+}
+
+.toggle-label.show .carousel-control-next-icon {
+    position: relative;
+    top     : 1px;
+}
+
+.toggle-label.hide .carousel-control-next-icon {
+    position: relative;
+    top     : -0px;
+}
+
+.toggle-label.hide .carousel-control-next-icon {
+    -webkit-transform: rotate(-90deg);
+    transform        : rotate(-90deg);
+}
+
+.globalSwitchWrap {
+    margin       : 0 0px 0 7px;
+    border       : 1px solid #d8d8d8;
+    border-radius: 3px;
+    background   : #f1f1f1;
+    padding      : 9px 15px 7px;
+    top          : 0;
+    z-index      : 95;
+    position     : relative;
+}

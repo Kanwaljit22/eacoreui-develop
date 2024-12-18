@@ -1,0 +1,51 @@
+[
+    {
+        "headerName": "",
+        "suppressSorting": true,
+        "suppressMenu": true,
+        "pinned": true,
+        "suppressToolPanel": true,
+        "suppressMovable": true,
+        "suppressResize": true,
+        "checkboxSelection": true,
+        "headerCheckboxSelectionFilteredOnly": true,
+        "width": 50,
+        "minWidth": 30,
+        "cellClass": "text-center",
+        "getQuickFilterText": "filterText"
+    },
+    {
+        "headerName": "THEATER",
+        "field": "theater",
+        "pinned": true,
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 672,
+        "minWidth": 60,
+        "cellRenderer": "group",
+        "suppressMenu": true
+    },
+    {
+        "headerName": "NET EA LICENSE AMOUNT (USD)",
+        "field": "netEaLicenseAmount",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 350,
+        "minWidth": 60,
+        "cellClass": "text-right",
+        "suppressMenu": true
+    },
+    {
+        "headerName": "NET EA SERVICE AMOUNT (USD)",
+        "field": "netEaServiceAmount",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 350,
+        "minWidth": 60,
+        "cellClass": "text-right",
+        "suppressMenu": true
+    }
+]

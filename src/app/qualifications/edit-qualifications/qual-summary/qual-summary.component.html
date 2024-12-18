@@ -1,0 +1,1265 @@
+<div *ngIf="!qualificationSuccess">
+    <div id="filter-area" class="mb-3">
+        <div class="container-fluid">
+            <div class="row align-items-center">
+                <div class="col-md-5">
+                    <h2>{{localeService.getLocalizedString('common.QUALIFICATION')}} {{localeService.getLocalizedString('common.SUMMARY')}}
+                    </h2>
+                </div>
+                <div class="col-md-7">
+                    <ul class="qualify-btn">
+                        <li *ngIf="!deletedQual  && !ciscoDealForPartner" [ngClass]="{'mr-01':!(qualService.qualification.qualStatus === constantsService.QUALIFICATION_COMPLETE) && appDataService.isReadWriteAccess}">
+                            <button [id]="appDataService.createUniqueId('VIEW_QUAL',appDataService.pageContext)" class="btn btn-secondary" type="button" (click)="viewQualification()">{{localeService.getLocalizedString('qual.create.VIEW_QUAL')}}</button>
+                        </li>
+                        <!-- <li *ngIf="permissionService.qualReOpen && appDataService.displayRenewal && !qualService.subRefID">
+                            <button [id]="appDataService.createUniqueId('BACK',appDataService.pageContext)" class="btn btn-secondary stroke-btn blue float-right" (click)="initiateRenewal()" type="button">
+                                <span class="mid-text">Initiate Renewals</span>
+                            </button>
+                        </li> -->
+                        <li *ngIf="(qualService.qualification.qualStatus === constantsService.QUALIFICATION_COMPLETE)">
+                            <button [id]="appDataService.createUniqueId('PROPOSAL_LIST',appDataService.pageContext)" class="btn btn-secondary stroke-btn blue float-right" type="button" (click)="viewProposal()">{{localeService.getLocalizedString('common.PROPOSAL_LIST')}}</button>
+                        </li>
+                        <li *ngIf="(permissionService.qualEdit || permissionService.qualReOpen) && !qualService.twoTUserUsingDistiDeal && !qualService.isDistiWithTC">
+                            <button [id]="appDataService.createUniqueId('BACK',appDataService.pageContext)" class="btn btn-secondary stroke-btn blue float-right" (click)="cloneQualOrChangeDealId(false)" type="button">
+                                <span class="mid-text">{{localeService.getLocalizedString('common.CLONE')}}</span>
+                            </button>
+                        </li>
+                        <li *ngIf="(permissionService.qualEdit || permissionService.qualReOpen) && !qualService.subRefID">
+                            <button [id]="appDataService.createUniqueId('BACK',appDataService.pageContext)" class="btn btn-secondary stroke-btn blue float-right" (click)="cloneQualOrChangeDealId(true)" type="button">
+                                <span class="mid-text">Change Deal ID</span>
+                            </button>
+                        </li>
+                        <li class="btn-sep" *ngIf="!(qualService.qualification.qualStatus === constantsService.QUALIFICATION_COMPLETE) && appDataService.isReadWriteAccess">
+                            <button [id]="appDataService.createUniqueId('BACK',appDataService.pageContext)" class="btn btn-secondary float-right btn-back" (click)="backToAffiliates()" type="button">
+                                <span class="icon-btn-back"></span>
+                                <span class="mid-text">{{localeService.getLocalizedString('common.BACK')}}</span>
+                            </button>
+                        </li>
+                        <li *ngIf="!(qualService.qualification.qualStatus === constantsService.QUALIFICATION_COMPLETE) && permissionService.qualEdit">
+                            <button [id]="appDataService.createUniqueId('SAVE_AND_CONFIRM',appDataService.pageContext)" *ngIf="!disableSaveButton" class="btn btn-primary btn-continue" type="button" (click)="saveQual()">
+                                <span class="mid-text">{{localeService.getLocalizedString('common.SAVE')}} &amp;
+                                    {{localeService.getLocalizedString('common.CONFIRM')}}</span>
+                                <span class="icon-btn-continue"></span>
+                            </button>
+                            <button [id]="appDataService.createUniqueId('SAVE_AND_CONFIRM',appDataService.pageContext)" *ngIf="disableSaveButton" class="btn btn-primary btn-continue disabled" type="button">
+                                <span class="mid-text">{{localeService.getLocalizedString('common.SAVE')}} &amp;
+                                    {{localeService.getLocalizedString('common.CONFIRM')}}</span>
+                                <span class="icon-btn-continue"></span>
+                            </button>
+                            <!-- <button class="btn btn-primary stroke-btn filled-btn blue" type="button" (click)="saveQual()">Save &amp; Confirm</button> -->
+
+                        </li>
+                        <li class="mr-0" *ngIf="(qualService.qualification.qualStatus === constantsService.QUALIFICATION_COMPLETE) && permissionService.qualReOpen && !qualService.twoTUserUsingDistiDeal && !qualService.isDistiWithTC">
+                            <button (click)="reopenQual()" class="btn btn-primary" type="button"><span
+                                    class="mid-text">{{localeService.getLocalizedString('common.REOPEN')}}
+                                    Qualification</span></button>
+                        </li>
+                        <li class="mr-0" *ngIf="(qualService.qualification.qualStatus === constantsService.QUALIFICATION_COMPLETE) && (!permissionService.qualReOpen || qualService.twoTUserUsingDistiDeal && qualService.isDistiWithTC)">
+                            <button [disabled]="true" class="btn btn-primary" type="button"><span
+                                    class="mid-text">{{localeService.getLocalizedString('common.REOPEN')}}
+                                    Qualification</span></button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container-fluid">
+        <message *ngIf='!messageService.hideParentErrorMsg'></message>
+        <div class="alert alert--warning mt-3" *ngIf="!appDataService.isReadWriteAccess  && showInfo && !deletedQual  && !ciscoDealForPartner">
+            <span class="alert-icon">
+                <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+            </span>
+            <span class="infoTxt">{{localeService.getLocalizedString('common.RW_ACCESS_MESSAGE')}}
+                {{localeService.getLocalizedString('common.QUALIFICATION')}}{{localeService.getLocalizedString('common.REQUEST_ACCESS')}}
+                <a [id]="appDataService.createUniqueId('CONTACT_OWNER',appDataService.pageContext)"
+                    href="javascript:void(0)"
+                    (click)="appDataService.requestAccessForProposalOrQual(constantsService.QUALIFICATION,qualService.qualification.qualID)">{{localeService.getLocalizedString('common.CONTACT_OWNER')}}</a>
+            </span>
+            <ul class="refine-search">
+                <li>
+                    <a [id]="appDataService.createUniqueId('CLOSE',appDataService.pageContext)" href="javascript:void(0)" (click)="closeInfo()">
+                        <span class="icon-close-btn no-border"></span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- End of Error Notification -->
+        <div class="flexible-div main-content-heading" *ngIf="!deletedQual  && !ciscoDealForPartner">
+            <div class="col-xs-12 col-md-5 paddingL0">
+                <h1>{{localeService.getLocalizedString('qual.whoinvolved.WHO_IS_INVOLVED')}}</h1>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+
+
+        <!--New HTML-->
+        <div class="row" *ngIf="!deletedQual  && !ciscoDealForPartner">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header" *ngIf="!summaryDataLoaded">
+                    </div>
+                    <div *ngIf="summaryDataLoaded && !partnerFlow">
+                        <h3 class="card-header">{{localeService.getLocalizedString('qual.create.OPPORTUNITY')}}</h3>
+                    </div>
+                    <div *ngIf="summaryDataLoaded && partnerFlow">
+                        <h3 class="card-header">{{localeService.getLocalizedString('qual.create.DEAL')}}</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="involved-info">
+                            <span class="card-title">{{localeService.getLocalizedString('qual.create.DEAL')}}
+                                {{localeService.getLocalizedString('qual.create.ID')}}</span>
+                            <span class="card-text">{{qualService.qualification.dealId}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" *ngIf="!deletedQual  && !ciscoDealForPartner">
+            <div class="col-md-12">
+                <div class="card">
+                    <h3 class="card-header">{{localeService.getLocalizedString('prospect.CUSTOMER')}}</h3>
+                    <div class="card-body">
+                        <div class="involved-info" style="width: 42.4%;">
+                            <span class="card-title">{{localeService.getLocalizedString('qualproposallist.CUSTOMER_NAME')}}</span>
+                            <span class="card-text">{{qualService.qualification?.accountName}}</span>
+                        </div>
+                        <div class="involved-info" style="width: 55%;">
+                            <span class="card-title">{{localeService.getLocalizedString('qual.whoinvolved.PREFERRED_LEGAL_NAME')}}</span>
+                            <span class="card-text">{{qualService.qualification.customerInfo?.preferredLegalName}}</span>
+                        </div>
+                    </div>
+                    <div class="card-body border--top solid">
+                        <h3 class="sub--heading">{{localeService.getLocalizedString('qual.whoinvolved.CUSTOMER_REPRESENTATIVE')}}</h3>
+                        <div class="involved-info" style="width:19.6%">
+                            <span class="card-title">{{localeService.getLocalizedString('qual.whoinvolved.NAME')}}</span>
+                            <span class="card-text">{{qualService.qualification.customerInfo?.repName ? qualService.qualification.customerInfo?.repName : '--'}}</span>
+                        </div>
+                        <div class="involved-info">
+                            <span class="card-title">{{localeService.getLocalizedString('qual.whoinvolved.E_MAIL')}}</span>
+                            <span class="card-text">{{qualService.qualification.customerInfo?.repEmail ? qualService.qualification.customerInfo?.repEmail : '--' }}</span>
+                        </div>
+                        <div class="involved-info" style="width: 55%;">
+                            <span class="card-title">{{localeService.getLocalizedString('qual.create.ADDRESS')}}</span>
+                            <span class="card-text">
+                                    {{qualService.qualification.address.addressLine1}}, <span
+                                        *ngIf="qualService.qualification.address.addressLine2">{{qualService.qualification.address.addressLine2}},</span> {{qualService.qualification.address.city}}, {{qualService.qualification.address.state}},
+                            {{qualService.qualification.address.zip}}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="card-body border--top solid" style="display: none;">
+                        <h3 class="sub--heading">PREFERRED LEGAL NAME & ADDRESS</h3>
+                        <div>
+                            <div class="involved-info" style="width:19.6%">
+                                <span class="card-title">Company Name</span>
+                                <span class="card-text">AT&T CORP.</span>
+                            </div>
+                            <div class="involved-info" style="width: 55%;">
+                                <span class="card-title">Address</span>
+                                <span class="card-text">Address Line1, Address Line2, City, State, Country, zip </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body border--top solid" *ngIf="this.permissionService.qualFederalCustomer">
+                        <h3 class="sub--heading">{{localeService.getLocalizedString('qual.create.FEDERAL_CUSTOMER')}}</h3>
+                        <div class="d-flex">
+                            <div class="mr-4 radio-custom">
+                                <input [(ngModel)]="qualService.qualification.federal" disabled="disabled" value="yes" id="yes" type="radio">
+                                <label for="yes">
+                                    <span class='custom-radio-btn'>
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                    </span>
+                                    <span>
+                                        <span></span>
+                                    </span>{{localeService.getLocalizedString('docusign.YES')}}</label>
+                            </div>
+                            <div class="radio-custom">
+                                <input checked="checked" [(ngModel)]="qualService.qualification.federal" value="no" disabled="disabled" id="no" type="radio">
+                                <label for="no">
+                                    <span class='custom-radio-btn'>
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                    </span>
+                                    <span>
+                                        <span></span>
+                                    </span>{{localeService.getLocalizedString('docusign.NO')}}</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="!deletedQual  && !ciscoDealForPartner">
+            <div class="col-md-12">
+                <div class="card">
+                    <h3 class="card-header">{{localeService.getLocalizedString('qualproposallist.CISCO_TEAM')}}</h3>
+                    <div class="card-body row m-0">
+                        <div class="col-5" *ngIf="qualService.qualification.accountManagerName">
+                            <div class="sub-heading">
+                                <span class="head">{{localeService.getLocalizedString('qualproposallist.ACCOUNT_MANAGER')}}</span>
+                            </div>
+                            <div class="involved-info" style="width:47%">
+                                <span class="card-title">{{localeService.getLocalizedString('qual.whoinvolved.NAME')}}</span>
+                                <span class="card-text">
+                                    {{qualService.qualification.accountManager?.firstName}}
+                                    {{qualService.qualification.accountManager?.lastName}}
+                                </span>
+                            </div>
+                            <div class="involved-info">
+                                <span class="card-title">{{localeService.getLocalizedString('qual.whoinvolved.E_MAIL')}}</span>
+                                <span class="card-text">{{qualService.qualification.accountManager?.emailId}}</span>
+                            </div>
+                        </div>
+
+                        <div class="col-7 pl-4" *ngIf='partnerFlow && qualService.qualification.accountManagerName'>
+                            <div class="sub-heading">
+                                <span class="head">Cisco Channel Account Manager (CAM)</span>
+                            </div>
+                            <div class="involved-info w-50">
+                                <span class="card-title" >Name</span>
+                                <span class="card-text" >{{ (camData?.firstName) ? (camData.firstName + ' ' + camData.lastName) : '--' }}</span>
+                            </div>
+                            <div class="involved-info">
+                                <span class="card-title">{{localeService.getLocalizedString('qual.whoinvolved.E_MAIL')}}</span>
+                                <span class="card-text" >{{ (camData?.camEmail ) ? (camData.camEmail) : '--'}}</span>
+                               
+                            </div>
+                        </div>
+                        <div class="col-7 pl-4" *ngIf='partnerFlow && !qualService.qualification.accountManagerName' style="padding-left: 0rem!important;">
+                            <div class="sub-heading">
+                                <span class="head">Cisco Channel Account Manager (CAM)</span>
+                            </div>
+                            <div class="involved-info w-50">
+                                <span class="card-title">Name</span>
+                                <span class="card-text" >{{ (camData?.firstName) ? (camData.firstName + ' ' + camData.lastName) : '--' }}</span>
+                               
+                            </div>
+                            <div class="involved-info">
+                                <span class="card-title">{{localeService.getLocalizedString('qual.whoinvolved.E_MAIL')}}</span>
+                                <span class="card-text" >{{ (camData?.camEmail) ? (camData.camEmail) : '--'}}</span>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Service Specialist section starts -->
+                    <div class="card-header border--top solid" *ngIf="!appDataService.userInfo.distiUser && !appDataService.isTwoTierUser(is2tPartner)">
+                        <h5 class="sub--heading m-0">{{localeService.getLocalizedString('common.SERVICE_SPECIALIST')}}</h5>
+                    </div>
+                    <div class="card-body" *ngIf="!appDataService.userInfo.distiUser && !appDataService.isTwoTierUser(is2tPartner)">
+                        <table class="primary-table">
+                            <!--  customHeightScroll -->
+                            <thead>
+                                <tr>
+                                    <th style="width:25%">{{localeService.getLocalizedString('qual.whoinvolved.NAME')}}</th>
+                                    <th style="width:30%">{{localeService.getLocalizedString('qual.whoinvolved.E_MAIL')}}</th>
+                                    <th style="width:20%">{{localeService.getLocalizedString('qual.whoinvolved.CEC_ID')}}</th>
+                                    <th style="width:25%">{{localeService.getLocalizedString('qual.whoinvolved.ACCESS_TYPE')}}</th>
+                                </tr>
+                            </thead>
+                            <!-- class="customTbodyScroll" -->
+                            <tbody>
+                                <tr *ngIf="!involvedCxteam.length">
+                                    <td colspan="5" class="text-center">
+                                        <div class="emptyState">
+                                            {{localeService.getLocalizedString('qual.whoinvolved.NO_SERVICE_SPECIALIST')}}</div>
+                                    </td>
+                                </tr>
+                                <tr *ngFor="let b of involvedCxteam">
+                                    <td style="width:25%">{{b?.name}}</td>
+                                    <td style="width:30%">
+                                        <ng-container *ngIf="b?.email"> {{b.email}} </ng-container>
+                                        <ng-container *ngIf="!b?.email"> - </ng-container>
+                                    </td>
+                                    <td style="width:20%">{{b?.ccoId}}</td>
+                                    <td style="width:25%"><span class="value" *ngIf="b.access === constantsService.RW">{{localeService.getLocalizedString('qual.whoinvolved.USER_READ_WRITE_ACCESS')}}</span>
+                                        <span class="value" *ngIf="b.access === constantsService.RO">{{localeService.getLocalizedString('qual.whoinvolved.USER_READ_ONLY_ACCESS')}}</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- Service Specialist section Ends -->
+
+                    <!-- Service deal assurer section starts -->
+                    <div class="card-header border--top solid" *ngIf="!appDataService.userInfo.distiUser && !appDataService.isTwoTierUser(is2tPartner)">
+                        <h5 class="sub--heading m-0">{{localeService.getLocalizedString('common.SERVICE_DEAL_ASSURER')}}</h5>
+                    </div>
+                    <div class="card-body" *ngIf="!appDataService.userInfo.distiUser && !appDataService.isTwoTierUser(is2tPartner)">
+                        <table class="primary-table">
+                            <!--  customHeightScroll -->
+                            <thead>
+                                <tr>
+                                    <th style="width:25%">{{localeService.getLocalizedString('qual.whoinvolved.NAME')}}</th>
+                                    <th style="width:30%">{{localeService.getLocalizedString('qual.whoinvolved.E_MAIL')}}</th>
+                                    <th style="width:20%">{{localeService.getLocalizedString('qual.whoinvolved.CEC_ID')}}</th>
+                                    <th style="width:25%">{{localeService.getLocalizedString('qual.whoinvolved.ACCESS_TYPE')}}</th>
+                                </tr>
+                            </thead>
+                            <!-- class="customTbodyScroll" -->
+                            <tbody>
+                                <tr *ngIf="!involvedDealAssurer.length">
+                                    <td colspan="5" class="text-center">
+                                        <div class="emptyState">
+                                            {{localeService.getLocalizedMessage('qual.whoinvolved.NO_SERVICES_DEAL_ASSURER_ADDED')}}</div>
+                                    </td>
+                                </tr>
+                                <tr *ngFor="let b of involvedDealAssurer">
+                                    <td style="width:25%">{{b.firstName}} {{b.lastName}}</td>
+                                    <td style="width:30%">
+                                        <ng-container *ngIf="b?.email"> {{b.email}} </ng-container>
+                                        <ng-container *ngIf="!b?.email"> - </ng-container>
+                                    </td>
+                                    <td style="width:20%">{{b.ccoId}}</td>
+                                    <td style="width:25%"><span class="value" *ngIf="b.access === constantsService.RW">{{localeService.getLocalizedString('qual.whoinvolved.USER_READ_WRITE_ACCESS')}}</span>
+                                        <span class="value" *ngIf="b.access === constantsService.RO">{{localeService.getLocalizedString('qual.whoinvolved.USER_READ_ONLY_ACCESS')}}</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- Service deal assurer section Ends -->
+
+
+                    <div class="card-header border--top solid">
+                        <h5 class="sub--heading m-0">{{localeService.getLocalizedString('qual.whoinvolved.SOFTWARE_SALES_SPECIALIST')}}</h5>
+                    </div>
+                    <div class="card-body">
+                        <table class="primary-table">
+                            <!--  customHeightScroll -->
+                            <thead>
+                                <tr>
+                                    <th style="width:20%">{{localeService.getLocalizedString('qual.whoinvolved.NAME')}}</th>
+                                    <th style="width:25%">{{localeService.getLocalizedString('qual.whoinvolved.E_MAIL')}}</th>
+                                    <th style="width:15%">{{localeService.getLocalizedString('qual.whoinvolved.CEC_ID')}}</th>
+                                    <th style="width:15%">{{localeService.getLocalizedString('qual.whoinvolved.ACCESS_TYPE')}}</th>
+                                    <th style="width:25%">{{localeService.getLocalizedString('common.ARCH')}}</th>
+                                </tr>
+                            </thead>
+                            <!-- class="customTbodyScroll" -->
+                            <tbody>
+                                <tr *ngIf="!involvedSpecialist.length">
+                                    <td colspan="5" class="text-center">
+                                        <div class="emptyState">
+                                            {{localeService.getLocalizedString('qual.whoinvolved.NO_SPECIALIST')}}</div>
+                                    </td>
+                                </tr>
+                                <tr *ngFor="let a of involvedSpecialist">
+                                    <td style="width:20%">{{a.name}}</td>
+                                    <td style="width:25%">
+                                        <ng-container *ngIf="a?.email"> {{a.email}} </ng-container>
+                                        <ng-container *ngIf="!a?.email"> - </ng-container>
+                                    </td>
+                                    <td style="width:15%">{{a.ccoId}}</td>
+                                    <td style="width:15%"><span class="value" *ngIf="a.access === constantsService.RW">{{localeService.getLocalizedString('qual.whoinvolved.USER_READ_WRITE_ACCESS')}}</span>
+                                        <span class="value" *ngIf="a.access === constantsService.RO">{{localeService.getLocalizedString('qual.whoinvolved.USER_READ_ONLY_ACCESS')}}</span></td>
+                                    <td style="width:25%">{{a.archName}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-header border--top solid">
+                        <h5 class="sub--heading m-0">{{localeService.getLocalizedString('qual.whoinvolved.EXTENDED_SALES_TEAM')}}</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="emptyState" *ngIf="!involvedMembers.length">
+                            {{localeService.getLocalizedString('qual.whoinvolved.NO_EXTENDED')}}</div>
+                        <table class="primary-table">
+                            <!--  customHeightScroll -->
+                            <thead>
+                                <tr>
+                                    <th style="width:25%">{{localeService.getLocalizedString('qual.whoinvolved.NAME')}}</th>
+                                    <th style="width:30%">{{localeService.getLocalizedString('qual.whoinvolved.E_MAIL')}}</th>
+                                    <th style="width:20%">{{localeService.getLocalizedString('qual.whoinvolved.CEC_ID')}}</th>
+                                    <th style="width:25%">{{localeService.getLocalizedString('qual.whoinvolved.ACCESS_TYPE')}}</th>
+                                </tr>
+                            </thead>
+                            <!-- class="customTbodyScroll" -->
+                            <tbody>
+                                <tr *ngFor="let b of involvedMembers">
+                                    <td style="width:25%">{{b?.name}}</td>
+                                    <td style="width:30%">
+                                        <ng-container *ngIf="b?.email"> {{b.email}} </ng-container>
+                                        <ng-container *ngIf="!b?.email"> - </ng-container>
+                                    </td>
+                                    <td style="width:20%">{{b?.ccoId}}</td>
+                                    <td style="width:25%"><span class="value" *ngIf="b.access === constantsService.RW">{{localeService.getLocalizedString('qual.whoinvolved.USER_READ_WRITE_ACCESS')}}</span>
+                                        <span class="value" *ngIf="b.access === constantsService.RO">{{localeService.getLocalizedString('qual.whoinvolved.USER_READ_ONLY_ACCESS')}}</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <h3 class="card-header">{{localeService.getLocalizedString('qual.summary.success.PARTNER_TEAM')}}</h3>
+                    <div class="card-body">
+                        <table class="primary-table">
+                            <!--  customHeightScroll -->
+                            <thead>
+                                <tr>
+                                    <th style="width:25%">{{localeService.getLocalizedString('qual.whoinvolved.NAME')}}</th>
+                                    <th style="width:30%">{{localeService.getLocalizedString('qual.whoinvolved.E_MAIL')}}</th>
+                                    <th style="width:20%">{{localeService.getLocalizedString('qual.whoinvolved.CCO_ID')}}</th>
+                                    <th style="width:25%" *ngIf="!partnerFlow">{{localeService.getLocalizedString('proposal.create.PARTNER_NAME')}}</th>
+                                    <th style="width:25%" *ngIf="partnerFlow">{{localeService.getLocalizedString('qual.whoinvolved.ACCESS_TYPE')}}</th>
+                                </tr>
+                            </thead>
+                            <!-- class="customTbodyScroll" -->
+                            <tbody>
+                                    <tr  *ngIf="!partnerTeamMembers.length">
+                                        <td colspan="5" class="text-center">
+                                            <div class="emptyState">
+                                                {{localeService.getLocalizedString('qual.whoinvolved.NO_PARTNER_FOUND')}}</div>
+                                        </td>
+                                    </tr>
+                                <tr *ngFor="let b of partnerTeamMembers">
+                                    <td style="width:25%">{{b?.name}}</td>
+                                    <td style="width:30%">
+                                        <ng-container *ngIf="b?.email"> {{b.email}} </ng-container>
+                                        <ng-container *ngIf="!b?.email"> - </ng-container>
+                                    </td>
+                                    <td style="width:20%">{{b?.ccoId}}</td>
+                                    <td style="width:25%" *ngIf="!partnerFlow">{{b?.beGeoName ? b?.beGeoName : '--'}}</td>
+                                    <td style="width:25%" *ngIf="partnerFlow"><span class="value" *ngIf="b?.access === constantsService.RW">{{localeService.getLocalizedString('qual.whoinvolved.USER_READ_WRITE_ACCESS')}}</span>
+                                        <span class="value" *ngIf="b?.access === constantsService.RO">{{localeService.getLocalizedString('qual.whoinvolved.USER_READ_ONLY_ACCESS')}}</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+            <div class="row" *ngIf = "is2tPartner">
+            <div class="col-md-12">
+                <div class="card">
+                    <h3 class="card-header">{{localeService.getLocalizedString('qual.whoinvolved.DISTRIBUTOR_TEAM')}}</h3>
+                    <div class="card-body">
+                        <div class="emptyState" *ngIf="!involvedDistributorMembers.length">
+                            {{localeService.getLocalizedString('qual.whoinvolved.NO_DISTRIBUTOR')}}</div>
+                        <table class="primary-table">
+                            <!--  customHeightScroll -->
+                            <thead>
+                                <tr>
+                                    <th style="width:25%">{{localeService.getLocalizedString('qual.whoinvolved.NAME')}}</th>
+                                    <th style="width:30%">{{localeService.getLocalizedString('qual.whoinvolved.E_MAIL')}}</th>
+                                    <th style="width:20%">{{localeService.getLocalizedString('qual.whoinvolved.CCO_ID')}}</th>
+                                    <th style="width:25%">{{localeService.getLocalizedString('qual.whoinvolved.ACCESS_TYPE')}}</th>
+                                </tr>
+                            </thead>
+                            <!-- class="customTbodyScroll" -->
+                            <tbody>
+                                <tr *ngFor="let b of involvedDistributorMembers">
+                                    <td style="width:25%">{{b.firstName}} {{b.lastName}}</td>
+                                    <td style="width:30%">
+                                        <ng-container *ngIf="b?.email"> {{b.email}} </ng-container>
+                                        <ng-container *ngIf="!b?.email"> - </ng-container>
+                                    </td>
+                                    <td style="width:20%">{{b.ccoId}}</td>
+                                    <td style="width:25%"><span class="value" *ngIf="b.access === constantsService.RW">{{localeService.getLocalizedString('qual.whoinvolved.USER_READ_WRITE_ACCESS')}}</span>
+                                        <span class="value" *ngIf="b.access === constantsService.RO">{{localeService.getLocalizedString('qual.whoinvolved.USER_READ_ONLY_ACCESS')}}</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!--New HTML ends-->
+        <div class="flexible-div main-content-heading" *ngIf="!deletedQual  && !ciscoDealForPartner">
+            <div class="col-xs-12 col-md-5 paddingL0">
+                <h1>Define Geography</h1>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+        <div class="row" *ngIf='!deletedQual'>
+            <div class="col-md-12">
+                <div class="card">
+                    <h3 class="card-header">{{localeService.getLocalizedString('qual.summary.SEL_GEO')}}</h3>
+                    <div class="card-body">
+                        <div class="row" *ngIf="!deletedQual  && !ciscoDealForPartner">
+                            <div class="col-md-12">
+                                <table class="primary-table customHeightScroll">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:24.7%">{{localeService.getLocalizedString('qual.geo.THEATER')}}</th>
+                                            <th style="width:75%">{{localeService.getLocalizedString('common.COUNTRY')}}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody *ngIf="!excludedGeography.length">
+                                        <tr class="text-center">
+                                            <td colspan="2">{{localeService.getLocalizedString('qual.summary.NO_GEO')}}</td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody class="customTbodyScroll">
+                                        <tr *ngFor="let c of excludedGeography">
+                                            <td style="width:24.7%">{{c.theater}}</td>
+                                            <td style="width:75%">
+                                                <span *ngFor="let country of c.countries ; let i = index;">{{country}}
+                                                    <span *ngIf='c.countries.length > (i+1)'>, </span>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="flexible-div main-content-heading" *ngIf="!deletedQual  && !ciscoDealForPartner">
+            <div class="col-xs-12 col-md-5 paddingL0">
+                <h1>Define Subsidiaries</h1>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="row" *ngIf='!deletedQual'>
+            <div class="col-md-12">
+                <div class="card">
+                    <h3 class="card-header">{{localeService.getLocalizedString('qual.summary.SEL_SUBSIDIARIES')}}</h3>
+                    <div class="card-body">
+                        <div class="row" *ngIf="!deletedQual  && !ciscoDealForPartner">
+                            <div class="col-md-12">
+                                <table class="primary-table customHeightScroll qual-td-position">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:81%;">Customer GU Name</th>
+                                            <th style="width:19%">GU ID</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody *ngIf="!excludedAffiliates.length">
+                                        <tr class="text-center">
+                                            <td colspan="2">{{localeService.getLocalizedString('qual.summary.NO_SUBSIDIARY')}}</td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody class="customTbodyScroll">
+                                        <tr *ngFor="let d of guIdArray">
+                                            <td style="width:81%;">{{d.guName}}</td> 
+                                            <td style="width:19%;">
+                                               <div class="pos-relative"><div class="pull-left">{{d.guId}}</div><span class="ml-1 node-icon icon-branch" (click)="getBranches(d,$event, 'GU')" [ngClass]="{'d-none' : d.expandableYorN === 'N'}"></span>
+                                            </div>
+                                            <div class="new-pop new-pop-custom wid-700"  [ngStyle]="popStyle" [class.top-side]="showOnTop" (clickOutside)="d.showGU = false;" *ngIf="d.showGU">
+                                            <!-- <span class="icon-down-arrow-custom" [ngStyle]="arrowStyles"></span> -->
+                                            <div *ngIf="selectedNodeBranches.length">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <h4 class="heading--h4 dark bold mb-1">
+                                                            <span class="title-inner ellipsis">Node Hierarchy for '{{selectedRow?.selectedHQName}}'</span>
+                                                            <span class="batch">{{d.selectedType}}</span>
+                                                            <span (click)='hide()' ><i class="icon-close-btn"></i></span>
+                                                        </h4>
+                                                        <h6 class="heading--h6 light mb-1">There are {{selectedNodeBranches?.length}} Subsidiary in this {{d.selectedType}}</h6>
+                                                    </div>
+                                                </div>
+                                                <app-subsidiary-list [columns]='columns' [rows]="selectedNodeBranches"></app-subsidiary-list> 
+                                            </div>
+                                            <div *ngIf='!selectedNodeBranches.length'>No Branches selected under {{selectedRow?.selectedHQName}} </div>
+                                                            </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="col-md-12" style="padding-top: 10px;" *ngIf="excludedAffiliates.length">
+                                <table class="primary-table customHeightScroll qual-td-position">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:81%;">{{localeService.getLocalizedString('qual.CUSTOMER_HQ_NAME')}}</th>
+                                            <th style="width:19%">{{localeService.getLocalizedString('qual.summary.HQ_ID')}}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody *ngIf="!excludedAffiliates.length">
+                                        <tr class="text-center">
+                                            <td colspan="2">{{localeService.getLocalizedString('qual.summary.NO_SUBSIDIARY')}}</td>
+                                        </tr>
+                                    </tbody>
+                                  
+                                        <tbody class="customTbodyScroll">
+                                            <tr *ngFor="let val of excludedAffiliates;let i = index" [ngClass]="{'d-none' :getGuObject(val,i)}">
+                                                <td style="width:81%;">{{val.selectedHQName}}</td>
+                                                <td style="width:19%"><div class="pos-relative"><div class="pull-left">{{val.selectedHQ}}</div> <span class="ml-1 node-icon icon-branch" (click)="getBranchesHQ(val,$event, 'HQ')" [ngClass]="{'d-none' : val.expandableYorN === 'N'}"></span>
+                                                    </div>
+                                                    <div class="new-pop new-pop-custom wid-700"  [ngStyle]="popStyle" [class.top-side]="showOnTop" (clickOutside)="val.showHQ = false;" *ngIf="val.showHQ">
+                                    <!-- <span class="icon-down-arrow-custom" [ngStyle]="arrowStyles"></span> -->
+                                    <div *ngIf="selectedNodeBranches.length">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <h4 class="heading--h4 dark bold mb-1">
+                                                    <span class="title-inner ellipsis">Node Hierarchy for '{{selectedRow?.selectedHQName}}'</span>
+                                                    <span class="batch">{{val.selectedType}}</span>
+                                                    <span (click)='hide()' ><i class="icon-close-btn"></i></span>
+                                                </h4>
+                                                <h6 class="heading--h6 light mb-1">There are {{selectedNodeBranches?.length}} Subsidiary in this {{val.selectedType}}</h6>
+                                            </div>
+                                        </div>
+                                        <app-subsidiary-list [columns]='columns' [rows]="selectedNodeBranches"></app-subsidiary-list> 
+                                    </div>
+                                    <div *ngIf='!selectedNodeBranches.length'>No Branches selected under {{selectedRow?.selectedHQName}} </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                </table>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+<div class="clearfix"></div>
+
+    <!-- PopOver for Subsidiaries - Under BR -->
+    <!-- PopOver for Subsidiaries - Under BR ---- Ends Here -->
+
+<!-- Qualification Summary Completion page Starts -->
+<div class="successfullQual" *ngIf="qualificationSuccess">
+    <div id="summary-block">
+        <div class="alert alert--success mt-1">
+            <span class="alert-icon">
+                <span class="icon-done1"><span class="path1"></span><span class="path2"></span></span>
+            </span>
+            <span class="txt">{{localeService.getLocalizedMessage('qual.summary.QUAL_CREATED')}}</span>
+        </div>
+        <div class="summary-section">
+            <div class="row">
+                <div class="col-8">
+                    <div class="summary-section--left">
+                        <div class="summary-box">
+                            <h1 class="block-title">{{localeService.getLocalizedString('roadmap.qual.SUMMARY')}}</h1>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card">
+                                        <h3 class="card-header">{{localeService.getLocalizedString('prospect.CUSTOMER')}}</h3>
+                                        <div class="card-body">
+                                            <div class="row qual-summary-info">
+                                                <div class="col-3 summary-info--list">
+                                                    <label>{{localeService.getLocalizedString('qual.whoinvolved.NAME')}}</label>
+                                                    <span>{{qualService.qualification?.accountName}}</span>
+                                                </div>
+                                                <div class="col-3 summary-info--list">
+                                                    <label>{{localeService.getLocalizedString('qual.whoinvolved.PREFERRED_LEGAL_NAME')}}</label>
+                                                    <span>{{qualService.qualification.customerInfo?.preferredLegalName}}</span>
+                                                </div>
+                                                <div class="col-2 summary-info--list">
+                                                    <label>{{localeService.getLocalizedString('qual.summary.success.CUSTOMER_REPRESENTATIVE')}}</label>
+                                                    <span>{{qualService.qualification.customerInfo?.repName ? qualService.qualification.customerInfo?.repName : '--'}}</span>
+                                                </div>
+                                                <div class="col-4 summary-info--list">
+                                                    <label>{{localeService.getLocalizedString('qual.create.ADDRESS')}}</label>
+                                                    <span>{{qualService.qualification.address.addressLine1}}, <span
+                                                            *ngIf="qualService.qualification.address.addressLine2">{{qualService.qualification.address.addressLine2}},</span> {{qualService.qualification.address.city}},
+                                                    {{qualService.qualification.address.state}}, {{qualService.qualification.address.zip}}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card">
+                                        <h3 class="card-header">{{localeService.getLocalizedString('qual.summary.success.CISCO_TEAM')}}</h3>
+                                        <div class="card-body">
+                                            <!-- Account Manager details starts-->
+                                            <div class="sub-heading">
+                                                <span class="head">{{localeService.getLocalizedString('qualproposallist.ACCOUNT_MANAGER')}}</span>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                            <div class="row qual-summary-info" *ngIf="qualService.qualification.accountManagerName">
+                                                <div class="col-4 summary-info--list">
+                                                    <label>{{localeService.getLocalizedString('qual.whoinvolved.NAME')}}</label>
+                                                    <span>
+                                                        {{qualService.qualification.accountManager?.firstName}}
+                                                        {{qualService.qualification.accountManager?.lastName}}
+                                                    </span>
+                                                </div>
+                                                <div class="col-3 summary-info--list">
+                                                    <label>{{localeService.getLocalizedString('qual.summary.success.EMAIL')}}</label>
+                                                    <span>{{qualService.qualification.accountManager?.emailId}}</span>
+                                                </div>
+                                                <div class="col-2 summary-info--list">
+                                                    <label>{{localeService.getLocalizedString('qual.whoinvolved.CEC_ID')}}</label>
+                                                    <span>{{qualService.qualification.accountManager?.userId}}</span>
+                                                </div>
+                                                <div class="col-3 summary-info--list">
+                                                    <label>{{localeService.getLocalizedString('qual.summary.success.ROLE')}}</label>
+                                                    <span>{{localeService.getLocalizedString('qualproposallist.ACCOUNT_MANAGER')}}</span>
+                                                </div>
+                                            </div>
+                                            <!-- Cisco Channel Account Manager Starts-->
+                                            <div class="sub-heading mt-2 pt-1" *ngIf="partnerFlow">
+                                                <span class="head">Cisco Channel Account Manager (CAM)</span>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                            <div class="row qual-summary-info" *ngIf="partnerFlow">
+                                                <div class="col-4 summary-info--list">
+                                                    <label>Name</label>
+                                                    <span>{{ (camData?.firstName) ? (camData.firstName+ ' '+  camData.lastName+ ' '+ '('+camData.cecId+')')  : '--' }}</span>
+                                                </div>
+                                                <div class="col-3 summary-info--list">
+                                                    <label>E-Mail</label>
+                                                    <span >{{ (camData?.camEmail) ? (camData.camEmail) : '--'}}</span>
+                                                   
+                                                </div>
+                                            </div>
+                                            <!-- Cisco Channel Account Manager Ends-->
+                                            <!-- Account Manager details Ends-->
+                                        </div>
+                                        <!-- Service Specialist details Starts-->
+                                        <div class="card-header" *ngIf="!appDataService.userInfo.distiUser && !appDataService.isTwoTierUser(is2tPartner)">
+                                            <h5 class="sub--heading">{{localeService.getLocalizedString('common.SERVICE_SPECIALIST')}}</h5>
+                                        </div>
+                                        <div class="card-body" *ngIf="!appDataService.userInfo.distiUser && !appDataService.isTwoTierUser(is2tPartner)">
+                                            <table class="primary-table">
+                                                <!--  customHeightScroll -->
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width:25%">{{localeService.getLocalizedString('qual.whoinvolved.NAME')}}</th>
+                                                        <th style="width:30%">{{localeService.getLocalizedString('qual.whoinvolved.E_MAIL')}}</th>
+                                                        <th style="width:20%">{{localeService.getLocalizedString('qual.whoinvolved.CEC_ID')}}</th>
+                                                        <th style="width:25%">{{localeService.getLocalizedString('qual.whoinvolved.ACCESS_TYPE')}}</th>
+                                                    </tr>
+                                                </thead>
+                                                <!-- class="customTbodyScroll" -->
+                                                <tbody>
+                                                    <tr *ngIf="!involvedCxteam.length">
+                                                        <td colspan="5" class="text-center">
+                                                            <div class="emptyState">
+                                                                {{localeService.getLocalizedString('qual.whoinvolved.NO_SERVICE_SPECIALIST')}}</div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr *ngFor="let b of involvedCxteam">
+                                                        <td style="width:25%">{{b?.name}}</td>
+                                                        <td style="width:30%">
+                                                            <ng-container *ngIf="b?.email"> {{b.email}} </ng-container>
+                                                            <ng-container *ngIf="!b?.email"> - </ng-container>
+                                                        </td>
+                                                        <td style="width:20%">{{b?.ccoId}}</td>
+                                                        <td style="width:25%"><span class="value" *ngIf="b.access === constantsService.RW">{{localeService.getLocalizedString('qual.whoinvolved.USER_READ_WRITE_ACCESS')}}</span>
+                                                            <span class="value" *ngIf="b.access === constantsService.RO">{{localeService.getLocalizedString('qual.whoinvolved.USER_READ_ONLY_ACCESS')}}</span></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <!-- Service Specialist details Ends-->
+
+                                        <!-- Service Specialist details Starts-->
+                                        <div class="card-header" *ngIf="!appDataService.userInfo.distiUser && !appDataService.isTwoTierUser(is2tPartner)">
+                                            <h5 class="sub--heading">{{localeService.getLocalizedString('common.SERVICE_DEAL_ASSURER')}}</h5>
+                                        </div>
+                                        <div class="card-body" *ngIf="!appDataService.userInfo.distiUser && !appDataService.isTwoTierUser(is2tPartner)">
+                                            <table class="primary-table">
+                                                <!--  customHeightScroll -->
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width:25%">{{localeService.getLocalizedString('qual.whoinvolved.NAME')}}</th>
+                                                        <th style="width:30%">{{localeService.getLocalizedString('qual.whoinvolved.E_MAIL')}}</th>
+                                                        <th style="width:20%">{{localeService.getLocalizedString('qual.whoinvolved.CEC_ID')}}</th>
+                                                        <th style="width:25%">{{localeService.getLocalizedString('qual.whoinvolved.ACCESS_TYPE')}}</th>
+                                                    </tr>
+                                                </thead>
+                                                <!-- class="customTbodyScroll" -->
+                                                <tbody>
+                                                    <tr *ngIf="!involvedDealAssurer.length">
+                                                        <td colspan="5" class="text-center">
+                                                            <div class="emptyState">
+                                                                {{localeService.getLocalizedMessage('qual.whoinvolved.NO_SERVICES_DEAL_ASSURER_ADDED')}}</div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr *ngFor="let b of involvedDealAssurer">
+                                                        <td style="width:25%">{{b.firstName}} {{b.lastName}}</td>
+                                                        <td style="width:30%">
+                                                            <ng-container *ngIf="b?.email"> {{b.email}} </ng-container>
+                                                            <ng-container *ngIf="!b?.email"> - </ng-container>
+                                                        </td>
+                                                        <td style="width:20%">{{b.ccoId}}</td>
+                                                        <td style="width:25%"><span class="value" *ngIf="b.access === constantsService.RW">{{localeService.getLocalizedString('qual.whoinvolved.USER_READ_WRITE_ACCESS')}}</span>
+                                                            <span class="value" *ngIf="b.access === constantsService.RO">{{localeService.getLocalizedString('qual.whoinvolved.USER_READ_ONLY_ACCESS')}}</span></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <!-- Service Specialist details Ends-->
+
+
+                                        <!--Sales Specialist details starts-->
+                                        <div class="card-header">
+                                            <h5 class="sub--heading">{{localeService.getLocalizedString('qual.summary.success.SALES_SPECIALIST')}}</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <table class="primary-table">
+                                                <!--  customHeightScroll -->
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width:20%">{{localeService.getLocalizedString('qual.whoinvolved.NAME')}}</th>
+                                                        <th style="width:20%">{{localeService.getLocalizedString('qual.whoinvolved.E_MAIL')}}</th>
+                                                        <th style="width:15%">{{localeService.getLocalizedString('qual.whoinvolved.CEC_ID')}}</th>
+                                                        <th style="width:15%">{{localeService.getLocalizedString('qual.whoinvolved.ACCESS_TYPE')}}</th>
+                                                        <th style="width:30%">{{localeService.getLocalizedString('common.ARCH')}}</th>
+                                                    </tr>
+                                                </thead>
+                                                <!-- class="customTbodyScroll" -->
+                                                <tbody>
+                                                    <tr *ngIf="!involvedSpecialist.length">
+                                                        <td colspan="5" class="text-center">
+                                                            <div class="emptyState">
+                                                                {{localeService.getLocalizedString('qual.whoinvolved.NO_SPECIALIST')}}</div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr *ngFor="let a of involvedSpecialist">
+                                                        <td style="width:20%">{{a.name}}</td>
+                                                        <td style="width:20%">
+                                                            <ng-container *ngIf="a?.email"> {{a.email}} </ng-container>
+                                                            <ng-container *ngIf="!a?.email"> - </ng-container>
+                                                        </td>
+                                                        <td style="width:15%">{{a.ccoId}}</td>
+                                                        <td style="width:15%"><span class="value" *ngIf="a.access === constantsService.RW">{{localeService.getLocalizedString('qual.whoinvolved.USER_READ_WRITE_ACCESS')}}</span>
+                                                            <span class="value" *ngIf="a.access === constantsService.RO">{{localeService.getLocalizedString('qual.whoinvolved.USER_READ_ONLY_ACCESS')}}</span></td>
+                                                        <td style="width:30%">{{a.archName}}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <!--Sales Specialist details Ends-->
+                                        <!-- Extended Sales Team details Starts-->
+                                        <div class="card-header">
+                                            <h5 class="sub--heading">{{localeService.getLocalizedString('qual.whoinvolved.EXTENDED_SALES_TEAM')}}</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="emptyState" *ngIf="!involvedMembers.length">
+                                                {{localeService.getLocalizedString('qual.whoinvolved.NO_EXTENDED')}}</div>
+                                            <table class="primary-table">
+                                                <!--  customHeightScroll -->
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width:25%">{{localeService.getLocalizedString('qual.whoinvolved.NAME')}}</th>
+                                                        <th style="width:30%">{{localeService.getLocalizedString('qual.whoinvolved.E_MAIL')}}</th>
+                                                        <th style="width:20%">{{localeService.getLocalizedString('qual.whoinvolved.CEC_ID')}}</th>
+                                                        <th style="width:25%">{{localeService.getLocalizedString('qual.whoinvolved.ACCESS_TYPE')}}</th>
+                                                    </tr>
+                                                </thead>
+                                                <!-- class="customTbodyScroll" -->
+                                                <tbody>
+                                                    <tr *ngFor="let b of involvedMembers">
+                                                        <td style="width:25%">{{b?.name}}</td>
+                                                        <td style="width:30%">
+                                                            <ng-container *ngIf="b?.email"> {{b.email}} </ng-container>
+                                                            <ng-container *ngIf="!b?.email"> - </ng-container>
+                                                        </td>
+                                                        <td style="width:20%">{{b?.ccoId}}</td>
+                                                        <td style="width:25%"><span class="value" *ngIf="b.access === constantsService.RW">{{localeService.getLocalizedString('qual.whoinvolved.USER_READ_WRITE_ACCESS')}}</span>
+                                                            <span class="value" *ngIf="b.access === constantsService.RO">{{localeService.getLocalizedString('qual.whoinvolved.USER_READ_ONLY_ACCESS')}}</span></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <!-- Extended Sales Team details Ends-->
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Partner team Starts-->
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card">
+                                        <h3 class="card-header">{{localeService.getLocalizedString('qual.summary.success.PARTNER_TEAM')}}</h3>
+                                        <div class="card-body">
+                                           
+                                            <table class="primary-table">
+                                                <!--  customHeightScroll -->
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width:25%">{{localeService.getLocalizedString('qual.whoinvolved.NAME')}}</th>
+                                                        <th style="width:30%">{{localeService.getLocalizedString('qual.whoinvolved.E_MAIL')}}</th>
+                                                        <th style="width:20%">{{localeService.getLocalizedString('qual.whoinvolved.CCO_ID')}}</th>
+                                                        <th style="width:25%" *ngIf="!partnerFlow">{{localeService.getLocalizedString('proposal.create.PARTNER_NAME')}}</th>
+                                                        <th style="width:25%" *ngIf="partnerFlow">{{localeService.getLocalizedString('qual.whoinvolved.ACCESS_TYPE')}}</th>
+                                                    </tr>
+                                                </thead>
+                                                <!-- class="customTbodyScroll" -->
+                                                <tbody>
+                                                    <tr *ngIf="!partnerTeamMembers.length">
+                                                        <td colspan="5" class="text-center">
+                                                            <div class="emptyState">
+                                                                {{localeService.getLocalizedString('qual.whoinvolved.NO_PARTNER_FOUND')}}</div>
+                                                        </td>
+                                                    </tr>          <tr *ngFor="let b of partnerTeamMembers">
+                                                        <td style="width:25%">{{b?.name}}</td>
+                                                        <td style="width:30%">
+                                                            <ng-container *ngIf="b?.email"> {{b.email}} </ng-container>
+                                                            <ng-container *ngIf="!b?.email"> - </ng-container>
+                                                        </td>
+                                                        <td style="width:20%">{{b?.ccoId}}</td>
+                                                        <td style="width:25%" *ngIf="!partnerFlow">{{b?.beGeoName ? b?.beGeoName : '--'}}</td>
+                                                        <td style="width:25%" *ngIf="partnerFlow"><span class="value" *ngIf="b?.access === constantsService.RW">{{localeService.getLocalizedString('qual.whoinvolved.USER_READ_WRITE_ACCESS')}}</span>
+                                                            <span class="value" *ngIf="b?.access === constantsService.RO">{{localeService.getLocalizedString('qual.whoinvolved.USER_READ_ONLY_ACCESS')}}</span></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+                            </div>
+
+            <div class="row"  *ngIf = "is2tPartner">
+            <div class="col-md-12">
+                <div class="card">
+                    <h3 class="card-header">{{localeService.getLocalizedString('qual.whoinvolved.DISTRIBUTOR_TEAM')}}</h3>
+                    <div class="card-body">
+                        <div class="emptyState" *ngIf="!involvedDistributorMembers.length">
+                            {{localeService.getLocalizedString('qual.whoinvolved.NO_DISTRIBUTOR')}}</div>
+                        <table class="primary-table">
+                            <!--  customHeightScroll -->
+                            <thead>
+                                <tr>
+                                    <th style="width:25%">{{localeService.getLocalizedString('qual.whoinvolved.NAME')}}</th>
+                                    <th style="width:30%">{{localeService.getLocalizedString('qual.whoinvolved.E_MAIL')}}</th>
+                                    <th style="width:20%">{{localeService.getLocalizedString('qual.whoinvolved.CCO_ID')}}</th>
+                                    <th style="width:25%">{{localeService.getLocalizedString('qual.whoinvolved.ACCESS_TYPE')}}</th>
+                                </tr>
+                            </thead>
+                            <!-- class="customTbodyScroll" -->
+                            <tbody>
+                                <tr *ngFor="let b of involvedDistributorMembers">
+                                    <td style="width:25%">{{b.firstName}} {{b.lastName}}</td>
+                                    <td style="width:30%">
+                                        <ng-container *ngIf="b?.email"> {{b.email}} </ng-container>
+                                        <ng-container *ngIf="!b?.email"> - </ng-container>
+                                    </td>
+                                    <td style="width:20%">{{b.ccoId}}</td>
+                                    <td style="width:25%"><span class="value" *ngIf="b.access === constantsService.RW">{{localeService.getLocalizedString('qual.whoinvolved.USER_READ_WRITE_ACCESS')}}</span>
+                                        <span class="value" *ngIf="b.access === constantsService.RO">{{localeService.getLocalizedString('qual.whoinvolved.USER_READ_ONLY_ACCESS')}}</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+                            <!-- Partner team Ends-->
+                            <!-- Selected Geographies Starts -->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card">
+                                        <h3 class="card-header">{{localeService.getLocalizedString('qual.summary.SEL_GEO')}}</h3>
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <table class="primary-table customHeightScroll">
+                                                        <thead>
+                                                            <tr>
+                                                                <th style="width:24.7%">{{localeService.getLocalizedString('qual.geo.THEATER')}}</th>
+                                                                <th style="width:75%">{{localeService.getLocalizedString('common.COUNTRY')}}</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody *ngIf="!excludedGeography.length">
+                                                            <tr class="text-center">
+                                                                <td colspan="2">{{localeService.getLocalizedString('qual.summary.NO_GEO')}}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                        <tbody class="customTbodyScroll">
+                                                            <tr *ngFor="let c of excludedGeography">
+                                                                <td style="width:24.7%">{{c.theater}}</td>
+                                                                <td style="width:75%">
+                                                                    <span *ngFor="let country of c.countries ; let i = index;">{{country}}
+                                                                        <span *ngIf='c.countries.length > (i+1)'>, </span>
+                                                                    </span>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="summary-box d-none">
+                                <h3 class="summary-sub-heading">{{localeService.getLocalizedString('qual.summary.SEL_GEO')}}
+                                </h3>
+                                <div class="row qual-summary-info">
+                                    <div class="col-3 summary-info--list">
+                                        <label>{{localeService.getLocalizedString('qual.summary.success.THEATER')}}</label>
+                                    </div>
+                                    <div class="col-9 summary-info--list">
+                                        <label>{{localeService.getLocalizedString('common.COUNTRY')}}</label>
+                                    </div>
+                                </div>
+                                <div class="main--list">
+                                    <div class="row qual-summary-info" *ngFor="let c of excludedGeography">
+                                        <div class="col-3 summary-info--list">
+                                            <span>{{c.theater}}</span>
+                                        </div>
+                                        <div class="col-9 summary-info--list" *ngIf="c.countries.length < 10">
+                                            <span *ngFor="let country of c.countries; let i = index; " style="display: inline">{{country}} <span
+                                                    *ngIf="c.countries.length > (i+1)">,
+                                                </span></span>
+                                        </div>
+                                        <div class="col-9 summary-info--list visible-more" ReadMoreToggle *ngIf="c.countries.length > 10">
+                                            <div class="content-more"><span *ngFor="let country of c.countries; let i = index; ">{{country}} <span
+                                                        *ngIf="c.countries.length > (i+1)">, </span></span>
+                                            </div>
+                                            <span>
+                                                <div class="see more">see more <i class="icon-arrow-stroke"></i></div>
+                                                <div class="see less">see less <i class="icon-arrow-stroke"></i></div>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Selected Geographies Ends -->
+                            <!-- Selected Subsidiaries Starts -->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card">
+                                        <h3 class="card-header">{{localeService.getLocalizedString('qual.summary.SEL_SUBSIDIARIES')}}</h3>
+                                        <div class="card-body">
+                                            <div class="row" *ngIf="!deletedQual  && !ciscoDealForPartner">
+                                                <div class="col-md-12">
+                                                    <table class="primary-table customHeightScroll qual-td-position">
+                                                        <thead>
+                                                            <tr>
+                                                                <th style="width:81%;">Customer GU Name</th>
+                                                                <th style="width:19%">GU ID</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody *ngIf="!excludedAffiliates.length">
+                                                            <tr class="text-center">
+                                                                <td colspan="2">{{localeService.getLocalizedString('qual.summary.NO_SUBSIDIARY')}}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                        <tbody class="customTbodyScroll">
+                                                            <tr *ngFor="let d of guIdArray">
+                                                                <td style="width:81%;">{{d.guName}}</td> 
+                                                                <td style="width:19%;">
+                                                                   <div class="pos-relative"><div class="pull-left">{{d.guId}}</div><span class="ml-1 node-icon icon-branch" (click)="getBranches(d,$event, 'GU')" [ngClass]="{'d-none' : d.expandableYorN === 'N'}"></span>
+                                                                </div>
+                                                                    
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+                                                <div class="col-md-12" style="padding-top: 10px;" *ngIf="excludedAffiliates.length">
+                                                    <table class="primary-table customHeightScroll qual-td-position">
+                                                        <thead>
+                                                            <tr>
+                                                                <th style="width:81%;">{{localeService.getLocalizedString('qual.CUSTOMER_HQ_NAME')}}</th>
+                                                                <th style="width:19%">{{localeService.getLocalizedString('qual.summary.HQ_ID')}}</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody *ngIf="!excludedAffiliates.length">
+                                                            <tr class="text-center">
+                                                                <td colspan="2">{{localeService.getLocalizedString('qual.summary.NO_SUBSIDIARY')}}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                      
+                                                            <tbody class="customTbodyScroll">
+                                                                <tr *ngFor="let d of excludedAffiliates;let i = index" [ngClass]="{'d-none' :getGuObject(d,i)}">
+                                                                    <td style="width:81%;">{{d.selectedHQName}}</td>
+                                                                    <td style="width:19%">
+                                                                        <div class="pos-relative"><div class="pull-left">{{d.selectedHQ}}</div> <span class="ml-1 node-icon icon-branch" (click)="getBranches(d,$event, 'HQ')" [ngClass]="{'d-none' : d.expandableYorN === 'N'}"></span>
+                                                                       </div> 
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                    </table>
+                                                
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="summary-box d-none">
+                                <h3 class="summary-sub-heading">
+                                    {{localeService.getLocalizedString('qual.summary.SEL_SUBSIDIARIES')}}</h3>
+                                <div class="row qual-summary-info">
+                                    <div class="col-3 summary-info--list">
+                                        <label>{{localeService.getLocalizedString('qual.summary.success.CUSTOMER_GU_NAME')}}</label>
+                                    </div>
+                                    <div class="col-9 summary-info--list">
+                                        <label>{{localeService.getLocalizedString('qual.summary.success.SUBSIDIARY')}}</label>
+                                    </div>
+                                </div>
+
+                                <div class="main--list">
+                                    <div class="row qual-summary-info" *ngFor="let c of excludedSubsidiaries">
+                                        <div class="col-3 summary-info--list">
+                                            <span>{{ c.guName }}</span>
+                                        </div>
+                                        <div class="col-9 summary-info--list" *ngIf="c.subsidaries.length <= 10">
+                                            <span *ngFor="let name of c.subsidaries; let i = index; " style="display: inline">
+                                                {{ name }} <span *ngIf="c.subsidaries.length > (i+1)">, </span></span>
+                                        </div>
+                                        <div class="col-9 summary-info--list visible-more" ReadMoreToggle *ngIf="c.subsidaries.length > 10">
+                                            <div class="content-more"> <span *ngFor="let name of c.subsidaries; let i = index; "> {{name}} <span
+                                                        *ngIf="c.subsidaries.length > (i+1)">, </span></span>
+                                            </div>
+                                            <span>
+                                                <div class="see more">see more <i class="icon-arrow-stroke"></i></div>
+                                                <div class="see less">see less <i class="icon-arrow-stroke"></i></div>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Selected Subsidiaries Ends -->
+                        </div>
+                    </div>
+                </div>
+                <!-- End Of Left Section -->
+
+                <div class="col-4">
+                    <div class="summary-section--right">
+                        <div class="summary-box">
+                            <h1 class="block-title a">
+                                {{localeService.getLocalizedString('qual.summary.success.BEST_ACTION')}}</h1>
+                            <table width="100%">
+                                <tbody>
+                                    <tr>
+                                        <td class="text-center">
+                                            <span class="icon-create-new">
+                                            <span class="path1"></span><span class="path9"></span><span class="path11"></span><span class="path12"></span><span class="path31"></span><span class="path32"></span>
+                                            <span class="path34"></span><span class="path35"></span><span class="path36"></span><span class="path37"></span><span class="path38"></span>
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <div class="best-prac-detail">
+                                                <a [id]="appDataService.createUniqueId('CREATE_NEW_PROPOSAL',appDataService.pageContext)" href="javascript:void(0);" (click)="createProposal()">{{localeService.getLocalizedString('proposal.create.CREATE_NEW_PROPOSAL')}}</a>
+                                                <p>{{localeService.getLocalizedString('qual.summary.success.ADD_ESTIMATE_PROPOSAL')}}
+                                                </p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr *ngIf='utilitiesService.isFollowonButtonDisplay() && !qualService.subRefID'>
+                                        <td colspan="2">
+                                            <hr class="section-sep">
+                                        </td>
+                                    </tr>
+                                    <tr *ngIf='utilitiesService.isFollowonButtonDisplay() && !qualService.subRefID'>
+                                        <td class="text-center">
+                                            <span class="icon-initiate-renewals"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span><span class="path8"></span><span class="path9"></span><span class="path10"></span><span class="path11"></span><span class="path12"></span><span class="path13"></span></span>
+                                        </td>
+                                        <td>
+                                            <div class="best-prac-detail">
+                                                <a href="javascript:void(0);" (click)="initiateRenewal()">Initiate Follow-on</a>
+                                                <p>Initiate subscription Follow-on</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <hr class="section-sep">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center"><span class="icon-list-proposals">
+                                            <span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span>
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <div class="best-prac-detail">
+                                                <a [id]="appDataService.createUniqueId('VIEW_PROPOSALS_LIST',appDataService.pageContext)" href="javascript:void(0);" (click)="viewProposal()">{{localeService.getLocalizedString('qual.summary.success.VIEW_PROPOSALS_LIST')}}</a>
+                                                <p>{{localeService.getLocalizedString('qual.summary.success.VIEW_PROPOSALS')}}
+                                                </p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <hr class="section-sep">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center"><span class="icon-doc-center"><span
+                                                class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span><span class="path8"></span>
+                                            <span class="path9"></span><span class="path10"></span><span class="path11"></span></span>
+                                        </td>
+                                        <td>
+                                            <div class="best-prac-detail">
+                                                <a [id]="appDataService.createUniqueId('VIEW_LIST_QUAL',appDataService.pageContext)" href="javascript:void(0);" (click)="viewQualification()">{{localeService.getLocalizedString('qual.summary.success.VIEW_LIST_QUAL')}}</a>
+                                                <p>{{localeService.getLocalizedString('qual.summary.success.VIEW_QUAL_LIST')}}
+                                                </p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <hr class="section-sep">
+                                        </td>
+                                    </tr>
+                                    <tr *ngIf="!qualService.subRefID">
+                                        <td class="text-center"><span class="icon-change-deal-ID"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span>
+                                            <span class="path8"></span><span class="path9"></span><span class="path10"></span><span class="path11"></span><span class="path12"></span><span class="path13"></span><span class="path14"></span></span>
+                                        </td>
+                                        <td>
+                                            <div class="best-prac-detail">
+                                                <a [id]="appDataService.createUniqueId('VIEW_LIST_QUAL',appDataService.pageContext)" href="javascript:void(0);" (click)="cloneQualOrChangeDealId(true)">Change Deal ID</a>
+                                                <p>{{localeService.getLocalizedString('qual.summary.success.CHANGE_DEAL_ID')}}
+                                                </p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr *ngIf="!qualService.subRefID">
+                                        <td colspan="2">
+                                            <hr class="section-sep">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center"><span class="icon-clone-qualification"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span>
+                                            <span class="path8"></span><span class="path9"></span><span class="path10"></span><span class="path11"></span><span class="path12"></span><span class="path13"></span></span>
+                                        </td>
+                                        <td>
+                                            <div class="best-prac-detail">
+                                                <a [id]="appDataService.createUniqueId('VIEW_LIST_QUAL',appDataService.pageContext)" href="javascript:void(0);" (click)="cloneQualOrChangeDealId(false)">{{localeService.getLocalizedString('common.CLONE')}}</a>
+                                                <p>{{localeService.getLocalizedString('qual.summary.success.CLONE')}}
+                                                </p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="back-to-existing">
+                                {{localeService.getLocalizedString('qual.summary.success.BACK_MESSAGE')}}
+                                <a [id]="appDataService.createUniqueId('BACK_MESSAGE',appDataService.pageContext)" href="javascript:void(0)" (click)="goToQualification2()">{{localeService.getLocalizedString('qual.create.QUALIFICATIONS')}}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Qualification Summary Completion page Ends -->
+

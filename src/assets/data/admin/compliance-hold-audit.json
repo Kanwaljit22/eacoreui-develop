@@ -1,0 +1,78 @@
+[
+    {
+        "colId": "proposalId",
+        "headerName": "Proposal ID",
+        "field": "newValue.proposalId",
+        "suppressMenu": true,
+        "suppressSorting": true,
+        "width": 70,
+        "minWidth": 60,
+        "pinned": "left"
+    },
+    {
+        "colId": "euifSigned",
+        "headerName": "EUIF Signed",
+        "field": "newValue.euifSigned",
+        "suppressMenu": true,
+        "suppressSorting": true,
+        "width": 65
+    },
+    {
+        "colId": "loaRequired",
+        "headerName": "LOA Required",
+        "field": "newValue.loaRequired",
+        "suppressMenu": true,
+        "suppressSorting": true,
+        "width": 65
+    },
+    {
+        "colId": "loaSigned",
+        "headerName": "LOA Signed",
+        "field": "newValue.loaSigned",
+        "suppressMenu": true,
+        "suppressSorting": true,
+        "width": 65
+    },
+    {
+        "colId": "smartAccountActive",
+        "headerName": "Smart Account Active",
+        "field": "newValue.smartAccountActive",
+        "suppressMenu": true,
+        "suppressSorting": true,
+        "width": 115
+    },
+    {
+        "colId": "allVAsCreated",
+        "headerName": "Virtual Accounts Created",
+        "field": "newValue.allVAsCreated",
+        "suppressMenu": true,
+        "suppressSorting": true,
+        "width": 125
+    },
+    {
+        "colId": "purchaseAuthorized",
+        "headerName": "Partner Authorized",
+        "field": "newValue.purchaseAuthorized",
+        "suppressMenu": true,
+        "suppressSorting": true,
+        "width": 90
+    },
+    {
+        "colId": "releaseType",
+        "headerName": "Release Type",
+        "field": "newValue.releaseType",
+        "suppressMenu": true,
+        "suppressSorting": true,
+        "width": 105,
+        "minWidth": 60
+    },
+    {
+        "colId": "completedAtAsString",
+        "headerName": "Order Released On",
+        "field": "newValue.completedAtAsString",
+        "suppressMenu": true,
+        "suppressSorting": true,
+        "width": 105,
+        "minWidth": 60
+    }
+]

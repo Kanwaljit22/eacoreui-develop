@@ -1,0 +1,59 @@
+<div class=" modal-without-header vNext">
+    <button class="icon-close-btn" (click)="close()" type="button" attr.action-id="{{dataIdConstantsService.reviewChangeScope_button_closeIcon}}"></button>
+    <h2>{{'review-scope-change.REVIEW_SCOPE_CHANGE_SUMMARY' | localizationPipe: localizationService.localizedkeySet.size}}</h2>
+</div>
+<div class="modal-body vNext modal-without-header">
+    <app-message [displayModalMsg] = 'true'></app-message>
+    <div class="review-scope" *ngIf="reviewSummaryData.length">
+        <h3>{{'review-scope-change.REVIEW_SCOPE_CHANGE_SUMMARY_MSG' | localizationPipe: localizationService.localizedkeySet.size}}</h3>
+        <div class="scope-body"><h2>{{'review-scope-change.IMPACTED_BUS' | localizationPipe: localizationService.localizedkeySet.size}}</h2>
+        <table class="primary-table">
+            <thead>
+                <tr>
+                    <td width="50%">{{'common.CUSTOMER_BU' | localizationPipe: localizationService.localizedkeySet.size}}</td>
+                    <td width="20%"></td>
+                    <td  width="30%">{{'common.CHANGE_SUMMARY' | localizationPipe: localizationService.localizedkeySet.size}}</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of reviewSummaryData">
+                    <td>
+                       {{data.buName}} ({{data.buId}})
+                    </td>
+                    <td class="d-flex align-items-center">
+                        <svg *ngIf="data.fullySelected" xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 16 15" fill="none" attr.data-id="{{dataIdConstantsService.reviewChangeScope_icon_fullBU}}{{data.buId}}">
+                            <path d="M15 7.49402C15 11.3563 11.8664 14.4879 8 14.4879C4.13362 14.4879 1 11.3563 1 7.49402C1 3.63178 4.13362 0.500122 8 0.500122C11.8664 0.500122 15 3.63178 15 7.49402Z" fill="white" stroke="#6A80A5"/>
+                            <ellipse cx="8" cy="7.49402" rx="4.6875" ry="4.68369" fill="#6A80A5"/>
+                            </svg>
+                            <svg  *ngIf="!data.fullySelected" xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 16 15" fill="none" attr.data-id="{{dataIdConstantsService.reviewChangeScope_icon_paritalBU}}{{data.buId}}">
+                                <path d="M15 7.49402C15 11.3563 11.8664 14.4879 8 14.4879C4.13362 14.4879 1 11.3563 1 7.49402C1 3.63178 4.13362 0.500122 8 0.500122C11.8664 0.500122 15 3.63178 15 7.49402Z" fill="white" stroke="#6A80A5"/>
+                                <path d="M8 12.1777C9.2432 12.1777 10.4355 11.6843 11.3146 10.8059C12.1936 9.92753 12.6875 8.73621 12.6875 7.49402C12.6875 6.25183 12.1936 5.06052 11.3146 4.18215C10.4355 3.30379 9.2432 2.81033 8 2.81033L8 7.49402L8 12.1777Z" fill="#6A80A5"/>
+                            </svg>
+                    </td>
+                    <td>
+                        <span class="row-status"  [ngClass]="{'no-change': data.changeSummary === constantsService.NO_CHANGE, 'deselect': data.changeSummary === constantsService.BU_REMOVED, 'selected': data.changeSummary === constantsService.NEW_SELECTION, 'selection': data.changeValue && (data.changeSummary === constantsService.PARTY_SELECTION) , 'changed':  ((data.changeSummary === constantsService.FULL_BU_TO_PARTIAL_BU) || (data.changeSummary === constantsService.PARTIAL_BU_TO_FULL_BU))}" attr.data-id="{{dataIdConstantsService.reviewChangeScope_data_changeSummary}}{{data.changeSummary}}">
+                            <!-- <div class="list-style" *ngIf="data.changeSummary === constantsService.NO_CHANGE">&nbsp;</div> -->
+                            <span class="mr-1" [ngClass]="{'multi-discount-positive': (data?.changeValue && data.changeValue > 0), 'multi-discount-negative': (data?.changeValue && data.changeValue < 0)}" *ngIf="data.changeValue && (data.changeSummary === constantsService.PARTY_SELECTION)">
+                                <span class="icon-up-arow-white"></span>
+                                {{data.changeValue}}</span>{{data.changeSummary}}</span>
+                    </td>
+             
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    </div>
+    <div class="col-12" *ngIf="dataNotPresent">
+        <div class="alert alert--info alert-dismissable">
+            <span class="alert-icon">
+                <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+            </span>
+            <span>{{'common.NO_DATA_FOUND' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+        </div>
+    </div>
+</div>
+<div class="modal-footer justify-content-center vNext">
+    <a #downloadZipLink [hidden]="true"></a>
+    <button *ngIf="reviewSummaryData.length" class="btn btn-secondary ml-2" type="button" attr.action-id="{{dataIdConstantsService.reviewChangeScope_button_download}}"  (click)="downloadReport()">{{'review-scope-change.DOWNLOAD_CHANGE_REPORT' | localizationPipe: localizationService.localizedkeySet.size}}</button>
+    <button type="button" class="btn btn-primary" attr.action-id="{{dataIdConstantsService.reviewChangeScope_button_close}}" (click)="close()">{{'common.CLOSE' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+</div>

@@ -1,0 +1,183 @@
+$browser-context:16;
+@function rem($pixels, $context: $browser-context) {
+    @return #{$pixels/$context}rem;
+}
+.vNext {
+    &.with-aside {
+        padding-right: 40px;
+        position: relative;
+
+        .aside--right {
+            width: 40px;
+            position: absolute;
+            top: 0;
+            right: 0;
+            height: 100%;
+            border-left:1px solid #e4e4e4;
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+
+            .aside {
+                &--head {
+                    padding: 25px 10px 10px 10px;
+
+                    .icon-warning1 {
+                        .path1 {
+                            &::before {
+                                color: #98abc3;
+                            }
+                        }
+                    }
+
+                    .icon-bell {
+                        &::before {
+                            color: #98abc3;
+                        }
+                    }
+
+                    .aside-icon-wrap {
+                        position: relative;
+                        display: block;
+
+                        .noti-number-badge {
+                            position: absolute;
+                            right: -5px;
+                            top: -9px;
+                            height: 14px;
+                            width: 14px;
+                            border-radius: 14px;
+                            font-size: 0.625rem;
+                            font-weight: 700;
+                            color: #fff;
+                            text-align: center;
+
+                            &.badge--danger {
+                                background-color: #e2231a;
+                            }
+
+                            &.badge--success {
+                                background-color: #6abf4b;
+                            }
+                        }
+                    }
+                }
+
+                &--footer {
+                    padding:10px 5px 20px 5px;
+                    border-top: 1px solid #e4e4e4;
+                }
+            }
+        }
+    }
+}
+hr.solid {
+    border-color: #e4e4e4;
+}
+/*  Roadmap Styling -- Sarts Here  */
+.roadmap-steps {
+    &.vNext {
+        max-width: 500px;
+        margin-top: 8px;
+        .step {
+            &::before {
+                top: 10px;
+            }
+            &.active {
+                &::before {
+                    background-color: #00bceb;
+                }
+                .step--icon {
+                    .icon-tick-01{
+                        &::before {
+                            color: #00bceb;
+                        }
+                    }
+                }
+            }
+            &.completed {
+                &::before {
+                    background-color: #00bceb;
+                }
+                .step--icon {
+                    .icon-tick-01{
+                        &::before {
+                            color: #fff;
+                        }
+                    }
+                }
+            }
+            .step--icon {
+                border: 1px solid transparent;
+                height: 16px;
+                width: 16px;
+                outline: 3px solid #fff !important;
+                font-size: 0.375rem;
+                background-color: #aeb8c1;
+
+                .icon-tick-01{
+                    font-weight: 700;
+                    &::before {
+                        color: #aeb8c1;
+                    }
+                }
+            }
+            .step--label {
+                display: block;
+                font-size: 0.75rem;
+                font-weight: 400 !important;
+                color: #394454;
+                line-height: 16px;
+                top: 4px;
+            }
+
+            &.completed {
+                .step--icon {
+                    background-color: #00bceb;
+                    border-color: #00bceb;
+                }
+
+                .step--label {
+                    color: #394454;
+                }
+            }
+
+            &.active {
+                .step--icon {
+                    background-color: #00bceb;
+                    border-color: #00bceb;
+                }
+
+                .step--label {
+                    color: #394454;
+                }
+            }
+        }
+    }
+}
+
+/*---------- Responsive CSS ----------*/
+
+@media screen and (min-width:1600px) {
+    .roadmap-steps.vNext .step .step--icon {
+        height: 17px;
+        width: 17px;
+        font-size: rem(7);
+    }
+    .roadmap-steps.vNext .step .step--label{
+        font-size: rem(13);
+    }
+}
+
+@media screen and (min-width:1920px) {
+    .roadmap-steps.vNext .step .step--icon {
+        height: 18px;
+        width: 18px;
+        font-size: rem(8);
+    }
+    .roadmap-steps.vNext .step .step--label{
+        font-size: rem(14);
+    }
+}

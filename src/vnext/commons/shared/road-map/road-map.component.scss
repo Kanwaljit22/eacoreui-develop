@@ -1,0 +1,104 @@
+.roadmap-steps {
+    &.vNext {
+        max-width: 980px;
+        width: 980px;
+        margin: 25px 0;
+        justify-content: flex-start;
+
+        .step {
+            max-width: 220px;
+            &::before {
+                top: 10px;
+            }
+            &.active {
+                &::before {
+                    background-color: #227BB1;
+                }
+                .step--icon {
+                    .icon-tick-01{
+                        &::before {
+                            color: #227BB1;
+                        }
+                    }
+                }
+            }
+            &.completed {
+                &::before {
+                    background-color: #227BB1;
+                }
+                .step--icon {
+                    .icon-tick-01{
+                        &::before {
+                            color: #fff;
+                        }
+                    }
+                }
+            }
+            &:first-child{
+                flex-grow: 0;
+                white-space: nowrap;
+                margin-right: 65px;
+                &::before{
+                    content: '';
+                    display: block;
+                    position: absolute;
+                    width: 100%;
+                    height: 1.2px;
+                    left: -65%;
+                    background: #F4F5F8;
+                    z-index: 1;
+                }
+            } 
+            .step--icon {
+                border: 1px solid #d6d6d6;
+                height: 16px;
+                width: 16px;
+                outline: 0px solid #fff !important;
+                font-size: 0.375rem;
+                background-color: #fff;
+
+                .icon-tick-01{
+                    font-weight: 700;
+                    font-size: 7px;
+                    &::before {
+                        color: #fff;
+                    }
+                }
+            }
+            .step--label {
+                display: block;
+                font-size: 0.75rem;
+                font-weight: 400 !important;
+                color: #227BB1;
+                line-height: 16px;
+                top: 4px;
+                background: transparent;
+            }
+
+            &.completed {
+                .step--icon {
+                    background-color: #227BB1;
+                    border-color: #227BB1;
+                }
+
+                .step--label {
+                    color: #394454;
+                }
+            }
+
+            &.active {
+                .step--icon {
+                    background-color: #227BB1;
+                    border-color: #227BB1;
+                }
+
+                .step--label {
+                    color: #227BB1;
+                }
+            }
+        }
+    }
+}
+.bg-grey{
+    background: #F4F5F8;
+}

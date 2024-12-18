@@ -1,0 +1,28 @@
+.tco-modal-body{
+    .tco-modal-head{ 
+        display:flex;
+        flex-direction: column;
+        position: relative;
+        background: #F0F7FC;
+        padding: 16px 24px;
+        h5{
+            font-weight: bold;
+        }
+        .icon-close-btn{
+            position: absolute;
+
+        }
+    }
+    .tco-modal-container{
+        padding: 16px 24px;
+    }
+    .tco-modal-footer{
+        display: flex;
+    flex-direction: row;
+    padding: 24px;
+    align-items: center;
+    justify-content: right;
+    padding-top: 0px;
+    }
+    
+}

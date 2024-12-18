@@ -1,0 +1,150 @@
+/* vNext -- Starts Here */
+.vNext {
+    &.subHeaderWrap {
+        background-color: #f4f5f8;
+    
+        .sub-header--text, .digit, .val {
+            color: #394454;
+        }
+
+        .sub-header--text {
+            font-weight: 400;
+        }
+
+        .data-column {
+            display: inline-block;
+            overflow: visible;
+        }
+
+        .digit {
+            font-size: 0.688rem;
+        }
+
+        .val {
+            font-size: 0.875rem;
+        }
+
+        .badge {
+            padding-top: 3px;
+        }
+    
+        .label-text {
+            color: #d6d6d6;
+            font-size: 0.688rem;
+            display: block;
+        }
+    
+        a {
+            &.success-text {
+                font-size: 0.875rem;
+                color: #65b168;
+                position: relative;
+                top: 3px;
+    
+                .ico-dropdown {
+                    &::before {
+                        color: #65b168;
+                    }
+                }
+            }
+
+            &.pending-text {
+                font-size: 0.875rem;
+                color: #fbab18;
+                position: relative;
+                top: 3px;
+    
+                .ico-dropdown {
+                    &::before {
+                        color: #fbab18;
+                    }
+                }
+            }
+        }
+
+        .dropdown-menu {
+            right: -20px !important;
+            left: auto;
+            max-width: 100%;
+            min-width: 200px;
+            padding: 20px 20px 10px 20px !important;
+            border: 1px solid rgba(0,0,0,0.12);
+            box-shadow: 0 5px 6px 0 rgba(0,0,0,0.2);
+
+            &.t-30 {
+                top: 30px;
+            }
+
+            &::before {
+                content: "";
+                width: 0; 
+                height: 0; 
+                border-left: 7px solid transparent;  /* left arrow slant */
+                border-right: 7px solid transparent; /* right arrow slant */
+                border-bottom: 9px solid #fff; /* bottom, add background color here */
+                font-size: 0;
+                line-height: 0;
+                position: absolute;
+                right: 17px;
+                top: -9px;
+                z-index: 10;
+            }
+
+            &::after {
+                content: "";
+                width: 0; 
+                height: 0; 
+                border-left: 8px solid transparent;  /* left arrow slant */
+                border-right: 8px solid transparent; /* right arrow slant */
+                border-bottom: 10px solid rgba(0,0,0,0.12); /* bottom, add background color here */
+                font-size: 0;
+                line-height: 0;
+                position: absolute;
+                right: 16px;
+                top: -10px;
+                z-index: 9;
+            }
+
+            .icon-close-btn {
+                position: absolute;
+                right: 20px;
+                top: 20px;
+                font-size: 0.625rem;
+            }
+
+            &.md {
+                min-width: 425px;
+            }
+
+            .icon-pdf1 {
+                font-size: 1.875rem;
+            }
+            .description-box {
+                padding-left: 10px;
+
+                .sm-heading {
+                    font-size: 1rem;
+                    color: #394454;
+                    line-height: 1;
+                    margin-bottom: 4px;
+                }
+                .secondary-text {
+                    font-size: 0.813rem;
+                    color: #879098;
+
+                    small {
+                        font-size: 0.75rem;
+                    }
+                }
+                .badge {
+                    font-weight: 400 !important;
+                    font-size: 0.75rem;
+                    line-height: 1;
+                    padding: 3px 8px;
+                    text-transform: capitalize;
+                }
+            }
+        }
+    }
+}
+/* vNext -- Ends Here */

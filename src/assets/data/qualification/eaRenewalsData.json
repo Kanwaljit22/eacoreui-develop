@@ -1,0 +1,13 @@
+{
+    "rid": "b880397a-7151-4b4d-96b4-f2030ec8dcb9",
+    "user": "bhikumar",
+    "error": false,
+    "data" : {
+        "renewalId" : 123,
+      "countryOfTransaction" : "US",
+      "billingModel" : "test",
+      "priceList" : "Global",
+      "partnerName" : "BILL_TO",
+      "requestedStartDate": "2020-06-23"
+    }
+  }

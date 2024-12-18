@@ -1,0 +1,11 @@
+<div class="modal-header">
+  <h5 class="modal-title">Activity Log</h5>
+  </div>
+  <div class="modal-body">
+    <div>
+      <textarea style="height: 350px; margin-bottom: 25px; border-bottom: 0;" class="form-control">{{jsonObj | json}}</textarea>
+    </div>
+  <div class="modal-footer">
+      <button class="btn btn-secondary activity-btn" (click)="close()"  type="button">{{localeService.getLocalizedString('common.CANCEL')}}</button>
+      
+  </div> 

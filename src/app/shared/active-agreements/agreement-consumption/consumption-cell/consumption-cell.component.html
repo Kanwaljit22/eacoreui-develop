@@ -1,0 +1,7 @@
+<ng-template #dangerContent>
+  <span>Over Consumed</span>
+</ng-template>
+<span *ngIf="val < 0">
+  <span class="icon-error-edit custom-error-edit" [ngbTooltip]="dangerContent" tooltipClass="consumption-tooltip"
+    placement="top-right" container="body"></span><span class="danger"> {{val}} </span></span>
+<span *ngIf="params.value >= 0 || val === '--'" class="">{{val}}</span>

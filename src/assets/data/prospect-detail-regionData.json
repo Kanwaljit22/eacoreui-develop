@@ -1,0 +1,262 @@
+[
+    {
+        "theater": "North America",
+        "eaQty": "102,593",
+        "netEaLicenseAmount": "152,469,372",
+        "netEaServiceAmount": "104,567,000",
+        "netC1Credit": "-76,373.00",
+        "netAnchorCredit": "-76.373.00",
+        "netSRA": "-60.245.00",
+        "netTCV": "-60.245.00",
+        "children": [
+            {
+                "theater": "United States",
+                "eaQty": "17,520",
+                "netEaLicenseAmount": "8,130,600",
+                "netEaServiceAmount": "8,130,600",
+                "netC1Credit": "-1,809,608",
+                "netAnchorCredit": "-1,809,608",
+                "netSRA": "-1.809.608",
+                "netTCV": "-1.809.608"
+            },
+            {
+                "theater": "United States Outlying Pacific Islands",
+                "eaQty": "15,145",
+                "netEaLicenseAmount": "12,259,588",
+                "netEaServiceAmount": "12,259,588",
+                "netC1Credit": "0",
+                "netAnchorCredit": "0",
+                "netSRA": "0",
+                "netTCV": "0"
+            },
+            {
+                "theater": "Canada",
+                "eaQty": "7,493",
+                "netEaLicenseAmount": "0",
+                "netEaServiceAmount": "0",
+                "netC1Credit": "-364,598",
+                "netAnchorCredit": "-364,598",
+                "netSRA": "-364,598",
+                "netTCV": "-364,598"
+            },
+            {
+                "theater": "Mexico",
+                "eaQty": "5,572",
+                "netEaLicenseAmount": "2,960,125",
+                "netEaServiceAmount": "2,960,125",
+                "netC1Credit": "-1,176,456",
+                "netAnchorCredit": "-1,176,456",
+                "netSRA": "-1.176.456",
+                "netTCV": "-1.176.456"
+            }
+        ]
+    },
+    {
+        "theater": "South America",
+        "eaQty": "47,225",
+        "netEaLicenseAmount": "5,593,000",
+        "netEaServiceAmount": "3,909,000",
+        "netC1Credit": "0",
+        "netAnchorCredit": "0",
+        "netSRA": "-3.909.00",
+        "netTCV": "-3.909.00",
+        "children": [
+            {
+                "theater": "United States",
+                "eaQty": "17,520",
+                "netEaLicenseAmount": "8,130,600",
+                "netEaServiceAmount": "8,130,600",
+                "netC1Credit": "-1,809,608",
+                "netAnchorCredit": "-1,809,608",
+                "netSRA": "-1.809.608",
+                "netTCV": "-1.809.608"
+            },
+            {
+                "theater": "United States Outlying Pacific Islands",
+                "eaQty": "15,145",
+                "netEaLicenseAmount": "12,259,588",
+                "netEaServiceAmount": "12,259,588",
+                "netC1Credit": "0",
+                "netAnchorCredit": "0",
+                "netSRA": "0",
+                "netTCV": "0"
+            },
+            {
+                "theater": "Canada",
+                "eaQty": "7,493",
+                "netEaLicenseAmount": "0",
+                "netEaServiceAmount": "0",
+                "netC1Credit": "-364,598",
+                "netAnchorCredit": "-364,598",
+                "netSRA": "-364,598",
+                "netTCV": "-364,598"
+            },
+            {
+                "theater": "Mexico",
+                "eaQty": "5,572",
+                "netEaLicenseAmount": "2,960,125",
+                "netEaServiceAmount": "2,960,125",
+                "netC1Credit": "-1,176,456",
+                "netAnchorCredit": "-1,176,456",
+                "netSRA": "-1.176.456",
+                "netTCV": "-1.176.456"
+            }
+        ]
+    },
+    {
+        "theater": "Europe",
+        "eaQty": "134,193",
+        "netEaLicenseAmount": "0",
+        "netEaServiceAmount": "0",
+        "netC1Credit": "0",
+        "netAnchorCredit": "0",
+        "netSRA": "0",
+        "netTCV": "0",
+        "children": [
+            {
+                "theater": "United States",
+                "eaQty": "17,520",
+                "netEaLicenseAmount": "8,130,600",
+                "netEaServiceAmount": "8,130,600",
+                "netC1Credit": "-1,809,608",
+                "netAnchorCredit": "-1,809,608",
+                "netSRA": "-1.809.608",
+                "netTCV": "-1.809.608"
+            },
+            {
+                "theater": "United States Outlying Pacific Islands",
+                "eaQty": "15,145",
+                "netEaLicenseAmount": "12,259,588",
+                "netEaServiceAmount": "12,259,588",
+                "netC1Credit": "0",
+                "netAnchorCredit": "0",
+                "netSRA": "0",
+                "netTCV": "0"
+            },
+            {
+                "theater": "Canada",
+                "eaQty": "7,493",
+                "netEaLicenseAmount": "0",
+                "netEaServiceAmount": "0",
+                "netC1Credit": "-364,598",
+                "netAnchorCredit": "-364,598",
+                "netSRA": "-364,598",
+                "netTCV": "-364,598"
+            },
+            {
+                "theater": "Mexico",
+                "eaQty": "5,572",
+                "netEaLicenseAmount": "2,960,125",
+                "netEaServiceAmount": "2,960,125",
+                "netC1Credit": "-1,176,456",
+                "netAnchorCredit": "-1,176,456",
+                "netSRA": "-1.176.456",
+                "netTCV": "-1.176.456"
+            }
+        ]
+    },
+    {
+        "theater": "Asia",
+        "eaQty": "289",
+        "netEaLicenseAmount": "223,550,000",
+        "netEaServiceAmount": "154,923",
+        "netC1Credit": "0",
+        "netAnchorCredit": "0",
+        "netSRA": "0",
+        "netTCV": "0",
+        "children": [
+            {
+                "theater": "United States",
+                "eaQty": "17,520",
+                "netEaLicenseAmount": "8,130,600",
+                "netEaServiceAmount": "8,130,600",
+                "netC1Credit": "-1,809,608",
+                "netAnchorCredit": "-1,809,608",
+                "netSRA": "-1.809.608",
+                "netTCV": "-1.809.608"
+            },
+            {
+                "theater": "United States Outlying Pacific Islands",
+                "eaQty": "15,145",
+                "netEaLicenseAmount": "12,259,588",
+                "netEaServiceAmount": "12,259,588",
+                "netC1Credit": "0",
+                "netAnchorCredit": "0",
+                "netSRA": "0",
+                "netTCV": "0"
+            },
+            {
+                "theater": "Canada",
+                "eaQty": "7,493",
+                "netEaLicenseAmount": "0",
+                "netEaServiceAmount": "0",
+                "netC1Credit": "-364,598",
+                "netAnchorCredit": "-364,598",
+                "netSRA": "-364,598",
+                "netTCV": "-364,598"
+            },
+            {
+                "theater": "Mexico",
+                "eaQty": "5,572",
+                "netEaLicenseAmount": "2,960,125",
+                "netEaServiceAmount": "2,960,125",
+                "netC1Credit": "-1,176,456",
+                "netAnchorCredit": "-1,176,456",
+                "netSRA": "-1.176.456",
+                "netTCV": "-1.176.456"
+            }
+        ]
+    },
+    {
+        "theater": "Africa",
+        "eaQty": "33",
+        "netEaLicenseAmount": "65,063,00",
+        "netEaServiceAmount": "46,318,000",
+        "netC1Credit": "0",
+        "netAnchorCredit": "0",
+        "netSRA": "-3987.00",
+        "netTCV": "-3987.00",
+        "children": [
+            {
+                "theater": "United States",
+                "eaQty": "17,520",
+                "netEaLicenseAmount": "8,130,600",
+                "netEaServiceAmount": "8,130,600",
+                "netC1Credit": "-1,809,608",
+                "netAnchorCredit": "-1,809,608",
+                "netSRA": "-1.809.608",
+                "netTCV": "-1.809.608"
+            },
+            {
+                "theater": "United States Outlying Pacific Islands",
+                "eaQty": "15,145",
+                "netEaLicenseAmount": "12,259,588",
+                "netEaServiceAmount": "12,259,588",
+                "netC1Credit": "0",
+                "netAnchorCredit": "0",
+                "netSRA": "0",
+                "netTCV": "0"
+            },
+            {
+                "theater": "Canada",
+                "eaQty": "7,493",
+                "netEaLicenseAmount": "0",
+                "netEaServiceAmount": "0",
+                "netC1Credit": "-364,598",
+                "netAnchorCredit": "-364,598",
+                "netSRA": "-364,598",
+                "netTCV": "-364,598"
+            },
+            {
+                "theater": "Mexico",
+                "eaQty": "5,572",
+                "netEaLicenseAmount": "2,960,125",
+                "netEaServiceAmount": "2,960,125",
+                "netC1Credit": "-1,176,456",
+                "netAnchorCredit": "-1,176,456",
+                "netSRA": "-1.176.456",
+                "netTCV": "-1.176.456"
+            }
+        ]
+    }
+]

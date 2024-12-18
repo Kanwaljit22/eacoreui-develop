@@ -1,0 +1,56 @@
+<div class="debug-overlay" (click)="productSummaryService.architectureBreakdown = false;"></div>
+<div class="right-flyout open w-75 architectureBreakdown" >
+  <h1 class="right-flyout--heading mb-0">Architecture Breakdown for <span>
+      <div class="btn-group">
+        <button type="button" class="dropdown-toggle-new" (click)="showDrop()">{{partnerData.partnerName}}<span class="icon-arrow-stroke-right"></span></button>
+        <div class="dropdown-menu dropdown-toggle-menu" *ngIf="showArchDrop"> 
+          <div class="dropdown-scroll"><div *ngFor='let partner of partnerDropdown'>
+            <a class="dropdown-item active" (click)='changePartner(partner)'>{{partner.partnerName}}<span *ngIf='partner.partnerId === partnerData.partnerId' class="icon-tick-01"></span></a>
+          </div>
+        </div>
+        </div>
+      </div>
+    </span><i class="icon-close-btn" (click)="productSummaryService.architectureBreakdown = false;"></i></h1>
+  
+  <div class="right-flyout_content" *ngIf='showData'>
+      <div class="row mt-3 mb-3">
+          <div class="col-3">
+            <label class="label-text">Number of Contracts</label>
+            <h4 class="label-val">{{topPartnerInfo.noOfContract}}</h4>
+          </div>
+          <div class="col-3">
+            <label class="label-text">Unique Contract End Dates</label>
+            <h4 class="label-val">{{topPartnerInfo.uniqueContractEndDates}}</h4>
+          </div>
+          <div class="col-3">
+            <label class="label-text">Top Business Entity</label>
+            <h4 class="label-val">{{topPartnerInfo.topBusinessEntityDisplayName}}</h4>
+          </div>
+        </div>
+        <hr class="block-sep" />
+
+    <div>
+      <table width="100%" class="primary-table">
+        <thead>
+          <tr>
+            <th width="20%">Architetures</th>
+            <th width="20%">Install Sites</th>
+            <th width="20%">Contracts</th>
+            <th width="20%">Service Levels</th>
+            <th width="20%">Unique Contract End Dates</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor='let data of topPartnerInfo.myProspectInfo'>
+            <td>{{data.displayName}}</td>
+            <td>{{data.totalInstallSites}}</td>
+            <td>{{data.totalContractNumbers}}</td>
+            <td>{{data.totalServiceLevels}}</td>
+            <td>{{data.totalUniqueEndDates}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>

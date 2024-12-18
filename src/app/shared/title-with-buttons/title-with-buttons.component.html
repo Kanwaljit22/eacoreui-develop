@@ -1,0 +1,13 @@
+<div [ngClass]="[titleWithButton.baseClass]">
+    <div [ngClass]="[titleWithButton.rootClass]">
+        <div [ngClass]="[titleWithButton.parentClass]" [innerHTML]="title">
+        </div>
+        <div [ngClass]="[titleWithButton.buttonDivisionClass]">
+            <ul [ngClass]="[titleWithButton.buttonParentClass]">
+                <li *ngFor="let button of titleWithButton.buttons" [ngClass]="[button.parentClass]" >
+                    <button type="button" [disabled]="button.attr" [ngClass]="[button.buttonClass]" (click)="button.click()"><span class="icon-btn-back"></span> <span class="mid-text">{{button.name}}</span>  <span class="icon-btn-continue"></span></button>
+                </li> 
+            </ul>
+        </div>
+    </div>
+</div>

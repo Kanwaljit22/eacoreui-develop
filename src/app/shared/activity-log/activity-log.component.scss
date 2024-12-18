@@ -1,0 +1,19 @@
+.select-items.date-range {
+    padding: 0px 0px 0px;
+    height : 20px;
+    cursor : pointer;
+}
+
+.date-range .dropdown--typeAhead__arrow-management .dropdown-toggle::after {
+    top: 9px;
+}
+
+.date-range .dropdown--typeAhead__arrow-management button.drop-button {
+    top        : -8px;
+    position   : relative;
+    padding-top: 0;
+}
+
+.select-items.date-range .dropdown-menu.show {
+    top: 20px !important
+}

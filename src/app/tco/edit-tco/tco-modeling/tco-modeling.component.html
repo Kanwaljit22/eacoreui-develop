@@ -1,0 +1,470 @@
+<div id="filter-area" class="mb-3">
+    <div class="container-fluid">
+        <div class="row align-items-center">
+          <div class="col-md-3"> <ng-template #tipContent >{{this.tcoDataObject.name}}</ng-template> <h2 #value [ngbTooltip]="tipContent"  triggers="manual" #t="ngbTooltip" (mouseenter)="open(t, this.tcoDataObject.name)"
+            (mouseleave)="t.close()" class="ellipsis">{{this.tcoDataObject?.name}}</h2>
+          </div>
+          <div class="col-md-9">
+            <ul class="qualify-btn">
+            <li><button class="btn btn-secondary" *ngIf = "this.tcoDataObject?.priceDirty && !loadReviewFinalize" (click) = "restoreDefault(this.tcoDataObject?.id)" >Restore from EA Proposal</button></li>
+            <li><button class="btn btn-secondary" (click)='goToDocCenter()'>Document Center</button></li>
+            <li><button class="btn btn-secondary" (click)='goToBom()'>Preview Quote</button></li>
+            <li><button class="btn btn-secondary" (click)='goToProposalList()'>Proposal List</button></li>
+            <li><button class="btn btn-secondary" (click)="gotToListPage()">{{this.localeService.getLocalizedString('tco.VIEW_TCO_PROPOSALS')}}</button></li> 
+            <li class="btn-sep"><button class="btn btn-primary btn-continue" type="button" (click)="continue()" *ngIf='!loadReviewFinalize'><span class="mid-text">Continue</span> <span class="icon-btn-continue"></span></button></li>
+            <li><button *ngIf='appDataService.isReadWriteAccess && loadReviewFinalize' class="btn btn-secondary btn-back" (click)="backToOutcome()" type="button"><span class="icon-btn-back"></span> <span class="mid-text">{{this.localeService.getLocalizedString('common.BACK')}}</span></button></li>
+            <li><button *ngIf='appDataService.isReadWriteAccess && loadReviewFinalize' class="btn btn-primary btn-continue" (click)="continue()"><span class="mid-text">{{this.localeService.getLocalizedString('common.SAVE')}} &amp; {{this.localeService.getLocalizedString('common.CONFIRM')}}</span> <span class="icon-btn-continue"></span></button></li>
+          </ul>
+          </div>
+
+        </div>
+    </div>
+  </div>
+  <div class="main-block-wrapper container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="col-md-12">
+          <p class="disclaimer-text mb-0 pb-0 border-none"><strong>Disclaimer:</strong> Per Cisco Policies, Customer pricing should not be shared without an approved DSA and Partner provided customer facing pricing.<span *ngIf="appDataService.includedPartialIb">This TCO represents a partial pricing view on how Enterprise Agreements are better option than ALC (Business-As-Usual), to leverage full TCO benefits, please have a signed LoCC in place with your customer</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="alert alert--warning alert-dismissable clearfix" *ngIf='!(appDataService.isReadWriteAccess)'
+    style="width: 93%; margin: 0px 0px 10px 53px;">
+    <span class="alert-icon">
+      <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+    </span>
+    <span>{{localeService.getLocalizedString('common.RW_ACCESS_MESSAGE')}}
+      {{localeService.getLocalizedString('tco.list.TCO')}}{{localeService.getLocalizedString('common.REQUEST_ACCESS')}}
+      <a href="javascript:void(0)"
+        (click)="appDataService.requestAccessForProposalOrQual(constantsService.PROPOSAL,proposalDataService.proposalDataObject.proposalId)">{{localeService.getLocalizedString('common.CONTACT_OWNER')}}</a></span>
+      <span class="alert-action">
+        <button class="icon-close-btn mt-0" type="button" (click)="closeInfo()" id=""></button>
+      </span>
+  </div>
+  <message></message>
+  <!-- tco modeling page starts here -->
+  <div class="tco-scenario-wrapper" *ngIf="!loadReviewFinalize">
+    <div class="container-fluid">
+      <div class="row">
+        <!-- Start of Left Section -->
+        <div class="col-md-8 pr-0">
+          <div class="tco-shadow">
+            <div class="row bg-white m-0">
+              <div class="col-4 tco-scenario-block d-flex align-items-center">
+                <span class="tco-icon-sm"></span>
+                <h3 class="d-inline-block"><span>{{localeService.getLocalizedString('tco.TCO_MODELLING')}}</span></h3> </div>
+              <div class="col-4 text-center tco-scenario-block">
+                <h5 class="head-title">Business-As-Usual</h5>
+                <p class="tco-head-para">Total TCO Value is <span class="highlight-text">{{this.tcoDataObject?.currencyCode}} {{pricingData?.bauPrice | shortNumber}}</span> with <span class="highlight-text">{{pricingData?.bauDiscount}}</span> discount </p>
+              </div>
+              <div class="col-4 text-center tco-scenario-block border-none">
+                <h5 class="head-title">Enterprise Agreement</h5>
+                <p class="tco-head-para">Total TCO Value is <span class="highlight-text">{{this.tcoDataObject?.currencyCode}} {{pricingData?.eaPrice | shortNumber}}</span> with <span class="highlight-text">{{pricingData?.eaDiscount}}</span> discount</p>
+                <div class="warning-alert mt-2"  *ngIf = "this.tcoDataObject?.priceDirty" ><i class="icon-war-alert"></i><span class="war-info">{{localeService.getLocalizedString('tco.common.EA_VALUE_INCONSISTENT')}}</span></div>
+              </div>
+            </div>
+            <!-- End of Block 1 -->
+    
+            <div *ngFor="let a of modelingData; let i = index;">
+              <div class="row tco-scenario-title m-0">
+                <div class="col-12 tco-scenario-block border-none text-right">
+                  <h5 class="content-title m-0 float-left text-left border-none">{{a.name}}</h5><span *ngIf="i===0">All prices in {{this.tcoDataObject?.currencyCode}}</span>
+                </div>
+              </div>
+              <div class="row bg-white dashed-border-top tco-row-border-left m-0" [ngClass]="{'pricing-border-left': a.id === this.constantsService.TCO_METADATA_IDS.Pricing, 'markup-margin-border': a.id === this.constantsService.TCO_METADATA_IDS.partnerMarkupMargin, 'teal-tco-border': a.id === this.constantsService.TCO_METADATA_IDS.PromotionCost,
+              'primary-tco-border': a.id === this.constantsService.TCO_METADATA_IDS.trueForwardBenefits, 'secondary-tco-border': a.id === this.constantsService.TCO_METADATA_IDS.GrowthBenefits, 'other-tco-border': a.id === this.constantsService.TCO_METADATA_IDS.operationalEfficiency}" *ngFor="let b of a.list">
+                <div class="col-4 tco-scenario-block d-flex" [ngClass]="{'additional-cost': b.name === 'Additional Cost'}">
+                  <div class="align-self-center w-100" [ngClass]="{'col-12': !b.name, 'pt-2': b.id === constantsService.TCO_METADATA_IDS.purchaseAdjustment || constantsService.TCO_METADATA_IDS.rampPurchaseAdjustment , 'pb-2': b.id === constantsService.TCO_METADATA_IDS.purchaseAdjustment || constantsService.TCO_METADATA_IDS.rampPurchaseAdjustment}">
+                    <h5 class="text-normal align-self-center" [ngClass]="{'highlight-text': b.id === constantsService.TCO_METADATA_IDS.netPriceWithPA}">{{b.name}}
+                      <span *ngIf="b.name && b.id != constantsService.TCO_METADATA_IDS.avgMultiSuiteDiscount" class="icon-alert-info1" placement="top" container="body" 
+                      ngbTooltip={{b.tooltip}}></span>
+                      <ng-template #tipContent>
+                        <span [innerHTML]="b.tooltip | stringToHtml"></span>
+                      </ng-template>
+                      <span *ngIf="b.name && b.id === constantsService.TCO_METADATA_IDS.avgMultiSuiteDiscount" class="icon-alert-info1" [closeDelay]="2000"   [ngbTooltip]="tipContent" placement='top' container="body" #t="ngbTooltip"></span>
+                      <input *ngIf="!b.name" class="form-control text-left" required="" type="text" value="">
+                    </h5>
+                  </div>
+                </div>
+  
+                <div class="col-4 tco-scenario-block">
+                  <div class="align-self-center p-0" [ngClass]="{'row': a.id === this.constantsService.TCO_METADATA_IDS.GrowthBenefits, 'col-12': a.id !== this.constantsService.TCO_METADATA_IDS.GrowthBenefits}">
+                    <!-- <div class="col-4 pr-1" *ngIf="b.id === 'netPrice'">
+                        <div class="position-relative">
+                          <div class="custom-dropdown">
+                            <select class="custom-select mb-2 mr-sm-2 mb-sm-0 col myCustomSelect" name="accessType" required="">
+                              <option value="derived" *ngFor="let d of b.bauOption">{{d.option}}</option>
+                            </select>
+                            <span class="icon-down-arrow"></span>
+                          </div>
+                        </div>
+                    </div> -->
+                    
+                    <div class="row d-flex" *ngIf="b.id === constantsService.TCO_METADATA_IDS.markupMargin">
+                      <div class="col-4 pr-0">
+                          <div class="custom-dropdown">
+                            <!-- <select class="custom-select mb-2 mr-sm-2 mb-sm-0 col myCustomSelect" name="accessType" required="">
+                              <option value="markup" *ngFor="let c of b.eavalueOption">{{c.option.label}}</option>
+                            </select>
+                            <span class="icon-down-arrow"></span> -->
+                            <div ngbDropdown class="d-block">
+                                <button class="form-control text-left" id="dropdownBasic1" ngbDropdownToggle>{{selectedMarkForBau}}</button>
+                                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                                  <button ngbDropdownItem (click)="selectOption(d,'bau')" *ngFor="let d of markOptions">{{d}}</button>
+                                </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-4"> 
+                        <div class="percentage-val form-group m-0">
+                          <input (keyup)='isNumberOnlyKey($event)' (blur)="implicitSave( b, a, modelingData, $event,'bauPercentage')"  class="form-control" required="" type="text" value="{{b.bauPercentage}}" [(ngModel)]="b.bauPercentage">
+                        </div>
+                      </div>
+                      <div class="col-4 text-right align-self-center"> 
+                          <!-- <ng-template #tipContent >{{b.bauValue}}</ng-template>  -->
+                          <h5 style="font-weight: 400;color: #333;"  placement="top" container="body" 
+                          ngbTooltip={{b.bauValue}}>{{b.bauValue}}</h5>
+                      </div>
+                    </div>
+                    <div class="col-4 min-width" *ngIf="a.id === this.constantsService.TCO_METADATA_IDS.GrowthBenefits">
+                        <div class="form-group m-0" [ngClass]="{'percentage-val': a.id === this.constantsService.TCO_METADATA_IDS.GrowthBenefits}">
+                          <!-- making default not editable if there is no data  -->
+                          <span *ngIf="!b.bauEditable">{{b.bauPercentage}}</span>
+                          <input *ngIf="b.bauEditable" (keyup)='isNumberOnlyKey($event)' (blur)="implicitSave( b, a, modelingData, $event,'bauPercentage')" class="form-control" required="" type="text" [(ngModel)]="b.bauPercentage" value="{{b.bauPercentage}}" >
+                        </div>
+                    </div>
+                    <ng-container *ngIf="b.id !== constantsService.TCO_METADATA_IDS.markupMargin">
+                    <div class="align-self-center" [ngClass]="{'col-8': a.id === this.constantsService.TCO_METADATA_IDS.GrowthBenefits, 'pt-1': (b.id === constantsService.TCO_METADATA_IDS.purchaseAdjustment || 'Markup/Margin' || constantsService.TCO_METADATA_IDS.rampPurchaseAdjustment)}">
+                      <div class="form-group m-0" [ngClass]="{'text-right': (!b.bauEditable || a.id === this.constantsService.TCO_METADATA_IDS.GrowthBenefits), 'restore-val': b.bauEditable && hasChangedFromInitialValue(b, 'businessAsUsual')}">
+                        <i  class="icon-restore" title="Restore Value" *ngIf="b.bauEditable && hasChangedFromInitialValue(b, 'businessAsUsual')" (click)="restoreValue(b, 'businessAsUsual')"></i>
+                        <span *ngIf="(!b.bauEditable && b.id !== constantsService.TCO_METADATA_IDS.netPriceWithPA) || a.id === this.constantsService.TCO_METADATA_IDS.GrowthBenefits">{{b.bauValue}}</span>
+                        <span *ngIf="(!b.bauEditable && b.id === constantsService.TCO_METADATA_IDS.netPriceWithPA)" class="highlight-text">{{b.bauValue}}</span>                         
+                        <input (keydown)='numberOnlyKey(b, $event, b.id)' (blur)="implicitSave( b, a, modelingData, $event)" class="form-control" *ngIf="b.bauEditable && a.id !== this.constantsService.TCO_METADATA_IDS.GrowthBenefits && b.id !== constantsService.TCO_METADATA_IDS.netPriceWithPA" [(ngModel)]="b.bauValue" required="" type="text" value="{{b.bauValue}}" (keyup)='averageDiscountKey(b, $event)'>
+                        <input (keydown)='numberOnlyKey(b, $event, b.id)' (blur)="implicitSave( b, a, modelingData, $event)" class="form-control" *ngIf="b.bauEditable && a.id !== this.constantsService.TCO_METADATA_IDS.GrowthBenefits && (b.id === constantsService.TCO_METADATA_IDS.netPriceWithPA)" [(ngModel)]="b.bauValue" required="" type="text" value="{{b.bauValue}}" (keyup)='averageDiscountKey(b, $event)' style="font-weight: 600;">
+                      </div>
+                    </div>
+                  </ng-container>
+                  </div>
+                </div>
+                <div class="col-4 tco-scenario-block border-none align-self-center">
+                    <div class="" [ngClass]="{'row d-flex':b.id === constantsService.TCO_METADATA_IDS.netPrice || b.id === constantsService.TCO_METADATA_IDS.netPriceWithPA || b.id === constantsService.TCO_METADATA_IDS.netPriceWithPA}">
+                        <!-- <div class="col-4 align-self-center" *ngIf="b.id === 'netPrice'"> 
+                          <h5>BYON</h5>
+                        </div> -->
+                      
+                    <div class="" [ngClass]="{'col-12': b.id === constantsService.TCO_METADATA_IDS.netPrice || b.id === constantsService.TCO_METADATA_IDS.netPriceWithPA  || b.id === constantsService.TCO_METADATA_IDS.netPriceWithPA}">
+                      <div class="form-group m-0" *ngIf="b.id !== constantsService.TCO_METADATA_IDS.markupMargin" [ngClass]="{'text-right': !b.eaEditable, 'restore-val': b.bauEditable && hasChangedFromInitialValue(b, 'businessAsUsual')}">
+                        <a href="javascript:void(0)" class="icon-restore" title="Restore Value" *ngIf="b.bauEditable && hasChangedFromInitialValue(b, 'enterpriseAgreement')" (click)="restoreValue(b, 'enterpriseAgreement')"></a>
+                        <span *ngIf="!b.eaEditable && b.id !== constantsService.TCO_METADATA_IDS.netPriceWithPA">{{b.eavalue}}<span *ngIf="b.id === constantsService.TCO_METADATA_IDS.avgMultiSuiteDiscount">%</span></span>
+                        <span *ngIf="!b.eaEditable && (b.id === constantsService.TCO_METADATA_IDS.netPriceWithPA)" class="highlight-text">{{b.eavalue}}</span>                       
+                        <input (keydown)='numberOnlyKey(b, $event, b.id, "eavalue")' (blur)="implicitSave( b, a, modelingData, $event,'eavalue')" *ngIf="b.eaEditable && b.id !== constantsService.TCO_METADATA_IDS.netPriceWithPA" class="form-control" [(ngModel)]="b.eavalue" required="" type="text" value="{{b.eavalue}}" (keyup)='averageDiscountKey(b, $event)'>
+                        <input (keydown)='numberOnlyKey(b, $event, b.id, "eavalue")' (blur)="implicitSave( b, a, modelingData, $event,'eavalue')" *ngIf="b.eaEditable && (b.id === constantsService.TCO_METADATA_IDS.netPriceWithPA)" class="form-control" [(ngModel)]="b.eavalue" required="" type="text" value="{{b.eavalue}}" (keyup)='averageDiscountKey(b, $event)' style="font-weight: 600;">
+                      </div>
+                  </div>
+                </div>
+                  <div class="row d-flex" *ngIf="b.id === constantsService.TCO_METADATA_IDS.markupMargin">
+                    <div class="col-4 pr-0">
+                        <div class="custom-dropdown">
+                          <!-- <select class="custom-select mb-2 mr-sm-2 mb-sm-0 col myCustomSelect" name="accessType" required="">
+                            <option value="markup" *ngFor="let c of b.eavalueOption">{{c.option.label}}</option>
+                          </select>
+                          <span class="icon-down-arrow"></span> -->
+                          <div ngbDropdown class="d-block">
+                              <button class="form-control text-left" id="dropdownBasic1" ngbDropdownToggle>{{selectedMark}}</button>
+                              <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                                <button ngbDropdownItem (click)="selectOption(d,'ea')" *ngFor="let d of markOptions">{{d}}</button>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4"> 
+                      <div class="percentage-val form-group m-0">
+                        <input (keyup)='isNumberOnlyKey($event)' (blur)="implicitSave( b, a, modelingData, $event,'eaPercentage')"  class="form-control" required="" type="text" value="{{b.eaPercentage}}" [(ngModel)]="b.eaPercentage">
+                      </div>
+                    </div>
+                    <div class="col-4 text-right align-self-center "> 
+                        <!-- <ng-template #tipContent >{{b.eavalue}}</ng-template>  -->
+                        <h5 style="font-weight: 400;color: #333;" placement="top" container="body" 
+                        ngbTooltip={{b.eavalue}}>{{b.eavalue}}</h5>  
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+        <!-- Additional cost code change  -->
+    
+            <div class="row bg-white dashed-border-bottom tco-row-border-left m-0" [ngClass]="{'other-tco-border':true}" *ngFor="let additionalCost of arrAdditionalCost; let i = index">
+
+              <div class="col-4 tco-scenario-block d-flex" [ngClass]="{'additional-cost':false}">
+                <div class="align-self-center d-flex w-100 align-items-center" [ngClass]="{'col-12':false}">
+                    <input class="form-control text-left" placeholder= "{{localeService.getLocalizedString('tco.modelling.placeholder.ADDITIONAL_COST')}}" required="" (blur)="implicitSaveAdditionalCost(additionalCost)" [(ngModel)]="additionalCost.name" type="text" value="{{additionalCost.name}}">
+                    <span class="icon-delete"(click)="deleteRow(i)"></span>
+                </div>
+              </div>
+
+              <div class="col-4 tco-scenario-block d-flex">
+                <div class="align-self-center p-0" [ngClass]="{'row':false, 'col-12':true}">
+
+                  <div class="" [ngClass]="{'col-8': false}">
+                    <div class="form-group m-0" [ngClass]="{'text-right':false}">
+                        <input (keydown)='numberOnlyKey(b, $event, "additionalCost")' (blur)="implicitSaveAdditionalCost(additionalCost)"  class="form-control" [(ngModel)]="additionalCost.value" required="" type="text" value="{{additionalCost.value}}"> 
+                        <!-- <input (keydown)='numberOb,nlyKey($event)' (blur)="implicitSave( b, a, modelingData)" class="form-control" *ngIf="b.bauEditable && b.bauValue" [(ngModel)]="b.bauValue" required="" type="text" value="{{b.bauValue}}"> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-4 tco-scenario-block border-none align-self-center">
+                  <div class="" [ngClass]="{'row d-flex':false}">
+                    
+                  <div class="" [ngClass]="{'col-8':false}">
+                    <div class="form-group m-0" [ngClass]="{'text-right':true}">
+                      <span >{{''}}</span>
+                    </div>
+                </div>
+              </div>
+              </div>
+            </div>
+
+            <div class="row bg-white pb-2 m-0" >
+              <div class="col-12 text-center pb-2 pt-1">
+                  <a class="add-more-items" href="javascript:void(0)" (click)="addMore()"><span class="ico-add"></span> Add additional cost</a>
+              </div>
+            </div>
+    
+            <!-- TCO Scenario - 2 -->
+    
+            <div class="container-fluid">
+              <div class="row bg-white final-row">
+                <div class="col-4 tco-scenario-block">
+                  <h5>Total TCO Value </h5></div>
+                <div class="col-4 tco-scenario-block">
+                  <h5 class="text-right">{{this.utilitiesService.formatWithNoDecimalForDashboard(pricingData?.bauPrice)}}</h5>
+                </div>
+                <div class="col-4 tco-scenario-block text-right">
+                  <h5 class="text-right">{{this.utilitiesService.formatWithNoDecimalForDashboard(pricingData?.eaPrice)}}</h5>
+                </div>
+                <!-- <div class="col-12 tco-scenario-block border-top border-none">
+                  <p class="p-0 m-0 alert-text"><strong>Disclaimer:</strong> Per Cisco Policies, Customer pricing should not be shared without an approved DSA and Partner provided customer facing pricing.</p>
+                </div> -->
+              </div>
+            </div>
+            <!-- TCO Scenario - Floating Row -->
+          </div>
+        </div>
+        <!-- End of Left Section-->
+        <!-- Start of Right Section -->
+        <div class="col-4 analysis">
+          <app-tco-graph [tcoSummaryData]="tcoDataObject" [stackedBarData]="stackedBarData" [state]="state"></app-tco-graph>
+        </div>
+          <!-- <div class="col-4 analysis">
+            <app-tco-graph [tcoSummaryData]="tcoDataObject" [stackedBarData]="stackedBarData" [state]="state"></app-tco-graph>
+            <div class="col-wrapper">
+              <h3>Look at the comparison analysis</h3>
+              <ul>
+                <li>
+                  <span class="analysis-value">{{pricingData?.eabenefitPerc}}%<small>  Benefits</small></span>
+                  <span class="analysis-desc">Calculations revealed, benefit of {{pricingData?.eabenefitPerc}}% with EA in comparison to
+                    Business-As-Usual</span>
+                </li>
+                <hr class="dashed">
+                <li>
+                  <span class="tco-price-list">{{this.tcoDataObject?.currencyCode}}</span>
+                  <span class="analysis-value">{{this.utilitiesService.formatWithNoDecimalForDashboard(pricingData?.eaBenefitValue)}} <small>Savings</small></span>
+                  <span class="analysis-desc">You can save {{pricingData?.eaBenefitValue | shortNumber}} by selling through Enterprise Agreement</span>
+                </li>
+              </ul>
+              <div class="tco-graph-wrapper">
+                <div class="tco-graph-iconset text-right">
+                    <hr class="solid">
+                  <a class="tco-graph-icon" href="javascript:void(0)" (click)="showBarGrph()"><span class="icon-graph" [ngClass]="{'active': !showStacked}"></span></a>
+                  <a class="tco-graph-icon" href="javascript:void(0)" (click)="showStackedGrph()"><span class="icon-stack" [ngClass]="{'active': showStacked}"></span></a>
+                </div>
+                <div class="tco-graph-values">
+                  <ul>
+                    <li><span class="value-title">Business-As-Usual</span><span class="value">{{pricingData?.bauPriceForPrettifyNo | shortNumber}}</span></li>
+                    <li><span class="value-title">Enterprise Agreement</span><span class="value">{{pricingData?.eaPriceForPrettifyNo | shortNumber}}</span></li>
+                  </ul>
+                </div>
+                <app-bar-stacked-chart [data]="stackedBarData" [state]="state" *ngIf="showStacked"></app-bar-stacked-chart>
+                <app-bar-group-chart [data]="stackedBarData" *ngIf="!showStacked"></app-bar-group-chart>
+              </div>
+            </div>
+          </div> -->
+          <!-- End of Right Section -->
+        
+      </div>
+    </div>
+  </div>
+  <!-- tco modeling page ends here -->
+  <!-- review page starts here  -->
+  <section id="tco-scenario-one" *ngIf="loadReviewFinalize">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-8">
+          <div class="col-wrapper">
+            <h4 class="float-left">{{this.localeService.getLocalizedString('price.est.financial.EA_FINANCIAL_SUMMARY')}}
+            </h4><span class="float-right marginT5">All prices in {{tcoDataObject?.currencyCode}}</span>
+            <div class="clearfix"></div>
+            <div class="card">
+              <div class="card-header">
+                <h5 class="card-title">{{this.localeService.getLocalizedString('tco.list.BUSINESS_AS_USUAL')}}</h5>
+              </div>
+              <div class="card-body">
+                <ul class="list-group">
+                  <li class="list-group-item">
+                    <span class="item-name">{{this.localeService.getLocalizedString('tco.PRODUCT')}}
+                      {{this.localeService.getLocalizedString('tco.list.LIST_PRICE')}}</span>
+                    <span
+                      class="item-value">{{this.utilitiesService.formatWithNoDecimalForDashboard(tcoDataObject?.businessAsUsual?.productListPrice)}}</span>
+                  </li>
+                  <li class="list-group-item">
+                    <span class="item-name">{{this.localeService.getLocalizedString('tco.SERVICE')}}
+                      {{this.localeService.getLocalizedString('tco.list.LIST_PRICE')}}</span>
+                    <span
+                      class="item-value">{{(tcoDataObject?.businessAsUsual?.serviceListPrice === 0) ? "0" : this.utilitiesService.formatWithNoDecimalForDashboard(tcoDataObject?.businessAsUsual?.serviceListPrice)}}</span>
+                  </li>
+                  <li class="list-group-item">
+                    <span class="item-name">{{this.localeService.getLocalizedString('tco.DISCOUNTS')}}</span>
+                    <span
+                      class="item-value">{{this.utilitiesService.formatValue(this.utilitiesService.getFloatValue(tcoDataObject?.businessAsUsual?.averageDiscount))}}%</span>
+                  </li>
+                  <li class="list-group-item">
+                    <span
+                      class="item-name">{{this.localeService.getLocalizedString('tco.TCO_MODELING_MARKUP')}}/{{this.localeService.getLocalizedString('tco.TCO_MODELING_MARGIN') }}</span>
+                    <span
+                      class="item-value">{{this.utilitiesService.formatWithNoDecimalForDashboard(tcoDataObject?.businessAsUsual?.markupMargin?.value)}}</span>
+                  </li>
+                  <li class="list-group-item">
+                    <span class="item-name">{{this.localeService.getLocalizedString('tco.list.ADD_COST')}}</span>
+                    <span
+                      class="item-value">{{this.utilitiesService.formatWithNoDecimalForDashboard(tcoDataObject?.businessAsUsual?.additionalCost)}}</span>
+                  </li>
+                </ul>
+              </div>
+              <div class="card-footer">
+                <ul class="list-group">
+                  <li class="list-group-item">
+                    <span class="item-name">{{this.localeService.getLocalizedString('tco.list.TCO')}}
+                      {{this.localeService.getLocalizedString('tco.VALUE')}}</span>
+                    <span
+                      class="item-value">{{this.utilitiesService.formatWithNoDecimalForDashboard(tcoDataObject?.businessAsUsual?.totalTcoValueWithPA)}}</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+  
+            <div class="card">
+              <div class="card-header">
+                <h5 class="card-title">{{this.localeService.getLocalizedString('tco.list.ENT_AGREEMENT')}}</h5>
+              </div>
+              <div class="card-body">
+                <ul class="list-group">
+                  <li class="list-group-item">
+                    <span class="item-name">{{this.localeService.getLocalizedString('tco.PRODUCT')}}
+                      {{this.localeService.getLocalizedString('tco.list.LIST_PRICE')}}</span>
+                    <span
+                      class="item-value">{{this.utilitiesService.formatWithNoDecimalForDashboard(tcoDataObject?.enterpriseAgreement?.productListPrice)}}</span>
+                  </li>
+                  <li class="list-group-item">
+                    <span class="item-name">{{this.localeService.getLocalizedString('tco.SERVICE')}}
+                      {{this.localeService.getLocalizedString('tco.list.LIST_PRICE')}}</span>
+                    <span
+                      class="item-value">{{(tcoDataObject?.enterpriseAgreement?.serviceListPrice === 0) ? "0" :this.utilitiesService.formatWithNoDecimalForDashboard(tcoDataObject?.enterpriseAgreement?.serviceListPrice)}}</span>
+                  </li>
+                  <li class="list-group-item">
+                    <span class="item-name">{{this.localeService.getLocalizedString('tco.DISCOUNTS')}}</span>
+                    <span
+                      class="item-value">{{this.utilitiesService.formatValue(this.utilitiesService.getFloatValue(tcoDataObject?.enterpriseAgreement?.averageDiscount))}}%</span>
+                  </li>
+                  <li class="list-group-item">
+                    <span
+                      class="item-name">{{this.localeService.getLocalizedString('tco.TCO_MODELING_MARKUP')}}/{{this.localeService.getLocalizedString('tco.TCO_MODELING_MARGIN') }}</span>
+                    <span
+                      class="item-value">{{this.utilitiesService.formatWithNoDecimalForDashboard(tcoDataObject?.enterpriseAgreement?.markupMargin?.value)}}</span>
+                  </li>
+                  <li class="list-group-item">
+                    <span class="item-name">{{this.localeService.getLocalizedString('tco.list.ADD_COST')}}</span>
+                    <span
+                      class="item-value">{{(tcoDataObject?.businessAsUsual?.enterpriseAgreement) ? this.utilitiesService.formatWithNoDecimalForDashboard(tcoDataObject?.enterpriseAgreement?.additionalCost) : "-"}}</span>
+                  </li>
+                </ul>
+              </div>
+              <div class="card-footer">
+                <ul class="list-group">
+                  <li class="list-group-item">
+                    <span class="item-name">{{this.localeService.getLocalizedString('tco.list.TCO')}}
+                      {{this.localeService.getLocalizedString('tco.VALUE')}}</span>
+                    <span
+                      class="item-value">{{this.utilitiesService.formatWithNoDecimalForDashboard(tcoDataObject?.enterpriseAgreement?.totalTcoValueWithPA)}}</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+  
+          <div class="col-wrapper">
+            <h4>{{this.localeService.getLocalizedString('tco.review.CUSTOMER_OUTCOMES_HEADER')}}</h4>
+            <div *ngIf="tcoSummaryData && tcoSummaryData.length > 0">
+              <div *ngFor="let a of tcoSummaryData">
+                <div class="row outcomes-tile">
+                  <div class="col-12 p-0">
+                    <ul *ngFor="let data of a.value ; let i = index;">
+                      <li>
+                        <span class="outcomes-name">{{data.name}}</span>
+                        <span class="outcomes-desc">{{data.desc}}</span>
+                      </li>
+                      <hr *ngIf="a.value.length > (i+1)">
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <div class="col-4 analysis">
+            <app-tco-graph [tcoSummaryData]="tcoDataObject" [stackedBarData]="stackedBarData" [state]="state"></app-tco-graph>
+          <!-- <div class="col-wrapper">
+            <h4 class="borderBottom">{{this.localeService.getLocalizedString('tco.ANALYSIS')}}</h4>
+            <ul>
+              <li>
+                <span
+                  class="analysis-value">{{(tcoDataObject?.benefitsPercent) ? this.utilitiesService.formatValue(this.utilitiesService.getFloatValue(tcoDataObject?.benefitsPercent)) : 0.00 }}%
+                  <small>{{this.localeService.getLocalizedString('tco.BENEFITS')}}</small></span>
+                <span class="analysis-desc">{{this.localeService.getLocalizedString('tco.ANALYSIS_BENEFITS_MESSAGE_01')}}
+                  {{(tcoDataObject?.benefitsPercent) ? this.utilitiesService.formatValue(this.utilitiesService.getFloatValue(tcoDataObject?.benefitsPercent)) : 0.00}}{{this.localeService.getLocalizedString('tco.ANALYSIS_BENEFITS_MESSAGE_02')}}
+                  {{this.localeService.getLocalizedString('tco.list.BUSINESS_AS_USUAL')}}</span>
+              </li>
+              <hr class="dashed">
+              <li>
+                <span class="tco-price-list">{{tcoDataObject?.currencyCode}}</span>
+                <span
+                  class="analysis-value">{{this.utilitiesService.formatWithNoDecimalForDashboard(tcoDataObject?.savings)}}
+                  <small>{{this.localeService.getLocalizedString('tco.SAVINGS')}}</small></span>
+                <span class="analysis-desc">{{this.localeService.getLocalizedString('tco.ANALYSIS_SAVINGS_MESSAGE_01')}}
+                  {{((tcoDataObject?.savings) ? tcoDataObject?.savings : 0.00 )| shortNumber}}
+                  {{this.localeService.getLocalizedString('tco.ANALYSIS_SAVINGS_MESSAGE_02')}}
+                  {{this.localeService.getLocalizedString('tco.list.ENT_AGREEMENT')}}</span>
+              </li>
+              <hr class="solid" />
+            </ul>
+            <div class="tco-graph-values">
+              <ul>
+                <li><span
+                    class="value-title">{{this.localeService.getLocalizedString('tco.list.BUSINESS_AS_USUAL')}}</span><span
+                    class="value">{{tcoDataObject?.businessAsUsual?.totalTcoValue | shortNumber}}</span></li>
+                <li><span
+                    class="value-title">{{this.localeService.getLocalizedString('tco.list.ENT_AGREEMENT')}}</span><span
+                    class="value">{{tcoDataObject?.enterpriseAgreement?.totalTcoValue | shortNumber}}</span></li>
+              </ul>
+            </div>
+            <app-bar-stacked-chart class="tco-graph-wrapper" [data]="stackedBarData" [state]="state">
+            </app-bar-stacked-chart>
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- review page ends here  -->

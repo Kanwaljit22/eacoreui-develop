@@ -1,0 +1,65 @@
+$browser-context:16;
+@function rem($pixels, $context: $browser-context) {
+    @return #{$pixels/$context}rem;
+}
+.vNext-lookupcontent {
+    padding: 0 110px 20px 110px;
+    text-align: center;
+}
+
+.vNext-lookup-desc {
+    padding-left: 65px;
+    padding-right: 65px;
+}
+
+h2 {
+    font-size:rem(24);
+    color: #394454;
+    font-weight: 300;
+    margin: 50px 0 15px 0;
+    line-height: 1;
+    text-align: center;
+}
+
+h5 {
+    font-size:rem(16);
+    color: #394454;
+    font-weight: 400;
+    margin-bottom: 35px;
+    line-height: 25px;
+}
+
+.customer-label {
+    font-weight: 700;
+    font-size: rem(14);
+    color: #394454;
+}
+/*---------- Responsive CSS ----------*/
+
+@media screen and (min-width:1600px){
+    h2 {
+        font-size:rem(25);
+    }
+    
+    h5 {
+        font-size:rem(17);
+    }
+    
+    .customer-label {
+        font-size: rem(15);
+    }
+}
+
+@media screen and (min-width:1920px){
+    h2 {
+        font-size:rem(26);
+    }
+    
+    h5 {
+        font-size:rem(18);
+    }
+    
+    .customer-label {
+        font-size: rem(16);
+    }
+}

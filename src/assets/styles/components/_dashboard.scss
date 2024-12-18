@@ -1,0 +1,55 @@
+.arc-count { 
+    position: absolute;
+    font-weight: 300;
+    font-size: rem(28);
+    padding-top: $qtr-spacing;
+    right:0;
+    top:0;
+    height:100%;
+    width: rem(60); 
+    @include flex-center;
+
+    &.disabled{
+        pointer-events: none !important; 
+        opacity: 1;
+    }
+    @media screen and (max-width: 1366px) {
+        font-size:rem(22);
+    }
+    @media screen and (max-width: 1440px) {
+        font-size:rem(24);
+    }
+    &::before { 
+        content: "";
+        height: 100%;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 1px;
+        left: 0;
+        background: $border-color;
+
+        @media (min-width: 1640px) and (max-width: 1920px){
+            top: 0;
+        }
+    }
+
+}
+
+
+
+.market-landing-width { 
+    max-width: rem(1440);
+}
+
+.disabled { 
+    opacity: 1; 
+    cursor: text; 
+    pointer-events: none;
+}
+  
+.white-container-bg {
+    background: $white-color;
+ 
+    padding: calc(#{$base-spacing} * 2) 0 calc(#{$base-spacing} * 2.5);
+}

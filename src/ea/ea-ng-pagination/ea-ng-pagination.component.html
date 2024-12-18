@@ -1,0 +1,22 @@
+<div class="d-flex vNext-pagination justify-content-between align-items-center mt-3">
+    <div class="col pl-0">
+        <label class="mb-0 pagination-label">{{'common.SHOW' | localizationPipe : localizationService.localizedkeySet.size}} {{getResultInitial()}}-{{getResultEnd()}} of {{paginationObject?.noOfRecords}} <span *ngIf="pageType">{{'ng-pagination.RESULT_SORTED_BY_ELAPSED_TIME' | localizationPipe : localizationService.localizedkeySet.size}}</span> <span  *ngIf="!pageType">{{'ng-pagination.RESULT_SORTED_BY' | localizationPipe : localizationService.localizedkeySet.size}}</span> </label>
+    </div>  
+    <div class="col d-flex justify-content-end pr-0">
+        <ngb-pagination [collectionSize]="paginationObject.noOfRecords" [(page)]="paginationObject.currentPage"
+                [boundaryLinks]="true" [maxSize]="5" [pageSize]="paginationObject.pageSize"
+                (pageChange)="pageChange('page')">
+        </ngb-pagination>
+        <div>
+            <label class="mr-2 mb-0">{{'ng-pagination.ITEMS_PER_PAGE' | localizationPipe : localizationService.localizedkeySet.size}}</label>
+            <select [(ngModel)]="paginationObject.pageSize" (ngModelChange)="pageChange('pageSize')">
+                <option [ngValue]="10" [selected] *ngIf="eaStoreService.isFromDashboard">10</option>
+                <option [ngValue]="50" *ngIf="eaStoreService.isFromDashboard">50</option>
+                <option [ngValue]="50" [selected] *ngIf="!eaStoreService.isFromDashboard">50</option>
+                <option [ngValue]="100">100</option>
+                <option [ngValue]="150">150</option>
+                <option [ngValue]="200">200</option>
+            </select>
+        </div>
+    </div>
+</div>

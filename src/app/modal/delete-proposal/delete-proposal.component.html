@@ -1,0 +1,13 @@
+<div class="modal-body">
+  <div class="body-content info-alert-message">
+      <button class="icon-close-btn" data-dismiss="modal" type="button" (click)="activeModal.dismiss('Cross click')"></button>
+          <span class="icon-alert-info">
+                  <span class="path1"></span><span class="path2"></span><span class="path3"></span>
+                  </span>
+
+    <div class="info-txt" *ngIf = "message">{{message}}</div>
+    <div *ngIf="proposals" style="margin-bottom:10px;"> {{ proposals }} </div>
+    <button type="button" class="btn btn-secondary"  data-dismiss="modal" (click)="cancel()">{{localeService.getLocalizedString('common.CANCEL')}}</button>
+    <button type="button" class="btn btn-primary marginL10" (click)="continue()">{{localeService.getLocalizedString('common.CONFIRM')}}</button>
+</div>
+</div>

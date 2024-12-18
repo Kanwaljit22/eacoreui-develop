@@ -1,0 +1,39 @@
+$browser-context:16;
+@function rem($pixels, $context: $browser-context) {
+    @return #{$pixels/$context}rem;
+}
+.vNext-lookup-desc {
+    p {
+        font-size: rem(16);
+        color: #394454;;
+        a{
+            color: #059FD9;
+        }
+    }
+
+    .acknowldge-div {
+        span {
+            font-size: 0.875rem;
+            color: #4A4B57;
+        }
+    }
+}
+
+/*---------- Responsive ----------*/
+@media screen and (min-width:1600px){
+    .vNext-lookup-desc p {
+        font-size: rem(17);
+    }
+    .vNext-lookup-desc .acknowldge-div span {
+        font-size: rem(15);
+    }
+}
+
+@media screen and (min-width:1920px){
+    .vNext-lookup-desc p {
+        font-size: rem(18);
+    }
+    .vNext-lookup-desc .acknowldge-div span {
+        font-size: rem(16);
+    }
+}

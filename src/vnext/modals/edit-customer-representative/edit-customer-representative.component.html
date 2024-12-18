@@ -1,0 +1,105 @@
+<!-- Edit Modal -->
+<div class="modal-body vNext modal-without-header">
+    <button class="icon-close-btn"  (click)="close()" attr.action-id="{{dataIdConstantsService.editCustomeRep_button_close}}" type="button"></button>
+
+    <h2>{{ type === 'add' ? ('edit-customer-representative.ADD_REPRESENTATIVE_INFO' | localizationPipe : localizationService.localizedkeySet.size) :  ('edit-customer-representative.REPRESENTATIVE_INFO' | localizationPipe : localizationService.localizedkeySet.size)}}</h2>
+</div>
+<form [formGroup]="form" class="modal-body vNext modal-without-header">
+    <app-message></app-message>
+    <!-- <div class="px-5"></div> -->
+    <div formGroupName="custRep" class="px-5">
+        <div class="form-group mt-0 text-left">
+            <label class="customer-label" for="custRepName">{{'common.NAME' | localizationPipe : localizationService.localizedkeySet.size}}<sup>*</sup></label>
+            <div class="position-relative w-100 d-flex">
+                <input  maxlength="45" name="custRepName" attr.data-id="{{dataIdConstantsService.editCustomeRep_text_custRepName}}"
+                appElementFocus id="customerNAme" class="form-control paddingR35" formControlName="custRepName"
+                    type="text" required >
+            </div>
+    
+            <small class="text-danger " *ngIf="name.invalid && name.touched">
+                <i class="icon-error-icon"></i>
+                <span>{{'common.FIELD_REQUIRED' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+            </small>
+        </div>
+    
+        <div class="form-group mt-0 text-left">
+            <label class="customer-label">{{'common.TITLE' | localizationPipe : localizationService.localizedkeySet.size}}<sup>*</sup></label>
+            <div class="position-relative w-100 d-flex">
+                <input maxlength="45" class="form-control paddingR35" name="custRepTitle" formControlName="custRepTitle" type="text"
+                appElementFocus id="customerTitle" required attr.data-id="{{dataIdConstantsService.editCustomeRep_text_custRepTitle}}">
+            </div>
+    
+            <small class="text-danger" *ngIf="title.invalid && title.touched">
+                <i class="icon-error-icon"></i>
+                <span>{{'common.FIELD_REQUIRED' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+            </small>
+        </div>
+    
+        <div class="form-group mt-0 text-left">
+            <label *ngIf="!eaService.features?.IRONCLAD_C2A" class="customer-label">{{'edit-customer-representative.E_MAIL_REQUIRED' | localizationPipe : localizationService.localizedkeySet.size}}<sup>*</sup></label>
+            <label *ngIf="eaService.features?.IRONCLAD_C2A" class="customer-label">{{'common.E_MAIL' | localizationPipe : localizationService.localizedkeySet.size}}<sup>*</sup></label>
+            <div class="position-relative w-100 d-flex">
+                <input maxlength="45" class="form-control paddingR35" name="custRepEmailId" formControlName="custRepEmailId" type="email"
+                appElementFocus id="customerEmail" (input)="emailValidation()" attr.data-id="{{dataIdConstantsService.editCustomeRep_text_custRepEmailId}}">
+            </div>
+    
+            <div *ngIf="email.touched">
+                <small class="text-danger" *ngIf="isEmailEmpty && !invalidEmail">
+                    <i class="icon-error-icon"></i>
+                    <span>{{'common.FIELD_REQUIRED' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                </small>
+                <small class="text-danger" *ngIf="invalidEmail">
+                    <i class="icon-error-icon"></i>
+                    <span>{{invalidEmailFormateMessage}}</span>
+                </small>
+                <small class="text-danger" *ngIf="invalidDomain">
+                    <i class="icon-error-icon"></i>
+                    <span>{{invalidDomainErrorMessage}}</span>
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group mt-0 text-left">
+            <label class="customer-label" for="phone">{{'common.PHONE_NUMBER' | localizationPipe : localizationService.localizedkeySet.size}}<sup *ngIf="page !== constantsService.CUSTOMER_REP">*</sup></label>
+            <div class="position-relative w-100 d-flex wrapper">
+                <ngx-intl-tel-input
+                [cssClass]="'custom form-control contact-number'"
+                class="w-100"
+                [enableAutoCountrySelect]="true"
+                [enablePlaceholder]="false"
+                [searchCountryFlag]="true"
+                [searchCountryField]="[
+                  SearchCountryField.Iso2,
+                  SearchCountryField.Name
+                ]"
+                [selectFirstCountry]="false"
+                [selectedCountryISO]=""
+                [maxLength]="15"
+                [phoneValidation]="true"
+                [separateDialCode]="true"
+                [numberFormat]="PhoneNumberFormat.National"
+                name="phone"
+                formControlName="phone"
+                id="phone"
+              >
+              </ngx-intl-tel-input>
+            </div>
+    
+            <small class="text-danger " *ngIf="contactNumber.invalid && contactNumber.touched && contactNumber.value">
+                <i class="icon-error-icon"></i>
+                <span>{{'common.INVALID_CONTACT_NUMBER' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+            </small>
+            <small class="text-danger " *ngIf="contactNumber.invalid && contactNumber.touched && !contactNumber.value">
+                <i class="icon-error-icon"></i>
+                <span>{{'common.FIELD_REQUIRED' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+            </small>
+        </div>
+    </div>
+    
+
+
+<div class="text-center d-block pb-4 paddingT10">
+    <button class="btn btn-secondary" type="button" attr.action-id="{{dataIdConstantsService.editCustomeRep_button_cancel}}" id="{{elementIdConstantsService.EditCustomerRepresentative_Cancel}}" (click)="close()">{{'common.CANCEL' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+    <button class="btn btn-primary ml-3" type="button" attr.action-id="{{dataIdConstantsService.editCustomeRep_button_confirm}}" (click)="updateLoccCustomerContact()" [disabled]="form.invalid || invalidDomain || invalidEmail || form.pristine || this.disableButton || isEmailEmpty">{{type === 'update' ? ('common.UPDATE' | localizationPipe : localizationService.localizedkeySet.size) : ('common.ADD' | localizationPipe : localizationService.localizedkeySet.size)}}</button>
+</div>
+</form>

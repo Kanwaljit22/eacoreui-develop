@@ -1,0 +1,225 @@
+<div class="tile">
+  <div class="row border-bottom-tile w-100 m-0 py-2">
+      <div class="d-flex align-items-center" [ngClass] = "{'col-4' :showLocc, 'col-7':!showLocc}">
+          <span class="icon-pdf1 mr-3"><span class="path1"></span><span class="path2"></span><span
+                  class="path3"></span><span class="path4"></span><span class="path5"></span><span
+                  class="path6"></span><span class="path7"></span><span class="path8"></span><span
+                  class="path9"></span><span class="path10"></span><span class="path11"></span><span
+                  class="path12"></span></span>
+          <div class="description-box">
+              <h4 class="sm-heading" *ngIf = 'showLocc'>{{localeService.getLocalizedMessage('partner.LOA')}}</h4>
+              <p class="secondary-text" *ngIf = 'showLocc'>{{localeService.getLocalizedMessage('partner.LOA_CUSTOMER_CONSENT_REQUIRED')}}</p>
+
+             <h4 class="sm-heading" *ngIf = '!showLocc'>{{localeService.getLocalizedString('docusign.LETTER_AGREEMENT')}}</h4>
+             <p class="secondary-text" *ngIf = '!showLocc'>{{localeService.getLocalizedString('partner.LOA_REQUIRED')}}</p>
+          </div>
+      </div>
+
+  <div class="col-8 d-flex align-items-center justify-content-end" *ngIf= "!qualService.loaData.loaSigned && showLocc">
+      <ul class="qualService">
+          <li *ngIf="this.appDataService.pageContext === 'ProposalPriceEstimateStep' || this.appDataService.pageContext === 'ProposalDefineSuiteStep'"><a href="javascript:void(0);" (click)="inititateSignature()">{{localeService.getLocalizedString('partner.LOA_INITIATE_SIGNATURE')}}</a></li>
+          <li><a href="javascript:void(0);" (click)="uploadAuthorizationLetter()">{{localeService.getLocalizedString('partner.UPLOAD_LOCC')}}</a></li>
+          <li><a #downloadZipLink [hidden]="true"></a><a href="javascript:void(0);" (click)="downloadAuthorizationLetter()"><span class="icon-download mr-2"></span>{{localeService.getLocalizedString('partner.DOWNLOAD_UNSIGNED_LOCC')}}</a></li>
+          <li *ngIf= "checkLoccSignaturePending()"><div class="badge {{status}}">{{localeService.getLocalizedString('partner.LOA_PENDING_SIGNATURE')}}</div></li>
+          <li *ngIf= "!checkLoccSignaturePending()"><div class="badge {{status}}">{{localeService.getLocalizedString('partner.LOCC')}}</div></li>
+
+      </ul>
+      </div>    
+
+      <div class="col-8 d-flex align-items-center justify-content-end" *ngIf= "qualService.loaData.loaSigned && showLocc">
+        <ul class="qualService">
+            <li>
+                <a #downloadZipLink [hidden]="true"></a>
+                <a href="javascript:void(0);" (click)="downloadAuthorizationLetter()"><span class="icon-download mr-2"></span>{{localeService.getLocalizedString('partner.DOWNLOAD_SIGNED_LOCC')}}</a>
+            </li>
+            <li class="ml-3">
+                <span class="sale-signed">{{localeService.getLocalizedString('partner.LOA_SIGNED')}}</span>
+                <div class="validate-text">{{localeService.getLocalizedString('partner.VALID_UNTIL')}} : {{this.appDataService.signatureValidDate}}</div>
+            </li>
+        <!-- <li>Signed On: 10-11-2019</li> -->
+        </ul>
+      </div>
+
+    <!-- <div class="col-5 d-flex align-items-center justify-content-end" *ngIf= "!showLocc">
+      <ul class="qualService">
+          <li><a href="javascript:void(0);" (click)="uploadAuthorizationLetter()">{{localeService.getLocalizedString('partner.UPLOAD_LOA')}}</a></li>
+      </ul>
+    </div>     -->
+
+    <div class="col-5 d-flex align-items-center justify-content-end d-none" *ngIf= "!showLocc">
+        <ul class="qualService">
+ 
+          <li class="d-inline-flex align-items-center">
+            <span class="pr-10">LOA Required:</span>
+            <div class="position-relative element-hasvalue exception-model upload-options pr-10">
+              <div class="custom-dropdown ">
+                <div ngbDropdown class="select-items " ngbDropdownToggle>
+                  <span class="dropdown--typeAhead__arrow-management">
+                    <button id="dropdownManual" class="btn--text drop-button" ngbDropdownAnchor
+                      style="width: 100%; text-align: initial;">
+                      {{selectedOption?selectedOption:'Make Selection'}}</button>
+                  </span>
+                  <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                    <ul>
+                      <li class="dropdown-item" *ngFor="let option of options" (click)="setUploadOpotion(option)">{{option}}
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+             <li>
+               <a href="javascript:void(0);" (click)="uploadAuthorizationLetter()">{{localeService.getLocalizedString('partner.UPLOAD_LOA')}}</a>
+            </li>  
+             
+            <li *ngIf= "!showLocc && documentCenter.isLOAUploaded">
+                <a #downloadZipLink [hidden]="true"></a>
+                  <a href="javascript:void(0);" (click)="openDownloadModal()"><span
+                    class="icon-download mr-2"></span>{{localeService.getLocalizedString('partner.DOWNLOAD_LOA')}} ({{documentCenter?.loaData?.length}})</a>
+            </li>
+        </ul>
+      </div>    
+  </div>
+  <ng-container *ngIf= "!showLocc">
+  <div class="doc-info clearfix d-none"  *ngIf="currentStep==1">
+      <!-- Step 1 -->
+      <h4 class="tab-head" style="padding-bottom: 10px;"> 1.Is your customer ready to review the End User Information Form and EA Program Terms?
+          <span class="steps"><span>Step 1</span> Of 2</span>
+      </h4>
+      <!-- End of Heading -->
+  
+      <div class="clearfix">
+          <div class="float-left mr-5 mb-2 radio-custom">
+              <input type="radio" [(ngModel)]="answers[0].ans" name="question1" value="Yes">
+              <label for="Yes">
+                  <span class="custom-radio-btn"><span class="path1"></span><span class="path2"></span></span>
+                  <span><span></span></span>Yes
+              </label>
+          </div>
+          <div class="float-left mb-2 radio-custom">
+              <input type="radio" [(ngModel)]="answers[0].ans"  name="question1"  value="No">
+              <label for="No">
+                  <span class="custom-radio-btn"><span class="path1"></span><span class="path2"></span></span><span><span></span></span>No
+              </label>
+          </div>
+      </div>
+      <!-- End of Radio Buttons -->
+      <ng-container *ngIf="answers[0].ans=='No'">
+        <ng-container *ngTemplateOutlet="warning"></ng-container>
+    </ng-container>
+
+      
+  </div>
+
+  <div class="doc-info clearfix d-none" *ngIf="currentStep==2">
+      <!-- Step 2 -->
+      <h4 class="tab-head" style="padding-bottom: 10px;"> 2.Is your customer ready to sign the End User Information Form and EA Program Terms?
+          <span class="steps"><span>Step 2</span> Of 2</span>
+      </h4>
+      <!-- End of Heading -->
+  
+      <div class="clearfix">
+          <div class="float-left mr-5 mb-2 radio-custom">
+              <input type="radio" [(ngModel)]="answers[1].ans"  name="question2" value="Yes">
+              <label for="Yes">
+                  <span class="custom-radio-btn"><span class="path1"></span><span class="path2"></span></span>
+                  <span><span></span></span>Yes
+              </label>
+          </div>
+          <div class="float-left mb-2 radio-custom">
+              <input type="radio" [(ngModel)]="answers[1].ans" name="question2"  value="No">
+              <label for="No">
+                  <span class="custom-radio-btn"><span class="path1"></span><span class="path2"></span></span><span><span></span></span>No
+              </label>
+          </div>
+      </div>
+      <!-- End of Radio Buttons -->
+  
+
+      <!-- End of Warning Message -->
+  
+      <div class="alert alert--info alert-dismissable clearfix" *ngIf="answers[1].ans=='Yes'" >
+        <span class="alert-icon">
+            <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+        </span>
+        <span class="infoTxt"> Cisco Enterprise Agreement orders are automatically placed on Compliance Hold. In order to avoid delays, please ensure- <br>
+            <ul>
+            <li>LOA is uploaded (if applicable)</li>
+            <li>EUIF is signed by your customer</li>
+            <li>Partner is authorized</li>
+            <li>Smart Account is active</li>
+            </ul>
+            
+            <ul class="refine-search d-none" style="margin-top: -48px;">
+            <li><a href="javascript:void(0)" id="DocumentCenter_GOT_IT">Got It</a></li>
+            </ul>
+        </span>
+    </div>
+    <ng-container *ngIf="answers[1].ans=='No'">
+    <!-- End of Info - Alert Message -->
+      <span class="lbl-desc mb-1 pb-0"> Is your customer asking for a special legal request?</span>
+      <div class="clearfix">
+        <div class="float-left mr-5 mb-2 radio-custom">
+            <input type="radio" [(ngModel)]="subAnswers[1][0].ans"  name="question2_1" value="Yes">
+            <label for="Yes">
+                <span class="custom-radio-btn"><span class="path1"></span><span class="path2"></span></span>
+                <span><span></span></span>Yes
+            </label>
+        </div>
+        <div class="float-left mb-2 radio-custom">
+            <input type="radio" [(ngModel)]="subAnswers[1][0].ans" name="question2_1"  value="No">
+            <label for="No">
+                <span class="custom-radio-btn"><span class="path1"></span><span class="path2"></span></span><span><span></span></span>No
+            </label>
+        </div>
+    </div>
+    <ng-container *ngIf="subAnswers[1][0].ans=='No'">
+        <ng-container *ngTemplateOutlet="warning"></ng-container>
+    </ng-container>
+      <!-- End of Heading -->
+      <ng-container  *ngIf="subAnswers[1][0].ans=='Yes'">
+      <h4 class="tab-head" style="padding-bottom: 10px;"> What are your customer's requests?</h4>
+      <div class="clearfix">
+          <div class="label-with-link">
+          <label class="label-check ellipsis mb-2 mr-0 w-auto">
+              <input class="form-check-input" type="checkbox" value="">
+              <span class="custom-checkbox-btn"><span class="path1"></span><span class="path2"></span></span>
+              <span>Language in our legal documents to be clerified</span>
+          </label>
+          <a class="link" href="javascript:void(0)">3 Clarification(s) Selected</a>
+          </div>  
+          
+          <label class="label-check ellipsis mr-0">
+              <input class="form-check-input" type="checkbox" value="">
+              <span class="custom-checkbox-btn"><span class="path1"></span><span class="path2"></span></span>
+              <span>Exception to the legal documents to be made</span>
+          </label>
+      </div>
+    </ng-container>
+    </ng-container>
+  </div>
+
+  <div class="tab-footer p-0 clearfix d-none">
+      <button class="btn btn-primary float-right btn-continue" (click)="continue()" [disabled]="currentStep==1 && answers[0].ans=='No' || currentStep==2 && answers[1].ans=='No'" type="button">
+          <span class="mid-text">{{currentStep==1?'Continue':localeService.getLocalizedString('partner.LOA_INITIATE_SIGNATURE')}}</span><span class="icon-btn-continue"></span>
+    </button>
+      <button class="btn btn-secondary btn-back btn-small float-right mr-2" type="button" *ngIf="currentStep>1" (click)="currentStep=1"><span class="icon-btn-back"></span><span class="mid-text">Back</span></button>
+  </div>
+</ng-container>
+</div>
+
+<ng-template #warning>
+
+    <div class="alert alert--warning" >
+        <i class="arrow up"></i>
+        <span class="alert-icon">
+            <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+        </span>
+        <span class="infoTxt"> Come back at a later time once the customer is ready 
+            <ul class="refine-search">
+                <li><a href="javascript:void(0)" id="DocumentCenter_GOT_IT">Got It</a></li>
+            </ul>
+        </span>
+    </div>
+</ng-template>

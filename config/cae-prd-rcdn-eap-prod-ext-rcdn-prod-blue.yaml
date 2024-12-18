@@ -1,0 +1,110 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+    annotations:
+        lae_uuid: '***LAE UUID***'
+    name: eaccwfe-prod-blue-rcdn
+    namespace: eap-prod-ext-rcdn
+spec:
+    selector:
+        matchLabels:
+            name: eaccwfe-prod-blue-rcdn
+    template:
+        metadata:
+            labels:
+                name: eaccwfe-prod-blue-rcdn
+            annotations:
+                app_version: latest
+        spec:
+            imagePullSecrets:
+              - name: it-cvc-cisco-commerce-cre-pull-secret
+            containers:
+              - name: eaccwfe-prod-blue-rcdn
+                image: containers.cisco.com/it_cvc_cisco_commerce/eaccwfe:${trigger["parameters"]["imageTag"]}
+                ports:
+                  - containerPort: 8080
+                    protocol: TCP
+                env:
+                  - name: "CISCO_ENV"
+                    value: "prod"
+                  - name: "CISCO_DCNAME"
+                    value: "rcdn"
+                  - name: "CISCO_DC"
+                    value: "dc1"
+                  - name: "CISCO_BGCOLOR"
+                    value: "blue"
+                  - name: "APP_ID"
+                    value: "eaccwfe"
+                  - name: hostname
+                    valueFrom:
+                        fieldRef:
+                            apiVersion: v1
+                            fieldPath: spec.nodeName
+                  - name: NAMESPACE
+                    valueFrom:
+                        fieldRef:
+                            fieldPath: metadata.namespace
+                resources:
+                    limits:
+                        memory: 3Gi
+                    requests:
+                        cpu: 150m
+                volumeMounts:
+                  - name: podinfo
+                    mountPath: /etc/metadata
+                    readOnly: false
+                  - mountPath: /opt/webserver/logs
+                    name: eaccwfe-prod-blue-rcdn
+                  - name: eaccwfe-prod-blue-rcdn-app-logs
+                    mountPath: /home/jboss/lae-home/app-root/logs
+                  - name: eaccwfe-prod-blue-rcdn-app-data
+                    mountPath: /home/jboss/data
+                  - name: eaccwfe-prod-blue-rcdn-app-tmp
+                    mountPath: /tmp
+                imagePullPolicy: IfNotPresent
+                securityContext:
+                    capabilities: {}
+                    privileged: false
+                readinessProbe:
+                    failureThreshold: 3
+                    httpGet:
+                        path: /healthcheck.html
+                        port: 8080
+                        scheme: HTTP
+                    initialDelaySeconds: 180
+                    timeoutSeconds: 5
+                    periodSeconds: 10
+                    successThreshold: 1
+                livenessProbe:
+                    failureThreshold: 3
+                    httpGet:
+                        path: /healthcheck.html
+                        port: 8080
+                        scheme: HTTP
+                    initialDelaySeconds: 180
+                    timeoutSeconds: 5
+                    periodSeconds: 10
+                    successThreshold: 1
+            volumes:
+              - name: podinfo
+                downwardAPI:
+                    items:
+                      - path: labels
+                        fieldRef:
+                            fieldPath: metadata.labels
+                      - path: annotations
+                        fieldRef:
+                            fieldPath: metadata.annotations
+              - name: eaccwfe-prod-blue-rcdn
+                emptyDir: {}
+              - name: eaccwfe-prod-blue-rcdn-app-logs
+                emptyDir: {}
+              - name: eaccwfe-prod-blue-rcdn-app-data
+                emptyDir: {}
+              - name: eaccwfe-prod-blue-rcdn-app-tmp
+                emptyDir: {}
+            restartPolicy: Always
+            dnsPolicy: ClusterFirst
+    replicas: 4
+    strategy:
+        type: Recreate

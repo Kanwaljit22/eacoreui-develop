@@ -1,0 +1,25 @@
+.vNext-pagination {
+    margin: 6px 0;
+
+    select {
+        background: #F4F6F8;
+        font-size: 14px;
+        color: #394454;
+        height: 32px;
+        padding: 0 30px 0 14px;
+        border: none;
+        border-bottom: 1px solid #AEB8C1;
+        -moz-appearance:none; /* Firefox */
+        -webkit-appearance:none; /* Safari and Chrome */
+        appearance:none;
+        background-image: url("../../../assets/images/icons/arrow-down-heavy.svg");
+        background-size: 12px;
+        background-repeat: no-repeat;
+        background-position: 45px center;
+    }
+    label{
+        font-size: 14px;
+        color: #394454;
+        font-weight: 400;
+    }
+}

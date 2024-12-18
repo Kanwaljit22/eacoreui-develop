@@ -1,0 +1,13 @@
+{
+    "data": {
+        "priceInfo": {
+            "totalSwNet": 7.8260E+5,
+            "swPurchaseAdjustment": 7.8260E+5,
+			"totalSrvcNet": 7.8260E+5,
+            "srvcPurchaseAdjustment": 7.8260E+5,
+            "totalNet": 7.8260E+5,
+			"purchaseAdjustment": 7.8260E+5
+        }
+    }
+  }
+  

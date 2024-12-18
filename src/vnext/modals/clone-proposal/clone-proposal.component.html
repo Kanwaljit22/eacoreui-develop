@@ -1,0 +1,157 @@
+<div class="modal-body vNext modal-without-header">
+    <button class="icon-close-btn" (click)="close()" type="button" attr.action-id="{{dataIdConstantsService.cloneProposal_icon_close}}"></button>
+
+    <h2>{{localizationService.getLocalizedString('common.CLONE_PROPOSAL')}}</h2>
+</div>
+<div class="modal-body vNext modal-without-header">
+    <div class="deal-quote"><label>{{localizationService.getLocalizedString('common.DEAL_ID')}}</label> <span>{{dealId}}</span></div>
+    <div>
+        <!-- <label class="lablQuote" *ngIf="quoteSelection">{{localizationService.getLocalizedString('common.SELECT_QUOTE_TO_CLONE_PROPOSAL')}}</label>
+        <label class="lablQuote" *ngIf="!quoteSelection">{{localizationService.getLocalizedString('common.SELECT_PROPOSAL_TO_CLONE')}}</label> -->
+        <div class="d-flex align-items-center justify-content-between mb-2">
+            <label class="lablQuote" *ngIf="quoteSelection">{{localizationService.getLocalizedString('common.SELECT_QUOTE_TO_CLONE_PROPOSAL')}}</label>
+            <label class="lablQuote" *ngIf="!quoteSelection">{{localizationService.getLocalizedString('common.SELECT_PROPOSAL_TO_CLONE')}}</label>
+            <ng-container *ngIf="quoteSelection && associatedQuotes?.length">
+                <app-search-dropdown [roundedInput]='true' [disableSelectedDropValue]="true" [searchPlaceHolder]="searchPlaceHolder" (searchSelectedDrop)="searchQuote($event)"></app-search-dropdown>
+            </ng-container>
+            <ng-container *ngIf="!quoteSelection && proposalListData?.length">
+                <app-search-dropdown [roundedInput]='true' [disableSelectedDropValue]="true" [searchPlaceHolder]="searchPlaceHolder" (searchSelectedDrop)="searchQuote($event)"></app-search-dropdown>
+            </ng-container>
+        </div>
+        <ng-container *ngIf="quoteSelection; else proposalList">
+            <span *ngIf="displayAssociatedQuotes?.length"> {{displayAssociatedQuotes.length}} {{'common.RESULTS_FOUND' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+            <div class="table-container" *ngIf="displayAssociatedQuotes?.length; else noQuoteData">
+                <table class="primary-table">
+                    <thead>
+                        <tr>
+                            <th width="25%">{{localizationService.getLocalizedString('common.QUOTE_ID')}}</th>
+                            <th width="25%">{{localizationService.getLocalizedString('common.QUOTE_NAME')}}</th>
+                            <th width="40%">{{localizationService.getLocalizedString('common.PARTNER_NAME')}}</th>
+                            <th width="35%">{{localizationService.getLocalizedString('common.BUY_METHOD')}}</th>
+                            <th width="25%">{{localizationService.getLocalizedString('common.QUOTE_STATUS')}}</th>
+                        </tr>
+                    </thead>
+        
+                    <tbody>
+                        <tr *ngFor="let quoteDetail of displayAssociatedQuotes">
+                            <td>
+        
+                                <div class="radio-wrapper radio-custom">
+                                    <input type="radio" name="quoteId" id="quoteId" value="yes"
+                                        attr.data-id="{{dataIdConstantsService.cloneProposal_radio_selectQuote}}{{quoteDetail?.quoteId}}"
+                                        (change)="updateQuoteDetail(quoteDetail)" [checked]="quoteDetail?.quoteId === selectedQuote?.quoteId">
+                                    <label for="quoteId">
+                                        <span class='custom-radio-btn'>
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </span>
+                                        <span class="quoteInput">{{quoteDetail?.quoteId}}</span>
+                                    </label>
+                                    <ng-template #quoteWarningTip>
+                                        <span class="d-flex justify-content-between">
+                                            <span class="icon-warning1 mr-2"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span><span>{{'common.QUOTE_APPROVED_WARNING' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                                        </span>
+
+                                    </ng-template>
+                                    <span class="icon-warning1 ml-2" *ngIf="quoteDetail?.quoteStatus === constantsService.APPROVED" [ngbTooltip]="quoteWarningTip" tooltipClass="quote-warning-tip" #tooltip="ngbTooltip"   placement='top-left' container="body"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                                </div>
+                            </td>
+                            <td>{{quoteDetail?.quoteName}}</td>
+                            <td>{{quoteDetail?.partnerName}}</td>
+                            <td>{{quoteDetail?.buyMethod}}</td>
+                            <td>{{quoteDetail?.quoteStatus}}</td>
+                        </tr>
+        
+                    </tbody>
+                </table> 
+            </div>
+            <ng-template #noQuoteData>
+                <div class="col-12" *ngIf="!searchValue">
+                    <div class="alert alert--info alert-dismissable">
+                        <span class="alert-icon">
+                            <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                        </span>
+                        <span>{{localizationService.getLocalizedString('common.NO_DATA_FOUND')}}</span>
+                    </div>
+                </div>
+                <div  *ngIf="searchValue" class="no-search-result mt-5">
+                    <label class="lablQuote"><b>{{'common.NO_RESULTS_FOUND' | localizationPipe : localizationService.localizedkeySet.size}}</b></label>
+                    <h6>{{'common.ENTER_VALID_QUOTE_ID' | localizationPipe : localizationService.localizedkeySet.size}}</h6>
+                </div>
+            </ng-template>
+        </ng-container>
+        <ng-template #proposalList>
+            <div class="table-container" *ngIf="displayProposalListData?.length; else noProposalData">
+                <span *ngIf="displayProposalListData.length"> {{displayProposalListData.length}} {{'common.RESULTS_FOUND' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                <table class="primary-table">
+                
+                    <thead>
+                        <tr>
+                            <th width="25%">{{localizationService.getLocalizedString('common.sub-header.PROPOSAL_ID')}}</th>
+                            <th width="25%">{{localizationService.getLocalizedString('common.PROPOSAL_NAME')}}</th>
+                            <th width="40%">{{localizationService.getLocalizedString('common.PORTFOLIO')}}</th>
+                            <th width="25%">{{localizationService.getLocalizedString('common.sub-header.PROPOSAL_STATUS')}}</th>
+                        </tr>
+                    </thead>
+                
+                    <tbody>
+                        <tr *ngFor="let proposal of displayProposalListData">
+                            <td>
+                
+                                <div class="radio-wrapper radio-custom">
+                                    <input type="radio" name="proposalId" id="proposalId" value="yes"
+                                        attr.data-id="{{dataIdConstantsService.cloneProposal_radio_selectProposal}}{{proposal?.id}}"
+                                        (change)="selectProposalForClone(proposal)">
+                                    <label for="proposalId">
+                                        <span class='custom-radio-btn'>
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </span>
+                                        <span class="quoteInput">
+                                            <a href="javascript:void();" (click)="goToProposal(proposal)" attr.action-id="{{dataIdConstantsService.cloneProposal_link_goToProposal}}{{proposal?.id}}">{{proposal?.id}}</a>
+                                        </span>
+                                    </label>
+                                </div>
+                            </td>
+                            <td>{{proposal?.name}}</td>
+                            <td>
+                                <span *ngFor="let enrollment of proposal?.enrollments ; let i = index;">{{enrollment}}
+                                    <span *ngIf='proposal?.enrollments.length > (i+1)'>, </span>
+                                </span>
+                            </td>
+                            <td>{{proposal?.status}}</td>
+                        </tr>
+                
+                    </tbody>
+                </table>
+            </div>
+            <ng-template #noProposalData>
+                <div class="col-12">
+                    <div *ngIf="!searchValue" class="alert alert--info alert-dismissable">
+                        <span class="alert-icon">
+                            <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                        </span>
+                        <span>{{localizationService.getLocalizedString('common.NO_PROPOSALS_FOUND')}}</span>
+                    </div>
+                    <div  *ngIf="searchValue" class="no-search-result mt-5">
+                        <label class="lablQuote"><b>{{'common.NO_RESULTS_FOUND' | localizationPipe : localizationService.localizedkeySet.size}}</b></label>
+                        <h6>{{'common.ENTER_VALID_PROPOSAL_ID' | localizationPipe : localizationService.localizedkeySet.size}}</h6>
+                    </div>
+                </div>
+            </ng-template>
+        </ng-template>
+
+    </div>
+</div>
+
+<div class="modal-footer justify-content-center mt-4">
+    <button type="button" class="btn btn-secondary sm cancel-btn" (click)="close()" id="{{elementIdConstantsService.Clone_Cancel_ClonePorposal}}"
+        *ngIf="quoteSelection" attr.action-id="{{dataIdConstantsService.cloneProposal_button_closeModal}}">{{localizationService.getLocalizedString('common.CANCEL')}}</button>
+    <button type="button" class="btn btn-secondary sm cancel-btn" (click)="goToProposalList(false)" id="{{elementIdConstantsService.Clone_Back_to_Quote_Selection}}"
+        *ngIf="!quoteSelection" attr.action-id="{{dataIdConstantsService.cloneProposal_button_back}}">{{localizationService.getLocalizedString('common.BACK')}}</button>
+    <button id="{{elementIdConstantsService.Clone_Next}}" [disabled]="!selectedQuote?.quoteId || !displayAssociatedQuotes?.length" type="button" class="btn btn-primary sm"
+        attr.action-id="{{dataIdConstantsService.cloneProposal_button_next}}" *ngIf="quoteSelection"
+        (click)="goToProposalList(true)">{{localizationService.getLocalizedString('common.NEXT')}}</button>
+    <button [disabled]="!selectedProposal?.id || !displayProposalListData?.length" type="button" class="btn btn-primary sm" *ngIf="!quoteSelection" id="{{elementIdConstantsService.Clone_Continue_To_Clone}}"
+        attr.action-id="{{dataIdConstantsService.cloneProposal_button_clone}}" (click)="clone()">{{localizationService.getLocalizedString('common.CLONE_PROPOSAL')}}</button>
+</div>

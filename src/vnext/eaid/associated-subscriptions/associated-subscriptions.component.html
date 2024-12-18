@@ -1,0 +1,43 @@
+<div class="mb-3 subsc-head">
+    <h3 attr.data-id="{{dataIdConstantsService.associatedSubsriptions_header}}">{{'common.ASSOCIATED_SUBSCRIPTIONS' | localizationPipe: localizationService.localizedkeySet.size}}</h3>
+</div>
+<div class="row">
+    <div class="col-12" *ngIf="subscriptionData?.length">
+        <table class="primary-table mb-0">
+            <thead>
+                <tr>
+                    <th attr.data-id="{{dataIdConstantsService.associatedSubsriptions_header_subscriptionId}}">{{'common.SUBSCRIPTION_ID' | localizationPipe: localizationService.localizedkeySet.size}}</th>
+                    <th attr.data-id="{{dataIdConstantsService.associatedSubsriptions_header_subscriptionStatus}}">{{'common.SUBSCRIPTION_STATUS' | localizationPipe: localizationService.localizedkeySet.size}}</th>
+                    <th attr.data-id="{{dataIdConstantsService.associatedSubsriptions_header_startDate}}">{{'common.START_DATE' | localizationPipe: localizationService.localizedkeySet.size}}</th>
+                    <th attr.data-id="{{dataIdConstantsService.associatedSubsriptions_header_endDate}}">{{'common.END_DATE' | localizationPipe: localizationService.localizedkeySet.size}}</th>
+                    <th attr.data-id="{{dataIdConstantsService.associatedSubsriptions_header_hwPurchse}}">{{'common.HW_PURCHASE' | localizationPipe: localizationService.localizedkeySet.size}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let subscription of subscriptionData">
+                    <td attr.data-id="{{dataIdConstantsService.associatedSubsriptions_data_subrefId}}{{subscription.subRefId}}">{{subscription.subRefId}}</td>
+                    <td>
+                        <span class="badge badge-active" *ngIf="subscription?.active === constantsService.Y" attr.data-id="{{dataIdConstantsService.associatedSubsriptions_data_subscriptionStatus}}{{subscription.subRefId}}">{{'common.ACTIVE' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                    </td>
+                    <td attr.data-id="{{dataIdConstantsService.associatedSubsriptions_data_startDate}}{{subscription.subscriptionStart}}">{{subscription.subscriptionStart}}</td>
+                    <td attr.data-id="{{dataIdConstantsService.associatedSubsriptions_data_endDate}}{{subscription.subscriptionEnd}}">{{subscription.subscriptionEnd}}</td>
+                    <td attr.data-id="{{dataIdConstantsService.associatedSubsriptions_data_hwPurchse}}{{subscription?.hwPurchase ? 'Y' : 'N'}}">{{subscription?.hwPurchase ? 'Y' : 'N'}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-12" *ngIf="subscriptionsDataNotPresent">
+        <div class="alert alert--info alert-dismissable">
+            <span class="alert-icon">
+                <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+            </span>
+            <span attr.data-id="{{dataIdConstantsService.associatedSubsriptions_data_noDataFound}}">{{'common.NO_DATA_FOUND' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+        </div>
+    </div>
+</div>
+
+<div *ngIf='paginationObject?.noOfRecords' class="row">
+    <div class="col-12 pr-0">
+        <app-ng-pagination [paginationObject]="paginationObject" (updatedPaginationObject)="paginationUpdated($event)" [showPaginationResults]="true"></app-ng-pagination>
+    </div>
+</div>

@@ -1,0 +1,54 @@
+<div class="container vNext">
+    <div class="row">
+        <div class="col-12 mt-4 mb-4">
+            <a href="javascript:void();" attr.action-id="{{dataIdConstantsService.guidanceEa_link_goToEaHome}}" (click)="goToEaHome()"><span class="i-vNext-arrow-left"></span>{{'ea_dashboard.BACK_TO_EA_PROPOSALS' | localizationPipe : localizationService.localizedkeySet.size}}</a>
+        </div>
+        <div class="col-12">
+            <h2 class="heading">{{'ea_dashboard.GUIDANCE_FOR_EA_ACTIONS_LABEL' | localizationPipe : localizationService.localizedkeySet.size}}</h2>
+        </div>
+        <div class="col-12">
+            <div class="alert alert--info alert-dismissable mb-5">
+                <span class="icon-msg-Info mr-2"><span class="path1"></span><span class="path2"></span><span
+                        class="path3"></span></span>
+                <span><u>{{'common.IMPORTANT' | localizationPipe : localizationService.localizedkeySet.size}}</u> {{'ea_dashboard.GUIDANCE_FOR_EA_ACTIONS_IMP_TEXT' | localizationPipe : localizationService.localizedkeySet.size}} <a href="javascript:void();" attr.action-id="{{dataIdConstantsService.guidanceEa_link_goToDownloadPlayBook}" (click)="goToDownloadPlayBook()">{{'ea_dashboard.CISCO_SUBSCRIPTION_PLAYBOOK_LABEL' | localizationPipe : localizationService.localizedkeySet.size}}</a>.</span>
+            </div>
+        </div>
+        <div class="col-12">
+            <h2 class="heading text-left">{{'common.I_WANT_TO' | localizationPipe : localizationService.localizedkeySet.size}}</h2>
+        </div>
+        <ngb-accordion [closeOthers]="true" activeIds="static-1" class="w-100 guidance-acc">
+            <ngb-panel id="static-1" title="{{'ea_dashboard.CREATE_OR_RENEW_EA_SUB_LABEL' | localizationPipe : localizationService.localizedkeySet.size}}">
+                <ng-template ngbPanelContent>
+                    <span *ngIf="!isPartnerLoggedIn">
+                        {{'ea_dashboard.CREATE_OR_RENEW_EA_SUB_TEXT_CISCO_LED' | localizationPipe : localizationService.localizedkeySet.size}}
+                    </span>
+                    <span *ngIf="isPartnerLoggedIn">
+                        {{'ea_dashboard.CREATE_OR_RENEW_EA_SUB_TEXT_PARTNER_LED' | localizationPipe : localizationService.localizedkeySet.size}} 
+                    </span>
+                    <button type="button" class="btn btn-primary sm d-block mt-3" (click)="routeToUrl(true, false)" attr.action-id="{{dataIdConstantsService.guidanceEa_button_goToSalesForce}}" *ngIf="!isPartnerLoggedIn">{{'common.GO_TO_SALESFORCE' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                    <button type="button" class="btn btn-primary sm d-block mt-3" (click)="routeToUrl(true, false)" attr.action-id="{{dataIdConstantsService.guidanceEa_button_viewAllDealsInCcw}}" *ngIf="isPartnerLoggedIn">{{'common.VIEW_ALL_DEALS_IN_CCW' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                </ng-template>
+            </ngb-panel>
+            <ngb-panel id="static-2" title="{{'ea_dashboard.BUY_MORE_SUITES_TO_EXISTING_EA_SUB_LABEL' | localizationPipe : localizationService.localizedkeySet.size}}">
+                <ng-template ngbPanelContent>
+                    {{'ea_dashboard.BUY_MORE_OR_TRUE_FORWARD_TEXT' | localizationPipe : localizationService.localizedkeySet.size}}
+                    <button type="button" class="btn btn-primary sm d-block mt-3" attr.action-id="{{dataIdConstantsService.guidanceEa_button_initiateChangeModifySub}}" (click)="routeToUrl(false, true)">{{'common.INITIATE_CHANGE_MODIFY_SUB' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                </ng-template>
+            </ngb-panel>
+            <ngb-panel id="static-3"
+                title="{{'ea_dashboard.MODIFY_QTYS_WITH_ACTIVE_SUITE_OUTSIDE_TRUE_FORWARD' | localizationPipe : localizationService.localizedkeySet.size}}">
+                <ng-template ngbPanelContent>
+                    {{'ea_dashboard.BUY_MORE_OR_TRUE_FORWARD_TEXT' | localizationPipe : localizationService.localizedkeySet.size}}
+                    <button type="button" class="btn btn-primary sm d-block mt-3" attr.action-id="{{dataIdConstantsService.guidanceEa_button_initiateChangeModifySub}}" (click)="routeToUrl(false, false)">{{'common.INITIATE_CHANGE_MODIFY_SUB' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                </ng-template>
+            </ngb-panel>
+            <ngb-panel id="static-4" *ngIf="!isPartnerLoggedIn"
+            title="{{  (eaService.features?.CROSS_SUITE_MIGRATION_REL ? 'ea_dashboard.UPGRADE_MIGRATE_MY_SUBSCRIPTION' : 'ea_dashboard.UPGRADE_MY_SUBSCRIPTION') | localizationPipe : localizationService.localizedkeySet.size}}">
+            <ng-template ngbPanelContent>
+                {{'ea_dashboard.UPGRADE_SUBSCRIPTION_INFO' | localizationPipe : localizationService.localizedkeySet.size}}
+                <button type="button" class="btn btn-primary sm d-block mt-3" attr.action-id="{{dataIdConstantsService.guidanceEa_button_initiateChangeModifySub}}" (click)="routeToUrl(false, true)">{{'common.INITIATE_CHANGE_MODIFY_SUB' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+            </ng-template>
+        </ngb-panel>
+        </ngb-accordion>
+    </div>
+</div>

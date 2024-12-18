@@ -1,0 +1,330 @@
+<section class="token-box token-box-bordered">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-2 d-flex align-items-center">
+                <h3 class="token--title">{{localeService.getLocalizedString('prospect.360.SHOW_ACCOUNT_INSIGHTS_FOR')}}</h3>
+            </div>
+            <div class="col-2 pr-0" *ngFor="let a of accountInsighrArr">
+                <div class="token" [ngClass]="{'active': a.active}" (click)="selectInsightView(a)">
+                    <span class="icon-all-architectures architecture--icon" *ngIf="a.viewBy === 'All Architectures'"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span>
+                    <span class="path6"></span><span class="path7"></span><span class="path8"></span><span class="path9"></span><span class="path10"></span><span class="path11"></span></span>
+                    <span class="icon-DNA-new architecture--icon" *ngIf="a.viewBy === 'C1_DNA'"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span>
+                    <span class="path7"></span>
+                    </span>
+                    <span class="icon-data-center-new architecture--icon" *ngIf="a.viewBy === 'C1_DC'"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span>
+                    <span class="path6"></span><span class="path7"></span><span class="path8"></span></span>
+                    <span class="icon-security-new architecture--icon" *ngIf="a.viewBy === 'SEC'"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                    <a href="javascript:void(0);" class="architecture--name">{{a.displayName}}</a>
+                </div>
+            </div>
+            <!-- <div class="col-2 flex-center">
+                <span class="v-seperator ml-0"></span>
+                <button class="btn btn-primary w-100 pl-1 pr-1" type="button" (click)="createNewQualification()">{{localeService.getLocalizedString('qual.create.CREATE_NEW_QUAL')}}</button>
+            </div> -->
+        </div>
+    </div>
+</section>
+
+<div *ngIf='!hidePageDetails'>
+    <section class="token-box pt-0 pb-0" style="overflow: hidden;">
+        <div class="container-fluid">
+            <!-- <ngb-carousel #currSlide [ngClass]="{'disableButton': currSlide.activeId ==='ngb-slide-1'}"> -->
+            <div class="architecture-wrap">
+                <!-- <ng-template ngbSlide> -->
+                <div class="row architecture-row">
+                    <div class="col-2" *ngFor="let a of architectureData">
+                        <div class="token shadow" (click)="viewTileDetails(a.name)">
+                            <span class="{{a.class}} token--icons"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span>
+                            <span class="path8"></span><span class="path9"></span><span class="path10"></span><span class="path11"></span><span class="path12"></span><span class="path13"></span><span class="path14"></span><span class="path15"></span>
+                            <span class="path16"></span>
+                            <span class="path17"></span><span class="path18"></span><span class="path19"></span><span class="path20"></span><span class="path21"></span><span class="path22"></span></span>
+                            <div>
+                                <span class="token--data d-flex">{{a.value}}
+                      <span class="icon-msg-Info" placement="top"
+            container="body" ngbTooltip="{{getTooltip(a.id)}}"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                                </span>
+                                <span class="token--label">{{a.name}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- </ng-template> -->
+            </div>
+            <ng-container *ngIf="architectureData.length > 6">
+                <span class="prev-item" (click)="moveLeft()" [hidden]="start === 0"><span class="ico-left-round"><span class="path1"></span><span class="path2"></span></span>
+                </span>
+                <span class="next-item" (click)="moveRight()" [hidden]="start === start_max"><span class="ico-right-round"><span class="path1"></span><span class="path2"></span></span>
+                </span>
+            </ng-container>
+            <!-- </ngb-carousel> -->
+        </div>
+    </section>
+
+
+
+    <section class="token-box bg-white" *ngIf="selectedArchiteture !=='All Architectures'">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col custom-width pr-0">
+                    <div class="token text-hgt d-block">
+                        <h3 class="token--title"><span>{{localeService.getLocalizedString('common.360.TOTAL_CONTRACT_VALUE')}}</span> <span class="icon-msg-Info" placement="top" container="body" ngbTooltip="{{getTooltip('totalContractValue')}}"><span class="path1"></span>
+                            <span class="path2"></span><span class="path3"></span></span>
+                        </h3>
+                        <span class="token--data-lg">{{totalContractValue}}</span>
+                    </div>
+                    <div class="token d-block text-hgt" *ngIf="selectedArchiteture !== 'SEC'">
+                        <h3 class="token--title"><span>{{localeService.getLocalizedString('common.360.SNTC_RENEWAL_OPPORTUNITY')}}</span> <span class="icon-msg-Info" placement="top" container="body" ngbTooltip="{{getTooltip('sntcRenewalOpty')}}"><span class="path1"></span>
+                            <span class="path2"></span><span class="path3"></span></span>
+                        </h3>
+                        <span class="token--data-lg">{{appDataService.prettifyNumber(accHealthData.sntcRenewalOpty)}}</span>
+                    </div>
+                    <div class="token d-block text-hgt" *ngIf="selectedArchiteture === 'SEC'">
+                        <h3 class="token--title"><span>{{localeService.getLocalizedString('cisco_security_choice.360.SCU_COUNT')}}</span><span class="icon-msg-Info" placement="top" container="body" ngbTooltip="{{getTooltip('scuCount')}}"><span class="path1"></span><span class="path2"></span>
+                            <span class="path3"></span>
+                            </span>
+                        </h3>
+                        <span class="token--data-lg">{{appDataService.prettifyNumber(accHealthData.scuEstimate)}}</span>
+                    </div>
+                </div>
+
+                <div class="col custom-width pr-0" *ngIf="selectedArchiteture == 'SEC'">
+
+                    <div class="token d-block text-hgt">
+                        <h3 class="token--title"><span>{{localeService.getLocalizedString('cisco_security_choice.360.A_LA_CARTE_ANNU_EXIST_SPEND_ACV')}}</span><span class="icon-msg-Info" placement="top" container="body" ngbTooltip="{{getTooltip('alaCart')}}"><span class="path1"></span>
+                            <span class="path2"></span><span class="path3"></span></span>
+                        </h3>
+                        <span class="token--data-lg">{{appDataService.prettifyNumber(accHealthData.acvSpend)}}</span>
+                    </div>
+                    <div class="token d-block text-hgt">
+                        <h3 class="token--title"><span>{{localeService.getLocalizedString('cisco_security_choice.360.DEVICE_COUNT')}}</span><span class="icon-msg-Info" placement="top" container="body" ngbTooltip="{{getTooltip('deviceCount')}}"><span class="path1"></span>
+                            <span class="path2"></span><span class="path3"></span></span>
+                        </h3>
+                        <span class="token--data-lg">{{appDataService.prettifyNumber(accHealthData.scuEstimateDevice)}}</span>
+                    </div>
+                </div>
+
+
+                <div class="col custom-width pr-0" *ngIf="selectedArchiteture !== 'SEC'">
+                    <div class="token text-hgt d-block">
+                        <h3 class="token--title"><span>{{localeService.getLocalizedString('common.360.LAST_DATE_OF_SUPPORT_AMOUNT')}}</span><span class="icon-msg-Info" placement="top" container="body" ngbTooltip="{{getTooltip('lastDateSupportAmt')}}"><span class="path1"></span>
+                            <span class="path2"></span><span class="path3"></span></span>
+                        </h3>
+                        <span class="token--data-lg">{{appDataService.prettifyNumber(accHealthData.ldosAmount)}}</span>
+                    </div>
+                    <div class="token d-block text-hgt">
+                        <h3 class="token--title"><span>{{localeService.getLocalizedString('common.360.SWSS_RENEWAL_OPPORTUNITY')}}</span><span class="icon-msg-Info" placement="top" container="body" ngbTooltip="{{getTooltip('swssRenewalOpty')}}"><span class="path1"></span>
+                            <span class="path2"></span><span class="path3"></span></span>
+                        </h3>
+                        <span class="token--data-lg">{{appDataService.prettifyNumber(accHealthData.swssRenewalOpty)}}</span>
+                    </div>
+                </div>
+
+                <div class="col custom-width pr-0">
+                    <div class="token text-hgt d-block">
+                        <h3 class="token--title"><span>{{penetrationArchitecture}} {{localeService.getLocalizedString('common.360.PENETRATION')}}</span><span class="icon-msg-Info" placement="top" container="body" ngbTooltip="{{getTooltip('penetration')}}"><span class="path1"></span>
+                            <span class="path2"></span><span class="path3"></span></span>
+                        </h3>
+                        <div class="progress-data">
+                            <span class="token--data-lg">{{penetrationPercent}}%</span>
+                            <div class="progress">
+                                <div class="progress-bar bg-success" [style.width.%]="penetrationPercent"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="token d-block text-hgt">
+                        <div>
+                            <h3 class="token--title"><span>{{localeService.getLocalizedString('common.360.SOFTWARE_DISCOUNT')}}</span><span class="icon-msg-Info" placement="top" container="body" ngbTooltip="{{getTooltip('softwareDiscount')}}"><span class="path1"></span>
+                                <span class="path2"></span><span class="path3"></span></span>
+                            </h3>
+                            <span class="token--data-lg">{{accHealthData.softwareDiscount}}%</span>
+                        </div>
+                        <div class="donut-chart" appDonutChart [data]="accHealthData.softwareDiscount">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col renewals-tile">
+                    <div class="token d-block">
+                        <h3 class="token--title"><span>{{localeService.getLocalizedString('renewals.360.RENEWALS')}}<span class="icon-msg-Info" placement="top"
+                container="body" ngbTooltip="{{getTooltip('renewals')}}"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                            </span>
+                            <div class="globalSwitchWrap">
+                                <span>{{localeService.getLocalizedString('renewals.360.EA')}}</span>
+                                <ui-switch kdfid="globalView" kdfapp="enterpriseAgreement" kdfpage="enterpriseAgreement" [(ngModel)]="renewalEaView" checked size="small" color="#ABE3F2" switchColor="#00BCEA" (change)="globalSwitchChange($event)"></ui-switch>
+                                <span>{{localeService.getLocalizedString('renewals.360.ALL')}}</span>
+                            </div>
+                        </h3>
+                        <p class="token--description" *ngIf='currentQuarter'>{{localeService.getLocalizedString('partners.360.THERE_ARE')}} <b>{{currentQuarter.renewalAmount}} {{localeService.getLocalizedString('renewals.360.MORE')}} {{localeService.getLocalizedString('renewals.360.RENEWALS')}} {{localeService.getLocalizedString('renewals.360.THIS_QUARTER')}}({{currentQuarter.quarterName}}).</b></p>
+
+                        <div class="chart-block" appVerticalBarChart [barWidth]="45" [height]="165" [data]='renewalData'>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="token-box bg-white pt-3 pb-3">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-6 pr-0">
+                    <div class="token d-block h-100 no-hover">
+                        <ng-container *ngIf="selectedArchiteture !=='All Architectures'">
+                            <h3 class="token--title d-flex align-items-center justify-content-between"><span>{{localeService.getLocalizedString('prospectdetails.SUITES')}} {{localeService.getLocalizedString('common.360.TOTAL_CONTRACT_VALUE')}}<span class="icon-msg-Info" placement="top"
+                container="body" ngbTooltip="{{getTooltip('suiteTotContractVal')}}"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                                </span>
+                                <a href="javascript:void(0)" (click)='displaySuitesDetails()'>{{localeService.getLocalizedString('common.360.MORE_DETAILS')}}<span class="icon-arrow-right more-details-icon"></span></a></h3>
+                        </ng-container>
+                        <ng-container *ngIf="selectedArchiteture ==='All Architectures'">
+                            <div class="d-flex justify-content-between">
+                                <h3 class="token--title"><span>{{localeService.getLocalizedString('renewals.360.RENEWALS')}}</span>
+                                    <span class="icon-msg-Info" placement="top" container="body" ngbTooltip="{{getTooltip('renewals')}}"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                                </h3>
+                                <div class="globalSwitchWrap">
+                                    <span>{{localeService.getLocalizedString('renewals.360.EA')}}</span>
+                                    <ui-switch kdfid="globalView" kdfapp="enterpriseAgreement" kdfpage="enterpriseAgreement" [(ngModel)]="renewalEaView" checked size="small" color="#ABE3F2" switchColor="#00BCEA" (change)="globalSwitchChange($event)"></ui-switch>
+                                    <span>{{localeService.getLocalizedString('renewals.360.ALL')}}</span>
+                                </div>
+                            </div>
+                            <p class="token--description" *ngIf='currentQuarter'>{{localeService.getLocalizedString('partners.360.THERE_ARE')}} <b>{{currentQuarter.renewalAmount}} {{localeService.getLocalizedString('renewals.360.MORE')}} {{localeService.getLocalizedString('renewals.360.RENEWALS')}} {{localeService.getLocalizedString('renewals.360.THIS_QUARTER')}}({{currentQuarter.quarterName}}).</b></p>
+                        </ng-container>
+                        <ng-container *ngIf="selectedArchiteture !=='All Architectures'">
+                            <div class="scroll-changed">
+                                <div class="token--tile" *ngFor='let suite of accHealthData.column'>
+                                    <div class="token--tile-flex">
+                                        <h3 class="token--title"><span>{{suite.name}}</span></h3>
+                                        <span *ngIf="suite.value && suite.value > 0" class="badge brownfield">BrownField</span>
+                                        <span *ngIf="suite.value && suite.value === '0.00'" class="badge greenfield">GreenField</span>
+                                    </div>
+                                    <span class="token--data">{{appDataService.prettifyNumber(suite.value)}}</span>
+                                </div>
+                            </div>
+                            <div class="dropdown-wrap value-more text-center">
+                                <a><span class="icon-arrow-right"></span></a>
+                            </div>
+                        </ng-container>
+                        <div class="chart-block" *ngIf="selectedArchiteture ==='All Architectures'" appVerticalBarChart [barWidth]="55" [height]="320">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="token d-block h-100 no-hover">
+                        <h3 class="token--title"><span>{{localeService.getLocalizedString('partners.360.PARTNER')}}</span><span class="icon-msg-Info" placement="top" container="body" ngbTooltip="{{getTooltip('Partners_Top_15')}}"><span class="path1"></span><span class="path2"></span>
+                            <span class="path3"></span>
+                            </span>
+                        </h3>
+                        <p class="token--description">{{localeService.getLocalizedString('partners.360.THERE_ARE')}} <b> {{partnerBookingService.partnerCount}} {{localeService.getLocalizedString('partners.360.PARTNER')}}</b> {{localeService.getLocalizedString('partners.360.WHO_WORK_CLOSELY_WITH')}}
+                            {{appDataService.customerName}}.
+                        </p>
+                        <app-partner-bookings [architectureView]="true" [customerData]='selectedCustomerDetails'></app-partner-bookings>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<!--start of qual block-->
+<div *ngIf='showQualList' class="clearfix gray-bg-inner">
+    <div class="container-fluid">
+        <div class="main-block-wrapper mb-0 pt-3 pb-3">
+            <div class="row">
+                <div class="col-6">
+                    <h2>{{localeService.getLocalizedString('qual.create.QUALIFICATIONS')}}</h2>
+                </div>
+                <div class="col-xl-12" id="noSearchData" *ngIf="qualData?.data.length === 0">
+                    <div class="no-qual-list">
+                        <img class="no-qual-created-account" src="assets/images/no-data-available.svg">
+                        <h6>{{localeService.getLocalizedString('dashboard.qual.NO_QUAL_CREATED')}}</h6>
+                    </div>
+                </div>
+                <!-- End of Block Title  -->
+                <div class="col-12">
+                    <app-qual-list class="app-qual-list" *ngIf="qualData?.data.length !== 0" [qualData]="qualData" style="width:100%;"></app-qual-list>
+                </div>
+                <!-- End of 1st Row -->
+                <div class="col-xl-12 text-center view-link-wrap" *ngIf="qualData?.data.length">
+                    <a [id]="appDataService.createUniqueId('VIEW_ALL_QUALS',appDataService.pageContext)" *ngIf='qualData.isCreatedByMe' href="javascript:void(0)" (click)="goToQualification()">{{localeService.getLocalizedString('dashboard.qual.VIEW_ALL_QUALS')}}
+                  <span class="icon-arrow-right"></span>
+              </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--end of qual block-->
+<!--start of proposal block-->
+<div class="container-fluid" *ngIf='showProposalList'>
+    <div class="main-block-wrapper mb-0 pt-3 pb-3">
+        <div class="row">
+            <div class="col-6">
+                <h2>{{localeService.getLocalizedString('prospect.360.header.PROPOSAL')}}</h2>
+            </div>
+
+            <div class="col-xl-12" id="noSearchData" *ngIf="proposalData?.data.length === 0 ">
+                <div class="no-qual-list">
+                    <img class="no-proposal-created-account" src="assets/images/no-data-available.svg">
+                    <h6>{{localeService.getLocalizedString('dashboard.proposal.NO_PROPOSAL_CREATED')}}</h6>
+                </div>
+            </div>
+
+            <div class="col-xl-12" *ngIf="proposalData?.data.length > 0 ">
+                <app-proposal-list class="proposals-tiles" [proposalData]="proposalData" style="width:100%;"></app-proposal-list>
+            </div>
+            <!-- End of Tile 1 -->
+            <div class="col-xl-12 text-center view-link-wrap" *ngIf="proposalData?.data.length">
+                <a [id]="appDataService.createUniqueId('VIEW_ALL_PROPOSALS',appDataService.pageContext)" href="javascript:void(0)" (click)="goToProposalList()">{{localeService.getLocalizedString('dashboard.proposal.VIEW_ALL_PROPOSALS')}}
+                  <span class="icon-arrow-right"></span>
+              </a>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!--end of proposal block-->
+<!--start of Proposals on Compliance Hold-->
+<div class="clearfix gray-bg-inner">
+    <div class="container-fluid">
+        <div class="main-block-wrapper mb-0 pt-3 pb-3">
+            <h2>{{localeService.getLocalizedString('prospect.360.header.COMPLIANCE_hold')}}</h2>
+            <app-manage-compliance-hold-new [onAccountHealthPage]='true'></app-manage-compliance-hold-new>
+            <!--<div class="no-data-preloader" *ngIf="dashboardService.qualificationLoader">
+          <app-loader></app-loader>
+        </div>-->
+            <div *ngIf='accountHealthInsighService.hasComplianceHoldData' class="col-xl-12 text-center view-link-wrap">
+                <a [id]="appDataService.createUniqueId('SEE_ALL_ORDERS',appDataService.pageContext)" href="javascript:void(0)" (click)="goToOrder()">{{localeService.getLocalizedString('dashboard.proposal.VIEW_ALL_ORDERS')}}
+            <span class="icon-arrow-right"></span>
+        </a>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!--end of Proposals on Compliance Hold-->
+<!--start of Agreements block-->
+<div class="clearfix white-bg-inner">
+    <div class="container-fluid">
+        <div class="main-block-wrapper mb-0 pt-3 pb-3">
+            <div class="row">
+                <div class="col-6">
+                    <h2>{{localeService.getLocalizedString('prospect.360.header.AGREEMENT_SUBSCRIPTION')}}</h2>
+                </div>
+
+                <div class="col-12">
+                    <app-active-agreements fromPage='accountHealth' [activeAgreementData]="allArchitectureViewService.activeAgreementData"> </app-active-agreements>
+                </div>
+                <div *ngIf="allArchitectureViewService.activeAgreementData?.data?.accounts?.length > 0" class="col-xl-12 text-center view-link-wrap">
+                    <a href="javascript:void(0)" (click)="goToAgreementList()">{{localeService.getLocalizedString('agreements.360.VIEW_ALL_AGREEMENTS')}}
+          <span class="icon-arrow-right"></span>
+      </a>
+                </div>
+
+                <app-ib-summary-flyout [ibSummaryView]='ibSummaryView' [selectedNav]="selectedNav" *ngIf="accountHealthInsighService.showIbSummaryFlyout"></app-ib-summary-flyout>
+                <app-partner-bookings *ngIf="partnerBookingService.showPartnerBooking" [customerData]='selectedCustomerDetails'></app-partner-bookings>
+            </div>
+        </div>
+    </div>
+</div>
+<!--end of Agreements block-->
+<app-suites-breakdown [archName]='selectedArchiteture' [archDisplayName]='selectedArchDisplayName' *ngIf='this.accountHealthInsighService.showSuitesFlyout'> </app-suites-breakdown>
+<app-countries-present *ngIf="countriesPresentService.showCountriesPresent" [architectureView]="true" [customerData]='selectedCustomerDetails'></app-countries-present>

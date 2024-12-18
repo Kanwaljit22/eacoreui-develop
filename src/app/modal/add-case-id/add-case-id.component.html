@@ -1,0 +1,28 @@
+<div class="modal-header">
+  <h5 class="modal-title">Case ID</h5>
+  <button type="button" class="icon-close-btn" data-dismiss="modal" aria-label="Close" (click)="close()"></button>
+</div>
+<div class="modal-body">
+  <div class="createQualification">
+  <div class="row card m-0 border-0">
+      <div class="col-lg-12 line-level-alert">
+          <div class="form-group txt m-0">
+            <label class="customer-label" for="caseIdNumber" (click)="focusInput('caseIdNumber')">Enter Case ID
+            </label>
+              <input class="form-control" maxlength="65" appElementFocus id="caseIdNumber" [(ngModel)]="caseId" name="caseIdNumber" required="" type="text" (ngModelChange)="isCaseIdValueChanged($event)">
+          </div>
+          <!-- <div class="alert alert--danger" role="alert" *ngIf="qualificationNameError">
+              <i class="icon-error-icon"></i>
+              <span>{{errorMessage}}</span>
+          </div> -->
+      </div>
+  </div>
+
+</div>
+<div class="clearfix"></div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" (click)="close()">{{localeService.getLocalizedString('common.CANCEL')}}</button>
+  <button type="button" class="btn btn-primary" [disabled]="!isUpdate" (click)="update()">{{localeService.getLocalizedString('common.UPDATE')}}</button>
+  
+</div>

@@ -1,0 +1,38 @@
+[
+    {
+        "title": "Status",
+        "slug": "status",
+        "active": false,
+        "progressive": false,
+        "type": "dropdown",
+        "levels_name": [
+            "Status"
+        ],
+        "searchable": [
+            false
+        ],
+        "disabled": [],
+        "selected": [],
+        "levels": [
+            [
+                {
+                    "id": "Indentified",
+                    "name": "Indentified"
+                },
+                {
+                    "id": "Qualification in Progress",
+                    "name": "Qualification in Progress"
+                },
+                {
+                    "id": "Quote in Progress",
+                    "name": "Quote in Progress"
+                },
+                {
+                    "id": "Signed",
+                    "name": "Signed"
+                }
+            ]
+        ],
+        "excluded": []
+    }
+]

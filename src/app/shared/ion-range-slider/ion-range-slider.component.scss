@@ -1,0 +1,14 @@
+::ng-deep.irs-from,
+::ng-deep .irs-to,
+::ng-deep .irs-single,
+::ng-deep .irs-bar,
+::ng-deep .irs-slider,
+::ng-deep .irs--flat .irs-bar {
+    background      : #005073;
+    background-color: #005073;
+    display         : inline-block;
+}
+
+::ng-deep .irs-slider {
+    background: transparent url(../../../assets/images/slider-knob.svg) no-repeat;
+}

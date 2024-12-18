@@ -1,0 +1,104 @@
+<div class="modal-header">
+    <h5 class="modal-title">Look up Subscription</h5>
+    <button aria-label="Close" class="icon-close-btn" data-dismiss="modal" type="button"  (click)='close()' ></button>
+</div>
+<!-- End of Modal Header -->
+
+<div class="modal-body">
+    <div class="">
+        <div class="w-100">
+            <div class="form-group txt clearfix look--up mb-2">
+                <input appelementfocus="" [(ngModel)]='subscriptionId'  class="form-control" id="subsID" name="subsID" required="" type="text"  (keyup.enter)="subscriptionLookup()" (ngModelChange)="updateLookUpSubscription($event)">>
+                <label class="form-control-placeholder" for="subsID"  (click)="focusSubIdInput(appDataService.createUniqueId('subsId',appDataService.pageContext))">Sub ID <span class="import">*</span></label>
+                <span class="validate" style="display:none;">Validation</span><span class="validate">
+                    <button class="btn btn-secondary" type="button" id="subscription_id" (click)='subscriptionLookup()'  [disabled]="!subscriptionId">Search</button></span>
+            </div>
+            <div></div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+
+    <!-- Look up Subscription Row -->
+    <div *ngIf='isSubscriptionListLoaded && subscriptionData.length > 0'>
+        <div class="row" *ngFor="let subscriptionObj of subscriptionData">
+            <div class="col-12" (click)='selectSubscription(subscriptionObj)'>
+                <div class="d-flex account-health-agr justify-content-center align-items-center flex-column active_agreements co-term-subscribe" [ngClass]='{"co-term-selected": subscriptionObj.subscriptionId === selectedSubscription.subscriptionId}'>
+                    <div class="row-tile-main w-100">
+                        <div class="row row-tile align-items-center ml-0 mr-0">
+                          <div class="col-4 d-inline-flex align-items-center pl-0">
+                            <div class="d-inline-flex mr-2"  *ngIf="subscriptionObj.archName">                                                   
+                                <span class="icon-DNA-new architecture--icon"  *ngIf="subscriptionObj.archName === 'C1_DNA'"><span class="path1"></span><span class="path2"></span><span
+                                class="path3"></span><span class="path4"></span><span class="path5"></span><span
+                                class="path6"></span><span class="path7"></span></span>
+            
+                                <span class="icon-data-center-new architecture--icon d-none"  *ngIf="subscriptionObj.archName === 'C1_DC'"><span class="path1"></span><span
+                                class="path2"></span><span class="path3"></span><span class="path4"></span><span
+                                class="path5"></span><span class="path6"></span><span class="path7"></span><span
+                                class="path8"></span></span>
+    
+                                <span class="icon-security-new architecture--icon d-none"  *ngIf="subscriptionObj.archName === 'SEC'"><span class="path1"></span><span class="path2"></span><span
+                                class="path3"></span></span>
+    
+                                <span class="icon-cross-arch-tile architecture--icon d-none"  *ngIf="subscriptionObj.archName === 'cross_arch'"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span><span class="path8"></span><span class="path9"></span><span class="path10"></span></span>
+                            </div>
+    
+                            <h4 class="agreement-title mb-0" style="cursor: pointer;"><a href="javascript:void(0);">{{subscriptionObj.virtualAccountName}}</a></h4>
+                          </div>
+                          
+                          <div class="col d-flex flex-wrap pl-0">
+                            <div class="col-md-4 pr-0"><span class="value-title">Start Date</span>
+                              <div class="value-data d-block"> {{subscriptionObj.startDate}} <div class="timeline-dots-container">
+                                <div class="progress">
+                                    <div class="progress-bar"></div>
+                                </div>
+                                <div class="timeline-dots-main">
+                                    <span class="dots light-grey"></span>
+                                    <span class="dots light-grey"></span>
+                                    <span class="dots light-grey"></span>
+                                    <span class="dots light-grey"></span>
+                                </div>
+                              </div>
+                             </div>
+                            </div>
+                             <div class="col"><span class="value-title">End Date</span><span class="value-data d-block"> {{subscriptionObj.endDate}} </span></div>
+                             <div class="col"><span class="value-title">Subscription ID</span><span class="value-data d-block"> {{subscriptionObj.subscriptionId}}</span>
+                             </div>
+                             <div class="col"><span class="value-title">Agreement Status</span><span class="value-data d-block active text-success"
+                                 > {{subscriptionObj.status}} </span></div>
+                               
+                             
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End of Subscription to Co-Term-->
+            </div>
+        </div>
+    </div>
+   
+    <!-- End of Look up Subscription Row -->
+
+    <!-- No Record Found -->
+    <div class="row"  *ngIf='(subscriptionData.length === 0 && isSubscriptionListLoaded) || noDataFound'>
+        <div class="clearfix m-0 w-100 pt-3 pb-3 lookup-sub-default" id="noSearchData">
+            <div class="default-lookupsub"  *ngIf='subscriptionData.length === 0 && isSubscriptionListLoaded'>
+                <img src="assets/images/no-data-available.svg">  
+                <p>Please enter sub id to lookup</p>
+            </div>
+
+            <div class="no-data-lookupsub"  *ngIf="noDataFound">
+                <img src="assets/images/no-data-available.svg">  
+                <h6>Sorry, No Data Found</h6>
+                <p>What you searched for is unfortunately not found or doesn't exist. So you cannot continue with co-term. Hence we are switching to 36 months subscription.</p>
+            </div>
+        </div>
+    </div>
+    <!-- Enf of No Record Found-->
+</div>
+  <!-- End of Modal Body -->
+
+<div class="modal-footer">
+    <button class="btn btn-secondary" type="button"  (click)='close()' >Cancel</button>
+    <button class="btn btn-primary" data-dismiss="modal" type="button"  [disabled]="!isSubscriptionSelected" (click)="done()">Done</button>
+</div>

@@ -1,0 +1,5 @@
+<div class="modal-body vNext modal-without-header" *ngIf="projectService.showLocc">
+    <button class="icon-close-btn" type="button" (click)="close()" attr.action-id="{{dataIdConstantsService.locc_button_close}}"></button>
+    <h2 class="mb-5">{{localizationService.getLocalizedString('common.LOCC')}}</h2>
+    <app-locc></app-locc>
+</div>

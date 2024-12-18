@@ -1,0 +1,1099 @@
+<app-copy-link></app-copy-link>
+<app-financial-summary [financialSummaryData] = "proposalDataService.cxProposalFlow ? cxSummaryData : summaryData"  [financialSummaryTotalData] = "proposalDataService.cxProposalFlow ? cxPinnedResult : pinnedResult" ></app-financial-summary>
+<app-sub-header *ngIf="listProposalService.navigateToSummary === true"></app-sub-header>
+<div class="clearfix">
+</div>
+<div *ngIf="!Proposalsuccess">
+
+    <div  *ngIf="!ciscoDealForPartner">
+        <div id="filter-area" class="container-fluid mb-3">
+            <!-- End of Error Notification -->
+            <div class="row">
+                <!----div class="col-xs-12 col-sm-3 col-md-3 paddingL0">
+                    <h2></h2>
+                </div-->
+                <!--bindings={
+          "ng-reflect-ng-if": "true"
+        }-->
+        <div class="col-md-12 d-flex justify-content-between">
+            
+            <ul class="qualify-btn flex-grow-1">
+                        <!-- <li class="viewProspect" *ngIf = "proposalDataService.relatedCxProposalId">
+                            <a href="javascript:void()" (click)="openCXProposal(proposalDataService.relatedCxProposalId)">Switch to Services Proposal</a>
+                        </li>
+                        <li class="viewProspect" *ngIf = "proposalDataService.relatedSoftwareProposalId">
+                            <a href="javascript:void()" (click)="openCXProposal(proposalDataService.relatedSoftwareProposalId)">Switch to SW-Proposal</a>
+                        </li> -->
+                        <li class="viewProspect" *ngIf="thresholdException && this.appDataService.userInfo.thresholdExceptionApprover && appDataService.archName === constantsService.DNA && !appDataService.roadMapPath"><button [id] = "appDataService.createUniqueId('APPROVER_THRESHOLD_EXECPTION',appDataService.pageContext)" type="button" class="btn btn-secondary" (click)="dnaExceptionModal()">{{localeService.getLocalizedString('proposal.summary.APPROVER_THRESHOLD_EXECPTION')}}</button></li>
+                        <li class="viewProspect" *ngIf="thresholdException && this.appDataService.userInfo.dcThresholdExceptionApprover && appDataService.archName === constantsService.DC && !appDataService.roadMapPath"><button [id] = "appDataService.createUniqueId('APPROVER_THRESHOLD_EXECPTION',appDataService.pageContext)" type="button" class="btn btn-secondary" (click)="dcExceptionModal()">{{localeService.getLocalizedString('proposal.summary.APPROVER_THRESHOLD_EXECPTION')}}</button></li>
+                        <li class="viewProspect" *ngIf="thresholdException && this.appDataService.userInfo.secThresholdExceptionApprover && appDataService.archName === constantsService.SECURITY && !appDataService.roadMapPath"><button [id] = "appDataService.createUniqueId('APPROVER_SECURITY_EXECPTION',appDataService.pageContext)" type="button" class="btn btn-secondary" (click)="secExceptionModal()">{{localeService.getLocalizedString('proposal.summary.APPROVER_SECURITY_EXECPTION')}}</button></li>
+                        <li class="viewProspect" *ngIf="dnaMaxSubscriptionDiscountException && this.appDataService.userInfo.dnaDiscountExceptionApprover && appDataService.archName === constantsService.DNA && !appDataService.roadMapPath"><button [id] = "appDataService.createUniqueId('APPROVER_DISCOUNT_EXECPTION',appDataService.pageContext)" type="button" class="btn btn-secondary" (click)="dnaDiscountExceptionModal()">{{localeService.getLocalizedString('proposal.summary.APPROVER_DISCOUNT_EXECPTION')}}</button></li>
+                        <li class="viewProspect" *ngIf="showReqApproval"><button [id] = "appDataService.createUniqueId('REQUEST_APPROVAL',appDataService.pageContext)" type="button" class="btn btn-secondary" (click)="requestApprovalException()">{{localeService.getLocalizedString('proposal.summary.REQUEST_APPROVAL')}}</button></li>
+                        <li class="viewProspect" *ngIf="appDataService.userInfo.adjustmentApprover && purchaseAdjustmentException"><button [id] = "appDataService.createUniqueId('APPROVER_PURCHASE_ADJUSTMENT',appDataService.pageContext)" type="button" class="btn btn-secondary" (click)="adjustmentApprove()">{{localeService.getLocalizedString('proposal.summary.APPROVER_PURCHASE_ADJUSTMENT')}}</button></li>
+                        <li class="viewProspect" *ngIf="appDataService.roadMapPath && allowClone && !this.appDataService.isProposalPending && !this.appDataService.isPendingAdjustmentStatus && !isTypeCX"><button [id] = "appDataService.createUniqueId('CLONE_PROPOSAL',appDataService.pageContext)" class="btn btn-secondary" type="button" (click)="copyProposal()">{{localeService.getLocalizedString('common.CLONE')}} {{localeService.getLocalizedString('common.PROPOSAL')}}</button></li>
+                         <!-- show document center and preview quote only if permissions are present -->
+                        <li class="viewProspect" *ngIf="allowDocCenter"><button [id] = "appDataService.createUniqueId('DOCUMENT_CENTER_BUTTON',appDataService.pageContext)" class="btn btn-primary" type="button" (click)="documentCenter()">{{localeService.getLocalizedString('proposal.summary.DOCUMENT_CENTER_BUTTON')}}</button></li>
+                        <li class="viewProspect" *ngIf="allowQuote"><button [id] = "appDataService.createUniqueId('PREVIEW_QUOTE',appDataService.pageContext)" class="btn btn-primary" type="button" (click)="generateQuote()">{{localeService.getLocalizedString('proposal.summary.PREVIEW_QUOTE')}}</button></li>
+                        <li class="viewProspect 321" *ngIf="!isProposalDeleted && !hasMultipleOffer && isApprovalFlow"><button [id] = "appDataService.createUniqueId('PROPOSAL_LIST',appDataService.pageContext)" class="btn btn-primary" type="button" (click)="pendingForMyApproval()">Back to Pending Exceptions</button></li>
+                        <!-- <li *ngIf="!appDataService.roadMapPath && proposalDataService?.cxProposalFlow && !this.qualService.qualification.cxTeams.length">
+                            <button type="button" class="btn btn-text decoration-none" (click)="showServiceModal()"><span class="icon-manage-team mr-2"></span>{{localeService.getLocalizedString('common.MANAGE_SERVICE_SPECIALIST')}}</button>
+                        </li> -->
+                        <li class="viewProspect 321" *ngIf="!isProposalDeleted && !hasMultipleOffer"><button [id] = "appDataService.createUniqueId('PROPOSAL_LIST',appDataService.pageContext)" class="btn btn-primary" type="button" (click)="viewProposal()">{{localeService.getLocalizedString('common.PROPOSAL_LIST')}}</button></li>
+                        <li *ngIf="!appDataService.roadMapPath" class="viewProspect  btn-sep"><button [id] = "appDataService.createUniqueId('BACK',appDataService.pageContext)" *ngIf="this.appDataService.isReadWriteAccess" class="btn btn-secondary btn-back" (click)="backToPriceEstimate()" type="button"><span class="icon-btn-back"></span> <span class="mid-text">{{localeService.getLocalizedString('common.BACK')}}</span></button></li>
+                        <li class="viewProspect" *ngIf="allowCompletion && appDataService.isReadWriteAccess && isEnableContinue"><button [id] = "appDataService.createUniqueId('SAVE_AND_CONFIRM',appDataService.pageContext)" [disabled] = "isRequestStartDateDue || (this.proposalDataService.cxProposalFlow && (proposalCxParams?.awaitingResponse))"   class="btn btn-primary btn-continue" type="button" (click)="saveProposal()"><span class="mid-text">{{localeService.getLocalizedString('common.SAVE')}} &amp; {{localeService.getLocalizedString('common.CONFIRM')}}</span> <span class="icon-btn-continue"></span></button></li>
+                        <li class="viewProspect" *ngIf="allowShareWtihDisti"><button [id] = "appDataService.createUniqueId('SAVE_AND_CONFIRM',appDataService.pageContext)" [disabled] = "isRequestStartDateDue"   class="btn btn-primary btn-continue" type="button" (click)="shareWithDistributor()"><span class="mid-text">Transfer to Distributor</span> <span class="icon-btn-continue"></span></button></li>
+                        <li class="viewProspect" *ngIf="allowWithdrawSharingWithDisti"><button [id] = "appDataService.createUniqueId('SAVE_AND_CONFIRM',appDataService.pageContext)" [disabled] = "isRequestStartDateDue"   class="btn btn-primary btn-continue" type="button" (click)="withdrawFromDistributor()"><span class="mid-text">Withdraw Proposal</span> <span class="icon-btn-continue"></span></button></li>
+                        <!-- commented out for further use   
+                            <li class="viewProspect" *ngIf="!appDataService.roadMapPath && !this.appDataService.isReadWriteAccess && (appDataService.userInfo.roSuperUser)"><button [id] = "appDataService.createUniqueId('SAVE_AND_CONFIRM',appDataService.pageContext)" [disabled]="true" *ngIf="!this.appDataService.isReadWriteAccess && appDataService.userInfo.roSuperUser" class="btn btn-primary btn-continue" type="button"><span class="mid-text">{{localeService.getLocalizedString('common.SAVE')}} &amp; {{localeService.getLocalizedString('common.CONFIRM')}}</span> <span class="icon-btn-continue"></span></button></li> -->
+                        <li class="viewProspect 456" *ngIf="allowReopen && !qualService.twoTUserUsingDistiDeal"><button [id] = "appDataService.createUniqueId('REOPEN',appDataService.pageContext)" (click)="reopenProposal()" class="btn btn-primary" type="button">{{localeService.getLocalizedString('common.REOPEN')}} {{localeService.getLocalizedString('common.PROPOSAL')}}</button></li>
+                        <!-- commented out for further use  -->
+                            <li class="viewProspect" *ngIf="disableReopen || qualService.twoTUserUsingDistiDeal"><button [id] = "appDataService.createUniqueId('REOPEN',appDataService.pageContext)"  [disabled]="true" class="btn btn-primary" type="button">{{localeService.getLocalizedString('common.REOPEN')}} {{localeService.getLocalizedString('common.PROPOSAL')}}</button></li>
+                            
+                            <!-- show only if proposal is in progress and any exception preset -->
+                            <!-- show this button only for DNA arch , will update in further -->
+                            <li class="viewProspect" *ngIf="!appDataService.isTwoTierUser(qualService.buyMethodDisti) && this.appDataService.isReadWriteAccess && allowExceptionSubmission && isShowSelectReason && !isApprovalFlow && !isExceptionSubmitted && this.proposalDataService.proposalDataObject.proposalData.status !== this.constantsService.COMPLETE_STATUS"><button [disabled] = "isRequestStartDateDue"  class="btn btn-primary" type="button" (click)="initiateExceptionRequestData()">Submit for Approval</button></li>                                                    
+                            <li class="viewProspect" (click)="withDrawRequest('summaryPage')" *ngIf="!isApprovalFlow && this.appDataService.isReadWriteAccess && isShowWithDraw"><button class="btn btn-primary" type="button">Withdraw Request</button></li>
+                            <!-- End of Exceptions buttons -->
+
+                    </ul>
+
+                </div>
+                <!--bindings={}-->
+                <!-- <message></message> -->
+                <message *ngIf='isProposalDeleted'></message>
+                
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    
+    <div>
+
+
+
+            <!-- <div class="approve-disapprove refine-result mb-0" *ngIf="hasMultipleOffer">
+                    <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                    <span class="infoTxt">{{localeService.getLocalizedMessage('proposal.summary.HAS_MULTIPLE_OFFER_START')}} <a href="javascript:void(0)" (click) = 'slpitProposal()'>{{localeService.getLocalizedMessage('proposal.summary.HAS_MULTIPLE_OFFER_MIDDLE')}}</a>{{localeService.getLocalizedMessage('proposal.summary.HAS_MULTIPLE_OFFER_END')}}</span>
+            </div> -->
+
+
+        <div id="main-container" class="container-fluid" *ngIf="!isProposalDeleted && !hasMultipleOffer">
+            <div class="alert alert--danger w-auto mb-2" *ngIf='displayIbPullMsg && !(proposalCxParams?.awaitingResponse && !proposalCxParams?.lineInError) && !proposalCxParams?.discountCascadePending && !appDataService.roadMapPath'> 
+                <span class="alert-icon">
+                    <span class="icon-error-icon"></span>
+                </span>
+                <span>Cannot Proceed further because the IB assessment for CX Services is more than 10 days old. Click on <a href="javascript:void();" (click)="backToPriceEstimate()">Price Estimation</a> and re-process the CX IB Assessment</span>
+                <!-- <span class="alert-action">
+                    <button class="icon-close-btn mt-0" type="button"></button>
+                </span> -->
+            </div>
+            <!-- <div class="row mb-2" *ngIf="!appDataService.roadMapPath && proposalDataService?.cxProposalFlow && !this.qualService.qualification.cxTeams.length">
+                <div class="col">
+                    <div class="alert alert--cx-info error mt-2 pr-2">
+                       <div class="cx-msg">
+                           <p class="msg">
+                            <span class="icon-error-icon"></span>   
+                            For a Services proposal you must have a Services Specialist in your team. Please click on  <a href="javascript:void(0);" (click)="showServiceModal()"> Manage Services Specialist </a> to add a Services Specialist.
+                           </p>
+                       </div>
+                    </div>
+                </div>
+            </div> -->
+
+            <!-- message for cx proposal discount dirty -->
+            <div class="row mb-2" *ngIf = "proposalDataService.cxProposalFlow && (proposalCxParams?.discountDirty && proposalCxParams?.discountCascadePending)  && !appDataService.roadMapPath">
+                <div class="col">
+                    <div class="alert alert--cx-info alert mt-2 pr-2">
+                       <div class="cx-msg">
+                           <p class="msg"> 
+                            <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span> 
+                            {{localeService.getLocalizedMessage('proposal.summary.CX_DISCOUNT_DIRTY_MSG')}}
+                           </p>
+                       </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-2" *ngIf = "proposalDataService.cxProposalFlow && proposalCxParams?.awaitingResponse && !proposalCxParams?.discountCascadePending && !appDataService.roadMapPath">
+                <div class="col">  
+                    <div class="alert alert--cx-info alert mt-2 pr-2">
+                       <div class="cx-msg">
+                           <p class="msg">
+                            <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span> 
+                            <span>{{localeService.getLocalizedMessage('proposal.summary.CX_AWAITINGRESPONSE_MSG_01')}}</span>
+                            <span><a href="javascript:void(0)" title="{{localeService.getLocalizedMessage('proposal.summary.CX_AWAITINGRESPONSE_MSG2')}}" (click)="backToPriceEstimate()">{{localeService.getLocalizedMessage('proposal.summary.CX_AWAITINGRESPONSE_MSG_02')}}</a></span>
+                            <span>{{localeService.getLocalizedMessage('proposal.summary.CX_AWAITINGRESPONSE_MSG_03')}}</span>
+                           </p>
+                       </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- message for cx proposal discount dirty -->
+            <message *ngIf="ciscoDealForPartner"></message>
+            <div class="alert-group-wrap">
+                <!-- <app-ea-purchases *ngIf="proposalSummaryService.showCiscoEaAuth && !proposalDataService.cxProposalFlow" style="width: 100%"></app-ea-purchases> -->
+                <div *ngIf="!isLoccSigned && partnerLedFlow && !loccOptional  && proposalDataService.isLoccRequired">  
+                    <div class="alert alert--warning" >
+                        <i class="arrow up"></i>
+                        <span class="alert-icon">
+                            <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                        </span>
+                        <span class="infoTxt">{{localeService.getLocalizedMessage('partner.LOA_LETTER_OF_AUTHORIZATION')}}</span>
+                     </div>
+                     </div>
+                     <div class="alert alert--warning" *ngIf='proposalDataService.displayAnnualBillingMsg && !createProposalService.isMSPSelected'>
+                        <i class="arrow up"></i>
+                        <span class="alert-icon">
+                            <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                        </span>
+                        <span class="infoTxt">{{localeService.getLocalizedString('modal.proposalheader.BILLING_APPROVAL')}}</span>
+                     </div> 
+
+                     <div class="alert alert--info" *ngIf="allowWithdrawSharingWithDisti">
+                        <span class="alert-icon">
+                            <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                        </span>
+                        <span class="infoTxt">
+                            Since the distributor is working on the proposal, you cannot edit the proposal.
+                        </span>
+                    </div>
+
+                     <div class="alert alert--info" *ngIf="!isLoccSigned && partnerLedFlow && !loccOptional && !proposalDataService.isLoccRequired  && !proposalDataService.isBrownfieldPartner">
+                        <span class="alert-icon">
+                            <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                        </span>
+                        <span class="infoTxt">
+                            No Letter of Customer Consent (LoCC) is required as customer has not previously purchased any qualifying licenses for this EA
+                        </span>
+                    </div>
+
+
+                     <div class="alert alert--info" *ngIf="orginalProposalID">
+                        <span class="alert-icon">
+                            <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                        </span>
+                        <span class="infoTxt">{{localeService.getLocalizedMessage('proposal.summary.CLONE_PROPOSAL_1')}} <a class="d-inline" href="javascript:void(0);" (click)="openOriginalProposal()">{{localeService.getLocalizedString('docusign.HERE')}}</a> {{localeService.getLocalizedMessage('proposal.summary.CLONE_PROPOSAL_2')}} ({{orginalProposalID}})</span>
+
+                    </div>
+
+                    <div class="alert alert--info" *ngIf="!isLoccSigned && partnerLedFlow && !loccOptional && !proposalDataService.isLoccRequired && proposalDataService.isBrownfieldPartner">
+                        <span class="alert-icon">
+                            <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                        </span>
+                        <span class="infoTxt">
+                            No Letter of Customer Consent is required as customer has purchased all qualifying licenses from you as a Partner.
+                        </span>
+                    </div> 
+                <!-- start of Alert with Errors  -->
+                  <!--Error message if proposal request date is due-->
+                  <div class="alert alert--danger alert-dismissable clearfix" *ngIf='isRequestStartDateDue && (appDataService.isReadWriteAccess || (appDataService.userInfo.roSuperUser && !appDataService.isReadWriteAccess))'
+                  style="width: 100%;">
+                  <span class="alert-icon">
+                    <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                </span>
+                  <!--span class="icon-alert-warning-bg"></span-->
+                  <span>{{localeService.getLocalizedString('proposal.REOPEN_NOT_ALLOWED_DUE_REQUEST_START_DATE')}}</span>
+              </div>
+                <div class="alert alert--danger alert-dismissable clearfix" *ngIf='messageService.messagesObj.errors?.length > 1 && (appDataService.isReadWriteAccess || (appDataService.userInfo.roSuperUser && !appDataService.isReadWriteAccess))' style="width: 100%;">
+                    <span class="alert-icon">
+                        <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span></span>
+                    </span>
+                    <span class="infoTxt custom-lh-qtr">There are <span class="import">{{messageService.messagesObj.errors.length}} Errors <div
+                                class="error-list alert-error">
+                                <div class="alert alert--danger" *ngFor="let message of messageService.messagesObj.errors">
+                                    <span class="alert-icon">
+                                       <span class="icon-alert-error-bg"></span>
+                                    </span>
+                                    <span>{{message.text}}</span>
+                                </div>
+                
+                            </div></span> in this proposal.</span>
+                
+                </div>
+
+                <div *ngIf="messageService.messagesObj.errors?.length === 1 && (appDataService.isReadWriteAccess || (appDataService.userInfo.roSuperUser && !appDataService.isReadWriteAccess))" class="alert alert--danger alert-dismissable clearfix" style="width: 100%;">
+                    <span class="alert-icon">
+                        <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span></span>
+                    </span>
+                    <span>{{messageService.messagesObj.errors[0].text}}
+                    </span>
+                </div>
+                <!--Error message if proposal has any legacy suite-->
+                <div class="alert alert--danger alert-dismissable clearfix" *ngIf='proposalDataService.hasLegacySuites && (appDataService.isReadWriteAccess || (appDataService.userInfo.roSuperUser && !appDataService.isReadWriteAccess))'
+                style="width: 100%;">
+                    <span class="alert-icon">
+                        <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                    </span>
+                    <!--span class="icon-alert-warning-bg"></span-->
+                    <span *ngIf='proposalDataService.proposalDataObject.proposalData.status === constantsService.COMPLETE_STATUS'>{{localeService.getLocalizedString('proposal.managesuites.LEGACY_SUITE_COMPLETED')}}</span>
+                    <span *ngIf='proposalDataService.proposalDataObject.proposalData.status != constantsService.COMPLETE_STATUS'>{{localeService.getLocalizedString('proposal.managesuites.LEGACY_SUITE_IN_PROGRESS')}}</span>
+                </div>
+                <!-- End of Alert with Errors  -->
+                
+                <!-- start of Alert with warning  -->
+                
+                <div class="alert alert--warning alert-dismissable clearfix" *ngIf='hasMultipleOffer'
+                    style="width: 100%;">
+                    <span class="alert-icon">
+                        <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                    </span>
+                    <!--span class="icon-alert-warning-bg"></span-->
+                    <span>{{localeService.getLocalizedMessage('proposal.summary.HAS_MULTIPLE_OFFER_START')}} <a
+                            href="javascript:void(0)"
+                            (click)='slpitProposal()'>{{localeService.getLocalizedMessage('proposal.summary.HAS_MULTIPLE_OFFER_MIDDLE')}}</a>{{localeService.getLocalizedMessage('proposal.summary.HAS_MULTIPLE_OFFER_END')}}</span>
+                </div>
+              
+                <div class="alert alert--warning alert-dismissable clearfix" *ngIf='messageService.messagesObj.warns?.length > 1 && !hasMultipleOffer  && (appDataService.isReadWriteAccess || (appDataService.userInfo.roSuperUser && !appDataService.isReadWriteAccess))' style="width: 100%;">
+                    <span class="alert-icon">
+                        <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                    </span>
+                    <span>There are <span class="alert-warning-text">
+                            <!-- commented out for further use  -->
+                                <span
+                                *ngIf="!appDataService.isReadWriteAccess && showInfo">{{messageService.messagesObj.warns.length + 1}}
+                                Warnings</span>
+                            <span 
+                                *ngIf="!(!appDataService.isReadWriteAccess && showInfo)">{{messageService.messagesObj.warns.length}}
+                                Warnings</span>
+                            <div class="error-list warning-list">
+                                <div class="alert alert--warning" *ngFor="let message of messageService.messagesObj.warns">
+                                    <!--span class="icon-alert-warning-bg"></span-->
+                                    <span>{{message.text}}</span>
+                                </div>
+                                <!-- commented out for further use  -->
+                                    <div class="alert alert--warning"
+                                    *ngIf="!appDataService.isReadWriteAccess && showInfo && !allowWithdrawSharingWithDisti">
+                                    <!--span class="icon-alert-warning-bg"></span-->
+                                    <span>{{localeService.getLocalizedString('common.RW_ACCESS_MESSAGE')}}
+                                        {{localeService.getLocalizedString('common.PROPOSAL')}}{{localeService.getLocalizedString('common.REQUEST_ACCESS')}}
+                                        <a href="javascript:void(0)"
+                                            (click)="appDataService.requestAccessForProposalOrQual(constantsService.PROPOSAL,proposalDataService.proposalDataObject.proposalId)">{{localeService.getLocalizedString('common.CONTACT_OWNER')}}</a></span>
+                                </div>
+                            </div>
+                        </span> in this proposal.</span>
+                </div>
+                <!-- commented out for further use   -->
+                    <div class="alert alert--warning alert-dismissable clearfix"
+                    *ngIf='messageService.messagesObj.warns?.length > 1 && !hasMultipleOffer  && !(appDataService.isReadWriteAccess || (appDataService.userInfo.roSuperUser && !appDataService.isReadWriteAccess))'
+                    style="width: 100%;">
+                    <span class="alert-icon">
+                        <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                    </span>
+                    <span>{{localeService.getLocalizedString('common.RW_ACCESS_MESSAGE')}}
+                        {{localeService.getLocalizedString('common.PROPOSAL')}}{{localeService.getLocalizedString('common.REQUEST_ACCESS')}}
+                        <a href="javascript:void(0)"
+                            (click)="appDataService.requestAccessForProposalOrQual(constantsService.PROPOSAL,proposalDataService.proposalDataObject.proposalId)">{{localeService.getLocalizedString('common.CONTACT_OWNER')}}</a></span>
+                        <span class="alert-action">
+                            <button class="icon-close-btn mt-0" type="button" (click)="closeInfo()" id=""></button>
+                        </span>
+                </div>
+
+                <div class="alert alert--warning alert-dismissable clearfix"
+                    *ngIf='messageService.messagesObj.warns?.length === 1 && !hasMultipleOffer && !(!appDataService.isReadWriteAccess &&  showInfo)'
+                    style="width: 100%;">
+                    <span class="alert-icon">
+                        <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                    </span>
+                    <span>{{messageService.messagesObj.warns[0].text}}
+                    </span>
+                
+                </div>
+<!-- commented out for further use  -->
+                <div class="alert alert--warning alert-dismissable clearfix"
+                    *ngIf='messageService.messagesObj.warns?.length === 1 && !hasMultipleOffer && (!appDataService.isReadWriteAccess &&  showInfo)'
+                    style="width: 100%;">
+                    <span class="alert-icon">
+                        <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                    </span>
+                    <span>There are <span class="alert-warning-text">
+                            <span>2 Warnings</span>
+                            <div class="error-list warning-list">
+                                <div class="alert alert--warning" *ngFor="let message of messageService.messagesObj.warns">
+                                    <!--span class="icon-alert-warning-bg"></span-->
+                                    <span>{{messageService.messagesObj.warns[0].text}}</span>
+                                </div>
+                                <div class="alert alert--warning">
+                                    <!--span class="icon-alert-warning-bg"></span-->
+                                    <span>{{localeService.getLocalizedString('common.RW_ACCESS_MESSAGE')}}
+                                        {{localeService.getLocalizedString('common.PROPOSAL')}}{{localeService.getLocalizedString('common.REQUEST_ACCESS')}}
+                                        <a href="javascript:void(0)"
+                                            (click)="appDataService.requestAccessForProposalOrQual(constantsService.PROPOSAL,proposalDataService.proposalDataObject.proposalId)">{{localeService.getLocalizedString('common.CONTACT_OWNER')}}</a></span>
+                                </div>
+                            </div>
+                        </span> in this proposal.</span>
+                
+                </div>
+                
+                <div *ngIf="!allowWithdrawSharingWithDisti && messageService.messagesObj.warns?.length === 0 && (!appDataService.isReadWriteAccess &&  showInfo && !hasMultipleOffer) && isDataLoaded"
+                    class="alert alert--warning alert-dismissable clearfix" style="width: 100%;">
+                    <span class="alert-icon">
+                        <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                    </span>
+                    <span>{{localeService.getLocalizedString('common.RW_ACCESS_MESSAGE')}}
+                        {{localeService.getLocalizedString('common.PROPOSAL')}}{{localeService.getLocalizedString('common.REQUEST_ACCESS')}}
+                        <a href="javascript:void(0)"
+                            (click)="appDataService.requestAccessForProposalOrQual(constantsService.PROPOSAL,proposalDataService.proposalDataObject.proposalId)">{{localeService.getLocalizedString('common.CONTACT_OWNER')}}</a></span>
+                        <span class="alert-action">
+                            <button class="icon-close-btn mt-0" type="button" (click)="closeInfo()" id=""></button>
+                        </span>
+                </div> 
+
+            <!-- single exception message -->
+            <div class="alert alert--warning alert-dismissable clearfix"
+            *ngIf="appDataService.isReadWriteAccess && !isApprovalFlow && allowExceptionSubmission && (!isExceptionSubmitted || isExceptionWithdrawn) && (exceptionStatusData.length === 1 || (exceptionStatusData.length > 1 && this.proposalDataService.proposalDataObject.proposalData.status === this.constantsService.PA_APPROVAL_SUBMISSION_PENDING))"
+                    style="width: 100%;margin-bottom: 4px !important;">
+                    <span class="alert-icon">
+                        <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                    </span>
+                    <span>{{localeService.getLocalizedString('proposal.summary.SINGLE_EXCEPTION_MESSAGE')}}
+                    </span>
+                
+                </div>
+            <!-- Multiple warning message -->
+            <!-- show only if proposal is in progress and any exception preset -->
+            <div class="multiple-alert" style="padding-bottom: 5px;" *ngIf="appDataService.isReadWriteAccess && !isApprovalFlow && allowExceptionSubmission && (!isExceptionSubmitted || isExceptionWithdrawn) && exceptionStatusData.length > 1 && this.proposalDataService.proposalDataObject.proposalData.status !== this.constantsService.PA_APPROVAL_SUBMISSION_PENDING">
+                    <div class="alert alert--warning alert-dismissable clearfix" style="width: 100%;">
+                        <span class="alert-icon">
+                            <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                        </span>
+                        <span>This proposal has multiple exceptions. Please submit for approval.</span>
+                    </div>
+                    <!-- <div class="error-list warning-list">
+                        <div class="alert alert--warning">
+                            <span class="icon-alert-warning-bg"></span>
+                            <span>Need to give full authorization for accepting terms</span>
+                        </div>
+                        <div class="alert alert--warning">
+                            <span class="icon-alert-warning-bg"></span>
+                            <span>Non-standard discount is requested</span>
+                        </div>
+                    </div> -->
+                </div>
+
+                <!-- show delisting exception warning message starts -->
+                <div class="alert alert--warning alert-dismissable clearfix" *ngIf="appDataService.isReadWriteAccess && !isApprovalFlow && delistingCxException && !appDataService.roadMapPath"
+                    style="width: 100%;margin-bottom: 4px !important;">
+                    <span class="alert-icon">
+                        <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                    </span>
+                    <span>{{localeService.getLocalizedString('proposal.summary.DELISTING_EXCEPTION_MESSAGE')}}
+                    </span>
+                </div>
+                <!-- show delisting exception warning message ends -->
+
+                <div class="alert alert--warning alert-dismissable clearfix"
+            *ngIf="appDataService.isReadWriteAccess && !isApprovalFlow && !appDataService.roadMapPath && gtcComplianceObj?.enableQnA"
+                    style="width: 100%;margin-bottom: 4px !important;">
+                    <span class="alert-icon">
+                        <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                    </span>
+                    <span>Will at least {{gtcComplianceObj?.umbrellaBricCountryThreshold ? (gtcComplianceObj?.umbrellaBricCountryThreshold | shortNumber) : '250K'}} {{constantsService.CURRENCY}} worth of Umbrella be deployed in Brazil, Russia, India and/or China?
+                    </span>
+                    <div class="d-flex radio-wrap ml-3">
+                            <div class="radio-custom mr-4">
+                                <input id="radio36" type="radio" name="durationRadio"  [value]="yes" (change)="checkBricCountryThreshold('yes')" [checked] = "gtcComplianceObj?.surpassedThresholdInBRIC" >
+                                <label for="radio36">
+                                    <span class='custom-radio-btn'>
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                    </span>
+                                    <span>
+                                        <span></span>
+                                    </span>Yes</label>
+                            </div>
+                            <div class="radio-custom mr-4">
+                                <input id="radio60" type="radio" name="durationRadio"  [value]="No" (change)="checkBricCountryThreshold('no')" [checked] = "!gtcComplianceObj?.surpassedThresholdInBRIC">
+                                <label for="radio60">
+                                    <span class='custom-radio-btn'>
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                    </span>
+                                    <span>
+                                        <span></span>
+                                    </span>No</label>
+                            </div>                            
+                        </div>
+                
+                </div>
+            <!-- end of Alert with warning  -->
+
+            
+            <!-- start of info messages -->
+            <div class="alert alert--info alert-dismissable clearfix" style="width: 100%;">
+                <span class="alert-icon">
+                    <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                </span>
+                <span class="infoTxt">
+                           {{localeService.getLocalizedMessage('common.EOS_BANNER_NEW_MSG')}}
+                           <a href="https://salesconnect.cisco.com/softwarebuyingprograms/s/enterprise-agreement-20" 
+                           target="_blank" class="text--link">
+                           <b>{{localeService.getLocalizedMessage('authentication.EOS_SALES_CONNECT_LINK')}}</b></a>
+                </span>  
+            </div>
+
+            <div class="alert alert--info alert-dismissable clearfix" style="width: 100%;" *ngIf="!qualService.changeSubscriptionDeal">
+                <span class="alert-icon">
+                    <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                </span>
+                <span class="infoTxt">
+                           {{localeService.getLocalizedMessage('proposal.summary.EOS_BANNER_NEW')}}
+                           <!-- <a href="https://salesconnect.cisco.com/softwarebuyingprograms/s/enterprise-agreement-20" 
+                           target="_blank" class="text--link">
+                           <b>{{localeService.getLocalizedMessage('authentication.EOS_SALES_CONNECT_LINK')}}</b></a> -->
+                </span>  
+            </div>
+
+            <div class="alert alert--info alert-dismissable clearfix"
+                *ngIf='messageService.messagesObj.infos?.length > 1 && !ciscoDealForPartner && qualInProgress && isDataLoaded && this.appDataService.isReadWriteAccess'
+                style="width: 100%;">
+                <span class="alert-icon">
+                    <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                </span>
+                <span>There are <span class="alert-info-text">
+                        <span>{{messageService.messagesObj.infos.length}}
+                            Info messages</span>
+                        <div class="error-list warning-list info-list">
+                            <div class="custom-list-scroll">
+                                <div class="alert alert--info" *ngFor="let message of messageService.messagesObj.infos">
+                                <span class="alert-icon">
+                                    <span class="icon-info-line-level"></span>
+                                </span>
+                                <span>{{message.text}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </span> in this proposal.</span>
+            
+            </div>
+
+            <div class="alert alert--info alert-dismissable clearfix"
+                *ngIf='messageService.messagesObj.infos?.length > 1 && !ciscoDealForPartner && !qualInProgress && isDataLoaded && this.appDataService.isReadWriteAccess'
+                style="width: 100%;">
+                <span class="alert-icon">
+                    <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                </span>
+                <span>There are <span class="alert-info-text">
+                        <span
+                            *ngIf="!ciscoDealForPartner && !qualInProgress && isDataLoaded && this.appDataService.isReadWriteAccess">{{messageService.messagesObj.infos.length + 1}}
+                            Info messages</span>
+                        <span
+                            *ngIf="!(!ciscoDealForPartner && !qualInProgress && isDataLoaded && this.appDataService.isReadWriteAccess)">{{messageService.messagesObj.infos.length}}
+                            Info messages</span>
+                        <div class="error-list warning-list info-list">
+                            <div class="alert alert--info" *ngFor="let message of messageService.messagesObj.infos">
+                                <span class="alert-icon">
+                                    <span class="icon-info-line-level"></span>
+                                </span>
+                                <span>{{message.text}}</span>
+                            </div>
+                            <div class="alert alert--info"
+                                *ngIf="!ciscoDealForPartner && !qualInProgress && isDataLoaded && this.appDataService.isReadWriteAccess">
+                                <span class="alert-icon">
+                                    <span class="icon-info-line-level"></span>
+                                </span>
+                                <span class="infoTxt">
+                                    {{localeService.getLocalizedMessage('proposal.summary.QUAL_IN_PROGRESS_01')}}
+                                    <a href="javascript:void(0)"
+                                        (click)="deepLinktoQualification()">{{this.qualService.qualification.name}}</a>
+                                    {{localeService.getLocalizedMessage('proposal.summary.QUAL_IN_PROGRESS_03')}}
+                                </span>
+                            </div>
+                        </div>
+                    </span> in this proposal.</span>
+            
+            </div>
+            
+            <div class="alert alert--info alert-dismissable clearfix"
+                *ngIf='messageService.messagesObj.infos?.length === 1 && !ciscoDealForPartner && qualInProgress && isDataLoaded && this.appDataService.isReadWriteAccess'
+                style="width: 100%;">
+                <span class="alert-icon">
+                    <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                </span>
+                <span>{{messageService.messagesObj.infos[0].text}}</span>            
+            </div>
+
+            <div class="alert alert--info alert-dismissable clearfix"
+                *ngIf='messageService.messagesObj.infos?.length === 1 && !ciscoDealForPartner && !qualInProgress && isDataLoaded && this.appDataService.isReadWriteAccess'
+                style="width: 100%;">
+                <span class="alert-icon">
+                    <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                </span>
+                <span>There are <span class="alert-info-text">
+                        <span>2 Info messages</span>
+                        <div class="error-list warning-list info-list">
+                            <div class="alert alert--info" *ngFor="let message of messageService.messagesObj.infos">
+                                <span class="alert-icon">
+                                    <span class="icon-info-line-level"></span>
+                                </span>
+                                <span>{{messageService.messagesObj.infos[0].text}}</span>
+                            </div>
+                            <div class="alert alert--info">
+                                <span class="alert-icon">
+                                    <span class="icon-info-line-level"></span>
+                                </span>
+                                <span class="infoTxt">
+                                    {{localeService.getLocalizedMessage('proposal.summary.QUAL_IN_PROGRESS_01')}}
+                                    <a href="javascript:void(0)"
+                                        (click)="deepLinktoQualification()">{{this.qualService.qualification.name}}</a>
+                                    {{localeService.getLocalizedMessage('proposal.summary.QUAL_IN_PROGRESS_03')}}
+                                </span>
+                            </div>
+                        </div>
+                    </span> in this proposal.</span>
+            
+            </div>
+
+            <div class="alert alert--info alert-dismissable clearfix" *ngIf="messageService.messagesObj.infos?.length === 0 && !ciscoDealForPartner && !qualInProgress && isDataLoaded && this.appDataService.isReadWriteAccess" style="width: 100%;">
+                <span class="alert-icon">
+                    <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                </span>
+                <span class="infoTxt">
+                           {{localeService.getLocalizedMessage('proposal.summary.QUAL_IN_PROGRESS_01')}}
+                           <a href="javascript:void(0)" (click)="deepLinktoQualification()">{{this.qualService.qualification.name}}</a> {{localeService.getLocalizedMessage('proposal.summary.QUAL_IN_PROGRESS_03')}}
+                     </span>  
+            </div>
+
+            <!-- end of info messages -->
+            <!-- start of success messages for seller flow -->
+            <!-- <div class="alert alert--success mt-3" style="width: 100%;" *ngIf="isExceptionSubmitted"><span class="icon-done1"><span class="path1"></span><span class="path2"></span></span><span class="txt">You have selected a Reason for Exception(s). Please Submit for Approval.</span></div> -->
+            <div class="alert alert--success" style="width: 100%;margin-top: 5px;" *ngIf="isExceptionWithdrawn && !isShowWithDraw">
+                <span class="alert-icon">
+                    <span class="icon-done1"><span class="path1"></span><span class="path2"></span></span>
+                </span>
+                <span class="txt">You have successfully withdrawn the Exception request.</span><span *ngIf="allowExceptionSubmission"> To submit again, please click on ‘‘Submit for Approval’’ button.</span>
+            </div>
+            <!-- start of success messages for approval flow -->
+            <div class="alert alert--success" style="width: 100%;" *ngIf="isApprovalFlow && isBecomeApprover && !isSelectedPaRequestException">
+                <span class="alert-icon">
+                    <span class="icon-done1"><span class="path1"></span><span class="path2"></span></span>
+                </span>
+                <span class="txt">You have successfully become a reviewer for this exception request. Now you can submit your decision.</span>
+            </div>
+            <div class="alert alert--success" style="width: 100%;" *ngIf="isApprovalFlow && isBecomeApprover && isSelectedPaRequestException">
+                <span class="alert-icon">
+                    <span class="icon-done1"><span class="path1"></span><span class="path2"></span></span>
+                </span>
+                <span class="txt">You have successfully claimed this proposal for performing Purchase Adjustments. Please proceed to Price Estimation.</span>
+            </div>
+            </div>
+                <!-- <div class="approve-disapprove refine-result mb-2" *ngIf="!appDataService.isReadWriteAccess &&  showInfo && !appDataService.userInfo.rwSuperUser ">
+                        <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                        <span class="infoTxt">{{localeService.getLocalizedString('common.RW_ACCESS_MESSAGE')}} {{localeService.getLocalizedString('common.PROPOSAL')}}{{localeService.getLocalizedString('common.REQUEST_ACCESS')}} <a href="javascript:void(0)" (click)="appDataService.requestAccessForProposalOrQual(constantsService.PROPOSAL,proposalDataService.proposalDataObject.proposalId)">{{localeService.getLocalizedString('common.CONTACT_OWNER')}}</a></span>
+                        <ul class="refine-search">
+                            <li>
+                                <a href="javascript:void(0)" (click)="closeInfo()">
+                                    <span class="icon-close-btn no-border"></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div> -->
+
+        <!-- <div id="filter-area" class="no-border error1" *ngIf="!ciscoDealForPartner">
+        <div class="alert alert--info alert-dismissable" *ngIf="!qualInProgress && isDataLoaded && this.appDataService.isReadWriteAccess">
+            <span class="alert-icon">
+                <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+            </span>
+            <span class="infoTxt">
+                       {{localeService.getLocalizedMessage('proposal.summary.QUAL_IN_PROGRESS_01')}}
+                       <a href="javascript:void(0)" (click)="deepLinktoQualification()">{{this.qualService.qualification.name}}</a> {{localeService.getLocalizedMessage('proposal.summary.QUAL_IN_PROGRESS_03')}}
+                 </span>  
+        </div>
+    </div>        -->
+
+
+            <!--Begin Selected Suites-->
+            <div class="marginB30">
+                <h5 class="card-header-title">{{localeService.getLocalizedString('proposal.summary.SELECTED_SUITES')}}</h5>
+
+                <div class="">
+                    <table class="primary-table" *ngIf="!ciscoDealForPartner">
+                        <thead>
+                            <tr>
+                                <th width="30%">{{localeService.getLocalizedString('common.ARCH')}}</th>
+                                <th width="70%">{{localeService.getLocalizedString('prospectdetails.SUITES')}}</th>
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="!proposalDataService.cxProposalFlow">
+                            <!--bindings={
+        "ng-reflect-ng-for-of": "[object Object]"
+        }-->
+                            <tr *ngFor="let suite of suiteData">
+                                <td>{{suite.arch}}</td>
+                                <td>{{suite.suite}}</td>
+                            </tr>
+        
+                        </tbody>
+                        <!-- cx suites body in cx proposal flow -->
+                        <tbody *ngIf="proposalDataService.cxProposalFlow">
+                            <tr *ngFor="let suite of cxSuiteData">
+                                <td>{{suite.arch}}</td>
+                                <td>{{suite.suite}}</td>
+                            </tr>
+        
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            
+           
+
+
+            
+            <!--End Selected Suites-->
+
+            <!--Begin Price Estimate-->
+            <!-- <div class="flexible-div main-content-heading" *ngIf="!ciscoDealForPartner">
+                <div class="col-xs-12 col-md-5 paddingL0">
+                    <h1>{{localeService.getLocalizedString('price.est.PRICE_EST')}}</h1>
+                </div>
+                 <div class="col-xs-12 col-md-7 paddingR0">
+                    <div class="edit-box" *ngIf="this.appDataService.isReadWriteAccess">
+                        <button class="btn btn-secondary" (click)="backToPriceEstimate()" type="button">{{localeService.getLocalizedString('common.EDIT')}}</button>
+                    </div>
+                </div>
+
+            </div> -->
+
+
+            <div class="clearfix"></div>
+            <div class="marginB30">
+                <h5 class="card-header-title">{{localeService.getLocalizedString('price.est.PRICE_EST')}} 
+                    <span *ngIf="!ciscoDealForPartner" class="price-usd">{{localeService.getLocalizedString('price.est.ALL_PRICES')}} {{constantsService.CURRENCY}}</span>
+                </h5>
+                <div class="">
+                    <ag-grid-angular *ngIf="!ciscoDealForPartner" [ngClass]="{'pinned-shadow': !securityArchitecture}" #agGrid id="ag-grid" [domLayout]="domLayout" style="width: 100%;" appTableHeight class="ag-fresh child-header-grid" [gridOptions]="gridOptions" [sideBar]="false" [columnDefs]="columnDefsTop" (gridReady)="onGridReady($event)" enableColResize debug rowHeight="30">
+                    </ag-grid-angular>
+                </div>
+            </div>
+
+            <!--End Price Estimate-->
+            <!--Begin Requested Exceptions -->
+            <!-- show only if proposal is in progress and any exception present, !isApprovalFlow && isShowWithDraw && this.appDataService.isReadWriteAccess -->
+            <div *ngIf="!isApprovalFlow && this.appDataService.isReadWriteAccess && (exceptionStatusData.length > 0 || groupExceptionApproverHistory.length > 0)">
+                <app-request-exception-status [exceptionStatusData]="exceptionStatusData" [exceptionApprovalHistory]="exceptionApprovalHistory" [isShowSelectReason]="isShowSelectReason" [displayApprovalHistory]="displayApprovalHistory" [groupExceptionApproverHistory]="groupExceptionApproverHistory"></app-request-exception-status>
+            </div>
+        <!--End Requested Exceptions -->
+
+            <!--Begin Approver section  -->
+            <div *ngIf='isApprovalFlow && isExceptionStatusPresent'>
+                <app-approver-team (isBecomeApprover)='becomeApprover($event)' (isApproverSubmitted)='submitApprover($event)' [exceptionStatusData]="exceptionStatusData" [displayApproverHistory]="displayApproverHistory" [exceptionApprovalHistory]="exceptionApprovalHistory" (isApproverSubmittedBulk)="submitApproverBulk($event)" [showApproverButton]="showApproverButton" [isApproverDecisionSubmitted]="isApproverDecisionSubmitted" [groupExceptionApproverHistory]="groupExceptionApproverHistory" (isSummaryReloadEmitter)="reloadSummary($event)"></app-approver-team>
+            </div>
+            <!--End Approver section -->
+
+            <!--Begin TCO Comparison-->
+            <!-- <div class="flexible-div main-content-heading mt-4">
+                <div class="col-xs-12 col-md-5 paddingL0">
+                    <h1>TCO Comparison</h1>
+                </div>
+                <div class="col-xs-12 col-md-7 paddingR0">
+                    <div class="edit-box" *ngIf="this.appDataService.isReadWriteAccess">
+                        <button class="btn btn-secondary" (click)="backToTCO()" type="button">Edit</button>
+                    </div>
+                </div>
+            </div> -->
+            <!-- <div class="clearfix"></div>
+            <div class="price-usd no-border posRelativeRight">All prices are shown in {{constantsService.CURRENCY}}</div> -->
+            <div style="display: none" class="tco-configure-wrap" *ngIf="!ciscoDealForPartner">
+                <div class="block-section__content">
+
+                    <ag-grid-angular #agGrid id="ag-grid" style="width: 100%; height: 200px;" appTableHeight class="ag-fresh" [gridOptions]="gridOptions" [columnDefs]="columnDefs" [rowData]="rowData" enableColResize  enableFilter
+                        groupHeaders suppressRowClickSelection toolPanelSuppressGroups toolPanelSuppressValues debug>
+                    </ag-grid-angular>
+                </div>
+            </div>
+            <!--End TCO Comparison-->
+        </div>
+    </div>
+</div>
+
+<!-- start of withdraw button -->
+<div class="container-fluid" id="button-container" *ngIf="Proposalsuccess && !isApprovalFlow && isShowWithDraw">
+    <div class="col-xs-12 col-sm-12 col-md-12 paddingL0 pr-0">
+        <ul class="qualify-btn float-right">
+            <li class="viewProspect" (click)="withDrawRequest('successPage')"><button class="btn btn-primary" type="button">Withdraw Request</button></li>
+        </ul>
+    </div>
+</div>
+<div class="clearfix"></div>
+<!-- End of withdraw button -->
+
+<div class="container-fluid" id="summary-block" *ngIf="Proposalsuccess" >
+
+        <!--Begin NPS Feedback-->    
+        <div *ngIf="appDataService.isShowFeedback && !isApprovalFlow"><app-nps-feedback></app-nps-feedback></div> 
+        <!--End NPS Feedback-->
+        
+        <div class="alert alert--success" *ngIf="!isApprovalFlow && isShowWithDraw">
+            <span class="alert-icon">
+                <span class="icon-done1"><span class="path1"></span><span class="path2"></span></span>
+            </span>
+            <span class="txt">Request to approve exception has been sent to reviewer and you will be notified shortly about the status.</span>
+        </div>
+        <!-- approval flow success messages start  -->
+        <div class="alert alert--success mt-2" *ngIf="isApprovalFlow && isSubmittedDecision && decisionSelected === 'APPROVED' && pendingExceptions === 0">
+            <span class="alert-icon">
+                <span class="icon-done1"><span class="path1"></span><span class="path2"></span></span>
+            </span>
+            <span class="txt">You have approved this exception request.</span>
+        </div>
+        <div class="alert alert--success mt-2" *ngIf="isApprovalFlow && isSubmittedDecision && decisionSelected === 'APPROVED' && pendingExceptions > 0">
+            <span class="alert-icon">
+                <span class="icon-done1"><span class="path1"></span><span class="path2"></span></span>
+            </span>
+            <span class="txt">You have approved this exception request, as this proposal has multiple exceptions so this proposal can not be considered approved unless approved by all reviewers.</span>
+        </div>
+        <div *ngIf="isApprovalFlow && isSubmittedDecision && decisionSelected !== 'APPROVED'" class="alert alert--danger mt-3">
+            <span class="alert-icon">
+                <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span></span>
+            </span>
+            <span *ngIf="decisionSelected === 'REJECTED' && exceptionStatusData.length === 1">You have rejected this exception request.</span>
+            <span *ngIf="decisionSelected === 'REJECTED' && exceptionStatusData.length > 1">You have rejected one or more exceptions in this exception request.</span>
+            <span *ngIf="decisionSelected === 'DECLINED'">You have declined this exception request.</span>
+        </div>
+        <!-- approval flow success messages end-->
+        <div class="alert alert--success mt-2" *ngIf="!isApprovalFlow && !isShowWithDraw">
+            <span class="alert-icon">
+                <span class="icon-done1"><span class="path1"></span><span class="path2"></span></span>
+            </span>
+            <span class="txt">{{localeService.getLocalizedMessage('proposal.summary.PROPOSAL_CREATED')}}</span>
+        </div>
+        <!-- <app-ea-purchases *ngIf="proposalSummaryService.showCiscoEaAuth" style="width: 100%"></app-ea-purchases> -->
+        <div class="summary-section">
+            <div class="row">
+                <div class="col-8" *ngIf="!proposalDataService.cxProposalFlow">
+                    <div class="summary-section--left">
+                        
+                        <div class="summary-box" *ngIf="!securityArchitecture">
+                            <h1 class="block-title">{{localeService.getLocalizedString('roadmap.proposal.SUMMARY')}} {{localeService.getLocalizedString('common.FOR')}} {{proposalDataService.proposalDataObject.proposalData.architecture}}
+
+                                <div class="price-usd no-border posRelativeRight">{{localeService.getLocalizedString('price.est.ALL_PRICES')}}
+                                    {{constantsService.CURRENCY}}</div>
+                            </h1>
+                            <div class="clearfix"></div>
+                            <div class="container-fluid-nrml">
+                            <div class="row">
+                            <div class="col-6 right-block-sep">
+                                <table class="primary-table">
+                                    <tr>
+                                        <td class="text-left" style="vertical-align: top;">
+                                            <h2 class="info-head custom-info-head">{{localeService.getLocalizedString('proposal.summary.NET_SOFTWARE_AMOUNT')}}<small>{{localeService.getLocalizedString('proposal.summary.POST_PURCHASE_ADJUSTMENT')}}</small></h2>
+                                        </td>
+                                        <td class="text-right" style="vertical-align: top;">
+                                            <h2 class="info-head">{{completeProposalData?.postPurchaseAdjustmentNetSoftwarePrice}}</h2>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left">
+                                            <h2 class="info-sub-head">{{localeService.getLocalizedString('proposal.summary.PURCHASE_ADJUSTMENT')}}</h2>
+                                        </td>
+                                        <td class="text-right">
+                                            <h2 class="info-sub-head">{{completeProposalData?.purchaseAdjustmentNetSoftwarePrice}}</h2>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left">
+                                            <h2 class="info-sub-head">{{localeService.getLocalizedString('proposal.summary.ORIGINAL_SOFTWARE_AMOUNT')}} <br><span>{{localeService.getLocalizedString('proposal.summary.ORIGINAL_SOFTWARE_AMOUNT_preadjustment')}}</span></h2>
+                                        </td>
+                                        <td class="text-right">
+                                            <h2 class="info-sub-head">{{completeProposalData?.netSoftwarePrice}}</h2>
+                                        </td>
+                                    </tr>
+                                    
+                                </table>
+                            </div>
+                            <div class="col-6 left-block-sep">
+                                <table class="primary-table">
+                                    <tr>
+                                        <td class="text-left" style="vertical-align: top;">
+                                            <h2 class="info-head custom-info-head">{{localeService.getLocalizedString('proposal.summary.NET_SERVICE_AMOUNT')}}
+                                                <small>{{localeService.getLocalizedString('proposal.summary.POST_PURCHASE_ADJUSTMENT')}}</small>
+                                            </h2>
+                                        </td>
+                                        <td class="text-right" style="vertical-align: top;">
+                                            <h2 class="info-head">{{completeProposalData?.postPurchaseAdjustmentNetServicePrice}}</h2>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left">
+                                            <h2 class="info-sub-head">{{localeService.getLocalizedString('proposal.summary.PURCHASE_ADJUSTMENT')}}</h2>
+                                        </td>
+                                        <td class="text-right">
+                                            <h2 class="info-sub-head">{{completeProposalData?.purchaseAdjustmentNetServicePrice}}</h2>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left">
+                                            <h2 class="info-sub-head">{{localeService.getLocalizedString('proposal.summary.ORIGINAL_SERVICE_AMOUNT')}} <br><span>{{localeService.getLocalizedString('proposal.summary.ORIGINAL_SOFTWARE_AMOUNT_preadjustment')}}</span></h2>
+                                        </td>
+                                        <td class="text-right">
+                                            <h2 class="info-sub-head">{{completeProposalData?.netServicePrice}}</h2>
+                                        </td>
+                                    </tr>
+                                    
+                                </table>
+    
+                            </div>
+                            <div class="col-12 total-cal">
+                                <table class="primary-table">
+                                    <tr>
+                                        <td class="text-left">
+                                            <h2 class="info-head">{{localeService.getLocalizedString('qualproposallist.TOTAL_NET_PRICE')}}</h2>
+                                        </td>
+                                        <td class="text-right">
+                                            <h2 class="info-head">{{completeProposalData?.postPurchaseAdjustmentNetTotalPrice}}</h2>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left" style="vertical-align: top;">
+                                            <h2 class="info-sub-head pb-0">{{localeService.getLocalizedString('proposal.summary.PURCHASE_ADJUSTMENT')}}</h2>
+                                        </td>
+                                        <td class="text-right" style="vertical-align: top;">
+                                            <h2 class="info-sub-head pb-0">{{completeProposalData?.purchaseAdjustmentNetTotalAmount}}</h2>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="summary-box" *ngIf="securityArchitecture">
+                            <h1 class="block-title">{{localeService.getLocalizedString('roadmap.proposal.SUMMARY')}}
+                                {{localeService.getLocalizedString('common.FOR')}}
+                                {{proposalDataService.proposalDataObject.proposalData.architecture}}
+                        
+                                <div class="price-usd no-border posRelativeRight">{{localeService.getLocalizedString('price.est.ALL_PRICES')}}
+                                    {{constantsService.CURRENCY}}</div>
+                            </h1>
+                            <div class="clearfix"></div>
+                            <div class="container-fluid-nrml" [ngClass]="{'propNotComplete': this.proposalDataService.proposalDataObject.proposalData.status !== this.constantsService.COMPLETE_STATUS, 'aprrovalFlow-submit':isApprovalFlow && this.proposalDataService.proposalDataObject.proposalData.status === this.constantsService.COMPLETE_STATUS}">
+                                <div class="row">
+                                    <div class="col-12 total-cal security-total" [ngClass]="{'propComplete': this.proposalDataService.proposalDataObject.proposalData.status === this.constantsService.COMPLETE_STATUS}">
+                                        <table class="primary-table">
+                                            <tr>
+                                                <td class="text-left">
+                                                    <h2 class="info-sub-head">
+                                                        {{localeService.getLocalizedString('proposal.summary.TOTAL_NET_PRICE')}}
+                                                        {{localeService.getLocalizedString('proposal.summary.success.PRE_PURCHASE_ADJUSTMENT')}}
+                                                        <!-- <span style="font-size: 15px;">{{localeService.getLocalizedString('proposal.summary.success.PRE_PURCHASE_ADJUSTMENT')}}</span> -->
+                                                    </h2>
+                                                </td>
+                                                <td class="text-right">
+                                                    <h2 class="info-sub-head">{{completeProposalData?.netTcvBeforeAdjustment}}</h2>
+                                                </td>
+                                            </tr>
+                                            <tr style="border-bottom: 1px solid rgba(224, 224, 224, 0.5);">
+                                                <td class="text-left" style="vertical-align: top; padding-bottom: 15px;">
+                                                    <h2 class="info-sub-head pb-0">
+                                                        {{localeService.getLocalizedString('proposal.summary.PURCHASE_ADJUSTMENT')}}</h2>
+                                                </td>
+                                                <td class="text-right" style="vertical-align: top;">
+                                                    <h2 class="info-sub-head pb-0">{{completeProposalData?.purchaseAdjustment}}</h2>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-left">
+                                                    <h2 class="info-head" style="padding-top: 15px;">
+                                                        {{localeService.getLocalizedString('qualproposallist.TOTAL_NET_PRICE')}}
+                                                        <br><span class="info-sub-head"
+                                                            style="font-size: 15px;">{{localeService.getLocalizedString('proposal.summary.POST_PURCHASE_ADJUSTMENT')}}</span>
+                                                    </h2>
+                                                </td>
+                                                <td class="text-right">
+                                                    <h2 class="info-head">{{completeProposalData?.postPurchaseAdjustmentNetTotalPrice}}</h2>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-8" *ngIf="proposalDataService.cxProposalFlow">
+                    <div class="summary-section--left">
+                        
+                        <div class="summary-box">
+                            <h1 class="block-title">{{localeService.getLocalizedString('roadmap.proposal.SUMMARY')}} {{localeService.getLocalizedString('common.FOR')}} {{(this.proposalDataService.relatedSoftwareProposalArchName === this.constantsService.DNA) ? this.constantsService.CISCO_DNA : this.constantsService.CISCO_DATA_CENTER}}
+
+                                <div class="price-usd no-border posRelativeRight">{{localeService.getLocalizedString('price.est.ALL_PRICES')}}
+                                    {{constantsService.CURRENCY}}</div>
+                            </h1>
+                            <div class="clearfix"></div>
+                            <div class="container-fluid-nrml">
+                            <div class="row">
+                            <div class="col-6 right-block-sep">
+                                <table class="primary-table">
+                                    <tr>
+                                        <td class="text-left" style="vertical-align: top;">
+                                            <h2 class="info-head custom-info-head">Net Software Solution Support<small>{{localeService.getLocalizedString('proposal.summary.POST_PURCHASE_ADJUSTMENT')}}</small></h2>
+                                        </td>
+                                        <td class="text-right" style="vertical-align: top;">
+                                            <h2 class="info-head">{{completeCxProposalData?.swServiceAmount}}</h2>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left">
+                                            <h2 class="info-sub-head">{{localeService.getLocalizedString('proposal.summary.PURCHASE_ADJUSTMENT')}}</h2>
+                                        </td>
+                                        <td class="text-right">
+                                            <h2 class="info-sub-head">{{completeCxProposalData?.swSolutionPA}}</h2>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left">
+                                            <h2 class="info-sub-head">Net Software Solution Support <br><span>{{localeService.getLocalizedString('proposal.summary.ORIGINAL_SOFTWARE_AMOUNT_preadjustment')}}</span></h2>
+                                        </td>
+                                        <td class="text-right">
+                                            <h2 class="info-sub-head">{{completeCxProposalData?.swServiceAmountPrePA}}</h2>
+                                        </td>
+                                    </tr>
+                                    
+                                </table>
+                            </div>
+                            <div class="col-6 left-block-sep">
+                                <table class="primary-table">
+                                    <tr>
+                                        <td class="text-left" style="vertical-align: top;">
+                                            <h2 class="info-head custom-info-head">Net Hardware Solution Support
+                                                <small>{{localeService.getLocalizedString('proposal.summary.POST_PURCHASE_ADJUSTMENT')}}</small>
+                                            </h2>
+                                        </td>
+                                        <td class="text-right" style="vertical-align: top;">
+                                            <h2 class="info-head">{{completeCxProposalData?.hwServiceAmount}}</h2>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left">
+                                            <h2 class="info-sub-head">{{localeService.getLocalizedString('proposal.summary.PURCHASE_ADJUSTMENT')}}</h2>
+                                        </td>
+                                        <td class="text-right">
+                                            <h2 class="info-sub-head">{{completeCxProposalData?.hwSolutionPA}}</h2>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left">
+                                            <h2 class="info-sub-head">Net Hardware Solution Support <br><span>{{localeService.getLocalizedString('proposal.summary.ORIGINAL_SOFTWARE_AMOUNT_preadjustment')}}</span></h2>
+                                        </td>
+                                        <td class="text-right">
+                                            <h2 class="info-sub-head">{{completeCxProposalData?.hwServiceAmountPrePA}}</h2>
+                                        </td>
+                                    </tr>
+                                    
+                                </table>
+    
+                            </div>
+                            <div class="col-12 total-cal">
+                                <table class="primary-table">
+                                    <tr>
+                                        <td class="text-left">
+                                            <h2 class="info-head">EA Services Total Value</h2>
+                                        </td>
+                                        <td class="text-right">
+                                            <h2 class="info-head">{{completeCxProposalData?.netTotalServiceAmount}}</h2>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left" style="vertical-align: top;">
+                                            <h2 class="info-sub-head pb-0">{{localeService.getLocalizedString('proposal.summary.PURCHASE_ADJUSTMENT')}}</h2>
+                                        </td>
+                                        <td class="text-right" style="vertical-align: top;">
+                                            <h2 class="info-sub-head pb-0">{{completeCxProposalData?.totalPA}}</h2>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-4">
+                    <div class="summary-section--right">
+                        
+                        <div class="summary-box">
+                            <h1 class="block-title">{{localeService.getLocalizedString('proposal.summary.BEST_ACTION')}}</h1>
+                            <table class="primary-table">
+                            <tr  *ngIf='!isApprovalFlow && !isShowWithDraw'>
+                                <td class="text-center"><span class="icon-doc-center">
+                            <span class="path1"></span><span class="path2"></span><span class="path3"></span><span
+                                            class="path4"></span><span class="path5"></span><span class="path6"></span><span
+                                            class="path7"></span><span class="path8"></span><span class="path9"></span><span
+                                            class="path10"></span><span class="path11"></span>
+                                    </span></td>
+                                <td>
+                                    <div class="best-prac-detail">
+                                        <a href="javascript:void(0);" (click)="documentCenter()">{{localeService.getLocalizedString('proposal.summary.DOCUMENT_CENTER_BUTTON')}}</a>
+                                        <p *ngIf='appDataService.archName !== constantsService.SECURITY'>{{localeService.getLocalizedMessage('propsoal.success.DOC_CENTER_MSG')}}</p> 
+                                        <p *ngIf='appDataService.archName === constantsService.SECURITY'>{{localeService.getLocalizedMessage('propsoal.success.DOC_CENTER_SEC_MSG')}}</p>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr *ngIf='!isApprovalFlow && !isShowWithDraw'>
+                                <td colspan="2">
+                                    <hr class="section-sep" />
+                                </td>
+                            </tr>
+                            <tr *ngIf='!isApprovalFlow && !isShowWithDraw'>
+                                <td class="text-center"><span class="icon-prv-quote">
+                                        <span class="path1"></span><span class="path2"></span><span class="path3"></span><span
+                                            class="path4"></span><span class="path5"></span><span class="path6"></span><span
+                                            class="path7"></span><span class="path8"></span><span class="path9"></span><span
+                                            class="path10"></span>
+                                    </span></td>
+                                <td>
+                                    <div class="best-prac-detail">
+                                        <a href="javascript:void(0);" (click)="generateQuote()">{{localeService.getLocalizedString('proposal.summary.PREVIEW_QUOTE')}}</a>
+                                        <p>Go to preview Quote to convert it to CCW.</p>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr *ngIf='!isApprovalFlow && !isShowWithDraw'>
+                                <td colspan="2">
+                                    <hr class="section-sep" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-center"><span class="icon-clone-proposal">
+                                        <span class="path1"></span><span class="path2"></span><span class="path3"></span><span
+                                            class="path4"></span><span class="path5"></span><span class="path6"></span><span
+                                            class="path7"></span>
+                                    </span></td>
+                                <td>
+                                    <div class="best-prac-detail">
+                                        <a href="javascript:void(0);" (click)="copyProposal()" [ngClass]="{'disabled': this.proposalDataService.cxProposalFlow}">{{localeService.getLocalizedString('proposal.summary.CLONE_PROPOSAL')}}</a>
+                                        <p>Clone proposal with different EA Term and Start Date.</p>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr *ngIf='!isApprovalFlow && !isShowWithDraw'>
+                                    <td colspan="2">
+                                        <hr class="section-sep" />
+                                    </td>
+                            </tr>
+                            <tr  *ngIf='!isApprovalFlow && !isShowWithDraw'>
+                                <td class="text-center"><span class="icon-listing-tco">
+                                    <span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span><span class="path8"></span>
+                                    </span></td>
+                                <td>
+                                    <div class="best-prac-detail">
+                                        <a href="javascript:void(0);" (click)="tcoList()">{{localeService.getLocalizedString('tco.VIEW_TCO_PROPOSALS')}} ({{tcoCount}})</a>
+                                        <p>{{localeService.getLocalizedMessage('tco.TCO_SUMMARY_MESSAGE')}}</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                        <div class="back-to-existing" *ngIf="!isApprovalFlow">{{localeService.getLocalizedString('proposal.summary.BACK_MESSAGE')}} <a href="javascript:void(0)" (click)="viewProposal()">{{localeService.getLocalizedString('common.PROPOSALS')}}</a></div>
+                        <div class="back-to-existing" *ngIf="isApprovalFlow">{{localeService.getLocalizedString('proposal.summary.BACK_MESSAGE')}} <a href="javascript:void(0)" (click)="pendingForMyApproval()">Proposals with Pending Exception</a></div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <app-request-exception-status *ngIf="!isApprovalFlow && (isExceptionSubmitted)" [exceptionStatusData]="exceptionStatusData" [displayApprovalHistory]="displayApprovalHistory" [exceptionApprovalHistory]="exceptionApprovalHistory" [groupExceptionApproverHistory]="groupExceptionApproverHistory"></app-request-exception-status>
+        <div *ngIf='isApprovalFlow'>
+            <app-approver-team (isBecomeApprover)='becomeApprover($event)' (isApproverSubmitted)='submitApprover($event)' [exceptionStatusData]="exceptionStatusData" [displayApproverHistory]="displayApproverHistory" [exceptionApprovalHistory]="exceptionApprovalHistory" (isApproverSubmittedBulk)="submitApproverBulk($event)" [showApproverButton]="showApproverButton" [isApproverDecisionSubmitted]="isApproverDecisionSubmitted" [groupExceptionApproverHistory]="groupExceptionApproverHistory"></app-approver-team>
+        </div>
+    </div>

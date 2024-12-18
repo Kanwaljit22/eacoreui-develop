@@ -1,0 +1,251 @@
+<div class="row mb-4 pb-3">
+    <div class="col-12">
+        <h5 class="heading--h5 dark mb-2" attr.data-id="{{dataIdConstantsService.ciscoTeam_label_ciscoTeamMembers}}">{{localizationService.getLocalizedString('common.CISCO_TEAM_MEMBERS')}}
+            <ng-container *ngIf="isPartnerAccessingSfdcDeal; else regularFlow">
+                <span class="i-vNext-edit-filled px-2" attr.action-id="{{dataIdConstantsService.ciscoTeam_icon_manageTeamEdit}}" *ngIf="enableManageTeamEdit && projectStoreService.lockProject" id="{{elementIdConstantsService.PROJECT_EDIT_MANAGE_TEAM}}" (click)="openManageTeam()" [ngClass]="{'disabled': !projectStoreService.projectManageTeamAccess}">
+                    <span class="text--link">{{localizationService.getLocalizedString('common.MANAGE_TEAM')}}</span>
+                </span>
+            </ng-container>
+            <ng-template #regularFlow>
+                <span class="i-vNext-edit-filled px-2" id="{{elementIdConstantsService.PROJECT_EDIT_MANAGE_TEAM}}" attr.action-id="{{dataIdConstantsService.ciscoTeam_icon_manageTeamEdit}}" *ngIf="enableManageTeamEdit && projectStoreService.lockProject" (click)="openManageTeam()" [ngClass]="{'disabled': !projectStoreService.projectEditAccess}">
+                    <span class="text--link">{{localizationService.getLocalizedString('common.MANAGE_TEAM')}}</span>
+                </span>
+            </ng-template>
+        </h5>
+        <app-message></app-message>
+    </div>
+    <!--div class="col-12">
+        <div class="alert alert--warning">
+            <span class="alert-icon">
+                <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+            </span>
+            <span class="t-0">While choosing your team, please ensure that you add a <q class="bold-txt">Dedicated Software Specialist</q> to your team for successful project creation.</span>
+        </div>
+    </div-->
+    <div class="col-12" *ngIf="!projectStoreService.lockProject && projectStoreService.projectEditAccess">
+        <div class="card-body vNext-card align-items-center marginB10 ">
+            <div class="row">
+                <div class="col-12">
+                    <div class="d-flex align-items-center">
+                        <div class="form-group search-wrap w-100 mr-2 my-0">
+                            <label class="form-control-placeholder top w-100" for="searchPartner" attr.data-id="{{dataIdConstantsService.ciscoTeam_label_searchMembers}}" >{{localizationService.getLocalizedString('common.SEARCH_MEMBER')}}</label>
+                            <div class="d-flex w-100 search-badge" [class.search-focus] = "searchFocus" (clickOutside)="searchFocus = false">
+                                <div class="name-tag-outer">
+                                    <span class="name-tag" *ngFor="let member of selectedMembers; let index = index">
+                                        <span class="tag-val" attr.data-id="{{dataIdConstantsService.ciscoTeam_data_searchMemberFullName}}{{member.ccoId}}">{{member.fullName}}</span>
+                                        <span class="icon-close-btn" (click)="removeSelectedMember(index)" attr.action-id="{{dataIdConstantsService.ciscoTeam_icon_removeSelectedMember}}{{member.ccoId}}"></span>
+                                    </span>
+                                </div>  
+                                <input appelementfocus="" placeholder="Search by Name or Cisco ID or Email" [formControl]='searchMember' class="form-control" required="" type="text" attr.data-id="{{dataIdConstantsService.ciscoTeam_text_searchMember}}" (blur)='hideDropdown()' (click)= "searchFocus = true">
+                                <span class="i-vNext-search" attr.action-id="{{dataIdConstantsService.ciscoTeam_icon_searchMember}}"></span>
+                            </div>
+                        </div>
+                        <div *ngIf='searchMemberArray.length' class="autocomplete-list dropdown-menu show searchwrap-dropdown"
+                            style="margin-left:14px">
+                            <ul>
+                                <li class="dropdown-item searchList">
+                                    <table width="100%">
+                                        <thead>
+                                            <th attr.data-id="{{dataIdConstantsService.ciscoTeam_label_name}}">{{localizationService.getLocalizedString('common.NAME')}}</th>
+                                            <th attr.data-id="{{dataIdConstantsService.ciscoTeam_label_title}}">{{localizationService.getLocalizedString('common.TITLE')}}</th>
+                                        </thead>
+                                        <tbody>
+                                            <tr (click)='selectMember(suggestion)' attr.action-id="{{dataIdConstantsService.ciscoTeam_dropdown_selectMember}}{{suggestion.ccoId}}" *ngFor="let suggestion of searchMemberArray">
+                                                <td width="40%" attr.data-id="{{dataIdConstantsService.ciscoTeam_data_searchListFullName}}{{suggestion.ccoId}}">
+                                                    {{suggestion.fullName}}</td>
+                                                <td width="60%" attr.data-id="{{dataIdConstantsService.ciscoTeam_data_searchListJobTitle}}{{suggestion.ccoId}}">
+                                                    {{suggestion.jobTitle}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </li>
+                            </ul>
+                        </div>
+                        <button class="btn btn-primary sm ml-2 mt-4" id="{{elementIdConstantsService.Project_Add_Cisco_Team_Member}}" [ngClass]='{"disabled": !selectedMembers.length}'
+                            (click)='addMember()' attr.action-id="{{dataIdConstantsService.ciscoTeam_button_add}}">{{localizationService.getLocalizedString('common.ADD')}}</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-12 notify-wrap">
+                    <h5 class="heading--h5 d-inline-block mr-1" attr.data-id="{{dataIdConstantsService.ciscoTeam_label_notifyBy}}">{{localizationService.getLocalizedString('common.NOTIFY_BY')}}</h5>
+                    <label class="label-check ml-2">
+                        <input class="form-check-input" type="checkbox" [(ngModel)]='webexAddCheck' attr.data-id="{{dataIdConstantsService.ciscoTeam_checkbox_webexAddCheck}}">
+                        <span class="custom-checkbox-btn i-vNext-fonts"><span class="path1"></span><span
+                                class="path2"></span><span class="path3"></span></span><span></span>
+                        <span class="label-name" attr.data-id="{{dataIdConstantsService.ciscoTeam_label_webexTeams}}">{{localizationService.getLocalizedString('common.WEBEX_TEAMS')}}</span>
+                    </label>
+                    <label class="label-check ml-4">
+                        <input class="form-check-input" type="checkbox" [(ngModel)]='welcomeAddCheck' attr.data-id="{{dataIdConstantsService.ciscoTeam_checkbox_welcomeAddCheck}}">
+                        <span class="custom-checkbox-btn i-vNext-fonts"><span class="path1"></span><span
+                                class="path2"></span><span class="path3"></span></span><span></span>
+                        <span class="label-name" attr.data-id="{{dataIdConstantsService.ciscoTeam_label_welcomeKit}}">{{localizationService.getLocalizedString('common.WELCOME_KIT')}}</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <table class="primary-table partner-team_table">
+            <thead>
+                <tr>
+                    <th rowspan="2" attr.data-id="{{dataIdConstantsService.ciscoTeam_label_listName}}">{{localizationService.getLocalizedString('common.NAME')}}</th>                    
+                    <th rowspan="2" width="150px" attr.data-id="{{dataIdConstantsService.ciscoTeam_label_ciscoId}}">{{localizationService.getLocalizedString('common.CISCO_ID')}}</th>
+                    <th rowspan="2" width="225px" attr.data-id="{{dataIdConstantsService.ciscoTeam_label_email}}">{{localizationService.getLocalizedString('common.EMAIL')}}</th>
+                    <th rowspan="2" width="150px" attr.data-id="{{dataIdConstantsService.ciscoTeam_label_listJobTitle}}">
+                        {{localizationService.getLocalizedString('common.JOB_TITLE')}}</th>
+                    <!-- <th rowspan="2" width="25%">Title</th> -->
+                    <th colspan="2" class="text-center" width="285px" attr.data-id="{{dataIdConstantsService.ciscoTeam_label_listNotifyBy}}">{{localizationService.getLocalizedString('common.NOTIFY_BY')}}</th>
+
+                    <th rowspan="2" width="70px" attr.data-id="{{dataIdConstantsService.ciscoTeam_label_listAction}}">{{localizationService.getLocalizedString('common.ACTION')}}</th>
+                </tr>
+                <tr>
+
+                    <th class="text-center colspan-border--top colspan-border--left" width="145px">
+                        <label (change)="updateAllTeamMember('webexNotification',allWebexCheck)" class="label-check"
+                            style="padding-right: 4px;">
+                            <input class="form-check-input" [disabled]="projectStoreService.lockProject || !projectStoreService.projectEditAccess" [(ngModel)]="allWebexCheck" type="checkbox" attr.data-id="{{dataIdConstantsService.ciscoTeam_checkbox_allWebexCheck}}">
+                            <span class="custom-checkbox-btn i-vNext-fonts">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                                <span class="path3"></span>
+                            </span>
+                            <span></span>
+                            <span attr.data-id="{{dataIdConstantsService.ciscoTeam_label_listWebexTeams}}">{{localizationService.getLocalizedString('common.WEBEX_TEAMS')}}</span>
+                        </label>
+                    </th>
+
+                    <th width="140px" class="text-center colspan-border--top colspan-border--left colspan-border--right">
+                        <label (change)="updateAllTeamMember('notifyByWelcomeKit',allWelcomeKitCheck)"
+                            class="label-check" style="padding-right: 4px;">
+                            <input class="form-check-input" [disabled]="projectStoreService.lockProject || !projectStoreService.projectEditAccess" [(ngModel)]="allWelcomeKitCheck" type="checkbox" attr.data-id="{{dataIdConstantsService.ciscoTeam_checkbox_allWelcomeKitCheck}}">
+                            <span class="custom-checkbox-btn i-vNext-fonts">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                                <span class="path3"></span>
+                            </span>
+                            <span></span>
+                            <span attr.data-id="{{dataIdConstantsService.ciscoTeam_label_listWelcomeKit}}">{{localizationService.getLocalizedString('common.WELCOME_KIT')}}</span>
+                        </label>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngIf="expandCiscoTeam">
+                    <ng-container *ngIf="ciscoTeamArray.length; else noMemberAdded">
+                        <tr *ngFor="let ciscoTeamMember of ciscoTeamArray; let index = index">
+                            <td attr.data-id="{{dataIdConstantsService.ciscoTeam_data_listName}}{{ciscoTeamMember.userId}}">{{ciscoTeamMember.firstName}} {{ciscoTeamMember.lastName}}</td>
+                            <td attr.data-id="{{dataIdConstantsService.ciscoTeam_data_listUserId}}{{ciscoTeamMember.userId}}">{{ciscoTeamMember.userId}}</td>
+                            <td attr.data-id="{{dataIdConstantsService.ciscoTeam_data_listEmail}}{{ciscoTeamMember.userId}}"><span class="ellipsis" placement="top" container="body" ngbTooltip="{{ciscoTeamMember.email}}">{{ciscoTeamMember.email}}</span></td>
+                            <td attr.data-id="{{dataIdConstantsService.ciscoTeam_data_listRole}}{{ciscoTeamMember.userId}}">{{ciscoTeamMember.role ? ciscoTeamMember.role : '--'}}</td>
+                            <!-- <td></td> -->
+                            <td class="text-center"><label (change)="updateTeamMember(ciscoTeamMember,'webexNotification')"
+                                    class="label-check" style="padding-right: 4px;">
+                                    <input [(ngModel)]="ciscoTeamMember.webexNotification" [disabled]="projectStoreService.lockProject || !projectStoreService.projectEditAccess" class="form-check-input"
+                                        type="checkbox" attr.data-id="{{dataIdConstantsService.ciscoTeam_checkbox_webexNotification}}{{ciscoTeamMember?.userId}}">
+                                    <span class="custom-checkbox-btn i-vNext-fonts">
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                        <span class="path3"></span>
+                                    </span>
+                                    <span></span>
+                                    <!-- <span>Webex Teams</span> -->
+                                </label></td>
+                            <td class="text-center"><label (change)="updateTeamMember(ciscoTeamMember,'notifyByWelcomeKit')"
+                                    class="label-check" style="padding-right: 4px;">
+                                    <input [disabled]="projectStoreService.lockProject || !projectStoreService.projectEditAccess" [(ngModel)]="ciscoTeamMember.notifyByWelcomeKit" class="form-check-input"
+                                        type="checkbox" attr.data-id="{{dataIdConstantsService.ciscoTeam_checkbox_notifyByWelcomeKit}}{{ciscoTeamMember?.userId}}">
+                                    <span class="custom-checkbox-btn i-vNext-fonts">
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                        <span class="path3"></span>
+                                    </span>
+                                    <span></span>
+                                    <!-- <span>Welcome Kit</span> -->
+                                </label></td>
+                            <td class="text-center"><a href="javascript:void(0);" [ngClass]='{"disabled": ciscoTeamArray.length === 1 || projectStoreService.lockProject || !projectStoreService.projectEditAccess}'
+                                    (click)='deleteTeamMember(ciscoTeamMember, index)' attr.action-id="{{dataIdConstantsService.ciscoTeam_link_deleteTeamMember}}{{ciscoTeamMember?.userId}}"><span
+                                        class="i-vNext-trash-bold"></span></a></td>
+
+                        </tr>
+                    </ng-container>
+                    
+                    <ng-template #noMemberAdded>
+                            <!-- <tr>
+                                <td>
+                                    <span class="blank-input"></span>
+                                </td>
+                                <td>
+                                    <span class="blank-input"></span>
+                                </td>
+                                <td>
+                                    <span class="blank-input"></span>
+                                </td>
+                                <td>
+                                    <span class="blank-checkbox"></span>
+                                </td>
+                                <td>
+                                    <span class="blank-checkbox"></span>
+                                </td>
+                                <td>
+                                    <span class="blank-checkbox"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="blank-input"></span>
+                                </td>
+                                <td>
+                                    <span class="blank-input"></span>
+                                </td>
+                                <td>
+                                    <span class="blank-input"></span>
+                                </td>
+                                <td>
+                                    <span class="blank-checkbox"></span>
+                                </td>
+                                <td>
+                                    <span class="blank-checkbox"></span>
+                                </td>
+                                <td>
+                                    <span class="blank-checkbox"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="blank-input"></span>
+                                </td>
+                                <td>
+                                    <span class="blank-input"></span>
+                                </td>
+                                <td>
+                                    <span class="blank-input"></span>
+                                </td>
+                                <td>
+                                    <span class="blank-checkbox"></span>
+                                </td>
+                                <td>
+                                    <span class="blank-checkbox"></span>
+                                </td>
+                                <td>
+                                    <span class="blank-checkbox"></span>
+                                </td>
+                            </tr> -->
+                            <tr>
+                                <td colspan="7">
+                                    <div
+                                        class="d-flex w-100 align-items-center justify-content-center empty-enrollment flex-column">
+                                        <img src="../../../../assets/images/icons/empty-enrollment.svg">
+                                        <h4 class="heading--h4" attr.data-id="{{dataIdConstantsService.ciscoTeam_label_noTeamMemberAdded}}">{{localizationService.getLocalizedString('common.NO_TEAM_MEMBER_ADDED')}}</h4>
+                                    </div>
+                                </td>
+                            </tr>
+                    </ng-template>
+                </ng-container>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- End of Cisco team Member -- Row -->

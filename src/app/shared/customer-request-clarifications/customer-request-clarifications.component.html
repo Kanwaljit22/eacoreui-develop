@@ -1,0 +1,88 @@
+<div class="flyOut-overlay"></div>
+
+<div class="flyOut flyOut-md">
+    <div class="flyOut-heading border--bottom solid">
+        <div class="flyOut-heading--header no-column">        
+            <!-- <h6 class="heading--h6 normal">What are your customer’s requests?</h6> -->
+            <div class="flyOut-heading--subheader d-block mt-0">
+                <h2 class="heading--h2 normal">Select {{mainTitle}}</h2>
+                <span *ngIf='subtitle !== "Modifications"'>Use the information in this module to help you better respond to some of the requests from your customer</span>
+                <span *ngIf='subtitle === "Modifications"'>This module will help you auto-generate the Letter of Agreement for the following modifications</span>
+            </div>
+        </div>
+        <span class="icon-close-btn2" (click)="close()"></span>
+    </div>
+    <!-- End of Header -->
+
+    <div class="flyOut-body flyOut-body-custom"> 
+        <!-- Add "no-exception" class with "flyOut-body" while there is no selected exception -->
+        <div class="flyOut-body-left d-table">
+            <div class="flyOut-tile cursor-auto" *ngFor="let item of clarificationsList; let i= index;">
+                <div class="flyOut-tile--header no-column custom-width">
+                    <div class="flyOut-tile--header-icon">
+                        <span [ngClass]="item.cssClass"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span><span class="path8"></span><span class="path9"></span></span>
+                    </div>
+                    <div class="d-inline-block pr-1">
+                        <h5 class="heading--h5 normal mb-2">{{item.name}}</h5>
+                        <h4>{{item.summary}}</h4>
+                    </div>
+                </div>
+                <label class="label-check ellipsis mr-0">
+                    <input class="form-check-input" type="checkbox" [disabled] = 'item.disabled' name="isSelected{{i}}" id="isSelected{{i}}" (click)='updateSelectedCount(item)' [(ngModel)]="item.selected">
+                    <span class="custom-checkbox-btn"><span class="path1"></span><span class="path2"></span></span>
+                    <span></span>
+                </label>
+            </div>
+        </div>
+        <!-- End of Left Section -->
+
+        <div class="flyOut-body-right d-table">
+            <div class="flyOut-tabs mt-2">
+                <span class="flyOut-tab active">
+                    Selected {{subtitle}} 
+                </span>
+            </div>
+
+                <ng-container *ngFor="let item of clarificationsList; let i= index;">
+                <ng-container  *ngIf="item.selected">
+                    <div class="flyOut-tile d-block cursor-auto">
+
+                <div class="border-bottom solid flyOut-tile-wrapper">
+                    <div class="flyOut-tile--header no-column">
+                        <div class="d-inline-block pr-1">
+                            <h5 class="heading--h5 normal mb-2">{{item?.name}}</h5>
+                            <h4>{{item?.summary}}</h4>
+                        </div>
+                    </div>
+                    <a (click)='updateSelectedCount(item)' class="link">Remove</a>
+                </div>
+            
+                <div class="flyOut-tile-wrapper">
+                    <div class="flyOut-tile--header d-block pt-2">
+                        <p *ngIf="!item?.description">No Preview Available.</p>
+                        <span *ngIf="item?.description" [innerHTML]="item.description | stringToHtml"></span>
+                    </div>
+                </div>
+            </div>
+
+            </ng-container>
+            </ng-container>
+        </div>
+        <!-- End of Right Section -->
+    </div>
+    <!-- End of Body -->
+
+    <div class="flyOut-footer flex-dir-row">
+        <div class="col-6 pr-3">
+            <span *ngIf='subtitle !== "Modifications"'>If the customer requested for a clarification/explanation that is not listed here, please review the list of pre-approved modifications to the EA Program Terms in question 3.</span>
+            <span *ngIf='subtitle === "Modifications"'>If the customer requested for a modification that is not listed here, </span>
+            <span *ngIf='subtitle === "Modifications"'><a href="javascript:void(0);" (click)='contractNegotiator()'>contact your legal contract negotiator </a>for further assistance</span>
+        </div>
+        <div class="col-6 text-right">
+            <button type="button" (click)="close()" class="btn btn-secondary mr-2">Cancel</button>
+            <button type="button" [disabled] = '!enableSaveButton' (click)="saveClarifications()" class="btn btn-primary">Save Request(s)</button>
+        </div>
+    </div>
+    <!-- End of Footer -->
+
+</div>

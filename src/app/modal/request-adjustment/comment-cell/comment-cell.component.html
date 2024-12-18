@@ -1,0 +1,7 @@
+<div (clickOutside)="onClickedOutside($event, params) && edited"
+[attachOutsideOnClick]=true *ngIf="!params.node.rowPinned" (click)="edit(params)" class="edit-box-input">
+  <input class="editCell-input" [appFocus]="editable" [(ngModel)]="data"  name="data" type="text" id="data" [hidden]="!editable" (input)="edit(params)">
+  <ng-template #tipContent >{{data}}</ng-template>
+  <span class="ellipsis" [hidden]="editable" #value [ngbTooltip]="tipContent" container="body"  triggers="manual" #t="ngbTooltip" (mouseenter)="open(t)"
+  (mouseleave)="t.close()">{{data}}</span>
+</div>

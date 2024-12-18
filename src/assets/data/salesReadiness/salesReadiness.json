@@ -1,0 +1,73 @@
+{
+    "rid": "720246f6-5a8f-43c1-9fbc-c63167a270f4",
+    "error": false,
+    "data": [
+        {
+            "name": "Prospect to Proposal",
+            "activityLines": [
+                {
+                    "stage": "Complete Qualification",
+                    "status": "Done",
+                    "completedBy": "yzope",
+                    "completedOn": "Monday 06-May-19 12:25:37+0530",
+                    "actionLabel": "Qualification Summary",
+                    "actionUrl": "http://localhost:8180/eaprospect/app/#//qualifications/4186",
+                    "identifier": "Complete_Qualification"
+                },
+                {
+                    "stage": "Complete Proposal",
+                    "status": "Done",
+                    "completedBy": "yzope",
+                    "completedOn": "Monday 20-May-19 12:07:09+0530",
+                    "actionLabel": "Proposal Summary",
+                    "actionUrl": "http://localhost:8180/eaprospect/app/#//qualifications/proposal/4206",
+                    "identifier": "Complete_Proposal"
+                },
+                {
+                    "stage": "Internal EUIF Validation",
+                    "status": "Not Done",
+                    "actionLabel": "Document Center",
+                    "actionUrl": "http://localhost:8180/eaprospect/app/#//qualifications/proposal/4206/document",
+                    "identifier": "Internal_EUIF_Validation"
+                },
+                {
+                    "stage": "Internal Program Term Validation",
+                    "status": "Not Done",
+                    "actionLabel": "Document Center",
+                    "actionUrl": "http://localhost:8180/eaprospect/app/#//qualifications/proposal/4206/document",
+                    "identifier": "Internal_Program_Term_Validation"
+                },
+                {
+                    "stage": "Partner Authorization Validation",
+                    "status": "Not Done",
+                    "identifier": "Partner_Authorization_Validation",
+                    "manualActions": [
+                        "Authorized",
+                        "Not Authorized"
+                    ]
+                },
+                {
+                    "stage": "Initial Proposal presented to Customer",
+                    "status": "Not Done",
+                    "actionLabel": "Document Center",
+                    "actionUrl": "http://localhost:8180/eaprospect/app/#//qualifications/proposal/4206/document",
+                    "identifier": "Initial_Proposal_Customer"
+                },
+                {
+                    "stage": "Socialize EUIF with your customer",
+                    "status": "Not Done",
+                    "actionLabel": "Document Center",
+                    "actionUrl": "http://localhost:8180/eaprospect/app/#//qualifications/proposal/4206/document",
+                    "identifier": "Socialize_EUIF"
+                },
+                {
+                    "stage": "Socialize Program Terms with your customer",
+                    "status": "Not Done",
+                    "actionLabel": "Document Center",
+                    "actionUrl": "http://localhost:8180/eaprospect/app/#//qualifications/proposal/4206/document",
+                    "identifier": "Socialize_Program_Terms"
+                }
+            ]
+        }
+    ]
+}

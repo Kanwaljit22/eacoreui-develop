@@ -1,0 +1,125 @@
+<div id="filter-area" class="container-fluid mb-2">
+    <div class="row clearfix">
+        <div class="col-12">
+            <ul class="qualify-btn">
+                <li class="btn-sep"><button [id]="appDataService.createUniqueId('BACK',appDataService.pageContext)"
+                        class="btn btn-secondary btn-back" (click)="backToParameter()" type="button"><span class="icon-btn-back"></span> <span
+                            class="mid-text">{{localeService.getLocalizedString('common.BACK')}}</span></button></li>
+                <li><button [id]="appDataService.createUniqueId('CONTINUE',appDataService.pageContext)"
+                        class="btn btn-primary btn-continue" type="button" (click)="generateProposal()"><span
+                            class="mid-text">{{localeService.getLocalizedString('common.GENERATE_PROPOSAL')}}</span> <span
+                            class="icon-btn-continue"></span></button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+   <message></message>
+   <div class="alert alert--info alert-dismissable clearfix" >
+        <span class="alert-icon">
+        <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+        </span>
+        <span>{{localeService.getLocalizedMessage('renewal.review.PROPOSAL_INFO')}}</span>
+    </div>
+
+
+    <div class="mt-2" >
+    <ng-container  *ngFor="let e of proposalList">
+        <div class="row list-style mb-3 active mx-0" [ngClass]="{'active-list': e.hasLinkedProposal}">
+            <div class="col p-0">
+                <div class="list-item--name align-items-center">
+                    <div class="col-6 d-flex">
+                            <span class="title-icon" *ngIf="e.archName !== 'INVALID' || !e.hasMultipleOffer">
+                                    <span  placement="top-left" container="body"
+                                    ngbTooltip="Cisco Data Center" *ngIf="e.archName === constantsService.DC" class="icon-data-center-indigo">
+                                            <span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span><span class="path8"></span><span class="path9"></span><span class="path10"></span><span class="path11"></span><span class="path12"></span><span class="path13"></span><span class="path14"></span><span class="path15"></span><span class="path16"></span>
+                                            </span>
+                                            <span  placement="top-left" container="body"
+                                            ngbTooltip="Cisco DNA" *ngIf="e.archName === constantsService.DNA" class="icon-dna-indigo">
+                                            <span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span>
+                                            </span>
+                                            <span  placement="top-left" container="body"
+                                                ngbTooltip="Cisco Security Choice" *ngIf="e.archName === constantsService.SECURITY" class="icon-security">
+                                            <span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span><span class="path8"></span><span class="path9"></span><span class="path10"></span><span class="path11"></span>
+                                            </span>
+                                    </span>
+
+                        <h3 class="heading ellipsis">
+                            <ng-template #tipContent >{{e.name}} ({{e.id}})</ng-template>
+                            <a placement="top" isTooltip [tooltipContent]="tipContent" [ellipsis]="true" [id]='appDataService.createUniqueId(e.name,appDataService.pageContext)'
+                                href="javascript:void(0);" stickyTooltip >{{e.name}}</a>
+                        </h3>
+
+                    </div>
+                <div>
+                </div>
+                </div>
+        
+                <div class="list-item border--top solid">
+                    <!-- <ng-container *ngIf="!proposalData.isCreatedByMe">
+                                    <label>CREATED BY</label>
+                                    <h4 class="label-name">{{e.createdByName}}</h4>
+                                </ng-container> -->
+                    <div class="list-item--val col-3 overflow-hidden">
+                        <label>{{localeService.getLocalizedString('qualproposallist.CUSTOMER_NAME')}}</label>
+                        <h4 class="label-name">
+                            <span class="ellipsis" placement="top" container="body"
+                                ngbTooltip="{{e.customerName}}">{{e.customerName}}</span>
+                        </h4>
+                    </div>
+                    <div class="list-item--val col-3">
+                        <label>{{localeService.getLocalizedString('qual.create.DEAL')}}
+                            {{localeService.getLocalizedString('qual.create.ID')}}</label>
+                        <h4 class="label-name">{{e.dealId}}</h4>
+                    </div>
+                    <div class="list-item--val col-3">
+                        <label>{{localeService.getLocalizedString('common.QUALIFICATION')}}
+                            {{localeService.getLocalizedString('qual.whoinvolved.NAME')}}</label>
+                        <h4 class="label-name">
+                            <span class="ellipsis" placement="top" container="body"
+                                ngbTooltip="{{e.qualificationName}}">{{e.qualificationName}}</span>
+                        </h4>
+                    </div>
+                    <div class="list-item--val col-3">
+                        <label>{{localeService.getLocalizedString('prospectdetails.SUITES')}}</label>
+                        <h4 class="label-name">
+                            <span class="ellipsis" placement="top" container="body"
+                                ngbTooltip="{{e.suites}}">{{(e.suites) ? (e.suites) : this.localeService.getLocalizedString('common.NOT_DEFINED')}}</span>
+                            <!--a href="javascript:void(0)">+3</a-->
+                        </h4>
+                    </div>
+                </div>
+    
+                <div class="list-item border--top solid">
+                    <div class="list-item--val col-3 overflow-hidden">
+                        <label>{{localeService.getLocalizedString('qualproposallist.BILLING_MODEL_TERM')}}</label>
+                        <h4 class="label-name"><span class="ellipsis" placement="top" container="body"
+                            ngbTooltip="{{this.utilitiesService.checkDecimalOrIntegerValue(e.eaTermInMonths)}} {{months}}">{{e.billingModel}} /
+                            <span>{{this.utilitiesService.checkDecimalOrIntegerValue(e.eaTermInMonths)}} {{months}}</span></span>
+                        </h4>
+                    </div>
+                    <div class="list-item--val col-3">
+                        <label>{{localeService.getLocalizedString('proposal.create.COUNTRY_OF_TRANSACTION')}}</label>
+                        <h4 class="label-name"><span class="ellipsis" placement="top" container="body"
+                                ngbTooltip="{{e.countryOfTransactionName}}">{{e.countryOfTransactionName}}</span></h4>
+                    </div>
+                    <div class="list-item--val col-3">
+                        <label>{{localeService.getLocalizedString('proposal.create.EXPECTED_START_DATE')}}</label>
+                        <h4 class="label-name">{{e.eaStartDateDdMmmYyyyStr}}</h4>
+                    </div>
+                    <div class="list-item--val col-3">
+                        <label>{{localeService.getLocalizedString('qualproposallist.TOTAL_NET_PRICE')}}</label>
+                        <h4 class="label-name" *ngIf="e.totalNetPrice && e.currencyCode">{{e.currencyCode}}
+                            {{utilitiesService.formatWithNoDecimal(e.totalNetPrice)}}</h4>
+                        <h4 class="label-name" *ngIf="!e.totalNetPrice || !e.currencyCode"> -- </h4>
+                    </div>
+                </div>
+
+            <!-- End of Block - Accordion Inner Content - 1 -->
+            </div>
+        </div>  
+        
+    </ng-container>
+    </div>
+</div>

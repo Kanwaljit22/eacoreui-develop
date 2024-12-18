@@ -1,0 +1,556 @@
+<app-sub-header></app-sub-header>
+<div id="filter-area" class="mb-3">
+    <div class="container-fluid">
+        <!-- <app-title-with-buttons [titleWithButton]="titleWithButton"></app-title-with-buttons> -->
+        <div class="row align-items-center">
+            <div class="col-md-5">
+                <h2>{{localeService.getLocalizedString('common.CREATE')}} {{localeService.getLocalizedString('common.PROPOSAL')}}</h2>
+                <h2></h2>
+            </div>
+            <div class="col-md-7">
+                <ul class="qualify-btn">
+                    <li *ngIf='demoProposalPermission'><label class="label-check"><input class="form-check-input" name="demo proposal" type="checkbox" [(ngModel)]="demoProposal"><span class="custom-checkbox-btn"><span class="path1"></span><span class="path2"></span></span>
+                        <span ></span><span>{{localeService.getLocalizedString('create-proposa.DEMO_PROPOSAL')}}</span></label>
+                    </li>			
+                    <li class="viewIbsummary">
+                        <button type="button" class="btn btn-secondary" (click)="reset()">
+                                    <span class="icon-btn-back"></span><span class="mid-text">{{localeService.getLocalizedString('common.RESET')}}</span><span class="icon-btn-continue"></span>
+                                </button>
+                    </li>
+                    <li class="viewProspect">
+                        <button type="button" class="btn btn-primary" (click)="create()">
+                                    <span class="icon-btn-back"></span><span class="mid-text">{{localeService.getLocalizedString('common.CREATE')}}</span><span class="icon-btn-continue"></span>
+                                </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <message></message>
+    <div class="alert alert--warning alert-dismissable mt-0 mb-0" *ngIf="approvalWarning && !createProposalService.isMSPSelected">
+        <span class="alert-icon">
+                <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+        </span>
+        <span>{{localeService.getLocalizedString('modal.proposalheader.BILLING_APPROVAL')}}</span>
+        <!-- <a class="close" style="cursor: pointer;" (click)="removeAlert(message)">&times;</a> -->
+    </div>
+    <div class="alert alert--warning alert-dismissable mt-0 mb-0" *ngIf="billingModelInfo">
+        <span class="alert-icon">
+                <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+        </span>
+        <span>{{localeService.getLocalizedString('modal.proposalheader.BILLING_MODEL_INFO')}}</span>
+    </div>
+    <app-ea-purchases *ngIf="isPartnerDeal"></app-ea-purchases>
+    <!-- for further use if needed -->
+    <!-- <div id="filter-area" class="no-border error1">
+            <div class="alert alert--warning alert-dismissable mb-2 mt-3" *ngIf="partnerLedFlow">
+                <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                <span class="infoTxt">
+                    {{this.localeService.getLocalizedString('proposal.PARTNER_NOT_AUTHORIZED')}}
+                </span>
+            </div>
+        </div> -->
+</div>
+
+<div class="container-fluid clearfix">
+
+    <!-- start of proposal parameters to save country of transaction, billing modal, price list, RSD, End Date, EA Term in Months, Primary Partner Name, coterm/ change sub -->
+    <!-- <app-proposal-parameters [flow]="'createProposal'"></app-proposal-parameters> -->
+    <!-- End of proposal parameters to save country of transaction, billing modal, price list, RSD, End Date, EA Term in Months, Primary Partner Name, coterm/ change sub -->
+    <form novalidate [formGroup]="myForm">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <h5 class="card-header">{{localeService.getLocalizedString('proposal.create.PROPOSAL_PARAM')}}</h5>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-7 border--right solid">
+                                <div class="form-group mt-0">
+                                    <label class="customer-label" (click)="focusProposalInput(appDataService.createUniqueId('proposalName',appDataService.pageContext))">{{localeService.getLocalizedString('proposal.create.PROPOSAL_NAME')}}
+                                            <sup>*</sup>
+                                        </label>
+                                    <input [id]="appDataService.createUniqueId('proposalName',appDataService.pageContext)" appElementFocus type="text" [(ngModel)]="proposalDataService.proposalDataObject.proposalData.name" class="form-control" (keyup)="keyUp($event)" formControlName="proposalName"
+                                        required>
+                                    <show-errors [control]="proposalName"></show-errors>
+                                </div>
+                                <div class="form-group">
+                                    <label class="customer-label" for="exampleFormControlTextarea1" (click)="focusProposalInput(appDataService.createUniqueId('description',appDataService.pageContext))">{{localeService.getLocalizedString('qual.create.DESC')}}</label>
+                                    <input [id]="appDataService.createUniqueId('description',appDataService.pageContext)" appElementFocus class="form-control" [(ngModel)]="proposalDataService.proposalDataObject.proposalData.desc" formControlName="description" />
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <div class="custom-dropdown">
+                                                <label class="customer-label" [ngClass]="{'labelClass': selectedCountryTranscation}">{{localeService.getLocalizedString('proposal.create.COUNTRY_OF_TRANSACTION')}}
+                                                        <sup>*</sup>
+                                                    </label>
+                                                <div ngbDropdown class="select-items " #myDropCountrysearch="ngbDropdown" (click)="myDropCountrysearch.open();">
+                                                    <span class="dropdown--typeAhead__arrow-management">
+                                                            <button [id] = "appDataService.createUniqueId('selectedCountryTranscation',appDataService.pageContext)" type="button" appElementFocus class="btn--text drop-button" ngbDropdownAnchor dropdownManual>
+                                                                {{selectedCountryTranscation}}</button>
+                                                        </span>
+                                                    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                                                        <ul>
+                                                            <li class="dropdown-item" *ngFor="let cot of countryOfTransactions" (click)="onCOTChange(cot)">{{cot.countryName}}</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <show-errors [control]="countryOfTransaction"></show-errors>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group" *ngIf="!isChangeSubFlow">
+                                            <div class="custom-dropdown" (click)="billingOpen()">
+                                                <label class="customer-label" [ngClass]="{'labelClass': selectedBillingModel}">{{localeService.getLocalizedString('proposal.create.BILLING_MODEL')}}
+                                                        <sup>*</sup>
+                                                    </label>
+                                                <div ngbDropdown class="select-items " #myDropBillingsearch="ngbDropdown" (click)="myDropBillingsearch.open();">
+                                                    <span class="dropdown--typeAhead__arrow-management">
+                                                            <button [id] = "appDataService.createUniqueId('selectedBillingModel',appDataService.pageContext)" type="button" appElementFocus class="btn--text drop-button" id="dropdownManual" ngbDropdownAnchor dropdownManual>
+                                                                {{selectedBillingModel}}</button>
+                                                        </span>
+                                                    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                                                        <ul>
+                                                            <li *ngFor="let b of billingModels" class="dropdown-item" (click)="billingChanged(b)">{{b.displayName}}</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                            <show-errors [control]="billingModel"></show-errors>
+                                            <div *ngIf="showBillingError">
+                                                <span class="text-danger"><i class="icon-error-icon"></i>{{localeService.getLocalizedMessage('proposal.create.INVALID_BILLING_MODEL')}}</span>
+                                            </div>
+
+                                            <div *ngIf="showMSPBillingError">
+                                                <span class="text-danger"><i class="icon-error-icon"></i>{{localeService.getLocalizedMessage('proposal.create.INVALID_NONMSP_BILLING_MODEL')}}</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group" *ngIf="isChangeSubFlow">
+                                            <div class="custom-dropdown">
+                                                <label class="customer-label" [ngClass]="{'labelClass': selectedBillingModel}">{{localeService.getLocalizedString('proposal.create.BILLING_MODEL')}}
+                                                    <sup>*</sup>
+                                                </label>
+                                                <span class="value">
+                                                    {{selectedBillingModel}}
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-group" *ngIf="!partnerLedFlow && !isPartnerDeal && !isChangeSubFlow">
+                                            <div class="custom-dropdown">
+                                                <label class="customer-label" [ngClass]="{'labelClass': selectedPriceList}">{{localeService.getLocalizedString('proposal.create.PRICE_LIST')}}
+                                                        <sup>*</sup>
+                                                    </label>
+                                                <div ngbDropdown class="select-items " #myDropPricesearch="ngbDropdown" (click)="myDropPricesearch.open();">
+                                                    <span class="dropdown--typeAhead__arrow-management">
+                                                            <button [id] = "appDataService.createUniqueId('selectedPriceList',appDataService.pageContext)" type="button" appElementFocus class="btn--text drop-button" id="dropdownManual" ngbDropdownAnchor dropdownManual>
+                                                                {{selectedPriceList}}</button>
+                                                        </span>
+                                                    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                                                        <ul>
+                                                            <li class="dropdown-item" *ngFor="let a of priceListArray" (click)="onPriceListChange(a)">{{a.description}}</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <show-errors [control]="priceList"></show-errors>
+                                            <div *ngIf="errorPriceList">
+                                                <span class="text-danger"><i class="icon-error-icon"></i>{{errorMessagePriceList}}</span>
+                                            </div>
+                                        </div>
+                                        <!-- partner led flow , no dropdown to select price list starts-->
+                                        <div class="form-group" *ngIf="(partnerLedFlow && isPartnerDeal) || (!partnerLedFlow && isPartnerDeal) || isChangeSubFlow">
+                                            <div class="custom-dropdown">
+                                                <label class="customer-label" [ngClass]="{'labelClass': selectedPriceList}">{{localeService.getLocalizedString('proposal.create.PRICE_LIST')}}
+                                                        <sup>*</sup>
+                                                    </label>
+                                                <div>
+                                                    <span class="value">
+                                                            {{selectedPriceList}}
+                                                        </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- partner led flow , no dropdown to select price list starts-->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-5">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-group datePicker mt-0">
+                                            <label class="customer-label">{{localeService.getLocalizedString('proposal.create.EXPECTED_START_DATE')}}
+                                            <sup>*</sup>
+                                        </label>
+                                            <input appElementFocus readonly="true" type="text" class="form-control" #dpFull="bsDatepicker" [(ngModel)]="proposalDataService.proposalDataObject.proposalData.eaStartDate" [minDate]="todaysDate" (keyup)="keyUp($event)" [maxDate]="expectedEAStartDate"
+                                                bsDatepicker formControlName="eaStartDate" (bsValueChange)="onDateSelection($event)" [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY', showWeekNumbers: false }">
+
+                                            <span class="calender-date" (click)="dpFull.toggle()" [attr.aria-expanded]="dpFull.isOpen"></span>
+
+                                        </div>
+                                    </div>
+                                    <!-- End of Start Date -->
+
+                                    <div class="col" *ngIf="false">
+                                        <div class="form-group datePicker disable">
+                                            <label class="customer-label">Requested End Date <sup>*</sup></label>
+                                            <input appElementFocus readonly="true" type="text" class="form-control" value="{{eaEndDateStr ? eaEndDateStr : 'Select Subscription'}}" disabled>
+
+                                        </div>
+                                        <div *ngIf="displayEndDateErrorMsg">
+                                            <span class="text-danger"><i class="icon-error-icon"></i>Please select a subscription to Co-Term</span>
+                                        </div>
+                                        <div *ngIf="displayDurationMsg">
+                                            <span class="text-danger"><i class="icon-error-icon"></i>Duration less than 12 months not allowed for EA. Please select another subscription to Co-Term.</span>
+                                        </div>
+                                    </div>
+                                    <!-- End of Start Date -->
+                                </div>
+
+
+                                <div>
+                                    <h4 class="card-title mt-4 mb-2">{{localeService.getLocalizedString('proposal.create.DURATION')}}</h4>
+                                    <div class="d-flex">
+                                        <div class="mr-3 radio-custom">
+                                            <input id="radio36" type="radio" [disabled]='(isShowCoTerm && isChangeSubFlow)' name="durationRadio" [checked]="eaTerm.value == 36 && !showEndDate" [value]="durationTypes.MONTHS36" (change)="checkDurationsSelected($event)">
+                                            <label for="radio36">
+                                                    <span class='custom-radio-btn'>
+                                                        <span class="path1"></span>
+                                                        <span class="path2"></span>
+                                                    </span>
+                                                    <span>
+                                                        <span></span>
+                                                    </span>36</label>
+                                        </div>
+                                        <div class="mr-3 radio-custom">
+                                            <input id="radio60" type="radio" [disabled]='(isShowCoTerm && isChangeSubFlow)' name="durationRadio" [checked]="eaTerm.value == 60 && !showEndDate" [value]="durationTypes.MONTHS60" (change)="checkDurationsSelected($event)">
+                                            <label for="radio60">
+                                                    <span class='custom-radio-btn'>
+                                                        <span class="path1"></span>
+                                                        <span class="path2"></span>
+                                                    </span>
+                                                    <span>
+                                                        <span></span>
+                                                    </span>60</label>
+                                        </div>
+                                        <div class="mr-3 radio-custom">
+                                            <input id="radio-ctm" type="radio" [disabled]='(isShowCoTerm && isChangeSubFlow)' name="durationRadio" [checked]="(eaTerm.value == 0 || eaTerm.value != 60 && eaTerm.value != 36) && !showEndDate" [value]="durationTypes.MONTHSCUSTOM" (change)="checkDurationsSelected($event)">
+                                            <label for="radio-ctm">
+                                                    <span class='custom-radio-btn'>
+                                                        <span class="path1"></span>
+                                                        <span class="path2"></span>
+                                                    </span>
+                                                    <span>
+                                                        <span></span>
+                                                    </span>{{localeService.getLocalizedString('common.CUSTOM')}}</label>
+                                        </div>
+                                        <div class="mr-3 radio-custom" *ngIf="isShowCoTerm">
+                                            <input id="radio-coterm" type="radio" name="durationRadio" [checked]='showEndDate' [value]="durationTypes.MONTHSCOTERM" (change)="checkDurationsSelected($event)">
+                                            <label for="radio-coterm">
+                                                <span class='custom-radio-btn'>
+                                                    <span class="path1"></span>
+                                                    <span class="path2"></span>
+                                                </span>
+                                                <span>
+                                                    <span></span>
+                                                </span>Co-Term</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <show-errors [control]="duration"></show-errors>
+                                <div class="clearfix tab-panel position-relative mb-15">
+                                    <div *ngIf='showEndDate'>
+                                        <p  *ngIf='!referenceSubscriptionId' class="co-term-select">Please select a subscription to Co-Term</p>
+                                        <div *ngIf='referenceSubscriptionId' class="co-term-info"><h5>Your EA is Co-Termed with this Subscription:</h5>
+                                        <div class="row list-style m-0 mt-2">
+                                            <div class="col-4 list-item--val p-2">
+                                                <label>Subscription ID</label>
+                                                <h3 class="label-name"><span class="ellipsis">{{referenceSubscriptionId}}</span></h3>
+                                            </div>
+                                            <div class="col-4 list-item--val p-2">
+                                                <label>End Date</label>
+                                                <h3 class="label-name"><span class="ellipsis">{{eaEndDateStr}}</span></h3>
+                                            </div>
+                                            <div class="col-4 list-item--val p-2">
+                                                <label>Duration (In Months)</label>
+                                                <h3 class="label-name"><span class="ellipsis">{{durationInMonths}}</span></h3>
+                                            </div>
+                                        </div>
+                                        </div>
+                                        <div *ngIf="displayEndDateErrorMsg">
+                                            <span class="text-danger"><i class="icon-error-icon"></i>Please select a subscription to Co-Term</span>
+                                        </div>
+                                        <div *ngIf="displayDurationMsg">
+                                            <span class="text-danger"><i class="icon-error-icon"></i>Duration less than 12 months not allowed for EA. Please select another subscription to Co-Term.</span>
+                                        </div>
+                                        <!-- start of message after change Sub -->
+                                        <div class="alert alert--info mt-2" *ngIf="isChangeSubFlow && !displayDurationMsg">
+                                            <span class="alert-icon">
+                                                <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span
+                                                        class="path3"></span></span>
+                                            </span>
+                                            <span>{{localeService.getLocalizedString('qual.create.CHANGE_SUB_LANDING_MESSAGE')}}</span>
+                                        </div>
+                                        <!-- end of message after change Sub -->
+                                    </div>
+
+                                    <i class="arrow up" [ngClass]="{'val36' : eaTerm.value == 36 , 'val60': eaTerm.value == 60, 'customVal': customDate, 'co-term': showEndDate}"></i>
+                                    <div [hidden]='showEndDate'>
+                                        <ion-range-slider #sliderElement [min]="simpleSlider.min" [max]="simpleSlider.max" [grid]="simpleSlider.grid" [grid_num]="simpleSlider.grid_num" [step]="simpleSlider.step" (onChange)="simpleSlider.onUpdate($event)"></ion-range-slider>
+                                        <!-- [disable] = "showEndDate" -- add it in ionslider to disable sider for co-term selection -->
+                                        <div class="clearfix"></div>
+                                        <span class="selected-val">{{localeService.getLocalizedString('proposal.create.SELECTED_VALUE')}}</span>
+                                        <input class="form-control" (keydown)="keyDown($event)" formControlName="eaTerm">
+                                        <div class="clearfix"></div>
+                                        <div class="line-level-info" *ngIf="displayCustomDurationWarning">{{constantsService.CUSTOM_DURATION_WARNING}}</div>
+                                        <!-- <div class="line-level-info" *ngIf="displayCustomDNADurationWarning">{{constantsService.CUSTOM_DNA_DURATION_WARNING}}</div> -->
+                                    </div>
+                                </div>
+                                <div *ngIf="errorDuration">
+                                    <span class="text-danger"><i class="icon-error-icon"></i>{{errorMessageDuration}}</span>
+                                </div>
+                                <!-- warning message for DC arch if selected term > 60 months start -->
+                                <div *ngIf="displayCustomDurationWarningForDC">
+                                    <span class="text-warning">
+                                        <span class="alert-icon">
+                                        <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                                    </span>
+                                    {{localeService.getLocalizedMessage('proposal.create.duration')}}</span>
+                                </div>
+                                <!-- warning message for DC arch if selected term > 60 months end -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- col-12 -->
+        </div>
+        <!-- row -->
+
+        <div class="row" *ngIf='showEndDate && isSubscriptionListLoaded'>
+            <div class="col-12">
+            <app-coterm-subscription (selectedSub)='selectSubscription($event)' [createProposalPage]='true' [subscriptionList]='subscriptionList'></app-coterm-subscription>
+            </div>       
+        </div>
+
+        <!-- row -->
+
+        <!--Add partner-->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <h5 *ngIf="!partnerLedFlow && !isPartnerDeal" class="card-header">{{localeService.getLocalizedString('proposal.create.PRIMARY_PARTNER')}}</h5>
+                    <h5 *ngIf="(partnerLedFlow && isPartnerDeal) || (!partnerLedFlow && isPartnerDeal) " class="card-header">{{localeService.getLocalizedString('proposal.create.PARTNER_NAME')}}</h5>
+                    <div class="card-body">
+                        <div class="row">                          
+                            <div class="col-12">
+                                <div class="form-group mt-0">
+                                    <div *ngIf="pratners.length > 1 && !partnerLedFlow && !isPartnerDeal && !isChangeSubFlow" class="custom-dropdown">
+
+                                        <label class="customer-label" [ngClass]="{'labelClass': selectedPartnerName}">{{localeService.getLocalizedString('proposal.create.PRIMARY_PARTNER_NAME')}} <sup>*</sup></label>
+                                        <div ngbDropdown class="select-items " #myDropsearch="ngbDropdown" (click)="myDropsearch.open();">
+                                            <span class="dropdown--typeAhead__arrow-management">
+                                                    <button [id] = "appDataService.createUniqueId('selectedPartnerName',appDataService.pageContext)" type="button" appElementFocus class="btn--text drop-button" id="dropdownManual" ngbDropdownAnchor dropdownManual>
+                                                        {{selectedPartnerName}}</button>
+                                                </span>
+                                            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                                                <ul>
+                                                    <li class="dropdown-item" *ngFor="let itr of pratners" (click)="addPartner(itr)">{{itr.name}}</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <!-- <select class="custom-select mb-2 mr-sm-2 mb-sm-0 col myCustomSelect" name="state" appElementFocus formControlName="partnerName"
+                                                (change)="addPartner()" [(ngModel)]="proposalDataService.proposalDataObject.proposalData.partner.partnerId">
+                                                <option [value]="0" selected>Select primary partner name</option>
+                                                <option *ngFor="let itr of pratners" [value]="itr.partnerId">{{itr.name}}</option>
+                                            </select>
+                                            <span class="icon-down-arrow"></span> -->
+                                    </div>
+                                    <!-- --------------------------------- -->
+                                    <div *ngIf="pratners.length == 1 && !partnerLedFlow && !isPartnerDeal && !isChangeSubFlow" class="custom-dropdown">
+
+                                        <label class="customer-label" [ngClass]="{'labelClass': selectedPartnerName}">{{localeService.getLocalizedString('proposal.create.PRIMARY_PARTNER_NAME')}} <sup>*</sup></label>
+                                        <div>
+                                            <span class="value">
+                                                    {{selectedPartnerName}}
+                                                </span>
+                                        </div>
+                                    </div>
+                                    <!-- --------------------------------- -->
+                                    <!-- partner flow, no dropdown or edit to select dropdown starts -->
+                                    <div *ngIf="pratners.length > 0 && ((partnerLedFlow && isPartnerDeal) || (!partnerLedFlow && isPartnerDeal) || isChangeSubFlow)" class="custom-dropdown">
+                                        <label class="customer-label" [ngClass]="{'labelClass': selectedPartnerName}">{{localeService.getLocalizedString('proposal.create.PARTNER_NAME')}}</label>
+                                        <div>
+                                            <span class="value">
+                                                    {{selectedPartnerName}}
+                                                </span>
+                                        </div>
+                                    </div>
+                                    <!-- partner flow, no dropdown or edit to select dropdown ends -->
+                                    <div *ngIf="!pratners.length && isPartnerDataLoaded" class="alert alert--warning alert-dismissable"> 
+                                        <span class="alert-icon">
+                                            <span class="icon-warning1"><span class="path1"></span><span class="path2"></span>
+                                            <span class="path3"></span></span></span>
+                                            <span>{{localeService.getLocalizedMessage('proposal.create.NO_PARTNER')}}</span>
+                                    </div>    
+
+                                    <show-errors [control]="partnerName"></show-errors>
+                                    <div *ngIf="errorMessagePartnerName">
+                                        <span class="text-danger"><i class="icon-error-icon"></i>{{errorMessagePartnerName}}</span>
+                                    </div>
+
+                                </div>
+                                <!-- <div class="clearfix">
+                                        <button [disabled]="selectPartnerDisabled" class="btn btn-primary float-right small-btn mt-3 mb-3" (click)="addContacts()">Select Partner Contact</button>
+                                    </div> -->
+                                <div class="clearfix row d-none">
+                                    <div class="position-relative col mb-30 cp-add-contact">
+                                        <div class="search-wrap">
+                                            <a class="clearSearchBtn" href="javascript:void(0);" [ngClass]="{'disable': selectedPartners.length === 0 }" (click)="clearAllSelectedPartner()">{{localeService.getLocalizedString('filters.CLEAR_ALL')}}</a>
+                                            <span class="name-tag" *ngFor="let selectedPartner of selectedPartners" (click)="deleteSelectedPatner(selectedPartner)">
+                                                    <span class="tag-val">{{selectedPartner.name}}</span>
+                                            <span class="icon-close-btn"></span>
+                                            </span>
+                                            <input appElementFocus id="searchSalesTeam" [(ngModel)]="asyncSelected" [ngModelOptions]="{standalone: true}" [typeahead]="dataSource" (typeaheadLoading)="changeTypeaheadLoading($event)" (typeaheadOnSelect)="typeaheadOnSelect($event)" [typeaheadOptionsLimit]="7"
+                                                [typeaheadItemTemplate]="customItemTemplate" placeholder="Locations loaded with timeout" [typeaheadScrollable]="true" [typeaheadOptionsInScrollableView]="5" class="form-control" placeholder="{{selectedPartners.length == 0 ? '': 'Look up more users...'}}">
+                                            <label for="searchSalesTeam" (click)="focusProposalInput('searchSalesTeam')" class="form-control-placeholder" [ngClass]="{'labelClass': selectedPartners.length}">{{localeService.getLocalizedString('common.SEARCH_PARTNER_BY')}}</label>
+
+                                        </div>
+                                    </div>
+                                    <!-- <div class="col-md-auto add-member">
+                                            <span>
+                                                <button class="btn btn-primary float-right small-btn mt-2" (click)="addContacts()">Add Contact</button>
+                                            </span>
+                                        </div> -->
+                                </div>  
+                            </div>
+                        </div>
+                        
+                        <div *ngIf="showCiscoEaAuth">
+                            <app-ea-purchases></app-ea-purchases>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+                <!--Add disti-->
+        <div class="row" *ngIf = "is2tPartner">
+            <div class="col-12">
+                <div class="card">
+                    <h5  class="card-header">{{localeService.getLocalizedString('proposal.create.DISTRIBUTOR_NAME')}} <span class="d-inline-block"><span class="icon-msg-Info">      <span class="line-height" placement="top-left" container="body" ngbTooltip="{{localeService.getLocalizedMessage('create.FULFILLMENT_ENTERPRISE')}}">
+                        <span class="path1"></span><span class="path2"></span><span class="path3"></span></span></span>
+                    </span> </h5> 
+
+                <div>
+      </div>
+
+                    <div class="card-body">
+                        <div class="row">                          
+                            <div class="col-12">
+                                <div class="form-group mt-0">
+                                    <!-- --------------------------------- -->
+                                    <!-- <div *ngIf="pratners.length == 1 && !partnerLedFlow && !isPartnerDeal && !isChangeSubFlow" class="custom-dropdown">
+
+                                        <label class="customer-label" [ngClass]="{'labelClass': selectedPartnerName}">{{localeService.getLocalizedString('proposal.create.DISTRIBUTOR_NAME')}} <sup>*</sup></label>
+                                        <div>
+                                            <span class="value">
+                                                    {{createProposalService.distiName}}
+                                                </span>
+                                        </div>
+                                    </div> -->
+                                    <!-- --------------------------------- -->
+                                    <!-- partner flow, no dropdown or edit to select dropdown starts -->
+                                    <div class="custom-dropdown">
+                                        <label class="customer-label" [ngClass]="{'labelClass': createProposalService.distiName}">{{localeService.getLocalizedString('proposal.create.DISTRIBUTOR_NAME')}}</label>
+                                        <div>
+                                            <span class="value">
+                                                    {{createProposalService.distiName}}
+                                                </span>
+                                        </div>
+                                    </div>
+                                    <!-- partner flow, no dropdown or edit to select dropdown ends -->
+                                    <div *ngIf="!pratners.length" class="alert alert--warning alert-dismissable">
+                                        <span class="alert-icon">
+                                            <span class="icon-warning1"><span class="path1"></span><span class="path2"></span>
+                                            <span class="path3"></span></span></span>
+                                            <span>{{localeService.getLocalizedMessage('proposal.create.NO_DISTRIBUTOR')}}</span>
+                                    </div>    
+
+                                    <show-errors [control]="partnerName"></show-errors>
+                                </div>
+                                <!-- <div class="clearfix">
+                                        <button [disabled]="selectPartnerDisabled" class="btn btn-primary float-right small-btn mt-3 mb-3" (click)="addContacts()">Select Partner Contact</button>
+                                    </div> -->
+                                <div class="clearfix row d-none">
+                                    <div class="position-relative col mb-30 cp-add-contact">
+                                        <div class="search-wrap">
+                                            <a class="clearSearchBtn" href="javascript:void(0);" [ngClass]="{'disable': selectedPartners.length === 0 }" (click)="clearAllSelectedPartner()">{{localeService.getLocalizedString('filters.CLEAR_ALL')}}</a>
+                                            <span class="name-tag" *ngFor="let selectedPartner of selectedPartners" (click)="deleteSelectedPatner(selectedPartner)">
+                                                    <span class="tag-val">{{selectedPartner.name}}</span>
+                                            <span class="icon-close-btn"></span>
+                                            </span>
+                                            <input appElementFocus id="searchSalesTeam" [(ngModel)]="asyncSelected" [ngModelOptions]="{standalone: true}" [typeahead]="dataSource" (typeaheadLoading)="changeTypeaheadLoading($event)" (typeaheadOnSelect)="typeaheadOnSelect($event)" [typeaheadOptionsLimit]="7"
+                                                [typeaheadItemTemplate]="customItemTemplate" placeholder="Locations loaded with timeout" [typeaheadScrollable]="true" [typeaheadOptionsInScrollableView]="5" class="form-control" placeholder="{{selectedPartners.length == 0 ? '': 'Look up more users...'}}">
+                                            <label for="searchSalesTeam" (click)="focusProposalInput('searchSalesTeam')" class="form-control-placeholder" [ngClass]="{'labelClass': selectedPartners.length}">{{localeService.getLocalizedString('common.SEARCH_PARTNER_BY')}}</label>
+
+                                        </div>
+                                    </div>
+                                    <!-- <div class="col-md-auto add-member">
+                                            <span>
+                                                <button class="btn btn-primary float-right small-btn mt-2" (click)="addContacts()">Add Contact</button>
+                                            </span>
+                                        </div> -->
+                                </div>  
+                            </div>
+                        </div>
+                        
+                        <div *ngIf="showCiscoEaAuth">
+                            <app-ea-purchases></app-ea-purchases>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </form>
+    <!-- row -->
+    <!--Begin Architecture-->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <h5 class="card-header">Architecture</h5>
+                <div class="card-body">
+                    <app-proposal-architecture [subRefId]="qualService.subRefID" [qualId]="qualService.qualification.qualID" [architectureShow]="architectureShow" [type]="type" (architectureName)="architectureNameChangedHandler($event)" (selectedMSPAnswer)="selectedMSP($event)" (nonMSPBillingError)="resetNonMSPBillingModel($event)"></app-proposal-architecture>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!--End Architecture-->
+
+
+</div>
+
+<!-- <ng-template #noResultFound>
+        <tbody>
+            <tr class="empty-row">
+                <td colspan="9" class="text-center">No Members have been added</td>
+            </tr>
+        </tbody>
+    </ng-template> -->
+
+<ng-template #customItemTemplate let-model="item" let-index="index">
+    <h5 (click)="addPatner(model)">{{model.name}}</h5>
+</ng-template>

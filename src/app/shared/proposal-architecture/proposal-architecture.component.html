@@ -1,0 +1,500 @@
+<div class="row" *ngIf="type === 'edit' || (type ==='create' && !partnerLedFlow)">
+    <div class="form-group mt-0 col-12">
+        <div class="custom-dropdown" [hidden]="!architectureShow">
+            <label class="customer-label" [ngClass]="{'labelClass': selectedArchitecture}">Architecture
+      Name
+      <sup>*</sup>
+    </label>
+            <div ngbDropdown class="select-items " #myDropArchitecture="ngbDropdown" (click)="myDropArchitecture.open(); scrollBottom();" *ngIf="!isRenewalFlow">
+                <span class="dropdown--typeAhead__arrow-management">
+          <button [id]="dataCenter" type="button" appElementFocus class="btn--text drop-button" ngbDropdownAnchor
+            dropdownManual>
+            {{selectedArchitecture}}</button>
+        </span>
+                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                    <ul>
+                        <li class="dropdown-item" *ngFor="let arch of proposalArchitectureService.architectureListObject?.answers" (click)="onArchitectureChange(proposalArchitectureService.architectureListObject,arch)">
+                            {{arch.description}}</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- <div ngbDropdown class="select-items disabled" #myDropArchitecture="ngbDropdown" *ngIf="isRenewalFlow">
+              <span class="dropdown--typeAhead__arrow-management">
+        <button [id]="dataCenter" type="button" appElementFocus class="btn--text drop-button" ngbDropdownAnchor
+          dropdownManual>
+          {{selectedArchitecture}}</button>
+      </span>
+          </div> -->
+          <div *ngIf="isRenewalFlow">
+            <span class="value">
+              {{selectedArchitecture}}
+            </span>
+          </div>
+
+            <div *ngIf="proposalArchitectureService.showError && !isAnyArchitecturSelected()">
+                <span class="text-danger"><i
+            class="icon-error-icon"></i>{{this.localeService.getLocalizedMessage('proposal.create.archerror')}}</span>
+            </div>
+
+        </div>
+
+
+        <div class="qs-list" *ngIf="createProposalService.mspPartner && proposalDataService.selectedArchForQna.length > 0">
+
+          <label *ngIf = "proposalDataService.selectedArchForQna === this.constantsService.DNA || proposalDataService.relatedSoftwareProposalArchName === this.constantsService.DNA">{{localeService.getLocalizedMessage('proposal.create.dnamspquestion')}} <sup>*</sup></label> 
+          <label *ngIf = "proposalDataService.selectedArchForQna === this.constantsService.DC || proposalDataService.relatedSoftwareProposalArchName === this.constantsService.DC">{{localeService.getLocalizedMessage('proposal.create.dcmspquestion')}} <sup>*</sup></label> 
+          <label *ngIf = "proposalDataService.selectedArchForQna === this.constantsService.SECURITY || proposalDataService.relatedSoftwareProposalArchName === this.constantsService.SECURITY">{{localeService.getLocalizedMessage('proposal.create.scamspquestion')}} <sup>*</sup></label> 
+
+           <span class="text-information" *ngIf="createProposalService.isMSPSelected && (proposalDataService.selectedArchForQna === this.constantsService.DNA || proposalDataService.relatedSoftwareProposalArchName === this.constantsService.DNA)"> (By selecting MSP EA, you are qualified for Monthly and Quarterly Billing option)</span>
+            <ng-container>
+                <div class="clearfix radio-wrap">
+                    <div class="float-left mr-50 radio-custom" *ngFor="let answer of mspQuestion.answers">
+                        <input type="radio" (change)="selectMSP(mspQuestion.answers, answer)" [disabled]="disableSelection && type === 'edit'" value="{{answer.value}}" [checked]="answer.selected"> <label for="{{answer.value}}">
+              <span class='custom-radio-btn'>
+                <span class="path1"></span>
+                <span class="path2"></span>
+            </span>
+              <span><span></span></span> {{answer.value}}</label>
+                    </div>
+                </div>
+            </ng-container>
+            <br>
+        </div>
+
+
+        <div class="architecture-info" *ngIf="isToShowQuestionnaire || isRenewalFlow">
+            <app-questionnaires [parentObject]="this" [currentQuestion]="proposalArchitectureService.questions" [type]="type" [isRenewalFlow]="isRenewalFlow"></app-questionnaires> 
+        </div>
+    </div>
+</div>
+
+<div class="col-12 no-border p-0" *ngIf="type === 'create' && partnerLedFlow && showAuthMessage" >
+    <div class="alert alert--warning alert-dismissable mb-2 mt-3">
+        <span class="alert-icon">
+      <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+        </span>
+        <span class="infoTxt">
+      {{this.localeService.getLocalizedString('proposal.PARTNER_NOT_AUTHORIZED')}}
+    </span>
+    </div>
+</div>
+
+<div class="col-12 p-0" *ngIf="type === 'create' && partnerLedFlow">
+    <div class="form-group mt-0">
+        <div class="custom-dropdown" [hidden]="!architectureShow">
+            <label class="customer-label" [ngClass]="{'labelClass': selectedArchitecture}">Architecture
+          Name
+          <sup>*</sup>
+        </label>
+            <div ngbDropdown class="select-items " #myDropArchitecture="ngbDropdown" (click)="myDropArchitecture.open(); scrollBottom();" *ngIf="!isRenewalFlow">
+                <span class="dropdown--typeAhead__arrow-management">
+            <button [id]="dataCenter" type="button" appElementFocus class="btn--text drop-button" ngbDropdownAnchor
+              dropdownManual>
+              {{selectedArchitecture}}</button>
+          </span>
+                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                    <ul>
+                        <li class="dropdown-item" *ngFor="let arch of proposalArchitectureService.architectureListObject?.answers" (click)="onArchitectureChange(proposalArchitectureService.architectureListObject,arch)">
+                            {{arch.description}}</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- <div ngbDropdown class="select-items disabled" #myDropArchitecture="ngbDropdown" *ngIf="isRenewalFlow">
+              <span class="dropdown--typeAhead__arrow-management">
+                <button [id]="dataCenter" type="button" appElementFocus class="btn--text drop-button" ngbDropdownAnchor
+                  dropdownManual>
+                  {{selectedArchitecture}}</button>
+              </span>
+            </div> -->
+            <div *ngIf="isRenewalFlow">
+              <span class="value">
+                {{selectedArchitecture}}
+              </span>
+            </div>
+            <div class="clearfix"></div>
+
+            <div *ngIf="proposalArchitectureService.showError && !isAnyArchitecturSelected()">
+                <span class="text-danger"><i
+              class="icon-error-icon"></i>{{this.localeService.getLocalizedMessage('proposal.create.archerror')}}</span>
+            </div>
+
+        </div>
+
+        <div class="qs-list" *ngIf="createProposalService.mspPartner && proposalDataService.selectedArchForQna.length > 0">
+          <label *ngIf = "proposalDataService.selectedArchForQna === this.constantsService.DNA || proposalDataService.relatedSoftwareProposalArchName === this.constantsService.DNA">{{localeService.getLocalizedMessage('proposal.create.dnamspquestion')}} <sup>*</sup></label> 
+          <label *ngIf = "proposalDataService.selectedArchForQna === this.constantsService.DC  || proposalDataService.relatedSoftwareProposalArchName === this.constantsService.DC">{{localeService.getLocalizedMessage('proposal.create.dcmspquestion')}} <sup>*</sup></label> 
+          <label *ngIf = "proposalDataService.selectedArchForQna === this.constantsService.SECURITY  || proposalDataService.relatedSoftwareProposalArchName === this.constantsService.SECURITY">{{localeService.getLocalizedMessage('proposal.create.scamspquestion')}} <sup>*</sup></label> 
+          
+          <span class="text-information" *ngIf="createProposalService.isMSPSelected && (proposalDataService.selectedArchForQna === this.constantsService.DNA || proposalDataService.relatedSoftwareProposalArchName === this.constantsService.DNA)"> (By selecting MSP EA, you are qualified for Monthly and Quarterly Billing option)</span>
+            <ng-container>
+                <div class="clearfix radio-wrap">
+                    <div class="float-left mr-50 radio-custom" *ngFor="let answer of mspQuestion.answers">
+                        <input type="radio" (change)="selectMSP(mspQuestion.answers, answer)" [disabled]="disableSelection && type === 'edit'" value="{{answer.value}}" [checked]="answer.selected"> <label for="{{answer.value}}">
+              <span class='custom-radio-btn'>
+                <span class="path1"></span>
+                <span class="path2"></span>
+            </span>
+            <span><span></span></span> {{answer.value}}</label>
+                    </div>
+                </div>
+            </ng-container>
+            <br>
+        </div>
+
+        <div class="architecture-info" *ngIf="isToShowQuestionnaire || isRenewalFlow">
+
+            <app-questionnaires [parentObject]="this" [currentQuestion]="proposalArchitectureService.questions" [type]="type" [isRenewalFlow]="isRenewalFlow"></app-questionnaires>
+
+
+            <!-- <div [ngClass]="!isToMakeQuestionEditable ? 'disabled' : ''" class="qs-list"
+          *ngFor="let a of proposalArchitectureService.questions; let j = index;"><label class="mb-2">{{a.description}}
+            <sup *ngIf="a.mandatory">*</sup></label>
+          <div class="clearfix radio-wrap" *ngIf="a.type === 'radio'">
+            <div class="float-left mr-50" *ngFor="let b of a.answers; let i = index">
+              <input [id]="i" type="radio" name="{{b.id}}" (change)="changeExistence(a, b)" [value]="i"
+                [checked]="b.selected"> <label for="{{b.name}}"><span><span></span></span> {{b.name}}</label>
+            </div>
+            <div
+              *ngIf="a.mandatory && proposalArchitectureService.showError && !isMandatoryRadioButtonIsSelected(a.answers)">
+              <span class="text-danger"><i class="icon-error-icon"></i>{{radioErrorMessage}}</span>
+            </div>
+          </div>
+  
+          <div ngbDropdown class="select-items" *ngIf="a.type === 'dropdown'" #myDropArchitecture="ngbDropdown"
+            (click)="myDropArchitecture.open();">
+            <span class="dropdown--typeAhead__arrow-management">
+              <button type="button" appElementFocus class="btn--text drop-button" ngbDropdownAnchor dropdownManual>
+                {{getSelectedDroDownValue(a)}}</button>
+            </span>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <ul>
+                <li class="dropdown-item" *ngFor="let c of a.answers" (click)="dropDownAction(a, c)">
+                  {{c.description}}</li>
+              </ul>
+            </div>
+            <div
+              *ngIf="a.mandatory && proposalArchitectureService.showError && !isMandatoryRadioButtonIsSelected(a.answers)">
+              <span class="text-danger"><i class="icon-error-icon"></i>{{radioErrorMessage}}</span>
+            </div>
+          </div>
+          <div class="list-input" *ngIf="a.type === 'input'">
+            <div *ngFor="let b of a.answers">
+              <input type="text" [(ngModel)]="b.description" appElementFocus class="form-control"
+                (change)="textFinishedediting(a,b)">
+            </div>
+          </div>
+  
+          <div class="an-list" *ngFor="let b of a.answers"
+            [hidden]="!b.selected || (!b.questionnaire || b.questionnaire.length===0)">
+            <div *ngFor="let c of b.questionnaire">
+              <div class="qs-list"><label>{{c.description}} <sup *ngIf="c.mandatory">*</sup></label>
+  
+                <ng-container>
+                  <div *ngIf="c.type === 'dropdown'">
+                    <div class="position-relative mb-0">
+                      <div class="custom-dropdown">
+                        <div ngbDropdown class="select-items " #myDropDataCenter="ngbDropdown"
+                          (click)="myDropDataCenter.open();">
+                          <span class="dropdown--typeAhead__arrow-management">
+                            <button [id]="dataCenter" type="button" appElementFocus class="btn--text drop-button"
+                              ngbDropdownAnchor dropdownManual>
+                              {{getSelectedDroDownValue(c)}}</button>
+                          </span>
+                          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                            <ul>
+                              <li class="dropdown-item" *ngFor="let d of c.answers" (click)="childDropDownAction(c,d)">
+                                {{d.description}}</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      *ngIf="c.mandatory && proposalArchitectureService.showError && !isMandatoryRadioButtonIsSelected(c.answers)">
+                      <span class="text-danger"><i class="icon-error-icon"></i>{{radioErrorMessage}}</span>
+                    </div>
+                  </div>
+                  <div class="list-input" *ngIf="c.type === 'textbox'">
+                    <div *ngFor="let d of c.answers">
+                      <input type="text" [(ngModel)]="d.description" appElementFocus class="form-control"
+                        (keyup)="keyupAction(c,d)" (change)="textFinishedediting(c,d)">
+                      <div *ngIf="c.mandatory && proposalArchitectureService.showError && !d.description">
+                        <span class="text-danger"><i class="icon-error-icon"></i>{{errorMessage}}</span>
+                      </div>
+                    </div>
+                  </div>
+  
+                  <div class="clearfix checkbox-wrap" *ngIf="c.type === 'checkbox'">
+                    <div class="float-left mr-50" *ngFor="let d of c.answers">
+                      <label class="label-check">
+                        <input class="form-check-input" type="checkbox" value="" id="xyz" [checked]="d.selected">
+                        <span></span>
+                        {{d.name}}
+                      </label>
+                    </div>
+                    <div
+                      *ngIf="c.mandatory && proposalArchitectureService.showError && !isMandatoryRadioButtonIsSelected(c.answers)">
+                      <span class="text-danger"><i class="icon-error-icon"></i>{{checkBoxErrorMessage}}</span>
+                    </div>
+                  </div>
+                  <div class="clearfix radio-wrap" *ngIf="c.type === 'radio'">
+                    <div class="float-left mr-50" *ngFor="let d of c.answers">
+                      <input id="{{a.id}}" name="{{d.name}}" type="radio" (change)="changeExistence(c, d)"
+                        value="{{d.name}}" [checked]="d.selected"> <label for="{{d.name}}"><span><span></span></span>
+                        {{d.name}}</label>
+                    </div>
+                    <div
+                      *ngIf="c.mandatory && proposalArchitectureService.showError && !isMandatoryRadioButtonIsSelected(c.answers)">
+                      <span class="text-danger"><i class="icon-error-icon"></i>{{radioErrorMessage}}</span>
+                    </div>
+                  </div>
+  
+  
+  
+                  <div class="an-list" *ngFor="let ans3 of c.answers"
+                    [hidden]="!ans3.selected || (!ans3.questionnaire || ans3.questionnaire.length===0)">
+                    <div *ngFor="let ques3 of ans3.questionnaire">
+                      <div class="qs-list"><label class="mt-2 mb-1">{{ques3.description}} <sup
+                            *ngIf="ques3.mandatory">*</sup></label>
+                        <ng-container>
+                          <div *ngIf="ques3.type === 'dropdown'">
+                            <div class="position-relative mb-0">
+                              <div class="custom-dropdown">
+                                <div ngbDropdown class="select-items " #myDropDataCenter="ngbDropdown"
+                                  (click)="myDropDataCenter.open();">
+                                  <span class="dropdown--typeAhead__arrow-management">
+                                    <button [id]="dataCenter" type="button" appElementFocus class="btn--text drop-button"
+                                      ngbDropdownAnchor dropdownManual>
+                                      {{getSelectedDroDownValue(ques3)}}</button>
+                                  </span>
+                                  <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                                    <ul>
+                                      <li class="dropdown-item" *ngFor="let ans of ques3.answers"
+                                        (click)="childDropDownAction(ques3,ans)">
+                                        {{ans.description}}</li>
+                                    </ul>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div
+                              *ngIf="ques3.mandatory && proposalArchitectureService.showError && !isMandatoryRadioButtonIsSelected(ques3.answers)">
+                              <span class="text-danger"><i class="icon-error-icon"></i>{{radioErrorMessage}}</span>
+                            </div>
+                          </div>
+                          <div class="list-input" *ngIf="ques3.type === 'textbox'">
+                            <div *ngFor="let ans of ques3.answers">
+                              <input type="text" [(ngModel)]="ans.description" appElementFocus class="form-control"
+                                (keyup)="keyupAction(ques3,ans)" (change)="textFinishedediting(ques3,ans)">
+                              <div *ngIf="ques3.mandatory && proposalArchitectureService.showError && !ans.description">
+                                <span class="text-danger"><i class="icon-error-icon"></i>{{errorMessage}}</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="clearfix radio-wrap" *ngIf="ques3.type === 'radio'">
+                            <div class="float-left mr-50" *ngFor="let ans of ques3.answers">
+                              <input id="{{a.id}}" type="radio" (change)="changeExistence(ques3, ans)"
+                                value="{{ans.name}}" [checked]="ans.selected"> <label
+                                for="{{ans.name}}"><span><span></span></span> {{ans.name}}</label>
+                            </div>
+                            <div
+                              *ngIf="ques3.mandatory && proposalArchitectureService.showError && !isMandatoryRadioButtonIsSelected(ques3.answers)">
+                              <span class="text-danger"><i class="icon-error-icon"></i>{{radioErrorMessage}}</span>
+                            </div>
+                          </div>
+  
+                          <div class="clearfix checkbox-wrap" *ngIf="ques3.type === 'checkbox'">
+                            <div class="mr-50 mb-2" *ngFor="let ans of ques3.answers">
+                              <label class="label-check">
+                                <input class="form-check-input" type="checkbox" value="" id="xyz" [checked]="ans.selected"
+                                  (change)="checkBoxClick(ques3, ans)">
+                                <span></span>
+                                {{ans.name}}
+                              </label>
+                            </div>
+                            <div
+                              *ngIf="ques3.mandatory && proposalArchitectureService.showError && !isMandatoryRadioButtonIsSelected(ques3.answers)">
+                              <span class="text-danger"><i class="icon-error-icon"></i>{{checkBoxErrorMessage}}</span>
+                            </div>
+                          </div>
+  
+  
+  
+                          <div class="an-list" *ngFor="let ans4 of ques3.answers"
+                            [hidden]="!ans4.selected || (!ans4.questionnaire || ans4.questionnaire.length===0)">
+                            <div *ngFor="let ques4 of ans4.questionnaire">
+                              <div class="qs-list"><label class="mt-2 mb-1">{{ques4.description}} <sup
+                                    *ngIf="ques4.mandatory">*</sup></label>
+  
+                                <ng-container>
+                                  <div *ngIf="ques4.type === 'dropdown'">
+                                    <div class="position-relative mb-0">
+                                      <div class="custom-dropdown">
+                                        <div ngbDropdown class="select-items " #myDropDataCenter="ngbDropdown"
+                                          (click)="myDropDataCenter.open();">
+                                          <span class="dropdown--typeAhead__arrow-management">
+                                            <button [id]="dataCenter" type="button" appElementFocus
+                                              class="btn--text drop-button" ngbDropdownAnchor dropdownManual>
+                                              {{getSelectedDroDownValue(ques4)}}</button>
+                                          </span>
+                                          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                                            <ul>
+                                              <li class="dropdown-item" *ngFor="let ans of ques4.answers"
+                                                (click)="childDropDownAction(ques4,ans)">
+                                                {{ans.description}}</li>
+                                            </ul>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div
+                                      *ngIf="ques4.mandatory && proposalArchitectureService.showError && !isMandatoryRadioButtonIsSelected(ques4.answers)">
+                                      <span class="text-danger"><i
+                                          class="icon-error-icon"></i>{{radioErrorMessage}}</span>
+                                    </div>
+                                  </div>
+                                  <div class="list-input" *ngIf="ques4.type === 'textbox'">
+                                    <div *ngFor="let ans of ques4.answers">
+                                      <input type="text" [(ngModel)]="ans.description" appElementFocus
+                                        class="form-control" (keyup)="keyupAction(ques4,ans)"
+                                        (change)="textFinishedediting(ques4,ans)">
+                                      <div
+                                        *ngIf="ques4.mandatory && proposalArchitectureService.showError && !ans.description">
+                                        <span class="text-danger"><i class="icon-error-icon"></i>{{errorMessage}}</span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="clearfix radio-wrap" *ngIf="ques4.type === 'radio'">
+                                    <div class="float-left mr-50" *ngFor="let ans of ques4.answers">
+                                      <input id="{{a.id}}" type="radio" (change)="changeExistence(ques4, ans)"
+                                        value="{{ans.name}}" [checked]="ans.selected"> <label
+                                        for="{{ans.name}}"><span><span></span></span> {{ans.name}}</label>
+                                    </div>
+                                    <div
+                                      *ngIf="ques4.mandatory && proposalArchitectureService.showError && !isMandatoryRadioButtonIsSelected(ques4.answers)">
+                                      <span class="text-danger"><i
+                                          class="icon-error-icon"></i>{{radioErrorMessage}}</span>
+                                    </div>
+                                  </div>
+  
+                                  <div class="clearfix checkbox-wrap" *ngIf="ques4.type === 'checkbox'">
+                                    <div class="mr-50 mb-2" *ngFor="let ans of ques4.answers">
+                                      <label class="label-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="xyz"
+                                          [checked]="ans.selected" (change)="checkBoxClick(ques4, ans)">
+                                        <span></span>
+                                        {{ans.name}}
+                                      </label>
+                                    </div>
+                                    <div
+                                      *ngIf="ques4.mandatory && proposalArchitectureService.showError && !isMandatoryRadioButtonIsSelected(ques4.answers)">
+                                      <span class="text-danger"><i
+                                          class="icon-error-icon"></i>{{checkBoxErrorMessage}}</span>
+                                    </div>
+                                  </div>
+  
+  
+  
+                                  <div class="an-list" *ngFor="let ans5 of ques4.answers"
+                                    [hidden]="!ans5.selected || (!ans5.questionnaire || ans5.questionnaire.length===0)">
+                                    <div *ngFor="let ques5 of ans5.questionnaire">
+                                      <div class="qs-list"><label>{{ques5.description}} <sup
+                                            *ngIf="ques5.mandatory">*</sup></label>
+  
+                                        <ng-container>
+                                          <div *ngIf="ques5.type === 'dropdown'">
+                                            <div class="position-relative mb-0">
+                                              <div class="custom-dropdown">
+                                                <div ngbDropdown class="select-items " #myDropDataCenter="ngbDropdown"
+                                                  (click)="myDropDataCenter.open();">
+                                                  <span class="dropdown--typeAhead__arrow-management">
+                                                    <button [id]="dataCenter" type="button" appElementFocus
+                                                      class="btn--text drop-button" ngbDropdownAnchor dropdownManual>
+                                                      {{getSelectedDroDownValue(ques5)}}</button>
+                                                  </span>
+                                                  <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                                                    <ul>
+                                                      <li class="dropdown-item" *ngFor="let ans of ques5.answers"
+                                                        (click)="childDropDownAction(ques5,ans)">
+                                                        {{ans.description}}</li>
+                                                    </ul>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div
+                                              *ngIf="ques5.mandatory && proposalArchitectureService.showError && !isMandatoryRadioButtonIsSelected(ques5.answers)">
+                                              <span class="text-danger"><i
+                                                  class="icon-error-icon"></i>{{radioErrorMessage}}</span>
+                                            </div>
+                                          </div>
+                                          <div class="list-input" *ngIf="ques5.type === 'textbox'">
+                                            <div *ngFor="let ans of ques5.answers">
+                                              <input type="text" [(ngModel)]="ans.description" appElementFocus
+                                                class="form-control" (keyup)="keyupAction(ques5,ans)"
+                                                (change)="textFinishedediting(ques5,ans)">
+                                              <div
+                                                *ngIf="ques5.mandatory && proposalArchitectureService.showError && !ans.description">
+                                                <span class="text-danger"><i
+                                                    class="icon-error-icon"></i>{{errorMessage}}</span>
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div class="clearfix radio-wrap" *ngIf="ques5.type === 'radio'">
+                                            <div class="float-left mr-50" *ngFor="let ans of ques5.answers">
+                                              <input id="{{a.id}}" type="radio" (change)="changeExistence(ques5, ans)"
+                                                value="{{ans.name}}" [checked]="ans.selected"> <label
+                                                for="{{ans.name}}"><span><span></span></span> {{ans.name}}</label>
+                                            </div>
+                                            <div
+                                              *ngIf="ques5.mandatory && proposalArchitectureService.showError && !isMandatoryRadioButtonIsSelected(ques5.answers)">
+                                              <span class="text-danger"><i
+                                                  class="icon-error-icon"></i>{{radioErrorMessage}}</span>
+                                            </div>
+                                          </div>
+  
+                                          <div class="clearfix checkbox-wrap" *ngIf="ques5.type === 'checkbox'">
+                                            <div class="float-left mr-50" *ngFor="let ans of ques5.answers">
+                                              <label class="label-check">
+                                                <input class="form-check-input" type="checkbox" value="" id="xyz"
+                                                  [checked]="ans.selected" (change)="checkBoxClick(ques5, ans)">
+                                                <span></span>
+                                                {{ans.name}}
+                                              </label>
+                                            </div>
+                                            <div
+                                              *ngIf="ques4.mandatory && proposalArchitectureService.showError && !isMandatoryRadioButtonIsSelected(ques5.answers)">
+                                              <span class="text-danger"><i
+                                                  class="icon-error-icon"></i>{{checkBoxErrorMessage}}</span>
+                                            </div>
+                                          </div>
+  
+                                        </ng-container>
+                                      </div>
+  
+                                    </div>
+                                  </div>
+  
+                                </ng-container>
+                              </div>
+  
+                            </div>
+                          </div>
+  
+                        </ng-container>
+                      </div>
+  
+                    </div>
+                  </div>
+  
+                </ng-container>
+              </div>
+  
+            </div>
+          </div>
+        </div> -->
+        </div>
+    </div>
+</div>

@@ -1,0 +1,154 @@
+<!-- Start Page Content Wrapper -->
+<div class="clearfix"></div>
+<div id="page-header" (window:resize)="onResize($event)">
+    <app-sub-header></app-sub-header>
+    <div class="container-fluid">
+        <message></message>
+    </div>
+</div>
+
+<!----------cross architecture----------->
+
+<div class="row align-items-center data-row" *ngIf="showArchitecture">
+    <div class="col pl-2">
+        <h3 class="cross-architecture">Cross Architecture</h3>
+    </div>
+    <div class="col">
+        <h3 class="d-inline-block customer pl-5">Customer </h3>
+        <small class="count">{{totalCustomer}}</small>
+    </div>
+    <div class="col">
+        <h3 class="d-inline-block amount pl-5">
+            Amount
+        </h3>
+        <span class="count">${{totalAmount}}B</span>
+        <small class="B"></small>
+    </div>
+</div>
+
+<!-- End of Conatiner Fluid -->
+<div class="container-fluid py-2" id="filter-area" [ngClass]="{'active' :filtersService.getFiltersState()}">
+    <div class="qualify-filter ">
+        <div class="align-items-center">
+            <div class="col-md-12 paddingL0 pr-0 d-flex align-items-center">
+                <app-filters-actions *ngIf='!showFavoriteGrid'></app-filters-actions>
+                
+                <div class="searchbar" style="width: 350px" *ngIf='!showFavoriteGrid'>
+                    <input [id]="configService.createUniqueId('searchInput',configService.pageContext)"
+                        kdfid="searchInput" kdfapp="enterpriseAgreement" kdfpage="enterpriseAgreement"
+                        class="form-control" [ngClass]="{'active':activeLabel}" name="searchInput"
+                        [(ngModel)]="searchInput" type="text" (keyup.enter)="onQuickFilterChanged('GU')"
+                        class="form-control" required="" appElementFocus />
+                    <label style="padding-left: 15px" for="searchInput" class="form-control-placeholder"
+                        (click)="focusSearchInput(configService.createUniqueId('searchInput',configService.pageContext))">{{localeService.getLocalizedString('myprospects.SEARCH_BY_ALL_PROS')}} 
+                        <i class="icon-search"></i>
+                    </label>
+                    <!--input [(ngModel)]="searchInput" class="form-control" placeholder="Search by customer name..." type="text" /-->
+                    <button [id]="configService.createUniqueId('CLOSE',configService.pageContext)" id="close"
+                        kdfid="close" kdfapp="enterpriseAgreement" kdfpage="enterpriseAgreement" *ngIf="searchInput"
+                        (click)="clearInput()" aria-label="Close" class="icon-close-btn" type="button">
+                    </button>
+                </div>
+                <div class="look-up" *ngIf='!showFavoriteGrid'>
+                    <div class="look-up-deal"><span (click)="openDealLookUp()">{{localeService.getLocalizedString('prospect.PROSPECT_DEAL_LOOK_UP')}}</span></div>
+                </div>
+                <div *ngIf='!showFavoriteGrid' class="show-fav"><i (click)="showFavorite($event)" class="icon-flag-checked"></i><span class="link" (click)="showFavorite($event)">{{localeService.getLocalizedString('myprospects.SHOW_FAVORITE_PROS')}} </span></div>
+                <div *ngIf='showFavoriteGrid' class="show-fav"><i (click)="showFavorite($event)" class="icon-flag-checked"></i><span class="link" (click)="showFavorite($event)">{{getLabelForFavoriteGrid()}}</span></div>
+
+
+                <div class="tiles-toggle look-up" style="display: none;">
+                    <div class="float-left tiles-toggle-txt">I want to view</div>
+                    <div class="dropdown select-dropdown float-left" (clickOutside)="onClickedOutside($event)">
+                    <button class="dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" (click)="viewAccountDrop = !viewAccountDrop">
+                     <span>{{selectedAccountView}}</span><i class="icon-arrow-stroke-right"></i>
+                    </button>
+                    <div class="dropdown-menu" *ngIf = "viewAccountDrop">
+                      <a class="dropdown-item" href="javascript:void(0)" *ngFor="let a of accountDropOption" (click)="selectView(a)">{{a}}</a>
+                    </div>
+                  </div>
+            </div>
+            <div class="globalSwitchWrap my-prospects look-up" *ngIf="configService.userInfo?.salesAccountView && !showFavoriteGrid">
+                <span>Sales Account View</span>
+                <ui-switch kdfid="globalView" kdfapp="enterpriseAgreement" kdfpage="enterpriseAgreement" [(ngModel)]="globalView" checked size="small" color="#ABE3F2" switchColor="#00BCEA" (change)="globalSwitchChange($event)"></ui-switch>
+                <span>Global View</span>
+            </div>           
+            </div>
+        </div>
+    </div>
+    <div id="searchResult" *ngIf="searchInputResult">
+        <div class="alert alert--info mt-2 mb-0">
+            <span class="alert-icon">
+                <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+            </span>
+            <span class="txt" *ngIf="viewType == 'HQ'">{{localeService.getLocalizedString('prospect.SHOWING')}}
+                <strong>{{hqCount}} {{localeService.getLocalizedString('prospect.RESULTS')}}</strong>
+                {{localeService.getLocalizedString('prospect.MATCHING_HQ')}}
+                <a class="link-border" [id]="configService.createUniqueId('MATCHING_GU',configService.pageContext)"
+                    href="javascript:void(0)"
+                    (click)="onQuickFilterChanged('GU')">{{guCount}}{{localeService.getLocalizedString('prospect.RESULTS')}}</a>
+                {{localeService.getLocalizedString('prospect.MATCHING_GU')}}</span>
+            <span class="txt" *ngIf="viewType == 'GU'">{{localeService.getLocalizedString('prospect.SHOWING')}}
+                <strong>{{guCount}} {{localeService.getLocalizedString('prospect.RESULTS')}}</strong>
+                {{localeService.getLocalizedString('prospect.MATCHING_GU')}} <a class="link-border" [id]="configService.createUniqueId('MATCHING_HQ',configService.pageContext)"
+                    href="javascript:void(0)"
+                    (click)="onQuickFilterChanged('HQ')">{{hqCount}}{{localeService.getLocalizedString('prospect.RESULTS')}}</a>
+                {{localeService.getLocalizedString('prospect.MATCHING_HQ')}}
+            </span>
+            <span class="alert-action">
+                    <button id="close" kdfid="close" kdfapp="enterpriseAgreement" kdfpage="enterpriseAgreement"
+                (click)="clearInput()" aria-label="Close" class="icon-close-btn line-level mt-0" type="button">
+                </button>
+            </span>
+        </div>
+    </div>
+</div>
+
+
+<div class="main-table eaProspect-table container-fluid dashboard" [ngClass]="{'filter-open' :filtersService.getFiltersState()}">
+    <app-filters *ngIf="filtersService.getFiltersState()"></app-filters>
+    <div class="row pt-1" id="actions-container">
+        <div class="col-12 text-right">
+            <span class="lbl-desc">All prices shown are in USD in K</span>
+        </div>
+    </div>
+    <div *ngIf="showGrid" class="grid">
+        <ag-grid-angular #agGrid id="ag-grid" style="width: 100%;" appTableHeight
+            class="ag-fresh sorting-table mt-1"
+            [ngClass]="{'fullScreenTable': fullScreen}" [gridOptions]="gridOptions" [columnDefs]="columnDefs"
+            [rowData]="rowData" enableColResize enableSorting enableFilter groupHeaders suppressRowClickSelection
+            toolPanelSuppressGroups toolPanelSuppressValues debug rowHeight="30" rowSelection="multiple"
+            (modelUpdated)="onModelUpdated()" (cellClicked)="onCellClicked($event)" [sideBar]="false"
+            (cellDoubleClicked)="onCellDoubleClicked($event)"  (sortChanged)="onSort($event)" (cellContextMenu)="onCellContextMenu($event)"
+            (cellValueChanged)="onCellValueChanged($event)" (cellFocused)="onCellFocused($event)"
+            (rowSelected)="onRowSelected($event)" (selectionChanged)="onSelectionChanged()"
+            (beforeFilterChanged)="onBeforeFilterChanged()" (afterFilterChanged)="onAfterFilterChanged()"
+            (filterModified)="onFilterModified()" (beforeSortChanged)="onBeforeSortChanged()"
+            (afterSortChanged)="onAfterSortChanged()" (virtualRowRemoved)="onVirtualRowRemoved($event)"
+            (rowClicked)="onRowClicked($event)" [enableRangeSelection]="true" [rowSelection]="rowSelection"
+            (gridReady)="onReady($event)" (columnEverythingChanged)="onColumnEvent($event)"
+            (columnRowGroupChanged)="onColumnEvent($event)" (columnValueChanged)="onColumnEvent($event)"
+            (columnMoved)="onColumnEvent($event)" (columnVisible)="onColumnEvent($event)"
+            (columnGroupOpened)="onColumnEvent($event)" (columnResized)="onColumnEvent($event)"
+            (columnPinnedCountChanged)="onColumnEvent($event)"
+            (cellMouseOver)="utilitiesService.onCellMouseOver($event, 1)">
+        </ag-grid-angular>
+        <div class="paginationSize" *ngIf='!showFavoriteGrid'>           
+            <div *ngIf="productSummaryService.prospectData">
+                <app-pagination [paginationObject]="paginationObject"></app-pagination>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="favoriteCount === 0 && !showGrid" class="no-filter"><span class="icon-no-favorites">
+            <span class="path1"></span><span class="path2"></span><span class="path3"></span><span
+                class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span><span
+                class="path8"></span><span class="path9"></span><span class="path10"></span><span
+                class="path11"></span><span class="path12"></span><span class="path13"></span><span
+                class="path14"></span><span class="path15"></span><span class="path16"></span><span
+                class="path17"></span><span class="path18"></span>
+            <span class="path19"></span>
+        </span>
+        <span>{{localeService.getLocalizedString('prospect.NO_FAV_SAVED')}}</span>
+    </div>
+    <app-partner-bookings [customerData]='selectedCustomerDetails' *ngIf="partnerBookingService.showPartnerBooking"></app-partner-bookings>
+    <app-architecture-breakdown [customerData]='selectedCustomerDetails' [partnerData]='selectedPartnerDetails' *ngIf="productSummaryService.architectureBreakdown"></app-architecture-breakdown>
+</div>

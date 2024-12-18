@@ -1,0 +1,90 @@
+
+<div class="container-fluid" *ngIf="!(appDataService.limitedModeForSmartSubs && !appDataService.allowSmartSubsidiariesView)">
+    <div class="add-affiliates--Proposal border-none d-flex justify-content-between align-items-center p-2 mb-2">
+        <span>We have a smart view selection for subsidiaries for you. Check it out here.</span>
+        <div class="sub-switch align-self-center">
+            <label [ngClass]="{'active':isDefaultView}">Default Subsidiaries</label>
+            <span class="switch on" (click)="swithToggle()"
+                [ngClass]="{'on':isDefaultView ,'off' :!isDefaultView}"></span>
+            <label [ngClass]="{'active':!isDefaultView}">Smart Subsidiaries</label>
+        </div>
+    </div>
+</div>
+
+<div  *ngIf="isDefaultView"> 
+<div id="filter-area" class="container-fluid mb-2">
+    <div class="row clearfix">
+            
+                <div class="col-12">
+                <ul class="qualify-btn">
+                    <!--li (click)="openlookupSubsidiaries()"><a href="javascript:void(0);">Look Up New Subsidiaries</a></!--li-->
+                    <li><button [id] = "appDataService.createUniqueId('MANAGE_LOCATIONS',appDataService.pageContext)" class="btn btn-secondary" *ngIf="showCleanCoreButton" (click)="redirectToCleanCore()" type="button">{{localeService.getLocalizedString('prospectdetails.MANAGE_LOCATIONS')}}</button></li>
+                    <li><button [id] = "appDataService.createUniqueId('VIEW_QUAL',appDataService.pageContext)" class="btn btn-secondary" type="button" (click)="viewQualification()">{{localeService.getLocalizedString('qual.create.VIEW_QUAL')}}</button></li>
+                    <li *ngIf="(qualService.qualification.qualStatus === constantsService.QUALIFICATION_COMPLETE) && this.permissionService.qualReOpen">
+                        <button (click)="reopenQual()" class="btn btn-primary mr-0" type="button"><span class="mid-text">{{localeService.getLocalizedString('common.REOPEN')}} Qualification</span></button>
+                    </li>
+                    <li *ngIf="(qualService.qualification.qualStatus === constantsService.QUALIFICATION_COMPLETE) && !this.permissionService.qualReOpen">
+                        <button (click)="reopenQual()"  [disabled]="true" class="btn btn-primary mr-0" type="button"><span class="mid-text">{{localeService.getLocalizedString('common.REOPEN')}} Qualification</span></button>
+                    </li>
+                    
+                    <li class="btn-sep"><button [id] = "appDataService.createUniqueId('BACK',appDataService.pageContext)" class="btn btn-secondary btn-back" (click)="backToGeography()" type="button"><span class="icon-btn-back"></span> <span class="mid-text">{{localeService.getLocalizedString('common.BACK')}}</span></button></li>
+                    <li><button [id] = "appDataService.createUniqueId('CONTINUE',appDataService.pageContext)" [disabled]="includedCountriesSet.size === 0" class="btn btn-primary btn-continue" type="button" (click)="continueToQualSummary()"><span class="mid-text">{{localeService.getLocalizedString('common.CONTINUE')}}</span> <span class="icon-btn-continue"></span></button></li>
+                </ul>
+                </div>
+                <message></message>
+    </div>
+</div>
+<div class="main-table detail-subsidiary container-fluid eaProspect-table">
+        <div class="alert alert--cx-info alert mt-2 pr-2" *ngIf="qualService.changeSubscriptionDeal && !qualService.qualification.prevChangeSubQualId">
+                <div class="cx-msg">
+                    <p class="msg"> 
+                     <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span> 
+                     Original Subscription’s details are not available. Please proceed with manual selection for your Change Subscription.
+                    </p>
+                </div>
+            </div>
+    <div class="add-affiliates--Proposal mb-2" (click)="openAddModal()" [ngClass]="{'disabled':disableAffiliates}" >
+<!--Add Affilicates-->
+        <span class="icon-add" *ngIf = "!showChangeAffiliates()"><span class="path1"></span><span class="path2"></span></span>
+                    <a *ngIf = "!showChangeAffiliates() && !disableAffiliates"  href="javascript:void(0);">{{localeService.getLocalizedMessage('common.ADD_AFFILIATES')}}</a>
+                    <a *ngIf = "!showChangeAffiliates() && disableAffiliates">{{localeService.getLocalizedMessage('common.ADD_AFFILIATES')}}</a>
+
+<!--Edit Affilicates-->
+                    <div class="selected-affiliates" *ngIf = "showChangeAffiliates()">
+                    <span class="icon-edit-1"><span class="path1"></span><span class="path2"></span></span>
+                    <a *ngIf = "disableAffiliates" >{{localeService.getLocalizedMessage('common.CHANGE_AFFILIATES')}}</a>
+                    <a *ngIf = "!disableAffiliates" href="javascript:void(0);" >{{localeService.getLocalizedMessage('common.CHANGE_AFFILIATES')}}</a>
+                    <div class="added-info"><span>{{qualService.qualification.customerInfo.affiliateNames}}</span></div>
+
+                    
+                </div>
+                <div class="file-location" *ngIf = "this.qualService.qualification.customerInfo.filename.length>0">
+                    <span class="icon-pdf1"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span><span class="path8"></span><span class="path9"></span><span class="path10"></span><span class="path11"></span><span class="path12"></span></span>
+                    <span class="drag-drop-text">{{qualService.qualification.customerInfo.filename}}</span>
+                </div>
+
+    </div>
+   
+
+<div *ngIf="showGrid" id="qual-subsidiary" (click)="updatedByUser()">
+    <ag-grid-angular #agGrid id="ag-grid" [autoHeight]="30" style="width: 100%;" class="ag-fresh mt-0" [gridOptions]="gridOptions" [columnDefs]="columnDefs" [rowData]="rowData" [getNodeChildDetails]="getNodeChildDetails"
+        [components]="components" enableColResize enableSorting enableFilter groupHeaders suppressRowClickSelection toolPanelSuppressGroups toolPanelSuppressValues debug rowHeight="30" rowSelection="multiple" (modelUpdated)="onModelUpdated()" (cellClicked)="onCellClicked($event)"
+        (cellDoubleClicked)="onCellDoubleClicked($event)" (cellContextMenu)="onCellContextMenu($event)" (cellValueChanged)="onCellValueChanged($event)" (cellFocused)="onCellFocused($event)" (rowSelected)="onRowSelected($event)"
+        (beforeFilterChanged)="onBeforeFilterChanged()" (afterFilterChanged)="onAfterFilterChanged()" (filterModified)="onFilterModified()" (beforeSortChanged)="onBeforeSortChanged()" (afterSortChanged)="onAfterSortChanged()" (virtualRowRemoved)="onVirtualRowRemoved($event)"
+        (rowClicked)="onRowClicked($event)" (rowGroupOpened)="onRowGroupOpened($event)" (gridReady)="onReady($event)" (columnEverythingChanged)="onColumnEvent($event)" (columnRowGroupChanged)="onColumnEvent($event)" (columnValueChanged)="onColumnEvent($event)" (columnMoved)="onColumnEvent($event)"
+        (columnVisible)="onColumnEvent($event)" (columnGroupOpened)="onColumnEvent($event)" (columnResized)="onColumnEvent($event)" (columnPinnedCountChanged)="onColumnEvent($event)" [groupSelectsChildren]="true">
+    </ag-grid-angular>
+    <!-- <ag-grid-angular #agGrid id="ag-grid" style="width: 100%;height:600px;" class="ag-fresh table-height qualificationTable" [gridOptions]="gridOptions" [columnDefs]="columnDefs" [rowData]="affiliatesService.subsidiaryData" [getNodeChildDetails]="getNodeChildDetails"
+        [components]="components" enableColResize enableSorting enableFilter groupHeaders suppressRowClickSelection toolPanelSuppressGroups toolPanelSuppressValues debug rowHeight="26" rowSelection="multiple" (modelUpdated)="onModelUpdated()" (cellClicked)="onCellClicked($event)"
+        (cellDoubleClicked)="onCellDoubleClicked($event)" (cellContextMenu)="onCellContextMenu($event)" (cellValueChanged)="onCellValueChanged($event)" (cellFocused)="onCellFocused($event)" (rowSelected)="onRowSelected($event)" (selectionChanged)="onSelectionChanged()"
+        (beforeFilterChanged)="onBeforeFilterChanged()" (afterFilterChanged)="onAfterFilterChanged()" (filterModified)="onFilterModified()" (beforeSortChanged)="onBeforeSortChanged()" (afterSortChanged)="onAfterSortChanged()" (virtualRowRemoved)="onVirtualRowRemoved($event)"
+        (rowClicked)="onRowClicked($event)" (gridReady)="onReady($event)" (columnEverythingChanged)="onColumnEvent($event)" (columnRowGroupChanged)="onColumnEvent($event)" (columnValueChanged)="onColumnEvent($event)" (columnMoved)="onColumnEvent($event)"
+        (columnVisible)="onColumnEvent($event)" (columnGroupOpened)="onColumnEvent($event)" (columnResized)="onColumnEvent($event)" (columnPinnedCountChanged)="onColumnEvent($event)"
+        [groupSelectsChildren]="true">
+    </ag-grid-angular> -->
+</div>
+</div>
+</div>
+<div *ngIf="!isDefaultView" >
+    <app-smart-subsidiaries [showCleanCoreButton]="showCleanCoreButton" (continue)='continueToQualSummary()' (back)='backToGeography()'></app-smart-subsidiaries>
+</div>

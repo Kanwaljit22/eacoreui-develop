@@ -1,0 +1,336 @@
+[
+    {
+        "headerName": "Customer Name",
+        "field": "customerName",
+        "pinned": true,
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 180,
+        "minWidth": 60,
+        "suppressMenu": true
+    },
+    {
+        "headerName": "",
+        "field": "flagged",
+        "filter": "number",
+        "suppressSorting": true,
+        "pinned": true,
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 30,
+        "minWidth": 30,
+        "cellClass": "action-drop",
+        "cellRenderer": "customerCellRendererFlag",
+        "getQuickFilterText": "filterText",
+        "suppressMenu": true
+    },
+    {
+        "headerName": "",
+        "field": "actionIcon",
+        "suppressSorting": true,
+        "pinned": true,
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 30,
+        "minWidth": 30,
+        "cellClass": "action-drop",
+        "cellRenderer": "actionCellRenderer",
+        "getQuickFilterText": "filterText",
+        "suppressMenu": true
+    },
+    {
+        "headerName": "Qualifications In Progress",
+        "field": "status",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 170,
+        "minWidth": 60,
+        "cellClass": "text-center",
+        "getQuickFilterText": "filterText",
+        "suppressMenu": true
+    },
+    {
+        "headerName": "EA TCV (USD IN K)",
+        "field": "tcvEa",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 170,
+        "minWidth": 60,
+        "cellClass": "dollar-align",
+        "cellRenderer": "currencyFormat",
+        "getQuickFilterText": "filterText",
+        "suppressMenu": true
+    },
+    {
+        "headerName": "SWSS Renewal Opty (USD IN K)",
+        "field": "swss",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 170,
+        "minWidth": 60,
+        "cellClass": "dollar-align",
+        "cellRenderer": "currencyFormat",
+        "getQuickFilterText": "filterText",
+        "suppressMenu": true
+    },
+    {
+        "headerName": "SNTC Renewal Opty (USD IN K)",
+        "field": "sntc",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 170,
+        "minWidth": 60,
+        "cellClass": "dollar-align",
+        "cellRenderer": "currencyFormat",
+        "getQuickFilterText": "filterText",
+        "suppressMenu": true
+    },
+    {
+        "headerName": "LDoS Amount (USD IN K)",
+        "field": "ldosAmount",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 140,
+        "minWidth": 60,
+        "cellClass": "dollar-align",
+        "cellRenderer": "currencyFormat",
+        "getQuickFilterText": "filterText",
+        "suppressMenu": true
+    },
+    {
+        "headerName": "LDoS %",
+        "field": "ldos",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 80,
+        "minWidth": 60,
+        "cellClass": "dollar-align",
+        "getQuickFilterText": "filterText",
+        "suppressMenu": true
+    },
+    {
+        "headerName": "Cisco ONE Penetration (%)",
+        "field": "ciscoOnePenetration",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 140,
+        "minWidth": 60,
+        "cellClass": "dollar-align",
+        "getQuickFilterText": "filterText",
+        "suppressMenu": true
+    },
+    {
+        "headerName": "CISCO ONE TCV BY SUITES",
+        "children": [
+            {
+                "headerName": "Access Switching",
+                "field": "tcvAccessSwitching",
+                "suppressSorting": true,
+                "filterParams": {
+                    "cellHeight": 20
+                },
+                "width": 170,
+                "minWidth": 60,
+                "cellClass": "dollar-align",
+                "cellRenderer": "currencyFormat",
+                "getQuickFilterText": "filterText",
+                "suppressMenu": true
+            },
+            {
+                "headerName": "Wireless",
+                "field": "tcvAccessWireless",
+                "suppressSorting": true,
+                "filterParams": {
+                    "cellHeight": 20
+                },
+                "width": 170,
+                "minWidth": 60,
+                "cellClass": "dollar-align",
+                "cellRenderer": "currencyFormat",
+                "getQuickFilterText": "filterText",
+                "suppressMenu": true
+            },
+            {
+                "headerName": "Data Center Networking",
+                "field": "tcvDcn",
+                "suppressSorting": true,
+                "filterParams": {
+                    "cellHeight": 20
+                },
+                "width": 180,
+                "minWidth": 60,
+                "cellClass": "dollar-align",
+                "cellRenderer": "currencyFormat",
+                "getQuickFilterText": "filterText",
+                "suppressMenu": true
+            },
+            {
+                "headerName": "WAN",
+                "field": "tcvWan",
+                "suppressSorting": true,
+                "filterParams": {
+                    "cellHeight": 20
+                },
+                "width": 105,
+                "minWidth": 60,
+                "cellClass": "dollar-align",
+                "cellRenderer": "currencyFormat",
+                "getQuickFilterText": "filterText",
+                "suppressMenu": true
+            }
+        ]
+    },
+    {
+        "headerName": "Service Coverage (%)",
+        "field": "serviceCoverage",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 120,
+        "minWidth": 60,
+        "cellClass": "dollar-align",
+        "getQuickFilterText": "filterText",
+        "suppressMenu": true
+    },
+    {
+        "headerName": "Software Discount (%)",
+        "field": "softwareDiscount",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 120,
+        "minWidth": 60,
+        "cellClass": "dollar-align",
+        "getQuickFilterText": "filterText",
+        "suppressMenu": true
+    },
+    {
+        "headerName": "Wallet Size CURRENT YEAR (USD IN M)",
+        "field": "walletSize",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 180,
+        "minWidth": 60,
+        "cellClass": "dollar-align",
+        "cellRenderer": "currencyFormat",
+        "getQuickFilterText": "filterText",
+        "suppressMenu": true
+    },
+    {
+        "headerName": "Wallet Share (Last 3 Yrs)",
+        "field": "walletShare",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 130,
+        "minWidth": 60,
+        "cellClass": "dollar-align",
+        "getQuickFilterText": "filterText",
+        "suppressMenu": true
+    },
+    {
+        "headerName": "SVP TCV",
+        "field": "svpTCV",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 80,
+        "minWidth": 60,
+        "getQuickFilterText": "filterText",
+        "suppressMenu": true
+    },
+    {
+        "headerName": "EA Email Security",
+        "field": "eaEmailSecurity",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 80,
+        "minWidth": 60,
+        "getQuickFilterText": "filterText",
+        "suppressMenu": true
+    },
+    {
+        "headerName": "Model",
+        "field": "model",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 80,
+        "minWidth": 60,
+        "getQuickFilterText": "filterText",
+        "suppressMenu": true
+    },
+    {
+        "headerName": "EA Policy and Visibility",
+        "field": "eapolicy",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 125,
+        "minWidth": 60,
+        "getQuickFilterText": "filterText",
+        "suppressMenu": true
+    },
+    {
+        "headerName": "EA Security Essential",
+        "field": "eaSecurity",
+        "suppressSorting": true,
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 110,
+        "minWidth": 60,
+        "getQuickFilterText": "filterText",
+        "suppressMenu": true
+    },
+    {
+        "headerName": "EA Web & Cloud Security",
+        "field": "eaWeb",
+        "suppressSorting": true,
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 130,
+        "minWidth": 60,
+        "getQuickFilterText": "filterText",
+        "suppressMenu": true
+    },
+    {
+        "headerName": "Architecture",
+        "field": "architecture",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 500,
+        "minWidth": 60,
+        "hide": true,
+        "getQuickFilterText": "filterText",
+        "suppressMenu": true
+    },
+    {
+        "headerName": "TOTAL CONTRACT VALUE (USD)",
+        "field": "tcvUSD",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 500,
+        "minWidth": 60,
+        "hide": true,
+        "cellClass": "dollar-align",
+        "cellRenderer": "currencyFormat",
+        "getQuickFilterText": "filterText",
+        "suppressMenu": true
+    }
+]

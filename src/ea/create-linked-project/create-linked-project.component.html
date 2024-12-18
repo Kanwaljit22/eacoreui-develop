@@ -1,0 +1,95 @@
+<div class="container-fluid vNext" *ngIf="displayPage">
+    <div class="row align-items-center">
+        <div class="col-12">
+            <div id="filter-area" class="vNext">
+                <div class="row align-items-center">
+                    <div class="col-md-5">
+                        <h2>Create Linked Project</h2>
+                    </div>
+                    <div class="col-md-7">
+                        <ul class="qualify-btn">
+                            <!-- <li><button type="button" class="btn btn-secondary">Cancel</button></li> -->
+                            <li><button type="button"  [disabled]="!projectName.length" (click)="createProject()" attr.action-id="{{dataIdConstantsService.eaLanding_button_createProject}}"  class="btn btn-primary">Create</button></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" *ngIf="dealSubDetails">
+    <div class="col-12">
+        <div class="form-group mw-380">
+            <label class="customer-label bold-txt mb-1">Project Name for EA 3.0<sup>*</sup></label>
+            <input class="form-control" maxlength="250" required="" type="text" attr.data-id="{{dataIdConstantsService.eaLanding_text_projectName}}" [(ngModel)]='projectName'>
+        </div>
+    </div>
+    </div>
+
+    <div>
+        <label class="customer-label bold-txt mb-2">Deal {{dealSubDetails.id}} Details</label>
+        <table class="primary-table">
+            <thead>
+            <tr>
+                <th width="150px">Deal ID</th>
+                <th width="200px">Deal Name</th>
+                <th width="">Account Name & Address</th>
+                <th width="150px">Partner Info</th>
+                <th width="150px">Deal Status</th>
+                <th width="150x">Expected Book Date</th>
+                <th width="150px">Deal Owner</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>{{dealSubDetails.id}}</td>
+                <td>{{dealSubDetails.dealName}}</td>
+                <td><span class="d-block bold-txt">{{dealSubDetails.customerInfo?.preferredLegalName}}</span>
+                    {{dealSubDetails.customerInfo?.preferredLegalAddress?.addressLine1}},
+                    {{dealSubDetails.customerInfo?.preferredLegalAddress?.city}},
+                    {{dealSubDetails.customerInfo?.preferredLegalAddress?.state}},
+                    {{dealSubDetails.customerInfo?.preferredLegalAddress?.zip}},
+                    {{dealSubDetails.customerInfo?.preferredLegalAddress?.country}}</td>
+                <td>{{dealSubDetails.partnerInfo?.beGeoName}}</td>
+                <td>{{dealSubDetails.statusDesc}}</td>
+                <td>{{dealSubDetails.expectedBookDate}}</td>
+                <td>{{dealSubDetails.optyOwner}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="initiated-change">
+        <label class="customer-label bold-txt mb-2">You initiated a change to this subscription</label>
+        <table class="primary-table">
+            <thead>
+            <tr>
+                <th width="200px">Subscription ID</th>
+                <th width="350px">Enrollment / Architecture</th>
+                <th width="">Smart Account</th>
+                <th width="150px">Start Date</th>
+                <th width="150px">End Date</th>
+                <th width="150x">Agreement Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>{{subscriptionInfo.subRefId}}</td>
+                <td>{{subscriptionInfo.enrollments?.join()}}</td>
+                <td>{{subscriptionInfo.smartAccount?.accountName}}</td>
+                <td>{{subscriptionInfo.startDateStr}}</td>
+                <td>{{subscriptionInfo.endDateStr}}</td>
+                <td>{{subscriptionInfo.statusDesc}}</td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="alert alert--warning alert-dismissable mt-3">
+            <span class="alert-icon">
+                <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+            </span>
+            <span *ngIf="!dealSubDetails.subscriptionUpgradeDeal">{{'common.CHANGE_SUBSCRIPTION_TRANSACTED_WITHIN_90_DAYS' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+            <span *ngIf="dealSubDetails.subscriptionUpgradeDeal">{{'common.CHANGE_SUBSCRIPTION_TRANSACTED_WITHIN_30_DAYS' | localizationPipe : localizationService.localizedkeySet.size}}
+            </span>
+        </div>
+
+    </div>
+</div>

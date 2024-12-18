@@ -1,0 +1,769 @@
+<div class="custom-flyout-overlay"></div>
+<div class="custom-flyout cust-md vNext">
+    <div class="heading">
+        <div class="d-flex justify-content-between align-items-top">
+            <div class="heading-title">
+                <h2 class="heading--h2 d-flex align-items-center">{{heading}} by {{selectedEnrollemnt.name}}
+                    <!-- <div class="dropdown" (clickOutside)="showDropMenu = false;">
+                        <a class="mb-0 dropdown-link" href="javascript:void(0);"
+                            (click)="showDropMenu = true;">{{selectedPoolName}}
+                            <span class="icon-arrow-stroke ml-2"></span>
+                        </a>
+                        <ul class="dropdown-menu" [class.show]="showDropMenu">
+                            <li *ngFor='let pool of pruchaseAdjusmentBreakupData'>
+                                <a href="javascript:void(0);" class="dropdown-item"
+                                    (click)="selectPool(pool)">{{pool.desc}}</a>
+                            </li>
+                        </ul>
+                    </div> -->
+                </h2>
+            </div>
+            <div>
+                <!-- <a class="mr-2" href="javascript:void(0)"><span class="icon-full-screen mr-0"></span></a> -->
+                <button class="icon-close-btn" (click)="priceEstimateService.showPurchaseAdjustmentBreakUp = false;"
+                    type="button" attr.action-id="{{dataIdConstantsService.pruchaseAdjusmentBreakup_button_close}}"></button>
+            </div>
+        </div>
+
+        <!-- <div class="d-block w-100" *ngIf="heading === 'Average Discount (%) Break-up'">
+            <div class="w-100">Subscription: <span class="bold-txt">15.00</span></div>
+            <div class="w-100">Service: <span class="bold-txt">15.00</span></div>
+        </div> -->
+        <!-- End of Average Discount -->
+
+        <!-- <div class="d-block w-100"  *ngIf="heading === 'Purchase Adjustment Break-up'">
+            <div class="w-100">C1: <span class="bold-txt">20,948.07</span></div>
+            <div class="w-100">ALC: <span class="bold-txt">20,948.07</span></div>
+            <div class="w-100">RAMP: <span class="bold-txt">20,948.07</span></div>
+            <div class="w-100">COMPETITIVE: <span class="bold-txt">20,948.07</span></div>
+            <div class="w-100">SWSS: <span class="bold-txt">20,948.07</span></div>
+        </div> -->
+        <!-- End of Purchase Adjustment -->
+
+        <!-- <div class="d-block w-100"  *ngIf="heading === 'Total Contract Value Break-up'">
+            <div class="w-100">Net Total Amount: <span class="bold-txt">370,000.00</span></div>
+            <div class="w-100">Net Software Amount: <span class="bold-txt">120,000.00</span></div>
+            <div class="w-100">Net Service Amount: <span class="bold-txt">0.00</span></div>
+        </div> -->
+        <!-- End of Total Contract Value -->
+
+        <!-- <div class="d-flex justify-content-between align-items-center pt-2">
+            <div>
+                <button class="btn btn-secondary sm" (click)="priceEstimateService.showshowPurchaseAdjustmentBreakUp = false;">Cancel</button>
+                <button class="btn btn-primary sm ml-2">Continue</button>
+            </div>
+        </div> -->
+    </div>
+    <!-- End of Flyout Heading -->
+
+    <div class="body">
+        <div class="row">
+            <!-- <div class="col-12">
+                <ul class="inline-listing mb-3 nav-tabs">
+                    <li [class.active]="tab.active" *ngFor="let tab of tabArr" (click)="selectTab(tab)">
+                        <a href="javascript:void(0);">{{tab.name}}</a>
+                    </li>
+                </ul>
+            </div> -->
+
+            <!-- New purchase Adjustment Table - Starts here -->
+            <div class="col-12 d-none">
+                <table class="primary-table">
+                    <thead>
+                        <tr>
+                            <th rowspan="2" width="35%" style="vertical-align: bottom;">{{'purchase-adjustment-break-up.SUITES_ITEMS' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                            <th colspan="3" class="text-center">{{'common.RESIDUAL' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                            <th rowspan="2" style="vertical-align: bottom;" class="text-right">{{'common.RAMP' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                            <th rowspan="2" style="vertical-align: bottom;" class="text-right">{{'common.LTO' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                            <th rowspan="2" style="vertical-align: bottom;" class="text-right">{{'common.COMPETITIVE' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                            <th rowspan="2" width="10%" style="vertical-align: bottom;" class="text-right">{{'common.ONE_TIME_ADJUSTMENT' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                        </tr>
+                        <tr>
+                            <th class="text-right">{{'common.SUBSCRIPTION' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                            <th class="text-right">{{'common.PERPETUAL' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                            <th class="border-right dashed text-right">{{'common.SWSS' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                        </tr>
+                    </thead>   
+                    <tbody>
+                        <tr class="main-row">
+                            <td>
+                                <span class="expCol-wrap mr-1">
+                                    <span class="i-vNext-tree-close"></span>
+                                    <span class="i-vNext-tree-open d-none"></span>
+                                </span> {{'purchase-adjustment-break-up.DNA_SWITCHING' | localizationPipe : localizationService.localizedkeySet.size}}
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr class="table-sub-row">
+                            <td>
+                                <span class="expCol-wrap mr-1">
+                                    <span class="i-vNext-tree-close"></span>
+                                    <span class="i-vNext-tree-open d-none"></span>
+                                </span> {{'purchase-adjustment-break-up.24_PORT_CISCO_DNA' | localizationPipe : localizationService.localizedkeySet.size}}
+                            </td>
+                            <td class="text-right">0.00</td>
+                            <td class="text-right">0.00</td>
+                            <td class="text-right">0.00</td>
+                            <td class="text-right">0.00</td>
+                            <td class="text-right">--</td>
+                            <td class="text-right">--</td>
+                        </tr>
+                        <tr class="table-sub-row level-2">
+                            <td>{{'common.ADVANTAGE' | localizationPipe : localizationService.localizedkeySet.size}}</td>
+                            <td class="text-right">0.00</td>
+                            <td class="text-right">0.00</td>
+                            <td class="text-right">0.00</td>
+                            <td class="text-right">0.00</td>
+                            <td class="text-right">--</td>
+                            <td class="text-right">--</td>
+                        </tr>
+                        <tr class="table-sub-row level-2">
+                            <td>{{'common.PREMIUM' | localizationPipe : localizationService.localizedkeySet.size}}</td>
+                            <td class="text-right">0.00</td>
+                            <td class="text-right">0.00</td>
+                            <td class="text-right">0.00</td>
+                            <td class="text-right">0.00</td>
+                            <td class="text-right">--</td>
+                            <td class="text-right">--</td>
+                        </tr>
+                        <!-- End of 1st Sub Row -->
+                
+                        <tr class="table-sub-row">
+                            <td>
+                                <span class="expCol-wrap mr-1">
+                                    <span class="i-vNext-tree-close d-none"></span>
+                                    <span class="i-vNext-tree-open"></span>
+                                </span> {{'purchase-adjustment-break-up.48_PORT_CISCO_DNA' | localizationPipe : localizationService.localizedkeySet.size}}
+                            </td>
+                            <td class="text-right">0.00</td>
+                            <td class="text-right">0.00</td>
+                            <td class="text-right">0.00</td>
+                            <td class="text-right">0.00</td>
+                            <td class="text-right">--</td>
+                            <td class="text-right">--</td>
+                        </tr>
+                        <tr class="table-sub-row level-2 d-none">
+                            <td>{{'common.ADVANTAGE' | localizationPipe : localizationService.localizedkeySet.size}}</td>
+                            <td class="text-right">0.00</td>
+                            <td class="text-right">0.00</td>
+                            <td class="text-right">0.00</td>
+                            <td class="text-right">0.00</td>
+                            <td class="text-right">--</td>
+                            <td class="text-right">--</td>
+                        </tr>
+                        <!-- End of 2nd Sub Row -->
+                
+                        <tr class="table-sub-row">
+                            <td>
+                                <span class="expCol-wrap mr-1">
+                                    <span class="i-vNext-tree-close d-none"></span>
+                                    <span class="i-vNext-tree-open"></span>
+                                </span> {{'purchase-adjustment-break-up.CISCO_DNA_CAT_3560CX_12_PORT' | localizationPipe : localizationService.localizedkeySet.size}}
+                            </td>
+                            <td class="text-right">0.00</td>
+                            <td class="text-right">0.00</td>
+                            <td class="text-right">0.00</td>
+                            <td class="text-right">0.00</td>
+                            <td class="text-right">--</td>
+                            <td class="text-right">--</td>
+                        </tr>
+                        <!-- End of Sub Row -->
+                
+                        <tr class="table-sub-row">
+                            <td>
+                                <span class="expCol-wrap mr-1">
+                                    <span class="i-vNext-tree-close d-none"></span>
+                                    <span class="i-vNext-tree-open"></span>
+                                </span> {{'purchase-adjustment-break-up.CISCO_DNA_CAT_3560CX_8_PORT' | localizationPipe : localizationService.localizedkeySet.size}}
+                            </td>
+                            <td class="text-right">0.00</td>
+                            <td class="text-right">0.00</td>
+                            <td class="text-right">0.00</td>
+                            <td class="text-right">0.00</td>
+                            <td class="text-right">--</td>
+                            <td class="text-right">--</td>
+                        </tr>
+                        <!-- End of Sub Row -->
+                
+                        <tr class="table-sub-row">
+                            <td>
+                                <span class="expCol-wrap mr-1">
+                                    <span class="i-vNext-tree-close d-none"></span>
+                                    <span class="i-vNext-tree-open"></span>
+                                </span> {{'purchase-adjustment-break-up.CISCO_DNA_CAT_3560CX_24_PORT' | localizationPipe : localizationService.localizedkeySet.size}}
+                            </td>
+                            <td class="text-right">0.00</td>
+                            <td class="text-right">0.00</td>
+                            <td class="text-right">0.00</td>
+                            <td class="text-right">0.00</td>
+                            <td class="text-right">--</td>
+                            <td class="text-right">--</td>
+                        </tr>
+                        <!-- End of Sub Row -->
+                
+                        <tr class="table-sub-row">
+                            <td>
+                                <span class="expCol-wrap mr-1">
+                                    <span class="i-vNext-tree-close d-none"></span>
+                                    <span class="i-vNext-tree-open"></span>
+                                </span> {{'purchase-adjustment-break-up.CISCO_DNA_CAT_3560CX_48_PORT' | localizationPipe : localizationService.localizedkeySet.size}}
+                            </td>
+                            <td class="text-right">0.00</td>
+                            <td class="text-right">0.00</td>
+                            <td class="text-right">0.00</td>
+                            <td class="text-right">0.00</td>
+                            <td class="text-right">--</td>
+                            <td class="text-right">--</td>
+                        </tr>
+                        <!-- End of Sub Row -->
+                
+                        <tr class="table-sub-row">
+                            <td>
+                                <span class="expCol-wrap mr-1">
+                                    <span class="i-vNext-tree-close d-none"></span>
+                                    <span class="i-vNext-tree-open"></span>
+                                </span> {{'purchase-adjustment-break-up.CISCO_DNA_CAT_3860CX_12/24_PORT' | localizationPipe : localizationService.localizedkeySet.size}}
+                            </td>
+                            <td class="text-right">0.00</td>
+                            <td class="text-right">0.00</td>
+                            <td class="text-right">0.00</td>
+                            <td class="text-right">0.00</td>
+                            <td class="text-right">--</td>
+                            <td class="text-right">--</td>
+                        </tr>
+                        <!-- End of Sub Row -->
+                
+                        <tr class="table-sub-row">
+                            <td>
+                                <span class="expCol-wrap mr-1">
+                                    <span class="i-vNext-tree-close d-none"></span>
+                                    <span class="i-vNext-tree-open"></span>
+                                </span> {{'purchase-adjustment-break-up.CISCO_DNA_CAT_3860CX_24_PORT' | localizationPipe : localizationService.localizedkeySet.size}}
+                            </td>
+                            <td class="text-right">0.00</td>
+                            <td class="text-right">0.00</td>
+                            <td class="text-right">0.00</td>
+                            <td class="text-right">0.00</td>
+                            <td class="text-right">--</td>
+                            <td class="text-right">--</td>
+                        </tr>
+                        <!-- End of Sub Row -->
+                        <!-- End of Main Row -->
+                
+                        <tr class="main-row">
+                            <td>
+                                <span class="expCol-wrap mr-1">
+                                    <span class="i-vNext-tree-close d-none"></span>
+                                    <span class="i-vNext-tree-open"></span>
+                                </span> {{'purchase-adjustment-break-up.DNA_WIRELESS' | localizationPipe : localizationService.localizedkeySet.size}}
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- New purchase Adjustment Table - Ends here -->
+
+            <div class="col-12 fixTableHead">
+                <table class="primary-table">
+                    <!-- <thead>
+                        <tr> -->
+                            <!-- <ng-container *ngIf="selectedTab === 'Cisco DNA'">
+                                <th width="45%" class="">
+                                    <span class="mr-1"><img *ngIf="!allExpanded" (click)="expandAll()" src="assets/images/icons/expand-v1.svg">
+                                        <img *ngIf="allExpanded" (click)="collapseAll()" src="assets/images/icons/collaspe-v1.svg"></span> 
+                                    Suites/Items
+                                </th>
+            
+                                <th width="30%" class="text-right"> 
+                                    Subscription
+                                </th>
+            
+                                <th width="25%" class="text-right">
+                                    Service
+                                </th>
+                           </ng-container> -->
+
+
+                            <!-- <th rowspan="2" width="30%" style="vertical-align: bottom;">
+                                Suites/Items
+                            </th>
+                            <th colspan="5" class="text-center">
+                                Purchase Adjustment ({{proposalStoreService.proposalData.currencyCode}})
+                            </th> -->
+
+
+
+
+                            <!-- <ng-container *ngIf="selectedTab === 'Data Center & Networking'">
+                                <th width="40%" class="">
+                                    <span class="mr-1"><img *ngIf="!allExpanded" (click)="expandAll()" src="assets/images/icons/expand-v1.svg">
+                                        <img *ngIf="allExpanded" (click)="collapseAll()" src="assets/images/icons/collaspe-v1.svg"></span> 
+                                    Suites/Items
+                                </th>
+            
+                                <th width="20%" class="text-right">
+                                    Net Total Amount
+                                </th>
+            
+                                <th width="20%" class="text-right">
+                                    Net Software Amount
+                                </th>
+    
+                                <th width="20%" class="text-right">
+                                    Net Service Amount
+                                </th>
+                            </ng-container> -->
+                        <!-- </tr>
+                        <tr>
+                            <th width="10%" class="text-right">
+                                Residual
+                            </th>
+
+                            <th width="10%" class="text-right">
+                                RAMP
+                            </th>
+
+                            <th width="10%" class="text-right">
+                                Migration
+                            </th>
+
+                            <th width="10%" class="text-right">
+                                Competitive
+                            </th>
+
+                            <th width="10%" class="text-right">
+                                SWSS
+                            </th>
+                        </tr>
+                    </thead> -->
+
+                    <!-- This HTML is as per new Design Starts-->
+                    <thead>
+                        <tr>
+                            <th rowspan="2" style="vertical-align: bottom;">
+                                {{'common.SOLUTIONS_SUITES_ITEM_DESCRIPTION' | localizationPipe : localizationService.localizedkeySet.size}}
+                            </th>
+                            <th colspan="3" width="340px" class="text-center" *ngIf="!(eaService.features.CROSS_SUITE_MIGRATION_REL && eaService.isUpgradeFlow)">
+                                {{'common.RESIDUAL' | localizationPipe : localizationService.localizedkeySet.size}}
+                            </th>
+
+                            <th colspan="4" width="440px" class="text-center" *ngIf="(eaService.features.CROSS_SUITE_MIGRATION_REL && eaService.isUpgradeFlow)">
+                                {{'common.RESIDUAL' | localizationPipe : localizationService.localizedkeySet.size}}
+                            </th>
+
+                            <th rowspan="2" width="120px" class="text-right" *ngIf="eaService.features.STO_REL">
+                                {{'common.STO_ONE_TIME_ADJUSTMENT' | localizationPipe : localizationService.localizedkeySet.size}}
+                            </th>
+
+                            <th rowspan="2" width="110px" class="text-right">
+                                {{'common.RAMP' | localizationPipe : localizationService.localizedkeySet.size}}
+                            </th>
+
+                            <th rowspan="2" width="110px" class="text-right" *ngIf="selectedEnrollemnt?.id === 4">
+                                {{'common.LTO' | localizationPipe : localizationService.localizedkeySet.size}}
+                            </th>
+
+                            <th rowspan="2" width="120px" class="text-right">
+                                {{'common.COMPETITIVE' | localizationPipe : localizationService.localizedkeySet.size}}
+                            </th>
+                            <th rowspan="2" width="120px" class="text-right">
+                                {{'common.ONE_TIME_ADJUSTMENT' | localizationPipe : localizationService.localizedkeySet.size}}
+                            </th>
+                        </tr>
+                        <tr>
+                            <th width="120px" class="text-right">
+                                {{'common.SUBSCRIPTION' | localizationPipe : localizationService.localizedkeySet.size}}
+                            </th>
+
+                            <th width="120px"class="text-right">
+                                {{'common.PERPETUAL' | localizationPipe : localizationService.localizedkeySet.size}}
+                            </th>
+
+                            <th width="100px" class="text-right" style="border-right: 1px dashed #e4e4e4">
+                                {{'common.SWSS' | localizationPipe : localizationService.localizedkeySet.size}}
+                            </th>
+
+                            <th width="100px" class="text-right" style="border-right: 1px dashed #e4e4e4" *ngIf="eaService.features.CROSS_SUITE_MIGRATION_REL && eaService.isUpgradeFlow">
+                                {{'common.CROSS_SUITE_MIGRATION_ADJUSTMENT' | localizationPipe : localizationService.localizedkeySet.size}}
+                            </th>
+                        </tr>
+                    </thead> 
+                    <!-- This HTML is as per new Design Ends-->
+                    <tbody>
+                        <!-- Start of Main Title Row -->
+                        <ng-container *ngFor="let pool of selectedEnrollemnt.pools; let index = index;">
+                                <tr class="main-row">
+                                        <td>
+                                            <span class="expCol-wrap mr-2">
+                                                <span class="i-vNext-tree-close" *ngIf="!pool.hide"
+                                                    (click)="expandPool(pool)" attr.action-id="{{dataIdConstantsService.pruchaseAdjusmentBreakup_icon_expandPool}}{{index}}"></span>
+                                                <span class="i-vNext-tree-open" *ngIf="pool.hide"
+                                                    (click)="expandPool(pool)" attr.action-id="{{dataIdConstantsService.pruchaseAdjusmentBreakup_icon_collapsePool}}{{index}}"></span>
+                                            </span>
+                                                <span class="ellipsis" placement="top" container="body" triggers="manual" #t="ngbTooltip" (mouseenter)="showTooltip(t)" (mouseout)="hideTooltip(t)" (click)="t.close()" ngbTooltip="{{pool.desc}}" attr.action-id="{{dataIdConstantsService.pruchaseAdjusmentBreakup_icon_poolDesc}}{{index}}">{{pool.desc}}</span>
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td *ngIf="eaService.features.CROSS_SUITE_MIGRATION_REL && eaService.isUpgradeFlow"></td>
+                                        <td></td>
+                                        <td *ngIf="selectedEnrollemnt?.id === 4"></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td *ngIf="eaService.features.STO_REL"></td>
+                                    </tr>
+                                    <ng-container *ngIf="!pool.hide">
+                        <ng-container *ngFor="let suite of pool.suites; let j = index;">
+                            <tr *ngIf = 'suite.inclusion' class="table-sub-row">
+                                <td>
+                                    <span class="expCol-wrap mr-2">
+                                        <span class="i-vNext-tree-close" *ngIf="suite.expand"
+                                            (click)="expand(suite)" attr.action-id="{{dataIdConstantsService.pruchaseAdjusmentBreakup_icon_expandSuite}}{{j}}"></span>
+                                        <span class="i-vNext-tree-open" *ngIf="!suite.expand"
+                                            (click)="expand(suite)" attr.action-id="{{dataIdConstantsService.pruchaseAdjusmentBreakup_icon_collapseSuite}}{{j}}"></span>
+                                    </span><span class="ellipsis" placement="top" container="body" ngbTooltip="{{suite.desc}}">{{suite.desc}}</span>
+                                </td>
+                                <!-- <ng-container *ngIf="selectedTab === 'Cisco DNA'">
+                                        <td class="text-right">{{a.subscription}}</td>
+                                        <td class="text-right">{{a.service}}</td> '-' +this.utilitiesService.formatValue(this.utilitiesService.getFloatValue(suite.priceInfo.purchaseAdjustment))
+                                    </ng-container> -->
+                                <ng-container>
+                                    <td class="text-right">{{suite.credit?.perpetual  ? '-' +
+                                        utilitiesService.formatValue(utilitiesService.getFloatValue(suite.credit.perpetual))
+                                        : '--'}}</td>
+                                    <td class="text-right">{{suite.credit?.subscription ? '-' +
+                                        utilitiesService.formatValue(utilitiesService.getFloatValue(suite.credit.subscription))
+                                        : '--'}}</td>
+                                    <td class="text-right">{{suite.credit?.swss ? '-' +
+                                        utilitiesService.formatValue(utilitiesService.getFloatValue(suite.credit.swss))
+                                        : '--'}}</td>
+                                    <td class="text-right" *ngIf="eaService.features.CROSS_SUITE_MIGRATION_REL && eaService.isUpgradeFlow">{{suite.credit?.crossSuiteMigration ? '-' +
+                                        utilitiesService.formatValue(utilitiesService.getFloatValue(suite.credit.crossSuiteMigration))
+                                        : '--'}}</td>
+                                    <td class="text-right" *ngIf="eaService.features.STO_REL && (suite?.type !== constantService.SUITE_TYPE_COLLAB)">{{suite.credit?.strategicOffer ? '-' +
+                                        utilitiesService.formatValue(utilitiesService.getFloatValue(suite.credit?.strategicOffer))
+                                        : '--'}}</td>
+                                    <td class="text-right" *ngIf="eaService.features.STO_REL && (suite?.type === constantService.SUITE_TYPE_COLLAB)">{{suite.credit?.collabStrategicOffer ? '-' +
+                                            utilitiesService.formatValue(utilitiesService.getFloatValue(suite.credit?.collabStrategicOffer))
+                                            : '--'}}</td>
+                                    <td class="text-right">{{suite.credit?.ramp ? '-' +
+                                        utilitiesService.formatValue(utilitiesService.getFloatValue(suite.credit.ramp))
+                                        : '--'}}</td>
+                                    <td class="text-right" *ngIf="selectedEnrollemnt?.id === 4">{{suite.credit?.limitedTimeOffer ? '-' +
+                                        utilitiesService.formatValue(utilitiesService.getFloatValue(suite.credit.limitedTimeOffer))
+                                        : '--'}}</td>
+                                    <td class="text-right">{{suite.credit?.competitive ? '-' +
+                                        utilitiesService.formatValue(utilitiesService.getFloatValue(suite.credit.competitive))
+                                        : '--'}}</td>
+                                        <td class="text-right">{{suite.credit?.other ? '-' +
+                                                utilitiesService.formatValue(utilitiesService.getFloatValue(suite.credit.other))
+                                                : '--'}}</td>
+                                </ng-container>
+
+                                <!-- This HTML is as per new Design Starts-->
+                                <!-- <ng-container>
+                                    <td class="text-right">--</td>
+                                    <td class="text-right">--</td>
+                                    <td class="text-right">{{suite.credit?.swss ? '-' +
+                                        utilitiesService.formatValue(utilitiesService.getFloatValue(suite.credit.residual))
+                                        : '--'}}</td>
+                                    <td class="text-right">{{suite.credit?.ramp ? '-' +
+                                        utilitiesService.formatValue(utilitiesService.getFloatValue(suite.credit.ramp))
+                                        : '--'}}</td>
+                                    <td class="text-right">{{suite.credit?.competitive ? '-' +
+                                        utilitiesService.formatValue(utilitiesService.getFloatValue(suite.credit.competitive))
+                                        : '--'}}</td>
+                                    <td class="text-right">--</td>
+                                </ng-container> -->
+                                <!-- This HTML is as per new Design Ends-->
+
+                            </tr>
+                            <ng-container *ngIf="suite.expand">
+                                <ng-container *ngIf="selectedEnrollemnt.primary; else checkForPids">
+                                    <ng-container *ngIf="selectedEnrollemnt.id != 4; else  collabEnrollment">
+                                        <tr *ngFor="let line of suite.lines; let lineIndex = index;" class="table-sub-row level-2">
+                                            <td><span class="ellipsis" placement="top" container="body" triggers="manual" #t="ngbTooltip" (mouseenter)="showTooltip(t)" (mouseout)="hideTooltip(t)" (click)="t.close()" ngbTooltip="{{line.desc}}" attr.action-id="{{dataIdConstantsService.pruchaseAdjusmentBreakup_icon_lineDesc}}{{lineIndex}}">{{line.desc}}</span></td>
+    
+                                            <ng-container class="d-none">
+                                                <td class="text-right">{{line.credit?.perpetual ? '-' +
+                                                    utilitiesService.formatValue(utilitiesService.getFloatValue(line.credit?.perpetual))
+                                                    : '--'}}</td>
+                                                <td class="text-right">{{line.credit?.subscription ? '-' +
+                                                    utilitiesService.formatValue(utilitiesService.getFloatValue(line.credit?.subscription))
+                                                    : '--'}}</td>
+                                                <td class="text-right">{{line.credit?.swss ? '-' +
+                                                    utilitiesService.formatValue(utilitiesService.getFloatValue(line.credit?.swss))
+                                                    : '--'}}</td>
+                                                <td class="text-right" *ngIf="eaService.features.CROSS_SUITE_MIGRATION_REL && eaService.isUpgradeFlow">{{line.credit?.crossSuiteMigration ? '-' +
+                                                    utilitiesService.formatValue(utilitiesService.getFloatValue(line.credit.crossSuiteMigration))
+                                                    : '--'}}</td>
+                                                <td class="text-right" *ngIf="eaService.features.STO_REL">{{line.credit?.strategicOffer ? '-' +
+                                                    utilitiesService.formatValue(utilitiesService.getFloatValue(line.credit?.strategicOffer))
+                                                    : '--'}}</td>
+                                                <td class="text-right">{{line.credit?.ramp ? '-' +
+                                                    utilitiesService.formatValue(utilitiesService.getFloatValue(line.credit?.ramp))
+                                                    : '--'}}</td>
+                                                    <td class="text-right" *ngIf="selectedEnrollemnt?.id === 4">{{line.credit?.limitedTimeOffer ? '-' +
+                                                        utilitiesService.formatValue(utilitiesService.getFloatValue(line.credit?.limitedTimeOffer))
+                                                        : '--'}}</td>
+                                                <td class="text-right">{{line.credit?.competitive ? '-' +
+                                                    utilitiesService.formatValue(utilitiesService.getFloatValue(line.credit?.competitive))
+                                                    : '--'}}</td>
+                                                    <td class="text-right">{{line.credit?.other ? '-' +
+                                                            utilitiesService.formatValue(utilitiesService.getFloatValue(line.credit?.other))
+                                                            : '--'}}</td>
+                                            </ng-container>
+    
+                                            <!-- This HTML is as per new Design Starts-->
+                                            <!-- <ng-container>
+                                                <td class="text-right">--</td>
+                                                <td class="text-right">--</td>
+                                                <td class="text-right">{{suite.credit?.swss ? '-' +
+                                                    utilitiesService.formatValue(utilitiesService.getFloatValue(suite.credit.residual))
+                                                    : '--'}}</td>
+                                                <td class="text-right">{{suite.credit?.ramp ? '-' +
+                                                    utilitiesService.formatValue(utilitiesService.getFloatValue(suite.credit.ramp))
+                                                    : '--'}}</td>
+                                                <td class="text-right">{{suite.credit?.competitive ? '-' +
+                                                    utilitiesService.formatValue(utilitiesService.getFloatValue(suite.credit.competitive))
+                                                    : '--'}}</td>
+                                                <td class="text-right">--</td>
+                                            </ng-container> -->
+                                            <!-- This HTML is as per new Design Ends-->
+    
+                                        </tr>
+                                    </ng-container>
+                                    <ng-template #collabEnrollment class="table-sub-row level-2">
+                                        <tr *ngFor="let pid of suite.pids; let pidIndex = index;" class="table-sub-row level-2">
+                                            <td><span class="ellipsis" placement="top" container="body" triggers="manual" #t="ngbTooltip" (mouseenter)="showTooltip(t)" (mouseout)="hideTooltip(t)" (click)="t.close()" ngbTooltip="{{pid.desc}}" attr.action-id="{{dataIdConstantsService.pruchaseAdjusmentBreakup_icon_pidDesc}}{{pidIndex}}">{{pid.desc}}</span></td>
+    
+                                            <ng-container class="d-none">
+                                                <td class="text-right">{{pid.credit?.residual ? '-' +
+                                                    utilitiesService.formatValue(utilitiesService.getFloatValue(pid.credit?.residual))
+                                                    : '--'}}</td>
+                                                <td class="text-right">{{pid.credit?.competitive ? '-' +
+                                                    utilitiesService.formatValue(utilitiesService.getFloatValue(pid.credit?.competitive))
+                                                    : '--'}}</td>
+                                                <td class="text-right">{{pid.credit?.swss ? '-' +
+                                                    utilitiesService.formatValue(utilitiesService.getFloatValue(pid.credit?.swss))
+                                                    : '--'}}</td>
+                                                <td class="text-right" *ngIf="eaService.features.CROSS_SUITE_MIGRATION_REL && eaService.isUpgradeFlow">{{pid.credit?.crossSuiteMigration ? '-' +
+                                                    utilitiesService.formatValue(utilitiesService.getFloatValue(pid.credit.crossSuiteMigration))
+                                                    : '--'}}</td>
+                                                <td class="text-right" *ngIf="eaService.features.STO_REL">{{pid.credit?.collabStrategicOffer ? '-' +
+                                                    utilitiesService.formatValue(utilitiesService.getFloatValue(pid.credit?.collabStrategicOffer))
+                                                    : '--'}}</td>
+                                                <td class="text-right">{{pid.credit?.ramp ? '-' +
+                                                    utilitiesService.formatValue(utilitiesService.getFloatValue(pid.credit?.ramp))
+                                                    : '--'}}</td>
+                                                    <td class="text-right" *ngIf="selectedEnrollemnt?.id === 4">{{pid.credit?.limitedTimeOffer ? '-' +
+                                                        utilitiesService.formatValue(utilitiesService.getFloatValue(pid.credit?.limitedTimeOffer))
+                                                        : '--'}}</td>
+                                                <td class="text-right">{{pid.credit?.migration ? '-' +
+                                                    utilitiesService.formatValue(utilitiesService.getFloatValue(pid.credit?.migration))
+                                                    : '--'}}</td>
+                                                <td class="text-right">{{pid.credit?.other ? '-' +
+                                                    utilitiesService.formatValue(utilitiesService.getFloatValue(pid.credit?.other))
+                                                    : '--'}}</td>
+                                            </ng-container>
+    
+                                        </tr>
+                                    </ng-template>
+                                </ng-container>
+                                <ng-template #checkForPids>
+                                    <ng-container *ngIf="suite?.type !== constantService.SUITE_TYPE_COLLAB">
+                                        <ng-container *ngIf="suite.lines; let lineIndex = index;">
+                                            <tr *ngFor="let line of suite.lines" class="table-sub-row level-2">
+                                                <td><span class="ellipsis" placement="top" container="body" triggers="manual" #t="ngbTooltip" (mouseenter)="showTooltip(t)" (mouseout)="hideTooltip(t)" (click)="t.close()" ngbTooltip="{{line.desc}}" attr.action-id="{{dataIdConstantsService.pruchaseAdjusmentBreakup_icon_lineDesc}}{{lineIndex}}">{{line.desc}}</span></td>
+        
+                                                <ng-container class="d-none">
+                                                    <td class="text-right">{{line.credit?.perpetual ? '-' +
+                                                        utilitiesService.formatValue(utilitiesService.getFloatValue(line.credit?.perpetual))
+                                                        : '--'}}</td>
+                                                    <td class="text-right">{{line.credit?.subscription ? '-' +
+                                                        utilitiesService.formatValue(utilitiesService.getFloatValue(line.credit?.subscription))
+                                                        : '--'}}</td>
+                                                    <td class="text-right">{{line.credit?.swss ? '-' +
+                                                        utilitiesService.formatValue(utilitiesService.getFloatValue(line.credit?.swss))
+                                                        : '--'}}</td>
+                                                    <td class="text-right" *ngIf="eaService.features.CROSS_SUITE_MIGRATION_REL && eaService.isUpgradeFlow">{{line.credit?.crossSuiteMigration ? '-' +
+                                                        utilitiesService.formatValue(utilitiesService.getFloatValue(line.credit.crossSuiteMigration))
+                                                        : '--'}}</td>
+                                                    <td class="text-right" *ngIf="eaService.features.STO_REL">{{line.credit?.strategicOffer ? '-' +
+                                                        utilitiesService.formatValue(utilitiesService.getFloatValue(line.credit?.strategicOffer))
+                                                        : '--'}}</td>
+                                                    <td class="text-right">{{line.credit?.ramp ? '-' +
+                                                        utilitiesService.formatValue(utilitiesService.getFloatValue(line.credit?.ramp))
+                                                        : '--'}}</td>
+                                                    <td class="text-right">{{line.credit?.competitive ? '-' +
+                                                        utilitiesService.formatValue(utilitiesService.getFloatValue(line.credit?.competitive))
+                                                        : '--'}}</td>
+                                                        <td class="text-right">{{line.credit?.other ? '-' +
+                                                                utilitiesService.formatValue(utilitiesService.getFloatValue(line.credit?.other))
+                                                                : '--'}}</td>
+                                                </ng-container>
+        
+                                                <!-- This HTML is as per new Design Starts-->
+                                                <!-- <ng-container>
+                                                    <td class="text-right">--</td>
+                                                    <td class="text-right">--</td>
+                                                    <td class="text-right">{{suite.credit?.swss ? '-' +
+                                                        utilitiesService.formatValue(utilitiesService.getFloatValue(suite.credit.residual))
+                                                        : '--'}}</td>
+                                                    <td class="text-right">{{suite.credit?.ramp ? '-' +
+                                                        utilitiesService.formatValue(utilitiesService.getFloatValue(suite.credit.ramp))
+                                                        : '--'}}</td>
+                                                    <td class="text-right">{{suite.credit?.competitive ? '-' +
+                                                        utilitiesService.formatValue(utilitiesService.getFloatValue(suite.credit.competitive))
+                                                        : '--'}}</td>
+                                                    <td class="text-right">--</td>
+                                                </ng-container> -->
+                                                <!-- This HTML is as per new Design Ends-->
+        
+                                            </tr>
+                                        </ng-container>
+                                        <ng-container *ngIf="suite.pids">
+                                            <tr *ngFor="let pid of suite.pids; let pidIndex = index;" class="table-sub-row level-2">
+                                                <td><span class="ellipsis" placement="top" container="body" triggers="manual" #t="ngbTooltip" (mouseenter)="showTooltip(t)" (mouseout)="hideTooltip(t)" (click)="t.close()" ngbTooltip="{{pid.desc}}" attr.action-id="{{dataIdConstantsService.pruchaseAdjusmentBreakup_icon_poolDesc}}{{pidIndex}}">{{pid.desc}}</span></td>
+    
+                                                <ng-container *ngIf="selectedEnrollemnt?.id === 3" class="d-none">
+                                                    <td class="text-right">{{pid.credit?.perpetual ? '-' +
+                                                        utilitiesService.formatValue(utilitiesService.getFloatValue(pid.credit?.perpetual))
+                                                        : '--'}}</td>
+                                                    <td class="text-right">{{pid.credit?.subscription ? '-' +
+                                                        utilitiesService.formatValue(utilitiesService.getFloatValue(pid.credit?.subscription))
+                                                        : '--'}}</td>
+                                                    <td class="text-right">{{pid.credit?.swss ? '-' +
+                                                        utilitiesService.formatValue(utilitiesService.getFloatValue(pid.credit?.swss))
+                                                        : '--'}}</td>
+                                                    <td class="text-right" *ngIf="eaService.features.CROSS_SUITE_MIGRATION_REL && eaService.isUpgradeFlow">{{pid.credit?.crossSuiteMigration ? '-' +
+                                                        utilitiesService.formatValue(utilitiesService.getFloatValue(pid.credit.crossSuiteMigration))
+                                                        : '--'}}</td>
+                                                    <td class="text-right" *ngIf="eaService.features.STO_REL">{{pid.credit?.strategicOffer ? '-' +
+                                                        utilitiesService.formatValue(utilitiesService.getFloatValue(pid.credit?.strategicOffer))
+                                                        : '--'}}</td>
+                                                    <td class="text-right">{{pid.credit?.ramp ? '-' +
+                                                        utilitiesService.formatValue(utilitiesService.getFloatValue(pid.credit?.ramp))
+                                                        : '--'}}</td>
+                                                    <td class="text-right" *ngIf="selectedEnrollemnt?.id === 4">{{pid.credit?.limitedTimeOffer ? '-' +
+                                                        utilitiesService.formatValue(utilitiesService.getFloatValue(pid.credit?.limitedTimeOffer))
+                                                        : '--'}}</td>
+                                                    <td class="text-right">{{pid.credit?.competitive ? '-' +
+                                                        utilitiesService.formatValue(utilitiesService.getFloatValue(pid.credit?.competitive))
+                                                        : '--'}}</td>
+                                                    <td class="text-right">{{pid.credit?.other ? '-' +
+                                                        utilitiesService.formatValue(utilitiesService.getFloatValue(pid.credit?.other))
+                                                        : '--'}}</td>
+                                                </ng-container>
+
+                                                <ng-container *ngIf="selectedEnrollemnt?.id !== 3" class="d-none">
+                                                    <td class="text-right">{{pid.credit?.residual ? '-' +
+                                                        utilitiesService.formatValue(utilitiesService.getFloatValue(pid.credit?.residual))
+                                                        : '--'}}</td>
+                                                    <td class="text-right">{{pid.credit?.ramp ? '-' +
+                                                        utilitiesService.formatValue(utilitiesService.getFloatValue(pid.credit?.ramp))
+                                                        : '--'}}</td>
+                                                    <td class="text-right">{{pid.credit?.swss ? '-' +
+                                                        utilitiesService.formatValue(utilitiesService.getFloatValue(pid.credit?.swss))
+                                                        : '--'}}</td>
+                                                    <td class="text-right" *ngIf="eaService.features.CROSS_SUITE_MIGRATION_REL && eaService.isUpgradeFlow">{{pid.credit?.crossSuiteMigration ? '-' +
+                                                        utilitiesService.formatValue(utilitiesService.getFloatValue(pid.credit.crossSuiteMigration))
+                                                        : '--'}}</td>
+                                                    <td class="text-right" *ngIf="eaService.features.STO_REL">{{pid.credit?.strategicOffer ? '-' +
+                                                        utilitiesService.formatValue(utilitiesService.getFloatValue(pid.credit?.strategicOffer))
+                                                        : '--'}}</td>
+                                                    <td class="text-right">{{pid.credit?.migration ? '-' +
+                                                        utilitiesService.formatValue(utilitiesService.getFloatValue(pid.credit?.migration))
+                                                        : '--'}}</td>
+                                                    <td class="text-right" *ngIf="selectedEnrollemnt?.id === 4">{{pid.credit?.limitedTimeOffer ? '-' +
+                                                        utilitiesService.formatValue(utilitiesService.getFloatValue(pid.credit?.limitedTimeOffer))
+                                                        : '--'}}</td>
+                                                    <td class="text-right">{{pid.credit?.competitive ? '-' +
+                                                        utilitiesService.formatValue(utilitiesService.getFloatValue(pid.credit?.competitive))
+                                                        : '--'}}</td>
+                                                    <td class="text-right">{{pid.credit?.other ? '-' +
+                                                        utilitiesService.formatValue(utilitiesService.getFloatValue(pid.credit?.other))
+                                                        : '--'}}</td>
+                                                </ng-container>
+    
+                                                <!-- This HTML is as per new Design Starts-->
+                                                <!-- <ng-container>
+                                                    <td class="text-right">--</td>
+                                                    <td class="text-right">--</td>
+                                                    <td class="text-right">{{suite.credit?.swss ? '-' +
+                                                        utilitiesService.formatValue(utilitiesService.getFloatValue(suite.credit.residual))
+                                                        : '--'}}</td>
+                                                    <td class="text-right">{{suite.credit?.ramp ? '-' +
+                                                        utilitiesService.formatValue(utilitiesService.getFloatValue(suite.credit.ramp))
+                                                        : '--'}}</td>
+                                                    <td class="text-right">{{suite.credit?.competitive ? '-' +
+                                                        utilitiesService.formatValue(utilitiesService.getFloatValue(suite.credit.competitive))
+                                                        : '--'}}</td>
+                                                    <td class="text-right">--</td>
+                                                </ng-container> -->
+                                                <!-- This HTML is as per new Design Ends-->
+    
+                                            </tr>
+                                        </ng-container>
+                                    </ng-container>
+                                    <ng-container *ngIf="suite?.type === constantService.SUITE_TYPE_COLLAB">
+                                        <tr *ngFor="let pid of suite.pids; let pidIndex = index;" class="table-sub-row level-2" >
+                                            <td><span class="ellipsis" placement="top" container="body" triggers="manual" #t="ngbTooltip" (mouseenter)="showTooltip(t)" (mouseout)="hideTooltip(t)" (click)="t.close()" ngbTooltip="{{pid.desc}}" attr.action-id="{{dataIdConstantsService.pruchaseAdjusmentBreakup_icon_poolDesc}}{{pidIndex}}">{{pid.desc}}</span></td>
+
+                                            <ng-container class="d-none">
+                                                <td class="text-right">{{pid.credit?.residual ? '-' +
+                                                    utilitiesService.formatValue(utilitiesService.getFloatValue(pid.credit?.residual))
+                                                    : '--'}}</td>
+                                                <td class="text-right">{{pid.credit?.competitive ? '-' +
+                                                    utilitiesService.formatValue(utilitiesService.getFloatValue(pid.credit?.competitive))
+                                                    : '--'}}</td>
+                                                <td class="text-right">{{pid.credit?.swss ? '-' +
+                                                    utilitiesService.formatValue(utilitiesService.getFloatValue(pid.credit?.swss))
+                                                    : '--'}}</td>
+                                                <td class="text-right" *ngIf="eaService.features.CROSS_SUITE_MIGRATION_REL && eaService.isUpgradeFlow">{{pid.credit?.crossSuiteMigration ? '-' +
+                                                    utilitiesService.formatValue(utilitiesService.getFloatValue(pid.credit.crossSuiteMigration))
+                                                    : '--'}}</td>
+                                                <td class="text-right" *ngIf="eaService.features.STO_REL">{{pid.credit?.collabStrategicOffer ? '-' +
+                                                    utilitiesService.formatValue(utilitiesService.getFloatValue(pid.credit?.collabStrategicOffer))
+                                                    : '--'}}</td>
+                                                <td class="text-right">{{pid.credit?.ramp ? '-' +
+                                                    utilitiesService.formatValue(utilitiesService.getFloatValue(pid.credit?.ramp))
+                                                    : '--'}}</td>
+                                                <td class="text-right" *ngIf="selectedEnrollemnt?.id === 4">{{pid.credit?.limitedTimeOffer ? '-' +
+                                                    utilitiesService.formatValue(utilitiesService.getFloatValue(pid.credit?.limitedTimeOffer))
+                                                    : '--'}}</td>
+                                                <td class="text-right">{{pid.credit?.migration ? '-' +
+                                                    utilitiesService.formatValue(utilitiesService.getFloatValue(pid.credit?.migration))
+                                                    : '--'}}</td>
+                                                <td class="text-right">{{pid.credit?.other ? '-' +
+                                                    utilitiesService.formatValue(utilitiesService.getFloatValue(pid.credit?.other))
+                                                    : '--'}}</td>
+                                            </ng-container>
+
+                                        </tr>
+                                    </ng-container>
+                                </ng-template>
+                                
+                                
+                            </ng-container>
+                        </ng-container>
+                    </ng-container>
+                        </ng-container>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- End of Flyout Body -->
+</div>

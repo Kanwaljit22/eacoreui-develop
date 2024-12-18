@@ -1,0 +1,93 @@
+/* You can add global styles to this file, and also import other style files */
+.verticalBarChart .axis .tick line{
+    display: block;
+    stroke: #d6d6d6;
+    stroke-width: 1;
+    opacity: .8;
+    stroke-dasharray: 3;
+}
+
+.rectangularBarChart line {
+    display: block;
+    stroke-width: 5;
+}
+
+/* UI Switch CSS  */
+.switch {
+    background: #f00;
+    border: 1px solid #dfdfdf;
+    position: relative;
+    display: inline-block;
+    box-sizing: content-box;
+    overflow: visible;
+    padding: 0;
+    margin: 0;            
+    cursor: pointer;
+    box-shadow: rgb(223, 223, 223) 0 0 0 0 inset;
+    transition: 0.3s ease-out all;
+    -webkit-transition: 0.3s ease-out all;
+    }        
+    .switch small {
+    border-radius: 100%;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);          
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: 0.3s ease-out all;
+    -webkit-transition: 0.3s ease-out all;
+    }
+    .switch-large {
+    width: 66px;
+    height: 40px;
+    border-radius: 40px;
+    }
+    .switch-large small {
+    width: 40px;
+    height: 40px;
+    }
+    .switch-medium {
+    width: 50px;
+    height: 30px;
+    border-radius: 30px;
+    }
+    .switch-medium small {
+    width: 30px;
+    height: 30px;
+    }
+    .switch-small {
+    width: 33px;
+    height: 20px;
+    border-radius: 20px;
+    }
+    .switch-small small {
+    width: 20px;
+    height: 20px;
+    }
+    .checked {
+    background: rgb(100, 189, 99);
+    border-color: rgb(100, 189, 99);
+    }
+    .switch-large.checked small {
+    left: 26px;
+    }
+    .switch-medium.checked small {
+    left: 20px;
+    }
+    .switch-small.checked small {
+    left: 13px;
+    }
+    .disabled {
+    opacity: .50;
+    cursor: not-allowed;
+    }
+    @import "ngx-toastr/toastr";
+
+// bootstrap style toast
+// or import a bootstrap 4 alert styled design (SASS ONLY)
+// should be after your bootstrap imports, it uses bs4 variables, mixins, functions
+
+// if you'd like to use it without importing all of bootstrap it requires
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/mixins";
+@import "ngx-toastr/toastr-bs4-alert";

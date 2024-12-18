@@ -1,0 +1,84 @@
+$browser-context:16;
+@function rem($pixels, $context: $browser-context) {
+    @return #{$pixels/$context}rem;
+}
+
+.figure {
+    padding: 22px 14px 14px 13px;
+	border-radius: 4px;
+	width: 304px;
+    margin: 0 $base-spacing $qtr-spacing 0;
+    transition: all 0.5s ease 0s;
+    -webkit-transition: all 0.5s ease 0s;
+    cursor: pointer;
+    box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.14);
+    position: relative;
+
+    .icon-tick-check {
+        font-size: rem(16);
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        .path1 {
+            &::before {
+                color: #ccc;
+            }
+        }
+    }
+
+    &.active {
+        border-bottom: 3px solid #059fd9;
+        box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
+        .icon-tick-check {    
+            .path1 {
+                &::before {
+                    color: #059fd9;
+                }
+            }
+        }
+    }
+
+    &:last-child {
+        margin-right: 0;
+    }
+
+    &:hover, &:focus, &:active {
+        box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .figure-img-wrap {
+        .figure-img {
+            margin-bottom: 0;
+        }
+    }
+
+    h4 {
+        color: #263238;
+        font-size: rem(14);
+        margin-bottom: 2px;
+        font-weight: 500;
+    }
+
+    p {
+        color: #4A4B57;
+        font-size: rem(11);
+        line-height: 15px;
+    }
+}
+
+
+
+.figure-caption {
+    width: 80%;
+    padding-left: 12px;
+}
+
+.light-grey50 {
+    color: #787885;
+}
+
+@media screen and (max-width:1920px) {
+    .figure{
+        width: 320px;
+    }
+}

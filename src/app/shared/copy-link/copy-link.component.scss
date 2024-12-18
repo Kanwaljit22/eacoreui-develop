@@ -1,0 +1,47 @@
+.popover-error {
+    background: #e12826;
+}
+
+.popover-error i:before {
+    color: #fff;
+}
+
+.popover-error .icon-close-btn {
+    background: #c61c1c !important;
+}
+
+.popover-error .icon-close-btn:hover {
+    background: #b20909 !important;
+}
+
+.popover-success {
+    background: #005073;
+}
+
+.popover-message span {
+    position    : relative;
+    display     : table-cell;
+    padding-left: 10px;
+    line-height : 24px;
+}
+
+.popover-message .icon-close-btn:hover:before,
+.popover-message .icon-close-btn:before {
+    color: #fff;
+}
+
+.popover-success .icon-close-btn {
+    background-color: rgba(0, 80, 115, 0.5) !important;
+}
+
+.popover-success .icon-close-btn:hover {
+    background-color: #005073 !important;
+}
+
+.popover-message i {
+    font-size     : 24px;
+    vertical-align: middle;
+    margin-right  : 15px;
+    display       : table-cell;
+    width         : 24px;
+}

@@ -1,0 +1,38 @@
+.authentication-hello-text {
+    text-align     : center;
+    clear          : both;
+    width          : 600px;
+    margin         : 0px auto;
+    display        : flex;
+    align-items    : center;
+    justify-content: center;
+    height         : 100vh;
+    flex-direction : column;
+}
+
+.authentication-hello-text h1 {
+    font-size  : 30px;
+    line-height: 30px;
+    color      : #585858;
+    font-weight: 100;
+    margin     : 0px 0px 20px;
+    padding    : 0px;
+}
+
+.authentication-hello-text h2 {
+    font-size  : 20px;
+    line-height: 20px;
+    color      : #585858;
+    font-weight: 100;
+    margin     : 0px 0px 38px;
+    padding    : 0px;
+}
+
+.authentication-hello-text h3 {
+    font-size  : 14px;
+    line-height: 20px;
+    color      : #999;
+    font-weight: 100;
+    margin     : 0px 0px 30px;
+    padding    : 0px;
+}

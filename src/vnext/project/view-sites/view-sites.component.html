@@ -1,0 +1,89 @@
+<div class="custom-flyout-overlay"></div>
+<div class="custom-flyout vNext w-990">
+    
+<div class="heading">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <div class="heading-title">
+            <h2 class="heading--h2">{{localizationService.getLocalizedString('view-sites.SITES_ASSOCIATED_WITH')}}</h2>
+        </div>
+
+        <div>
+            <!-- <a href="javascript:void(0)" class="mr-2"><span class="icon-full-screen mr-0"></span></a> -->
+            <button class="icon-close-btn" type="button" (click)="closeAllSites()"></button>
+        </div>
+    </div>
+    <div class="d-flex justify-content-between align-items-center">
+        <div class="">
+            <div class="dropdown">
+                <a class="mb-0" href="javascript:void(0);">{{subsidiariesStoreService.cavName}}
+                    <!-- <span class="icon-arrow-stroke ml-2"></span> -->
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="" class="dropdown-item">{{localizationService.getLocalizedString('view-sites.GOOGLE_INC')}}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- <div>
+            <button class="btn btn-secondary sm">Download Excel</button>
+            <button class="btn btn-primary sm disabled ml-2">Save Subsidiaries</button>
+        </div> -->
+    </div>
+</div>
+
+<div class="body">
+    <!-- <div class="col-12 mb-3">
+        <div class="d-flex">
+            <a href="javascript:void(0);"><span class="icon-filter mr-2"></span> Filters</a>
+        </div>
+    </div> -->
+    <app-message></app-message>
+    <div class="col-12">
+        <table class="primary-table">
+            <thead>
+                <tr>
+                    <th width="50%" class="">
+                        {{localizationService.getLocalizedString('view-sites.CUSTOMER_SITE/ORGANIZATION_NAME')}}
+                    </th>
+
+                    <!-- <th width="20%">
+                        Site ID
+                    </th> -->
+
+                    <th width="50%">
+                        {{localizationService.getLocalizedString('view-sites.COMPLETE_ADDRESS')}}
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor='let siteDetail of siteDetailsArray'>
+                    <td>
+                        <div class="d-flex justify-content-between">
+                            <label class="label-check">
+                                <input  [disabled]="true" class="form-check-input" [checked]="party?.selected || projectService.checkAndSetSelectedCrPartyFromDeal(subsidiariesStoreService.bu, siteDetail)" type="checkbox">
+                                <span
+                                class="custom-checkbox-btn i-vNext-fonts"><span class="path1"></span><span
+                                    class="path2"></span><span class="path3"></span></span><span></span><span>
+                                        <span class="cr-party-name" #popover="ngbPopover" triggers="mouseenter:mouseleave" placement="top" [ngbPopover]="siteDetail?.CR_PARTY_NAME">{{siteDetail?.CR_PARTY_NAME}}</span> <span class="cr-party-id">({{siteDetail?.CR_PARTY_ID}})</span>
+                                    </span></label> 
+                            <span class="badge fill hq ml-2" [ngClass]="{ 'hq' : siteDetail?.HQ_BRANCH_IND === 'HQ', 'br': siteDetail?.HQ_BRANCH_IND === 'BR'}">{{siteDetail?.HQ_BRANCH_IND}}</span>
+                        </div>
+                    </td>
+                    <!-- <td><span class="no-wrap"></span></td> -->
+                    <td><span class="cr-party-address" #popover="ngbPopover" triggers="mouseenter:mouseleave" placement="top"
+                        [ngbPopover]="getCompleteAddress(siteDetail)">{{getCompleteAddress(siteDetail)}}</span></td>
+                </tr>
+                <!-- End of Row -->
+            </tbody>
+        </table>
+    </div>
+    <!-- End of Table -->
+    <div *ngIf='paginationObject'>
+        <app-ng-pagination [paginationObject]="paginationObject" (updatedPaginationObject) = "paginationUpdated($event)"></app-ng-pagination>
+    </div>
+    
+</div>
+
+</div>

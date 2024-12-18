@@ -1,0 +1,6 @@
+<div class="popover-message popover-success" *ngIf="copyLinkService.messageVisible" >
+    <i class="icon-success"></i>
+    <span>{{copyLinkService.message}}</span>
+    <button (click)="copyLinkService.hideMessage()" class="icon-close-btn" type="button">
+    </button>
+  </div>

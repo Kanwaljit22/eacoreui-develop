@@ -1,0 +1,25 @@
+<div class="modal-body vNext modal-without-header">
+    <button class="icon-close-btn" type="button" attr.action-id="{{dataIdConstantsService.reviewAccept_button_closeIcon}}"  (click)="close()"></button>
+    <h2 class="mb-5">{{localizationService.getLocalizedString('review-accept.REVIEW_ACCEPT')}}</h2>
+    <!-- End of header -->
+    
+    <div class="vNext-lookup-desc pb-2 px-5">
+        <p class="mb-4">
+        <span class="d-block font-weight-bold my-3">{{localizationService.getLocalizedString('review-accept.ALMOST_DONE_PROJECT_CREATION')}}</span>
+        {{localizationService.getLocalizedString('review-accept.PROVIDING_ACCURATE_INFORMATION')}} <a target="_blank" attr.action-id="{{dataIdConstantsService.reviewAccept_link_businessConduct}}" href="http://wwwin.cisco.com/c/cec/organizations/legal/ethics/cobc.html">{{localizationService.getLocalizedString('review-accept.BUSINESS_CONDUCT')}}</a> {{localizationService.getLocalizedString('common.KNOWINGLY_FALSE_INFORMATION')}}
+        </p>
+
+        <div class="acknowldge-div mb-4">
+            <label class="label-check">
+                <input class="form-check-input" id="" type="checkbox" value="" (change)="reviewAccept()" attr.data-id="{{dataIdConstantsService.reviewAccept_checkbox_reviewAcceptProposal}}" [checked]="!disableButton">
+                <span class="custom-checkbox-btn i-vNext-fonts"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                <span>{{localizationService.getLocalizedString('review-accept.ACCURACY_OF_THE_DEAL_PARAMETERS')}}</span>
+            </label>
+        </div>
+    </div>
+
+    <div class="text-center d-block pb-4">
+        <button class="btn btn-secondary" type="button" attr.action-id="{{dataIdConstantsService.reviewAccept_button_closeButton}}" (click)="close()" id="{{elementIdConstantsService.ReviewAccept_Cancel}}">{{localizationService.getLocalizedString('common.CANCEL')}} </button>
+        <button class="btn btn-primary ml-1" type="button" (click)="accept()" attr.action-id="{{dataIdConstantsService.reviewAccept_button_accept}}" [disabled]="disableButton">{{localizationService.getLocalizedString('review-accept.ACCEPT')}}</button>
+    </div>
+</div>

@@ -1,0 +1,24 @@
+[
+    {
+        "colId": "ruleName",
+        "headerName": "Exception Rule Name",
+        "field": "ruleName",
+        "pinned": "left",
+        "suppressMenu": true,
+        "suppressSorting": true
+    },
+    {
+        "colId": "ruleDescription",
+        "headerName": "Exception Rule Description",
+        "field": "ruleDescription",
+        "suppressMenu": true,
+        "suppressSorting": true
+    },
+    {
+        "colId": "architecture",
+        "headerName": "Architecture",
+        "field": "architecture",
+        "suppressMenu": true,
+        "suppressSorting": true
+    }
+]

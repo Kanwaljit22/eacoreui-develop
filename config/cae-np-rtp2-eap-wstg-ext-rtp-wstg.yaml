@@ -1,0 +1,111 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+    annotations:
+        lae_uuid: '***LAE UUID***'
+    name: eaccwfe-wstg-rtp
+    namespace: eap-wstg-ext-rtp
+spec:
+    selector:
+        matchLabels:
+            name: eaccwfe-wstg-rtp
+    template:
+        metadata:
+            labels:
+                name: eaccwfe-wstg-rtp
+            annotations:
+                app_version: latest
+        spec:
+            imagePullSecrets:
+              - name: it-cvc-cisco-commerce-cre-pull-secret
+            containers:
+              - name: eaccwfe-wstg-rtp
+                image: containers.cisco.com/it_cvc_cisco_commerce/eaccwfe:${trigger["parameters"]["imageTag"]}
+                ports:
+                  - containerPort: 8080
+                    protocol: TCP
+                env:
+                  - name: "CISCO_ENV"
+                    value: "wstg"
+                  - name: "CISCO_DCNAME"
+                    value: "rtp"
+                  - name: "CISCO_DC"
+                    value: "dc3"
+                  - name: "APP_ID"
+                    value: "eaccwfe"
+                  - name: hostname
+                    valueFrom:
+                        fieldRef:
+                            apiVersion: v1
+                            fieldPath: spec.nodeName
+                  - name: NAMESPACE
+                    valueFrom:
+                        fieldRef:
+                            fieldPath: metadata.namespace
+                resources:
+                    limits:
+                        memory: 3Gi
+                    requests:
+                        cpu: 150m
+                volumeMounts:
+                  - name: podinfo
+                    mountPath: /etc/metadata
+                    readOnly: false
+                  - mountPath: /opt/webserver/logs
+                    name: eaccwfe-wstg-rtp
+                  - name: eaccwfe-wstg-rtp-app-logs
+                    mountPath: /home/jboss/lae-home/app-root/logs
+                  - name: eaccwfe-wstg-rtp-app-data
+                    mountPath: /home/jboss/data
+                  - name: eaccwfe-wstg-rtp-app-tmp
+                    mountPath: /tmp
+                imagePullPolicy: IfNotPresent
+                securityContext:
+                    capabilities: {}
+                    privileged: false
+                readinessProbe:
+                    failureThreshold: 3
+                    httpGet:
+                        path: /healthcheck.html
+                        port: 8080
+                        scheme: HTTP
+                    initialDelaySeconds: 180
+                    timeoutSeconds: 5
+                    periodSeconds: 10
+                    successThreshold: 1
+                livenessProbe:
+                    failureThreshold: 3
+                    httpGet:
+                        path: /healthcheck.html
+                        port: 8080
+                        scheme: HTTP
+                    initialDelaySeconds: 180
+                    timeoutSeconds: 5
+                    periodSeconds: 10
+                    successThreshold: 1
+            volumes:
+              - name: podinfo
+                downwardAPI:
+                    items:
+                      - path: labels
+                        fieldRef:
+                            fieldPath: metadata.labels
+                      - path: annotations
+                        fieldRef:
+                            fieldPath: metadata.annotations
+              - name: eaccwfe-wstg-rtp
+                emptyDir: {}
+              - name: eaccwfe-wstg-rtp-app-logs
+                emptyDir: {}
+              - name: eaccwfe-wstg-rtp-app-data
+                emptyDir: {}
+              - name: eaccwfe-wstg-rtp-app-tmp
+                emptyDir: {}
+            restartPolicy: Always
+            dnsPolicy: ClusterFirst
+    replicas: 2
+    strategy:
+        type: RollingUpdate
+        rollingUpdate:
+            maxSurge: 0
+            maxUnavailable: 1

@@ -1,0 +1,54 @@
+[
+    {
+        "quarter": "Net Price ALC (All Feature)",
+        "areas": [
+            {
+                "freq": {
+                    "Attach": 1810,
+                    "Renew": 0,
+                    "Refresh": 0,
+                    "value": 0
+                }
+            }
+        ]
+    },
+    {
+        "quarter": "BAU (Selected Features)",
+        "areas": [
+            {
+                "freq": {
+                    "Refresh": 860,
+                    "Renew": 0,
+                    "Attach": 0,
+                    "value": 0
+                }
+            }
+        ]
+    },
+    {
+        "quarter": "C1",
+        "areas": [
+            {
+                "freq": {
+                    "Renew": 1400,
+                    "Refresh": 0,
+                    "Attach": 0,
+                    "value": 0
+                }
+            }
+        ]
+    },
+    {
+        "quarter": "EA",
+        "areas": [
+            {
+                "freq": {
+                    "value": 1500,
+                    "Refresh": 0,
+                    "Attach": 0,
+                    "Renew": 0
+                }
+            }
+        ]
+    }
+]

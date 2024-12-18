@@ -1,0 +1,22 @@
+<div class="modal-body vNext modal-without-header">
+    <button class="icon-close-btn" (click)="close()" attr.action-id="{{dataIdConstantsService.delinkConfirm_button_close}}" type="button"></button>
+    <h2>{{'price-estimation.NO_HW_SUPPORT' | localizationPipe : localizationService.localizedkeySet.size}}</h2>
+</div>
+<div class="modal-body vNext modal-without-header">
+    <div class="col-12 marginB20">
+        <div class="d-flex justify-content-between align-items-center info-alert-blue bl-3">
+            <span class="d-flex align-items-center">
+              
+                <span
+                    class="pos-rel t-1">{{'price-estimation.CX_HW_DELINK_MSG' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+            </span>
+        </div>
+    </div>
+
+
+
+</div>
+<div class="modal-footer justify-content-center">
+    <button type="button" class="btn btn-secondary sm cancel-btn" (click)="close()" attr.action-id="{{dataIdConstantsService.delinkConfirm_button_cancel}}" id="{{elementIdConstantsService.DeLinkProposal_Cancel}}">{{'common.CANCEL' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+    <button class="btn btn-primary ml-2" type="button" (click)="delink()" attr.action-id="{{dataIdConstantsService.delinkConfirm_button_ok}}">{{'common.OK' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+</div>

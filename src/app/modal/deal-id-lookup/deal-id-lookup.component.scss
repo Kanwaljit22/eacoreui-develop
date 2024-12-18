@@ -1,0 +1,71 @@
+.modal-body .main-block-inner.active {
+    width: 100%;
+    border: 1px solid #ccc !important;
+    box-shadow: none;
+    margin-top: 15px;
+}
+
+.modal-body .myPros .col:nth-child(1) {
+    flex: 0 0 32.5%;
+    max-width: 100%;
+}
+
+.modal-body .myPros .col:nth-child(3) {
+    flex: 0 0 35.5%;
+    max-width: 100%;
+}
+
+.deal-summary {
+    background: #f8f8f8;
+    border-radius: 5px;
+    padding: 15px;
+    margin: 15px 0;
+}
+
+.deal-summary label {
+    display: block;
+    font-size: 14px;
+    color: #999;
+    line-height: 1;
+    margin-bottom: 8px;
+}
+
+.deal-summary span {
+    font-size: 16px;
+    letter-spacing: -0.01em;
+    color: #333;
+}
+
+.deal-summary [class^="col"] {
+    padding: 0 10px;
+}
+
+.look-up-message {
+    font-size: 22px;
+    color: #999999;
+    text-align: center;
+}
+
+.search-look-up img,
+.invalid-look-up img {
+    display: block;
+    margin: 0 auto 25px auto;
+}
+
+.invalid-look-up,
+.search-look-up {
+    background: #f8f8f8;
+    height: 310px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.search-look-up .tco-arrow {
+    height: 126px;
+    width: 220px;
+    top: 130px;
+    transform: rotateY(180deg);
+    left: 260px;
+}

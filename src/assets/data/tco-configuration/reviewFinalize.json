@@ -1,0 +1,114 @@
+{
+    "summaryData": {
+        "eaFinancialSummary": [
+            {
+                "heading": "Business-as-usual",
+                "values": [
+                    {
+                        "name": "Product List Price",
+                        "value": 7416000
+                    },
+                    {
+                        "name": "Service List Price",
+                        "value": ""
+                    },
+                    {
+                        "name": "Discounts",
+                        "value": "45%"
+                    }
+                ],
+                "footer": [
+                    {
+                        "name": "TCO value",
+                        "value": 5300014
+                    }
+                ]
+            },
+            {
+                "heading": "Enterprise Agreements",
+                "values": [
+                    {
+                        "name": "Product List Price",
+                        "value": 647100
+                    },
+                    {
+                        "name": "Service List Price",
+                        "value": ""
+                    },
+                    {
+                        "name": "Discounts",
+                        "value": "55%"
+                    }
+                ],
+                "footer": [
+                    {
+                        "name": "TCO value",
+                        "value": 3410500
+                    }
+                ]
+            }
+        ],
+        "customeroutcomes": [
+            {
+                "name": "Identity-based Policy & Segmentation",
+                "desc": "Decoupled security policy definition from VLAN and IP Address to enable rapid policy updates"
+            },
+            {
+                "name": "Workflow-based Automation",
+                "desc": "Workflows for Network Design, Provision, and Operations across Wired and Wireless provide consistency at scale"
+            },
+            {
+                "name": "Identity-based Policy & Segmentation",
+                "desc": "Decoupled security policy definition from VLAN and IP Address to enable rapid policy updates"
+            },
+            {
+                "name": "Workflow-based Automation",
+                "desc": "Workflows for Network Design, Provision, and Operations across Wired and Wireless provide consistency at scale"
+            }
+        ],
+        "analysis": [
+            {
+                "name": "Benefits",
+                "value": "32%",
+                "desc": "Calculations revealed, benefit of 32% with EA in comparison to Business-as-usual"
+            },
+            {
+                "name": "Savings",
+                "value": "1.4M",
+                "desc": "You can save 1.4M by selling through Enterprise Agreement"
+            }
+        ]
+    },
+    "chartData": [
+        {
+            "quarter": "Business-as-usual",
+            "areas": [
+                {
+                    "state": "ALC",
+                    "freq": {
+                        "EP": 2300000,
+                        "OB": 550000,
+                        "GB": 610000,
+                        "LCB": 670000,
+                        "eaBenefit": 0
+                    }
+                }
+            ]
+        },
+        {
+            "quarter": "Enterprise Agreement",
+            "areas": [
+                {
+                    "state": "EA Net Price",
+                    "freq": {
+                        "eaBenefit": 1330000,
+                        "EP": 2830000,
+                        "OB": 0,
+                        "GB": 0,
+                        "LCB": 0
+                    }
+                }
+            ]
+        }
+    ]
+}

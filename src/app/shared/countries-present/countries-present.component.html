@@ -1,0 +1,35 @@
+<div class=""  [ngClass]="{'debug-overlay': architectureView}"  (click)="countriesPresentService.showCountriesPresent = false;"></div>
+<div class="" [ngClass]="{'open': countriesPresentService.showCountriesPresent, 'right-flyout w-75': architectureView}">
+  <h1 *ngIf="architectureView" class="right-flyout--heading mb-0">{{localeService.getLocalizedString('common.COUNTRY')}} in {{customerData.customerName}}<span><i
+      class="icon-close-btn" (click)="close()"></i></span></h1>
+  <div class="" [ngClass]="{'right-flyout_content': architectureView}">
+    <div *ngIf="showTable">
+    <div class="right-flyout-scroll country-present mt-3">
+      <table width="100%" class="primary-table">
+        <thead> 
+          <tr>
+            <th width="40%">{{localeService.getLocalizedString('common.COUNTRY')}} Name</th>
+            <th width="20%">Contracts</th>
+            <th width="20%">Number of install sites</th>
+            <th width="20%">Qty found in the install base</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor='let country of countriesDetails;let i = index'>
+            <td>{{country.country}}</td>
+            <td>{{utilitiesService.formatWithNoDecimal(country.numberOfContracts)}}</td>
+            <td>{{utilitiesService.formatWithNoDecimal(country.numberOfInstallSites)}}</td>
+            <td>{{utilitiesService.formatWithNoDecimal(country.netEaQuantity)}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>   
+  </div>
+  </div>
+  <div *ngIf='!showTable && isDataLoaded' class="alert alert--info alert-dismissable">
+    <span class="alert-icon">
+      <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+  </span>
+    <span> No data found for Countries! </span>
+ </div>
+</div>

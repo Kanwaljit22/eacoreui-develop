@@ -1,0 +1,38 @@
+[
+    [
+        {
+            "id": 1,
+            "architectureName": "CISCO ONE",
+            "customer": 99,
+            "tcvAmount": "250B",
+            "customClass": "icon-cisco-one",
+            "active": false
+        },
+        {
+            "id": 2,
+            "architectureName": "SECURITY",
+            "customer": 99,
+            "tcvAmount": "250B",
+            "customClass": "icon-security",
+            "active": false
+        },
+        {
+            "id": 3,
+            "architectureName": "COLLABORATION",
+            "customer": 99,
+            "tcvAmount": "250B",
+            "customClass": "icon-collaboration",
+            "active": false
+        }
+    ],
+    [
+        {
+            "id": 1,
+            "architectureName": "NEW ARCHITECT",
+            "customer": 99,
+            "tcvAmount": "250B",
+            "customClass": "icon-collaboration",
+            "active": false
+        }
+    ]
+]

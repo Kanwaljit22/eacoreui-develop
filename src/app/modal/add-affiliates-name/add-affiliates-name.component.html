@@ -1,0 +1,81 @@
+<div class="modal-header">
+<h5 class="modal-title">{{localeService.getLocalizedMessage('common.MANAGE_AFFILIATES')}}</h5>
+<button class="icon-close-btn" type="button" (click)="close()" ></button>
+</div>
+<div class="modal-body">
+<div class="form-group label-textarea">
+    <div *ngIf='displayLimitMsg' class="alert alert--warning alert-dismissable">
+      <span class="alert-icon">
+        <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+      </span>
+      <span> 
+          You have exceeded the maximum(200) number of characters, Please use the upload capability to incorporate the list of participating affiliates.
+      </span>
+     </div>
+  <label class="form-control-placeholder" for="enterAffiliateName" (click)="focusInput('enterAffiliateName')">{{localeService.getLocalizedString('qual.whoinvolved.ENTER_AFF_NAMES')}}</label>
+  <textarea [id]='appDataService.createUniqueId("affiliatesName",appDataService.pageContext)' type="text" class="form-control" appElementFocus id="enterAffiliateName" [(ngModel)]="enterAffiliateName" name="enterAffiliateName" required="" (keydown)="utilitiesService.restrictSpecialChar($event)" (ngModelChange)="onChange()"></textarea>
+</div>
+<div ng2FileDrop [ngClass]="{'nv-file-over': hasBaseDropZoneOver, 'file-format-error': qualService.fileFormatError}"
+        (fileOver)="fileOverBase($event)" (onFileDrop)="dropped($event)" [uploader]="uploader" class="well my-drop-zone text-center m-0">
+        <div class="excelSheetIcon" *ngIf="!qualService.fileFormatError && this.fileName !== '' "></div>
+        <div *ngIf="!qualService.fileFormatError && fileName === '' ">
+          <span class="dragDropboxTitle">{{localeService.getLocalizedString('common.DRAG')}}
+            & {{localeService.getLocalizedString('common.DROP')}}</span>
+          <span class="dragDropboxText">{{localeService.getLocalizedString('common.YOUR_FILES')}}
+            <a [id]='appDataService.createUniqueId("browse",appDataService.pageContext)' href="javascript:" (click)="file.click()">{{localeService.getLocalizedString('common.BROWSE')}}</a>
+            {{localeService.getLocalizedString('common.TO_UPLOAD')}}<span  class="small-italic-text"> {{localeService.getLocalizedMessage('common.ONLY_PDF_SUPPORTED')}}</span> 
+          </span>
+        </div>
+        <div *ngIf="qualService.fileFormatError">
+          <span class="file-name">
+            <span class="icon-wrong-file">
+              <span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span>
+            </span>{{ fileName }}
+            <span class="icon-close-btn" (click)="clearFile()"
+              triggers="mouseenter:mouseleave"></span>
+          </span>
+          <span class="incorrect-format">{{localeService.getLocalizedString('qual.whoinvolved.FORMAT_NOT_SUPPORTED')}}
+            <!-- <a [id]='appDataService.createUniqueId("browse",appDataService.pageContext)' href="javascript:" (click)="file.click()">{{localeService.getLocalizedString('common.BROWSE')}}</a> -->
+          </span>
+        </div>
+        <input type="file" id="file" #file ng2FileSelect [uploader]="uploader" (change)="onFileChange($event)" hidden />
+        <div *ngIf="!qualService.fileFormatError && fileName">
+          <div>
+            <span  class="wrap-tmanageext">
+              <span class="icon-pdf1"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span
+                  class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span><span
+                  class="path8"></span></span>
+                  <span class="drag-drop-text">{{ fileName }}</span>
+              <span class="icon-close-btn" (click)="removeItem()" triggers="mouseenter:mouseleave"></span>
+            </span>
+          </div>
+          <!-- <div class="progress" style="margin-bottom: 0;" *ngIf="item.isUploading || item.isSuccess">
+                  <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': item.progress + '%' }"></div>
+              </div> -->
+          <div class="text-center">
+            <span *ngIf="!qualService.fileFormatError && fileName !== '' ">
+              <i class="glyphicon glyphicon-ok"></i>
+            </span>
+            <!-- <span *ngIf="item.isCancel">
+                      <i class="glyphicon glyphicon-ban-circle"></i>
+                  </span>
+                  <span *ngIf="item.isError">
+                      <i class="glyphicon glyphicon-remove"></i>
+                  </span> -->
+          </div>
+        </div>
+      </div>
+</div>
+<div class="modal-info-text">
+  <div>
+    {{localeService.getLocalizedMessage('common.ADD_AFFILIATES_INFO_MSG')}}
+  </div>
+  <div>
+    {{localeService.getLocalizedMessage('common.ADD_AFFILIATES_INFO_RECOMMENDED')}}
+  </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-secondary mr-0" (click)="close()"  type="button">{{localeService.getLocalizedString('common.CANCEL')}}</button>
+    <button class="btn btn-primary" type="button"  (click)="proceed()" [disabled]="qualService.fileFormatError || !isEnableProceed">{{localeService.getLocalizedString('common.UPDATE')}}</button>
+    
+</div> 

@@ -1,0 +1,23 @@
+<div class="ag-header-group-cell-label" *ngIf="params.displayName === 'suite'">
+  <div class="custom-check">
+      <label class="label-check">
+          <input class="form-check-input" type="checkbox" value="" name="xyz" id="xyz" [(ngModel)]="isChecked" (change)="checkValue()" [disabled] = 'disableCheckBox'>
+          <span class="custom-checkbox-btn">
+            <span class="path1"></span>
+            <span class="path2"></span>
+        </span>
+          <span class="ag-icon ag-icon-checkbox-checked"></span>
+        </label>
+    <label class="customHeaderLabel text-left" for="xyz">{{this.params.displayName}}
+    </label>
+  </div>
+</div>
+
+<div class="ag-cell-label-container" role="presentation" *ngIf="params.displayName !== 'suite'">   
+   <div ref="eLabel" class="ag-header-cell-label" role="presentation" unselectable="on"> 
+      <span ref="eText" class="ag-header-cell-text" role="columnheader" unselectable="on" aria-colindex="4">{{params.displayName}}
+        <span class=" cxEligibleSuites icon-alert-info1" placement="top-right" container="body"
+        ngbTooltip="This is Customer's Attach Rate per Quarterly Corporate Attach Rate Reporting and more details can be found on 'Help & Support'"></span>
+      </span>   
+    </div>
+</div>

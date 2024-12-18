@@ -1,0 +1,37 @@
+/*Body CSS*/
+body {
+    background: #fff;
+}
+
+/*Body CSS ends*/
+
+/*Sub Header CSS*/
+.sub-heaing h3 {
+    font-family   : "CiscoSans";
+    letter-spacing: 0.5px;
+    font-size     : 14px;
+    font-weight   : 300;
+    color         : #58585b;
+    padding       : 10px 0;
+    border-bottom : 1px solid #ccc;
+}
+
+.sub-heaing h3:after {
+    width     : 55px;
+    content   : "";
+    display   : block;
+    height    : 3px;
+    background: #005073;
+    position  : absolute;
+    bottom    : 0px;
+}
+
+/*Sub Header CSS ends*/
+
+/*Qualification Section CSS*/
+.badge-in-progress {
+    color           : #fff;
+    background-color: #f49138;
+}
+
+/*Qualification Section CSS ends*/

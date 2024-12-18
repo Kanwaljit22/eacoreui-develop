@@ -1,0 +1,208 @@
+<div class="custom-flyout-overlay"></div>
+<div class="custom-flyout vNext">
+    <div class="heading">
+        <div class="d-flex justify-content-between align-items-center mb-0">
+                <div class="heading-title">
+                    <h2 class="heading--h2 d-flex align-items-center">{{'price-estimation.TOTAL_CONTRACT' | localizationPipe : localizationService.localizedkeySet.size}} {{selectedEnrollemnt.name}}
+                            <!-- &nbsp;
+                            <div class="dropdown" (clickOutside)="showDropMenu = false;">
+                                <a class="mb-0 dropdown-link" href="javascript:void(0);"
+                                    (click)="showDropMenu = true;">{{selectedPoolName}}
+                                    <span class="icon-arrow-stroke ml-2"></span>
+                                </a>
+                                <ul class="dropdown-menu" [class.show]="showDropMenu">
+                                    <li *ngFor='let pool of pruchaseAdjusmentBreakupData'>
+                                        <a href="javascript:void(0);" class="dropdown-item"
+                                            (click)="selectPool(pool)">{{pool.desc}}</a>
+                                    </li>
+                                </ul>
+                            </div> -->
+                        </h2>
+                    </div>
+            <div>
+                <button class="icon-close-btn" (click)="priceEstimateService.showTcvBreakUp = false;" attr.action-id="{{dataIdConstantsService.tcvBreakUp_button_closeIcon}}" type="button"></button>
+            </div>
+        </div>
+    </div>
+    <!-- End of Heading -->
+
+    <div class="body">
+        <div class="fixTableHead">
+        <table class="primary-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">{{'common.SOLUTIONS_SUITES_ITEM_DESCRIPTION' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                    <th class="text-right" width="270px">{{'common.TOTAL_CONTRACT_VALUE' | localizationPipe : localizationService.localizedkeySet.size}}<br/>{{'common.PRE_OTD' | localizationPipe : localizationService.localizedkeySet.size}} ({{proposalStoreService.proposalData.currencyCode}})</th>
+                    <th  class="text-right" width="270px">{{'common.TOTAL_CONTRACT_VALUE' | localizationPipe : localizationService.localizedkeySet.size}}<br/>{{'common.POST_OTD' | localizationPipe : localizationService.localizedkeySet.size}} ({{proposalStoreService.proposalData.currencyCode}})</th>
+                </tr>
+                <!-- <tr>
+                    <th class="text-right" width="140px">Net Software Amount ({{proposalStoreService.proposalData.currencyCode}})</th>
+                    <th class="text-right" width="130px">Net Service Amount ({{proposalStoreService.proposalData.currencyCode}})</th>
+                    <th class="text-right" width="130px">Net Total Amount ({{proposalStoreService.proposalData.currencyCode}})</th>
+                    <th class="text-right" width="140px">Net Software Amount ({{proposalStoreService.proposalData.currencyCode}})</th>
+                    <th class="text-right" width="130px">Net Service Amount ({{proposalStoreService.proposalData.currencyCode}})</th>
+                    <th class="text-right" width="130px">Net Total Amount ({{proposalStoreService.proposalData.currencyCode}})</th>
+                </tr> -->
+            </thead>
+            <tbody>
+                    <ng-container *ngFor="let pool of selectedEnrollemnt.pools; let index = index;">
+                            <tr class="main-row">
+                                    <td>
+                                        <span class="expCol-wrap mr-2">
+                                            <span class="i-vNext-tree-close" *ngIf="!pool.hide"
+                                                (click)="expandPool(pool)" attr.action-id="{{dataIdConstantsService.tcvBreakUp_icon_expandPool}}{{index}}"></span>
+                                            <span class="i-vNext-tree-open" *ngIf="pool.hide"
+                                                (click)="expandPool(pool)" attr.action-id="{{dataIdConstantsService.tcvBreakUp_icon_collapsePool}}{{index}}"></span>
+                                        </span><span class="ellipsis" placement="top" container="body" triggers="manual" #t="ngbTooltip" (mouseenter)="showTooltip(t)" (mouseout)="hideTooltip(t)" (click)="t.close()" ngbTooltip="{{pool.name}}" attr.action-id="{{dataIdConstantsService.tcvBreakUp_link_poolName}}{{index}}">{{pool.desc}}</span>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <ng-container *ngIf="!pool.hide">
+                    <ng-container *ngFor="let suite of pool.suites; let j = index">
+                        <tr *ngIf = 'suite.inclusion' class="table-sub-row">
+                            <td>
+                                <span class="expCol-wrap mr-2">
+                                    <span class="i-vNext-tree-close" *ngIf="suite.expand"
+                                        (click)="expand(suite)" attr.action-id="{{dataIdConstantsService.tcvBreakUp_icon_expandSuite}}{{j}}"></span>
+                                    <span class="i-vNext-tree-open" *ngIf="!suite.expand"
+                                        (click)="expand(suite)" attr.action-id="{{dataIdConstantsService.tcvBreakUp_icon_collapseSuite}}{{j}}"></span>
+                                </span><span class="ellipsis" container="body" placement="top" triggers="manual" #t="ngbTooltip" (mouseenter)="showTooltip(t)" (mouseout)="hideTooltip(t)" (click)="t.close()" ngbTooltip="{{suite.name}}" attr.action-id="{{dataIdConstantsService.tcvBreakUp_link_suiteName}}{{j}}">{{suite.name}}</span>
+                            </td>
+                            <ng-container>
+                                <!-- <td class="text-right">{{suite.priceInfo?.totalSwNetBeforeCredit  ? 
+                                    utilitiesService.formatValue(utilitiesService.getFloatValue(suite.priceInfo.totalSwNetBeforeCredit))
+                                    : '--'}}</td>
+                                <td class="text-right">{{suite.priceInfo?.totalSrvcNetBeforeCredit ? 
+                                    utilitiesService.formatValue(utilitiesService.getFloatValue(suite.priceInfo.totalSrvcNetBeforeCredit))
+                                    : '--'}}</td> -->
+                                <td class="text-right">{{suite.priceInfo?.totalNetBeforeCredit ? 
+                                    utilitiesService.formatValue(utilitiesService.getFloatValue(suite.priceInfo.totalNetBeforeCredit))
+                                    : '--'}}</td>
+                                <!-- <td class="text-right">{{suite.priceInfo?.totalSwNet ? 
+                                    utilitiesService.formatValue(utilitiesService.getFloatValue(suite.priceInfo.totalSwNet))
+                                    : '--'}}</td>
+                                <td class="text-right">{{suite.priceInfo?.totalSrvcNet ? 
+                                    utilitiesService.formatValue(utilitiesService.getFloatValue(suite.priceInfo.totalSrvcNet))
+                                    : '--'}}</td> -->
+                                    <td class="text-right">{{suite.priceInfo?.totalNet ? 
+                                            utilitiesService.formatValue(utilitiesService.getFloatValue(suite.priceInfo.totalNet))
+                                            : '--'}}</td>
+                            </ng-container>
+
+
+                        </tr>
+                        <ng-container *ngIf="suite.expand">
+                            <ng-container *ngIf="(selectedEnrollemnt.primary && !eaService.isSpnaFlow); else checkForPids">
+                                <ng-container *ngIf="selectedEnrollemnt.id != 4; else  collabEnrollment">
+                                    <tr *ngFor="let line of suite.lines; let k = index;" class="table-sub-row level-2">
+                                        <td><span class="ellipsis" container="body" placement="top" triggers="manual" #t="ngbTooltip" (mouseenter)="showTooltip(t)" (mouseout)="hideTooltip(t)" (click)="t.close()" ngbTooltip="{{line.desc}}" attr.action-id="{{dataIdConstantsService.tcvBreakUp_link_lineDesc}}{{k}}">{{line.desc}}</span></td>
+    
+                                        <ng-container class="d-none">
+                                            <!-- <td class="text-right">{{line.priceInfo?.totalSwNetBeforeCredit ? 
+                                                utilitiesService.formatValue(utilitiesService.getFloatValue(line.priceInfo?.totalSwNetBeforeCredit))
+                                                : '--'}}</td>
+                                            <td class="text-right">{{line.priceInfo?.totalSrvcNetBeforeCredit ? 
+                                                utilitiesService.formatValue(utilitiesService.getFloatValue(line.priceInfo?.totalSrvcNetBeforeCredit))
+                                                : '--'}}</td> -->
+                                            <td class="text-right">{{line.priceInfo?.totalNetBeforeCredit ? 
+                                                utilitiesService.formatValue(utilitiesService.getFloatValue(line.priceInfo?.totalNetBeforeCredit))
+                                                : '--'}}</td>
+                                            <!-- <td class="text-right">{{line.priceInfo?.totalSwNet ? 
+                                                utilitiesService.formatValue(utilitiesService.getFloatValue(line.priceInfo?.totalSwNet))
+                                                : '--'}}</td>
+                                            <td class="text-right">{{line.priceInfo?.totalSrvcNet ? 
+                                                utilitiesService.formatValue(utilitiesService.getFloatValue(line.priceInfo?.totalSrvcNet))
+                                                : '--'}}</td> -->
+                                                <td class="text-right">{{line.priceInfo?.totalNet ? 
+                                                        utilitiesService.formatValue(utilitiesService.getFloatValue(line.priceInfo?.totalNet))
+                                                        : '--'}}</td>
+                                        </ng-container>
+    
+    
+                                    </tr>
+                                </ng-container>
+                                <ng-template #collabEnrollment>
+                                    <tr *ngFor="let pid of suite.pids; let m = index;" class="table-sub-row level-2">
+                                        <td><span class="ellipsis" container="body" placement="top" triggers="manual" #t="ngbTooltip" (mouseenter)="showTooltip(t)" (mouseout)="hideTooltip(t)" (click)="t.close()" ngbTooltip="{{pid.desc}}" attr.action-id="{{dataIdConstantsService.tcvBreakUp_link_pidDesc}}{{m}}">{{pid.desc}}</span></td>
+       
+                                        <ng-container class="d-none">
+                                          
+                                            <td class="text-right">{{pid.priceInfo?.totalNetBeforeCredit ? 
+                                                utilitiesService.formatValue(utilitiesService.getFloatValue(pid.priceInfo?.totalNetBeforeCredit))
+                                                : '--'}}</td>
+                                            
+                                                <td class="text-right">{{pid.priceInfo?.totalNet ? 
+                                                    utilitiesService.formatValue(utilitiesService.getFloatValue(pid.priceInfo?.totalNet))
+                                                    : '--'}}</td>
+                                        </ng-container>
+       
+                                      
+       
+                                    </tr>
+                                </ng-template>
+                            </ng-container>
+                            <ng-template #checkForPids>
+                                <tr *ngFor="let pid of suite.pids; let m = index;" class="table-sub-row level-2">
+                                    <td><span class="ellipsis" container="body" placement="top" triggers="manual" #t="ngbTooltip" (mouseenter)="showTooltip(t)" (mouseout)="hideTooltip(t)" (click)="t.close()" ngbTooltip="{{pid.disc}}" attr.action-id="{{dataIdConstantsService.tcvBreakUp_link_pidDesc}}{{m}}">{{pid.desc}}</span></td>
+
+                                    <ng-container class="d-none">
+                                        <!-- <td class="text-right">{{!pid.supportPid && pid.priceInfo?.totalNetBeforeCredit ? 
+                                            utilitiesService.formatValue(utilitiesService.getFloatValue(pid.priceInfo?.totalNetBeforeCredit))
+                                            : '--'}}</td>
+                                        <td class="text-right">{{pid.supportPid && pid.priceInfo?.totalNetBeforeCredit ? 
+                                            utilitiesService.formatValue(utilitiesService.getFloatValue(pid.priceInfo?.totalNetBeforeCredit))
+                                            : '--'}}</td> -->
+                                        <td class="text-right">{{pid.priceInfo?.totalNetBeforeCredit ? 
+                                            utilitiesService.formatValue(utilitiesService.getFloatValue(pid.priceInfo?.totalNetBeforeCredit))
+                                            : '--'}}</td>
+                                        <!-- <td class="text-right">{{ !pid.supportPid && pid.priceInfo?.totalNet ? 
+                                            utilitiesService.formatValue(utilitiesService.getFloatValue(pid.priceInfo?.totalNet))
+                                            : '--'}}</td>
+                                        <td class="text-right">{{ pid.supportPid && pid.priceInfo?.totalNet ? 
+                                            utilitiesService.formatValue(utilitiesService.getFloatValue(pid.priceInfo?.totalNet))
+                                            : '--'}}</td> -->
+                                            <td class="text-right">{{pid.priceInfo?.totalNet ? 
+                                                utilitiesService.formatValue(utilitiesService.getFloatValue(pid.priceInfo?.totalNet))
+                                                : '--'}}</td>
+                                    </ng-container>
+
+                                  
+
+                                </tr>
+                            </ng-template>
+                        
+                        </ng-container>
+                    </ng-container>
+                </ng-container>
+                </ng-container>
+                </tbody>
+            <tfoot>
+                <tr class="main-row">
+                    <td>{{'common.TOTAL' | localizationPipe : localizationService.localizedkeySet.size}}</td>
+                    <!-- <td class="text-right">{{total?.totalSwNetBeforeCredit ? 
+                        utilitiesService.formatValue(utilitiesService.getFloatValue(total.totalSwNetBeforeCredit))
+                        : '--'}}</td>
+                    <td class="text-right">{{total?.totalSrvcNetBeforeCredit ? 
+                        utilitiesService.formatValue(utilitiesService.getFloatValue(total.totalSrvcNetBeforeCredit))
+                        : '--'}}</td> -->
+                    <td class="text-right">{{total?.totalNetBeforeCredit ? 
+                        utilitiesService.formatValue(utilitiesService.getFloatValue(total.totalNetBeforeCredit))
+                        : '--'}}</td>
+                    <!-- <td class="text-right">{{total?.totalSwNet ? 
+                        utilitiesService.formatValue(utilitiesService.getFloatValue(total.totalSwNet))
+                        : '--'}}</td>
+                    <td class="text-right">{{total?.totalSrvcNet ? 
+                        utilitiesService.formatValue(utilitiesService.getFloatValue(total.totalSrvcNet))
+                        : '--'}}</td> -->
+                    <td class="text-right">{{total?.totalNet ? 
+                        utilitiesService.formatValue(utilitiesService.getFloatValue(total.totalNet))
+                        : '--'}}</td> 
+                   
+                </tr>
+            </tfoot>
+        </table>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,1374 @@
+{
+    "rid": "EAMP1716415815337",
+    "user": "rbinwani",
+    "error": false,
+    "data": {
+        "proposal": {
+            "objId": "663397e16307c36bcca5dad8",
+            "id": 9073947,
+            "projectObjId": "65f1de6d8ab94f6fc6075710",
+            "projectId": 114084,
+            "name": "Test prop pG 5/2",
+            "billingTerm": {
+                "rsd": "20240502",
+                "billingModel": "Prepaid",
+                "term": 36,
+                "eaEndDateStr": "20270501",
+                "eaEndDate": 1809154800000
+            },
+            "countryOfTransaction": "US",
+            "priceList": {
+                "id": "1109",
+                "name": "Global Price List - US"
+            },
+            "currencyCode": "USD",
+            "partnerInfo": {
+                "beGeoId": 639324,
+                "beGeoName": "ALEXANDER OPEN SYSTEMS, INC",
+                "pgtmvBeGeoId": 272241792
+            },
+            "customer": {
+                "accountName": "MAZDA MOTOR OF AMERICA INC",
+                "customerGuId": "146794",
+                "customerGuName": "MAZDA MOTOR CORPORATION",
+                "preferredLegalName": "MAZDA MOTOR OF AMERICA INC",
+                "preferredLegalAddress": {
+                    "addressLine1": "7755 IRVINE CENTER DR",
+                    "city": "IRVINE",
+                    "state": "CA",
+                    "zip": "92618",
+                    "country": "USA"
+                },
+                "federalCustomer": false,
+                "countryCode": "USA",
+                "duoCustomerType": {
+                    "federalCustomer": true,
+                    "legacyCustomer": false,
+                    "subscriptionLines": false,
+                    "hwTokenLines": false
+                },
+                "legacyCustomer": false
+            },
+            "dealInfo": {
+                "expectedBookDate": "30-Mar-2024",
+                "id": "70223477",
+                "statusDesc": "Not Submitted",
+                "optyOwner": "sfrench",
+                "buyMethodDisti": false,
+                "directRTM": false,
+                "dealScope": 3,
+                "dealSource": 0,
+                "dealType": 1,
+                "sfdcOptyId": "006DK00000DSXLGYA5",
+                "crPartyId": "33186153",
+                "changeSusbcriptionDeal": false,
+                "distiDeal": false,
+                "partnerDeal": false,
+                "salesLedDeal": true
+            },
+            "buyingProgram": "BUYING_PGRM_3",
+            "locked": false,
+            "status": "IN_PROGRESS",
+            "initiatedBy": {
+                "type": "CISCO",
+                "distiInitiated": false,
+                "resellerInitiated": false,
+                "ciscoInitiated": true
+            },
+            "audit": {
+                "createdBy": "prguntur",
+                "createdAt": 1714657249889,
+                "updatedBy": "rbinwani",
+                "updatedAt": 1716415809512
+            },
+            "priceInfo": {
+                "extendedList": 7969.68,
+                "unitNet": 0,
+                "originalExtendedList": 0,
+                "originalUnitList": 0,
+                "totalNet": 4747.92,
+                "totalNetBeforeCredit": 4747.92,
+                "totalNetAfterIBCredit": 0,
+                "unitListMRC": 0,
+                "unitNetMRC": 0,
+                "proposalPurchaseAdjustment": 0,
+                "listPrice": 0
+            },
+            "message": {
+                "hasError": true,
+                "messages": [
+                    {
+                        "code": "EA066",
+                        "text": "EA3-M - The configuration of this item is not valid. Click on the \"Edit Options\" link to configure the item. (CS470)",
+                        "severity": "ERROR",
+                        "createdAt": 1716415804494,
+                        "createdBy": "rbinwani",
+                        "identifier": "EA3-M",
+                        "level": "BUNDLE",
+                        "type": "CONFIG",
+                        "key": "EA066"
+                    },
+                    {
+                        "code": "EA066",
+                        "text": "EA3-M - Your Requested Start Date (21-May-2024) provided is invalid. A valid date range is between  22-May-2024 and 19-Aug-2024. Select a new Requested Start Date. (CS639)",
+                        "severity": "ERROR",
+                        "createdAt": 1716415804494,
+                        "createdBy": "rbinwani",
+                        "identifier": "EA3-M",
+                        "level": "BUNDLE",
+                        "type": "CONFIG",
+                        "key": "EA066"
+                    },
+                    {
+                        "code": "EA066",
+                        "text": "E3-SEC-ISE - The configuration of this item is not valid. Click on the \"Edit Options\" link to configure the item. (CS470)",
+                        "severity": "ERROR",
+                        "createdAt": 1716415804494,
+                        "createdBy": "rbinwani",
+                        "identifier": "E3-SEC-ISE",
+                        "level": "ATO",
+                        "type": "CONFIG",
+                        "groupIdentifier": "3",
+                        "key": "EA066"
+                    },
+                    {
+                        "code": "EA066",
+                        "text": "E3-SEC-ISE - Your Requested Start Date (21-May-2024) provided is invalid. A valid date range is between  22-May-2024 and 19-Aug-2024. Select a new Requested Start Date. (CS639)",
+                        "severity": "ERROR",
+                        "createdAt": 1716415804495,
+                        "createdBy": "rbinwani",
+                        "identifier": "E3-SEC-ISE",
+                        "level": "ATO",
+                        "type": "CONFIG",
+                        "groupIdentifier": "3",
+                        "key": "EA066"
+                    },
+                    {
+                        "code": "EA066",
+                        "text": "E3-ISE-SVS2 - The configuration of this item is not valid. Click on the \"Edit Options\" link to configure the item. (CS470)",
+                        "severity": "ERROR",
+                        "createdAt": 1716415804495,
+                        "createdBy": "rbinwani",
+                        "identifier": "E3-ISE-SVS2",
+                        "level": "ATO",
+                        "type": "CONFIG",
+                        "groupIdentifier": "5",
+                        "key": "EA066"
+                    },
+                    {
+                        "code": "EA066",
+                        "text": "E3-ISE-SVS2 - Your Requested Start Date (21-May-2024) provided is invalid. A valid date range is between  22-May-2024 and 19-Aug-2024. Select a new Requested Start Date. (CS639)",
+                        "severity": "ERROR",
+                        "createdAt": 1716415804495,
+                        "createdBy": "rbinwani",
+                        "identifier": "E3-ISE-SVS2",
+                        "level": "ATO",
+                        "type": "CONFIG",
+                        "groupIdentifier": "5",
+                        "key": "EA066"
+                    },
+                    {
+                        "code": "EA068",
+                        "text": "One or more errors exist or configuration is invalid in the proposal. Please fix errors to address the issue and re-price the proposal",
+                        "severity": "ERROR",
+                        "createdAt": 1716415804495,
+                        "createdBy": "rbinwani",
+                        "key": "EA068"
+                    },
+                    {
+                        "code": "EA037",
+                        "text": "You need to enter qty for E3-N-NW to proceed with proposal submission",
+                        "severity": "ERROR",
+                        "createdAt": 1716415809072,
+                        "createdBy": "rbinwani",
+                        "identifier": "E3-N-NW",
+                        "level": "ATO",
+                        "type": "ELIGIBILITY",
+                        "groupIdentifier": "1",
+                        "key": "EA037"
+                    },
+                    {
+                        "code": "EA037",
+                        "text": "You need to enter qty for E3-N-CS to proceed with proposal submission",
+                        "severity": "ERROR",
+                        "createdAt": 1716415809072,
+                        "createdBy": "rbinwani",
+                        "identifier": "E3-N-CS",
+                        "level": "ATO",
+                        "type": "ELIGIBILITY",
+                        "groupIdentifier": "1",
+                        "key": "EA037"
+                    }
+                ]
+            },
+            "commitInfo": {
+                "committed": false,
+                "threshold": 100000.0,
+                "partialCommitTcv": 4747.92
+            },
+            "forceAllowCompletion": false,
+            "programEligibility": {
+                "eligible": false,
+                "nonEligiblePrimaryEnrollments": [
+                    1
+                ],
+                "nonEligibleSecondaryEnrollments": [
+                    3
+                ],
+                "eligiblePrimaryEnrollments": [
+                    1
+                ],
+                "eligibleSecondaryEnrollments": [
+                    3
+                ]
+            },
+            "syncStatus": {
+                "configDirty": true,
+                "priceDirty": false,
+                "hanaDirty": false,
+                "quoteInSync": false,
+                "ruleDirty": true,
+                "cxCcwrPriceDirty": false
+            },
+            "deleted": false,
+            "scopeInfo": {
+                "scopeId": 20462,
+                "masterAgreementId": "EA24699",
+                "returningCustomer": false,
+                "eaidSelectionComplete": false,
+                "newEaidCreated": false,
+                "activeSecurityEducationInstitute": false
+            },
+            "reopenAudit": {
+                "createdBy": "prguntur",
+                "createdAt": 1715368883141,
+                "updatedBy": "prguntur",
+                "updatedAt": 1715368883141
+            },
+            "mspInfo": {
+                "mspAuthorizedQualcodes": [
+                    "EA3MSEAPE"
+                ],
+                "mspProposal": false,
+                "mspPartner": true
+            },
+            "sharedWithDistributor": false,
+            "scopeChanged": false,
+            "scopeIdMismatch": false,
+            "hideCollabPartnerNetPriceInfo": false,
+            "scopeChangeInProgress": false,
+            "summaryViewAllowed": false,
+            "statusDesc": "In Progress",
+            "changeSubDeal": false,
+            "changeSubBuyMoreSuiteDeal": false,
+            "allowCompletion": false
+        },
+        "enrollments": [
+            {
+                "id": 5,
+                "name": "Services",
+                "primary": false,
+                "enrolled": true,
+                "displayQnA": false,
+                "displaySeq": 5,
+                "billingTerm": {
+                    "rsd": "20240502",
+                    "billingModel": "Prepaid",
+                    "billingModelName": "Prepaid Term",
+                    "term": 36,
+                    "eaEndDateStr": "20270501",
+                    "eaEndDate": 1809154800000
+                },
+                "commitInfo": {
+                    "committed": false,
+                    "fcSuiteCount": 0,
+                    "pcSuiteCount": 1,
+                    "pcTcv": 727.92
+                },
+                "pools": [
+                    {
+                        "name": "Zero Trust Services",
+                        "desc": "Zero Trust Services",
+                        "displaySeq": 6550,
+                        "display": true,
+                        "suites": [
+                            {
+                                "name": "Services: Identity Services Engine (ISE)",
+                                "desc": "Services: Identity Services Engine (ISE)",
+                                "ato": "E3-ISE-SVS2",
+                                "inclusion": true,
+                                "autoSelected": false,
+                                "displaySeq": 6220,
+                                "discount": {
+                                    "subsDisc": 3E+1,
+                                    "servDisc": 29.99,
+                                    "multiProgramDesc": {
+                                        "msd": 0,
+                                        "mpd": 0,
+                                        "med": 0,
+                                        "bundleDiscount": 0,
+                                        "strategicOfferDiscount": 0
+                                    }
+                                },
+                                "billingTerm": {
+                                    "rsd": "20240521",
+                                    "billingModel": "Prepaid",
+                                    "term": 36,
+                                    "eaEndDateStr": "20270520",
+                                    "eaEndDate": 1810796400000
+                                },
+                                "commitInfo": {
+                                    "committed": false,
+                                    "fcSuiteCount": 0,
+                                    "pcSuiteCount": 0,
+                                    "overrideRequested": false,
+                                    "overrideEligible": false,
+                                    "overrideAllowed": false
+                                },
+                                "tiers": [
+                                    {
+                                        "name": "E3-ISE-SVS2",
+                                        "desc": "Services Tier 2",
+                                        "cxOptIn": false,
+                                        "displaySeq": 6210
+                                    },
+                                    {
+                                        "name": "E3-ISE-SVS1",
+                                        "desc": "Services Tier 1",
+                                        "cxOptIn": false,
+                                        "displaySeq": 6206
+                                    },
+                                    {
+                                        "name": "E3-ISE-SVS3",
+                                        "desc": "Services Tier 3",
+                                        "cxOptIn": false,
+                                        "displaySeq": 6220
+                                    }
+                                ],
+                                "displayGroup": false,
+                                "pids": [
+                                    {
+                                        "name": "E3-CX-ISE-T2S4P",
+                                        "desc": "SVCS Portfolio T2 24x7x4 OS ISE Support",
+                                        "displaySeq": 4,
+                                        "discount": {},
+                                        "priceInfo": {
+                                            "extendedList": 0,
+                                            "unitNet": 0,
+                                            "totalNet": 0,
+                                            "totalNetBeforeCredit": 0
+                                        },
+                                        "ncPriceInfo": {
+                                            "extendedList": 0,
+                                            "unitNet": 0,
+                                            "totalNet": 0,
+                                            "totalNetBeforeCredit": 0
+                                        },
+                                        "dtls": [
+                                            {}
+                                        ],
+                                        "type": "CX_HW_SUPPORT",
+                                        "typeDesc": "CX_HW_SUPPORT",
+                                        "discountDirty": false,
+                                        "disableForRTU": false,
+                                        "supportPid": true
+                                    },
+                                    {
+                                        "name": "E3-CX-ISE-T2NCO",
+                                        "desc": "SVCS Portfolio T2 8x7xNCD OS ISE Support",
+                                        "displaySeq": 6,
+                                        "discount": {},
+                                        "priceInfo": {
+                                            "extendedList": 0,
+                                            "unitNet": 0,
+                                            "totalNet": 0,
+                                            "totalNetBeforeCredit": 0
+                                        },
+                                        "ncPriceInfo": {
+                                            "extendedList": 0,
+                                            "unitNet": 0,
+                                            "totalNet": 0,
+                                            "totalNetBeforeCredit": 0
+                                        },
+                                        "dtls": [
+                                            {}
+                                        ],
+                                        "type": "CX_HW_SUPPORT",
+                                        "typeDesc": "CX_HW_SUPPORT",
+                                        "discountDirty": false,
+                                        "disableForRTU": false,
+                                        "supportPid": true
+                                    },
+                                    {
+                                        "name": "E3-CX-ISE-T2NT",
+                                        "desc": "SVCS Portfolio T2 8x5xNBD ISE Support",
+                                        "displaySeq": 1,
+                                        "discount": {},
+                                        "priceInfo": {
+                                            "extendedList": 0,
+                                            "unitNet": 0,
+                                            "totalNet": 0,
+                                            "totalNetBeforeCredit": 0
+                                        },
+                                        "ncPriceInfo": {
+                                            "extendedList": 0,
+                                            "unitNet": 0,
+                                            "totalNet": 0,
+                                            "totalNetBeforeCredit": 0
+                                        },
+                                        "dtls": [
+                                            {}
+                                        ],
+                                        "type": "CX_HW_SUPPORT",
+                                        "typeDesc": "CX_HW_SUPPORT",
+                                        "discountDirty": false,
+                                        "disableForRTU": false,
+                                        "supportPid": true
+                                    },
+                                    {
+                                        "name": "E3-CX-ISE-T2NC",
+                                        "desc": "SVCS Portfolio T2 8x7xNCD ISE Support",
+                                        "displaySeq": 2,
+                                        "discount": {},
+                                        "priceInfo": {
+                                            "extendedList": 0,
+                                            "unitNet": 0,
+                                            "totalNet": 0,
+                                            "totalNetBeforeCredit": 0
+                                        },
+                                        "ncPriceInfo": {
+                                            "extendedList": 0,
+                                            "unitNet": 0,
+                                            "totalNet": 0,
+                                            "totalNetBeforeCredit": 0
+                                        },
+                                        "dtls": [
+                                            {}
+                                        ],
+                                        "type": "CX_HW_SUPPORT",
+                                        "typeDesc": "CX_HW_SUPPORT",
+                                        "discountDirty": false,
+                                        "disableForRTU": false,
+                                        "supportPid": true
+                                    },
+                                    {
+                                        "name": "E3-CX-ISE-T2SWE",
+                                        "desc": "SVCS Portfolio T2 ISE SWSS Enhanced SW Support - OnPrem",
+                                        "displaySeq": 9,
+                                        "discount": {
+                                            "servDisc": 3E+1,
+                                            "unitNetDiscount": 3E+1
+                                        },
+                                        "priceInfo": {
+                                            "extendedList": 1039.68,
+                                            "unitNet": 20.22,
+                                            "totalNet": 727.92,
+                                            "totalNetBeforeCredit": 727.92
+                                        },
+                                        "ncPriceInfo": {
+                                            "extendedList": 1039.68,
+                                            "unitNet": 20.22,
+                                            "totalNet": 727.92,
+                                            "totalNetBeforeCredit": 727.92
+                                        },
+                                        "dtls": [
+                                            {
+                                                "qty": 1
+                                            }
+                                        ],
+                                        "type": "CX_SOLUTION_SUPPORT",
+                                        "typeDesc": "CX_SOLUTION_SUPPORT",
+                                        "discountDirty": false,
+                                        "disableForRTU": false,
+                                        "supportPid": true
+                                    },
+                                    {
+                                        "name": "E3-CX-ISE-T2NP",
+                                        "desc": "SVCS Portfolio T2 24x7x4 ISE Support",
+                                        "displaySeq": 3,
+                                        "discount": {},
+                                        "priceInfo": {
+                                            "extendedList": 0,
+                                            "unitNet": 0,
+                                            "totalNet": 0,
+                                            "totalNetBeforeCredit": 0
+                                        },
+                                        "ncPriceInfo": {
+                                            "extendedList": 0,
+                                            "unitNet": 0,
+                                            "totalNet": 0,
+                                            "totalNetBeforeCredit": 0
+                                        },
+                                        "dtls": [
+                                            {}
+                                        ],
+                                        "type": "CX_HW_SUPPORT",
+                                        "typeDesc": "CX_HW_SUPPORT",
+                                        "discountDirty": false,
+                                        "disableForRTU": false,
+                                        "supportPid": true
+                                    },
+                                    {
+                                        "name": "E3-CX-ISE-T2S2P",
+                                        "desc": "SVCS Portfolio T2 24x7x2 ISE Support",
+                                        "displaySeq": 7,
+                                        "discount": {},
+                                        "priceInfo": {
+                                            "extendedList": 0,
+                                            "unitNet": 0,
+                                            "totalNet": 0,
+                                            "totalNetBeforeCredit": 0
+                                        },
+                                        "ncPriceInfo": {
+                                            "extendedList": 0,
+                                            "unitNet": 0,
+                                            "totalNet": 0,
+                                            "totalNetBeforeCredit": 0
+                                        },
+                                        "dtls": [
+                                            {}
+                                        ],
+                                        "type": "CX_HW_SUPPORT",
+                                        "typeDesc": "CX_HW_SUPPORT",
+                                        "discountDirty": false,
+                                        "disableForRTU": false,
+                                        "supportPid": true
+                                    },
+                                    {
+                                        "name": "E3-CX-ISE-T2C2P",
+                                        "desc": "SVCS Portfolio T2 24x7x2 OS ISE Support",
+                                        "displaySeq": 8,
+                                        "discount": {},
+                                        "priceInfo": {
+                                            "extendedList": 0,
+                                            "unitNet": 0,
+                                            "totalNet": 0,
+                                            "totalNetBeforeCredit": 0
+                                        },
+                                        "ncPriceInfo": {
+                                            "extendedList": 0,
+                                            "unitNet": 0,
+                                            "totalNet": 0,
+                                            "totalNetBeforeCredit": 0
+                                        },
+                                        "dtls": [
+                                            {}
+                                        ],
+                                        "type": "CX_HW_SUPPORT",
+                                        "typeDesc": "CX_HW_SUPPORT",
+                                        "discountDirty": false,
+                                        "disableForRTU": false,
+                                        "supportPid": true
+                                    },
+                                    {
+                                        "name": "E3-CX-EAMSC",
+                                        "desc": "SVCS Portfolio EA Management Service Cisco",
+                                        "displaySeq": 10,
+                                        "discount": {
+                                            "servDisc": 3E+1,
+                                            "unitNetDiscount": 3E+1
+                                        },
+                                        "priceInfo": {
+                                            "extendedList": 0.00,
+                                            "unitNet": 0,
+                                            "totalNet": 0,
+                                            "totalNetBeforeCredit": 0
+                                        },
+                                        "ncPriceInfo": {
+                                            "extendedList": 0.00,
+                                            "unitNet": 0,
+                                            "totalNet": 0,
+                                            "totalNetBeforeCredit": 0
+                                        },
+                                        "dtls": [
+                                            {
+                                                "qty": 1
+                                            }
+                                        ],
+                                        "type": "CX_EAMS",
+                                        "typeDesc": "CX_EAMS",
+                                        "discountDirty": false,
+                                        "disableForRTU": false,
+                                        "supportPid": true
+                                    },
+                                    {
+                                        "name": "E3-CX-ISE-T2SCS",
+                                        "desc": "SVCS Portfolio T2 8x5xNBD OS ISE Support",
+                                        "displaySeq": 5,
+                                        "discount": {},
+                                        "priceInfo": {
+                                            "extendedList": 0,
+                                            "unitNet": 0,
+                                            "totalNet": 0,
+                                            "totalNetBeforeCredit": 0
+                                        },
+                                        "ncPriceInfo": {
+                                            "extendedList": 0,
+                                            "unitNet": 0,
+                                            "totalNet": 0,
+                                            "totalNetBeforeCredit": 0
+                                        },
+                                        "dtls": [
+                                            {}
+                                        ],
+                                        "type": "CX_HW_SUPPORT",
+                                        "typeDesc": "CX_HW_SUPPORT",
+                                        "discountDirty": false,
+                                        "disableForRTU": false,
+                                        "supportPid": true
+                                    }
+                                ],
+                                "priceInfo": {
+                                    "extendedList": 1039.68,
+                                    "unitNet": 0,
+                                    "totalNet": 727.92,
+                                    "totalNetBeforeCredit": 727.92,
+                                    "totalSrvcNet": 727.92,
+                                    "totalSrvcNetBeforeCredit": 727.92
+                                },
+                                "ncPriceInfo": {
+                                    "extendedList": 1039.68,
+                                    "unitNet": 0,
+                                    "totalNet": 727.92,
+                                    "totalNetBeforeCredit": 727.92
+                                },
+                                "disabled": false,
+                                "active": true,
+                                "cxOptIn": true,
+                                "cxSelectedTier": "E3-ISE-SVS2",
+                                "cxHwSupportOptedOut": true,
+                                "cxTierOptions": [],
+                                "migration": false,
+                                "type": "CX_SOLUTION_SUPPORT",
+                                "displayDiscount": true,
+                                "includedInEAID": false,
+                                "consentRequired": false,
+                                "cxHwSupportOnlySelected": false,
+                                "relatedSwAto": "E3-SEC-ISE",
+                                "atoTierOptions": [],
+                                "atoTier": "E3-ISE-SVS2"
+                            }
+                        ]
+                    }
+                ],
+                "priceInfo": {
+                    "extendedList": 1039.68,
+                    "unitNet": 0,
+                    "totalNet": 727.92,
+                    "totalNetBeforeCredit": 727.92,
+                    "purchaseAdjustment": 0,
+                    "totalSrvcNet": 727.92,
+                    "totalSrvcNetBeforeCredit": 727.92
+                },
+                "ncPriceInfo": {
+                    "extendedList": 1039.68,
+                    "unitNet": 0,
+                    "totalNet": 727.92,
+                    "totalNetBeforeCredit": 727.92
+                },
+                "disabled": false,
+                "includedInEAID": false,
+                "active": true,
+                "externalConfiguration": false,
+                "cxOptInAllowed": false,
+                "cxAttached": true,
+                "service": true,
+                "eamsDelivery": {
+                    "partnerDeliverySelected": false
+                },
+                "awaitingResponse": false,
+                "lineInError": false,
+                "discountCascadePending": false,
+                "hwSupportLinesState": "IN_SYNC",
+                "hardwareLinePricesInSync": true,
+                "cxSoftwareSupportOnly": true,
+                "disableRsdAndTermUpdate": false,
+                "embeddedHwSupportAttached": false
+            },
+            {
+                "id": 1,
+                "name": "Networking Infrastructure",
+                "eligibleForMigration": false,
+                "primary": true,
+                "enrolled": true,
+                "displayQnA": false,
+                "displaySeq": 1,
+                "billingTerm": {
+                    "rsd": "20240522",
+                    "billingModel": "Prepaid",
+                    "billingModelName": "Prepaid Term",
+                    "term": 36,
+                    "eaEndDateStr": "20270521",
+                    "eaEndDate": 1810882800000
+                },
+                "commitInfo": {
+                    "committed": false,
+                    "fcSuiteCount": 0,
+                    "pcSuiteCount": 2
+                },
+                "pools": [
+                    {
+                        "name": "Cloud Managed IT",
+                        "desc": "Cloud Managed IT",
+                        "displaySeq": 1706,
+                        "display": true,
+                        "suites": [
+                            {
+                                "name": "Networking",
+                                "desc": "Networking",
+                                "ato": "E3-N-NW",
+                                "inclusion": true,
+                                "autoSelected": false,
+                                "displaySeq": 1703,
+                                "discount": {},
+                                "billingTerm": {
+                                    "rsd": "20240522",
+                                    "billingModel": "Prepaid",
+                                    "term": 36,
+                                    "eaEndDateStr": "20270521",
+                                    "eaEndDate": 1810882800000
+                                },
+                                "commitInfo": {
+                                    "committed": false,
+                                    "fcSuiteCount": 0,
+                                    "pcSuiteCount": 0,
+                                    "threshold": 50000.00,
+                                    "overrideRequested": false,
+                                    "overrideEligible": false,
+                                    "overrideAllowed": false,
+                                    "ibQtyThreshold": {
+                                        "achieved": 0,
+                                        "required": 0
+                                    },
+                                    "priceThreshold": {
+                                        "achieved": 0,
+                                        "required": 50000.00
+                                    }
+                                },
+                                "groups": [
+                                    {
+                                        "id": "Wireless",
+                                        "name": "Wireless",
+                                        "displaySeq": 1
+                                    },
+                                    {
+                                        "id": "Routing",
+                                        "name": "Routing",
+                                        "displaySeq": 3
+                                    },
+                                    {
+                                        "id": "Sensors",
+                                        "name": "Sensors",
+                                        "displaySeq": 4
+                                    },
+                                    {
+                                        "id": "Switching",
+                                        "name": "Switching",
+                                        "displaySeq": 2
+                                    }
+                                ],
+                                "displayGroup": true,
+                                "lines": [
+                                    {
+                                        "id": "Meraki Z Advantage EA 3.0 LIC and Support",
+                                        "desc": "Meraki Z Advantage EA 3.0 LIC and Support",
+                                        "displaySeq": 11,
+                                        "groupId": "Routing"
+                                    },
+                                    {
+                                        "id": "Meraki MX X-Large Advantage EA 3.0 LIC and Support",
+                                        "desc": "Meraki MX X-Large Advantage EA 3.0 LIC and Support",
+                                        "displaySeq": 5,
+                                        "groupId": "Routing"
+                                    },
+                                    {
+                                        "id": "Meraki MX Large Advantage EA 3.0 LIC and Support",
+                                        "desc": "Meraki MX Large Advantage EA 3.0 LIC and Support",
+                                        "displaySeq": 4,
+                                        "groupId": "Routing"
+                                    },
+                                    {
+                                        "id": "Meraki MX X-Large Essentials EA 3.0 LIC and Support",
+                                        "desc": "Meraki MX X-Large Essentials EA 3.0 LIC and Support",
+                                        "displaySeq": 3,
+                                        "groupId": "Routing"
+                                    },
+                                    {
+                                        "id": "Meraki MS400 Medium Essentials EA 3.0 LIC and Support",
+                                        "desc": "Meraki MS400 Medium Essentials EA 3.0 LIC and Support",
+                                        "displaySeq": 15,
+                                        "groupId": "Switching"
+                                    },
+                                    {
+                                        "id": "Meraki MS100 Small Advantage EA 3.0 LIC and Support",
+                                        "desc": "Meraki MS100 Small Advantage EA 3.0 LIC and Support",
+                                        "displaySeq": 4,
+                                        "groupId": "Switching"
+                                    },
+                                    {
+                                        "id": "Meraki MX Medium Advantage EA 3.0 LIC and Support",
+                                        "desc": "Meraki MX Medium Advantage EA 3.0 LIC and Support",
+                                        "displaySeq": 7,
+                                        "groupId": "Routing"
+                                    },
+                                    {
+                                        "id": "Meraki MX Small Advantage EA 3.0 LIC and Support",
+                                        "desc": "Meraki MX Small Advantage EA 3.0 LIC and Support",
+                                        "displaySeq": 9,
+                                        "groupId": "Routing"
+                                    },
+                                    {
+                                        "id": "Meraki MR Essentials EA 3.0 LIC and Support",
+                                        "desc": "Meraki MR Essentials EA 3.0 LIC and Support",
+                                        "displaySeq": 1,
+                                        "groupId": "Wireless"
+                                    },
+                                    {
+                                        "id": "Meraki MS100 Small Essentials EA 3.0 LIC and Support",
+                                        "desc": "Meraki MS100 Small Essentials EA 3.0 LIC and Support",
+                                        "displaySeq": 1,
+                                        "groupId": "Switching"
+                                    },
+                                    {
+                                        "id": "Meraki MS200 Large Advantage EA 3.0 LIC and Support",
+                                        "desc": "Meraki MS200 Large Advantage EA 3.0 LIC and Support",
+                                        "displaySeq": 12,
+                                        "groupId": "Switching"
+                                    },
+                                    {
+                                        "id": "Meraki MS100 Large Essentials EA 3.0 LIC and Support",
+                                        "desc": "Meraki MS100 Large Essentials EA 3.0 LIC and Support",
+                                        "displaySeq": 3,
+                                        "groupId": "Switching"
+                                    },
+                                    {
+                                        "id": "Meraki MS300 Medium Essentials EA 3.0 LIC and Support",
+                                        "desc": "Meraki MS300 Medium Essentials EA 3.0 LIC and Support",
+                                        "displaySeq": 10,
+                                        "groupId": "Switching"
+                                    },
+                                    {
+                                        "id": "Meraki MS100 Large Advantage EA 3.0 LIC and Support",
+                                        "desc": "Meraki MS100 Large Advantage EA 3.0 LIC and Support",
+                                        "displaySeq": 6,
+                                        "groupId": "Switching"
+                                    },
+                                    {
+                                        "id": "Meraki Z Essentials EA 3.0 LIC and Support",
+                                        "desc": "Meraki Z Essentials EA 3.0 LIC and Support",
+                                        "displaySeq": 10,
+                                        "groupId": "Routing"
+                                    },
+                                    {
+                                        "id": "Meraki MS400 Large Essentials EA 3.0 LIC and Support",
+                                        "desc": "Meraki MS400 Large Essentials EA 3.0 LIC and Support",
+                                        "displaySeq": 16,
+                                        "groupId": "Switching"
+                                    },
+                                    {
+                                        "id": "Meraki MS400 Medium Advantage EA 3.0 LIC and Support",
+                                        "desc": "Meraki MS400 Medium Advantage EA 3.0 LIC and Support",
+                                        "displaySeq": 17,
+                                        "groupId": "Switching"
+                                    },
+                                    {
+                                        "id": "Meraki MS200 Large Essentials EA 3.0 LIC and Support",
+                                        "desc": "Meraki MS200 Large Essentials EA 3.0 LIC and Support",
+                                        "displaySeq": 8,
+                                        "groupId": "Switching"
+                                    },
+                                    {
+                                        "id": "Meraki MS300 Large Advantage EA 3.0 LIC and Support",
+                                        "desc": "Meraki MS300 Large Advantage EA 3.0 LIC and Support",
+                                        "displaySeq": 14,
+                                        "groupId": "Switching"
+                                    },
+                                    {
+                                        "id": "Meraki MR Advantage EA 3.0 LIC and Support",
+                                        "desc": "Meraki MR Advantage EA 3.0 LIC and Support",
+                                        "displaySeq": 2,
+                                        "groupId": "Wireless"
+                                    },
+                                    {
+                                        "id": "Meraki MS200 Medium Essentials EA 3.0 LIC and Support",
+                                        "desc": "Meraki MS200 Medium Essentials EA 3.0 LIC and Support",
+                                        "displaySeq": 7,
+                                        "groupId": "Switching"
+                                    },
+                                    {
+                                        "id": "Meraki MS300 Large Essentials EA 3.0 LIC and Support",
+                                        "desc": "Meraki MS300 Large Essentials EA 3.0 LIC and Support",
+                                        "displaySeq": 11,
+                                        "groupId": "Switching"
+                                    },
+                                    {
+                                        "id": "Meraki MT Large Essentials EA 3.0 LIC and Support",
+                                        "desc": "Meraki MT Large Essentials EA 3.0 LIC and Support",
+                                        "displaySeq": 1,
+                                        "groupId": "Sensors"
+                                    },
+                                    {
+                                        "id": "Meraki MS400 Large Advantage EA 3.0 LIC and Support",
+                                        "desc": "Meraki MS400 Large Advantage EA 3.0 LIC and Support",
+                                        "displaySeq": 18,
+                                        "groupId": "Switching"
+                                    },
+                                    {
+                                        "id": "Meraki MX Small Essentials EA 3.0 LIC and Support",
+                                        "desc": "Meraki MX Small Essentials EA 3.0 LIC and Support",
+                                        "displaySeq": 8,
+                                        "groupId": "Routing"
+                                    },
+                                    {
+                                        "id": "Meraki MS200 Medium Advantage EA 3.0 LIC and Support",
+                                        "desc": "Meraki MS200 Medium Advantage EA 3.0 LIC and Support",
+                                        "displaySeq": 9,
+                                        "groupId": "Switching"
+                                    },
+                                    {
+                                        "id": "Meraki MS300 Medium Advantage EA 3.0 LIC and Support",
+                                        "desc": "Meraki MS300 Medium Advantage EA 3.0 LIC and Support",
+                                        "displaySeq": 13,
+                                        "groupId": "Switching"
+                                    },
+                                    {
+                                        "id": "Meraki MS100 Medium Essentials EA 3.0 LIC and Support",
+                                        "desc": "Meraki MS100 Medium Essentials EA 3.0 LIC and Support",
+                                        "displaySeq": 2,
+                                        "groupId": "Switching"
+                                    },
+                                    {
+                                        "id": "Meraki MS100 Medium Advantage EA 3.0 LIC and Support",
+                                        "desc": "Meraki MS100 Medium Advantage EA 3.0 LIC and Support",
+                                        "displaySeq": 5,
+                                        "groupId": "Switching"
+                                    },
+                                    {
+                                        "id": "Meraki MG Essentials EA 3.0 LIC and Support",
+                                        "desc": "Meraki MG Essentials EA 3.0 LIC and Support",
+                                        "displaySeq": 1,
+                                        "groupId": "Routing"
+                                    },
+                                    {
+                                        "id": "Meraki MX Medium Essentials EA 3.0 LIC and Support",
+                                        "desc": "Meraki MX Medium Essentials EA 3.0 LIC and Support",
+                                        "displaySeq": 6,
+                                        "groupId": "Routing"
+                                    },
+                                    {
+                                        "id": "Meraki MX Large Essentials EA 3.0 LIC and Support",
+                                        "desc": "Meraki MX Large Essentials EA 3.0 LIC and Support",
+                                        "displaySeq": 2,
+                                        "groupId": "Routing"
+                                    }
+                                ],
+                                "disabled": false,
+                                "active": true,
+                                "cxOptIn": false,
+                                "migration": false,
+                                "displayDiscount": true,
+                                "includedInEAID": false,
+                                "consentRequired": false
+                            },
+                            {
+                                "name": "Camera Systems",
+                                "desc": "Camera Systems",
+                                "ato": "E3-N-CS",
+                                "inclusion": true,
+                                "autoSelected": false,
+                                "displaySeq": 1704,
+                                "discount": {},
+                                "billingTerm": {
+                                    "rsd": "20240522",
+                                    "billingModel": "Prepaid",
+                                    "term": 36,
+                                    "eaEndDateStr": "20270521",
+                                    "eaEndDate": 1810882800000
+                                },
+                                "commitInfo": {
+                                    "committed": false,
+                                    "fcSuiteCount": 0,
+                                    "pcSuiteCount": 0,
+                                    "threshold": 50000.00,
+                                    "overrideRequested": false,
+                                    "overrideEligible": false,
+                                    "overrideAllowed": false,
+                                    "ibQtyThreshold": {
+                                        "achieved": 0,
+                                        "required": 0
+                                    },
+                                    "priceThreshold": {
+                                        "achieved": 0,
+                                        "required": 50000.00
+                                    }
+                                },
+                                "displayGroup": false,
+                                "lines": [
+                                    {
+                                        "id": "Meraki MV Large Essentials EA 3.0 LIC and Support",
+                                        "desc": "Meraki MV Large Essentials EA 3.0 LIC and Support",
+                                        "displaySeq": 7
+                                    },
+                                    {
+                                        "id": "Meraki MV 30 Day Cloud Archive EA 3.0 License",
+                                        "desc": "Meraki MV 30 Day Cloud Archive EA 3.0 License",
+                                        "displaySeq": 3
+                                    },
+                                    {
+                                        "id": "Meraki MV 90 Day Cloud Archive EA 3.0 License",
+                                        "desc": "Meraki MV 90 Day Cloud Archive EA 3.0 License",
+                                        "displaySeq": 4
+                                    },
+                                    {
+                                        "id": "Meraki MV 180 Day Cloud Archive EA 3.0 License",
+                                        "desc": "Meraki MV 180 Day Cloud Archive EA 3.0 License",
+                                        "displaySeq": 5
+                                    },
+                                    {
+                                        "id": "Meraki MV Sense EA 3.0 License",
+                                        "desc": "Meraki MV Sense EA 3.0 License",
+                                        "displaySeq": 1
+                                    },
+                                    {
+                                        "id": "Meraki MV 7 Day Cloud Archive EA 3.0 License",
+                                        "desc": "Meraki MV 7 Day Cloud Archive EA 3.0 License",
+                                        "displaySeq": 2
+                                    },
+                                    {
+                                        "id": "Meraki MV 365 Day Cloud Archive EA 3.0 License",
+                                        "desc": "Meraki MV 365 Day Cloud Archive EA 3.0 License",
+                                        "displaySeq": 6
+                                    }
+                                ],
+                                "disabled": false,
+                                "active": true,
+                                "cxOptIn": false,
+                                "migration": false,
+                                "displayDiscount": true,
+                                "includedInEAID": false,
+                                "consentRequired": false
+                            }
+                        ]
+                    }
+                ],
+                "priceInfo": {
+                    "extendedList": 0,
+                    "unitNet": 0,
+                    "totalNet": 0,
+                    "totalNetBeforeCredit": 0
+                },
+                "ncPriceInfo": {
+                    "extendedList": 0,
+                    "unitNet": 0,
+                    "totalNet": 0,
+                    "totalNetBeforeCredit": 0
+                },
+                "disabled": false,
+                "includedInEAID": false,
+                "active": true,
+                "externalConfiguration": false,
+                "cxOptInAllowed": true,
+                "cxAttached": false,
+                "service": false,
+                "disableRsdAndTermUpdate": false,
+                "embeddedHwSupportAttached": false
+            },
+            {
+                "id": 3,
+                "name": "Security",
+                "primary": false,
+                "eligibleForMigration": true,
+                "enrolled": true,
+                "displayQnA": true,
+                "displaySeq": 4,
+                "billingTerm": {
+                    "rsd": "20240521",
+                    "billingModel": "Prepaid",
+                    "billingModelName": "Prepaid Term",
+                    "term": 36,
+                    "eaEndDateStr": "20270520",
+                    "eaEndDate": 1810796400000
+                },
+                "commitInfo": {
+                    "committed": false,
+                    "fcSuiteCount": 0,
+                    "pcSuiteCount": 1,
+                    "pcTcv": 4.02E+3
+                },
+                "pools": [
+                    {
+                        "name": "Zero Trust",
+                        "desc": "Zero Trust",
+                        "displaySeq": 4300,
+                        "display": true,
+                        "suites": [
+                            {"eligibleForMigration": false,
+                                "incompatibleSuites" : ["DUO","test"],
+                                "notEligibleForMigrationReason": ["Reason 1", "Reason 2"],
+                                "name": "Identity Services Engine (ISE)",
+                                "desc": "Identity Services Engine (ISE)",
+                                "ato": "E3-SEC-ISE",
+                                "inclusion": true,
+                                "autoSelected": true,
+                                "displaySeq": 4100,
+                                "discount": {
+                                    "subsDisc": 42,
+                                    "servDisc": 41.99,
+                                    "multiProgramDesc": {
+                                        "msd": 0,
+                                        "mpd": 0,
+                                        "med": 0,
+                                        "bundleDiscount": 0,
+                                        "strategicOfferDiscount": 0
+                                    }
+                                },
+                                "billingTerm": {
+                                    "rsd": "20240521",
+                                    "billingModel": "Prepaid",
+                                    "term": 36,
+                                    "eaEndDateStr": "20270520",
+                                    "eaEndDate": 1810796400000
+                                },
+                                "qtyUnit": "Sessions",
+                                "commitInfo": {
+                                    "committed": false,
+                                    "fcSuiteCount": 0,
+                                    "pcSuiteCount": 0,
+                                    "overrideRequested": false,
+                                    "overrideEligible": false,
+                                    "overrideAllowed": false,
+                                    "qtyThreshold": {
+                                        "achieved": 0,
+                                        "required": 1000
+                                    }
+                                },
+                                "groups": [
+                                    {
+                                        "id": "Identity Services Engine 3.0 (ISE)",
+                                        "name": "Identity Services Engine 3.0 (ISE)",
+                                        "displaySeq": 1
+                                    },
+                                    {
+                                        "id": "Support Options",
+                                        "name": "Support Options",
+                                        "displaySeq": 3
+                                    }
+                                ],
+                                "displayGroup": true,
+                                "pids": [
+                                    {
+                                        "name": "E3S-ISE-PRM",
+                                        "desc": "ISE Premium",
+                                        "displaySeq": 3,
+                                        "groupId": "Identity Services Engine 3.0 (ISE)",
+                                        "dtls": [
+                                            {}
+                                        ],
+                                        "type": "SUBSCRIPTION",
+                                        "typeDesc": "Subscription",
+                                        "typeDisplaySeq": 12,
+                                        "discountDirty": false,
+                                        "disableForRTU": false,
+                                        "supportPid": false
+                                    },
+                                    {
+                                        "name": "SVS-E3S-ISE-B",
+                                        "desc": "Basic Software Support for ISE",
+                                        "displaySeq": 1,
+                                        "groupId": "Support Options",
+                                        "discount": {
+                                            "servDisc": 3E+1,
+                                            "unitNetDiscount": 3E+1
+                                        },
+                                        "priceInfo": {
+                                            "extendedList": 0.00,
+                                            "unitNet": 0,
+                                            "totalNet": 0,
+                                            "totalNetBeforeCredit": 0
+                                        },
+                                        "ncPriceInfo": {
+                                            "extendedList": 0.00,
+                                            "unitNet": 0,
+                                            "totalNet": 0,
+                                            "totalNetBeforeCredit": 0
+                                        },
+                                        "credit": {
+                                            "nlCredits": [
+                                                {
+                                                    "nlCreditType": "SUBSCRIPTION_RESISDUAL_CREDIT",
+                                                    "totalCredit": 0,
+                                                    "reset": false,
+                                                    "adjusted": false
+                                                },
+                                                {
+                                                    "nlCreditType": "PERPETUAL_RESIDUAL_CREDIT",
+                                                    "totalCredit": 0,
+                                                    "reset": false,
+                                                    "adjusted": false
+                                                },
+                                                {
+                                                    "nlCreditType": "SERVICE_RESIDUAL_CREDIT",
+                                                    "totalCredit": 0,
+                                                    "reset": false,
+                                                    "adjusted": false
+                                                }
+                                            ]
+                                        },
+                                        "dtls": [
+                                            {
+                                                "qty": 1,
+                                                "ibQty": 0
+                                            }
+                                        ],
+                                        "type": "BASIC_SUPPORT",
+                                        "typeDesc": "BASIC_SUPPORT",
+                                        "discountDirty": false,
+                                        "disableForRTU": false,
+                                        "supportPid": true
+                                    },
+                                    {
+                                        "name": "E3S-ISE-ADV",
+                                        "desc": "ISE Advantage",
+                                        "displaySeq": 2,
+                                        "groupId": "Identity Services Engine 3.0 (ISE)",
+                                        "dtls": [
+                                            {}
+                                        ],
+                                        "type": "SUBSCRIPTION",
+                                        "typeDesc": "Subscription",
+                                        "typeDisplaySeq": 12,
+                                        "discountDirty": false,
+                                        "disableForRTU": false,
+                                        "supportPid": false
+                                    },
+                                    {
+                                        "name": "E3S-ISE-ESS",
+                                        "desc": "ISE Essentials",
+                                        "displaySeq": 1,
+                                        "groupId": "Identity Services Engine 3.0 (ISE)",
+                                        "discount": {
+                                            "servDisc": 42,
+                                            "unitNetDiscount": 42
+                                        },
+                                        "priceInfo": {
+                                            "extendedList": 6930.00,
+                                            "unitNet": 1.34,
+                                            "totalNet": 4.02E+3,
+                                            "totalNetBeforeCredit": 4.02E+3
+                                        },
+                                        "ncPriceInfo": {
+                                            "extendedList": 6930.00,
+                                            "unitNet": 1.34,
+                                            "totalNet": 4.02E+3,
+                                            "totalNetBeforeCredit": 4.02E+3
+                                        },
+                                        "credit": {
+                                            "nlCredits": [
+                                                {
+                                                    "nlCreditType": "SUBSCRIPTION_RESISDUAL_CREDIT",
+                                                    "totalCredit": 0,
+                                                    "reset": false,
+                                                    "adjusted": false
+                                                },
+                                                {
+                                                    "nlCreditType": "PERPETUAL_RESIDUAL_CREDIT",
+                                                    "totalCredit": 0,
+                                                    "reset": false,
+                                                    "adjusted": false
+                                                },
+                                                {
+                                                    "nlCreditType": "SERVICE_RESIDUAL_CREDIT",
+                                                    "totalCredit": 0,
+                                                    "reset": false,
+                                                    "adjusted": false
+                                                }
+                                            ]
+                                        },
+                                        "dtls": [
+                                            {
+                                                "qty": 1000,
+                                                "ibQty": 0
+                                            }
+                                        ],
+                                        "type": "SUBSCRIPTION",
+                                        "typeDesc": "Subscription",
+                                        "typeDisplaySeq": 12,
+                                        "discountDirty": false,
+                                        "disableForRTU": false,
+                                        "supportPid": false
+                                    }
+                                ],
+                                "ibDtls": [
+                                    {
+                                        "pidName": "E3S-ISE-ESS",
+                                        "qty": 0
+                                    },
+                                    {
+                                        "pidName": "SVS-E3S-ISE-B",
+                                        "qty": 0
+                                    }
+                                ],
+                                "priceInfo": {
+                                    "extendedList": 6.93E+3,
+                                    "unitNet": 0,
+                                    "totalNet": 4.02E+3,
+                                    "totalNetBeforeCredit": 4.02E+3,
+                                    "totalSwNet": 4.02E+3,
+                                    "totalSwNetBeforeCredit": 4.02E+3,
+                                    "totalSrvcNet": 0,
+                                    "totalSrvcNetBeforeCredit": 0
+                                },
+                                "ncPriceInfo": {
+                                    "extendedList": 6.93E+3,
+                                    "unitNet": 0,
+                                    "totalNet": 4.02E+3,
+                                    "totalNetBeforeCredit": 4.02E+3
+                                },
+                                "disabled": false,
+                                "active": true,
+                                "cxOptIn": false,
+                                "migration": false,
+                                "displayDiscount": true,
+                                "includedInEAID": false,
+                                "qualifiesForHigherScuRange": false,
+                                "consentRequired": false
+                            }
+                        ]
+                    }
+                ],
+                "priceInfo": {
+                    "extendedList": 6930,
+                    "unitNet": 0,
+                    "totalNet": 4020,
+                    "totalNetBeforeCredit": 4020,
+                    "totalSwNet": 4.02E+3,
+                    "totalSwNetBeforeCredit": 4.02E+3,
+                    "totalSrvcNet": 0,
+                    "totalSrvcNetBeforeCredit": 0
+                },
+                "ncPriceInfo": {
+                    "extendedList": 6930,
+                    "unitNet": 0,
+                    "totalNet": 4020,
+                    "totalNetBeforeCredit": 4020
+                },
+                "disabled": false,
+                "includedInEAID": false,
+                "active": true,
+                "externalConfiguration": false,
+                "cxOptInAllowed": true,
+                "cxAttached": true,
+                "service": false,
+                "securityTier": "TIER_3",
+                "selectedTierScuRange": {
+                    "min": 1000,
+                    "max": 4999
+                },
+                "disableRsdAndTermUpdate": false,
+                "embeddedHwSupportAttached": false
+            }
+        ]
+    },
+    "buildVersion": "NOV 11-14-2021 09:53 EST RELEASE",
+    "currentDate": 1716415815515
+}

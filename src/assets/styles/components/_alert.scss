@@ -1,0 +1,130 @@
+.alert {
+    @include border-radius(5px);
+    border: $no-spacing;
+    display: flex;
+    align-items: flex-start;
+    font-size: rem(14);
+    margin-bottom: $qtr-spacing !important;
+    padding: $qtr-spacing calc(#{$half-spacing} * 4) $qtr-spacing $half-spacing !important;
+    position: relative;
+    white-space: normal;
+    width: 100%;
+
+    &--info {
+        background-color: rgba(8, 81, 114, 0.1);
+        color: $primary-text;
+        border-color: $info !important;
+    }
+
+    &--success {
+        background-color: rgba(108, 192, 74, 0.1);
+        color: $primary-text;
+        border-color: $success !important;
+    }
+
+    &--warning {
+        background-color: rgba(244, 116, 33, 0.1);
+        color: $primary-text;
+        border-color: $warning !important;
+        
+    }
+
+    &--danger {
+        background-color: rgba(226, 35, 26, 0.1);
+        color: $primary-text;
+        border-color: $danger !important;
+    }
+
+    &--cx-info{
+        background-color: rgba(251, 171, 24, 0.2);
+        border: 1px solid #fbab18 !important;
+        color:$primary-text;
+        [class^='icon']{
+            font-size: 16px;
+            position: absolute;
+            top: 8px;
+            left: 10px;
+
+            &.yellow.icon-msg-Info .path1:before{
+                color:#fbab18;
+            }
+
+        }
+        .cx-msg{
+            display:flex;
+            justify-content: space-between;
+            width: 100%;
+            .msg{
+                font-size: rem(14);
+                line-height: rem(22);
+                padding-left: rem(25);
+                .icon-reload:before {
+                    color: #FBAB18;
+                }
+                
+                &.bold {
+                    font-weight: 700;
+                }
+            }
+            .label-check{
+                width: auto;
+                font-weight: 700;
+                align-self: center;
+                line-height: rem(22);
+            }
+        }
+
+        &.eligible{
+            background-color: #E7F8FF;;
+            border: 1px solid #005073 !important;
+        }
+        &.error{
+            background-color: #FEEDEC;
+            border: 1px solid #F44336 !important;
+            
+        }
+    }
+
+    &.dismissible {
+        padding-right: $base-spacing * 2;
+    }
+
+    .alert-icon {
+        margin-right: $half-spacing;
+        font-size: 16px;
+    }
+
+    a {
+        font-weight: 600;
+        text-decoration: underline;
+    }
+
+    .alert-action {
+        position: absolute;
+        right: $qtr-spacing;
+        top: 7px;
+    }
+}
+
+.credit-alert {
+    //line-height: 19px;
+    font-size: rem(14);
+    display: flex;
+    align-items: center;
+    color: #333333;
+    background: #E8EDF0;
+    border: 1px solid rgba(0, 80, 115, 0.4);
+    border-radius: 4px;
+    padding: 4px 10px;
+    margin-bottom: 10px;
+    .credit-icon {
+        background: url("../../images/credit-icon.svg") no-repeat;
+        padding-left: 43px;
+    }
+    a {
+        text-decoration: underline;
+        color: #005073;
+        white-space: nowrap;
+        align-self: flex-start;
+    }
+}

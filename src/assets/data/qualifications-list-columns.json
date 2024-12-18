@@ -1,0 +1,78 @@
+[
+    {
+        "headerName": "Qualifications",
+        "field": "qualName",
+        "width": 350,
+        "minWidth": 60,
+        "pinned": true,
+        "suppressMenu": true,
+        "suppressSorting": true
+    },  
+    {
+        "headerName": "Qualfication Id",
+        "field": "qualId",
+        "hide":true,
+        "width": 220,
+        "minWidth": 60,
+        "pinned": true,
+        "suppressMenu": true,
+        "suppressSorting": true
+    },  
+    {
+        "headerName": "Account Manager",
+        "field": "am",
+        "width": 150,
+        "minWidth": 60,
+        "suppressMenu": true,
+        "suppressSorting": true
+    },
+    {
+        "headerName": "Status",
+        "field": "status",
+        "width": 100,
+        "minWidth": 60,
+        "suppressMenu": true,
+        "suppressSorting": true,
+        "cellClass" : "grid-status"
+    },
+    {
+        "headerName": "Customer Name",
+        "field": "customerName",
+        "width": 200,
+        "minWidth": 60,
+        "suppressMenu": true,
+        "suppressSorting": true
+    },
+    {
+        "headerName": "Deal ID",
+        "field": "dealId",
+        "width": 100,
+        "minWidth": 60,
+        "suppressMenu": true,
+        "suppressSorting": true
+    },
+    {
+        "headerName": "Cisco Team",
+        "field": "salesTeam",
+        "width": 400,
+        "minWidth": 60,
+        "suppressMenu": true,
+        "suppressSorting": true
+    },
+    {
+        "headerName": "Partner Team",
+        "field": "partnerTeam",
+        "width": 400,
+        "minWidth": 60,
+        "suppressMenu": true,
+        "suppressSorting": true
+    },
+    {
+        "headerName": "Deal Type",
+        "field": "partnerDeal",
+        "width": 100,
+        "minWidth": 60,
+        "suppressMenu": true,
+        "suppressSorting": true
+    }
+]

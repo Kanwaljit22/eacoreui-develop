@@ -1,0 +1,34 @@
+
+<div style="position:absolute;z-index:10000">
+    <div [ngClass]="{'guide-me-overlay':(guideMeService.guideMeText && !caseForCx)}" (click)="closeGuideMe()"></div>
+    <div class="guide-me" [ngClass]="{'open':guideMeService.guideMeText && !caseForCx, 'cps-component':appDataService.showEngageCPS && displayCPS}" >
+          <!-- Proposals History start -->
+          <!-- <div class="guide-me__content proposals-history__content">
+                <div *ngIf="appDataService.showGuidemeAndSupport  && !appDataService.isPatnerLedFlow" class="guide-me__button" [ngClass]="{support:appDataService.showEngageCPS}" (click)="openGuideMe()"><i class="icon-guide-me"></i> {{localeService.getLocalizedString('guideme.GUIDE_ME')}}
+                    <span *ngIf="appDataService.showEngageCPS">{{localeService.getLocalizedString('guideme.SUPPORT')}}</span></div>
+          </div> -->
+          <!-- Proposals History end -->
+          <div class="guide-me__content">
+            <!-- <div *ngIf="appDataService.showGuidemeAndSupport  && !appDataService.isPatnerLedFlow" class="guide-me__button" [ngClass]="{support:appDataService.showEngageCPS}" (click)="openGuideMe()"><i class="icon-guide-me"></i> {{localeService.getLocalizedString('guideme.GUIDE_ME')}}
+            <span *ngIf="appDataService.showEngageCPS">{{localeService.getLocalizedString('guideme.SUPPORT')}}</span></div> -->
+            <h1 class="guide-me--label">{{localeService.getLocalizedString('guideme.HELP')}}<span (click)="closeGuideMe()"><i class="icon-close-btn"></i></span></h1>
+            
+            <div *ngIf='!displayCPS'>
+            <p class="label-head pl-4 pt-4">{{label}}</p>
+            <ul class="guide-me__list scroll-list--GuideMe">
+                <li class="guide-me__list--item" *ngFor="let feature of features">
+                    <label>{{feature.label}}</label>
+                    <span [innerHTML]="feature.description | stringToHtml"></span>
+                </li>
+            </ul>            
+			
+			</div>
+
+          </div> 
+          <div *ngIf='displayCPS'> 
+          <app-cps #cpsComponent *ngIf="appDataService.showEngageCPS && !displaySuiteDetails"></app-cps>
+          </div>
+    </div> 
+</div>
+
+<!--End Guide me-->

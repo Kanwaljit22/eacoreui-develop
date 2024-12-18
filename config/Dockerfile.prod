@@ -1,0 +1,14 @@
+FROM containers.cisco.com/pmantri/nginx:latest
+
+USER root
+
+RUN rm -rf /usr/share/nginx/html/*
+
+COPY creui /usr/share/nginx/html
+
+COPY nginx.conf /etc/nginx/nginx.conf
+
+RUN chgrp -R root /var/cache/nginx /var/run /var/log/nginx /etc/nginx/ && \
+    chmod -R 770 /var/cache/nginx /var/run /var/log/nginx /etc/nginx/
+
+CMD ["nginx", "-g", "daemon off;"]

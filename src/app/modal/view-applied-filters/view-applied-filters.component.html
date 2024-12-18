@@ -1,0 +1,150 @@
+<!--Start Common Modal Window-->
+<div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">Applied Filters</h5>
+    <button type="button" class="icon-close-btn" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+
+<div class="modal-body">
+    <div class="view-filter-clear text-right">
+        <a class="" [ngClass]="{'disabled': !getCount || disableClear}" (click)="clearApplied()">Clear</a>
+    </div>
+
+    <div class="view-applied-container">
+        <div class="view-applied-details">
+            <h5>Definition Description</h5>
+            <p class=""></p>
+        </div>
+        <div class="expanded">
+            <div class="table-responsive view-applied-table appliedFilter-table">
+                <table class="table-width">
+                    <thead [ngClass]="{'no-applied-filter': !getCount}">
+                        <tr>
+                            <th class="width50 label-check">
+                                <input [disabled]="disableHeaderCheck" type="checkbox" >
+                                <span class="custom-checkbox-btn">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                </span>
+                                <label>
+                  <span class="check"></span> Category</label>
+                            </th>
+                            <!--th class="width26">Sub Category</th-->
+                            <th>Filters</th>
+                        </tr>
+                    </thead>
+
+                    <tbody *ngIf="getCount">
+                        <ng-container *ngFor="let c of appliedFilters">
+
+                            <tr class="primary-row" *ngIf="c.type==='status'">
+                                <td>
+                                    <table>
+                                        <tbody>
+                                            <tr class="sub-level-row label-check" >
+                                                    <input type="checkbox" >
+                                                    <span class="custom-checkbox-btn">
+                                                        <span class="path1"></span>
+                                                        <span class="path2"></span>
+                                                    </span>
+                                                    <label><span class="check"></span> {{c.displayName}}</label>                                             
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+
+                            <tr class="primary-row" *ngIf="c.type==='range'">
+                                <td>
+                                    <table>
+                                        <tbody>
+                                            <!-- <ng-container *ngFor="let row of c.categories; let i = index"> -->
+                                                <tr class="sub-level-row">
+                                                    <td class="no-border view-filters-heading width50 label-check" >
+                                                        <input type="checkbox" >
+                                                        <span class="custom-checkbox-btn">
+                                                            <span class="path1"></span>
+                                                            <span class="path2"></span>
+                                                        </span>
+                                                        <label>
+                                                            <span class="check"></span> {{c.displayName}}
+                                                        </label>
+                                                    </td>
+                                                 
+                                                </tr>
+                                            <!-- </ng-container> -->
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+
+                            <tr class="primary-row" *ngIf="c.type==='dropdown' ">
+                                <td>
+                                    <table>
+                                        <tbody>                                           
+                                                <tr class="sub-level-row" >
+                                                    <td class="no-border view-filters-heading width50">
+                                                        <input type="checkbox" >
+                                                        <label>
+                                                         <span class="check"></span> {{c.displayName}}
+                                                        </label>
+                                                    </td>
+                                                </tr>                                            
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+
+                        </ng-container>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="empty-filter-wrapper text-center" *ngIf="!getCount">
+            <div class="iconEmptyFilter">
+                <span class="icon-no-filter"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span>
+                </span>
+            </div>
+            <div class="empty-filter-text">
+                <h4>No Applied Filters</h4>
+                <p>To apply new filters, click on Show Filters on Prospects page</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- End of definition Decription-->
+
+    <div class="modal-footer">
+        <button aria-label="Close" (click)="activeModal.dismiss('Cross click')" class="button filled-btn border-btn" type="button">Cancel</button>
+        <button class="button filled-btn blue" [ngClass]="{'disabled': !getCount || isSaveDisabled}" type="button">Save Changes</button>
+    </div>
+
+    <!-- <div class="insight-filter-content">
+        <div class="expanded">
+            <div class="table-responsive view-applied-table">
+                <table class="table-width">
+                    <tbody>
+                    <tr class="primary-row">
+                        <td>
+                            <table>
+                                <tbody>
+                                	<tr class="sub-level-row">
+	                                    <td class="no-border view-filters-heading width20">Insights</td>
+	                                    <td class="width22">Propensity for TS Attach <br><i>(US Commercial Only)</i></td>
+	                                    <td class="width58 td-width-tag">
+	                                    	<span class="name-tag">40% - 100%</span>
+	                                    </td>
+                                	</tr>
+                            </tbody>
+                        </table>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div> -->
+    <!-- End of Applied Insights -->
+</div>
+
+<!--End Common Modal Window-->

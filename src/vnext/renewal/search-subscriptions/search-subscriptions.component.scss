@@ -1,0 +1,41 @@
+.dropdown-table {
+  top: 100%;
+  left: 0;
+  right: 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  max-height: 300px;
+  z-index: 1000;
+
+  table {
+    thead {
+      background-color: #f0f0f0;
+    }
+
+    th,
+    td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      color: #333;
+    }
+
+    tbody tr:hover {
+      background-color: #f9f9f9;
+    }
+    
+    tfoot {
+      background-color: #f0f0f0;
+
+      tr {
+        td {
+          padding: 8px;
+          text-align: center;
+        }
+      }
+    }
+  }
+}

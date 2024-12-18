@@ -1,0 +1,12 @@
+<div class="modal-header">
+    <h5 class="modal-title">Access Temporary Restricted</h5>
+    <button type="button" class="icon-close-btn" data-dismiss="modal" aria-label="Close" (click)="cancel();"></button>
+</div>
+
+<div class="modal-body">
+    <div class="modal-icon-center text-center">
+        <span class="icon-not-done"></span>
+    </div>
+    <h2 class="heading--h2 text-center mb-2">Access Temporary Restricted</h2>
+    <div class="heading--h5 text-center normal mb-3" [innerHTML]="qualService.changSubAccessErrorMsg"></div>
+</div>

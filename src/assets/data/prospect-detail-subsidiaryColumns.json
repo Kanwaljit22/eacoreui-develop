@@ -1,0 +1,120 @@
+[
+    {
+        "headerName": "CUSTOMER GU NAME",
+        "field": "customerGuName",
+        "pinned": true,
+        "filterParams": {
+            "cellHeight": 25
+        },
+        "width": 320,
+        "minWidth": 60,
+        "cellRenderer": "group",
+        "showRowGroup": true,
+        "suppressMenu": true,
+        "cellRendererParams": {
+            "checkbox": false,
+            "suppressCount": true,
+            "innerRenderer": "innerCellRenderer"
+        }
+    },
+    {
+        "headerName": "PARTY",
+        "children": [
+            {
+                "headerName": "ID",
+                "field": "id",
+                "filterParams": {
+                    "cellHeight": 25
+                },
+                "width": 180,
+                "minWidth": 60,
+                "headerClass": "expand-border",
+                "suppressMenu": true,
+                "suppressSorting": true
+            },
+            {
+                "headerName": "ADDRESS 1",
+                "field": "address1",
+                "filterParams": {
+                    "cellHeight": 25
+                },
+                "width": 180,
+                "minWidth": 60,
+                "headerClass": "expand-border",
+                "suppressMenu": true,
+                "suppressSorting": true
+            },
+            {
+                "headerName": "ADDRESS 2",
+                "field": "address2",
+                "filterParams": {
+                    "cellHeight": 25
+                },
+                "width": 180,
+                "minWidth": 60,
+                "headerClass": "expand-border",
+                "columnGroupShow": "open",
+                "suppressMenu": true,
+                "suppressSorting": true
+            },
+            {
+                "headerName": "ADDRESS 3",
+                "field": "address3",
+                "filterParams": {
+                    "cellHeight": 25
+                },
+                "width": 180,
+                "minWidth": 60,
+                "headerClass": "expand-border",
+                "columnGroupShow": "open",
+                "suppressMenu": true,
+                "suppressSorting": true
+            },
+            {
+                "headerName": "CITY",
+                "field": "city",
+                "filterParams": {
+                    "cellHeight": 25
+                },
+                "width": 180,
+                "minWidth": 60,
+                "headerClass": "expand-border",
+                "suppressMenu": true,
+                "suppressSorting": true
+            }
+        ]
+    },
+    {
+        "headerName": "EA QTY",
+        "field": "eaQty",
+        "filterParams": {
+            "cellHeight": 25
+        },
+        "width": 180,
+        "minWidth": 60,
+        "cellClass": "text-center",
+        "suppressMenu": true
+    },
+    {
+        "headerName": "NET EA LICENSE AMOUNT (USD)",
+        "field": "nelAmount",
+        "filterParams": {
+            "cellHeight": 25
+        },
+        "width": 200,
+        "minWidth": 60,
+        "cellClass": "text-center",
+        "suppressMenu": true
+    },
+    {
+        "headerName": "NET EA SET AMOUNT (USD)",
+        "field": "nesAmount",
+        "filterParams": {
+            "cellHeight": 25
+        },
+        "width": 180,
+        "minWidth": 60,
+        "cellClass": "text-center",
+        "suppressMenu": true
+    }
+]

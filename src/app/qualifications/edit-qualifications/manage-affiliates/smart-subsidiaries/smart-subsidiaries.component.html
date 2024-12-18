@@ -1,0 +1,472 @@
+
+<div class="subsid-s-tabs container-fluid py-2 mb-2" *ngIf="!isSummaryList">
+    <div class="tabs-container" [ngClass]='{disabled: selectedpartySearchLabel === "Outside My GU"}'>
+        <label class='subsid-label d-none'>
+            View Insights by
+        </label>
+        <nav class="nav">
+            <a class="nav-link d-flex align-center"  [ngClass]='{active: selectedSubsidiaryType === "All Subsidiary"}' (click)="changeSeletedSubsidiary('All Subsidiary')">
+                <div class="d-inline-flex flex-row">
+                    <span class="icon-all-sub"></span>
+                    <span class="d-inline-flex flex-column">
+                        <label class="tab-label">All Subsidiaries</label>
+                        <span class="tab-value">{{totalNumberOfSubsidiary}}</span>
+                    </span>
+                </div>
+            </a>
+            <a class="nav-link d-flex align-center"  [ngClass]='{active: selectedSubsidiaryType === "Selected Subsidiary"}'  (click)="changeSeletedSubsidiary('Selected Subsidiary')">
+                <div class="d-inline-flex flex-row">
+                    <span class="icon-sel-sub"></span>
+                    <span class="d-inline-flex flex-column">
+                        <label class="tab-label">Selected Subsidiaries</label>
+                        <span class="tab-value">{{selectedNumberOfSubsidiary}}</span>
+                    </span>
+                </div>
+            </a>
+            <!--Begin Custom popover-->
+                <div class="custom-popover bottom-left" *ngIf="nodeSelectTooltip">
+                    <span class="icon-arrow-up"><span class="path1"></span><span class="path2"></span></span>
+                <div class="popover-description">You can see your selected items here explicitly.</div></div>
+                <!--End Custom popover--> 
+            <a class="nav-link d-flex align-center"  [ngClass]='{active: selectedSubsidiaryType === "Unselected Subsidiary"}' (click)="changeSeletedSubsidiary('Unselected Subsidiary')">
+                <div class="d-inline-flex flex-row">
+                    <span class="icon-unselect"></span>
+                    <span class="d-inline-flex flex-column">
+                        <label class="tab-label">Unselected Subsidiaries</label>
+                        <span class="tab-value" >{{totalNumberOfSubsidiary - selectedNumberOfSubsidiary}}</span>
+                    </span>
+                </div>
+            </a>
+        </nav>
+        <span class="label-check"  *ngIf='!qualService.qualification.prevChangeSubQualId'>
+            <input type="checkbox" name="selectAll" [(ngModel)]="selectAll" (ngModelChange)="selectAllRows($event)" [disabled]='affiliatesService.readOnlyMode'/>
+            Choose whole Customer Hierarchy
+            <span class="custom-checkbox-btn">
+                <span class="path1"></span>
+                <span class="path2"></span>
+            </span>
+        </span>
+    </div>
+
+    <div class="col p-0">
+        <ul class="qualify-btn">
+            <li><button id="saveButton"
+                [disabled]='!isSelectionChanged' class="btn btn-primary btn-continue" type="button"
+               (click)="saveSmartSubsidaries(null,null,true)"><span
+                   class="mid-text">Save</span></button>
+       </li>
+            <li><button [id]="appDataService.createUniqueId('MANAGE_LOCATIONS',appDataService.pageContext)"
+                    class="btn btn-secondary" *ngIf="showCleanCoreButton" (click)="redirectToCleanCore()"
+                    type="button">{{localeService.getLocalizedString('prospectdetails.MANAGE_LOCATIONS')}}</button>
+            </li>
+            <li><button [id]="appDataService.createUniqueId('VIEW_QUAL',appDataService.pageContext)"
+                    class="btn btn-secondary" type="button"
+                    (click)="viewQualification()">{{localeService.getLocalizedString('qual.create.VIEW_QUAL')}}</button>
+            </li>
+            <li
+                *ngIf="(qualService.qualification.qualStatus === constantsService.QUALIFICATION_COMPLETE) && !this.permissionService.qualReOpen">
+                <button (click)="reopenQual()" [disabled]="true" class="btn btn-primary mr-0" type="button"><span
+                        class="mid-text">{{localeService.getLocalizedString('common.REOPEN')}}
+                        Qualification</span></button>
+            </li>
+
+            <li class="btn-sep"><button [id]="appDataService.createUniqueId('BACK',appDataService.pageContext)"
+                    class="btn btn-secondary btn-back" (click)="backToGeography()" type="button"><span
+                        class="icon-btn-back"></span> <span
+                        class="mid-text">{{localeService.getLocalizedString('common.BACK')}}</span></button>
+            </li>
+            <li><button [id]="appDataService.createUniqueId('CONTINUE',appDataService.pageContext)"
+                     [disabled]='!isContinueEnabled' class="btn btn-primary btn-continue" type="button"
+                    (click)="continueToQualSummary()"><span
+                        class="mid-text">{{localeService.getLocalizedString('common.CONTINUE')}}</span> <span
+                        class="icon-btn-continue"></span></button>
+            </li>
+        </ul>
+    </div>
+    
+</div>
+
+<div class="main-table detail-subsidiary container-fluid eaProspect-table">
+    
+    <!-- <div class="refine-sub-search border-t-0" *ngIf="!isSummaryList">
+        <p>You got
+            <span class="token">
+                <label class="label-check">
+                    <input type="checkbox" />
+                    2 Head Quarters
+                    <span class="custom-checkbox-btn">
+                        <span class="path1"></span>
+                        <span class="path2"></span>
+                    </span>
+                </label>
+            </span>
+            and
+            <span class="token">
+                <label class="label-check">
+                    <input type="checkbox" />
+                    4 Branches
+                    <span class="custom-checkbox-btn">
+                        <span class="path1"></span>
+                        <span class="path2"></span>
+                    </span>
+                </label>
+            </span>
+            matching your search preferences.
+        </p>
+    </div> -->
+
+    <div class="add-affiliates--Proposal mb-2" (click)="openAddModal()" [ngClass]="{'disabled':disableAffiliates || qualService.qualification.prevChangeSubQualId}"
+        *ngIf="!isSummaryList">
+        <!--Add Affilicates-->
+        <span class="icon-add" *ngIf="!showChangeAffiliates()"><span class="path1"></span><span
+                class="path2"></span></span>
+        <a *ngIf="!showChangeAffiliates() && !disableAffiliates"
+            href="javascript:void(0);">{{localeService.getLocalizedMessage('common.ADD_AFFILIATES')}}</a>
+        <a
+            *ngIf="!showChangeAffiliates() && disableAffiliates">{{localeService.getLocalizedMessage('common.ADD_AFFILIATES')}}</a>
+
+        <!--Edit Affilicates-->
+        <div class="selected-affiliates" *ngIf="showChangeAffiliates()">
+            <span class="icon-edit-1"><span class="path1"></span><span class="path2"></span></span>
+            <a *ngIf="disableAffiliates">{{localeService.getLocalizedMessage('common.CHANGE_AFFILIATES')}}</a>
+            <a *ngIf="!disableAffiliates"
+                href="javascript:void(0);">{{localeService.getLocalizedMessage('common.CHANGE_AFFILIATES')}}</a>
+            <div class="added-info"><span>{{qualService.qualification.customerInfo.affiliateNames}}</span></div>
+
+
+        </div>
+        <div class="file-location" *ngIf="this.qualService.qualification.customerInfo.filename.length>0">
+            <span class="icon-pdf1"><span class="path1"></span><span class="path2"></span><span
+                    class="path3"></span><span class="path4"></span><span class="path5"></span><span
+                    class="path6"></span><span class="path7"></span><span class="path8"></span><span
+                    class="path9"></span><span class="path10"></span><span class="path11"></span><span
+                    class="path12"></span></span>
+            <span class="drag-drop-text">{{qualService.qualification.customerInfo.filename}}</span>
+        </div>
+
+    </div>
+
+    <div id="{{dynamicId}}filter-area" class="px-3 border-l-0 border-r-0 advanced-search-section">
+        <div class="row clearfix">
+            <div class="search-subSid" [class.col-12]="isSummaryList" [class.col]="!isSummaryList">
+                <div *ngIf="!isSummaryList">
+                    <!-- <div ngbDropdown class="d-inline-block">
+                        <label for="dropdownBasic1"> Search Party</label>
+                        <button class="btn btn-outline-primary" id="{{dynamicId}}dropdownBasic1"
+                            ngbDropdownToggle>{{selectedpartySearchLabel}}</button>
+                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                            <button ngbDropdownItem *ngFor="let partySearchLabel of partySearchLabel"
+                                (click)="changePartySearchLabel(partySearchLabel)"
+                                [ngClass]="{'active':selectedpartySearchLabel === partySearchLabel}">{{partySearchLabel}}</button>
+    
+                        </div>
+                        <input type="text" placeholder=" " class="search-input" [(ngModel)] = 'searchSubsidiaryByName'/>
+                        <span class="search-btn icon-search" (click)="searchSubsidiaryByName()"></span>
+                    </div>  -->
+                    <div>
+                            <app-dropdown-data-search [searchDropdown]="searchDropdown" [placeholder]="placeholder" (onSearch)= "searchSubsidiaryByName($event)" (updateDropdownField)='changePartySearchLabel($event)'></app-dropdown-data-search>
+                    </div>
+                </div>
+                
+                <!-- <div class="search-subSid--inputs" *ngIf="isSummaryList">
+                    <div ngbDropdown class="d-inline-block">
+                        <label for="dropdownBasic1"> Search By</label>
+                        <button class="btn btn-outline-primary" id="{{dynamicId}}dropdownBasic1"
+                            ngbDropdownToggle>{{selectedSummarySearch}}</button>
+                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                            <button ngbDropdownItem *ngFor="let opt of summaryPartySearchLabel"
+                                (click)="selectedSummarySearch = opt"
+                                [ngClass]="{'active':selectedSummarySearch ===opt}">{{opt}}</button>
+    
+                        </div>
+                        <input type="text" placeholder=" " class="search-input" />
+                        <span class="search-btn icon-search"></span>
+                    </div>
+                </div> -->
+                <div ngbDropdown  #advSearch="ngbDropdown" class="d-inline-block dropdown">
+    
+                    <button *ngIf= "selectedView === 'flat'" class="btn btn-outline-primary without-arrow" id="{{dynamicId}}dropdownBasic2"
+                        ngbDropdownToggle>Advanced Search</button>
+                    <div ngbDropdownMenu  aria-labelledby="dropdownBasic2" class="advanced-search">
+                        <span class="icon-down-arrow"></span>
+                        <div class="d-flex flex-row">
+                            <label class="outer-label"> Include </label>
+                            <div class="d-flex flex-column">
+                                <div class="d-flex flex-row">
+                                    <div class="advanced-search--input">
+                                        <input type="text" (input)='isNumberOnlyKey($event)' placeholder=" "  [(ngModel)]="filter.guId"  id="{{dynamicId}}GU-id" />
+                                        <label for="{{dynamicId}}GU-id">GU ID</label>
+                                    </div>
+                                    <div class="advanced-search--input">
+                                        <input type="text" (input)='isNumberOnlyKey($event)' placeholder=" "  [(ngModel)]="filter.partyId"  id="{{dynamicId}}party-id" />
+                                        <label for="{{dynamicId}}party-id">Party ID</label>
+                                    </div>
+                                    <div class="advanced-search--input">
+                                        <input type="text" (input)='isNumberOnlyKey($event)' placeholder=" "  [(ngModel)]="filter.parentId"  id="{{dynamicId}}parent-id" />
+                                        <label for="{{dynamicId}}parent-id">Parent ID</label>
+                                    </div>
+                                    <div class="advanced-search--input">
+                                        <input type="text" placeholder=" "  [(ngModel)]="filter.guName"  id="{{dynamicId}}GU-name" />
+                                        <label for="{{dynamicId}}GU-name">GU Name</label>
+                                    </div>
+                                </div>
+                                <div class="d-flex flex-row">
+                                    <div class="advanced-search--input">
+                                        <input type="text" placeholder=" "  [(ngModel)]="filter.partyName"  id="{{dynamicId}}party-name" />
+                                        <label for="{{dynamicId}}party-name">Party Name</label>
+                                    </div>
+                                    <div class="advanced-search--input">
+                                        <input type="text" placeholder=" "  [(ngModel)]="filter.parentName"  id="{{dynamicId}}parent-Name" />
+                                        <label for="{{dynamicId}}parent-Name">Parent Name</label>
+                                    </div>
+                                    <div class="advanced-search--input">
+                                        <!-- <select id="{{dynamicId}}party-type" [(ngModel)]="filter.partyType" placeholder=" ">
+                                            <option *ngFor="let item of partyType" [ngClass]="{'active':selectedPartyType === item.id}" [value]="item.id" >{{item.value}}</option>
+                                        </select> -->
+                                        <!--label for="{{dynamicId}}party-type" *ngIf="!filter.partyType">Party Type</label-->
+                                        <div ngbDropdown class="select-items " #myDrop="ngbDropdown" (click)="myDrop.open();">
+                                            <span class="dropdown--typeAhead__arrow-management">
+                                                    <button [class.selected]="selectedPartyType" id= "{{dynamicId}}party-type" type="button" appElementFocus class="btn--text drop-button" ngbDropdownAnchor dropdownManual>
+                                                        {{selectedPartyType}}
+                                                <label for="{{dynamicId}}party-type">Party Type</label></button>
+                                                </span>
+                                            <div ngbDropdownMenu aria-labelledby="dropdownBasic">
+                                                <ul>
+                                                    <li class="dropdown-item" *ngFor="let a of partyType"  (click)="ChangepartyType(a.id)">{{a.value}}</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="advanced-search--input">
+                                        <input type="text" placeholder=" "  [(ngModel)]="filter.country"  id="{{dynamicId}}country" />
+                                        <label for="{{dynamicId}}country">{{localeService.getLocalizedString('common.COUNTRY')}}</label>
+                                    </div>
+                                </div>
+                                <div class="d-flex flex-row">   
+                                    <div class="advanced-search--input d-none">
+                                        <input type="text" placeholder=" " disabled [(ngModel)]="filter.address1"  id="{{dynamicId}}address-line" />
+                                        <label for="{{dynamicId}}address-line">Address Line</label>
+                                    </div>
+                                    <div class="advanced-search--input">
+                                        <input type="text" placeholder=" "  [(ngModel)]="filter.city"  id="{{dynamicId}}city" />
+                                        <label for="{{dynamicId}}city">City</label>
+                                    </div>
+                                    <!--div class="advanced-search--input">
+                                        <input type="text" placeholder=" " [(ngModel)]="filter.country1"  id="{{dynamicId}}country" />
+                                        <label for="{{dynamicId}}country">Country</label>
+                                    </div -->
+                                    <div class="advanced-search--input">
+                                        <input type="text" placeholder=" " [(ngModel)]="filter.state"  id="{{dynamicId}}state" />
+                                        <label for="{{dynamicId}}state">State</label>
+                                    </div>
+                                    <div class="advanced-search--input">
+                                        <input type="text" placeholder=" " [(ngModel)]="filter.postalCode"  id="{{dynamicId}}Postal-code" />
+                                        <label for="{{dynamicId}}Postal-code">Postal Code</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-row">
+                            <label class="outer-label"> Exclude </label>
+                            <div class="d-flex flex-column">
+                                <div class="d-flex flex-row">
+                                    <div class="advanced-search--input">
+                                        <input type="text" (input)='isNumberOnlyKey($event)' placeholder=" "  [(ngModel)]="filter.excludeIds"  id="{{dynamicId}}GU-ids" />
+                                        <label for="{{dynamicId}}GU-ids">GU ID's</label>
+                                    </div>
+                                    <div class="advanced-search--input">
+                                        <input type="text" (input)='isNumberOnlyKey($event)' placeholder=" "  [(ngModel)]="filter.excludePartyIds"  id="{{dynamicId}}party-ids" />
+                                        <label for="{{dynamicId}}party-ids">Party ID's</label>
+                                    </div>
+                                    <div class="advanced-search--input">
+                                        <input type="text" (input)='isNumberOnlyKey($event)' placeholder=" "  [(ngModel)]="filter.excludeParentIds" id="{{dynamicId}}parent-ids" />
+                                        <label for="{{dynamicId}}parent-ids">Parent ID's</label>
+                                    </div>
+                                    <div class="advanced-search--input">
+                                        <input type="text" placeholder=" " [(ngModel)]="filter.excludeParentNames"  id="{{dynamicId}}parent-names" />
+                                        <label for="{{dynamicId}}parent-names">Parent Name's</label>
+                                    </div>
+                                </div>
+    
+                            </div>
+                        </div>
+                        <div class="advanced-search--footer">
+                            <button class="btn btn-primary" type="button"  (click)="applyAdvancedSearch()">Apply</button>
+                            <button class="btn btn-secondary" type="button" (click)="advSearch.close()">Cancel</button>
+                            <button class="btn btn-text my-2" type="button" (click)="resetAdvancedSearch()">Reset</button>
+                        </div>
+                    </div>
+                </div>
+                <ng-container *ngIf="isSummaryList">
+                    <span class="text sep">I want to view</span>
+                    <div ngbDropdown class="d-inline-block custom-dropdown">
+                        <button class="btn btn-outline-primary" id="dropdownBasic2" ngbDropdownToggle
+                            placement="bottom-right">{{selectedSubsidary}}</button>
+                        <div ngbDropdownMenu aria-labelledby="dropdownBasic2">
+                            <button ngbDropdownItem *ngFor="let label of subsidiaryDropDown"
+                                (click)="selectedSubsidary = label ; loadFlatViewData();"
+                                [ngClass]="{'active':selectedSubsidary === label}">{{label}}</button>
+                        </div>
+                    </div>
+                    <span class="text">with in</span>
+                    <div ngbDropdown class="d-inline-block custom-dropdown">
+                        <button class="btn btn-outline-primary" id="dropdownBasic3" ngbDropdownToggle
+                            placement="bottom-right">{{selectedCountry}}</button>
+                            <div ngbDropdownMenu aria-labelledby="dropdownBasic3" class="max-h-400">
+                                <button ngbDropdownItem *ngFor="let item of countryDropDown" (click)="selectedCountry = item.countries; loadFlatViewData();"
+                                    [ngClass]="{'active':selectedCountry === item.countries}">{{item.countries}}</button>
+                            </div>
+                    </div>
+                </ng-container>
+            </div>
+            <div class="col-auto" *ngIf="!isSummaryList">
+                <div class="right-container">
+                    <div class="d-flex flex-column viewable-data">
+                        <label for="">Within My GU/Outside My GU</label>
+                        <p class="value">{{selectedNumberOfSubsidiary}}/{{selectedOutsideGUCount}}</p>
+                    </div>
+                    <div class="sub-switch align-self-center">
+                        <label [ngClass]="{'active':selectedView ==='summary'}">Summary View</label>
+                        <span class="switch on" (click)="switchToggle()"
+                            [ngClass]="{'on':selectedView ==='summary' ,'off' :selectedView ==='flat'}"></span>
+                            <label [ngClass]="{'active':selectedView ==='flat'}">Flat View</label>
+                    </div>
+                    <div class="d-flex export">
+                        <a #downloadZipLink [hidden]="true"></a>
+                        <a (click)="exportDocs()" class="link"><span class="icon-Export-Vector pr-2"></span>Export</a>
+                    </div>
+                </div>
+            </div>
+            <message></message>
+        </div>
+    </div>
+
+    <div class="container-fluid px-0 selected-subs-wrap" *ngIf="!isSummaryList">
+        <div class="row">
+            <div class="col-7">
+                <div class="d-flex flex-column viewable-data">
+                    <label for="">Selected GU</label>
+                    <div class="value">{{selectedGu.guName}} 
+                        <a class="link ml-2" (click)="openAssosiatedGus($event)">Associated GU's <i class="down-arrow" (click)="openAssosiatedGus($event)"></i></a>
+                        <div class="new-pop " *ngIf="mode === 3" [ngStyle]="popStyle" [class.top-side]="showOnTop"
+                            [class.wid-700]="mode==1" [class.wid-350]="mode==2" (clickOutside)="hide()">
+                            <!-- <span class="icon-down-arrow-custom" [ngStyle]="arrowStyles" [class.rotate-180]="!showOnTop"></span> -->
+                            <div *ngIf="mode==3">
+                                <h4 class="heading--h4 dark bold mb-2">
+                                    <span class="title-inner ellipsis">Associated GUs ({{dataObject?.associatedGU?.length}})</span>
+                                    <span class="cross-icon-wrapper" (click)="hide()"><i class="icon-close-btn"></i></span>
+                                </h4>
+                                <div class="table-wrap-md">
+                                    <table class="primary-table mb-0">
+                                        <thead>
+                                            <tr class="grey-header">
+                                                <th>GU Name</th>
+                                                <th>GU ID</th>
+                                                <th class="width-sm text-right">{{localeService.getLocalizedString('common.COUNTRY')}} Present</th>
+                                                <th class="text-right">HQ</th>
+                                                <th class="width-sm text-right">Branches</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr [class.selected]="selectedGu.guId === c.guId" (click)="onGuChange(c)" *ngFor="let c of dataObject?.associatedGU">
+                                                <td class="pos-rel pr-4 upper-case">
+                                                    <a href="javascript:void(0);">{{c.guName}} <span class="icon-tick-01 show-right" *ngIf="selectedGu.guId === c.guId"></span></a>
+                                                </td>
+                                                <td>{{c.guId}}</td>
+                                                <td class="width-sm text-right">{{c.countriesCount}}</td>
+                                                <td class="text-right">{{c.hqCount}}</td>
+                                                <td class="width-sm text-right">{{c.branchesCount}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col d-flex justify-content-between" >
+                <div class="d-flex flex-column viewable-data">
+                    <label for="">GU ID</label>
+                    <div class="value">{{selectedGu.guId}} </div>
+                </div>
+                <div class="d-flex flex-column viewable-data">
+                    <label for="">{{localeService.getLocalizedString('common.COUNTRY')}} Present</label>
+                    <div class="value">{{selectedGu.countriesCount}}</div>
+                </div>
+                <div class="d-flex flex-column viewable-data">
+                    <label for="">Headquarters</label>
+                    <div class="value">{{selectedGu.hqCount}}</div>
+                </div>
+                <div class="d-flex flex-column viewable-data">
+                    <label for="">Branches</label>
+                    <div class="value">{{selectedGu.branchesCount}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div [hidden]="!showGrid" id="{{dynamicId}}qual-subsidiary" class="{{selectedView}}-view" (click)="updatedByUser($event)">
+        <ag-grid-angular #agGrid id="{{dynamicId}}ag-grid1" [autoHeight]="45" [min]="350" style="width: 100%;" class="ag-fresh child-header-grid pin-right-brd mt-2"
+            [defaultColDef]="defaultColDef" [gridOptions]="gridOptions" [columnDefs]="columnDefs" [rowData]="rowData"
+            (rowSelected)="onRowSelected($event)" [getNodeChildDetails]="getNodeChildDetails" [components]="components"
+            enableColResize enableSorting enableFilter groupHeaders suppressRowClickSelection toolPanelSuppressGroups
+            toolPanelSuppressValues debug rowHeight="30" rowSelection="multiple" (modelUpdated)="onModelUpdated()"
+            (bodyScroll)="hide()" (cellClicked)="onCellClicked($event)"           
+            (rowGroupOpened)="onRowGroupOpened($event)" (gridReady)="onReady()"           
+            [groupSelectsChildren]="true">
+        </ag-grid-angular>
+        
+        <!-- <ag-grid-angular #agGrid id="{{dynamicId}}ag-grid" style="width: 100%;height:600px;" class="ag-fresh table-height qualificationTable" [gridOptions]="gridOptions" [columnDefs]="columnDefs" [rowData]="affiliatesService.subsidiaryData" [getNodeChildDetails]="getNodeChildDetails"
+            [components]="components" enableColResize enableSorting enableFilter groupHeaders suppressRowClickSelection toolPanelSuppressGroups toolPanelSuppressValues debug rowHeight="26" rowSelection="multiple" (modelUpdated)="onModelUpdated()" (cellClicked)="onCellClicked($event)"
+            (cellDoubleClicked)="onCellDoubleClicked($event)" (cellContextMenu)="onCellContextMenu($event)" (cellValueChanged)="onCellValueChanged($event)" (cellFocused)="onCellFocused($event)" (rowSelected)="onRowSelected($event)" (selectionChanged)="onSelectionChanged()"
+            (beforeFilterChanged)="onBeforeFilterChanged()" (afterFilterChanged)="onAfterFilterChanged()" (filterModified)="onFilterModified()" (beforeSortChanged)="onBeforeSortChanged()" (afterSortChanged)="onAfterSortChanged()" (virtualRowRemoved)="onVirtualRowRemoved($event)"
+            (rowClicked)="onRowClicked($event)" (gridReady)="onReady($event)" (columnEverythingChanged)="onColumnEvent($event)" (columnRowGroupChanged)="onColumnEvent($event)" (columnValueChanged)="onColumnEvent($event)" (columnMoved)="onColumnEvent($event)"
+            (columnVisible)="onColumnEvent($event)" (columnGroupOpened)="onColumnEvent($event)" (columnResized)="onColumnEvent($event)" (columnPinnedCountChanged)="onColumnEvent($event)"
+            [groupSelectsChildren]="true">
+        </ag-grid-angular> -->
+    </div>
+    <div *ngIf="noResultFound" class="clearfix mt-4 text-center" id="noSearchData"><span class="icon-no-result-found"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span><span class="path8"></span><span class="path9"></span><span class="path10"></span><span class="path11"></span></span>
+        <h6>No Result Found </h6></div>
+    <div class="marginB20 w-100 float-left"></div>
+    <div class="paginationSize" *ngIf="totalRows >0 && !searchSubsidiaryName && !affiliatesService.isAdvanceSearchApplied && !affiliatesService.showFlyoutView">
+        
+        <app-pagination  [paginationObject]="paginationObject"></app-pagination>
+    </div>
+</div>
+ <div class="new-pop " *ngIf="mode < 3" [ngStyle]="popStyle" [class.top-side]="showOnTop" 
+    [class.wid-700]="mode==1" [class.wid-350]="mode==2" (clickOutside)="hide()">
+    <div *ngIf="mode==1">
+        <div class="row">
+            <div class="col-md-12">
+                <h4 class="heading--h4 dark bold mb-1">
+                    <span class="title-inner ellipsis">Node Hierarchy for '{{selectedRow?.partyName}}'</span>
+                    <span class="batch">{{selectedRow?.nodeType}}</span>
+                    <span (click)="hide()"><i class="icon-close-btn"></i></span>
+                </h4>
+                <h6 class="heading--h6 light mb-1">There are {{affiliateDetailList?.length}} Subsidiary in this {{selectedRow?.nodeType}}</h6>
+            </div>
+        </div>
+        <app-subsidiary-list *ngIf="mode==1" [rows]="affiliateDetailList"></app-subsidiary-list>
+    </div>
+    <div *ngIf="mode==2">
+        <div class="max-h-300">
+            <table class="primary-table define-sub-table mb-0">
+                <thead>
+                    <tr class="grey-header">
+                        <th>{{localeService.getLocalizedString('common.COUNTRY')}} Name</th>
+                        <th class="text-right">HQ</th>
+                        <th class="width-sm text-right">Branches</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let c of selectedRow.countries">
+                        <td>{{c.countries}}</td>
+                        <td class="text-right">{{c.hqCount}}</td>
+                        <td class="width-sm text-right">{{c.branchesCount}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div> 
+<app-subsidary-summary-list *ngIf="showSummary" [selectedRow]="selectedRow" showSummary="showSummary" (onClose)="closeFlyoutView()"></app-subsidary-summary-list>

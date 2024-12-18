@@ -1,0 +1,45 @@
+[
+    {
+        "id": 40480809,
+        "name": "Test Partner Led",
+        "customerName": "INTERNATIONAL BUSINESS MACHINES CORPORATION",
+        "quoteID": "10055870496",
+        "status":"Not Submitted",
+        "expectedBookedDate":"08-Jan-2020"
+    },
+     {
+        "id": 40480790,
+        "name": "CAD Partner Led Oct14 test",
+        "customerName": "IBM CORPORATION",
+        "quoteID": "10055870465",
+        "status":"Not Submitted",
+        "expectedBookedDate":"08-Jan-2020"
+
+    },
+     {
+        "id": 40480654,
+        "name": "CAD Partner Led",
+        "customerName": "IBM CORPORATION",
+        "quoteID": "10055870283",
+        "status":"Approval In Progress",
+        "expectedBookedDate":"08-Jan-2020"
+
+    },
+     {
+        "id": 40480652,
+        "name": "CAD Partner Led",
+        "customerName": "IBM CORPORATION",
+        "quoteID": "10055870281",
+        "status":"Not Submitted",
+        "expectedBookedDate":"08-Jan-2020"
+
+    },
+     {
+        "id": 40480464,
+        "name": "Cisco One",
+        "customerName": "Microsoft",
+        "quoteID": "12345",
+        "status":"Qualified",
+        "expectedBookedDate":"08-Jan-2020"
+    }
+]

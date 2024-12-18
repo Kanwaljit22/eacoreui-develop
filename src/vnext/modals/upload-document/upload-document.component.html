@@ -1,0 +1,78 @@
+<div class="modal-body vNext modal-without-header">
+    <button class="icon-close-btn" (click)="close()" attr.action-id="{{dataIdConstantsService.uploadDoc_button_close}}" type="button"></button>
+
+    <h2>{{'upload-document.CONFIRMATION' | localizationPipe : localizationService.localizedkeySet.size}}</h2>
+</div>
+<div class="modal-body vNext modal-without-header mx-4">
+    <div class="row">
+        <div class="col-12 mb-3">
+            <h6 class="card-title heading--h6 bolder mb-4">{{'common.HELLO' | localizationPipe : localizationService.localizedkeySet.size}} {{eaStoreService.userInfo.firstName}},</h6>
+            <div class="conf-text mt-4">{{'upload-document.REQUIRED_TO_INDICATE_DATES' | localizationPipe : localizationService.localizedkeySet.size}}</div>
+        </div>
+
+        <div class="col-md-6 mt-2" *ngIf="docData?.isProgramtermsPresent">
+            <div class="form-group datePicker mt-0">
+                <h6 class="card-title heading--h6 bolder mb-1">{{'common.PROGRAM_TERMS_SIGNED' | localizationPipe : localizationService.localizedkeySet.size}}</h6>
+                <input appElementFocus readonly="true" type="text" class="form-control" #dpFull="bsDatepicker"  placeholder="{{'upload-document.SELECT_DATE_PLACEHOLDER' | localizationPipe : localizationService.localizedkeySet.size}}"
+                [(ngModel)]="signedDate" placement="bottom right" [minDate]="" [maxDate]="todaysDate" bsDatepicker attr.data-id="{{dataIdConstantsService.uploadDoc_text_programTermsSignedDate}}"
+                (bsValueChange)="onDateSelection($event)"  [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY', showWeekNumbers: false }" [bsConfig]="{containerClass:'theme-vNext'}">
+            
+                    <span class="cal-wrap" (click)="dpFull.toggle()" [attr.aria-expanded]="dpFull.isOpen"><span class="i-vNext-calendar"></span></span>
+            </div>
+        </div>
+
+        <div class="col-md-6 mt-2" *ngIf="docData?.isLoaPresent">
+            <div class="form-group datePicker mt-0">
+                <h6 class="card-title heading--h6 bolder mb-1">{{'common.LOA_SIGNED' | localizationPipe : localizationService.localizedkeySet.size}}</h6>
+                <input appElementFocus readonly="true" type="text" class="form-control" #dpFull="bsDatepicker"  placeholder="{{'upload-document.SELECT_DATE_PLACEHOLDER' | localizationPipe : localizationService.localizedkeySet.size}}"
+                    [(ngModel)]="loaSignedDate" placement="bottom right" [minDate]="" [maxDate]="todaysDate" bsDatepicker attr.data-id="{{dataIdConstantsService.uploadDoc_text_loaSignedDate}}"
+                    (bsValueChange)="onDateSelectionForLoa($event)"  [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY', showWeekNumbers: false }" [bsConfig]="{containerClass:'theme-vNext'}">
+            
+                    <span class="cal-wrap" (click)="dpFull.toggle()" [attr.aria-expanded]="dpFull.isOpen"><span class="i-vNext-calendar"></span></span>
+            </div>
+        </div>
+        <div class="col-md-6 mt-2"  *ngIf="docData?.multiPartnerTab">
+            <div class="form-group datePicker mt-0 mb-2">
+                <h6 class="card-title heading--h6 bolder mb-1">{{'common.MULTI_PARTNER_CUST_CONSENT_SIGNED' | localizationPipe : localizationService.localizedkeySet.size}}</h6>
+                <input appElementFocus readonly="true" type="text" class="form-control" #dpFull="bsDatepicker"  placeholder="{{'upload-document.SELECT_DATE_PLACEHOLDER' | localizationPipe : localizationService.localizedkeySet.size}}"
+                [(ngModel)]="signedDate" placement="bottom right" [minDate]="" [maxDate]="todaysDate" bsDatepicker attr.data-id="{{dataIdConstantsService.uploadDoc_text_multiPartnerSignedDate}}"
+                (bsValueChange)="custConsentDateSelection($event)"  [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY', showWeekNumbers: false }" [bsConfig]="{containerClass:'theme-vNext'}">
+            
+                    <span class="cal-wrap" (click)="dpFull.toggle()" [attr.aria-expanded]="dpFull.isOpen"><span class="i-vNext-calendar"></span></span>
+                    
+            </div>
+            <div class="marginB20">
+                <div class="d-flex justify-content-between align-items-center info-alert-blue bl-3">
+                    <span class="d-flex align-items-center">
+                        <span class="icon-msg-Info mr-1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                        <span class="pos-rel t-1">Valid until 12 months</span>
+                    </span>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="acknowldge-div">
+                <label  class="label-check">
+                    <input  class="form-check-input" type="checkbox" (change)="review()" attr.data-id="{{dataIdConstantsService.uploadDoc_checkbox_authorize}}" [disabled]="disableCheckBox" />
+                    <span  class="custom-checkbox-btn i-vNext-fonts">
+                    <span  class="path1"></span>
+                    <span  class="path2"></span>
+                    <span  class="path3"></span>
+                    </span>
+                    <span>{{'upload-document.AUTHORIZED_END_CUSTOMER_REPRESENTATIVES' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                    
+                </label>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="text-center d-block pb-4 paddingT10">
+    <button class="btn btn-secondary sm" type="button" (click)="close()" attr.action-id="{{dataIdConstantsService.uploadDoc_button_cancel}}" id="{{elementIdConstantsService.UploadDocument_Cancel}}">{{'common.CANCEL' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+    <button class="btn btn-primary sm ml-3" type="button" (click)="confirmUpload()" [disabled]="disableConfirm" attr.action-id="{{dataIdConstantsService.uploadDoc_button_confirm}}">{{'common.CONFIRM' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+</div>

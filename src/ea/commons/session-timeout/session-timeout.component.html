@@ -1,0 +1,12 @@
+<div class="modal-header">
+  <h5 class="modal-title">
+  {{'common.SESSION_TIMEOUT' | localizationPipe : localizationService.localizedkeySet.size}}
+  </h5>
+</div>
+<div class="modal-body">
+    {{'common.TIMEOUT_MSG' | localizationPipe : localizationService.localizedkeySet.size}} {{(countMinutes !== 0 ? + countMinutes+' Minute'+(countMinutes > 1 ? 's ' : ' ') : '') + countSeconds+' Seconds'}}
+</div>
+ <div class="modal-footer">
+  <button type="button" class="btn btn-primary" (click)="continue()" attr.action-id="{{dataIdConstantsService.proxyUser_button_continue}}">{{'common.CONTINUE' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+  <!-- <button type="button" class="btn btn-primary" (click)="logout()">Logout</button> -->
+</div> 

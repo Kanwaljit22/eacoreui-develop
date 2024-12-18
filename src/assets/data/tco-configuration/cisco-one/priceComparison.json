@@ -1,0 +1,51 @@
+[
+    {
+        "quarter": "Business-as-usual",
+        "areas": [
+            {
+                "state": "ALC",
+                "freq": {
+                    "EP": 2300000,
+                    "OB": 550000,
+                    "GB": 610000,
+                    "LCB": 670000,
+                    "eaBenefit": 0
+                },
+                "operationalBenfits" : {
+                    "operationalEffieciency": 20000,
+                    "rOperations": 10000,
+                    "ngTime": 5000,
+                    "svPricing": 4000
+                },
+                "growthBenfits" : {
+                    "growth": 20000,
+                    "timeValueMoney": 10000,
+                    "alaCarte1yrSku": 5000
+                },
+                "trueForward" : {
+                    "trueFroward": 20000,
+                    "rbValue": 10000
+                }
+            }
+        ]
+    },
+    {
+        "quarter": "Enterprise Agreement",
+        "areas": [
+            {
+                "state": "EA Net Price",
+                "freq": {
+                    "eaBenefit": 1330000,
+                    "EP": 2830000,
+                    "OB": 0,
+                    "GB": 0,
+                    "LCB": 0
+                },
+                "eaBenefits" : {
+                    "eaPricing": 2830000,
+                    "benefit": 1330000
+                }
+            }
+        ]
+    }
+]

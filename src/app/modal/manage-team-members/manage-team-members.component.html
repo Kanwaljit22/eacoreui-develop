@@ -1,0 +1,467 @@
+<div class="modal-header">
+    <h5 class="modal-title">
+        {{localeService.getLocalizedString('common.MANAGE_TEAM')}}
+        <!--span class="info-icon">i</span-->
+    </h5>
+    <button type="button" class="icon-close-btn" data-dismiss="modal" aria-label="Close" (click)="close()"></button>
+</div>
+<div class="modal-body">
+        <message [displayModalMsg] = 'true'></message>
+    <div class="body-content">
+        <div class="card border-0">
+            <div class="row">
+                <div class="col-6" *ngIf="qualService.qualification.accountManagerName">
+                    <h5 class="card-title sub--heading">{{localeService.getLocalizedString('qualproposallist.ACCOUNT_MANAGER')}}</h5>
+                    <p class="card-text card-tile-text pl-0">{{qualService.qualification.accountManagerName}}
+                        <span class="d-block pt-1">{{qualService.qualification.accountManager?.emailId}}</span>
+                    </p>
+                </div>
+                <div class="col-6 position-relative border-left custom-padding pt-0" *ngIf="(appDataService.isPatnerLedFlow || isPartnerDeal) && qualService.qualification.accountManagerName">
+                    <h5 class="card-title mb-0">Cisco Channel Account Manager (CAM) <sup class="import">*</sup></h5>
+                    <div _ngcontent-c11="" class="custom-dropdown col-6 p-0">
+                        <!-- <select class="custom-select mb-2 mr-sm-2 mb-sm-0 col myCustomSelect ng-pristine ng-valid ng-touched" [(ngModel)]="camName" (ngModelChange)='onCamChange($event)' name="accessType" required="" ng-reflect-required="" ng-reflect-name="accessType" ng-reflect-model="rw">
+                            <option *ngFor="let cam of camData" [selected]='cam.cecId === selectedCam.cecId' [ngValue]="cam" >{{cam.firstName}} {{cam.lastName}} ({{cam.cecId}})</option>
+                        </select>
+                        <span class="icon-down-arrow"></span> -->
+                        <div ngbDropdown class="select-items small-hgt" #myDropCAM="ngbDropdown" (click)="myDropCAM.open();">
+                            <span class="dropdown--typeAhead__arrow-management" *ngIf="isCamSelected">
+                  <button type="button" appElementFocus class="btn--text drop-button" ngbDropdownAnchor dropdownManual>
+                    {{selectedCam.firstName}} {{selectedCam.lastName}} ({{selectedCam.cecId}})</button>
+                </span>
+                            <span class="dropdown--typeAhead__arrow-management" *ngIf="!isCamSelected">
+                  <button type="button" appElementFocus class="btn--text drop-button" ngbDropdownAnchor dropdownManual>
+                    {{camName}}</button>
+                </span>
+                            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                                <ul>
+                                    <li class="dropdown-item" *ngFor="let cam of camData" (click)="onCamChange(cam)">{{cam.firstName}} {{cam.lastName}} ({{cam.cecId}})</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="javascript:void(0)" class="pt-1 d-inline-block" (click)="openCAMLocator()">Find your CAM with the CAM Locator</a>
+                </div>
+                <div class="col-6 position-relative pt-0" *ngIf="(appDataService.isPatnerLedFlow || isPartnerDeal) && !qualService.qualification.accountManagerName">
+                    <h6>Cisco Channel Account Manager (CAM) <sup class="import">*</sup></h6>
+                    <div _ngcontent-c11="" class="custom-dropdown col-6 p-0">
+                        <!-- <select class="custom-select mb-2 mr-sm-2 mb-sm-0 col myCustomSelect ng-pristine ng-valid ng-touched" [(ngModel)]="camName" (ngModelChange)='onCamChange($event)' name="accessType" required="" ng-reflect-required="" ng-reflect-name="accessType" ng-reflect-model="rw">
+                            <option *ngFor="let cam of camData" [selected]='cam.cecId === selectedCam.cecId' [ngValue]="cam" >{{cam.firstName}} {{cam.lastName}} ({{cam.cecId}})</option>
+                        </select>
+                        <span class="icon-down-arrow"></span> -->
+                        <div ngbDropdown class="select-items small-hgt" #myDropCAM="ngbDropdown" (click)="myDropCAM.open();">
+                            <span class="dropdown--typeAhead__arrow-management" *ngIf="isCamSelected">
+                  <button type="button" appElementFocus class="btn--text drop-button" ngbDropdownAnchor dropdownManual>
+                    {{selectedCam.firstName}} {{selectedCam.lastName}} ({{selectedCam.cecId}})</button>
+                </span>
+                            <span class="dropdown--typeAhead__arrow-management" *ngIf="!isCamSelected">
+                  <button type="button" appElementFocus class="btn--text drop-button" ngbDropdownAnchor dropdownManual>
+                    {{camName}}</button>
+                </span>
+                            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                                <ul>
+                                    <li class="dropdown-item" *ngFor="let cam of camData" (click)="onCamChange(cam)">{{cam.firstName}} {{cam.lastName}} ({{cam.cecId}})</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="javascript:void(0)" class="pt-1 d-inline-block" (click)="openCAMLocator()">Find your CAM with the CAM Locator</a>
+                </div>
+            </div>
+
+            <!-- Service specialist starts -->
+            <div class="row manage-partner-team mt-2" *ngIf="!appDataService.userInfo.distiUser && !appDataService.isTwoTierUser(is2tPartner)">
+                <div class="col-12 gray-head-bg"><h5 class="card-title mt-2 mb-2 sub--heading">{{localeService.getLocalizedString('common.SERVICE_SPECIALIST')}}</h5></div>
+                <div class="col-12"><app-cx-specialist [dataFlow]="dataFlow"  [cxSpTeamData]="cxTeamData" [type]="type"></app-cx-specialist></div>
+            </div>
+            <!-- Service specialist Ends -->
+
+            <!-- Service specialist starts -->
+            <div class="row manage-partner-team mt-2" *ngIf="!appDataService.userInfo.distiUser && !appDataService.isTwoTierUser(is2tPartner)">
+                <div class="col-12 gray-head-bg"><h5 class="card-title mt-2 mb-2 sub--heading">{{localeService.getLocalizedString('common.SERVICE_DEAL_ASSURER')}}</h5></div>
+                <div class="col-12"><app-cx-deal-assurer [dataFlow]="dataFlow"  [cxDealAssurerTeams]="cxDealAssurerTeams" [type]="type"></app-cx-deal-assurer></div>
+            </div>
+            <!-- Service specialist Ends -->
+
+            <div class="card-body">
+                <div class="row align-items-start">
+                    <div class="col-12 gray-head-bg">
+                        <h5 class="card-title mt-2 mb-2 sub--heading">{{localeService.getLocalizedString('qual.whoinvolved.SOFTWARE_SALES_SPECIALIST')}}
+                            <sup *ngIf="!appDataService.isPatnerLedFlow"> *</sup>
+                            <!-- <a (click)="openSpecialist()" class="btn btn-primary float-right small-btn neg-margin">{{localeService.getLocalizedString('qual.whoinvolved.ADD_SPECIALIST')}}</a> -->
+                        </h5>
+                    </div>
+
+                    <!--Begin New Search-->
+                    <div class="col">
+                        <div class="form-group search-wrap m-0">
+                            <span class="name-tag" *ngFor="let item of selectedSpecialist">
+                <span class="tag-val">{{item.name}}</span>
+                            <span class="icon-close-btn" (click)="removeSelectedSpecialist(item)"></span>
+                            </span>
+                            <input class="form-control" (click)="showList()" (blur)="hideList()" name="searchSpecialist" [(ngModel)]="searchSpecialist" type="text" required="" appElementFocus id="searchSpecialist" (ngModelChange)='onChangeSalesInputValue(searchSpecialist)'>
+                            <!-- <label for="searchSpecialist" [ngClass]="{'labelClass': selectedSpecialist.length}" class="form-control-placeholder">{{localeService.getLocalizedString('qual.whoinvolved.SEARCH_BY_NAME')}}</label> -->
+
+                            <label for="searchSpecialist" [ngClass]="{'labelClass': selectedSpecialist.length}"  class="form-control-placeholder" (click)="focusInput('searchSpecialist')">{{localeService.getLocalizedString('qual.whoinvolved.SEARCH_BY_NAME')}}, {{localeService.getLocalizedString('common.ARCH')}}</label>
+
+                            <div class="invalid-feedback" *ngIf="searchFailed">{{localeService.getLocalizedString('qual.whoinvolved.NO_SUGGESTIONS')}}</div>
+                        </div>
+                        <div class="autocomplete-list dropdown-menu show" style="width:720px; margin-left:14px" *ngIf="((specialistData | manageTeamMembers: searchSpecialist : searchArray).length >0 && searchSpecialist) || displayList">
+                            <ul>
+                                <ng-container *ngFor="let suggestion of specialistData | manageTeamMembers: searchSpecialist : searchArray">
+                                    <li (click)="onSuggestedSpecialistClick(suggestion)" class="dropdown-item searchList">
+                                        <table width="100%">
+                                            <tr>
+                                                <td width="44%">{{suggestion.name}}</td>
+                                                <td width="55%">{{suggestion.archName}}</td>
+                                            </tr>
+                                        </table>
+                                    </li>
+                                </ng-container>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <label class="label-check mb-1">
+              <input class="form-check-input" type="checkbox" (change)="checkNotifySwss('swssEmail')" [checked]="swssNotifyEmail" [disabled]="!selectedSpecialist.length">
+              <span class="custom-checkbox-btn">
+                <span class="path1"></span>
+                <span class="path2"></span>
+              </span>
+              <span>{{localeService.getLocalizedString('qual.whoinvolved.NOTIFY_BY_EMAIL')}}</span>
+            </label>
+                        <label class="label-check">
+              <input class="form-check-input" type="checkbox" (change)="checkNotifySwss('swssWebex')" [checked]="swssNotifyWebex" [disabled]="!selectedSpecialist.length">
+              <span class="custom-checkbox-btn">
+                <span class="path1"></span>
+                <span class="path2"></span>
+              </span>
+              <span>{{localeService.getLocalizedString('qual.whoinvolved.WEBEX_TEAM_MEMBERS')}}</span>
+            </label>
+                        <!-- <label class="label-check">
+                <input class="form-check-input" type="checkbox" (change)="checkNotifySwss('swssWalkme')" [checked]="swssNotifyWalkme" [disabled]="!selectedSpecialist.length">
+                <span></span>
+                <span>{{localeService.getLocalizedString('qual.whoinvolved.WALKME_TEAM_MEMBERS')}}</span>
+              </label> -->
+                    </div>
+                    <div class="position-relative col-md-2 mb-15 drop-height blk-sep">
+                        <label class="custom-dropdown-lbl mb-0">{{localeService.getLocalizedString('qual.whoinvolved.ACCESS_TYPE')}}</label>
+                        <div class="custom-dropdown">
+                            <select class="custom-select mb-2 mr-sm-2 mb-sm-0 col myCustomSelect" name="accessType" required [(ngModel)]="swssAccessType">
+                <option value="rw">{{localeService.getLocalizedString('qual.whoinvolved.USER_READ_WRITE_ACCESS')}}</option>
+                <option value="ro">{{localeService.getLocalizedString('qual.whoinvolved.USER_READ_ONLY_ACCESS')}}</option>
+              </select>
+                            <span class="icon-down-arrow"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-auto add-member">
+                        <span>
+              <button  class="btn btn-primary float-right small-btn" (click)="addSpecialist()" [disabled]="!selectedSpecialist.length">{{localeService.getLocalizedString('qual.whoinvolved.ADD_SPECIALIST')}}</button>
+            </span>
+                    </div>
+                    <!--End New Search-->
+
+                    <div class="col-12 mt-3">
+                        <table class="primary-table">
+                            <thead>
+                                <tr>
+                                    <th rowspan="2" style="width:11%">{{localeService.getLocalizedString('qual.whoinvolved.NAME')}}</th>
+                                    <th rowspan="2" style="width:18%">{{localeService.getLocalizedString('common.ARCH')}}</th>
+                                    <th rowspan="2" style="width:9%">{{localeService.getLocalizedString('qual.whoinvolved.CEC_ID')}}</th>
+                                    <th rowspan="2" style="width:14%">{{localeService.getLocalizedString('qual.whoinvolved.E_MAIL')}}</th>
+                                    <th colspan="3" class="text-center border--left solid border--right solid">Notify by</th>
+                                    <th rowspan="2" style="width:11%">{{localeService.getLocalizedString('qual.whoinvolved.ACCESS_TYPE')}}</th>
+                                    <th rowspan="2" style="width:5%">{{localeService.getLocalizedString('qual.whoinvolved.ACTION')}}</th>
+                                </tr>
+                                <tr>
+                                    <th class="text-center border--right solid border--left solid" style="width: 10%;"><label class="label-check" style="padding-right: 4px;">
+                      <input class="form-check-input" type="checkbox" [checked]="swssNotifyAllEmail" [disabled]="swssMasterCheckDisabled" (change)="updateNotifyAllSWSS('email')">
+                      <span class="custom-checkbox-btn">
+                        <span class="path1"></span>
+                        <span class="path2"></span>
+                      </span>
+                      <span>E-Mail</span>
+                      </label></th>
+                                    <th class="text-center border--right solid" style="width: 10%;"><label class="label-check" style="padding-right: 4px;">
+                      <input class="form-check-input" type="checkbox" [checked]="swssNotifyAllWebex" [disabled]="swssMasterCheckDisabled" (change)="updateNotifyAllSWSS('webex')">
+                      <span class="custom-checkbox-btn">
+                          <span class="path1"></span>
+                          <span class="path2"></span>
+                      </span>
+                      <span>Webex Team</span>
+                      </label></th>
+                                    <th class="text-center border--right solid" style=""><label class="label-check" style="padding-right: 4px;">
+                          <input class="form-check-input" type="checkbox" [checked]="swssNotifyAllWalkme" [disabled]="swssMasterCheckDisabled" (change)="updateNotifyAllSWSS('walkme')">
+                          <span class="custom-checkbox-btn"><span class="path1"></span>
+                          <span class="path2"></span></span>
+                          <span>Welcome Kit</span>
+                          </label></th>
+                                </tr>
+                            </thead>
+                            <tbody class="customTbodyScroll" *ngIf="dedicatedSalesTeam?.length > 0">
+                                <tr *ngFor="let a of dedicatedSalesTeam">
+                                    <td style="width:11%">{{a.name}}</td>
+                                    <td style="width:14%">{{a.archName}}</td>
+                                    <td style="width:9%">{{a.ccoId}}</td>
+                                    <td style="width:12%">{{a.email}}</td>
+                                    <td style="width:11%" class="text-center">
+                                        <label class="label-check">
+                      <input class="form-check-input" type="checkbox" value="" [checked]="a.notification === 'Y'"
+                        #emailAccess (click)="SspEditCheckbox(emailAccess.checked,a,'email')">
+                        <span class="custom-checkbox-btn">
+                            <span class="path1"></span>
+                            <span class="path2"></span>
+                          </span>
+                    </label>
+                                    </td>
+                                    <td style="width:13%" class="text-center">
+                                        <label class="label-check">
+                          <input [id]='appDataService.createUniqueId("checkbox",appDataService.pageContext)' *ngIf='appDataService.isReadWriteAccess' class="form-check-input" type="checkbox" value="" [checked]="a.webexNotification === 'Y'" #webexTeamAccess (click)="SspEditCheckbox(webexTeamAccess.checked,a,'webexTeam')">
+                          <input [id]='appDataService.createUniqueId("checkbox",appDataService.pageContext)' *ngIf='appDataService.userInfo.roSuperUser && !appDataService.isReadWriteAccess' [attr.disabled]="appDataService.userInfo.roSuperUser" class="form-check-input" type="checkbox" value="" [checked]="a.webexNotification === 'Y'" #webexTeamAccess (click)="SspEditCheckbox(webexTeamAccess.checked,a,'webexTeam')">
+                          <span class="custom-checkbox-btn">
+                            <span class="path1"></span>
+                            <span class="path2"></span>
+                          </span>
+                      </label>
+                                    </td>
+                                    <td style="width:13%" class="text-center">
+                                        <label class="label-check">
+                          <input [id]='appDataService.createUniqueId("checkbox",appDataService.pageContext)' *ngIf='appDataService.isReadWriteAccess' class="form-check-input" type="checkbox" value="" [checked]="a.notifyByWelcomeKit === 'Y'" #walkmeTeamAccess (click)="SspEditCheckbox(walkmeTeamAccess.checked,a,'walkmeTeam')">
+                          <input [id]='appDataService.createUniqueId("checkbox",appDataService.pageContext)' *ngIf='appDataService.userInfo.roSuperUser && !appDataService.isReadWriteAccess' [attr.disabled]="appDataService.userInfo.roSuperUser" class="form-check-input" type="checkbox" value="" [checked]="a.notifyByWelcomeKit === 'Y'" #walkmeTeamAccess (click)="SspEditCheckbox(walkmeTeamAccess.checked,a,'walkmeTeam')">
+                          <span class="custom-checkbox-btn">
+                            <span class="path1"></span>
+                            <span class="path2"></span>
+                          </span>
+                      </label>
+                                    </td>
+                                    <td style="width:10%">
+                                        <div class="position-relative">
+                                            <div class="custom-dropdown">
+                                                <select (change)="SspEditAccess($event,a)" class="custom-select mb-2 mr-sm-2 mb-sm-0 col myCustomSelect" name="accessType" [(ngModel)]="a.access" required>
+                          <option value="rw">{{localeService.getLocalizedString('qual.whoinvolved.USER_READ_WRITE_ACCESS')}}</option>
+                          <option value="ro" [selected]='a.access === "ro"'>{{localeService.getLocalizedString('qual.whoinvolved.USER_READ_ONLY_ACCESS')}}</option>
+                        </select>
+                                                <span class="icon-down-arrow"></span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td style="width:6%" class="text-center" *ngIf="dedicatedSalesTeam?.length > 1">
+                                        <a (click)="removeSpecialist(a,$event)">
+                                            <span class="icon-delete"></span>
+                                        </a>
+                                    </td>
+                                    <td style="width:6%" class="text-center" *ngIf="dedicatedSalesTeam?.length === 1">
+                                        <a *ngIf="!appDataService.isPatnerLedFlow" [ngClass]="{'disabled': dedicatedSalesTeam?.length === 1}">
+                                            <span class="icon-delete" placement="top-left" container="body" ngbTooltip="{{localeService.getLocalizedMessage('common.DELETE_SPECIALIST_TOOLTIP')}}"></span>
+                                        </a>
+                                        <a *ngIf="appDataService.isPatnerLedFlow" (click)="removeSpecialist(a,$event)">
+                                            <span class="icon-delete" placement="top-left" container="body" ngbTooltip="{{localeService.getLocalizedMessage('common.DELETE_SPECIALIST_TOOLTIP')}}"></span>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tbody *ngIf="!dedicatedSalesTeam?.length">
+                                <tr class="empty-row">
+                                    <td colspan="9" class="text-center">{{localeService.getLocalizedMessage('qual.whoinvolved.NO_SPEC_ADDED')}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- col-12 -->
+                </div>
+                <!-- card-body row -->
+            </div>
+
+            <div class="card-body extented-sales">
+                <div class="row align-items-start">
+                    <div class="col-12 gray-head-bg">
+                        <h5 class="card-title mt-2 mb-2 sub--heading">{{localeService.getLocalizedString('qual.whoinvolved.EXTENDED_SALES_TEAM')}}</h5>
+                    </div>
+                    <div class="col" (clickOutside)="onClickedOutside($event)">
+                        <div class="form-group search-wrap m-0">
+                            <span class="name-tag" *ngFor="let item of selectedSales">
+                <span class="tag-val">{{item.fullName}}</span>
+                            <span class="icon-close-btn" (click)="removeSelected(item)"></span>
+                            </span>
+                            <input class="form-control" name="searchSalesTeam" [(ngModel)]="searchSalesTeam" type="text" required="" appElementFocus id="searchSalesTeam" (ngModelChange)='onChangeInputValue(searchSalesTeam)' (click)="showExtendedTeamList()" (blur)="hideExtendedTeamList()">
+                            <label for="searchSalesTeam" (click)="focusInput('searchSalesTeam')" [ngClass]="{'labelClass': selectedSales.length}" class="form-control-placeholder">{{localeService.getLocalizedString('common.SEARCH_EXTENDED_SALES_BY')}}</label>
+                            <span *ngIf="searching">{{localeService.getLocalizedMessage('qual.whoinvolved.SEARCHING')}}</span>
+                            <div class="invalid-feedback" *ngIf="searchFailed">{{localeService.getLocalizedString('qual.whoinvolved.NO_SUGGESTIONS')}}</div>
+                        </div>
+                        <div class="autocomplete-list dropdown-menu show" style=" width:720px; margin-left:14px;" *ngIf="involvedService?.suggestionsArrFiltered?.length > 0 && searchSalesTeam && displayExtendedTeamList ">
+                            <ul>
+                                <ng-container *ngFor="let suggestion of involvedService.suggestionsArrFiltered; let i = index">
+                                    <li (click)="onSuggestedItemsClick(suggestion)" class="dropdown-item searchList">
+                                        {{suggestion.fullName}}
+                                    </li>
+                                </ng-container>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <label class="label-check mb-1">
+              <input class="form-check-input" type="checkbox" (change)="checkNotifyEst('estEmail')" [checked] ="estNotifyEmail" [disabled]="!selectedSales.length">
+              <span class="custom-checkbox-btn">
+                <span class="path1"></span>
+                <span class="path2"></span>
+              </span>
+              <span>{{localeService.getLocalizedString('qual.whoinvolved.NOTIFY_BY_EMAIL')}}</span>
+            </label>
+                        <label class="label-check">
+              <input class="form-check-input" type="checkbox" (change)="checkNotifyEst('estWebex')" [checked] ="estNotifyWebex" [disabled]="!selectedSales.length">
+              <span class="custom-checkbox-btn">
+                <span class="path1"></span>
+                <span class="path2"></span>
+              </span>
+              <span>{{localeService.getLocalizedString('qual.whoinvolved.WEBEX_TEAM_MEMBERS')}}</span>
+            </label>
+                        <!-- <label class="label-check">
+                <input class="form-check-input" type="checkbox" (change)="checkNotifyEst('estWalkme')" [checked] ="estNotifyWalkme" [disabled]="!selectedSales.length">
+                <span></span>
+                <span>{{localeService.getLocalizedString('qual.whoinvolved.WALKME_TEAM_MEMBERS')}}</span>
+              </label> -->
+                    </div>
+                    <div class="position-relative col-md-2 mb-15 drop-height blk-sep">
+                        <label class="custom-dropdown-lbl mb-0">{{localeService.getLocalizedString('qual.whoinvolved.ACCESS_TYPE')}}</label>
+                        <div class="custom-dropdown">
+                            <select class="custom-select mb-2 mr-sm-2 mb-sm-0 col myCustomSelect" name="accessType" required [(ngModel)]="estAccessType">
+                <option value="rw">{{localeService.getLocalizedString('qual.whoinvolved.USER_READ_WRITE_ACCESS')}}</option>
+                <option value="ro">{{localeService.getLocalizedString('qual.whoinvolved.USER_READ_ONLY_ACCESS')}}</option>
+              </select>
+                            <span class="icon-down-arrow"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-auto add-member">
+                        <span>
+              <button (click)="addMembers()" class="btn btn-primary float-right small-btn" [disabled]="!selectedSales.length">{{localeService.getLocalizedString('qual.whoinvolved.ADD_MEMBER')}}</button>
+            </span>
+                    </div>
+                    <div class="col-12 mt-3">
+                        <table class="primary-table">
+                            <thead>
+                                <tr>
+                                    <th rowspan="2" width="26%">{{localeService.getLocalizedString('qual.whoinvolved.NAME')}}</th>
+                                    <th rowspan="2" width="9%">{{localeService.getLocalizedString('qual.whoinvolved.CEC_ID')}}</th>
+                                    <th rowspan="2" width="14%">{{localeService.getLocalizedString('qual.whoinvolved.E_MAIL')}}</th>
+                                    <th colspan="3" class="text-center border--left solid border--right solid">Notify by</th>
+                                    <th rowspan="2" width="11%">{{localeService.getLocalizedString('qual.whoinvolved.ACCESS_TYPE')}}</th>
+                                    <th rowspan="2" width="5%">{{localeService.getLocalizedString('qual.whoinvolved.ACTION')}}</th>
+                                </tr>
+                                <tr>
+                                    <th width="10%" class="text-center border--right solid border--left solid"><label class="label-check" style="padding-right: 4px;">
+                      <input class="form-check-input" type="checkbox" [checked]="estNotifyAllEmail" [disabled]="estMasterCheckDisabled" (change)="updateNotifyAllEst('email')">
+                      <span class="custom-checkbox-btn">
+                        <span class="path1"></span>
+                        <span class="path2"></span>
+                      </span>
+                      <span>E-Mail</span>
+                      </label></th>
+                                    <th width="10%" class="text-center border--right solid"><label class="label-check" style="padding-right: 4px;">
+                      <input class="form-check-input" type="checkbox" [checked]="estNotifyAllWebex" [disabled]="estMasterCheckDisabled" (change)="updateNotifyAllEst('webex')">
+                      <span class="custom-checkbox-btn">
+                        <span class="path1"></span>
+                        <span class="path2"></span>
+                      </span>
+                      <span>Webex Team</span>
+                      </label></th>
+                                    <th width="10%" class="text-center border--right solid"><label class="label-check" style="padding-right: 4px;">
+                          <input class="form-check-input" type="checkbox" [checked]="estNotifyAllWalkme" [disabled]="estMasterCheckDisabled" (change)="updateNotifyAllEst('walkme')">
+                          <span class="custom-checkbox-btn">
+                            <span class="path1"></span>
+                            <span class="path2"></span>
+                          </span>
+                          <span>Welcome Kit</span>
+                          </label></th>
+                                </tr>
+                            </thead>
+                            <tbody class="customTbodyScroll" *ngIf="addMember">
+                                <tr *ngFor="let b of extentedSalesTeam">
+                                    <td style="width: 25%">{{b.name}}</td>
+                                    <td style="width: 9%">{{b.ccoId}}</td>
+                                    <td style="width: 12%">{{b.email}}</td>
+                                    <td style="width: 11%" class="text-center">
+                                        <label class="label-check">
+                      <input class="form-check-input" type="checkbox" value="" [checked]='b.notification === "Yes" '
+                        (change)="updateEstRow(b,'notification')">
+                        <span class="custom-checkbox-btn">
+                            <span class="path1"></span>
+                            <span class="path2"></span>
+                          </span>
+                    </label>
+                                    </td>
+                                    <td style="width: 13%" class="text-center">
+                                        <label class="label-check">
+                          <input [id]='appDataService.createUniqueId("checkbox",appDataService.pageContext)' *ngIf='appDataService.isReadWriteAccess' class="form-check-input" type="checkbox" value="" [checked]="b.webexNotification === 'Y'" #webexTeamAccess (click)="updateEstRow(b,'webexTeam')">
+                          <span class="custom-checkbox-btn">
+                            <span class="path1"></span>
+                            <span class="path2"></span>
+                        </span>
+                          <input [id]='appDataService.createUniqueId("checkbox",appDataService.pageContext)' *ngIf='appDataService.userInfo.roSuperUser && !appDataService.isReadWriteAccess' [attr.disabled]="appDataService.userInfo.roSuperUser" class="form-check-input" type="checkbox" value="" [checked]="b.webexNotification === 'Y'" #webexTeamAccess (click)="updateEstRow(b,'webexTeam')">
+                          <span></span>
+                      </label>
+                                    </td>
+                                    <td style="width: 13%" class="text-center">
+                                        <label class="label-check">
+                          <input [id]='appDataService.createUniqueId("checkbox",appDataService.pageContext)' *ngIf='appDataService.isReadWriteAccess' class="form-check-input" type="checkbox" value="" [checked]="b.notifyByWelcomeKit === 'Y'" #walkmeTeamAccess (click)="updateEstRow(b,'walkmeTeam')">
+                          <span class="custom-checkbox-btn">
+                            <span class="path1"></span>
+                            <span class="path2"></span>
+                        </span>
+                          <input [id]='appDataService.createUniqueId("checkbox",appDataService.pageContext)' *ngIf='appDataService.userInfo.roSuperUser && !appDataService.isReadWriteAccess' [attr.disabled]="appDataService.userInfo.roSuperUser" class="form-check-input" type="checkbox" value="" [checked]="b.notifyByWelcomeKit === 'Y'" #walkmeTeamAccess (click)="updateEstRow(b,'walkmeTeam')">
+                          <span></span>
+                      </label>
+                                    </td>
+                                    <td style="width: 10%">
+                                        <div class="position-relative">
+                                            <div class="custom-dropdown">
+                                                <select *ngIf=" appDataService.isReadWriteAccess && !(qualService.qualification.createdBy === b.ccoId )" class="custom-select mb-2 mr-sm-2 mb-sm-0 col myCustomSelect" name="accessType" required (change)="updateEstRow(b,'accessType')">
+                          <option value="rw">{{localeService.getLocalizedString('qual.whoinvolved.USER_READ_WRITE_ACCESS')}}</option>
+                          <option value="ro" [selected]='b.access === "ro"'>{{localeService.getLocalizedString('qual.whoinvolved.USER_READ_ONLY_ACCESS')}}</option>
+                        </select>
+
+                                                <select *ngIf="appDataService.isReadWriteAccess && (qualService.qualification.createdBy === b.ccoId )" [attr.disabled]="true" class="custom-select mb-2 mr-sm-2 mb-sm-0 col myCustomSelect" name="accessType" required (change)="updateEstRow(b,'accessType')">
+                          <option value="rw">{{localeService.getLocalizedString('qual.whoinvolved.USER_READ_WRITE_ACCESS')}}</option>
+                          <option value="ro" [selected]='b.access === "ro"'>{{localeService.getLocalizedString('qual.whoinvolved.USER_READ_ONLY_ACCESS')}}</option>
+                        </select>
+                                                <span class="icon-down-arrow"></span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td style="width: 6%" class="text-center" *ngIf="extentedSalesTeam?.length > 1">
+                                        <span (click)="removeMembers(b)" class="icon-delete"></span>
+                                    </td>
+                                    <td style="width: 6%" class="text-center" *ngIf="extentedSalesTeam?.length === 1">
+                                        <span (click)="removeMembers(b)" placement="top-left" container="body" ngbTooltip="{{localeService.getLocalizedMessage('common.DELETE_EXTENDED_TOOLTIP')}}" [ngClass]="{'disabled': extentedSalesTeam?.length === 1}" class="icon-delete"></span>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                            <tbody *ngIf="!extentedSalesTeam || !addMember">
+                                <tr class="empty-row">
+                                    <td colspan="8" class="text-center">{{localeService.getLocalizedMessage('qual.whoinvolved.NO_MEMBER')}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- col-12 -->
+                </div>
+            </div>
+            <div class="row manage-partner-team">
+                <div class="col-12 gray-head-bg"><h5 class="card-title mt-2 mb-2 sub--heading">Partner Team</h5></div>
+                <div class="col-12"><app-partner-team [dataFlow]="dataFlow" [proposalId]="proposalId" [partnerDeal]="isPartnerDeal" [filterPartnersTeam] = "filterPartnersTeam" [partnerId] = 'partnerId' [type]="type"></app-partner-team></div>
+            </div>
+
+            <div class="row manage-partner-team" *ngIf="is2tPartner">
+                <div class="col-12 gray-head-bg"><h5 class="card-title mt-2 mb-2 sub--heading">Distributor Team</h5></div>
+                <div class="col-12">
+                    <app-distributor-team [dataFlow]="dataFlow" [distributorTeamData]="distributorTeam" [type]="type"></app-distributor-team>                
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary cancel-btn" (click)="close()">Close</button>
+</div>

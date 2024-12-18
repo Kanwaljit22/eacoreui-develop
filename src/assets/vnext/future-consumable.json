@@ -1,0 +1,42 @@
+{
+    "data": {
+        "enrollments": [
+            {
+                "id": 1,
+                "pools": [
+                    {
+                        "name": "Networking",
+                        "suites": [
+                            {
+                                "ato": "",
+                                "desc": "Cisco Data Center Networking",
+                                "optIn": {
+                                    "optIn": true,
+                                    "fulfillmentType": "CISCO"
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": 2,
+                "pools": [
+                    {
+                        "name": "Application",
+                        "suites": [
+                            {
+                                "ato": "",
+                                "desc": "Cisco Data Center EA for Hyperflex",
+                                "optIn": {
+                                    "optIn": false,
+                                    "fulfillmentType": "PARTNER"
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

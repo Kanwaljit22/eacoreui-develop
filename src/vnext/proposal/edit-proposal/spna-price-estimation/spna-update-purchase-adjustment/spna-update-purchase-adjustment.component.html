@@ -1,0 +1,326 @@
+<div class="custom-flyout-overlay"></div>
+<div class="custom-flyout vNext cust-lg">
+    <div class="heading">
+        <div class="d-flex justify-content-between align-items-top mb-2">
+            <div class="heading-title">
+                <h2 class="heading--h2">{{'common.UPDATE_OTD' | localizationPipe : localizationService.localizedkeySet.size}}</h2>
+            </div>
+            <div>
+                <button (click) = 'close()' class="icon-close-btn" type="button" attr.action-id="{{dataIdConstantsService.updatePA_button_closeIcon}}"></button>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center">
+                <div  class="dropdown" (clickOutside)="showPoolDropdown = false;">
+                        <a class="mb-0 dropdown-link" href="javascript:void(0);" [ngClass]='{"disabled": updatedAtoPidsMap.size}' attr.action-id="{{dataIdConstantsService.updatePA_link_selectPool}}"   (click)="showPoolDropdown = !showPoolDropdown">{{selectedPool?.desc}} 
+                            <span class="icon-arrow-stroke ml-2"></span>
+                        </a>
+                        <ul class="dropdown-menu" [class.show]="showPoolDropdown">
+                            <li *ngFor='let pool of poolArray; let index = index;' attr.action-id="{{dataIdConstantsService.updatePA_dropdown_changePool}}{{pool.name}}">
+                                <a href="javascript:void(0);" (click)="changePool(pool)" attr.action-id="{{dataIdConstantsService.updatePA_link_changePool}}{{pool.name}}" class="dropdown-item">{{pool.desc}}</a>
+                            </li>
+                        </ul>
+                    </div>
+
+            <div>
+                <button (click) = 'close()' class="btn btn-secondary" attr.action-id="{{dataIdConstantsService.updatePA_button_cancel}}">{{'common.CANCEL' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                <button [disabled] = 'reasonCount || !updatedAtoPidsMap.size' class="btn btn-primary ml-2" (click)='save()' attr.action-id="{{dataIdConstantsService.updatePA_button_applyAdjustment}}">{{'update-purchase-adjustment.APPLY_ADJUSTMENT' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+            </div>
+        </div>
+    </div>
+    <!-- End of Heading -->
+    
+
+    <div class="body">
+        <app-message></app-message>
+        <div class="alert alert--danger alert-dismissable clearfix mt-2 warning" *ngIf="messageObj && messageObj.length">
+            <span class="alert-icon">
+                <span class="icon-msg-error icon-msg-warning"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+            </span>
+            <span class="infoTxt custom-lh-qtr">{{'common.multi-error.THERE_ARE' | localizationPipe : localizationService.localizedkeySet.size}}
+                <span class="import txt-blue" (click)="openMultiWarning = true;" attr.action-id="{{dataIdConstantsService.updatePA_link_multiWarningMsg}}" (clickOutside)="openMultiWarning = false;">{{messageObj.length}} {{'common.multi-error.WARNINGS' | localizationPipe : localizationService.localizedkeySet.size}} 
+        
+                    <div class="error-list alert-error list-new single-warning" *ngIf="openMultiWarning">
+                        <div class="alert alert--warning" *ngFor="let messageObject of messageObj">
+                            <span class="alert-icon">
+                                <span class="icon-msg-warning">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                    <span class="path3"></span>
+                                </span>
+                            </span>
+                            <span>{{messageObject.text}}</span>
+                        </div>
+                    </div>
+                </span> 
+            </span>
+        </div> 
+        <div *ngIf= 'this.selectedEnrollemnt.id != 4' class="alert alert--info alert-dismissable">
+            <span class="alert-icon">
+                <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+            </span>
+            <span>{{'common.PLEASE_VALIDATE_YOUR_TCV_UPDATED' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+        </div>
+        <div *ngIf= 'isUpgradeFlow' class="alert alert--warning alert-dismissable">
+            <span class="alert-icon">
+                <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+            </span>
+            <span>{{'update-purchase-adjustment.UPGRADE_FLOW_MANUAL_PA_RESTRICTED' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+            
+        </div>
+        <div *ngIf= 'updatedAtoPidsMap.size' class="alert alert--warning alert-dismissable">
+            <span class="alert-icon">
+                <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+            </span>
+            <span>{{'update-purchase-adjustment.ADD_REASONS' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+            
+        </div>
+        <div *ngIf= 'selectedEnrollemnt.id == 4' class="alert alert--error alert-dismissable">
+            <span class="alert-icon">
+                <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+            </span>
+            <span>{{'update-purchase-adjustment.MANAGE_PURCHASE_ADJUSTMENT_WARN' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+
+        </div>
+        <div *ngIf= 'isHybridCollabSelected' class="alert alert--error alert-dismissable">
+            <span class="alert-icon">
+                <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+            </span>
+            <span>{{'update-purchase-adjustment.MANAGE_PURCHASE_ADJUSTMENT_HYBRID_WARN' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+
+        </div>
+        <div class="col-12 px-0 mt-1" *ngIf='selectedPool?.suites?.length && suiteInclusionCount'>
+            <table class="primary-table">
+                <thead>
+                    <tr>
+                        <th rowspan="2" width="30%">{{'common.SUITES' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                        <th colspan="3" class="text-center">{{'common.RESIDUAL' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                        <th rowspan="2" class="text-right" width="12%">{{'common.RAMP' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                        <th rowspan="2" class="text-right" width="9%">{{'common.COMPETITIVE' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                        <th rowspan="2" class="text-right" width="9%">{{'common.ONE_TIME_ADJUSTMENT' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                        <th rowspan="2" width="25%">{{'update-purchase-adjustment.REASON' | localizationPipe : localizationService.localizedkeySet.size}} <sup>*</sup></th>
+                        <th rowspan="2" width="7%">{{'common.ACTION' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                    </tr>
+                    <tr>
+                        <th class="text-right" width="7%">{{'common.SUBSCRIPTION' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                        <th class="text-right" width="7%">{{'common.PERPETUAL' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                        <th class="text-right border-right dashed" width="7%">{{'common.SWSS' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                        <ng-container *ngFor='let suite of  selectedPool.suites; let suiteIndex = index'>
+                                <ng-container *ngIf='(checkForLines || (suite?.lines && suite?.pids && suite.type === constantService.SUITE_TYPE_HYBRID)); else checkForPids'>
+                                <tr class="main-row" *ngIf='suite.lines'>
+                                        <td><span class="expCol-wrap"><span *ngIf='suite.expand' (click)='suite.expand = false' class="i-vNext-tree-close" attr.action-id="{{dataIdConstantsService.updatePA_icon_expandSuite}}{{suite?.ato}}"></span>
+                                            <span *ngIf='!suite.expand' (click)='suite.expand = true' attr.action-id="{{dataIdConstantsService.updatePA_icon_collapseSuite}}{{suite?.ato}}" class="i-vNext-tree-open"></span></span>{{suite.desc}}</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                        <ng-container *ngIf='suite?.expand' >
+                        <ng-container *ngFor='let line of suite.lines; let lineIndex = index'>
+                                <tr  class="table-sub-row">
+                                        <td><span class="expCol-wrap"><span (click)='line.expand = false'  *ngIf='line.expand' class="i-vNext-tree-close" attr.action-id="{{dataIdConstantsService.updatePA_icon_expandLine}}{{line?.id}}"></span>
+                                            <span (click)='line.expand = true'  *ngIf='!line.expand' attr.action-id="{{dataIdConstantsService.updatePA_icon_collapseLine}}{{line?.id}}" class="i-vNext-tree-open"></span></span> {{line.desc}}</td>
+                                        <td class="text-right">{{line.credit?.perpetual ? utilitiesService.formatValue(utilitiesService.getFloatValue(line.credit.perpetual)) : '0.00'}}</td>
+                                        <td class="text-right">{{line.credit?.subscription ? utilitiesService.formatValue(utilitiesService.getFloatValue(line.credit.subscription)) : '0.00'}}</td>
+                                        <td class="text-right">{{line.credit?.swss ? utilitiesService.formatValue(utilitiesService.getFloatValue(line.credit.swss)) : '0.00'}}</td>
+                                        <td class="text-right">{{line.credit?.ramp ? utilitiesService.formatValue(utilitiesService.getFloatValue(line.credit.ramp)) : '0.00'}}</td>
+                                        <td class="text-right">{{line.credit?.competitive ? utilitiesService.formatValue(utilitiesService.getFloatValue(line.credit.competitive)) : '0.00'}}</td>
+                                        <td class="text-right">{{line.credit?.other ? utilitiesService.formatValue(utilitiesService.getFloatValue(line.credit.other)) : '0.00'}}</td>
+                                        <td>-</td>
+                                        <td>&nbsp;</td>
+                                </tr>
+                                <ng-container *ngIf='line?.expand'>
+                                        
+                                        <tr *ngFor='let pid of line.childs; let pidIndex = index' class="table-sub-row level-2">
+                                                <td>{{pid.type}}</td>
+                                                <td class="text-right">
+                                                    <input [ngClass]="{'disabled': isUpgradeFlow}" class="form-control"  [ngModel]='pid.credit.perpetual' (ngModelChange)="onChange($event,pid,'perpetual',suite)" type="number" attr.data-id="{{dataIdConstantsService.updatePA_number_pidCreditPerpetual}}{{line?.id}}{{'.'}}{{pid.type}}">
+                                                    <div class="number-toggle">
+                                                        <span class="i-vNext-arrow-up-heavy"></span>
+                                                        <span class="i-vNext-arrow-down-heavy"></span>
+                                                    </div>
+                                                </td>
+                                                <td class="text-right">
+                                                    <input [ngClass]="{'disabled': isUpgradeFlow}" [ngModel]='pid.credit.subscription' (ngModelChange)="onChange($event,pid,'subscription',suite)" class="form-control" type="number" attr.data-id="{{dataIdConstantsService.updatePA_number_pidCreditSubscription}}{{line?.id}}{{'.'}}{{pid.type}}">
+                                                    <div class="number-toggle">
+                                                        <span class="i-vNext-arrow-up-heavy"></span>
+                                                        <span class="i-vNext-arrow-down-heavy"></span>
+                                                    </div>
+                                                </td>
+                                                <td class="text-right">
+                                                    <input [ngClass]="{'disabled': isUpgradeFlow}" [ngModel]='pid.credit.swss' (ngModelChange)="onChange($event,pid,'swss',suite)" class="form-control" type="number" attr.data-id="{{dataIdConstantsService.updatePA_number_pidSwss}}{{line?.id}}{{'.'}}{{pid.type}}">
+                                                    <div class="number-toggle">
+                                                        <span class="i-vNext-arrow-up-heavy"></span>
+                                                        <span class="i-vNext-arrow-down-heavy"></span>
+                                                    </div>
+                                                </td>
+                                                <td class="text-right">{{utilitiesService.formatValue(utilitiesService.getFloatValue(pid.credit.ramp))}}</td>
+                                                <td  class="text-right">
+                                                    <input [ngClass]="{'disabled': isUpgradeFlow}" [ngModel]='pid.credit.competitive' (ngModelChange)="onChange($event,pid,'competitive',suite)" class="form-control" type="number" attr.data-id="{{dataIdConstantsService.updatePA_number_pidCreditCompetitive}}{{line?.id}}{{'.'}}{{pid.type}}">
+                                                    <div class="number-toggle">
+                                                        <span class="i-vNext-arrow-up-heavy"></span>
+                                                        <span class="i-vNext-arrow-down-heavy"></span>
+                                                    </div>
+                                                </td>
+                                                <td class="text-right">
+                                                    <input [ngClass]="{'disabled': isUpgradeFlow}" [ngModel]='pid.credit.other' (ngModelChange)="onChange($event,pid,'other',suite)" class="form-control" type="number" attr.data-id="{{dataIdConstantsService.updatePA_number_pidCreditOther}}{{line?.id}}{{'.'}}{{pid.type}}">
+                                                    <div class="number-toggle">
+                                                        <span class="i-vNext-arrow-up-heavy"></span>
+                                                        <span class="i-vNext-arrow-down-heavy"></span>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <input [ngClass]="{'disabled': isUpgradeFlow || !pid.updated }" class="form-control w-100 text-left" [ngModel]='pid.credit.reason' (ngModelChange)="addReason($event, pid, suite)"  type="text" placeholder="Add text" attr.data-id="{{dataIdConstantsService.updatePA_text_pidCreditReason}}{{line?.id}}{{'.'}}{{pid.type}}">
+                                                </td>
+                                                <td><a (click) = 'resetUpdatedValues(suiteIndex,lineIndex,pidIndex,pid,suite)' [ngClass]="{'disabled': !pid.updated || isUpgradeFlow}" href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.updatePA_link_reset}}{{line?.id}}{{'.'}}{{pid.type}}">{{'update-purchase-adjustment.RESET' | localizationPipe : localizationService.localizedkeySet.size}}</a></td>
+                                            </tr>
+                                        
+                                </ng-container>
+                                </ng-container>
+
+                        </ng-container>
+                    </ng-container>
+                    <ng-template #checkForPids>
+                        <tr class="main-row" *ngIf='suite.pids; let pidIndex = index;'>
+                            <td><span class="expCol-wrap"><span *ngIf='suite.expand && suite.type !== constantService.SUITE_TYPE_COLLAB' (click)='suite.expand = false' attr.action-id="{{dataIdConstantsService.updatePA_icon_expandPid}}{{suite?.ato}}{{'.'}}{{pid?.name}}"
+                                        class="i-vNext-tree-close"></span>
+                                    <span *ngIf='!suite.expand && suite.type !== constantService.SUITE_TYPE_COLLAB' (click)='suite.expand = true' attr.action-id="{{dataIdConstantsService.updatePA_icon_collapsePid}}{{suite?.ato}}{{'.'}}{{pid?.name}}"
+                                        class="i-vNext-tree-open"></span></span>{{suite.desc}}</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <ng-container *ngIf='suite?.expand'>
+                            <ng-container *ngFor='let pid of suite.pids; let pidIndex = index'>
+                                
+                               
+                    
+                                    <tr class="table-sub-row level-2">
+                                        <td>{{pid.desc}}</td>
+                                        <td class="text-right">
+                                            <input [ngClass]="{'disabled': isUpgradeFlow}" class="form-control" [ngModel]='pid.credit.perpetual' attr.data-id="{{dataIdConstantsService.updatePA_number_pidCreditPerpetual}}{{suite?.ato}}{{'.'}}{{pid?.name}}"
+                                                (ngModelChange)="onChange($event,pid,'perpetual',suite)" type="number">
+                                            <div class="number-toggle">
+                                                <span class="i-vNext-arrow-up-heavy"></span>
+                                                <span class="i-vNext-arrow-down-heavy"></span>
+                                            </div>
+                                        </td>
+                                        <td class="text-right">
+                                            <input [ngClass]="{'disabled': isUpgradeFlow}" [ngModel]='pid.credit.subscription' attr.data-id="{{dataIdConstantsService.updatePA_number_pidCreditSubscription}}{{suite?.ato}}{{'.'}}{{pid?.name}}"
+                                                (ngModelChange)="onChange($event,pid,'subscription',suite)" class="form-control"
+                                                type="number">
+                                            <div class="number-toggle">
+                                                <span class="i-vNext-arrow-up-heavy"></span>
+                                                <span class="i-vNext-arrow-down-heavy"></span>
+                                            </div>
+                                        </td>
+                                        <td class="text-right">
+                                            <input [ngClass]="{'disabled': isUpgradeFlow}" [ngModel]='pid.credit.swss' (ngModelChange)="onChange($event,pid,'swss',suite)" attr.data-id="{{dataIdConstantsService.updatePA_number_pidCreditSwss}}{{suite?.ato}}{{'.'}}{{pid?.name}}"
+                                                class="form-control" type="number">
+                                            <div class="number-toggle">
+                                                <span class="i-vNext-arrow-up-heavy"></span>
+                                                <span class="i-vNext-arrow-down-heavy"></span>
+                                            </div>
+                                        </td>
+                                        <td class="text-right">
+                                            {{utilitiesService.formatValue(utilitiesService.getFloatValue(pid.credit.ramp))}}</td>
+                                        <td class="text-right">
+                                            <input [ngClass]="{'disabled': isUpgradeFlow}" [ngModel]='pid.credit.competitive' attr.data-id="{{dataIdConstantsService.updatePA_number_pidCreditCompetitive}}{{suite?.ato}}{{'.'}}{{pid?.name}}"
+                                                (ngModelChange)="onChange($event,pid,'competitive',suite)" class="form-control"
+                                                type="number">
+                                            <div class="number-toggle">
+                                                <span class="i-vNext-arrow-up-heavy"></span>
+                                                <span class="i-vNext-arrow-down-heavy"></span>
+                                            </div>
+                                        </td>
+                                        <td class="text-right">
+                                            <input [ngClass]="{'disabled': isUpgradeFlow}" [ngModel]='pid.credit.other' (ngModelChange)="onChange($event,pid,'other',suite)" attr.data-id="{{dataIdConstantsService.updatePA_number_pidCreditOther}}{{suite?.ato}}{{'.'}}{{pid?.name}}"
+                                                class="form-control" type="number">
+                                            <div class="number-toggle">
+                                                <span class="i-vNext-arrow-up-heavy"></span>
+                                                <span class="i-vNext-arrow-down-heavy"></span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <input [ngClass]="{'disabled': isUpgradeFlow || !pid.updated}" class="form-control w-100 text-left" attr.data-id="{{dataIdConstantsService.updatePA_text_pidCreditReason}}{{suite?.ato}}{{'.'}}{{pid?.name}}"
+                                                [ngModel]='pid.credit.reason' (ngModelChange)="addReason($event, pid, suite)" type="text"
+                                                placeholder="Add text">
+                                        </td>
+                                        <td><a (click)='resetUpdatedValues(suiteIndex,"",pidIndex,pid,suite)' attr.action-id="{{dataIdConstantsService.updatePA_link_reset}}{{suite?.ato}}{{'.'}}{{pid?.name}}"
+                                                [ngClass]="{'disabled': !pid.updated || isUpgradeFlow}" href="javascript:void(0);">{{'update-purchase-adjustment.RESET' | localizationPipe : localizationService.localizedkeySet.size}}</a></td>
+                                    </tr>
+                    
+                                
+                            </ng-container>
+                    
+                        </ng-container>
+                    </ng-template>
+                        </ng-container>
+
+                </tbody>
+            </table>
+        </div>
+        <div *ngIf= 'selectedPool?.suites?.length && !suiteInclusionCount' class="alert alert--info alert-dismissable">
+            <span class="alert-icon">
+                <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+            </span>
+            <span>{{'update-purchase-adjustment.NO_SUITES' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+            
+        </div>
+        <!-- End of Table -->
+
+        <div class="d-flex marginT20 file-upload-section">
+            <div class="col-6">
+                    <div *ngIf="!uploadedFileName" class="d-flex w-100 justify-content-between align-items-center">
+                            <h6 class="heading--h6">{{'update-purchase-adjustment.UPLOAD_FILE' | localizationPipe : localizationService.localizedkeySet.size}}</h6>
+                            <a #downloadZipLink [hidden]="true"></a>
+                            <a (click)='downloadTemplate()' href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.updatePA_link_downloadTemplate}}"><span class="i-vNext-download mr-2"></span>{{'update-purchase-adjustment.DOWNLOAD_TEMPLATE' | localizationPipe : localizationService.localizedkeySet.size}}</a>
+                            </div>
+                            <div  *ngIf="!uploadedFileName" class="my-drop-zone drag-drop flex-wrap justify-content-center" ng2FileDrop (fileOver)="fileOverBase($event)" (onFileDrop)="dropped($event)" [uploader]="uploader">
+                                    <input [ngClass]="{'disabled': isUpgradeFlow}" type="file" id="file" #file ng2FileSelect [uploader]="uploader" (change)="onFileChange($event)" hidden attr.data-id="{{dataIdConstantsService.updatePA_file_uploadFile}}" />
+                                    <!--span class="signature-icon-wrap"><img src="assets/images/icons/signature-initiated.svg"></span-->
+                                    <span>{{'common.locc.DRAG_&_DROP_FILE_HERE_OR' | localizationPipe : localizationService.localizedkeySet.size}} <a href="javascript:void(0)"  (click)="file.click()" attr.action-id="{{dataIdConstantsService.updatePA_link_browse}}">{{'common.BROWSE' | localizationPipe : localizationService.localizedkeySet.size}}</a> {{'common.TO_UPLOAD' | localizationPipe : localizationService.localizedkeySet.size}} </span>
+                                </div>
+                    
+                        <div class="d-flex justify-content-between align-items-center mt-3" *ngIf="uploadedFileName">
+                                <div class="w-50 mr-3">
+                                    <div class="d-flex justify-content-between align-items-center uploadFile-wrap">
+                                        <span class="d-flex align-items-center">
+                                            <span class="icon-wrap">
+                                                <span class="icon-pdf1 mr-3"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span><span class="path8"></span><span class="path9"></span><span class="path10"></span><span class="path11"></span><span class="path12"></span></span>
+                                            </span>
+                                            {{uploadedFileName}}
+                                        </span>
+            
+                                        <span class="action-wrap">
+                                            <span class="icon-tick d-none"></span>
+                                            <span class="icon-delete" (click)="removeFile()" attr.action-id="{{dataIdConstantsService.updatePA_icon_removeFile}}"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+            </div>
+
+            
+
+            <div class="col-6">
+                <div class="d-flex w-100">
+                    <h6 class="heading--h6">{{'update-purchase-adjustment.ADD_COMMENT' | localizationPipe : localizationService.localizedkeySet.size}}</h6>
+                </div>
+                <textarea [ngClass]="{'disabled': isUpgradeFlow}" [(ngModel)] = 'comment' class="form-control mh-148" placeholder="Enter your comments here..." attr.data-id="{{dataIdConstantsService.updatePA_textarea_comment}}"></textarea>
+            </div>
+        </div>
+    </div>
+</div>

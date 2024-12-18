@@ -1,0 +1,264 @@
+.card, .accordion-item {
+    color: $primary-text;
+    font-style: normal;
+    margin-bottom: $base-spacing;
+    border: 1px solid $border-color !important;
+
+    .card-header, .accordion-header {
+        font-size: rem(18);
+        font-weight: 400;
+        padding: $half-spacing $triqtr-spacing;
+        background: $primary-bg;
+    }
+
+    .card-body, .accordion-body{
+        padding: $triqtr-spacing;
+    }
+
+    .card-title {
+        color: $secondary-text;
+        font-size: rem(12);
+        font-weight: 400;
+        margin-bottom: $qtr-spacing;
+        display: block;
+    }
+
+    .card-text {
+        font-size: rem(16);
+        font-weight: 400;
+        color: $primary-text;
+        line-height: 1;
+        display: block;
+    }
+
+    address {
+        &.card-text {
+            font-size: rem(15);
+            line-height: rem(20);
+        }
+    }
+
+    .sub--heading {
+        font-size: rem(16);
+        font-weight: 300;
+        color: $secondary-text;
+        line-height: 1;
+        margin-bottom: $qtr-spacing;
+    }
+
+    i {
+        color: $primary-text;
+        font-weight: 400;
+        font-size: rem(12);
+    }
+
+    .customer-label {
+        font-size: rem(15);
+        color: $secondary-text;
+        position: absolute;
+        top: 20px;
+        font-weight: 400;
+        transition: all 0.3s ease 0s;
+    }
+
+    .form-group {
+        margin-bottom: 0;
+        margin-top: $base-spacing;
+        padding-top: $triqtr-spacing;
+
+        .form-control {
+            background: transparent !important;
+            padding: 0;
+            border: none;
+            border-bottom: 1px solid $border-color;
+            border-radius: 0;
+            color: $primary-text;
+            font-size: rem(16);
+            height: 29px;
+            box-shadow: none !important;
+
+            &:focus {
+                box-shadow: none;
+            }
+
+            &:hover {
+                border-color: $theme-color;
+            }
+
+            &.input-sm-height {
+                height: 22px;
+                font-size: 13px;
+            }
+        }
+
+        &.element-hasvalue {
+            .customer-label {
+                font-size: rem(12);
+                top: 0px;
+            }
+        }
+
+        .custom-dropdown {
+            .customer-label {
+                top: -15px;
+                font-size: rem(12);
+            }
+        }
+    }
+}
+
+.search-wrap {
+    position: relative;
+    transition: all 0.5s ease 0s;
+    display: flex;
+    flex-wrap: wrap;
+    border-bottom: 1px solid $border-color;
+
+    &:hover {
+        border-color: $theme-color;
+    }
+
+    .form-control {
+        width: auto;
+        flex-grow: 1;
+        border-bottom: none !important;
+        box-shadow: none !important;
+
+        &:focus+.form-control-placeholder,
+        &.active+.form-control-placeholder {
+            font-size: rem(12);
+            top: -10px;
+        }
+    }
+
+    .form-control-placeholder {
+        font-size: rem(15);
+        color: $secondary-text;
+        position: absolute;
+        top: 20px;
+        margin: $no-spacing;
+
+        &.labelClass {
+            font-size: rem(12);
+            top: -10px;
+        }
+    }
+
+    .name-tag+.form-control+.form-control-placeholder {
+        font-size: rem(12);
+        top: -10px;
+    }
+
+    .name-tag {
+        margin-right: 5px;
+        border-radius: 6px;
+        text-align: center;
+        border: 1px solid $border-color;
+        padding: $qtr-spacing;
+        line-height: 1;
+        font-size: rem(13);
+        color: $secondary-text;
+        margin: 0 $qtr-spacing $qtr-spacing 0;
+        font-weight: 400;
+
+        .icon-close-btn {
+            font-size: 12px;
+            margin-left: 5px;
+        }
+
+        &:hover {
+            border-color: $theme-color;
+            color: $theme-color;
+        }
+    }
+}
+
+.custom-dropdown {
+    position: relative;
+
+    .custom-select {
+        background-image: none;
+        background-color: transparent;
+        border: none;
+        border-bottom: 1px solid $border-color;
+        width: 100%;
+        padding: $no-spacing;
+        height: 25px;
+        color: $primary-text;
+
+        &:hover {
+            border-color: $theme-color;
+        }
+
+        &:disabled {
+            background: transparent;
+            color: $primary-text;
+        }
+    }
+
+    .icon-down-arrow {
+        position: absolute;
+        right: 0px;
+        font-size: 7px;
+        top: 10px;
+        transform: rotate(0deg) !important;
+        z-index: 1;
+    }
+
+    .custom-select:disabled+.icon-down-arrow::before {
+        color: $light-grey;
+    }
+}
+
+.guidance-acc {
+    .accordion-item  {
+        border-top: 1px solid #d6d6d6 !important;
+        border-bottom: 1px solid #d6d6d6 !important;
+        border-left: 0 !important;
+        border-right: 0 !important;
+        border-radius: none !important;
+        margin: 0 !important;
+        position: relative;
+    }
+
+    .accordion-body {
+        font-size: 16px;
+        color: #394454;
+    }
+
+    .accordion-header {
+        font-size: 24px;
+        font-weight: 400;
+        background-color: #fff;
+        border:none ;
+
+        .accordion-button {
+            color: #00BCEB;
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+            width: 100%;
+            text-align: left;
+            font-size: 24px !important;
+            border: 1px solid transparent;
+            background-color: transparent;
+            &:hover{
+                text-decoration: none;
+            }
+
+            &::after {
+                content: "\e9bb";
+                font-family: 'enterpriseAgreement' !important;
+                position: absolute;
+                color: #516A93;
+                right: 15px;
+                transform: rotate(270deg);
+            }
+            &.collapsed{
+                &::after{
+                    transform: rotate(90deg);
+                }
+            }
+        }
+
+    }
+}

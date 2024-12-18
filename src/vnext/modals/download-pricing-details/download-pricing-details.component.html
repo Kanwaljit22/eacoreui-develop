@@ -1,0 +1,28 @@
+<div class="download-modal-body vNext modal-without-header">
+    <div class="modal-head">
+  
+      <h5>Download</h5>
+    <button class="icon-close-btn" type="button" (click)="close()" ></button>
+    </div>
+    <div class="modal-container border-top">
+      <div class="d-flex justify-content-between pb-3">
+        <div class="d-flex flex-column">
+            <span class="bold-text">Service Pricing</span>
+            <span>Software Support prices for standalone Service purchase.</span>
+        </div>
+        <div>
+            <button class="btn btn-primary" (click)="download('service')">Download</button>
+        </div>
+      </div>
+      <div class="d-flex justify-content-between pt-3 border-top">
+        <div class="d-flex flex-column">
+            <span class="bold-text">Price Estimate</span>
+            <span>Download complete proposal pricing details.</span>
+        </div>
+        <div>
+            <button class="btn btn-primary" (click)="download('price')">Download</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

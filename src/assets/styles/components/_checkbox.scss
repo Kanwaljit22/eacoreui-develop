@@ -1,0 +1,90 @@
+.label-check {
+    height: auto;
+    display: inline-block;
+    vertical-align: middle;
+   
+    margin-bottom: 0;
+    font-size: rem(15);
+    font-family: "ciscoSans";
+    padding-left: 24px;
+    position: relative;
+    line-height: 1;
+    cursor: pointer;
+    span {
+        font-size: rem(15);
+        font-family: "ciscoSans";
+    }
+    input[type="checkbox"] {
+        position: absolute;
+        z-index: 11;
+        width: 18px;
+        height: 18px;
+        opacity: 0;
+        cursor: pointer;
+        &~.custom-checkbox-btn {
+            font-family: 'enterpriseAgreement';
+            font-size: rem(14);
+            position: absolute;
+            left: 0;
+            @extend .icon-checkbox1;
+            span {
+                font-family: 'enterpriseAgreement';
+            }
+        }
+        &:checked {
+            &~.custom-checkbox-btn {
+                @extend .icon-checkbox-selected;
+                
+            }
+        }
+        &:disabled {
+            &~.custom-checkbox-btn {
+                &:before {
+                    content: '';
+                    background: none;
+                }
+                @extend .icon-checkbox-disable;
+            }
+            &:checked {
+                &~.custom-checkbox-btn {
+                    @extend .icon-checkbox-selected-disable;
+                }
+            }
+        }
+        &:checked {
+            &~.custom-checkbox-btn {
+                @extend .icon-checkbox-selected;
+               
+            }
+            &[disabled] {
+                &~.custom-checkbox-btn {
+                    
+                    &:before {
+                        color: #999999;
+                        content:"\ed21";
+                    }
+                    .path1,.path2{ display:none;}
+                }
+            }
+        }
+        
+    }
+    
+    .ag-grid-checkbox {
+        &~.custom-checkbox-btn {
+            .path2:before {
+                margin-left: -1.45em !important;
+            }
+        }
+    }
+}
+
+table .label-check {
+    white-space: nowrap;
+    text-align: left;
+    display: inline;
+}
+.docu-check .link{ 
+    font-size: 13px;
+    font-weight: 400;
+}

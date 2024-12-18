@@ -1,0 +1,51 @@
+<div class="modal-body vNext modal-without-header">
+    <button class="icon-close-btn" (click)="activeModal.dismiss('Cross click')" attr.action-id="{{dataIdConstantsService.convertToQuote_button_closeIcon}}" type="button"></button>
+    <h2>{{localizationService.getLocalizedString('common.CONVERT_TO_QUOTE')}}</h2>
+    <app-message [displayModalMsg]="true"></app-message>
+    <div class="convert-quote-body">
+        <h5 class="heading--h5">{{localizationService.getLocalizedString('convert-quote.LIST_OF_EXISTING_QUOTES_TO_CHOOSE_FROM')}}</h5>
+        <div class="d-flex w-100">
+            <table class="primary-table">
+                <thead>
+                    <tr>
+                        <th>{{localizationService.getLocalizedString('convert-quote.QUOTE_NAME')}}</th>
+                        <th>{{localizationService.getLocalizedString('convert-quote.QUOTE_ID')}}</th>
+                        <th width="12%">{{localizationService.getLocalizedString('common.STATUS')}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor = "let quote of quotesList; let index = index;">
+                        <td>
+                            <div class="card-title custom-card-title radio-custom mb-0">
+                                <!-- <input type="radio" name="" value=""> -->
+                                <input type="radio" class="radio_quoteName" [(ngModel)]="radioSelected" name="list_name"
+                            [value]="quote['quoteId']" (change)="onItemChange(item)" attr.data-id="{{dataIdConstantsService.convertToQuote_radio_selectedQuote}}{{index}}" />
+                                <label class="tierlabel" for="tier1">
+                                    <span class="custom-radio-btn"><span class="path1"></span><span class="path2"></span></span>
+                                    <span><span></span></span> {{quote.quoteName}}
+                                </label>
+                            </div>
+                        </td>
+                        <td>
+                            <ng-container>
+                                <a href="javascript:void(0);" (click)="openQuoteUrl(quote.quoteId)" attr.action-id="{{dataIdConstantsService.convertToQuote_button_openQuote}}{{index}}" style="color: #227bb1">{{quote.quoteId}}</a>
+                            </ng-container>
+                        </td>
+                        <td><span class="badge badge-in-process">{{quote.quoteStatusDesc}}</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="blank-state d-none">
+            <img src="../../../assets/images/icons/empty-enrollment.svg">
+            <h4 class="heading--h4 light-text marginT20">{{localizationService.getLocalizedString('convert-quote.DONT_HAVE_EXISTING_QUOTE')}} <a href="jacascript:void(0);" attr.action-id="{{dataIdConstantsService.convertToQuote_link_createNewQuote}}">{{localizationService.getLocalizedString('convert-quote.CREATE_NEW_QUOTE')}}</a> to complete the process</h4>
+        </div>
+    </div>
+
+    <div class="justify-content-center d-flex pb-4 paddingT10">
+        <button class="btn btn-secondary sm" (click)="createNewQuote()" attr.action-id="{{dataIdConstantsService.convertToQuote_button_createNewQuote}}" [ngClass]="{ 'disablde': isquoteUrlClicked }">{{localizationService.getLocalizedString('convert-quote.CREATE_A_NEW_QUOTE')}}</button>
+        <button class="btn btn-secondary sm mx-2"(click)="activeModal.dismiss('Cross click')" attr.action-id="{{dataIdConstantsService.convertToQuote_button_cancel}}" id="{{elementIdConstantsService.ConvertQuote_Cancel}}">{{localizationService.getLocalizedString('common.CANCEL')}}</button>
+        <button class="btn btn-primary sm" [disabled]="!radioSelected" attr.action-id="{{dataIdConstantsService.convertToQuote_button_updateQuote}}"  (click)="updateQuote()" >{{localizationService.getLocalizedString('convert-quote.PROCEED')}}</button>
+    </div>
+</div>

@@ -1,0 +1,245 @@
+{
+    "rid": "EAMP1694510825037",
+    "user": "trzope",
+    "error": false,
+    "data": {
+        "objId": "64e8cf363a2bae451d528e9b",
+        "id": 78812,
+        "name": "Tr deal Ea3.0",
+        "customerInfo": {
+            "accountName": "FIRST SOLAR INC",
+            "customerGuId": "5548777",
+            "customerGuName": "FIRST SOLAR INC",
+            "preferredLegalName": "FIRST SOLAR INC",
+            "preferredLegalAddress": {
+                "addressLine1": "4050 E COTTON CENTER BLVD",
+                "addressLine2": "BLVD - STE 68",
+                "city": "PHOENIX",
+                "state": "AZ",
+                "zip": "85040",
+                "country": "USA"
+            },
+            "federalCustomer": false,
+            "countryCode": "USA",
+            "duoCustomerType": {
+                "federalCustomer": true,
+                "legacyCustomer": false,
+                "subscriptionLines": false,
+                "hwTokenLines": false
+            },
+            "legacyCustomer": false
+        },
+        "dealInfo": {
+            "expectedBookDate": "07-Sep-2023",
+            "id": "61122018",
+            "statusDesc": "Not Submitted",
+            "optyOwner": "gresimmo",
+            "buyMethodDisti": false,
+            "directRTM": false,
+            "dealScope": 3,
+            "dealSource": 0,
+            "dealType": 1,
+            "sfdcOptyId": "0067X00000FK5pKQAT",
+            "crPartyId": "90051268",
+            "dealMaster": {
+                "salesLevel0": "CORP. REVENUE",
+                "salesLevel1": "Americas",
+                "salesLevel2": "AMERICAS_SP",
+                "salesLevel3": "ASP WEB",
+                "salesLevel4": "ASP GOOGLE",
+                "salesLevel5": "GOOGLE CORP_IT",
+                "salesLevel6": "GOOGLE CORP_IT AMER",
+                "shareNodeId": "210875018",
+                "theater": "Americas",
+                "area": "ASP WEB",
+                "region": "GOOGLE CORP_IT"
+            },
+            "distiDeal": false,
+            "partnerDeal": false,
+            "changeSusbcriptionDeal": false
+        },
+        "partnerInfo": {},
+        "status": "COMPLETE",
+        "locked": false,
+        "partnerTeam": {},
+        "ciscoTeam": {
+            "contacts": [
+                {
+                    "firstName": "Greg",
+                    "lastName": "Simmons",
+                    "name": "Greg Simmons",
+                    "email": "gresimmo@cisco.com",
+                    "userId": "gresimmo",
+                    "role": "AM",
+                    "notification": true,
+                    "webexNotification": true,
+                    "notifyByWelcomeKit": true,
+                    "src": "AUTO",
+                    "ccoId": "gresimmo"
+                },
+                {
+                    "firstName": "Trupti",
+                    "lastName": "Zope",
+                    "name": "Trupti Zope",
+                    "email": "trzope@cisco.com",
+                    "userId": "trzope",
+                    "role": "Systems Engineer",
+                    "notification": true,
+                    "webexNotification": true,
+                    "notifyByWelcomeKit": true,
+                    "src": "AUTO",
+                    "ccoId": "trzope"
+                },
+                {
+                    "firstName": "Ashish",
+                    "lastName": "Das",
+                    "name": "Ashish Das",
+                    "email": "ashdas@cisco.com",
+                    "userId": "ashdas",
+                    "role": "Business Systems Architect",
+                    "notification": true,
+                    "webexNotification": true,
+                    "notifyByWelcomeKit": true,
+                    "src": "AUTO",
+                    "ccoId": "ashdas"
+                },
+                {
+                    "firstName": "David",
+                    "lastName": "Jones",
+                    "name": "David Jones",
+                    "email": "dajones5@cisco.com",
+                    "userId": "dajones5",
+                    "role": "Software Engineer",
+                    "notification": true,
+                    "webexNotification": true,
+                    "notifyByWelcomeKit": true,
+                    "src": "AUTO",
+                    "ccoId": "dajones5"
+                },
+                {
+                    "firstName": "Pradeep",
+                    "lastName": "Guntur",
+                    "name": "Pradeep Guntur",
+                    "email": "prguntur@cisco.com",
+                    "userId": "prguntur",
+                    "role": "Engineer - IT [C]",
+                    "notification": true,
+                    "webexNotification": true,
+                    "notifyByWelcomeKit": true,
+                    "src": "AUTO",
+                    "ccoId": "prguntur"
+                },
+                {
+                    "firstName": "Kuldip Surendra",
+                    "lastName": "Chavan",
+                    "name": "Kuldip Surendra Chavan",
+                    "email": "kuchavan@cisco.com",
+                    "userId": "kuchavan",
+                    "role": "Software Engineer",
+                    "notification": true,
+                    "webexNotification": true,
+                    "notifyByWelcomeKit": true,
+                    "src": "AUTO",
+                    "ccoId": "kuchavan"
+                },
+                {
+                    "firstName": "Shashwat",
+                    "lastName": "Pathak",
+                    "name": "Shashwat Pathak",
+                    "email": "shashwpa@cisco.com",
+                    "userId": "shashwpa",
+                    "role": "Engineer - IT [C]",
+                    "notification": true,
+                    "webexNotification": true,
+                    "notifyByWelcomeKit": true,
+                    "src": "AUTO",
+                    "ccoId": "shashwpa"
+                }
+            ]
+        },
+        "deleted": false,
+        "audit": {
+            "createdBy": "trzope",
+            "createdAt": 1692978998809,
+            "updatedBy": "trzope",
+            "updatedAt": 1694510286651
+        },
+        "deferLocc": false,
+        "ordered": false,
+        "initiatedBy": {
+            "type": "CISCO",
+            "distiInitiated": false,
+            "resellerInitiated": false,
+            "ciscoInitiated": true
+        },
+        "transactionDtl": {
+            "cavTransactionId": "EAMP1692979036943"
+        },
+        "smartAccount": {
+            "smrtAccntId": "241785",
+            "smrtAccntName": "Zhejiang Serwell Technology Co., Ltd.",
+            "smrtAccntStatus": "ACTIVE",
+            "domain": "serwell.com.cn",
+            "accountType": "CUSTOMER",
+            "virtualAccount": {
+                "name": "DEFAULT",
+                "id": "269318"
+            }
+        },
+        "scopeInfo": {
+            "scopeId": 8689,
+            "masterAgreementId": "EA8490",
+            "returningCustomer": false
+        },
+        "permissions": {
+            "featureAccess": [
+                {
+                    "name": "project.view",
+                    "description": "Project View",
+                    "disabled": false,
+                    "defaulted": false
+                },
+                {
+                    "name": "project.reopen",
+                    "description": "Project Reopen",
+                    "disabled": false,
+                    "defaulted": false
+                },
+                {
+                    "name": "project.edit",
+                    "description": "Project Edit",
+                    "disabled": false,
+                    "defaulted": false
+                },
+                {
+                    "name": "project.manage_team",
+                    "description": "Project Manage Team",
+                    "disabled": false,
+                    "defaulted": false
+                },
+                {
+                    "name": "project.change_deal_id",
+                    "description": "Project Change Deal ID",
+                    "disabled": false,
+                    "defaulted": false
+                },
+                {
+                    "name": "project.create",
+                    "description": "project.create permission",
+                    "disabled": false,
+                    "defaulted": false
+                },
+                {
+                    "name": "proposal.create",
+                    "description": "Proposal Create",
+                    "disabled": false,
+                    "defaulted": false
+                }
+            ]
+        },
+        "buyingProgram": "BUYING_PGRM_3",
+        "changeSubscriptionDeal": false
+    },
+    "buildVersion": "NOV 11-14-2021 09:53 EST RELEASE",
+    "currentDate": 1694510826465
+}

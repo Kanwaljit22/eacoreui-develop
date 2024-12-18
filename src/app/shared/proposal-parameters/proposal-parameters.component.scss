@@ -1,0 +1,297 @@
+/*----------- Search bar CSS --------------*/
+
+.clearSearchBtn {
+    position: absolute;
+    top: 9px;
+    right: 3px;
+    text-transform: uppercase;
+    color: #005073 !important;
+    cursor: pointer;
+}
+
+.clearSearchBtn.disable {
+    color: #ccc !important;
+}
+
+i.arrow {
+    border: solid #cccccc;
+    border-width: 0 1px 1px 0;
+    background: #ffffff;
+    display: inline-block;
+    padding: 5px;
+    position: absolute;
+    top: -6px;
+    left: 135px;
+}
+
+.arrow.up {
+    transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+    background: #f9f9f9;
+    left: 187px;
+}
+
+.arrow.up.noVal {
+    transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+    background: #f9f9f9;
+    left: 187px;
+}
+
+.arrow.up.val36 {
+    transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+    background: #f9f9f9;
+    left: 2px;
+}
+
+.arrow.up.val60 {
+    transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+    background: #f9f9f9;
+    left: 60px;
+}
+
+.arrow.up.co-term {
+    transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+    background: #f9f9f9;
+    left: 210px;
+}
+
+.arrow.up.customVal {
+    transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+    background: #f9f9f9;
+    left: 118px;
+}
+
+.arrow.left {
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+    right: -5px;
+    left: auto;
+    top: 2px;
+}
+
+.tab-panel {
+    border: 1px solid #cccccc;
+    background-color: #f9f9f9;
+    position: relative;
+    margin-top: 15px;
+    padding: 15px;
+    border-radius: 3px;
+}
+
+.icon-delete {
+    cursor: pointer;
+}
+
+.datePicker .input-group-append {
+    padding-top: 15px;
+    border-bottom: 1px solid #cccccc;
+}
+
+.datePicker .input-group-append .icon-calender {
+    cursor: pointer;
+}
+
+
+/*new css*/
+
+.card-body textarea.form-control,
+.card-body textarea.form-control.active {
+    height: 42px !important;
+}
+
+.selected-val {
+    float: left;
+    margin-right: 10px;
+    color: #999;
+    margin-top: 10px;
+}
+
+
+/*Filter Slider
+===========================*/
+
+::ng-deep .irs-from,
+::ng-deep .irs-to,
+::ng-deep .irs-single,
+::ng-deep .irs-bar,
+.irs-slider {
+    background: #005073;
+}
+
+::ng-deep .irs-line,
+::ng-deep .irs-line-left,
+::ng-deep .irs-line-mid,
+::ng-deep .irs-line-right,
+::ng-deep .irs-bar.irs-bar--single {
+    height: 8px !important;
+    top: 25px;
+    border-radius: 0px;
+    left: 0px !important;
+}
+
+::ng-deep .irs-line {
+    background-color: #ccc;
+}
+
+::ng-deep .irs-bar {
+    background-color: #005073;
+}
+
+::ng-deep .irs-from:after,
+::ng-deep .irs-to:after,
+::ng-deep .irs-single:after {
+    position: absolute;
+    display: none;
+    content: "";
+    top: -10px !important;
+    left: 50%;
+    width: 0;
+    height: 0;
+    margin-left: -3px;
+    overflow: hidden;
+    border: 3px solid transparent;
+    border-top-color: transparent;
+}
+
+::ng-deep .range-Right .irs-to,
+::ng-deep .range-Right .irs-from {
+    top: -10px !important;
+}
+
+::ng-deep .range-Right .irs-line,
+::ng-deep .range-Right .irs-line-left,
+::ng-deep .range-Right .irs-line-mid,
+::ng-deep .range-Right .irs-line-right,
+::ng-deep .range-Right .irs-bar {
+    top: 15px;
+}
+
+::ng-deep .range-Right .irs-slider.to {
+    top: 6px !important;
+}
+
+::ng-deep .irs-slider {
+    width: 19px;
+    height: 18px;
+    top: 22px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+::ng-deep .cover .irs {
+    margin: 0;
+}
+
+::ng-deep .irs-from,
+::ng-deep .irs-slider.from {
+    display: block;
+}
+
+::ng-deep .irs-line-left,
+::ng-deep .irs-line-mid,
+::ng-deep .irs-line-right {
+    background-color: #049fd9;
+    background-image: none;
+}
+
+* {
+    outline: none !important;
+}
+
+.custom-select {
+    background-image: none;
+    background-color: transparent;
+    color: #fff;
+    border-bottom: 1px solid #005073 !important;
+    border: 0;
+    border-radius: 0;
+    padding: 5px 20px 5px 5px;
+}
+
+.custom-dropdown .ico-dropdown {
+    position: absolute;
+    right: 10px;
+    top: 12px;
+    transform: rotate(0deg) !important;
+}
+
+.custom-dropdown .custom-select:focus+label+.ico-dropdown {
+    transform: rotate(180deg);
+}
+
+.custom-select:focus {
+    box-shadow: none !important;
+}
+
+::ng-deep .irs-slider.to {
+    display: none;
+}
+
+.range-Right ::ng-deep .irs-slider.to,
+.range-Right ::ng-deep .irs-slider.from {
+    top: 7px !important;
+}
+
+::ng-deep .irs-slider.to,
+::ng-deep .irs-slider.from {
+    background: transparent url('/assets/images/filter-circle-arrow.svg') no-repeat;
+    height: 22px;
+    width: 22px;
+    top: 17px !important;
+}
+
+::ng-deep .irs-max,
+::ng-deep .irs-min {
+    display: none !important;
+}
+
+::ng-deep .irs-to,
+::ng-deep .irs-from {
+    background-color: transparent;
+    padding-left: 9px;
+    top: 0px;
+    color: #a3a7aa;
+    font-size: 11px;
+}
+
+::ng-deep .irs-to:after {
+    display: none;
+}
+
+::ng-deep .irs-slider {
+    background: transparent url('../../../assets/images/slider-knob-indigo.svg') no-repeat 0px -1px !important;
+}
+
+::ng-deep .irs-slider:hover {
+    background-position: 0px -1px;
+}
+
+::ng-deep .irs-bar-edge {
+    background-image: none;
+}
+
+.selected-val {
+    float: left;
+    margin-right: 10px;
+    color: #999;
+    margin-top: 10px;
+    max-width: 150px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.marginTop10 {
+    margin-top: 10px;
+}
+
+.datePicker.disable {
+    opacity: .5;
+    cursor: not-allowed;
+    pointer-events: none;
+}

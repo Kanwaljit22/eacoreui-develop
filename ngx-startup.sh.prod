@@ -1,0 +1,19 @@
+sudo docker rm -f $(sudo docker ps -a -q)
+
+npm run build
+
+echo copping dist folder
+cp -r dist/creui/ config/
+
+echo going to config folder
+cd config
+
+echo build docker image
+sudo docker build -t creui .
+
+echo run docker image
+#for local backend/Python server so that container can connnect to localhost network
+#sudo docker run --network="host" -p 8080:8080 --name creui creui
+
+#for remote backend/Python server eg. ccw-np-deployer
+sudo docker run -p 8080:8080 --name creui creui

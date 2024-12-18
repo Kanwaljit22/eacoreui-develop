@@ -1,0 +1,50 @@
+.main-table.summaryView-table {
+    float: left;
+    width: 100%;
+}
+
+.startQual .btn {
+    cursor  : pointer;
+    position: relative;
+    top     : -5px;
+}
+
+.startQual .btn:focus,
+.startQual .btn:active {
+    box-shadow: none;
+}
+
+.startQualDropdown:hover .dropdown-menu {
+    display: block;
+    left   : auto;
+    right  : 0;
+}
+
+.startQualDropdown:hover .dropdown-menu li {
+    display: block;
+    margin : 0;
+}
+
+.fullScreenBtn {
+    margin-right: 10px;
+}
+
+.main-table.summaryView-table {
+    float: left;
+    width: 100%;
+}
+
+.startQual .btn {
+    cursor  : pointer;
+    position: relative;
+    top     : -5px;
+}
+
+.startQual .btn:focus,
+.startQual .btn:active {
+    box-shadow: none;
+}
+
+.fullScreenBtn {
+    margin-right: 10px;
+}

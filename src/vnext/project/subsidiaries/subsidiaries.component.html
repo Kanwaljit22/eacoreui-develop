@@ -1,0 +1,185 @@
+<div class="row mb-4 pb-3 vNext choose-subsidiaries">
+    <div class="col-12 overflow-content" *ngIf="(masterAggreementDetails?.eaId || projectStoreService.projectData?.scopeInfo?.masterAgreementId) && projectStoreService.blurSubsidiaries">
+        <div class="row">
+            <div class="col-12 mb-2">
+                <h3 *ngIf="!eaService.isSpnaFlow" class="heading--h5 dark">{{localizationService.getLocalizedString('create-project.subsidiaries.CISCO_EA_3.0_CUSTOMER')}}</h3>
+                <h3 *ngIf="eaService.isSpnaFlow" class="heading--h5 dark">{{localizationService.getLocalizedString('create-project.subsidiaries.SPNA_CISCO_EA_3.0_CUSTOMER')}}</h3>
+                <p class="heading--h6" *ngIf="!eaService.features?.RENEWAL_SEPT_REL || (eaService.features?.RENEWAL_SEPT_REL && !isAllowCreateBpId)">{{localizationService.getLocalizedString('create-project.subsidiaries.BELOW_IS_YOUR_BUYING_PROGRAM_ID')}}</p>
+                <p class="heading--h6" *ngIf="eaService.features?.RENEWAL_SEPT_REL && isAllowCreateBpId">{{localizationService.getLocalizedString('create-project.subsidiaries.BELOW_IS_YOUR_BUYING_PROGRAM_ID_ASSOCIATED_WITH_CUSTOMER')}}</p>
+                <p class="heading--h6 mt-2" *ngIf="eaService.features?.RENEWAL_SEPT_REL && isAllowCreateBpId">{{localizationService.getLocalizedString('create-project.subsidiaries.BELOW_IS_YOUR_BUYING_PROGRAM_ID_ASSOCIATED_WITH_CUSTOMER_EXISTING_BPID')}}</p>
+                <p class="heading--h6 mt-2" *ngIf="eaService.features?.RENEWAL_SEPT_REL && isAllowCreateBpId">{{localizationService.getLocalizedString('create-project.subsidiaries.BELOW_IS_YOUR_BUYING_PROGRAM_ID_ASSOCIATED_WITH_CUSTOMER_NEW_BPID')}}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="alert alert--warning alert-dismissable mb-3 d-flex justify-content-between" *ngIf="!projectStoreService.projectData?.scopeInfo?.eaidSelectionLocked && projectStoreService.projectData?.scopeInfo?.newEaidCreated && isExistingIdSelected ">
+                    <span class="d-flex">
+                            <span class="alert-icon">
+                            <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                            </span>
+                        <span>{{'common.NEW_BPID_INPROGRESS_WARNING' | localizationPipe : localizationService.localizedkeySet.size}} 
+                        </span>
+                   </span>
+                   <a href="javascript:void(0);" (click)="goBackToSubsidiaries()">{{'common.CLICK_HERE_TO_GO_BACK' | localizationPipe : localizationService.localizedkeySet.size}}</a>
+                </div>
+                <div class="alert alert--warning alert-dismissable mb-3" *ngIf="!projectStoreService.projectData?.scopeInfo?.eaidSelectionLocked && (projectStoreService.projectData?.scopeInfo?.returningCustomer || projectStoreService.projectData?.scopeInfo?.newEaidCreated) && isExistingIdSelected">
+                    <span class="alert-icon d-flex">
+                    <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                    </span>
+                   <span>{{'common.OVERWRITE_PREVIOUSLY_SCOPE_WARNING' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                </div>
+            </div>
+            <div class="col-3" *ngIf="!isAllowCreateBpId">
+                <div class="ea-wrap active">
+                    <span class="icon-tick-check i-vNext-tick-check"></span>
+                    <h4>{{localizationService.getLocalizedString('create-project.subsidiaries.EA_BUYING_PROGRAM_ID')}}</h4>
+                    <h5 *ngIf='masterAggreementDetails?.eaId; else masterAgreementId'>{{masterAggreementDetails?.eaId}}</h5>
+                    <ng-template #masterAgreementId>
+                        <h5>{{projectStoreService.projectData?.scopeInfo?.masterAgreementId}}</h5>
+                    </ng-template>
+                    <ul class="inline-listing border-right-li">
+                        <li *ngIf="masterAggreementDetails?.enrollmentCount">{{localizationService.getLocalizedString('create-project.subsidiaries.PORTFOLIO')}} {{masterAggreementDetails.enrollmentCount}} </li>
+                        <li *ngIf="masterAggreementDetails?.suiteCount">{{localizationService.getLocalizedString('create-project.subsidiaries.SUITES')}} {{masterAggreementDetails.suiteCount}}</li>
+                        <li *ngIf="eaService.features?.RENEWAL_SEPT_REL && masterAggreementDetails?.subscriptionCount">
+                            {{localizationService.getLocalizedString('common.SUBSCRIPTION')}}
+                            {{masterAggreementDetails?.subscriptionCount}}</li>
+                    </ul>
+                </div>
+            </div>
+
+            <ng-container *ngIf="eaService.features?.EAID_REL && isAllowCreateBpId">
+                <app-bpids-list [allBpIDs]="allBpIDs"   style="width: 100%;" [isCreateNewBpFlyout]="false" [selectedBpID]="selectedBpID" (selectedId)="selectedId($event)" (openBpIdDetail)="openBpIdDetail($event)"></app-bpids-list>
+            </ng-container>
+        </div>
+        <div class="row pt-3 mt-1">
+            <div class="col-12">
+                <div class="alert alert--warning alert-dismissable mb-2" *ngIf="alreadyPurchasedDetails">
+                    <span class="alert-icon d-flex">
+                    <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                    </span>
+                   <span>{{'create-project.subsidiaries.COUPLE_OF_SUITE_ALREADY_PURCHASED_UNDE_BP_ID' | localizationPipe : localizationService.localizedkeySet.size}} {{selectedBpID?.eaId}} {{'create-project.subsidiaries.A_SINGLE_TF_DATE' | localizationPipe : localizationService.localizedkeySet.size}} {{nextTfDate}}. <a href="javascript:void(0);" (click)="goToSalesConnect()">{{'common.CLICK_HERE' | localizationPipe : localizationService.localizedkeySet.size}} </a>{{'create-project.subsidiaries.FOR_MORE_DETAILS_TF_RULES' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                </div>
+                <!-- <button class="btn btn-secondary sm">I want to create a new EA</button> -->
+                <button class="btn btn-primary" attr.action-id="{{dataIdConstantsService.subsidiaries_button_showSubsidiaries}}" id="{{elementIdConstantsService.PROJECT_SHOW_SUBSIDIARIES_CONTINUE}}" (click)="showSubsidiaries()" *ngIf="(!eaService.features?.EAID_REL) || (eaService.features?.EAID_REL && !isAllowCreateBpId)">{{localizationService.getLocalizedString('common.CONTINUE')}}</button>
+                <button class="btn btn-primary" attr.action-id="{{dataIdConstantsService.subsidiaries_button_showSubsidiaries}}" id="{{elementIdConstantsService.PROJECT_CHANGE_EAID_CONTINUE}}"  (click)="continuetoChangeEaidForProject()" *ngIf="eaService.features?.EAID_REL && isAllowCreateBpId" [disabled]="(!selectedBpID || !selectedBpID?.eaId) && isAllowCreateBpId">{{localizationService.getLocalizedString('common.CONTINUE')}}</button>
+                <span  class="ml-3" *ngIf="isAllowCreateBpId && eaService.features?.EAID_REL && !isPartnerAccessingSfdcDeal"><a href="javascript:void(0);"  id="{{elementIdConstantsService.PROJECT_CREATE_BPID}}" (click)="projectService.createBPId = true;" attr.action-id="{{dataIdConstantsService.subsidiaries_link_createBpId}}" [ngClass]="{'disabled': eaService.features?.PARTNER_SUPER_USER_REL && !projectStoreService.projectCreateBpIdAccess}">Create Buying Program ID</a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 p-0" [ngClass]="{'overlay-blur': projectStoreService.blurSubsidiaries}"> <!--add " overlay-blur" class to blur the div -->
+        <div class="col-12 d-flex justify-content-between align-items-center mb-2">
+            <div>
+                <h5 class="heading--h5 dark" attr.data-id="{{dataIdConstantsService.subsidiaries_label_selectSubsidiaries}}">{{localizationService.getLocalizedString('common.SELECT_SUBSIDIARY')}}</h5>
+                <h6 class="heading--h6">
+                    <small>{{localizationService.getLocalizedString('create-project.subsidiaries.CUSTOMER_ACCOUNT_VIEW_ID')}}</small>
+                </h6>
+            </div>
+            <!-- <button *ngIf='!projectStoreService.lockProject && !projectService.isReturningCustomer(projectStoreService.projectData?.scopeInfo) && cavDetails[0]?.bus.length === 1' class="btn btn-secondary sm" (click)="selectMoreBu()">Select more BU IDs</button> -->
+        </div>
+        <div class="col-12">
+            <app-message></app-message>
+        </div>
+        <!-- Error message when neweaidcreated and no bus are selected from Cav -->
+        <div class="col-12" *ngIf="isShowMessageForBuSelection">
+            <div class="d-flex alert alert--danger alert-dismissable mt-2">
+                <span class="alert-icon">
+                    <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                </span>
+                <span>{{'common.SELECT_ATLEAST_ONE_BU_AND_PARIES' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+            </div>
+        </div>
+        <!-- <div class="col-12 mb-3">
+            <div class="d-flex justify-content-between align-items-center info-alert-blue px-3 py-2">
+                <span class="d-flex align-items-center">
+                    <span class="icon-msg-Info mr-2"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                    There are 3 EA's associated with the selected Customer Account.
+                </span>
+                <button class="btn btn-secondary sm">View Associated EA's</button>
+            </div>
+        </div> -->
+
+        <div class="col-12">
+            <table class="primary-table">
+                <thead>
+                    <tr>
+                        <th width="">
+                        <!-- <label class="label-check" (click)="selectAllCustomerNames()"><input [checked]="selectAllCustomerName" class="form-check-input" type="checkbox"><span
+                                    class="custom-checkbox-btn"><span class="path1"></span><span
+                                        class="path2"></span></span><span></span></label> 
+                            <span class="mr-2"><img (click)="expandAll()" *ngIf="showExpandAll" src="assets/images/icons/expand-v1.svg">
+                                <img (click)="collapseAll()" *ngIf="!showExpandAll" src="assets/images/icons/collaspe-v1.svg"></span> -->
+                            <span>{{localizationService.getLocalizedString('create-project.subsidiaries.CUSTOMER_ACCOUNT')}}</span>
+                        </th>
+                        
+                        <th width="">
+                            <!-- <label class="label-check"  (click)="selectAllCustomerBus()"><input [checked]="selectAllCustomerBu" class="form-check-input" type="checkbox" [disabled]='true'><span
+                                    class="custom-checkbox-btn i-vNext-fonts"><span class="path1"></span><span
+                                        class="path2"></span><span class="path3"></span></span><span></span><span>Customer BU (BU ID)</span></label> -->
+                            <span>{{localizationService.getLocalizedString('common.CUSTOMER_BU')}}</span>
+                        </th>
+                        
+                        <th width="">
+                            <span>{{localizationService.getLocalizedString('common.ACTION')}}</span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container>
+                        <!-- <tr>
+                            <td>
+                                <label (click)="selectCustomer()" class="label-check"><input class="form-check-input"  [checked]="true" [disabled]="true" type="checkbox"><span
+                                        class="custom-checkbox-btn"><span class="path1"></span><span
+                                            class="path2"></span></span><span></span></label>
+                                <span class="mr-2"><img *ngIf="!subsidiary.expand" src="assets/images/icons/expand-v1.svg" (click)="expandBu(subsidiary)"><img  *ngIf="subsidiary.expand" src="assets/images/icons/collaspe-v1.svg"  (click)="expandBu(subsidiary)"></span> 
+                                <span>{{cavData.cavName}}</span>
+                            </td>
+                            <td> <label (click)="selectBu()" class="label-check" ><input [checked]="true" [disabled]="true" class="form-check-input" type="checkbox"><span
+                                        class="custom-checkbox-btn"><span class="path1"></span><span
+                                            class="path2"></span></span><span></span></label> <span
+                                    class="mr-2">{{cavData.bus[0].buName}}</span></td>
+                            <td>{{cavData.cavId}}</td>
+                            <td><a href="javascript:void(0);" (click)="showAllSites()">view sites</a></td>
+                        </tr> -->
+                        <ng-container>
+                        <tr *ngFor="let customerBu of firstLevelCavDetails?.bus; let index = index">
+                                <td>
+                                    <span>{{firstLevelCavDetails.cavName}} ({{firstLevelCavDetails.cavId}})</span>
+                                </td>
+                               
+                                <td> <label (click)="selectBu()" class="label-check"><input [checked]="true" [disabled]='true'  class="form-check-input" type="checkbox"><span
+                                            class="custom-checkbox-btn i-vNext-fonts" attr.data-id="{{dataIdConstantsService.subsidiaries_checkbox_selectBu}}{{customerBu?.buId}}"><span class="path1"></span><span
+                                                class="path2"></span><span class="path3"></span></span><span></span></label> <span
+                                        class="mr-2">{{customerBu?.buName}} ({{customerBu?.buId}})</span></td>
+                               
+                                <td><a href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.subsidiaries_link_viewParties}}{{customerBu?.buId}}" id="{{elementIdConstantsService.PROJECT_SUBSIDIARIES_VIEW_PARTIES}}" (click)="selectMoreBu('subsidiaries')">{{localizationService.getLocalizedString('common.VIEW_SITES')}}</a></td>
+                        </tr>
+                        <tr *ngIf="cavDetails[0]?.bus.length">
+                            <td>
+                            </td>
+                            <td> {{selectedBuCount}} {{'common.OF' | localizationPipe : localizationService.localizedkeySet.size}}  {{cavDetails[0].bus.length}} {{'create-project.subsidiaries.BU_MSG' | localizationPipe : localizationService.localizedkeySet.size}} </td>
+                            <td> 
+                            </td>
+                        </tr>
+                    </ng-container>
+                    </ng-container>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- Add Organization IDs HTML -->
+    <!-- <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center info-alert-blue mt-3 w-100 bl-3">
+            <span class="d-flex align-items-center">
+                <span class="icon-msg-Info mr-3">
+                    <span class="path1"></span>
+                    <span class="path2"></span>
+                    <span class="path3"></span>
+                </span>
+                <span class="pos-rel t-1">Are you planning to buy Meraki?</span>
+            </span>
+            <a href="javascript:void(0);" >Add Organization IDs</a>
+        </div>
+    </div> -->
+</div>
+<!-- End of Choose Subsidiaries -- Row -->

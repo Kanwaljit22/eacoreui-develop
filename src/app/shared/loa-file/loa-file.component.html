@@ -1,0 +1,45 @@
+<div class="modal-header">
+        <h5 class="modal-title">
+            {{localeService.getLocalizedString('partner.DOWNLOAD_LOA')}}
+        </h5>
+        <button class="icon-close-btn" type="button" (click)="activeModal.dismiss('Cross click')"></button>
+      </div>
+      <div class="modal-body">
+        <table class="primary-table admin-grid" width="100%" *ngIf = "documentCenter.loaData.length > 0">
+
+        <thead>
+            <tr>
+              <th width="65%">Name</th>
+              <th width="15%">Uploaded On</th>
+              <th width="15%">Download</th>
+              <th width="5%" [hidden]="readonlyMode">Delete</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let document of documentCenter.loaData ; let i = index;">
+              <td>   
+                <div>{{document.name}}</div>
+              </td>
+
+            <td>   
+                <div>{{document.createdOn | date:'dd-MMM-yyyy'}}</div>
+              </td>
+              <td>
+                <a #downloadZipLink [hidden]="true"></a>
+                <a (click)="downloadLOADoc(documentData.documentId)" href="javascript:" class="icon-download mr-2"></a>
+                <a (click)="downloadLOADoc(document.documentId)" href="javascript:">{{localeService.getLocalizedString('docusign.DOWNLOAD')}}</a>
+              </td>
+
+              <td>
+                <a href="javascript:void(0)" class="icon-delete ml-3" (click)="deleteDoc(document.documentId)"></a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+     </div>   
+
+
+      <div class="modal-footer">
+        <button class="btn btn-secondary" type="button" (click)="activeModal.dismiss('Cross click')">{{localeService.getLocalizedString('common.CLOSE')}}</button>
+      </div>

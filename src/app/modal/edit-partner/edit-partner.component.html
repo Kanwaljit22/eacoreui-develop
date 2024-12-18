@@ -1,0 +1,91 @@
+
+<div class="modal-header">
+    <h5 class="modal-title" *ngIf="CustomerInfoIdx !== 2">
+        {{localeService.getLocalizedString('docusign.EDIT_PARTNER_INFO')}}
+        <!--span class="info-icon">i</span-->
+    </h5>
+    <h5 class="modal-title" *ngIf="CustomerInfoIdx === 2">
+        {{localeService.getLocalizedString('docusign.ADD_PARTNER_INFO')}}
+        <!--span class="info-icon">i</span-->
+    </h5>
+    <button type="button" class="icon-close-btn" data-dismiss="modal" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+<form [formGroup]="form">
+<div class="modal-body edit-customer--info">
+    <div class="row card border-0">
+        <div class="col-lg-12 pt-3"  formGroupName="custRep">
+            <h4 class="title">{{localeService.getLocalizedString('qual.whoinvolved.PARTNER_REPRESENTATIVE')}}</h4>
+
+            <div class="form-group txt">
+                <input maxlength="45" class="form-control" name="custRepName" formControlName="custRepName" type="text"
+                    appElementFocus id="customerNAme" (input)="nameValidation()" />
+                <label for="custRepName" class="customer-label" (click)="focusInput('customerNAme')">{{localeService.getLocalizedString('qual.whoinvolved.NAME')}}
+                    <span class="important">*</span>
+                </label>
+                <div class="text-danger" role="alert" *ngIf="name.invalid && name.touched">
+                    <i class="icon-error-icon"></i><span>{{requiredErrorMessage}}</span>
+                </div>
+            </div>
+            <div class="form-group txt">
+                <input maxlength="45" class="form-control" name="custRepTitle" formControlName="custRepTitle" type="text"
+                    appElementFocus id="customerTitle" (input)="titleValidation()"/>
+                <label for="custRepTitle" class="customer-label" (click)="focusInput('customerTitle')">{{localeService.getLocalizedString('qual.whoinvolved.TITLE')}}
+                    <span class="important">*</span>
+                </label>
+                <div class="text-danger" role="alert" *ngIf="title.invalid && title.touched">
+                    <i class="icon-error-icon"></i><span>{{requiredErrorMessage}}</span>
+                </div>
+            </div>
+            <div class="form-group txt">
+                <input maxlength="45" class="form-control" name="custRepEmailId" formControlName="custRepEmailId" type="email"
+                    appElementFocus id="customerEmail"  (input)="emailValidation()"/>
+                <label for="custRepEmailId" class="customer-label" (click)="focusInput('customerEmail')">{{localeService.getLocalizedString('qual.whoinvolved.E_MAIL')}} (Required for DocuSign)
+                    <span class="important" *ngIf = "false">*</span>
+                </label>
+                 <div *ngIf="email.touched">
+                <div class="text-danger" role="alert" *ngIf="invalidEmail">
+                    <i class="icon-error-icon"></i><span>{{invalidEmailFormateMessage}}</span>
+                </div>
+                <div class="text-danger" role="alert" *ngIf="invalidDomain">
+                    <i class="icon-error-icon"></i><span>{{invalidDomainErrorMessage}}</span>
+                </div>
+                </div> 
+            </div>
+            <div class="form-group txt">
+                <div class="form-group eams-tel-num mt-4" style="margin-bottom: 0;">
+                <label class="customer-label" style="font-size: 12px; top:0px!important">Phone Number
+                    <span class="important">*</span>
+                </label>
+                <ngx-intl-tel-input
+                [cssClass]="'custom form-control contact-number w-100'"
+                [enableAutoCountrySelect]="true"
+                [enablePlaceholder]="false"
+                [searchCountryFlag]="true"
+                [searchCountryField]="[
+                  SearchCountryField.Iso2,
+                  SearchCountryField.Name
+                ]"
+                [selectFirstCountry]="false"
+                [selectedCountryISO]=""
+                [maxLength]="15"
+                [phoneValidation]="true"
+                [separateDialCode]="true"
+                [numberFormat]="PhoneNumberFormat.National"
+                name="phone"
+                formControlName="phone"
+              >
+              </ngx-intl-tel-input>
+                
+            </div> <div class="text-danger" role="alert" *ngIf="phone.invalid && phone.value">
+                <i class="icon-error-icon"></i><span>Please enter valid phone number.</span>
+            </div></div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss('Cross click')">{{localeService.getLocalizedString('common.CANCEL')}}</button>
+    <button *ngIf="CustomerInfoIdx === 3" type="button" class="btn btn-primary" [disabled]="((form.invalid || invalidDomain || invalidEmail))  || this.form.pristine || this.disableButton1 || this.disableButton2" (click)="updatePartner()">{{localeService.getLocalizedString('common.UPDATE')}}</button>
+    <button *ngIf="CustomerInfoIdx === 2" type="button" class="btn btn-primary" [disabled]="invalidDomain || invalidEmail || this.disableButton1 || this.disableButton2 || (phone.invalid && phone.value)" (click)="addPartner()">{{localeService.getLocalizedString('common.ADD')}}</button>
+</div>
+</form>

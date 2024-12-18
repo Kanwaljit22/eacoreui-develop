@@ -1,0 +1,367 @@
+<div id="page-header" class="global-bookmark">
+    <section id="deal-info" class="subHeaderWrap" [ngClass]="{'new-header': (appDataService.subHeaderData.moduleName === 'PROPOSAL_CREATION'), 'pt-2': headerService.fullScreen, 'custom-subHeaderWrap': !appDataService.smartAccountData, 'partner-flow': appDataService.isPatnerLedFlow}">
+        <div class="container-fluid"> <!-- [ngClass]="{'partner-flow': appDataService.isPatnerLedFlow}"-->
+            <div class="row align-items-center">
+                <!-- <div class="col-auto pr-0 header--info"> -->
+                    <div class="" [ngClass]="{'col-lg-7': !appDataService.subHeaderData.subHeaderVal && !appDataService.isPatnerLedFlow, 'col-lg-5': appDataService.subHeaderData.subHeaderVal && !appDataService.isGroupSelected &&appDataService.subHeaderData.moduleName !== 'AllArchView','col-lg-12 flyout-right': appDataService.subHeaderData.subHeaderVal && appDataService.isGroupSelected, 'col-lg-6 custom-width-left': appDataService.subHeaderData.moduleName === 'AllArchView'}">
+                    <div class="page-sub-title " [ngClass]="{'btn-cross-arch cx-flow': appDataService.subHeaderData.moduleName === 'PROPOSAL_CREATION' && appDataService.subHeaderData.subHeaderVal[6] === true && appDataService.subHeaderData.subHeaderVal[8]?.length > 0, 'without-breadcrumb': movePageSubTitleText || appDataService.isPatnerLedFlow, 'btn-single-arch cx-flow': appDataService.subHeaderData.moduleName === 'PROPOSAL_CREATION' && appDataService.subHeaderData.subHeaderVal[6] === false}">
+                        <h2 [id]="appDataService.createUniqueId(appDataService.subHeaderData.custName,'SUB_HEADER')">
+                        <span class="sub-header--icon" *ngIf="appDataService.subHeaderData.moduleName === 'PROPOSAL_CREATION'">
+                            <span container="body" placement="bottom-left"  ngbTooltip="Cisco DNA" *ngIf="appDataService.subHeaderData.subHeaderVal[7] === 'C1_DNA' && !appDataService.isGroupSelected" class="icon-DNA"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span></span>
+
+                        <span container="body" placement="bottom-left"  ngbTooltip="Cisco Data Center" *ngIf="appDataService.subHeaderData.subHeaderVal[7] === 'C1_DC' && !appDataService.isGroupSelected" class="icon-data-center"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span><span class="path8"></span><span class="path9"></span><span class="path10"></span><span class="path11"></span><span class="path12"></span><span class="path13"></span><span class="path14"></span><span class="path15"></span><span class="path16"></span>
+                                    </span>
+                        <span container="body" placement="bottom-left"  ngbTooltip="Cisco Security Choice" *ngIf="appDataService.subHeaderData.subHeaderVal[7] === 'SEC' &&  !appDataService.isGroupSelected" class="icon-security"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span><span class="path8"></span><span class="path9"></span><span class="path10"></span><span class="path11"></span>
+                        </span>
+
+                         <span container="body" placement="bottom-left"  ngbTooltip="Cross Architecture" *ngIf="appDataService.isGroupSelected" class="icon-white-cross-arch"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span><span class="path8"></span><span class="path9"></span><span class="path10"></span><span class="path11"></span>
+                         </span>
+                         <span container="body" placement="bottom-left" *ngIf="appDataService.subHeaderData.subHeaderVal[7] === 'CX'" class="icon-cx-logo-circle"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span></span>
+
+                            </span>
+                            <span *ngIf="!appDataService.isGroupSelected" container="body" placement="bottom-left"  ngbTooltip="{{appDataService.subHeaderData.custName}}" class="sub-header--text">{{appDataService.subHeaderData.custName}}</span>
+                                       
+                            <span *ngIf="appDataService.isGroupSelected" container="body" placement="bottom-left"  ngbTooltip="{{this.proposalDataService.proposalDataObject.proposalData.groupName}}" class="sub-header--text">{{this.proposalDataService.proposalDataObject.proposalData.groupName}}</span>
+
+                            <div class="subTitle-iconWrap" *ngIf='appDataService.subHeaderData.favFlag'>
+                                <a [id]="appDataService.createUniqueId(appDataService.subHeaderData.custName,'FAV_ICON')" class="iconTitleFlag" *ngIf="appDataService.isFavorite" (click)="removeFavorite()">
+                                    <i class="icon-flag-checked"></i>
+                                </a>
+                                <a [id]="appDataService.createUniqueId(appDataService.subHeaderData.custName,'FAV_ICON')" class="iconTitleFlag" *ngIf="!appDataService.isFavorite" (click)="addFavorite()">
+                                    <i class="icon-flag"></i>
+                                </a>
+                            </div>
+                            <div [id]="appDataService.createUniqueId(appDataService.subHeaderData.custName,'EDIT_ICON')" class="subTitle-iconWrap" *ngIf="appDataService.subHeaderData.moduleName === 'EDIT_QUALIFICATION' && appDataService.isProposalIconEditable">
+                                <span class="icon-header-edit" (click)="editQual()"></span>
+                            </div>
+                            <div [id]="appDataService.createUniqueId(appDataService.subHeaderData.custName,'EDIT_ICON')" class="subTitle-iconWrap" *ngIf="appDataService.subHeaderData.moduleName === 'PROPOSAL_CREATION' && appDataService.isProposalIconEditable && !creditOverviewPage">
+                                <span class="icon-header-edit" (click)="editProposal()"></span>
+                            </div>
+                            <span class="icon-history ml-2" *ngIf="appDataService.showActivityLog && !creditOverviewPage" (click)="openActivityLog()"></span>
+                        </h2>
+                        <span class="position-relative" *ngIf="appDataService.isRenewal && appDataService.subHeaderData.moduleName === 'PROPOSAL_CREATION'"><app-linked-subscription [subscriptionData] = 'proposalDataService.linkedRenewalSubscriptions'></app-linked-subscription></span>
+                        <button class="btn-secondary-outline clearfix" *ngIf="appDataService.smartAccountData && qualService.displaySmartAccountInHeader" (clickOutside)="onClickedOutsideSmart($event)">
+                            <div class="dropdown-menu" *ngIf="showSmartAccountDrop">
+                                        <span class="icon-arrow-up"><span class="path1"></span><span class="path2"></span></span>
+                                        <div class="line-level-top-btns">
+                                            <span class="pull-left"><span class="txt">Linked Smart Account</span></span>
+                                            <span class="pull-right" *ngIf="showSmartAccountLinkPermission"  ><a href="javascript:void(0);" class="link"  (click)="openLinkModal()">Link New Smart Account</a></span>
+                                        </div>
+                                        <div class="smart-search pr-3"><app-dropdown-data-search [placeholder]="placeholder" [pipeSearch] = "true" (onSearch)= "getSearchText($event)"></app-dropdown-data-search>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <div class="smart-list-scroll" *ngIf='appDataService.smartAccountData?.length > 0'>  
+                                            <table class="primary-table fixed-header">
+                                                <thead>
+                                                    <tr>
+                                                        <th width="32%" scope="SA name">Smart Account Name</th>
+                                                        <th width="15%" scope="SA name">Smart Account ID</th>
+                                                        <th width="33%" scope="description">Domain</th>
+                                                        <th width="12%" scope="status">Status</th>
+                                                        <th width="8%" scope="action" *ngIf="showSmartAccountLinkPermission">Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor='let smartAcc of appDataService.smartAccountData  | searchFilter: searchText : searchArray'>
+                                                        <td *ngIf="smartAcc.active"><span class="link">{{smartAcc.smartAccountName}}</span> <em class="icon-tick"></em>
+                                                        </td>
+                                                        <td *ngIf="!smartAcc.active" (click)="getAgreementDetails(smartAcc,true)"><span
+                                                                class="link">{{smartAcc.smartAccountName}}</span></td>
+                                                        <td>{{smartAcc.smartAccountId}}</td>
+                                                        <td>{{smartAcc.smartAccountDomainId}}</td>
+                                                        <td><span class="sa-active">{{smartAcc.status}}</span></td>
+                                                        <td *ngIf="showSmartAccountLinkPermission" class="text-center"
+                                                            (click)="deleteSmartAccount(smartAcc)"><i class="icon-delete"></i></td>
+                                                        <!-- <td *ngIf="showSmartAccountLinkPermission && !smartAcc.active" class="text-center"><i
+                                                                class="icon-delete disabled"></i></td> -->
+                                                    </tr>
+                                                    <tr *ngIf='appDataService.smartAccountData.length > 0 && ((appDataService.smartAccountData | searchFilter: searchText : searchArray).length === 0)'>
+                                                            No Result Found
+                                                        </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div *ngIf='!appDataService.smartAccountData || appDataService.smartAccountData?.length === 0' class="alert alert--info alert-dismissable"> 
+                                            <span class="alert-icon">
+                                                <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                                            </span>
+                                            <span> No Linked Smart Account Available for this Prospect! </span>
+                                        </div>
+                                    </div>
+                            <span class="sub-title-inner" placement="top-right"  ngbTooltip="{{appDataService.linkedSmartAccountObj.name}}">Smart Account: {{appDataService.linkedSmartAccountObj.name}}</span> 
+                            <span (click)="showSmartAccountDrop = !showSmartAccountDrop">
+                                <span class="dropdown">Change</span>
+                                <em class="icon-arrow-stroke-right"></em>
+                            </span>
+                        </button>  
+                        <button *ngIf="appDataService.subHeaderData.moduleName === 'PROPOSAL_CREATION' && appDataService.subHeaderData.subHeaderVal[6] === true && appDataService.subHeaderData.subHeaderVal[8]?.length > 0 && !appDataService.tcoFlow" class="btn-secondary-outline" (clickOutside)="onClickedOutside($event)">
+        
+                            <span container="body" placement="top-left" ngbTooltip="{{localeService.getLocalizedString('header.proposal.CROSS_ARCHITECTURE')}}" (click)="showDropArch()"><span class="icon-cross-arch mr-1 ml-2"></span> <span class="medRes-d-none">{{localeService.getLocalizedString('header.proposal.CROSS_ARCHITECTURE')}}</span> ({{appDataService.subHeaderData.subHeaderVal[8].length}}) <span class="medRes-d-block"><span class="ico-dropdown"></span></span></span>
+                            <span *ngIf="this.proposalDataService?.proposalDataObject.proposalData.isStatusInconsistentCrossArch" (click)="showDropArch()" class="icon-error-icon"></span>
+            <div class="dropdown-menu auto-width" *ngIf="showArchitectureDrop">
+            <span class="icon-arrow-up"><span class="path1"></span><span class="path2"></span></span>
+            <div class="cross-hover-info cross-hover-scroll">
+            <div class="alert alert--warning mb-3" *ngIf="this.proposalDataService?.proposalDataObject.proposalData.isStatusInconsistentCrossArch && this.proposalDataService?.proposalDataObject.proposalData.isStatusIncompleteCrossArch">
+                <span class="alert-icon">
+                    <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                </span>
+                <span>{{localeService.getLocalizedMessage('header.proposal.CROSS_ARCH_PARAM_INCONSISTENT_INCOMPLETE')}}</span>
+            </div>
+
+            <div class="alert alert--warning mb-3" *ngIf="!this.proposalDataService?.proposalDataObject?.proposalData.isStatusIncompleteCrossArch && this.proposalDataService.proposalDataObject.proposalData.isStatusInconsistentCrossArch">
+                <span class="alert-icon">
+                    <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                </span>
+            <span>{{localeService.getLocalizedMessage('header.proposal.CROSS_ARCH_PARAM_INCONSISTENT')}}</span>
+            </div>
+
+            <h6> {{localeService.getLocalizedString('header.proposal.PROPOSAL_IS_TIED_TO_ARCHITECTURE')}}</h6>
+            <table width="100%">
+            <thead>
+            <tr>
+            <th colspan="2" widh="35%">{{localeService.getLocalizedString('header.proposal.POPOSAL_NAME')}}</th>
+            <!-- <th widh="28%">{{localeService.getLocalizedString('header.proposal.ARCHITECTURE')}}</th> -->
+            <th width="15%">{{localeService.getLocalizedString('common.STATUS')}}</th>
+            <th width="13%">{{localeService.getLocalizedString('proposal.create.EXPECTED_START_DATE')}}</th>
+            <th width="11%">{{localeService.getLocalizedString('proposal.summary.EA_TERM')}}</th>
+            <th width="16%">{{localeService.getLocalizedString('proposal.create.PRICE_LIST')}}</th>
+            <th width="13%">{{localeService.getLocalizedString('proposal.create.BILLING_MODEL')}}</th>
+    </tr>
+    </thead>
+    <tbody>
+            <tr (click)="showAllProposal()" [ngClass]="{'active':appDataService.isGroupSelected}"  *ngIf="(appDataService.pageContext === 'DocumentCenter' || appDataService.pageContext === 'PreviewQuote')"> 
+            <td width="2%" class="text-center pr-0" >
+            <span container="body" placement="bottom-left"  ngbTooltip="Cross Architecture"  class="icon-white-cross-arch" style="font-size: 30px"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span><span class="path8"></span><span class="path9"></span><span class="path10"></span><span class="path11"></span></span>
+            </td>
+            <td>{{'All Proposals'}}</td>
+                                                 <td>{{'-'}} <span class="icon-tick-01"></span> </td>
+                                                 <td>{{'-'}}</td>
+                                                 <td>{{'-'}}</td>
+                                                 <td>{{'-'}}</td>
+                                                 <td>{{'-'}}</td>
+
+            </tr>
+
+            <tr *ngFor="let peoposalObject of appDataService.subHeaderData.subHeaderVal[8]" (click)="activeArchitecture(peoposalObject, appDataService.subHeaderData.subHeaderVal[8])" [ngClass]="{'active': peoposalObject.architecture_code === appDataService.subHeaderData.subHeaderVal[7] && !appDataService.isGroupSelected}">
+                <!-- <td><span class="ellipsis">SFDC_Proposals_All_Suites</span></td>
+                <td>ellipsis</td> -->
+                <td width="2%" class="text-center pr-0">
+                    <!-- CX Icon Updated -->
+                    <span *ngIf="peoposalObject.architecture_code === 'CX'" class="icon-cx-logo-circle"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span></span>
+                    <!-- CX Icon Updated -- Ends here -->
+<span *ngIf="peoposalObject.architecture_code === 'C1_DNA'" class="icon-dna-indigo">
+    <span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span>
+    </span>
+
+    <span *ngIf="peoposalObject.architecture_code === 'C1_DC'" class="icon-data-center-indigo">
+        <span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span><span class="path8"></span><span class="path9"></span><span class="path10"></span><span class="path11"></span><span class="path12"></span><span class="path13"></span><span class="path14"></span><span class="path15"></span><span class="path16"></span>
+        </span>
+    <span container="body" placement="bottom-left"  ngbTooltip="Cisco Security Choice" *ngIf="peoposalObject.architecture_code === 'SEC'" class="icon-security" style="font-size: 30px"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span><span class="path8"></span><span class="path9"></span><span class="path10"></span><span class="path11"></span>
+    </span>
+    </td>
+                <td style="max-width:150px"><app-column-grid-cell [value]="peoposalObject.name"></app-column-grid-cell> </td>
+                    <!-- <td width="28%">{{peoposalObject.architecture}}</td> -->
+                <td [ngClass]="peoposalObject.status=== constantsService.COMPLETE_STATUS ? 'status--completed' : 'status--inprogress'"><span class="ellipsis">{{peoposalObject.status}}</span> <span class="icon-tick-01"></span></td>
+                <td>{{peoposalObject.eaStartDate}}</td>
+                <td>{{this.utilitiesService.checkDecimalOrIntegerValue(peoposalObject.eaTermInMonths)}} Months</td>
+                <td style="max-width:135px"><app-column-grid-cell [value]="peoposalObject.priceList"></app-column-grid-cell></td>
+                <td>{{peoposalObject.billingModel}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</div>
+</button>
+                        <div class="cross-info"></div>
+
+                        <span class="position-relative ml-2 pl-2 ellipsis cx-switch-info-wrap border--left solid " *ngIf = "appDataService.pageContext === constantsService.PRICE_ESTIMATION_STEP || appDataService.pageContext === constantsService.PROPOSAL_SUMMARY_STEP  || appDataService.pageContext === constantsService.PRICE_ESTIMATION_CX_STEP || appDataService.pageContext === constantsService.PROPOSAL_SUCCESS_STEP" >
+                            <span class="d-flex">
+                                <span class="ellipsis d-flex align-items-center" *ngIf = "proposalDataService.relatedCxProposalId" (click) = "openProposal(proposalDataService.relatedCxProposalId)">
+                                    <span class="switch-logo-wrap" container="body" placement="top-left" ngbTooltip="{{localeService.getLocalizedString('proposal.pe.SWITCH_TO_SERVICE')}}"><span class="icon-cx-logo-circle"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span></span></span> 
+                                    <!-- <span class="medRes-d-none">{{localeService.getLocalizedString('proposal.pe.SWITCH_TO_SERVICE')}}</span> -->
+                                </span> 
+                                
+                                <span class="ellipsis d-flex align-items-center" *ngIf = "proposalDataService.relatedSoftwareProposalId && !proposalDataService.nonTransactionalRelatedSoftwareProposal"  (click) = "openProposal(proposalDataService.relatedSoftwareProposalId)" >
+                                    <span class="switch-logo-wrap" container="body" placement="top-left" ngbTooltip="{{localeService.getLocalizedString('proposal.pe.SWITCH_TO_SOFTWARE')}}"><span *ngIf = "proposalDataService.relatedSoftwareProposalArchName === 'C1_DNA'" class="icon-dna-indigo"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span></span></span>
+                                    <span class="switch-logo-wrap" container="body" placement="top-left" ngbTooltip="{{localeService.getLocalizedString('proposal.pe.SWITCH_TO_SOFTWARE')}}"><span *ngIf = "proposalDataService.relatedSoftwareProposalArchName === 'C1_DC'" class="icon-data-center-indigo"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span></span></span>
+                                    <span class="switch-logo-wrap" container="body" placement="top-left" ngbTooltip="{{localeService.getLocalizedString('proposal.pe.SWITCH_TO_SOFTWARE')}}"><span *ngIf = "proposalDataService.relatedSoftwareProposalArchName === 'SEC'" class="icon-security"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span><span class="path8"></span><span class="path9"></span><span class="path10"></span><span class="path11"></span></span></span>
+                                
+                                    <!-- <span class="medRes-d-none">{{localeService.getLocalizedString('proposal.pe.SWITCH_TO_SOFTWARE')}}</span> -->
+                                </span> 
+                                
+                                <span class="animated headShake cx-bell-info position-relative" *ngIf="proposalDataService.displayBellIcon">
+                                    <span class="icon-bell"></span>
+                                    <span class="cx-switch-info"><span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span> Prices for Services Proposal has been revised. Please Switch to Services Proposal to see the updated prices.</span>
+                                </span>
+                            </span>
+                        </span>
+                    </div>
+                    <!-- Smart Account -- New Component Added -->
+                    <ul *ngIf='utilitiesService.proposalFlow && !appDataService.tcoFlow' class="smart-acnt-subheader-bar mt-2">
+                        <li *ngIf='isSmartAccountPresent()'>
+                            <span class="sub-title-inner">Smart Account:</span>
+                            <span class="sub-data-inner">{{getSmartAccountNameToDisplay()}}</span>
+                        </li>
+                        <li *ngIf='proposalDataService.proposalDataObject.proposalData.partner.partnerId' [ngClass]="{'border--left solid': smartAccountPresent}">
+                            <span class="sub-title-inner">Partner:</span>
+                            <span class="sub-data-inner">{{proposalDataService.proposalDataObject.proposalData.partner.name}}</span>
+                            <span *ngIf='proposalSummaryService.showCiscoEaAuth && !proposalDataService.cxProposalFlow'> <app-ea-purchases></app-ea-purchases></span>
+                        </li>
+
+                    </ul>
+                    <!-- Smart Account -- New Component Added -- Ends Here -->
+
+                    </div>
+                    <div  class="col-lg-7" [ngClass]="{'without-breadcrumb':movePageSubTitleText || appDataService.isPatnerLedFlow , 'col-lg-6 custom-width-right': appDataService.subHeaderData.moduleName === 'AllArchView', 'col-lg-7': appDataService.subHeaderData.moduleName !== 'AllArchView'}" *ngIf="!appDataService.isGroupSelected && (appDataService.subHeaderData.moduleName === 'PROSPECT_DETAILS' || appDataService.subHeaderData.moduleName === 'LIST_PROPOSAL' || appDataService.subHeaderData.moduleName === 'IB_SUMMARY' || appDataService.subHeaderData.moduleName === 'EDIT_QUALIFICATION' || appDataService.subHeaderData.moduleName === 'QUALIFICATION' || appDataService.subHeaderData.moduleName === 'AllArchView' || appDataService.subHeaderData.moduleName ==='RENEWAL_SUBSCRIPTION')">
+                        <div class="row" *ngIf="appDataService.subHeaderData.subHeaderVal  && appDataService.subHeaderData.moduleName === 'PROSPECT_DETAILS'">
+                            <div class="col text-right"></div>
+                            <div class=" col text-right"></div>
+                            <div *ngFor="let x of appDataService.subHeaderData?.subHeaderVal" class="col-auto text-right">
+                                <h4 class="digit" *ngIf="x.displayName !== 'Status'">{{x.displayName}}</h4>
+                                <h4 *ngIf="x.displayName === 'Status'" class="digit">{{x.displayName}}</h4>
+                                <h2 *ngIf="x.displayName !== 'Status'" class="val">{{x.value | number: '1.0-0'}}</h2>
+                                <h2 *ngIf="x.displayName === 'Status'" class="val">{{x.value}}</h2>
+                            </div>
+                        </div>
+                        <!--All Arch View Sub header part-->
+                        <div class="row justify-content-end flex-nowrap" *ngIf="appDataService.subHeaderData.moduleName === 'AllArchView'">
+                            <div class="data-column">
+                                <h4 class="digit">{{localeService.getLocalizedString('prospect.360.header.QUALIFICATION')}}</h4>
+                                <h2 class="val"> {{ appDataService.subHeaderData.subHeaderVal[0]?.numberOfQualifications }} </h2>
+                            </div>
+                            <div class="data-column">
+                                <h4 class="digit">{{localeService.getLocalizedString('prospect.360.header.PROPOSAL')}}</h4>
+                                <h2 class="val"> {{ appDataService.subHeaderData.subHeaderVal[0]?.numberOfProposals }} </h2>
+                            </div>
+                            <div class="data-column">
+                                <h4 class="digit">{{localeService.getLocalizedString('prospect.360.header.AGREEMENT')}}</h4>
+                                <h2 class="val"> {{ appDataService.subHeaderData.subHeaderVal[0]?.numberOfAgreements }} </h2>
+                            </div>
+                            <div class="data-column">
+                                <h4 class="digit d3-digit"><span>{{localeService.getLocalizedString('prospect.360.header.LDOS_COVERAVE')}}</span><span class="icon-msg-Info" placement="top"
+                                    container="body" ngbTooltip="{{appDataService.ldosCoverageTooltip}}"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span></h4>
+                                <h2 class="val">
+                                    <div *ngIf="appDataService.subHeaderData.subHeaderVal[0]?.ldosPercentage!==undefined" class="d3-value">
+                                        <div appBullet [percentage]='appDataService.subHeaderData.subHeaderVal[0].ldosPercentage' [options] = 'options' [reverse]='false' ></div> 
+                                        <span>{{appDataService.subHeaderData.subHeaderVal[0]?.ldosPercentage}}</span>
+                                    </div>
+                                </h2>
+                                
+                            </div>
+                            <div class="data-column">
+                                <h4 class="digit d3-digit"><span>{{localeService.getLocalizedString('prospect.360.header.SERVICE_COVERAVE')}}</span><span class="icon-msg-Info" placement="top-right"
+                                    container="body" ngbTooltip="{{appDataService.serviceCoverageTooltip}}"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span></h4>
+                                <h2 class="val"> 
+                                    <div  *ngIf="appDataService.subHeaderData.subHeaderVal[0]?.serviceCoveragePercentage!==undefined " class="d3-value">
+                                            <div appBullet [percentage]='appDataService.subHeaderData.subHeaderVal[0].serviceCoveragePercentage' [options] = 'options' [reverse]='true' ></div> 
+                                            <span>{{appDataService.subHeaderData.subHeaderVal[0]?.serviceCoveragePercentage }}</span>
+                                    </div>
+                                </h2>
+                            </div>                        
+                        </div>
+                        <!--All Arch View Sub header part-->
+
+                        <div class="row" *ngIf="appDataService.subHeaderData.subHeaderVal  && appDataService.subHeaderData.moduleName === 'IB_SUMMARY'">
+                                <div class="col text-right"></div>
+                                <div class=" col text-right"></div>
+                                <div *ngFor="let x of appDataService.subHeaderData?.subHeaderVal" class="col text-right">
+                                <h4 *ngIf="x.displayName !== 'Status'" class="digit">{{x.displayName}}</h4>
+                                <h4 *ngIf="x.displayName === 'Status'" class="digit">{{x.displayName}}</h4>
+                                <h2 *ngIf="x.displayName !== 'Status'" class="val">{{x.value | number: '1.0-0'}}</h2>
+                                <h2 *ngIf="x.displayName === 'Status'" class="val">{{x.value}}</h2>
+                            </div>
+                        </div>
+
+                        <div class="row new-header" *ngIf="(appDataService.subHeaderData.moduleName === 'EDIT_QUALIFICATION' && appDataService.subHeaderData?.subHeaderVal) || (qualService.showDealIDInHeader  && appDataService.isPatnerLedFlow) || appDataService.subHeaderData.moduleName ==='RENEWAL_SUBSCRIPTION'">
+                            <div class="data-column" style="max-width: 180px !important;" *ngIf = "appDataService.isPatnerLedFlow && appDataService.qualListForDeal && !qualService.loaData.loaSigned">
+                                <h4 class="digit"> LoCC Status</h4>
+                                <h2 *ngIf= "loccSignaturePending()" class="val">{{localeService.getLocalizedString('partner.LOA_PENDING_SIGNATURE')}}</h2>
+                                <h2 *ngIf= "!loccSignaturePending()" class="val" style="width:40">Unsigned</h2>
+
+                            </div>
+                            
+                            <div class="data-column" *ngIf = "appDataService.isPatnerLedFlow && appDataService.qualListForDeal && qualService.loaData.loaSigned" style="max-width: 295px !important;">
+                                <h4 class="digit"> LoCC Status</h4>
+                                <h2 class="val">{{localeService.getLocalizedString('partner.LOA_SIGNED')}}, {{localeService.getLocalizedString('partner.VALID_UNTIL')}} - {{appDataService.signatureValidDate}}</h2>
+                                <!-- <h2 class="val" *ngIf="!appDataService.signatureValidDate">{{localeService.getLocalizedString('partner.LOA_SIGNED')}}</h2> -->
+                            </div>
+                            <div class="data-column" *ngIf='qualService.subRefID && appDataService.displayChangeSub' style="max-width: 295px !important;">
+                                <h4 class="digit"> Subscription ID</h4>
+                                <h2 class="val">{{qualService.subRefID}}</h2>
+                            </div>
+                            <div class="data-column">
+                                <h4 class="digit">{{localeService.getLocalizedString('qual.create.DEAL')}} {{localeService.getLocalizedString('qual.create.ID')}}</h4>
+                                <h2 class="val" *ngIf="(appDataService.subHeaderData.moduleName === 'EDIT_QUALIFICATION' || appDataService.qualListForDeal || appDataService.subHeaderData.moduleName ==='RENEWAL_SUBSCRIPTION')  && !qualService.createQualFlow">{{appDataService.subHeaderData?.subHeaderVal ? appDataService.subHeaderData.subHeaderVal[0] : '--'}}</h2>
+                                <h2 class="val" *ngIf="qualService.showDealIDInHeader  && appDataService.isPatnerLedFlow && !appDataService.qualListForDeal  && qualService.createQualFlow">{{this.qualService.qualification.dealInfoObj.dealId}}</h2>
+
+                            </div>
+
+                            <div class="data-column" *ngIf = "appDataService.isPatnerLedFlow || qualService.qualification.partnerDeal">
+                                <h4 class="digit">{{localeService.getLocalizedString('qual.create.DEAL')}} {{localeService.getLocalizedString('common.STATUS')}}</h4>
+                                <h2  class="val" *ngIf="!appDataService.qualListForDeal">{{(this.qualService.qualification.dealInfoObj.dealStatusDesc) ? this.qualService.qualification.dealInfoObj.dealStatusDesc :"-" }}</h2>
+                                <h2  class="val" *ngIf="appDataService.qualListForDeal && appDataService.subHeaderData?.subHeaderVal">{{appDataService.subHeaderData?.subHeaderVal[1]}}</h2>
+                            </div>
+
+                            <div class="data-column" *ngIf="(appDataService.subHeaderData.moduleName === 'EDIT_QUALIFICATION' || appDataService.subHeaderData.moduleName ==='RENEWAL_SUBSCRIPTION') && appDataService.subHeaderData?.subHeaderVal">
+                                <h4 class="digit">{{localeService.getLocalizedString('qualproposallist.ACCOUNT_MANAGER')}}</h4>
+                                <h2 [id]="appDataService.createUniqueId(appDataService.subHeaderData?.subHeaderVal[1],'SUB_HEADER')"  class="val" *ngIf="appDataService.subHeaderData?.subHeaderVal[1] && appDataService.subHeaderData?.subHeaderVal[1].length > 0">{{appDataService.subHeaderData?.subHeaderVal[1]}}</h2>
+                                <h2 [id]="appDataService.createUniqueId(appDataService.subHeaderData?.subHeaderVal[1],'SUB_HEADER')"  class="val" *ngIf="!appDataService.subHeaderData?.subHeaderVal[1] || appDataService.subHeaderData?.subHeaderVal[1].length === 0">--</h2>
+                                
+                            </div>
+                            <div class="data-column" *ngIf="(appDataService.subHeaderData.moduleName === 'EDIT_QUALIFICATION' || appDataService.subHeaderData.moduleName ==='RENEWAL_SUBSCRIPTION') && appDataService.subHeaderData?.subHeaderVal">
+                                <h4 class="digit">{{localeService.getLocalizedString('common.QUALIFICATION')}} {{localeService.getLocalizedString('common.STATUS')}}</h4>
+                                <h2 [id]="appDataService.createUniqueId(appDataService.subHeaderData?.subHeaderVal[2],'SUB_HEADER')"  class="val">{{appDataService.subHeaderData?.subHeaderVal[2]}}</h2>
+                            </div>
+                        </div>
+
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="col-lg-7" *ngIf="appDataService.subHeaderData.moduleName === 'PROPOSAL_CREATION'">    
+                    <div class="row new-header" *ngIf=" !((appDataService.pageContext === 'DocumentCenter' || appDataService.pageContext === 'PreviewQuote')  && appDataService.isGroupSelected)" >
+                    <!-- Subscription ID to show in proposal level header starts, commented out for further user -->
+                        <div class="data-column" *ngIf='qualService.subRefID && appDataService.displayChangeSub'>
+                            <h4 class="digit"> Subscription ID</h4>
+                            <h2 placement="bottom" container="body" ngbTooltip="{{qualService.subRefID}}" class="val">{{qualService.subRefID}}</h2>
+                        </div>
+                    <!-- Subscription ID to show in proposal level header ends  -->
+                        <div class="data-column">
+                            <h4 class="digit">{{localeService.getLocalizedString('qual.create.DEAL')}} {{localeService.getLocalizedString('qual.create.ID')}}
+                            </h4>
+                            <h2 placement="bottom" container="body" ngbTooltip="{{appDataService.subHeaderData.subHeaderVal[9]}}" class="val">{{appDataService.subHeaderData.subHeaderVal[9]}}</h2>
+                        </div>
+                        <div class="data-column">
+                            <h4 class="digit">{{localeService.getLocalizedString('proposal.create.EXPECTED_START_DATE')}}</h4>
+                            <h2 placement="bottom" container="body" ngbTooltip="{{appDataService.subHeaderData.subHeaderVal[0]}}" class="val">{{appDataService.subHeaderData.subHeaderVal[0]}}</h2>
+                        </div>
+                        <div class="data-column"  [ngClass]="{'coterm-duration' :this.proposalDataService.proposalDataObject.proposalData.coTerm?.coTerm}">
+                            <h4 class="digit">{{localeService.getLocalizedString('proposal.summary.EA_TERM')}}</h4>
+                            <h2 placement="bottom" container="body" ngbTooltip="{{this.proposalDataService.proposalDataObject.proposalData.coTerm?.coTerm ? this.utilitiesService.formatValue(this.utilitiesService.getFloatValue(appDataService.subHeaderData.subHeaderVal[1])) : appDataService.subHeaderData.subHeaderVal[1]}} Months" class="val">{{this.proposalDataService.proposalDataObject.proposalData.coTerm?.coTerm ? this.utilitiesService.formatValue(this.utilitiesService.getFloatValue(appDataService.subHeaderData.subHeaderVal[1])) : appDataService.subHeaderData.subHeaderVal[1]}} Months</h2>
+                        </div>
+                        <div class="data-column">
+                            <h4 class="digit">{{localeService.getLocalizedString('proposal.create.PRICE_LIST')}}</h4>
+                            <h2 placement="bottom" container="body" ngbTooltip="{{appDataService.subHeaderData.subHeaderVal[2]}}" class="val">{{appDataService.subHeaderData.subHeaderVal[2]}}</h2>
+                        </div>                        
+                        <div class="data-column">
+                            <h4 class="digit">{{localeService.getLocalizedString('proposal.create.BILLING_MODEL')}}</h4>
+                            <h2 placement="bottom" container="body" ngbTooltip="{{appDataService.subHeaderData.subHeaderVal[3]}}" class="val">{{appDataService.subHeaderData.subHeaderVal[3]}}</h2>
+                        </div>
+                        <div class="data-column">
+                            <h4 class="digit">{{localeService.getLocalizedString('common.PROPOSAL')}} {{localeService.getLocalizedString('common.STATUS')}}</h4>
+                            <h2 placement="bottom" container="body" ngbTooltip="{{appDataService.subHeaderData.subHeaderVal[4]}}" class="val">{{appDataService.subHeaderData.subHeaderVal[4]}}</h2>
+                        </div>
+                    
+                        <div class="data-column" *ngIf="appDataService.pageContext === 'ProposalPriceEstimateStep'">
+                            <h4 class="digit">{{localeService.getLocalizedString('qualproposallist.TOTAL_NET_PRICE')}} ({{constantsService.CURRENCY}})</h4>
+                            <h2 placement="bottom" container="body" ngbTooltip="{{(priceEstimateService.eaValue === 0) ? '0.00' : this.utilitiesService.formatValue(this.utilitiesService.getFloatValue(priceEstimateService.eaValue))}}" *ngIf="!is2tPartner" class="val">{{(priceEstimateService.eaValue === 0) ? "0.00" : this.utilitiesService.formatValue(this.utilitiesService.getFloatValue(priceEstimateService.eaValue))}}</h2>
+                            <h2 placement="bottom" container="body" *ngIf="is2tPartner" class="val">--</h2>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+        </div> 
+    </section>
+    <div class="financial-info-block" *ngIf="!appDataService.tcoFlow && (appDataService.pageContext === constantsService.PRICE_ESTIMATION_STEP || appDataService.pageContext === constantsService.PROPOSAL_SUMMARY_STEP || showFinancial || appDataService.pageContext === constantsService.PRICE_ESTIMATION_CX_STEP) && !is2tPartner" (click)="financialSummary()"><span class="icon-down-arow-white"></span>
+    </div>
+</div>
+<app-activity-log *ngIf="appDataService.openActivityLog"></app-activity-log>

@@ -1,0 +1,32 @@
+    {
+        "solutions": [
+            {
+                "value": "Identity-based Policy & Segmentation",
+                "outcome": "Decoupled security policy definition from VLAN and IP Address to enable rapid policy updates"
+            },
+            {
+                "value": "Workflow-based Automation",
+                "outcome": "Workflows for Network Design, Provision, and Operations across Wired and Wireless provide consistency at scale"
+            },
+            {
+                "value": "Insights & Telemetry",
+                "outcome": "Analytics and insights into User and application behavior for proactive issue identification and resolution"
+            },
+            {
+                "value": "SDWAN",
+                "outcome": "Mobile, cloud, and IoT trends bring increased complexity, and the scale and range of security threats bring additional management"
+            },
+            {
+                "value": "Routing",
+                "outcome": "SD-WAN with advanced security, unlimited segmentation, assurance, analytics, waas, and optimization for cloud connectivity."
+            },
+            {
+                "value": "Switching",
+                "outcome": "SD-Access, assurance, analytics, security, IoT, telemetry, and visibility. Policy and assurance, Intrusion protection and Secure access"
+            },
+            {
+                "value": "Wireless",
+                "outcome": "SD-Access, Assurance, Analytics, Security, IoT, Telemetry, Visibility. Provides centralized configuration, policy, and optimization of the wire"
+            }
+        ]
+    }

@@ -1,0 +1,149 @@
+<div class="modal-body vNext modal-without-header">
+    <button class="icon-close-btn" (click)="close()" type="button" attr.action-id="{{dataIdConstantsService.assignSmartAccount_button_closeIcon}}"></button>
+    <h2 class="">{{'assign-smart-account.ASSIGN_A_SMART_ACCOUNT' | localizationPipe : localizationService.localizedkeySet.size}}</h2>
+
+    <div class="row mt-3">
+        <div class=" col-12 form-group mt-0 mb-1" (clickOutside)="showOptionDrop = false;">
+            <div class="alert alert--info alert-dismissable mb-3">
+                <span class="alert-icon">
+                    <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span
+                            class="path3"></span></span>
+                </span>
+                <span class="txt"><b>{{'assign-smart-account.UPON_SUBMITTING_SMART_ACCOUNT' | localizationPipe : localizationService.localizedkeySet.size}}</b><span>{{'assign-smart-account.PLEASE_CLICK_CONVERT_TO_QUOTE' | localizationPipe : localizationService.localizedkeySet.size}}</span></span>
+            </div>
+            <label class="form-control-placeholder top">{{'assign-smart-account.OPTIONS' | localizationPipe : localizationService.localizedkeySet.size}}</label>
+            <div class="select-items dropdown my-1">
+                <span class="dropdown--typeAhead__arrow-management">
+                    <button class="btn--text drop-button dropdown-toggle" type="button" attr.action-id="{{dataIdConstantsService.assignSmartAccount_dropdown_selectedSmartAccOption}}"
+                        (click)="showOptionDrop = !showOptionDrop">{{selectedSmartAccOption}}</button>
+                </span>
+                <div class="dropdown-menu" [class.show]="showOptionDrop">
+                    <ul>
+                        <li *ngFor="let option of optionsArr;let index = index;" (click)="selectOption(option)" attr.action-id="{{dataIdConstantsService.assignSmartAccount_dropdown_selectSmartAcctOption}}{{index}}">
+                            {{option}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <ng-container *ngIf="selectedSmartAccOption !== 'Select an Existing Account'">
+        <div class="row mt-3">
+            <div class="col-12 mb-2">
+                <div class="alert alert--info alert-dismissable">
+                    <span class="alert-icon">
+                        <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span
+                                class="path3"></span></span>
+                    </span>
+                    <span>{{'assign-smart-account.CREATE_NEW_SMART' | localizationPipe : localizationService.localizedkeySet.size}} <a href="javascript:void(0);"
+                            (click)='requestNewSmartAccount()' attr.action-id="{{dataIdConstantsService.assignSmartAccount_link_requestNewSmartAccount}}">{{'common.HERE' | localizationPipe : localizationService.localizedkeySet.size}}</a> {{'assign-smart-account.TO_CREATE_THE_ACCOUNT' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="selectedSmartAccOption === 'Select an Existing Account'">
+        <div class="row mt-2">
+            <div class=" col-12" *ngIf="showEmailError">
+                <div class="alert alert--danger alert-dismissable">
+                    <span class="alert-icon">
+                        <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span
+                                class="path3"></span></span>
+                    </span>
+                    <span>{{'assign-smart-account.search_INVALID_EMAIL_ADDRESS_MSG' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                </div>
+            </div>
+            <div class="col-12 mt-2">
+                <h5 class="bold-txt">{{'assign-smart-account.SEARCH_FOR_ANOTHER_ACCOUNT' | localizationPipe : localizationService.localizedkeySet.size}}</h5>
+            </div>
+        </div>
+        <div class="d-flex justify-content-between align-items-center mt-2" (clickOutside)="showSearchDrop = false;">
+            <div class="input-group search-wrap with-select">
+                <button type="button" class="btn dropdown-toggle dropdown-toggle-split mr-0"
+                    (click)="showSearchDrop = true;" attr.action-id="{{dataIdConstantsService.assignSmartAccount_dropdown_selectedSearchType}}">
+                    <span class="visually-hidden">{{selectedSearchType.name}}</span>
+                </button>
+                <!-- <button type="button" class="btn dropdown-toggle-split mr-0">
+                    <span class="visually-hidden">{{selectedSearchType.name}}</span>
+                </button> -->
+                <ul class="dropdown-menu w-100" [class.show]="showSearchDrop">
+                    <li *ngFor="let type of searchDropdownArray; let index = index" (click)="selectType(type)">
+                        <a href="javascript:void(0);" class="dropdown-item" attr.action-id="{{dataIdConstantsService.assignSmartAccount_link_selectType}}{{index}}">{{type.name}}</a>
+                    </li>
+                </ul>
+                <input type="text" class="form-control" [(ngModel)]="searchText"
+                    [placeholder]="searchPlaceHolder" attr.data-id="{{dataIdConstantsService.assignSmartAccount_text_searchText}}"
+                    (ngModelChange)="getSmartAccountDetail(searchText)" (keyup.enter)="getSmartAcc()">
+                <button type="button" class="btn action-button borderRad-l0" (click)="getSmartAcc()" attr.action-id="{{dataIdConstantsService.assignSmartAccount_button_getSmartAcc}}">
+                    <span class="i-vNext-search"></span>
+                </button>
+            </div>
+            <button type="button" class="btn btn-secondary" (click) ="clear()" attr.action-id="{{dataIdConstantsService.assignSmartAccount_button_clearResults}}">{{'assign-smart-account.CLEAR_RESULTS' | localizationPipe : localizationService.localizedkeySet.size}}
+            </button>
+        </div>
+    </ng-container>
+
+    <div class="row mt-3" *ngIf="showSmartAccounts">
+        <div class="col-12">
+            <h5 class="bold-txt">{{'assign-smart-account.SUGGESTED_SMART_ACCOUNTS' | localizationPipe : localizationService.localizedkeySet.size}}</h5>
+        </div>
+        <div class="col-12 fixTableHead mt-2">
+            <table class="primary-table smartacc-table">
+                <thead>
+                    <tr>
+                        <th width="40px"></th>
+                        <th>Account Domain Identifier</th>
+                        <th>{{'common.sub-header.SMART_ACCOUNT_NAME' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                        <th>{{'common.STATUS' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngIf="smartAccountData.length">
+                        <tr *ngFor="let suggestion of smartAccountData; let index = index;">
+                            <td>
+                                <div class="radio-custom">
+                                    <input type="radio" name="smartAccount" (change)="selectSmartAccount(suggestion)" attr.data-id="{{dataIdConstantsService.assignSmartAccount_radio_selectSmartAccount}}{{index}}">
+                                    <label>
+                                        <span class="custom-radio-btn">
+                                            <span class="path1"></span><span class="path2"></span>
+                                        </span>
+                                    </label>
+                                </div>
+                            </td>
+                            <td>{{suggestion.domain}}</td>
+                            <td>{{suggestion.smrtAccntName}} <span class="badge badge-info"
+                                    *ngIf="suggestion.eaFlagStatus === 'Enabled'">EA</span></td>
+                            <td>{{suggestion.smrtAccntStatus}}</td>
+                        </tr>
+                   </ng-container>
+                    <tr *ngIf="!smartAccountData.length">
+                        <td colspan="3">
+                            <div class="alert alert--warning alert-dismissable">
+                                <span class="alert-icon">
+                                    <span class="icon-msg-warning"><span class="path1"></span><span class="path2"></span><span
+                                            class="path3"></span></span>
+                                </span>
+                                <span>{{'assign-smart-account.NO_ACCOUNT_FOUND' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                            </div>
+                       </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="d-flex smart-account-pagination justify-content-between align-items-center mt-3">
+            <div class="col d-flex justify-content-end pr-0">
+                <ngb-pagination [collectionSize]="paginationObject.noOfRecords" [(page)]="paginationObject.currentPage"
+                [boundaryLinks]="true" [maxSize]="4" [pageSize]="paginationObject.pageSize"
+                (pageChange)="pageChange($event, 'page')">
+                </ngb-pagination>
+            </div> 
+        </div>
+    </div>
+
+    <div class="justify-content-center d-flex pb-4 paddingT10 mt-3">
+        <button class="btn btn-secondary" type="button"
+            (click)="close()" attr.action-id="{{dataIdConstantsService.assignSmartAccount_button_cancel}}" id="{{elementIdConstantsService.AssignSmartAccount_Cancel}}">{{'common.CANCEL' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+        <button class="btn btn-primary" type="button" [disabled]="!selectedSmartAcc"
+            (click)="assign()" attr.action-id="{{dataIdConstantsService.assignSmartAccount_button_assign}}">{{'common.ASSIGN_SMART_ACCOUNT' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+    </div>
+</div>

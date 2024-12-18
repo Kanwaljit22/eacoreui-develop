@@ -1,0 +1,45 @@
+{
+    "rid": "68947219-72da-4bf8-9e4f-d1fb70639b74",
+    "user": "rbinwani",
+    "error": false,
+    "data": {
+        "projects": [
+            {
+                "name": "TR_deal-8/10 12:14PM",
+                "objId": "6112f0163d39ce0a8904e8f7",
+                "dealId": 8885535,
+                "userId": "rbinwani",
+                "partnerType": "Cisco",
+                "loccStatus": "Completed",
+                "buyingProgram": "EA 2.0",
+                "endCustomerName": "GOOGLE INC"
+            },
+            {
+                "name": "TR_deal-8/11",
+                "objId": "6112f0163d39ce0a8904e8f7",
+                "dealId": 8885635,
+                "userId": "rbinwani",
+                "partnerType": "Cisco",
+                "loccStatus": "Completed",
+                "buyingProgram": "EA 3.0",
+                "endCustomerName": "WEWORK"
+            },
+            {
+                "name": "TR_deal-8/12",
+                "objId": "611459833ac1ce0c9b5e7f32",
+                "dealId": 8885685,
+                "userId": "rbinwani",
+                "partnerType": "Partner",
+                "loccStatus": "Completed",
+                "buyingProgram": "EA 3.0",
+                "endCustomerName": "GOOGLE INC"
+            }
+        ],
+        "page": {
+            "pageSize": 50,
+            "currentPage": 1,
+            "noOfPages": 1165,
+            "noOfRecords": 58245
+        }
+    }
+}

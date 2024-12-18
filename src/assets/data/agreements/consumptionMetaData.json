@@ -1,0 +1,135 @@
+{
+    "data": [
+        {
+        "headerName": "Suite",
+        "field": "suiteName",
+        "colId": "suiteName",
+        "width": 220,
+        "minWidth": 220,
+        "pinned": true,
+        "suppressMenu": true,
+        "suppressSorting": true
+        }, 
+        {
+            "headerName": "Entitlement",
+            "width": 450,
+            "minWidth": 450,
+            "marryChildren": true,
+            "suppressSizeToFit": true,
+            "children": [{
+                "headerName": "Purchased Entitlements",
+                "minWidth": 140,
+                "suppressMenu": true,
+                "suppressSorting": true,
+                "headerClass": "expand-border",
+                "width": 122.0,
+                "field": "purchasedEntitlements",
+                "colId": "purchasedEntitlements",
+                "groupId": "ENTITLEMENT_INFORMATION",
+                "cellClass": "text-right",
+                "suppressSizeToFit": true
+            }, {
+                "headerName": "Growth Allowance",
+                "minWidth": 140.0,
+                "suppressMenu": true,
+                "suppressSorting": true,
+                "headerClass": "expand-border",
+                "width": 140.0,
+                "field": "growthAllowance",
+                "colId": "growthAllowance",
+                "groupId": "ENTITLEMENT_INFORMATION",
+                "cellClass": "text-right",
+                "suppressSizeToFit": true
+            }, {
+                "headerName": "Total Entitlements",
+                "minWidth": 140.0,
+                "suppressMenu": true,
+                "suppressSorting": true,
+                "headerClass": "expand-border",
+                "width": 140.0,
+                "field": "totalEntitlements",
+                "colId": "totalEntitlements",
+                "groupId": "ENTITLEMENT_INFORMATION",
+                "cellClass": "text-right",
+                "suppressSizeToFit": true
+            }]
+        },
+        {
+            "headerName": "Consumption",
+            "width": 600,
+            "minWidth": 600,
+            "marryChildren": true,
+            "suppressSizeToFit": true,
+            "children": [{
+                "headerName": "Prior Purchased SW",
+                "minWidth": 140,
+                "suppressMenu": true,
+                "suppressSorting": true,
+                "headerClass": "expand-border",
+                "width": 122.0,
+                "field": "priorPurchasedSW",
+                "colId": "priorPurchasedSW",
+                "groupId": "CONSUMPTION_INFORMATION",
+                "cellClass": "text-right",
+                "suppressSizeToFit": true
+            }, {
+                "headerName": "Licenses Generated",
+                "minWidth": 140.0,
+                "suppressMenu": true,
+                "suppressSorting": true,
+                "headerClass": "expand-border",
+                "width": 140.0,
+                "field": "licensesGenerated",
+                "colId": "licensesGenerated",
+                "groupId": "CONSUMPTION_INFORMATION",
+                "cellClass": "text-right",
+                "suppressSizeToFit": true
+            }, {
+                "headerName": "Licenses Adjusted",
+                "minWidth": 140.0,
+                "suppressMenu": true,
+                "suppressSorting": true,
+                "headerClass": "expand-border",
+                "width": 140.0,
+                "field": "licensesAdjusted",
+                "colId": "licensesAdjusted",
+                "groupId": "CONSUMPTION_INFORMATION",
+                "cellClass": "text-right",
+                "suppressSizeToFit": true
+            }, {
+                "headerName": "Total Consumption",
+                "minWidth": 140.0,
+                "suppressMenu": true,
+                "suppressSorting": true,
+                "headerClass": "expand-border",
+                "width": 140.0,
+                "field": "totalConsumption",
+                "colId": "totalConsumption",
+                "groupId": "CONSUMPTION_INFORMATION",
+                "cellClass": "text-right",
+                "suppressSizeToFit": true
+            }]
+        },
+        {
+            "headerName": "Remaining Entitlement",
+            "field": "remainingEntitlement",
+            "colId": "remainingEntitlement",
+            "width": 150,
+            "minWidth": 150,
+            "pinned": false,
+            "suppressMenu": true,
+            "suppressSorting": true
+        }, 
+        {
+            "headerName": "Consumption Calculation Method",
+            "field": "consumptionMethod",
+            "colId": "consumptionMethod",
+            "width": 220,
+            "minWidth": 220,
+            "pinned": false,
+            "suppressMenu": true,
+            "suppressSorting": true
+        }
+        
+    ]
+}

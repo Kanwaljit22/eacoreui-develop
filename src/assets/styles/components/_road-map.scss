@@ -1,0 +1,100 @@
+.roadmap-steps {
+	list-style: none;
+	display: flex;
+	align-items: top;
+	justify-content: space-around;
+	max-width: 1170px;
+	margin: $no-spacing auto;
+	padding: $no-spacing;
+    text-align: center;
+    
+    .step {
+        position: relative;
+        flex: 1;
+
+        &--icon {
+            margin: 0 auto;
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            z-index: 1;
+            background-color: $disable-fill;
+            border: 3px solid $disable-border;
+            color: $white-color;
+            font-weight: 400;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            font-size: rem(13);
+            outline: 5px solid $white-color !important;
+        }
+        &--label {
+            color: $light-grey;
+            display: inline-flex;
+            font-size: rem(15);
+            padding: 0 $half-spacing;
+            position: relative;
+            z-index: 1;
+            background-color: $white-color;
+            top: $qtr-spacing;
+        }
+        
+        &::before {
+            display: block;
+            position: absolute;
+            content: '';
+            width: 100%;
+            height: 1.2px;
+            left: -50%;
+            background: $border-color;
+            top: 15px;
+        }
+        &:first-child{
+            &.active {
+                &::before {
+                    display: none;
+                }
+            }
+            &::before {
+                display: none;
+            }
+        }
+        &.active {
+            .step--icon {
+                background-color: $theme-color;
+                border-color: $theme-color;
+            }
+            .step--label {
+                font-weight: 600;
+                color: $theme-color;
+                top:$qtr-spacing;
+            }
+            &::before {
+                background: $theme-color;
+            }
+        }
+        &.visited {
+            .step--icon {
+                border-color: $theme-color;
+                cursor: pointer;
+            }
+            .step--label {
+                color: $theme-color;
+                top: $no-spacing;
+                cursor: pointer;
+            }
+            &::before {
+                display: none;
+            }
+
+            & ~ .visited {
+                &::before {
+                    display: block;
+                    background: $theme-color;
+                }
+            }
+        }
+    }
+}

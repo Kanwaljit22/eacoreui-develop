@@ -1,0 +1,26 @@
+
+@mixin flex-center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin ellipsis{
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+@mixin border-radius($radius) {
+    border-radius: $radius;
+    -webkit-border-radius: $radius;
+    -moz-border-radius: $radius;
+}
+
+$browser-context:16;
+@function em($pixels, $context: $browser-context) {
+    @return #{$pixels/$context}em
+}
+@function rem($pixels, $context: $browser-context) {
+    @return #{$pixels/$context}rem
+}

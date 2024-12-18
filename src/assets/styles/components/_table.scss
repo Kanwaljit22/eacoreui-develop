@@ -1,0 +1,122 @@
+table {
+    &.primary-table {
+        border:0;
+        border-collapse: collapse;
+        font-size:rem(13);
+        line-height: 1;
+        width: 100%;
+
+        thead {
+            border-top: 1px solid $border-color;
+            border-bottom: 1px solid rgba(214, 214, 214, 0.3);
+            overflow-y: scroll;
+
+            th {
+                background: $primary-bg;
+                border-right: 1px solid $border-color;
+                color: $primary-text;
+                font-weight: 700;
+                padding: $half-spacing - 2 $half-spacing;
+                position: relative;
+                vertical-align: bottom;
+                line-height: 1.2;
+
+                &:last-child {
+                    border-right: $no-spacing;
+                }
+            }
+            tr:nth-child(2) th{
+                border-top: 1px solid $border-color;
+            }
+        }
+
+
+        tbody {
+            border-bottom: 1px solid $border-color;
+
+            tr {
+                border-bottom: 1px solid rgba(214, 214, 214, 0.3);
+
+                &:nth-child(odd) {
+                    background-color: $row-even-bg;
+                }
+
+                &:nth-child(even) {
+                    background-color: $row-odd-bg;
+                }
+
+                &.minor-lines{
+                    
+                    td{ 
+                       &:first-child{ padding-left: 30px;} 
+                    }
+                    td.up_summ_red{
+                        color:red;
+                    }
+                    
+                    td.up_summ_green{
+                        color:green;
+                    }
+                }
+
+                td {
+                    border-right: 1px solid $border-color;
+                    color: $primary-text;
+                    font-weight: 400;
+                    padding: $half-spacing - 2 $half-spacing;
+                    position: relative;
+                    vertical-align: top;
+                    white-space: normal;
+                    word-break: break-word;
+                    line-height: 1.2;
+
+                    &:last-child {
+                        border-right: $no-spacing;
+                    }
+                    .form-control {
+                        font-size: rem(12);
+                        background: transparent;
+                        border: none;
+                        border-bottom: 1px solid $border-color;
+                        padding: 0;
+                        height: auto;
+                    }
+                    .radio-custom {
+                        label {
+                            font-size: rem(13);
+                            padding-left: $base-spacing;
+                        }
+                    }
+                }
+
+                &:hover {
+                    background-color: $row-hover-bg;
+                }
+            } 
+            
+            &.customTbodyScroll{
+                td span{
+                    line-height: 1.5;
+                }
+            }
+        }
+
+        .label-check span{
+            font-size:rem(13);
+        }
+
+        .icon-tick {
+            font-size: 10px;
+            float: right;
+            &::before{
+                color: $theme-color !important;
+            }
+        }
+    }
+    &.qual-td-position{
+        td{ position: inherit!important;
+            .icon-branch{ position: absolute; right: 20px; top:-3px; cursor: pointer; font-size: 15px; }
+            } 
+            .pos-relative { min-height: auto;}
+    }
+}

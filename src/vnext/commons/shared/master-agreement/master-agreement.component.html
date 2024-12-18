@@ -1,0 +1,32 @@
+<div class="col-12" *ngIf="eaService.isSpnaFlow">
+    <h6 class="heading--h6 bold mb-3">{{'common.MSA_QUESTION_NEW' | localizationPipe : localizationService.localizedkeySet.size}}<sup> *</sup></h6>
+    <span>{{'common.IF_YES_PLEASE_ENTER_CONTRACT_NUMBER' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+    <div class="clearfix"></div>
+    <div class="input-group mt-2">
+        <div class="radio-wrapper radio-custom mr-4">
+            <input type="radio" attr.data-id="{{dataIdConstantsService.masterAgreement_radio_yes}}"
+                (change)="changeMsa($event);" [checked]="proposalStoreService.masterAgreementInfo.masterAgreement" name="isMSA" id="yes" value="yes">
+            <label for="yes">
+                <span class='custom-radio-btn'>
+                    <span class="path1"></span>
+                    <span class="path2"></span>
+                </span>
+                <span>{{'common.Yes' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+            </label>
+        </div>
+        <div class="radio-wrapper radio-custom mr-4">
+            <input  type="radio" attr.data-id="{{dataIdConstantsService.masterAgreement_radio_no}}" [checked]="!proposalStoreService.masterAgreementInfo.masterAgreement" (change)="changeMsa($event);" name="isMSA" id="no" value="no">
+            <label for="no">
+                <span class='custom-radio-btn'>
+                    <span class="path1"></span>
+                    <span class="path2"></span>
+                </span>
+                <span>{{'common.No' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+            </label>
+        </div>
+    </div>
+    <div class="mt-3 contract-num-input" *ngIf="showContractNumber">
+        <input appelementfocus="" placeholder="{{'common.ENTER_CONTRACT_NUMBER' | localizationPipe : localizationService.localizedkeySet.size}}" [(ngModel)]='contractNumber'
+        (keydown)='utilitiesService.allowOnlyNumber($event)' (blur)="updateContractNumber($event)"        class="form-control" required="" type="text" maxlength="250" id="" attr.data-id="{{dataIdConstantsService.masterAgreement_contractNumber}}">
+    </div>
+</div>

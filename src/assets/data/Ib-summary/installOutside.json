@@ -1,0 +1,222 @@
+[
+    {
+        "installSitesId": "428722261",
+        "model": "Cisco 5508 Wireless Controller",
+        "deviceName": "FCW1716L0B9",
+        "category": "Wireless",
+        "productId": "AIR-CT5508-25-K9",
+        "softwareVersion1": "N/A",
+        "softwareVersion2": "FCW1716L0B9",
+        "architectureGroup": "Security",
+        "architectureSubGroup": "Policy &"
+    },
+    {
+        "installSitesId": "428722261",
+        "model": "Cisco 5508 Wireless Controller",
+        "deviceName": "FCW1716L0B9",
+        "category": "Wireless",
+        "productId": "AIR-CT5508-25-K9",
+        "softwareVersion1": "N/A",
+        "softwareVersion2": "FCW1716L0B9",
+        "architectureGroup": "Collaboration",
+        "architectureSubGroup": "UC Infras"
+    },
+    {
+        "installSitesId": "428722261",
+        "model": "Cisco 5508 Wireless Controller",
+        "deviceName": "FCW1716L0B9",
+        "category": "Wireless",
+        "productId": "AIR-CT5508-25-K9",
+        "softwareVersion1": "N/A",
+        "softwareVersion2": "FCW1716L0B9",
+        "architectureGroup": "Enterprise Routing",
+        "architectureSubGroup": "Ent. Acce"
+    },
+    {
+        "installSitesId": "428722263",
+        "model": "Cisco 5508 Wireless Controller",
+        "deviceName": "FCW1716L0B9",
+        "category": "Wireless",
+        "productId": "AIR-CT5508-25-K9",
+        "softwareVersion1": "N/A",
+        "softwareVersion2": "FCW1716L0B9",
+        "architectureGroup": "Enterprise Switching",
+        "architectureSubGroup": "Ent. swit"
+    },
+    {
+        "installSitesId": "428722261",
+        "model": "Cisco 5508 Wireless Controller",
+        "deviceName": "FCW1716L0B9",
+        "category": "Wireless",
+        "productId": "AIR-CT5508-25-K9",
+        "softwareVersion1": "N/A",
+        "softwareVersion2": "FCW1716L0B9",
+        "architectureGroup": "Security",
+        "architectureSubGroup": "Network"
+    },
+    {
+        "installSitesId": "428722263",
+        "model": "Cisco 5508 Wireless Controller",
+        "deviceName": "FCW1716L0B9",
+        "category": "Wireless",
+        "productId": "AIR-CT5508-25-K9",
+        "softwareVersion1": "N/A",
+        "softwareVersion2": "FCW1716L0B9",
+        "architectureGroup": "Enterprise Routing",
+        "architectureSubGroup": "Ent. Acce"
+    },
+    {
+        "installSitesId": "428722261",
+        "model": "Cisco 5508 Wireless Controller",
+        "deviceName": "FCW1716L0B9",
+        "category": "Wireless",
+        "productId": "AIR-CT5508-25-K9",
+        "softwareVersion1": "N/A",
+        "softwareVersion2": "FCW1716L0B9",
+        "architectureGroup": "Enterprise Switching",
+        "architectureSubGroup": "Ent. Acce"
+    },
+    {
+        "installSitesId": "428722263",
+        "model": "Cisco 5508 Wireless Controller",
+        "deviceName": "FCW1716L0B9",
+        "category": "Wireless",
+        "productId": "AIR-CT5508-25-K9",
+        "softwareVersion1": "N/A",
+        "softwareVersion2": "FCW1716L0B9",
+        "architectureGroup": "Collaboration",
+        "architectureSubGroup": "US Endp"
+    },
+    {
+        "installSitesId": "428722261",
+        "model": "Cisco 5508 Wireless Controller",
+        "deviceName": "FCW1716L0B9",
+        "category": "Wireless",
+        "productId": "AIR-CT5508-25-K9",
+        "softwareVersion1": "N/A",
+        "softwareVersion2": "FCW1716L0B9",
+        "architectureGroup": "Collaboration",
+        "architectureSubGroup": "US Endp"
+    },
+    {
+        "installSitesId": "428722261",
+        "model": "Cisco 5508 Wireless Controller",
+        "deviceName": "FCW1716L0B9",
+        "category": "Wireless",
+        "productId": "AIR-CT5508-25-K9",
+        "softwareVersion1": "N/A",
+        "softwareVersion2": "FCW1716L0B9",
+        "architectureGroup": "Collaboration",
+        "architectureSubGroup": "US Endp"
+    },
+    {
+        "installSitesId": "428722265",
+        "model": "Cisco 5508 Wireless Controller",
+        "deviceName": "FCW1716L0B9",
+        "category": "Wireless",
+        "productId": "AIR-CT5508-25-K9",
+        "softwareVersion1": "N/A",
+        "softwareVersion2": "FCW1716L0B9",
+        "architectureGroup": "Collaboration",
+        "architectureSubGroup": "US Endp"
+    },
+    {
+        "installSitesId": "428722261",
+        "model": "Cisco 5508 Wireless Controller",
+        "deviceName": "FCW1716L0B9",
+        "category": "Wireless",
+        "productId": "AIR-CT5508-25-K9",
+        "softwareVersion1": "N/A",
+        "softwareVersion2": "FCW1716L0B9",
+        "architectureGroup": "Collaboration",
+        "architectureSubGroup": "US Endp"
+    },
+    {
+        "installSitesId": "428722265",
+        "model": "Cisco 5508 Wireless Controller",
+        "deviceName": "FCW1716L0B9",
+        "category": "Wireless",
+        "productId": "AIR-CT5508-25-K9",
+        "softwareVersion1": "N/A",
+        "softwareVersion2": "FCW1716L0B9",
+        "architectureGroup": "Collaboration",
+        "architectureSubGroup": "US Endp"
+    },
+    {
+        "installSitesId": "428722265",
+        "model": "Cisco 5508 Wireless Controller",
+        "deviceName": "FCW1716L0B9",
+        "category": "Wireless",
+        "productId": "AIR-CT5508-25-K9",
+        "softwareVersion1": "N/A",
+        "softwareVersion2": "FCW1716L0B9",
+        "architectureGroup": "Security",
+        "architectureSubGroup": "Policy &"
+    },
+    {
+        "installSitesId": "428722261",
+        "model": "Cisco 5508 Wireless Controller",
+        "deviceName": "FCW1716L0B9",
+        "category": "Wireless",
+        "productId": "AIR-CT5508-25-K9",
+        "softwareVersion1": "N/A",
+        "softwareVersion2": "FCW1716L0B9",
+        "architectureGroup": "Collaboration",
+        "architectureSubGroup": "US Infras"
+    },
+    {
+        "installSitesId": "428722266",
+        "model": "Cisco 5508 Wireless Controller",
+        "deviceName": "FCW1716L0B9",
+        "category": "Wireless",
+        "productId": "AIR-CT5508-25-K9",
+        "softwareVersion1": "N/A",
+        "softwareVersion2": "FCW1716L0B9",
+        "architectureGroup": "Collaboration",
+        "architectureSubGroup": "US Infras"
+    },
+    {
+        "installSitesId": "428722266",
+        "model": "Cisco 5508 Wireless Controller",
+        "deviceName": "FCW1716L0B9",
+        "category": "Wireless",
+        "productId": "AIR-CT5508-25-K9",
+        "softwareVersion1": "N/A",
+        "softwareVersion2": "FCW1716L0B9",
+        "architectureGroup": "Collaboration",
+        "architectureSubGroup": "US Infras"
+    },
+    {
+        "installSitesId": "428722261",
+        "model": "Cisco 5508 Wireless Controller",
+        "deviceName": "FCW1716L0B9",
+        "category": "Wireless",
+        "productId": "AIR-CT5508-25-K9",
+        "softwareVersion1": "N/A",
+        "softwareVersion2": "FCW1716L0B9",
+        "architectureGroup": "Collaboration",
+        "architectureSubGroup": "US Infras"
+    },
+    {
+        "installSitesId": "428722261",
+        "model": "Cisco 5508 Wireless Controller",
+        "deviceName": "FCW1716L0B9",
+        "category": "Wireless",
+        "productId": "AIR-CT5508-25-K9",
+        "softwareVersion1": "N/A",
+        "softwareVersion2": "FCW1716L0B9",
+        "architectureGroup": "Collaboration",
+        "architectureSubGroup": "US Infras"
+    },
+    {
+        "installSitesId": "428722263",
+        "model": "Cisco 5508 Wireless Controller",
+        "deviceName": "FCW1716L0B9",
+        "category": "Wireless",
+        "productId": "AIR-CT5508-25-K9",
+        "softwareVersion1": "N/A",
+        "softwareVersion2": "FCW1716L0B9",
+        "architectureGroup": "Enterprise Routing",
+        "architectureSubGroup": "Ent. Acce"
+    }
+]

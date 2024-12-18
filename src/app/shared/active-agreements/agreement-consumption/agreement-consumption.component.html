@@ -1,0 +1,32 @@
+
+  <div class="d-flex justify-content-center align-items-center flex-column active_agreements nav-type b-grey">
+    <div class="container-fluid">
+        <div class="row w-100">
+          <div class="col-12 d-flex align-items-center">
+            <h3 class="token--title"> <ng-container *ngIf="trueForward">True Forward</ng-container> Consumption for this enrollment
+              <span class="globalSwitchWrap "> 
+                  <span>Consumption View</span>
+                  <ui-switch kdfid="globalView" kdfapp="enterpriseAgreement" kdfpage="enterpriseAgreement"
+                      [(ngModel)]="trueForwardSwitch" checked size="small" color="#ABE3F2" switchColor="#00BCEA" (change)="toggleConsumptionView($event)"></ui-switch>
+                  <span>True Forward View</span>  
+              </span></h3>
+          </div>
+          <!-- <div class="col-12">
+          <div class="alert alert--info welcome-info mt-2" >
+            <span class="alert-icon">
+                <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+            </span>
+            <span class="txt">This is the BETA release of Consumption One View which will allow you to easily track your EA entitlements and consumption. We are working to reconcile all your consumption data. If you have questions about your entitlements and consumption data, please<a href="javascript:void(0)">click here</a></span></div>
+          </div> -->
+        </div>
+      </div>
+    </div>  
+
+<div *ngIf="rowData?.length==0" >
+    No Consumption Data available
+</div>
+
+<div [hidden]="rowData?.length == 0" >    
+    <ag-grid-angular id="ag-grid" style="width: 100%;" class="ag-fresh" #agGrid [gridOptions]="gridOptions" [columnDefs]="columnDefs" [domLayout]="domLayout" [rowData]="rowData"  [getNodeChildDetails]="getNodeChildDetails" rowHeight="30">
+    </ag-grid-angular>
+</div>

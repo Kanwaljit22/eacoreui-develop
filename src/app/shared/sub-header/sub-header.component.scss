@@ -1,0 +1,92 @@
+.smart-search {
+    background: #f2f2f2;
+    padding   : 10px 0;
+    margin    : 0px -15px 15px;
+}
+
+.smart-list-scroll {
+    max-height: 250px;
+    overflow  : hidden;
+    overflow-y: auto;
+}
+
+.smart-list-scroll .icon-delete::before {
+    color: #005073;
+}
+
+.sa-active {
+    color: #6FBE51;
+}
+
+.line-level-top-btns {
+    margin-bottom: 10px;
+    padding      : 5px 5px 0 5px;
+}
+
+.line-level-top-btns::after {
+    content: "";
+    display: block;
+    clear  : both;
+}
+
+.line-level-top-btns .pull-left {
+    float: left;
+}
+
+.line-level-top-btns .pull-right {
+    float: right;
+}
+
+.line-level-top-btns .txt {
+    font-size: 1rem;
+}
+
+.line-level-top-btns .link {
+    font-size: 0.875rem;
+    color    : #005073;
+    cursor   : pointer;
+}
+
+.col.text-left.ea-term--val.coterm-duration {
+    max-width: 115px;
+}
+
+.cross-hover-info {
+    &.cross-hover-scroll {
+        .icon-cx-logo-circle {
+            font-size: 21px;
+            border: 1px solid #0e709e;
+            border-radius: 50%;
+            padding: 3px;
+            display: inline-block;
+        }
+    }
+}
+
+.smart-acnt-subheader-bar {
+    padding: 0;
+    display: flex;
+    li {
+        padding:0 10px;
+
+        &.solid {
+            border-color: #9696a0;
+        }
+
+        &:first-child {
+            padding-left: 0;
+        }
+
+        .sub-title-inner {
+            font-size: 12px;
+            color: #b4b4bB;
+        }
+
+        .sub-data-inner {
+            font-size: 12px;
+            color: #fff;
+            font-weight: 700;
+            margin-left: 4px;
+        }
+    }
+}

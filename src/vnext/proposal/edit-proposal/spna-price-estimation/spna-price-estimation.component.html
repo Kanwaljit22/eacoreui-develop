@@ -1,0 +1,455 @@
+
+<ng-container *ngIf="vnextService.isRoadmapShown">
+<div class="container-fluid " (window:resize)="onResize($event)" attr.page-id="{{dataIdConstantsService.pe_page_pePage}}">
+    <div class="row align-items-center">
+        <div class="col-12">
+            <div class="alert alert--info alert-dismissable justify-content-between mt-2 mb-3" *ngIf="isChangeSubFlow && showChangeSubMsg && !proposalStoreService.proposalData?.dealInfo?.subscriptionUpgradeDeal">
+                <div class="d-flex align-items-center">
+                <span class="alert-icon">
+                    <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span
+                            class="path3"></span></span>
+                </span>
+                <span>{{'price-estimation.CHANGE_SUB_INFO_MSG_1' | localizationPipe : localizationService.localizedkeySet.size}}<br>{{'price-estimation.CHANGE_SUB_INFO_MSG_2' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                </div>
+                <span class="icon-close-btn" attr.action-id="{{dataIdConstantsService.pe_button_closeInfoMsg}}" (click)="hideChangeSubMsg()"></span>
+            </div>
+            <ng-container>
+                <div *ngIf="proposalStoreService.proposalData?.dealInfo?.subscriptionUpgradeDeal && proposalStoreService.proposalData.subRefId" class="alert alert--info alert-dismissable mt-3">
+                    <span class="alert-icon">
+                        <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                    </span>
+                    <span>{{'price-estimation.UPGRADE_ONLY_AVAILABLE_FOR' | localizationPipe : localizationService.localizedkeySet.size}} <a href="javascript:void(0);" (click)="routeToUrl(proposalStoreService.proposalData.subRefId)">{{proposalStoreService.proposalData.subRefId}}. </a> <span>{{'price-estimation.INORDER_TO_BUY_NEW_SUITES' | localizationPipe : localizationService.localizedkeySet.size}}</span></span>
+                </div>
+                <div *ngIf="proposalStoreService.proposalData?.dealInfo?.subscriptionUpgradeDeal && !showUpgradeSummary() && !eaService.features?.CROSS_SUITE_MIGRATION_REL" class="alert alert--info alert-dismissable">
+                    <span class="alert-icon">
+                        <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                    </span>
+                    <span>{{'price-estimation.NO_SUITES_UPGRADED_PROP_SUBMISSION_BLOCKED_MSG' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                </div>  
+            </ng-container>
+        </div>
+        <div class="col-12">
+            <div id="filter-area" class="vNext">
+                <div class="row align-items-center">
+                    <div class="col-5 my-2">
+                        <h2>{{'common.PRICE_ESTIMATION' | localizationPipe : localizationService.localizedkeySet.size}}</h2>
+                    </div>
+                    <div class="col-7">
+                        <ul class="inline-listing justify-content-end border-right-li">
+                           
+
+                            <li class="dropdown" (clickOutside)="showMoreActions = false;">	
+                                <a href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.pe_dropdown_moreAction}}" (click)="showMoreActions = true;">{{'price-estimation.PROPOSAL_ACTIONS' | localizationPipe : localizationService.localizedkeySet.size}} <span class="i-vNext-arrow-down-heavy position-relative top-1"></span></a>
+                                <ul class="dropdown-menu top-35" [class.show]="showMoreActions">	
+                                   
+                                    <li>
+                                        <a #downloadZipLink [hidden]="true"></a>
+                                        <a href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.pe_link_downlaod_pe}}" class="dropdown-item" (click)="downloadExcel()">
+                                            <span class="i-vNext-download listing-icon"></span>
+                                            {{'common.DOWNLOAD_PRICE_ESTIMATE' | localizationPipe : localizationService.localizedkeySet.size}}	
+                                        </a>
+                                    </li>
+                                    <li>	
+                                        <a href="javascript:void(0);" class="dropdown-item"  attr.action-id="{{dataIdConstantsService.pe_link_requestDoc}}"  (click)="requestDocuments()">	
+                                            <span class="i-vNext-request-document listing-icon"></span>		
+                                            {{'price-estimation.REQUEST_DOCUMENT' | localizationPipe : localizationService.localizedkeySet.size}}	
+                                        </a>	
+                                    </li>	
+                                    <li>	
+                                        <a href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.pe_link_proposalList}}" class="dropdown-item" (click)="viewProposalList()">	
+                                            <span class="i-vNext-proposal-list-grey listing-icon"></span> 	
+                                            {{'common.PROPSAL_LIST' | localizationPipe : localizationService.localizedkeySet.size}}	
+                                        </a>	
+                                    </li> 
+                                    <li *ngIf="(!proposalStoreService.isReadOnly || (proposalStoreService.proposalData.status === 'IN_PROGRESS' && (eaService.isResellerLoggedIn || eaService.isResellerOpty))) && selectedEnrollmentArray.length && enableEngageSupportTeam()">	
+                                        <a href="javascript:void(0);" class="dropdown-item" attr.action-id="{{dataIdConstantsService.pe_link_engageSupport}}" (click)="engageSupportTeam(); showMoreActions = false;">
+                                            <span class="i-vNext-support-contact listing-icon"></span>
+                                            {{'common.ENGAGE_SUPPORT_TEAM' | localizationPipe : localizationService.localizedkeySet.size}}
+                                        </a>	
+                                    </li>
+                                    <li *ngIf="proposalStoreService.projectStatus === 'COMPLETE'">	
+                                        <a href="javascript:void(0);"  attr.action-id="{{dataIdConstantsService.pe_link_manageTeam}}" class="dropdown-item" (click)="openManageTeam()" *ngIf="proposalStoreService.proposalEditAccess || projectStoreService.projectEditAccess; else disableManageTeam">	
+                                            <span class="i-vNext-manage-team listing-icon"></span> 	                                            
+                                            {{'common.MANAGE_TEAM' | localizationPipe : localizationService.localizedkeySet.size}}	 
+                                        </a>	
+                                        <ng-template #disableManageTeam>
+                                            <a href="javascript:void(0);" class="dropdown-item disabled" attr.action-id="{{dataIdConstantsService.pe_link_manageTeamDisabled}}">	
+                                                <span class="i-vNext-manage-team listing-icon"></span> 	                                            
+                                                {{'common.MANAGE_TEAM' | localizationPipe : localizationService.localizedkeySet.size}}	 
+                                            </a>
+                                        </ng-template>
+                                    </li>
+                                <!-- <li *ngIf="isCxPresent && !proposalStoreService.isReadOnly" [ngClass]="{'disabled': !priceEstimateStoreService.eamsDeliveryObj?.partnerDeliveryEligible}">	
+                                    <a href="javascript:void(0);" class="dropdown-item" (click)="openEAMS(); showMoreActions = false;">	
+                                        <span class="listing-icon i-vNext-questionnaire"></span>
+                                        EAMS Delivery	
+                                    </a>	
+                                </li>	  -->
+                                </ul>	
+                            </li>
+
+                            <li attr.action-id="{{dataIdConstantsService.pe_button_viewEligibilityDetails}}" (click)='viewEligibilityDetails()' *ngIf="!isUpgradeFlow">
+                                <a href="javascript:void(0);" class="position-relative">
+                                    <span class="prog-elig-wrap progress-status" [ngClass]="{'progress-status':!isProgramEligible,'completed-status':isProgramEligible}" placement="bottom" ngbTooltip="Click for more details">
+                                        <span class="title" attr.data-id="{{dataIdConstantsService.pe_label_enrollmentEligibility}}">{{'common.PROGRAM_ELIGIBILITY' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                                        <span class="value" *ngIf="isProgramEligible;else programEligibilityCheck" attr.data-id="{{dataIdConstantsService.pe_label_eligible}}"> {{'price-estimation.ELIGIBLE' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                                        <ng-template #programEligibilityCheck>
+                                            <span class="value" attr.data-id="{{dataIdConstantsService.pe_label_notEligible}}">{{'price-estimation.NOT_ELIGIBLE' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                                        </ng-template>                                 
+                                    </span>
+                                </a>
+                            </li>
+
+                            <li attr.action-id="{{dataIdConstantsService.pe_button_viewUpgradeSummary}}" (click)='openUpgradeSummary()' *ngIf="showUpgradeSummary() && isUpgradeFlow">
+                                <a href="javascript:void(0);" class="position-relative">
+                                    <span class="prog-elig-wrap progress-status" [ngClass]="{'progress-status':!isProgramEligible,'completed-status':isProgramEligible}" placement="bottom" ngbTooltip="Click for more details">
+                                        <span class="i-vNext-proposal-list-grey listing-icon"></span>
+                                        <span class="upgrade-summary-title">{{'price-estimation.UPGRADE_SUMMARY' | localizationPipe : localizationService.localizedkeySet.size}}</span>                                
+                                    </span>
+                                </a>
+                            </li>
+
+                        </ul>
+                        <div class="pe-absolute-button" [ngClass]="{'changeSub': isChangeSubFlow && showChangeSubMsg, 'upgrade': isUpgradeFlow && !showUpgradeSummary()}">
+                        <!-- <button type="button" class="btn btn-secondary mr-3">Exit</button> -->
+                        <button *ngIf="eaStoreService.isValidationUI" attr.action-id="{{dataIdConstantsService.pe_button_peBackToOWB}}"  type="button"  class="btn btn-primary mr-1" (click)="navigateToOWB()"> {{'price-estimation.BACK_TO_OWB' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                        <button attr.action-id="{{dataIdConstantsService.pe_button_peContinue}}" type="button" *ngIf='enableContinue && !priceEstimateStoreService.enableRecalculateAll && !proposalStoreService.rsdDueCurrDate && !errorMessage && !priceEstimateStoreService.displayIbPullMsg && !eaStoreService.isValidationUI; else disableContinue' (click)='continue()' class="btn btn-primary">{{'common.CONTINUE' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                        <ng-template #disableContinue>
+                                    <button type="button" attr.action-id="{{dataIdConstantsService.pe_button_peContinueDisabled}}" class="btn btn-primary disabled">{{'common.CONTINUE' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                        </ng-template>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End of Filter Row -->
+</div>
+<!-- End of PageTitle Area -->
+
+<section class="">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div *ngIf="proposalStoreService.rsdDueCurrDate" class="alert alert--danger alert-dismissable mb-2">
+                    <span class="alert-icon">
+                        <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                    </span>
+                    <span>{{'common.RSD_CANNOT_PAST_DATE' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                </div>
+                <div *ngIf="displayCxManageTeamMsg && !proposalStoreService.isReadOnly" class="alert alert--warning alert-dismissable mb-2">
+                    <span class="alert-icon d-flex">
+                    <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                    </span>
+                   <span>{{'price-estimation.ENTER_SERVICE_SPECIALIST_AND_DEALS_ASSURER' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                </div>
+                <div *ngIf="proposalStoreService.projectStatus !== 'COMPLETE' && !eaStoreService.isValidationUI" class="alert alert--warning alert-dismissable mb-2">
+                        <span class="alert-icon d-flex">
+                        <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                        </span>
+                       <span>{{'price-estimation.PROJECT_EDIT_MODE' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                    </div>
+                 <div *ngIf="proposalStoreService.proposalData?.originalProposalId && isShowCopiedPropMsg" class="alert alert--info alert-dismissable">
+                    <span class="alert-icon">
+                        <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                    </span>
+                    <span>{{'common.COPIED_PROPOSAL' | localizationPipe : localizationService.localizedkeySet.size}} <a class="d-inline" href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.pe_link_openOriginalProposal}}" (click)="proposalService.openOriginalProposal()">{{'common.HERE' | localizationPipe : localizationService.localizedkeySet.size}}</a> {{'common.ORIGINAL_PROPOSAL' | localizationPipe : localizationService.localizedkeySet.size}} ({{proposalStoreService.proposalData?.originalProposalId}})</span>
+                </div> 
+
+                <!--Start Disti flow for sept release-->
+                <div *ngIf="eaService.isDistiLoggedIn && eaService.isDistiOpty" class="alert alert--info alert-dismissable">
+                    <span class="alert-icon">
+                        <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                    </span>
+                    <span>{{'price-estimation.DISTI_INVITE_TO_2T_MSG' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                </div> 
+                <div *ngIf="priceEstimateStoreService.isHybridEnrollmentSelected" class="alert alert--info alert-dismissable">
+                    <span class="alert-icon">
+                        <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                    </span>
+                    <span>{{'price-estimation.HYBRID_PORTFOLIO_ADDED_MSG' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                </div>
+                <div *ngIf="eaService.isResellerOpty && eaService.isResellerLoggedIn" class="alert alert--info alert-dismissable">
+                    <span class="alert-icon">
+                        <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                    </span>
+                    <span>{{'price-estimation.RESELLER_RO_MODE_MSG' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                </div> 
+                <!--End Disti flow for sept release-->
+                <div *ngIf="displayPAMsg" class="alert alert--info alert-dismissable">
+                    <span class="alert-icon">
+                        <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                    </span>
+                    <span>{{'common.PLEASE_VALIDATE_YOUR_TCV_UPDATED' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                </div>
+                
+                <div class="alert alert--info alert-dismissable"  *ngIf="eaService.isDistiLoggedIn && eaService.isResellerOpty && !proposalStoreService.proposalData.sharedWithDistributor">
+                    <span class="alert-icon">
+                        <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                    </span>
+                    <span>{{'price-estimation.PROPSAL_LOCKED_AS_2T_ACCESSING_MSG' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                </div>
+
+                <div class="alert alert--success alert-dismissable" *ngIf="eaService.isDistiLoggedIn && eaService.isResellerOpty && proposalStoreService.proposalData.sharedWithDistributor">
+                    <span class="alert-icon">
+                        <span class="icon-done1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                    </span>
+                    <span>{{'price-estimation.RESELLER_TRANSFERRED_TO_DISTI_MSG' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                </div>
+
+        
+            </div>
+        </div>
+        <!-- End of Eligibility Alert -->
+        <ng-container  *ngIf="proposalStoreService.proposalData?.enrollments?.length ">
+        <!-- <div class="row">
+            <div class="col-12 text-center">
+                <h5 class="heading--h5">{{localizationService.getLocalizedString('price-estimation.SELECT_PORTFOLIO')}}</h5>
+            </div>
+        </div> -->
+        
+            <app-spna-enrollment (editEnrollmentEvent) = "openEditEnrollment($event)" (enrollSelectionEvent) = "selectEnrollment($event)"  (displayEnrollmentData)="displayGridForEnrollment($event, true)" [enrollmentData] = "proposalStoreService.proposalData.enrollments" [isChangeSubFlow]="isChangeSubFlow"></app-spna-enrollment>
+        
+        <!-- End of Enrollment Row -->
+
+    </ng-container>
+    </div>
+</section>
+
+<section class="vNext border-w-t15 ">
+    <div class="container-fluid">            
+        <ng-container *ngIf='selectedEnrollmentArray.length'>
+            <div class="row align-items-center vNext">
+                <div class="col-6 d-flex align-items-center">
+                    <h5 class="heading--h5" *ngIf="!priceEstimateStoreService.viewAllSelected"><strong>{{'price-estimation.CONFIGURING' | localizationPipe : localizationService.localizedkeySet.size}}</strong> {{priceEstimateStoreService.selectedEnrollment?.name}}</h5>
+                    <h5 class="heading--h5" *ngIf="priceEstimateStoreService.viewAllSelected">{{'price-estimation.ALL_PORTFOLIO' | localizationPipe : localizationService.localizedkeySet.size}}</h5>
+                    
+                        <!-- Add class "disable" to make it read only -->
+                        <div class="vNext-switch" *ngIf='selectedEnrollmentArray.length > 1'>
+                            <span class="switch-text mr-2" >{{'price-estimation.SHOW_ALL_PORTFOLIOS' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                            <label class="switch-button" >
+                                <input type="checkbox" attr.data-id="{{dataIdConstantsService.pe_checkbox_toggleAllPortfolio}}" (click)="toggleAllPortfolio();" [checked]='togglePortfolio'>
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                </div>
+                
+                <div class="col-6">
+                    <ul class="inline-listing justify-content-end border-right-li mt-2">
+                        <!--<li (click)="dialDown()">
+                            <a href="javascript:void(0);">
+                                <span class="listing-icon"><img src="assets/images/icons/apply-discount.svg"></span> 
+                                Dial Down Ramp
+                            </a>
+                        </li> -->
+                         <li *ngIf="priceEstimateStoreService.selectedEnrollment?.id !== 6">
+                            <ng-container *ngIf="!isUpgradeFlow">
+                                <a href="javascript:void();" attr.action-id="{{dataIdConstantsService.pe_link_addMoreSuitesDisabled}}" *ngIf="priceEstimateStoreService.viewAllSelected || proposalStoreService.isReadOnly; else enableAddMoreSuites" class="disabled"><span class="listing-icon i-vNext-add-heavy"></span>{{'price-estimation.ADD_SUITE_SERVICE' | localizationPipe : localizationService.localizedkeySet.size}}</a>
+                            <ng-template #enableAddMoreSuites>
+                                <a href="javascript:void();" attr.action-id="{{dataIdConstantsService.pe_link_addMoreSuites}}" (click)="addMoreSuites()"><span class="listing-icon i-vNext-add-heavy"></span>{{'price-estimation.ADD_SUITE_SERVICE' | localizationPipe : localizationService.localizedkeySet.size}}</a>
+                            </ng-template>
+                            </ng-container>
+                            <ng-container *ngIf="isUpgradeFlow">
+                                <a href="javascript:void();" attr.action-id="{{dataIdConstantsService.pe_link_upgradeSuitesDisabled}}" *ngIf="priceEstimateStoreService.viewAllSelected || proposalStoreService.isReadOnly; else enableUpgradeSuites" class="disabled"><span class="listing-icon i-vNext-add-heavy"></span>{{'price-estimation.UPGRADE_SUITE_SERVICE' | localizationPipe : localizationService.localizedkeySet.size}}</a>
+                            <ng-template #enableUpgradeSuites>
+                                <a href="javascript:void();" attr.action-id="{{dataIdConstantsService.pe_link_upgradeSuites}}" (click)="addMoreSuites()"><span class="listing-icon i-vNext-add-heavy"></span>{{'price-estimation.UPGRADE_SUITE_SERVICE' | localizationPipe : localizationService.localizedkeySet.size}}</a>
+                            </ng-template>
+                            </ng-container>
+                        </li>
+
+                        <li *ngIf="priceEstimateStoreService.selectedEnrollment?.enrolled && !proposalStoreService.proposalData?.dealInfo?.subscriptionUpgradeDeal">	
+                            <a href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.pe_link_applyDiscountDisabled}}" *ngIf="!proposalStoreService.proposalData.enrollments?.length || priceEstimateStoreService.enableRecalculateAll || priceEstimateStoreService.viewAllSelected || proposalStoreService.isReadOnly || (eaService.isResellerLoggedIn); else enableApplyDiscount" class="disabled">	
+                                <span class="listing-icon i-vNext-multi-discount"></span> 	
+                                {{'common.CHANGE_DISCOUNT' | localizationPipe : localizationService.localizedkeySet.size}}	 
+                            </a>
+                            <ng-template #enableApplyDiscount>
+                                <a href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.pe_link_applyDiscount}}" (click)="applyDiscount();">	
+                                    <span class="listing-icon i-vNext-multi-discount"></span> 	
+                                    {{'common.CHANGE_DISCOUNT' | localizationPipe : localizationService.localizedkeySet.size}}	 
+                                </a>
+                            </ng-template>	
+                        </li>
+                        <li *ngIf="(priceEstimateStoreService.selectedEnrollment?.id === 7 && priceEstimateStoreService.totalDesiredQtyForEnrollment)  && !proposalStoreService.proposalData.dealInfo?.subscriptionUpgradeDeal">
+                            <a href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.pe_link_openPurchaseAdjDisabled}}" class="disabled"  *ngIf="!proposalStoreService.proposalData.enrollments?.length || priceEstimateStoreService.enableRecalculateAll || priceEstimateStoreService.viewAllSelected || proposalStoreService.isReadOnly; else enablePa">
+                                <span class="listing-icon i-vNext-discount" style="font-size: 15px;"></span>
+                                {{'common.OTD' | localizationPipe : localizationService.localizedkeySet.size}}
+                            </a>
+                            <ng-template #enablePa> 
+                                <a href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.pe_link_openPurchaseAdj}}" (click)='openPurchaseAdj()' >	
+                                    <span class="listing-icon i-vNext-discount" style="font-size: 15px;"></span>
+                                {{'common.OTD' | localizationPipe : localizationService.localizedkeySet.size}}	
+                                </a>
+                            </ng-template>
+                        </li>
+                        <li *ngIf="priceEstimateStoreService.selectedEnrollment?.displayQnA" >	
+                            <a href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.pe_link_openQnAFlyout}}" (click)="openQnAFlyout(priceEstimateStoreService.selectedEnrollment);" *ngIf="!priceEstimateStoreService.viewAllSelected && proposalStoreService.proposalEditAccess; else disableQna">
+                                <ng-container *ngIf="priceEstimateStoreService.selectedEnrollment?.id === 6">
+                                    <span class="listing-icon i-vNext-edit-filled"></span>
+                                    {{'price-estimation.EDIT_PORTFOLIO_SETUP' | localizationPipe : localizationService.localizedkeySet.size}}
+                                </ng-container>
+                                <ng-container *ngIf="priceEstimateStoreService.selectedEnrollment?.id === 3">
+                                    <span class="listing-icon i-vNext-questionnaire"></span>
+                                    {{'price-estimation.QUESTIONNAIRE' | localizationPipe : localizationService.localizedkeySet.size}}
+                                </ng-container>
+                            </a>
+                            <ng-template #disableQna> 
+                                <a href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.pe_link_openQnAFlyoutdisabled}}" [ngClass]="{'disabled': true}">	
+                                    <span class="listing-icon i-vNext-questionnaire"></span>
+                                    {{'price-estimation.QUESTIONNAIRE' | localizationPipe : localizationService.localizedkeySet.size}}	
+                                </a>
+                            </ng-template>	
+                        </li>
+                         <li *ngIf='proposalStoreService.allowUpdatePA && (proposalStoreService.proposalData.status !== "COMPLETE")'>
+                                <a href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.pe_link_openUpdatePurchaseA}}" (click)='openUpdatePurchaseA()'>
+                                    {{'common.UPDATE_OTD' | localizationPipe : localizationService.localizedkeySet.size}} 
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- End of Title Row -->
+
+
+            <div class="row">
+               
+                <!-- RSD Rules info message -->
+                <!-- <div class="col-12" *ngIf="proposalStoreService.displayMaxSubscriptionRsdMsg">
+                    <div class="alert alert--info alert-dismissable mb-2 more--actions paddingR255">
+                        <span class="icon-msg-Info mr-2"><span class="path1"></span><span class="path2"></span><span
+                                class="path3"></span></span>
+                        <span>Requested Start Date set to day after after end date of current EA subscription(s)</span>
+                    </div>
+                </div> -->
+                <div class="col-12">
+                    <!-- <div *ngIf="priceEstimateStoreService.enableRecalculateAll && !proposalStoreService.isReadOnly" class="alert alert--warning alert-dismissable mb-2">
+                        <span class="alert-icon d-flex">
+                            <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                        </span>
+                        <span>One of the changes that you made requires a recalculation. Click <a (click)='recalculateAll()' style="cursor: pointer;color: #227bb1;"> Recalculate All </a> to update the pricing and save it.</span>
+                    </div> -->
+                    
+                    <!-- <div *ngIf="showConfirmationMessage" class="alert alert--success alert-dismissable mb-2">
+                        <span class="alert-icon d-flex">
+                            <span class="icon-done1"><span class="path1"></span><span class="path2"></span></span>
+                        </span>
+                        <span>You have successfully recalculated and saved the changes.</span>
+                    </div> -->
+
+           <div class="row" *ngIf = "priceEstimateStoreService.selectedEnrollment?.id === CONST_SERVICE_ENROLLMENT && priceEstimateStoreService.selectedEnrollment?.eamsDelivery?.partnerDeliveryEligible && priceEstimateStoreService.selectedEnrollment?.eamsDelivery?.partnerDeliverySelected" >
+   
+            <div class="col">
+
+        <div class="alert alert--cx-info eligible mt-2 pr-2" >
+           <div class="cx-msg">
+               <p class="msg">
+                <span class="icon-msg-Info">
+                    <span class="path1"></span>
+                    <span class="path2"></span>
+                    <span class="path3"></span>
+                </span>   
+                {{'price-estimation.ELIGIBLE_TO_AVAIL_SERVICES' | localizationPipe : localizationService.localizedkeySet.size}} <a href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.pe_link_openEAMS}}" (click)="openEAMS()">{{'common.EAMS_DELIVERY' | localizationPipe : localizationService.localizedkeySet.size}}</a> {{'price-estimation.WISH_TO_SWITCH' | localizationPipe : localizationService.localizedkeySet.size}}
+               </p>
+           </div>
+        </div>
+    </div>
+</div>  
+
+<div *ngIf="priceEstimateStoreService.selectedEnrollment?.id === CONST_HYBRID_ENROLLMENT && !proposalStoreService.isReadOnly" class="alert alert--info alert-dismissable mb-2 more--actions">
+    <span class="icon-msg-Info mr-2"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+    <div class="info-text">
+        <span class="d-block w-100">{{'price-estimation.ENTER_WORKER_COUNT_HYBRID_MSG' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+    </div>
+</div>
+<div class="alert alert--info alert-dismissable mb-2 more--actions paddingR255" *ngIf = "priceEstimateStoreService.selectedEnrollment?.suggestedUserCount && !priceEstimateStoreService.viewAllSelected && !proposalStoreService.isReadOnly">
+    <span class="icon-msg-Info mr-2"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+    <span>{{'price-estimation.SUGGESTED_USER_COUNT_MSG' | localizationPipe : localizationService.localizedkeySet.size}} {{priceEstimateStoreService.selectedEnrollment?.suggestedUserCount}} </span>
+ 
+  </div>
+  
+<ng-container *ngIf="!proposalStoreService.proposalData.dealInfo?.subscriptionUpgradeDeal">
+    <div class="alert alert--info alert-dismissable mb-2 more--actions paddingR255" *ngIf = "!priceEstimateStoreService.displayCxGrid && !priceEstimateStoreService.viewAllSelected && priceEstimateStoreService.selectedEnrollment?.cxOptInAllowed && !proposalStoreService.isReadOnly && priceEstimateStoreService.selectedEnrollment?.enrolled">
+        <span class="icon-msg-Info mr-2"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+        <span>{{'price-estimation.WISH_TO_ADD_SERVICES_FOR_PORTFOLIO' | localizationPipe : localizationService.localizedkeySet.size}}  </span>
+    <div class="alert--actions">
+        <ul class="inline-listing justify-content-end no-list-style">
+        <li><button class="btn btn-primary sm" type="button" attr.action-id="{{dataIdConstantsService.pe_button_addMoreSuites}}" (click) = "addMoreSuites(true)" >Add</button></li>
+        </ul>
+        </div>
+    </div>
+    <div *ngIf="priceEstimateStoreService.returnCustomerMsg && !proposalStoreService.isReadOnly && !proposalStoreService.proposalData.dealInfo?.subscriptionUpgradeDeal" class="alert alert--info alert-dismissable mb-2 more--actions">
+        <span class="icon-msg-Info mr-2"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+        <div class="info-text">
+            <span class="d-block w-100">{{'price-estimation.SUITES_UNAVAILABLE' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+        </div>
+    </div> 
+</ng-container>
+<div class="col-12 mb-2 alert alert--info alert-dismissable"  *ngIf="priceEstimateService.isMerakiSuitesPresent">
+    <span class="alert-icon">
+        <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+    </span>
+    <span>{{'common.ENTER_MERAKI_ORG_ID' | localizationPipe : localizationService.localizedkeySet.size}} <a href="javascript:void(0);" (click)="howItWorks()">{{'common.SPNA_REF_PROGRAM_GUIDE' | localizationPipe : localizationService.localizedkeySet.size}}</a></span>
+</div> 
+  <div >
+    <!-- Error List Alert -- Starts Here -->
+    <app-multi-error [message] = "proposalStoreService.proposalData.message" > </app-multi-error>
+    <!-- Error List Alert Ends Here -->
+</div>
+    <div *ngIf="showServiceHardwareWarning" class="alert alert--warning alert-dismissable mb-2">
+            <span class="alert-icon d-flex">
+            <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+            </span>
+           <span>{{'price-estimation.RETRIEVING_HARDWARE_IB' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+    </div>
+
+                            
+    <div *ngIf="showServiceSuccessMessage" class="alert alert--success alert-dismissable mb-2">
+            <span class="alert-icon d-flex">
+            <span class="icon-done1"><span class="path1"></span><span class="path2"></span></span>
+            </span>
+            <span>{{'price-estimation.SERVICES_SUCCESSFULLY_PRICED' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+    </div>
+
+
+                </div>
+            </div>
+    
+            <div class="row">
+                <div class="col-12 mb-3" attr.action-id="{{dataIdConstantsService.pe_link_inItGrid}}" (click) = "inItGrid()">
+                    <ag-grid-angular #agGrid id="ag-grid" style="width: 100%;" class="ag-fresh vNext header-expandCollapse mt-0" (gridReady)="onGridReady($event)" [gridOptions]="gridOptions" (click)="onHeaderClick($event)" [getNodeChildDetails]="getNodeChildDetails" (cellClicked)="onCellClicked($event)" (cellMouseOver)="onCellMouseOver($event)" (cellMouseOut)="onCellMouseOut($event)" (rowSelected)="onRowSelected($event)" [columnDefs]="columnDefs" [rowData]="rowData" [sideBar]="false" [groupSelectsChildren]="true" toolPanelSuppressGroups toolPanelSuppressValues debug rowHeight="40" [suppressRowClickSelection]="true">
+                    </ag-grid-angular>  
+                    <app-spna-associated-services-grid *ngIf="priceEstimateStoreService.displayCxGrid"></app-spna-associated-services-grid>
+                </div>
+            </div>
+        </ng-container>
+
+        <!-- show info message if enrollments are not selected -->
+        <ng-container *ngIf='!selectedEnrollmentArray.length'> 
+            <!--div class="alert alert--warning alert-dismissable">
+
+                <span class="alert-icon">
+                    <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                </span>
+                <span>Please make Enrollment selection(s) above</span>
+                <a class="close" style="cursor: pointer;" (click)="removeAlert(message)">&times;</a>
+            </div-->
+
+            <div class="d-flex w-100 align-items-center justify-content-center empty-enrollment flex-column">
+                <img src="../../../../assets/images/icons/empty-enrollment.svg">
+                <h4 class="heading--h4">{{'price-estimation.SELECT_PORTFOLIO_FROM_ABOVE' | localizationPipe : localizationService.localizedkeySet.size}}</h4>
+            </div>
+        </ng-container>
+    </div>
+</section>
+</ng-container>
+
+<app-spna-adjust-desired-qty [poolArray] = "poolArray" [selectedPool]='selectedPool' [selectedAto]='selectedAto' (onClose)='closeDesiredQtyPopup($event)'  *ngIf="priceEstimateService.showDesriredQty"></app-spna-adjust-desired-qty>
+<app-spna-purchase-adjustment-break-up *ngIf="priceEstimateService.showPurchaseAdjustmentBreakUp" [selectedEnrollemnt]='priceEstimateStoreService.selectedEnrollment' [column]="breakupColumn"></app-spna-purchase-adjustment-break-up>
+<app-spna-benefits-wizard *ngIf="priceEstimateService.showBenefits"></app-spna-benefits-wizard>
+<!-- <app-questionnaire *ngIf="priceEstimateService.displayQuestionnaire" [questions]="questionsArray" (qnaSubmitEvent)="enrollmentSelectionAfterQnA()"></app-questionnaire> -->
+<app-spna-edit-enrollment *ngIf="priceEstimateService.showEnrollments" [selectedEnrollemnt] = "updateEnrollemntBillingDetails" (closeEditEnrollment)='enrollmentDetailsUpdated($event)' [isChangeSubFlow]="isChangeSubFlow" ></app-spna-edit-enrollment>
+<app-spna-manage-purchase-adjustment [poolArray] = "poolArray" *ngIf="priceEstimateService.showPurchaseAdj && !priceEstimateService.paForCollab"></app-spna-manage-purchase-adjustment>
+<app-manage-collab-purchase-adjustment [poolArray] = "poolArray" [selectedEnrollemnt] = "priceEstimateStoreService.selectedEnrollment" *ngIf="priceEstimateService.showPurchaseAdj && priceEstimateService.paForCollab"></app-manage-collab-purchase-adjustment>
+<app-edit-proposal-parameters (onClose)='closeEditProposalParam($event)' *ngIf="proposalStoreService.editProposalParamter" [isChangeSubFlow]="isChangeSubFlow"></app-edit-proposal-parameters>
+<app-spna-update-purchase-adjustment [selectedEnrollemnt] = "priceEstimateStoreService.selectedEnrollment"  *ngIf="priceEstimateService.showUpdatePA"></app-spna-update-purchase-adjustment>
+<app-spna-total-contract-value-break-up [selectedEnrollemnt]='priceEstimateStoreService.selectedEnrollment' *ngIf='priceEstimateService.showTcvBreakUp'></app-spna-total-contract-value-break-up>
+<app-spna-add-suites *ngIf="priceEstimateStoreService.openAddSuites" [enrollment] = 'enrollmentForAddSuite' [deeplinkForCx]="deeplinkForServices" [deeplinkForSw] = 'deeplinkForSw' (closeAddSuitesEvent)="closeAddSuitesEventUpdated($event)"  [isChangeSubFlow]="isChangeSubFlow" [isUpgradeFlow]="isUpgradeFlow"></app-spna-add-suites>

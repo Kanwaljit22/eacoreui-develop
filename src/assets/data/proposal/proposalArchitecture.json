@@ -1,0 +1,40 @@
+[
+    {
+        "id": "1",
+        "key": "subscription_reference_id",
+        "name": "existing_Data_Center",
+        "description": "Do you have an existing Data Center EA?",
+        "type": "radio",
+        "answers": [
+            {
+                "id": 1,
+                "name": "Yes",
+                "description": "Yes"
+            },
+            {
+                "id": 1,
+                "name": "No",
+                "description": "No"
+            }
+        ]
+    },
+    {
+        "id": "2",
+        "key": "subscription_reference_id",
+        "name": "Security_or_Collab_EA",
+        "description": "Is there a Security or Collab EA in process for this customer that will be co-termed with this EA?",
+        "type": "radio",
+        "answers": [
+            {
+                "id": 2,
+                "name": "Yes",
+                "description": "Yes"
+            },
+            {
+                "id": 2,
+                "name": "No",
+                "description": "No"
+            }
+        ]
+    }
+]

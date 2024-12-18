@@ -1,0 +1,184 @@
+<div class="custom-flyout-overlay"></div>
+<div class="custom-flyout vNext cust-md">
+    <div class="heading">
+        <div class="d-flex justify-content-between align-items-center mb-0">
+            <div class="heading-title">
+                <h2 class="heading--h2">{{'price-estimation.benefitsWizard.LABEL' | localizationPipe : localizationService.localizedkeySet.size}}</h2>
+            </div>
+            <div>
+                <!-- <a class="mr-2" href="javascript:void(0)"><span class="icon-full-screen mr-0"></span></a> -->
+                <button class="icon-close-btn" (click)="priceEstimateService.showBenefits = false;" type="button" attr.action-id="{{dataIdConstantsService.benefitsWizard_button_close}}"></button>
+            </div>
+        </div>
+    </div>
+
+    <div class="body">
+        <div class="row mb-3 marginT20">
+            <div class="col">
+                <div class="vNext-benefit-wrap">
+                    <h5 class="heading--h5">{{'price-estimation.benefitsWizard.MULTI_SUITES_DISCOUNT' | localizationPipe : localizationService.localizedkeySet.size}}</h5>
+                    <h6 class="heading--h6">
+                        <small>{{'price-estimation.benefitsWizard.DISCOUNT_ON_MULTI_SUITES' | localizationPipe : localizationService.localizedkeySet.size}}</small>
+                    </h6>
+                    <div class="big-text">{{'price-estimation.benefitsWizard.MULTI_SUITES_DISCOUNT_PERCENTAGE' | localizationPipe : localizationService.localizedkeySet.size}}</div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="vNext-benefit-wrap">
+                    <h5 class="heading--h5">{{'price-estimation.benefitsWizard.MULTI_PORTFOLIOS_DISCOUNT' | localizationPipe : localizationService.localizedkeySet.size}}</h5>
+                    <h6 class="heading--h6">
+                        <small>{{'price-estimation.benefitsWizard.DISCOUNT_ON_MULTI_ENROLLMENT_PORTFOLIOS' | localizationPipe : localizationService.localizedkeySet.size}}</small>
+                    </h6>
+                    <div class="big-text">{{'price-estimation.benefitsWizard.MULTI_SOLUTION_DISCOUNT_PERCENTAGE' | localizationPipe : localizationService.localizedkeySet.size}}</div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="vNext-benefit-wrap">
+                    <h5 class="heading--h5">{{'price-estimation.benefitsWizard.MULTI_SOLUTION_DISCOUNT' | localizationPipe : localizationService.localizedkeySet.size}}</h5>
+                    <h6 class="heading--h6">
+                        <small>{{'price-estimation.benefitsWizard.DISCOUNT_ON_MULTI_SOLUTIONS' | localizationPipe : localizationService.localizedkeySet.size}}</small>
+                    </h6>
+                    <div class="big-text">{{'price-estimation.benefitsWizard.MULTI_SUITES_SOLUTIONS_PERCENTAGE' | localizationPipe : localizationService.localizedkeySet.size}}</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-12">
+                <hr class="weight-1 mt-0">
+            </div>
+            <div class="col-12">
+                <h5 class="heading--h5 normal">
+                    {{'price-estimation.benefitsWizard.BENEFITS_BREAKDOWN' | localizationPipe : localizationService.localizedkeySet.size}}
+                </h5>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <table class="primary-table">
+                    <thead>
+                        <tr>
+                            <th>{{'price-estimation.benefitsWizard.BENEFITS' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                            <th width="150px" class="text-center">{{'price-estimation.benefitsWizard.FULL_COMMITMENT_EA_SUITES' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                            <th width="160px" class="text-center">{{'price-estimation.benefitsWizard.PARTIAL_COMMITMENT_EA_SUITES' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                            <th width="105px" class="text-center">{{'price-estimation.benefitsWizard.ALA_CARTE_SALE' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{'price-estimation.benefitsWizard.DISCOUNT_TIER' | localizationPipe : localizationService.localizedkeySet.size}}</td>
+                            <td class="text-center"><span class="i-vNext-tick"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span></td>
+                            <td class="text-center"><span class="i-vNext-tick"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span></td>
+                            <td class="text-center">-</td>
+                        </tr>
+
+                        <tr>
+                            <td>{{'price-estimation.benefitsWizard.FIXED_PRICE' | localizationPipe : localizationService.localizedkeySet.size}}</td>
+                            <td class="text-center"><span class="i-vNext-tick"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span></td>
+                            <td class="text-center">-</td>
+                            <td class="text-center">-</td>
+                        </tr>
+
+                        <tr>
+                            <td>{{'price-estimation.benefitsWizard.ACCESS_EAWS' | localizationPipe : localizationService.localizedkeySet.size}}</td>
+                            <td class="text-center"><span class="i-vNext-tick"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span></td>
+                            <td class="text-center"><span class="i-vNext-tick"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span></td>
+                            <td class="text-center">-</td>
+                        </tr>
+
+                        <tr>
+                            <td>{{'price-estimation.benefitsWizard.COTERM' | localizationPipe : localizationService.localizedkeySet.size}}</td>
+                            <td class="text-center"><span class="i-vNext-tick"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span></td>
+                            <td class="text-center"><span class="i-vNext-tick"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span></td>
+                            <td class="text-center">-</td>
+                        </tr>
+
+                        <tr>
+                            <td>{{'price-estimation.benefitsWizard.INCENTIVE' | localizationPipe : localizationService.localizedkeySet.size}}</td>
+                            <td class="text-center"><span class="i-vNext-tick"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span></td>
+                            <td class="text-center">-</td>
+                            <td class="text-center">-</td>
+                        </tr>
+
+                        <tr>
+                            <td>{{'price-estimation.benefitsWizard.TRUE_FORWARD' | localizationPipe : localizationService.localizedkeySet.size}}</td>
+                            <td class="text-center">{{'price-estimation.benefitsWizard.ANNUAL_QUATERLY' | localizationPipe : localizationService.localizedkeySet.size}}</td>
+                            <td class="text-center">{{'price-estimation.benefitsWizard.QUARTERLY' | localizationPipe : localizationService.localizedkeySet.size}}</td>
+                            <td class="text-center">-</td>
+                        </tr>
+
+                        <tr>
+                            <td>{{'price-estimation.benefitsWizard.VALUE_SHIFT_WITHIN_SUITE' | localizationPipe : localizationService.localizedkeySet.size}}</td>
+                            <td class="text-center"><span class="i-vNext-tick"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span></td>
+                            <td class="text-center">-</td>
+                            <td class="text-center">-</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="italic-text mt-2">{{'price-estimation.benefitsWizard.ANNUAL_TRUE_FORWARD_LABEL' | localizationPipe : localizationService.localizedkeySet.size}}</p>
+            </div>
+        </div>
+
+        <!--div class="row mb-4">
+            <div class="col-12">
+                <h5 class="heading--h5 normal">
+                    Check out Goal Attainment to know possible commitments
+                </h5>
+            </div>
+        </div-->
+
+        <!--div class="row">
+            <div class="col-12">
+                <ul class="inline-listing mb-3 nav-tabs">
+                    <li *ngFor="let enroll of enrollmentArr" [class.active]="enroll.active" (click)="selectEnrollment(enroll)">
+                        <a href="javascript:void(0);">{{enroll.name}}</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-12 marginB15">
+                <div class="alert alert--warning">
+                    <span class="alert-icon">
+                        <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                    </span>
+                    <span>Commit atleast one of the suite to take advantage of vNext</span>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <ng-container *ngFor="let a of benefitsArr; let last = last; let first = first;">
+                    <div class="row marginB15">
+                        <div class="col-6">
+                            <h6 class="heading--h6">{{a.suites}}</h6>
+                        </div>
+                        
+                        <div class="col-6 d-flex">
+                            <div class="progress-wrap vNext-progress">
+                                <div class="progress"> 
+                                    <div class="progress-bar" [style.width.%]="a.value" [class.midPlus]="!first"></div>
+                                </div>
+                                <div class="progressbar-legends">
+                                    <span>Committed: <span class="bold-txt">{{a.committed}}</span></span>
+                                    <span>Threshold: <span class="bold-txt">{{a.threshold}}</span></span>
+                                </div>
+                            </div>
+                            <div class="progressValue">{{a.value}}%</div>                        
+                        </div>
+                    </div>
+                   <hr class="weight-1 light" *ngIf="!last">
+                </ng-container>
+            </div>
+
+            <div class="col-12">
+                <hr class="weight-1">
+            </div>
+            
+            <div class="col-12 d-flex justify-content-end">
+                <button class="btn btn-primary sm ml-2" (click)="priceEstimateService.showBenefits = false;">Ok</button>
+            </div>
+        </div-->
+    </div>
+</div>

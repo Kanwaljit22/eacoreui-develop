@@ -1,0 +1,259 @@
+<div id="filter-area" class="mb-3">
+  <div class="container-fluid">
+      <div class="row align-items-center">
+        <div class="col-md-6">
+          <h2>{{localeService.getLocalizedMessage('tco.list.TCO_RELATED_TO_PROPOSAL')}}</h2>
+        </div>
+        <div class="col-md-6">
+            <ul class="qualify-btn">
+              <li><button class="btn btn-secondary" (click)='goToDocCenter()'>Document Center</button></li>
+              <li><button class="btn btn-secondary" (click)='goToBom()'>Preview Quote</button></li>
+              <li><button class="btn btn-secondary" (click)='goToProposalList()'>Proposal List</button></li>
+              <li class="btn-sep"><button class="btn btn-primary" (click)="createTco()"
+                  [disabled]="disableCreate">{{localeService.getLocalizedString('qual.create.CREATE_NEW')}}</button>
+              </li>
+            </ul>
+        </div>
+      </div>
+  </div>
+</div>
+<!-- show RW super user create disable access message -->
+<div class="alert alert--info alert-dismissable mb-0 mt-3" *ngIf="showCreateMessage"
+  style="margin-left: 55px; margin-right: 57px">
+  <span class="alert-icon">
+    <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+  </span>
+  <span class="infoTxt">
+    {{localeService.getLocalizedMessage('tco.TCO_RW_READ_ONLY_ACCESS')}}
+  </span>
+</div>
+<div class="alert alert--info alert-dismissable mb-0 mt-3" *ngIf="showRoAccessMessage"
+  style="margin-left: 55px; margin-right: 57px">
+  <span class="alert-icon">
+    <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+  </span>
+  <span class="infoTxt">
+    {{localeService.getLocalizedMessage('tco.TCO_RW_RO_SALES_ACCESS')}}
+  </span>
+</div>
+<!-- show info message for read only access -->
+<div class="alert alert--info alert-dismissable mb-0 mt-3" *ngIf="disableMode"
+  style="margin-left: 55px; margin-right: 57px">
+  <span class="alert-icon">
+    <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+  </span>
+  <span class="infoTxt">
+    {{localeService.getLocalizedMessage('tco.TCO_READ_ONLY_ACCESS')}}
+</span>
+</div>
+<!-- show warning message for icludedPartialIb starts -->
+<div class="alert alert--warning alert-dismissable mb-2 mt-3" *ngIf="appDataService.includedPartialIb" style="margin-left: 55px; margin-right: 57px">
+  <span class="alert-icon">
+      <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+  </span>
+  <span class="infoTxt">This TCO represents a partial pricing view on how Enterprise Agreements are better option than ALC (Business-as-Usual), to leverage full TCO benefits, please have a signed LoCC in place with your customer.</span>
+</div>
+<!-- show warning message for icludedPartialIb Ends -->
+<!--  Empty State - Starts Here  -->
+<div class="empty-tco-wrap text-center" *ngIf="displayNew">
+  <div class="tco-wrap-block">
+    <span class="tco-arrow"></span>
+    <span class="icon-tco"></span>
+    <h2>{{localeService.getLocalizedMessage('tco.list.START_CREATING_MSG01')}}
+      <small>{{localeService.getLocalizedMessage('tco.list.START_CREATING_MSG02')}}</small></h2>
+  </div>
+</div>
+<!--  Empty State - Ends Here  -->
+
+
+<div class="container-fluid tco-list-component" *ngIf="!displayNew">
+  <div class="row">
+    <div class="col-md-12 text-right pt-1 pb-1">{{localeService.getLocalizedString('price.est.ALL_PRICES')}}
+      {{this.currencyCode}}
+    </div>
+  </div>
+  <div class="row list-style mb-3 ml-1 mr-0 active" *ngFor="let tco of tcoListData">
+    <div class="col-12 p-0">
+      <div class="list-item--name align-items-center">
+        <div class="col-8">
+          <span class="title-icon">
+            <span *ngIf="tco.archName === constantsService.DNA" class="icon-dna-indigo">
+              <span class="path1"></span><span class="path2"></span><span class="path3"></span><span
+                class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span>
+            </span>
+
+            <span *ngIf="tco.archName === constantsService.DC" class="icon-data-center-indigo">
+              <span class="path1"></span><span class="path2"></span><span class="path3"></span><span
+                class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span>
+            </span>
+
+            <span *ngIf="tco.archName === constantsService.SECURITY" class="icon-security">
+              <span class="path1"></span><span class="path2"></span><span class="path3"></span><span
+                class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span>
+            </span>
+            <span placement="top-left" container="body" *ngIf="tco.archName === 'CX'" class="icon-cx-logo-circle">
+              <span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span
+                class="path5"></span>
+            </span>
+          </span>
+          <span class="multiple-head">
+          <h3 class="heading ellipsis"><a class="ellipsis" (click)="openTCOModelling(tco)"
+              href="javascript:void(0);">{{tco.name}} ({{tco.id}})</a>
+            <a href="javascript:void(0);" class="ml-2">
+              <span class="icon-header-edit" (click)="edit(tco)" [ngClass]="{'disabled': disableEdit(tco)}"></span>
+            </a>
+          </h3>
+          <h6>{{localeService.getLocalizedMessage('tco.list.ENT_ECONOMICAL')}}
+              <strong>{{this.utilitiesService.formatValue(this.utilitiesService.getFloatValue(tco.benefitsPercent))}}</strong>
+            {{localeService.getLocalizedMessage('tco.list.IN_COMPARISON_BAU')}}</h6>
+          </span>
+        </div>
+        <div class="col-4 text-right">
+          <ul class="tile-list d-inline-flex align-items-center">
+            <li>
+              <span class="small-text" *ngIf='!tco.partnerDeal && !partnerFlow'>{{localeService.getLocalizedString('qualproposallist.CISCO_LED')}}</span>
+              <span class="small-text" *ngIf='tco.partnerDeal && !partnerFlow'>{{localeService.getLocalizedString('qualproposallist.PARTNER_LED')}}</span>
+            </li>
+            <li class="pr-0">
+              <span class="small-text">{{localeService.getLocalizedString('tco.list.EA_BEN')}}</span>
+              <h5 class="normal-text">{{this.utilitiesService.formatWithNoDecimalForDashboard(tco.savings)}} <a href="javascript:void(0);"
+                  class="text-link-primary">({{this.utilitiesService.formatValue(this.utilitiesService.getFloatValue(tco.benefitsPercent))}}%)</a>
+              </h5>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+    <div class="list-item border--top align-items-center p-0 mb-0 solid">
+      <div class="col-2 list-item--val border-right pt-2 pb-2 solid">
+        <label></label>
+        <h4 class="label-name"> <span
+            class="ellipsis">{{localeService.getLocalizedString('tco.list.BUSINESS_AS_USUAL')}}</span></h4>
+      </div>
+      <div class="col list-item--val border-right solid pt-2 pb-2 text-right">
+        <label class="text-right">{{localeService.getLocalizedString('tco.list.LIST_PRICE')}}</label>
+        <h4 class="label-name"><span
+            class="ellipsis">{{this.utilitiesService.formatWithNoDecimalForDashboard(tco?.businessAsUsual?.listPrice)}}</span>
+        </h4>
+      </div>
+      <div class="col list-item--val border-right solid pt-2 pb-2 text-center">
+        <label class="">{{localeService.getLocalizedString('tco.list.CUST_DISC')}}</label>
+        <h4 class="label-name text-center">
+          {{this.utilitiesService.formatValue(this.utilitiesService.getFloatValue(tco?.businessAsUsual?.averageDiscount))}}%
+        </h4>
+      </div>
+      <div class="col list-item--val border-right solid pt-2 pb-2 text-right">
+        <label class="">{{localeService.getLocalizedString('tco.list.NET_PRICE')}}</label>
+        <h4 class="label-name"><span
+          class="ellipsis">{{this.utilitiesService.formatWithNoDecimalForDashboard(tco?.businessAsUsual?.netPrice)}}</span>
+      </h4>
+    </div>
+    <div class="col list-item--val border-right solid pt-2 pb-2 text-right">
+      <label class="">{{localeService.getLocalizedString('tco.list.ADD_COST')}}</label>
+      <h4 class="label-name"><span
+          class="ellipsis">{{this.utilitiesService.formatAdditionalCostValue(this.utilitiesService.formatWithNoDecimalForDashboard(tco?.businessAsUsual?.additionalCost))}}</span>
+      </h4>
+    </div>
+    <div class="col list-item--val border-right solid pt-2 pb-2 text-right">
+      <label class="">{{localeService.getLocalizedString('tco.list.MARKUP_MARGIN')}}</label>
+      <h4 class="label-name"><span
+          class="ellipsis">{{this.utilitiesService.formatAdditionalCostValue(this.utilitiesService.formatWithNoDecimalForDashboard(tco?.businessAsUsual?.markupMargin?.value))}}</span>
+      </h4>
+    </div>
+    <div class="col list-item--val pt-2 pb-2 text-right">
+      <label class="">{{localeService.getLocalizedString('tco.list.TCO')}}
+        {{this.localeService.getLocalizedString('tco.VALUE')}}</label>
+      <h4 class="label-name"><span
+          class="ellipsis">{{this.utilitiesService.formatWithNoDecimalForDashboard(tco?.businessAsUsual?.totalTcoValueWithPA)}}</span>
+      </h4>
+    </div>
+  </div>
+
+  <div class="list-item border--top align-items-center p-0 mb-0 dashed">
+    <div class="col-2 list-item--val border-right solid pt-2 pb-2">
+      <h4 class="label-name"><span class="ellipsis">{{localeService.getLocalizedString('tco.list.ENT_AGREEMENT')}}
+        </span></h4>
+    </div>
+    <div class="col list-item--val border-right solid pt-2 pb-2 text-right">
+      <h4 class="label-name"><span
+          class="ellipsis">{{this.utilitiesService.formatWithNoDecimalForDashboard(tco?.enterpriseAgreement?.listPrice)}}</span>
+      </h4>
+    </div>
+    <div class="col list-item--val border-right solid pt-2 pb-2 text-center">
+      <h4 class="label-name">
+        {{this.utilitiesService.formatValue(this.utilitiesService.getFloatValue(tco?.enterpriseAgreement?.averageDiscount))}}%
+      </h4>
+    </div>
+    <div class="col list-item--val border-right solid pt-2 pb-2 text-right">
+      <h4 class="label-name"><span
+          class="ellipsis">{{this.utilitiesService.formatWithNoDecimalForDashboard(tco?.enterpriseAgreement?.netPrice)}}</span>
+      </h4>
+    </div>
+    <div class="col list-item--val border-right solid pt-2 pb-2 text-right">
+      <h4 class="label-name">{{'-'}}</h4>
+    </div>
+    <div class="col list-item--val border-right solid pt-2 pb-2 text-right">
+      <h4 class="label-name">
+        {{this.utilitiesService.formatAdditionalCostValue(this.utilitiesService.formatWithNoDecimalForDashboard(tco?.enterpriseAgreement?.markupMargin?.value))}}
+      </h4>
+    </div>
+    <div class="col list-item--val pt-2 pb-2 text-right">
+      <h4 class="label-name"><span
+          class="ellipsis">{{this.utilitiesService.formatWithNoDecimalForDashboard(tco?.enterpriseAgreement?.totalTcoValueWithPA)}}</span>
+      </h4>
+    </div>
+  </div>
+
+  <div class="list-item border--top dashed footer justify-content-between">
+    <ul class="tile-list">
+      <li>
+        <a href="javascript:void(0)" (click)="duplicate(tco.id, tco.name)" *ngIf="!disableDuplicate(tco)"><span
+            class="icon-duplicate"></span> {{localeService.getLocalizedString('tco.list.DUPLICATE')}}</a>
+        <a *ngIf="disableDuplicate(tco)"><span class="icon-duplicate disabled"></span>
+          {{localeService.getLocalizedString('tco.list.DUPLICATE')}}</a>
+      </li>
+      <li>
+        <a href="javascript:void(0)" (click)="delete(tco.id)" *ngIf="!disableDelete(tco)"><span
+            class="icon-delete"></span> {{localeService.getLocalizedString('common.DELETE')}}</a>
+        <a *ngIf="disableDelete(tco)"><span class="icon-delete disabled"></span>
+          {{localeService.getLocalizedString('common.DELETE')}}</a>
+      </li>
+    </ul>
+    <ul class="tile-list">
+      <li>
+        <a #downloadZipLink [hidden]="true"></a>
+        <a (click)="generateTCO(tco.id, tco.name)" href="javascript:void(0);"><span class="icon-download"></span>
+          {{localeService.getLocalizedString('tco.list.GEN_TCO')}}</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+  
+
+  <!-- alert message -->
+
+  <div class="col-12 p-0" *ngIf="tco.priceDirty">
+    <div class="alert alert--warning alert-dismissable mb-0 mt-0">
+      <span class="alert-icon">
+        <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span
+              class="path3"></span></span>
+        </span>
+        <span>{{localeService.getLocalizedString('tco.common.EA_VALUE_INCONSISTENT')}}</span>
+        <span class="float-right" *ngIf="false"><a (click)="restoreDefault(tco.id)"
+            href="javascript:void(0)">{{localeService.getLocalizedString('tco.common.RESTORE_TO_DEFAULT')}}</a></span>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="download-bar" *ngIf="makeCopy">
+  <p>Creating "Copy of {{tcoToCopy}}"...</p>
+</div>
+<div class="completed-bar" *ngIf="copyCreated"><a href="javascript:void(0);" class="icon-close-btn"
+    (click)="closeDuplicate()"></a>Created "Copy of {{tcoToCopy}}" successfully.</div>
+
+<div class="download-bar" *ngIf="showGeneratePopUp">
+  <p>Generating TCO report for "{{tcoToGenerate}}"...</p>
+</div>
+<div class="completed-bar" *ngIf="tcoGenerated"><a href="javascript:void(0);" class="icon-close-btn"
+    (click)="closeGenerate()"></a>Successfully downloaded TCO report for "{{tcoToGenerate}}"</div>

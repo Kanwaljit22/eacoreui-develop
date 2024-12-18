@@ -1,0 +1,28 @@
+<div class="modal-header">
+    <h5  class="modal-title">{{localeService.getLocalizedString('modal.proposalheader.APPROVE_EXCEPTION')}}<!--span class="info-icon">i</span--></h5>
+    <button type="button" class="icon-close-btn" data-dismiss="modal" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+<div class="modal-body">
+    <div class="createQualification">
+    <div  class="row card m-0 border-0" >
+        <div class="col-lg-12 line-level-alert">
+            <div class="form-group txt m-0">
+                <label class="form_label form-control-placeholder" for="exampleFormControlTextarea1" (click)="focusDescription()">{{'Provide Approval Justification'}}
+                    <span class="import">*</span></label>
+                <input appElementFocus class="form-control" id="exceptionJustification"  [(ngModel)]="exceptionJustification" (ngModelChange) = "isProposalValueChanged($event)" rows="2"/>
+<!-- 
+                <input class="form-control" maxlength="100" appElementFocus id="exceptionJustification" maxlength="100" [(ngModel)]="exceptionJustification" name="exceptionJustification" required="" textarea (ngModelChange)="isProposalValueChanged($event)">
+                <label class="form-control-placeholder" for="exceptionJustification">{{'Provide Justification'}}
+              <span class="import">*</span></label> -->
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="clearfix"></div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss('Cross click')">{{localeService.getLocalizedString('common.CANCEL')}}</button>
+    <button type="button" class="btn btn-primary" [disabled]="!isUpdate" (click)="approve()">{{localeService.getLocalizedString('common.APPROVE')}}</button>
+    
+</div>

@@ -1,0 +1,54 @@
+<div class="modal-body vNext modal-without-header">
+    <button class="icon-close-btn" (click)="close()" type="button" attr.action-id="{{dataIdConstantsService.scopeChangeReason_button_closeIcon}}"></button>
+    <h2 attr.data-id="{{dataIdConstantsService.scopeChangeReason_header_scopeChangeReason}}">{{'common.SCOPE_CHANGE_REASON' | localizationPipe: localizationService.localizedkeySet.size}}</h2>
+</div>
+<div class="modal-body vNext modal-without-header">
+    <div class="row">
+        <div class="col-12">
+            <app-message [displayModalMsg] = 'true'></app-message>
+        </div>
+        <div class="col-12 mb-2 mt-2">
+            <span class="label-text-info" attr.data-id="{{dataIdConstantsService.scopeChangeReason_text_provideReason}}">{{'scope-change-reason.PLEASE_PROVIDE_APPROPRIATE_REASON' | localizationPipe: localizationService.localizedkeySet.size}}</span>
+        </div>
+        
+        <div class="col-12 d-flex">
+           
+            <div class="w-100">
+                <div class="select-items dropdown my-1">
+                    <label class="customer-label" attr.data-id="{{dataIdConstantsService.scopeChangeReason_label_selectReason}}">{{'common.SELECT_REASON' | localizationPipe: localizationService.localizedkeySet.size}} <sup>*</sup></label>
+                    <span class="dropdown--typeAhead__arrow-management">
+                        <button *ngIf="!selectedReasonId" class="btn--text drop-button dropdown-toggle" type="button"
+                        attr.action-id="{{dataIdConstantsService.scopeChangeReason_dropdown_selectedReason_select}}"
+                        (click)="showReasons = !showReasons">Select</button>
+                        <button *ngIf="selectedReasonId" class="btn--text drop-button dropdown-toggle" type="button"
+                            attr.action-id="{{dataIdConstantsService.scopeChangeReason_dropdown_selectedReason}}{{selectedReasonDesc}}"
+                            (click)="showReasons = !showReasons">
+                            <span >{{selectedReasonDesc}}
+                            </span></button>
+                    </span>
+                    <div class="dropdown-menu" [class.show]="showReasons">
+                        <ul>
+                            <li [class.active]="option.selected" *ngFor="let option of reasonsList;let index = index;" (click)="selectScopeReason(option)"
+                                attr.action-id="{{dataIdConstantsService.scopeChangeReason_dropdown_selectReason}}{{option.desc}}">
+                                {{option.desc}}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-12 d-flex">
+            <div class="form-group w-100" *ngIf="enterOtherReason">
+                <label class="customer-label" attr.data-id="{{dataIdConstantsService.scopeChangeReason_label_reason}}">{{'common.REASON' | localizationPipe: localizationService.localizedkeySet.size}}<sup>*</sup></label>
+                <textarea placeholder="Textbox" [(ngModel)]='reasonDetail'
+                    class="form-control resizeTextArea" required="" type="text"  id="" attr.data-id="{{dataIdConstantsService.scopeChangeReason_text_reasonDetail}}" maxlength="100">
+                </textarea>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer justify-content-center vNext">
+    <button type="button" class="btn btn-secondary sm cancel-btn" attr.action-id="{{dataIdConstantsService.scopeChangeReason_button_close}}" id="{{elementIdConstantsService.ScopeChangeReason_Cancel}}" (click)="close()">{{'common.CANCEL' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+    <button class="btn btn-primary ml-2" type="button" [disabled]="!selectedReasonId || (selectedReasonId && enterOtherReason && !reasonDetail.trim())" attr.action-id="{{dataIdConstantsService.scopeChangeReason_button_continue}}" id="{{elementIdConstantsService.SCOPE_CHANGE_REASON_CONTINUE}}"  (click)="continueToScopeChange()">{{'common.CONTINUE' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+</div>

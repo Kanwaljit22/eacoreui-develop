@@ -1,0 +1,27 @@
+<div class="modal-body vNext modal-without-header">
+    <button class="icon-close-btn" (click)="close()" attr.action-id="{{dataIdConstantsService.addReasonOtd_button_closeIcon}}" type="button"></button>
+
+    <h2>{{'common.REASON' | localizationPipe : localizationService.localizedkeySet.size}}</h2>
+    <h5 class="text-center">{{'add-reason-otd.REASON_MODAL_SUBTEXT' | localizationPipe : localizationService.localizedkeySet.size}}</h5>
+</div>
+
+<div class="modal-body vNext modal-without-header">
+
+    <div class="row px-5 pt-3">
+
+        <div class="col-12">
+            <div class="form-group mt-0 mb-3">
+                <label class="customer-label mb-1" for="reasonValue" (click)="focusInput('caseIdNumber')">Reason 
+                    <span class="i-vNext-info mr-2 cursor-pointer" ngbTooltip="Enter minimum 15 words" container="body" placement="top"></span>
+                </label>
+                <textarea #reasonValue  appElementFocus id="reasonValue" [(ngModel)]="pidReason" name="reasonValue" required="" type="text" attr.data-id="{{dataIdConstantsService.addReasonOtd_text_reason}}" (ngModelChange)="isReasonChanged($event)" class="form-control mt-0 resizeTextArea"></textarea>
+                <!-- <input class="form-control" appElementFocus id="reasonValue" [(ngModel)]="pidReason" name="reasonValue" required="" type="text" attr.data-id="{{dataIdConstantsService.addReasonOtd_text_reason}}" (ngModelChange)="isReasonChanged($event)"> -->
+            </div>
+        </div>
+    </div>
+
+    <div class="justify-content-center d-flex d-block pb-4">
+        <button class="btn btn-secondary" type="button" attr.action-id="{{dataIdConstantsService.addReasonOtd_button_cancel}}" (click)="close()" id="{{elementIdConstantsService.ADD_REASON_OTD_MODAL_CANCEL}}">{{localizationService.getLocalizedString('common.CANCEL')}}</button>
+        <button class="btn btn-primary ml-2" type="button" (click) = "update()" attr.action-id="{{dataIdConstantsService.addReasonOtd_button_update}}" id="{{elementIdConstantsService.ADD_REASON_OTD_MODAL_CANCEL_UPDATE}}" [disabled]="!isUpdate">{{localizationService.getLocalizedString('common.UPDATE')}}</button>
+    </div>
+</div>

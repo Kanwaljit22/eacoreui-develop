@@ -1,0 +1,68 @@
+[
+    {
+        "headerName": "Deal Name",
+        "field": "dealName",
+        "width": 392,
+        "minWidth": 60,
+        "pinned": true,
+        "suppressMenu": true,
+        "suppressSorting": true
+    },
+    {
+        "headerName": "Customer Name",
+        "field": "endCustomerName",
+        "width": 320,
+        "minWidth": 60,
+        "suppressMenu": true,
+        "suppressSorting": true
+    },
+    {
+        "headerName": "Status",
+        "field": "dealStatus",
+        "width": 200,
+        "minWidth": 60,
+        "suppressMenu": true,
+        "suppressSorting": true,
+        "cellClass" : "grid-status"
+    },
+    {
+        "headerName": "Deal Owner",
+        "field": "dealCreator",
+        "width": 250,
+        "minWidth": 60,
+        "suppressMenu": true,
+        "suppressSorting": true
+    },
+    {
+        "headerName": "Expected Book Date",
+        "field": "dealExpectedCloseDate",
+        "width": 160,
+        "minWidth": 60,
+        "suppressMenu": true,
+        "suppressSorting": true
+    },
+    {
+        "headerName": "AM",
+        "field": "amemailID",
+        "width": 100,
+        "minWidth": 60,
+        "suppressMenu": true,
+        "suppressSorting": true
+    },
+    {
+        "headerName": "CAM",
+        "field": "camemailID",
+        "width": 100,
+        "minWidth": 60,
+        "suppressMenu": true,
+        "suppressSorting": true
+    },
+    {
+        "headerName": "Created On",
+        "field": "createdOn",
+        "width": 130,
+        "minWidth": 60,
+        "suppressMenu": true,
+        "suppressSorting": true
+    }
+]

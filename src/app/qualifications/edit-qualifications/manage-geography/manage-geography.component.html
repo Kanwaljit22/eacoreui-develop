@@ -1,0 +1,52 @@
+<div >
+    <div id="filter-area" class="container-fluid mb-3">
+        <div class="row">
+            <div class="col-12">
+                    <ul class="qualify-btn">
+                            <li><button [id] = "appDataService.createUniqueId('VIEW_QUAL',appDataService.pageContext)" class="btn btn-secondary" type="button" (click)="viewQualification()">{{localeService.getLocalizedString('qual.create.VIEW_QUAL')}}</button></li>
+                        <li *ngIf="(qualService.qualification.qualStatus === constantsService.QUALIFICATION_COMPLETE) && this.permissionService.qualReOpen">
+                            <button (click)="reopenQual()" class="btn btn-primary mr-0" type="button"><span class="mid-text">{{localeService.getLocalizedString('common.REOPEN')}} Qualification</span></button>
+                        </li>
+                        <li *ngIf="(qualService.qualification.qualStatus === constantsService.QUALIFICATION_COMPLETE) && !this.permissionService.qualReOpen">
+                           <button (click)="reopenQual()"  [disabled]="true" class="btn btn-primary mr-0" type="button"><span class="mid-text">{{localeService.getLocalizedString('common.REOPEN')}} Qualification</span></button>
+                        </li>
+                        
+                        <li class="btn-sep"><button [id] = "appDataService.createUniqueId('BACK',appDataService.pageContext)" class="btn btn-secondary btn-back" type="button" (click)="backToInvolved()"><span class="icon-btn-back"></span> <span class="mid-text">{{localeService.getLocalizedString('common.BACK')}}</span></button></li>
+                        <li><button [id] = "appDataService.createUniqueId('CONTINUE',appDataService.pageContext)" [disabled]="includedCountriesSet.size === 0" class="btn btn-primary btn-continue" type="button" (click)="continueGeoraphy()"><span class="mid-text">{{localeService.getLocalizedString('common.CONTINUE')}}</span> <span class="icon-btn-continue"></span></button></li>
+                    </ul>
+                    <message></message>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+        <div class="alert alert--cx-info alert mt-2 pr-2" *ngIf="qualService.changeSubscriptionDeal && !qualService.qualification.prevChangeSubQualId">
+                <div class="cx-msg">
+                    <p class="msg"> 
+                     <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span> 
+                     Original Subscription’s details are not available. Please proceed with manual selection for your Change Subscription.
+                    </p>
+                </div>
+            </div>
+<div class="alert alert--info mb-2"
+*ngIf='!appDataService.isPatnerLedFlow && qualService.qualification.qualStatus !== constantsService.QUALIFICATION_COMPLETE'>
+<span class="alert-icon"><span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span></span>
+<span class="infoTxt custom-lh-qtr">
+    {{localeService.getLocalizedMessage('qual.geo.MULTIPLE_PARTNER_1')}}
+    <a href="javascript:void(0)" (click)="redirect()">here</a>
+    {{localeService.getLocalizedMessage('qual.geo.MULTIPLE_PARTNER_2')}}
+</span>
+</div>
+</div>
+
+<div class="main-table summaryView-table container-fluid">
+    <div *ngIf="showGrid" id="qual-region">
+        <ag-grid-angular #agGrid id="ag-grid" style="width: 100%;" class="ag-fresh" [gridOptions]="gridOptions" [columnDefs]="qualGeoColumnDefs" [rowData]="qualGeoData" [getNodeChildDetails]="getNodeChildDetails"
+            enableColResize enableSorting enableFilter groupHeaders suppressRowClickSelection toolPanelSuppressGroups toolPanelSuppressValues debug rowHeight="30" rowSelection="multiple" [groupSelectsChildren]="true" (modelUpdated)="onModelUpdated($event)"
+            [autoGroupColumnDef]="autoGroupColumnDef" (cellClicked)="onCellClicked($event)" (cellDoubleClicked)="onCellDoubleClicked($event)" (cellContextMenu)="onCellContextMenu($event)" (cellValueChanged)="onCellValueChanged($event)" (cellFocused)="onCellFocused($event)"
+            (rowSelected)="onRowSelected($event)" (selectionChanged)="onSelectionChanged($event)" (beforeFilterChanged)="onBeforeFilterChanged()" (afterFilterChanged)="onAfterFilterChanged()" (filterModified)="onFilterModified()" (beforeSortChanged)="onBeforeSortChanged()"
+            (afterSortChanged)="onAfterSortChanged()" (virtualRowRemoved)="onVirtualRowRemoved($event)" (rowClicked)="onRowClicked($event)" (gridReady)="onReady($event)" (columnEverythingChanged)="onColumnEvent($event)" (columnRowGroupChanged)="onColumnEvent($event)"
+            (columnValueChanged)="onColumnEvent($event)" (columnMoved)="onColumnEvent($event)" (columnVisible)="onColumnEvent($event)" (columnGroupOpened)="onColumnEvent($event)" (columnResized)="onColumnEvent($event)" (columnPinnedCountChanged)="onColumnEvent($event)">
+        </ag-grid-angular>
+    </div>
+</div>

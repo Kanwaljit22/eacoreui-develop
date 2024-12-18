@@ -1,0 +1,46 @@
+<section class="financial-section border-b-0">
+  <ng-container *ngIf="currentData === data1; else yearOnYearTemplate">
+    <div class="body-lg padding-B-16">{{'common.PORTFOLIO_SUMMARY' | localizationPipe : localizationService.localizedkeySet.size}}</div>
+  </ng-container>
+  <ng-template #yearOnYearTemplate>
+    <div class="body-lg padding-B-16">{{'tco-graph-chart.YEAR_ON_YEAR' | localizationPipe : localizationService.localizedkeySet.size}}</div>
+  </ng-template>
+    <div class="d-flex justify-content-end m-3">
+    <span 
+      attr.action-id="{{dataIdConstantsService.tco_chart_previous_button}}" 
+      id="{{elementIdConstantsService.TCO_CHART_PREVIOUS_BUTTON}}"
+      class="icon-arrow-left arrow-circle mr-3" 
+      [class.disabled]="currentData === data1"
+      (click)="showPreviousData()">
+    </span>
+    <span 
+      attr.action-id="{{dataIdConstantsService.tco_chart_next_button}}" 
+      id="{{elementIdConstantsService.TCO_CHART_NEXT_BUTTON}}"
+      class="icon-arrow-right arrow-circle" 
+      [class.disabled]="currentData === data2"
+      (click)="showNextData()">
+    </span>
+  </div>
+  <div id="tooltip1" style="position: absolute; opacity: 0; background-color: white; border: 1px solid #ccc; padding: 8px; border-radius: 4px; pointer-events: none; transition: opacity 0.1s ease;"></div>
+  <div class="carousel-outer">
+    <div class="carousel-inner">
+      <div class="slides">
+        <div *ngIf="currentData && currentData.length === 0" class="d-flex justify-content-center mt-5">{{'tco-graph-chart.UNABLE_TO_DISPLAY_GRAPH' | localizationPipe : localizationService.localizedkeySet.size}}</div>
+        <div *ngIf="currentData && currentData.length > 0" class="slide chart-container">
+          <svg id="chart1"></svg>
+          <div class="legend d-flex justify-content-center">
+            <div class="legend-item">
+              <span class="legend-color bau-color"></span>
+              <span class="legend-text">{{'common.BAU' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-color ea-color"></span>
+              <span class="legend-text" *ngIf="!isMsea">{{'tco-graph-chart.EA' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+              <span class="legend-text" *ngIf="isMsea">{{'common.MSEA3_LABEL' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

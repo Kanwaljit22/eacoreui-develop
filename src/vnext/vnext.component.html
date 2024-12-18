@@ -1,0 +1,27 @@
+<!-- <app-header></app-header> -->
+<app-ng-sub-header></app-ng-sub-header>
+<app-success-popover [hidden]="vnextStoreService.toastMsgObject.isIbFetchCompleted"></app-success-popover>
+<!--<div [hidden]='!blockUiService.spinnerConfig.block'>
+    <app-progressbar></app-progressbar>
+</div>-->
+<app-road-map *ngIf="vnextService.isRoadmapShown && !eaStoreService.isValidationUI"></app-road-map>
+<ng-container *ngIf="eaStoreService.isValidationUI">
+    <div class="w-100" style="margin-top: 50px;"> 
+        <div></div> 
+    </div>
+</ng-container>
+
+<router-outlet></router-outlet>
+
+<!-- footer for vnext -->
+<!--div class="vnext-footer">
+<hr class="weight-1 mb-0">
+<div class="container-fluid myProposal mt-0 py-2 vNext">
+    <ul class="inline-listing border-right-li">
+        <li><a href="javascript:void(0);">Terms & Conditions</a></li>
+        <li><a href="javascript:void(0);">Privacy Statement</a></li>
+        <li><a href="javascript:void(0);">Cookie Policy</a></li>
+        <li><a href="javascript:void(0);">Trademarks</a></li>
+    </ul>
+</div>
+</div-->

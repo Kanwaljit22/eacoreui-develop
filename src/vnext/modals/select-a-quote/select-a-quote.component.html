@@ -1,0 +1,57 @@
+<div class="modal-body vNext modal-without-header">
+    <!--<button class="icon-close-btn" (click)="close()" type="button"></button> -->
+
+    <h2>Select a Quote</h2>
+</div>
+<div class="modal-body vNext modal-without-header">
+    <div class="deal-quote"><label>Deal ID</label> <span>{{dealId}}</span></div>
+    <div>
+<label class="lablQuote">Select a quote to create a proposal</label>
+<table class="primary-table">
+    <thead *ngIf="eaService.features.PARTNER_SUPER_USER_REL; else noQuoteName">
+        <tr>
+            <th width="21%">Quote ID</th>
+            <th width="20%">Quote Name</th>
+            <th width="35%">Partner Name</th>
+            <th width="25%">Buy Method</th>
+        </tr>
+    </thead>
+    <ng-template #noQuoteName>
+        <thead>
+            <tr>
+                <th width="25%">Quote ID</th>
+                <th width="40%">Partner Name</th>
+                <th width="35%">Buy Method</th>
+            </tr>
+        </thead>
+    </ng-template>
+<tbody>
+    <tr *ngFor="let quoteDetail of associatedQuotes">
+        <td>
+           
+            <div class="radio-wrapper radio-custom">
+                <input type="radio" name="quoteId" id="quoteId" value="yes" attr.data-id="{{dataIdConstantsService.selectAQuote_radio_updateQuoteDetail}}" (change)="updateQuoteDetail(quoteDetail)">
+                <label for="quoteId">
+                    <span class='custom-radio-btn'>
+                        <span class="path1"></span>
+                        <span class="path2"></span>
+                    </span>
+                    <span class="quoteInput">{{quoteDetail.quoteId}}</span> 
+                </label>
+            </div>
+            </td>
+        <td *ngIf="quoteDetail.quoteName && eaService.features.PARTNER_SUPER_USER_REL">{{quoteDetail.quoteName}}</td>
+        <td>{{quoteDetail.partnerInfo?.beGeoName}}</td>
+        <td>{{quoteDetail.distiDetail?.name}}</td>
+    </tr>
+   
+</tbody>
+</table>
+
+    </div>
+</div>
+
+<div class="modal-footer justify-content-center mt-4">
+   <!-- <button type="button" class="btn btn-secondary sm cancel-btn" (click)="close()">Cancel</button> -->
+    <button [disabled]="!selectedQuote?.quoteId" type="button" class="btn btn-primary sm" attr.action-id="{{dataIdConstantsService.selectAQuote_button_closeModal}}" (click)="close()">Proceed</button>
+</div>

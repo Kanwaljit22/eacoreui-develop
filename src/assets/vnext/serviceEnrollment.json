@@ -1,0 +1,92 @@
+{
+  "rid": "EAMP1631864903818",
+  "user": "rishiksi",
+  "error": false,
+  "data": {
+    "enrollments": [
+      {
+        "id": 1,
+        "name": "Networking",
+        "primary": true,
+        "enrolled": true,
+        "displayQnA": false,
+        "displaySeq": 1,
+        "billingTerm": {
+          "rsd": "20210922",
+          "billingModel": "Prepaid",
+          "billingModelName": "Prepaid Term",
+          "term": 36
+        },
+        "commitInfo": {
+          "committed": true,
+          "fcSuiteCount": 0,
+          "pcSuiteCount": 0
+        },
+        "pools": [
+          {
+            "name": "Networking",
+            "desc": "Networking",
+            "displaySeq": 1,
+            "display": true,
+            "suites": [
+              {
+                "name": "Cisco DNA Wireless",
+                "desc": "Cisco DNA Wireless",
+                "ato": "E3-N-AIR",
+                "inclusion": true,
+                "displaySeq": 2,
+                "discount": {
+                  "subsDisc": 50,
+                  "servDisc": 0,
+                  "multiProgramDesc": {
+                    "msd": 0,
+                    "mpd": 0,
+                    "med": 0,
+                    "bundleDiscount": 0
+                  }
+                },
+                "billingTerm": {
+                  "rsd": "20210922",
+                  "billingModel": "Prepaid",
+                  "term": 36
+                },
+                "displayGroup": false,
+                "disabled": false,
+                "active": true,
+                "atoTier": "TIER_1",
+                "cxAttachRate": 42.2,
+                "atoTierOptions": [
+                  {
+                    "name": "TIER_1",
+                    "desc": "Tier 1",
+                    "displaySeq": 1,
+                    "defaultTier": true
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "priceInfo": {
+          "extendedList": 130659.84,
+          "unitNet": 0,
+          "totalNet": 65329.92,
+          "totalNetBeforeCredit": 65329.92
+        },
+        "ncPriceInfo": {
+          "extendedList": 130659.84,
+          "unitNet": 0,
+          "totalNet": 65329.92,
+          "totalNetBeforeCredit": 65329.92
+        },
+        "disabled": false,
+        "active": true,
+        "externalConfiguration": false,
+        "cxOptInAllowed": false,
+        "cxAttached": false,
+        "service": false
+      }
+    ]
+  },
+  "currentDate": "2021-09-17T07:48:41.664+0000"
+}

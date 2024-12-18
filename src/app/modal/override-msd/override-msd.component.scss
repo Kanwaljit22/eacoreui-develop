@@ -1,0 +1,6 @@
+.selected-val{ float: left; margin-right: 10px; color: #999; margin-top: 10px; max-width: 150px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.pos-rel-t5 { position: relative; top: 5px; }
+/* to show uppercase for first letter */
+.upper::first-letter {
+    text-transform: uppercase;
+ }

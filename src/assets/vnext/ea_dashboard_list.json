@@ -1,0 +1,104 @@
+{
+    "error": false,
+    "data": {
+      "status": "SUCESS",
+      "messageList": null,
+      "totalRecords": "5",
+      "totalPages": 1,
+      "currentPage": 1,
+      "startRecordNumber": 0,
+      "defaultSavedSearchName": null,
+      "defaultSearchCriteria": null,
+      "selectedColumns": null,
+      "sortOrder": "DESC",
+      "sortColumn": "dealId",
+      "noOfRows": 100,
+      "responseDataList": [
+        {
+          "dealId": "50790464",
+          "dealName": "Test",
+          "dealStatus": "Qualified",
+          "projectName": "",
+          "projectDescr": "",
+          "endCustNm": "TASWATER",
+          "dealTyp": true,
+          "loccSigned": null,
+          "buyingProgram": "2.0",
+          "entityUpdatedBy": "EAMP2_0_PROJECT",
+          "proposalId": "",
+          "proposalList": null,
+          "dealType": true
+        },
+        {
+          "dealId": "49858832",
+          "dealName": "Test",
+          "dealStatus": "Approved",
+          "projectName": "Test Project",
+          "projectDescr": "",
+          "endCustNm": "QUEENSLAND MUSEUM",
+          "dealTyp": true,
+          "loccSigned": null,
+          "buyingProgram": "2.0",
+          "entityUpdatedBy": "EAMP2_0_PROPOSAL",
+          "proposalId": "",
+          "proposalList": [
+            {
+              "proposalId": "8886991",
+              "proposalDeleted": true
+            }
+          ],
+          "dealType": true
+        },
+        {
+          "dealId": "49627782",
+          "dealName": "Test",
+          "dealStatus": "Approval In Progress",
+          "projectName": "",
+          "projectDescr": "",
+          "endCustNm": "MYOB",
+          "dealTyp": true,
+          "loccSigned": null,
+          "buyingProgram": "2.0",
+          "entityUpdatedBy": "EAMP2_0_ACTIVITY",
+          "proposalId": "",
+          "proposalList": null,
+          "dealType": true
+        },
+        {
+          "dealId": "47571006",
+          "dealName": "Test",
+          "dealStatus": "Qualification in Progress",
+          "projectName": "",
+          "projectDescr": "",
+          "endCustNm": "MYOB AUSTRALIA",
+          "dealTyp": true,
+          "loccSigned": true,
+          "buyingProgram": "2.0",
+          "entityUpdatedBy": "EAMP2_0_PROPOSAL",
+          "proposalId": "",
+          "proposalList": [
+            {
+              "proposalId": "8881345",
+              "proposalDeleted": true
+            }
+          ],
+          "dealType": true
+        },
+        {
+          "dealId": "47304779",
+          "dealName": "Test",
+          "dealStatus": "Lost",
+          "projectName": "",
+          "projectDescr": "",
+          "endCustNm": "HYDRO TASMANIA",
+          "dealTyp": true,
+          "loccSigned": null,
+          "buyingProgram": "2.0",
+          "entityUpdatedBy": "EAMP2_0_PROJECT",
+          "proposalId": "",
+          "proposalList": null,
+          "dealType": true
+        }
+      ]
+    }
+  }

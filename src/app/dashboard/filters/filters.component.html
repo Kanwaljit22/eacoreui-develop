@@ -1,0 +1,138 @@
+<div id="sidebar-container" [ngClass]="{'active':filtersService.getFiltersState()}">
+    <!-- Sidebar -->
+    <div class="sidebar-header">
+        <ul class="filter-tabs">
+            <li> 
+                <a href="javascript:">
+                    {{localeService.getLocalizedString('filters.FILTERS')}}
+                </a>
+                <button aria-label="Close" class="icon-close-btn filter-close" type="button" (click)="filtersService.toggleFiltersState('');hideFilters()"></button>
+            </li>
+        </ul>
+    </div>
+    <div class="sidebar-opt-content">
+        <ngb-accordion #acc="ngbAccordion" [activeIds]="filtersService.activePanels">
+            <ngb-panel id="ngb-panel-{{c.filters[0].panelId}}" *ngFor="let c of defaultFilters; let i = index;">
+                <ng-template ngbPanelTitle>
+                    <div class="card-header filter" (click)="toggleSign(c.menuSign, c)" *ngIf="c.type === 'filter'  && c.filters[0].type !== 'radio'">
+                        <ng-template #tipContent>{{c.filters[0].displayName}} <span *ngIf="c.filters[0].operator == 'lt'">{{localeService.getLocalizedString('filters.LESS_THAN')}}</span>
+                            <span *ngIf="c.filters[0].operator == 'gt'">{{localeService.getLocalizedString('filters.GREATER_THAN')}}</span>
+                        </ng-template>
+                        <p [ngbTooltip]="tipContent" #filterHead container="body" #t="ngbTooltip" >{{c.filters[0].displayName}}
+                                <span *ngIf="c.filters[0].operator == 'lt'">{{localeService.getLocalizedString('filters.LESS_THAN')}}</span>
+                                <span *ngIf="c.filters[0].operator == 'gt'">{{localeService.getLocalizedString('filters.GREATER_THAN')}}</span>
+                        </p>
+                        <span style="float: right; margin-right:10px;">
+                        </span>
+                    </div>
+                    <div class="card-header dropdown" (click)="toggleSign(c.menuSign, c)" *ngIf="c.type === 'dropdown'">
+                        <span style="float: right; margin-right:10px;">
+                        </span> {{c.name}}
+                    </div>
+                    <div class="card-header group" (click)="toggleSign(c.menuSign, c)" *ngIf="c.type === 'group'">
+                        <span style="float: right; margin-right:10px;">
+                        </span> {{c.filters[0].groupName}}
+                    </div>
+                    <div class="card-header filter" *ngIf="c.type === 'filter' && c.filters[0].type === 'radio' ">
+                        {{c.filters[0].displayName}} <span style="float: right; margin-right:10px;"></span>
+                        </div>
+                </ng-template>
+
+                <ng-template ngbPanelContent>
+                    <div class="card-block" *ngIf="c.type === 'dropdown'">
+                        <ng-container *ngFor="let f of c.levels_name; let i = index">
+                            <div id="status" class="form-group" *ngIf="isDropdownVisible(c, i)">
+                                <div class="custom-dropdown">
+                                    <select (ngModelChange)="onChange($event, c)" [ngClass]="{'active':activeSelect}" class="custom-select mb-2 mr-sm-2 mb-sm-0 col myCustomSelect"
+                                        required appElementFocus>
+                                        <ng-container>
+                                            <option value="{{status.name}}" *ngFor="let status of c.levels[i]">{{status.name}}</option>
+                                        </ng-container>
+                                    </select>
+                                    <label class="form-control-placeholder" for="c.levels[i]">{{f}}</label>
+                                    <span class="ico-dropdown"></span>
+                                </div>
+                                
+                                <ss-multiselect-dropdown id="dropdown-inline" [options]="(i > 0 ? c.filteredLevels[i] : c.levels[i])" [(ngModel)]="c.selected[i]"
+                                    (ngModelChange)="getSelected($event, c, i)" [settings]="mySettings" [texts]="myTexts"></ss-multiselect-dropdown>
+                            </div>
+                        </ng-container>
+                    </div>
+                    <div class="card-block hideCheckbox" *ngIf="c.type == 'filter' && c.filters[0].type === 'dropdown'">
+                            <ng-container *ngFor="let f of c.levels_name; let i = index">
+                                    <div id="status" class="form-group">
+                                        <div class="custom-dropdown">
+                                            <select [ngClass]="{'active':activeSelect}" class="custom-select mb-2 mr-sm-2 mb-sm-0 col myCustomSelect" required appElementFocus>
+                                                <option value="{{status.name}}" *ngFor="let status of c.filters[0].optionsDomain">{{status.name}}</option>
+                                            </select>
+                                            <label class="form-control-placeholder" for="c.filters[0].statusSelection">{{f.name}}</label>
+                                            <span class="ico-dropdown"></span>
+                                        </div>
+                                        <ss-multiselect-dropdown id="dropdown-inline" [options]="c.filters[0].optionsDomain" [(ngModel)]="c.filters[0].statusSelection" (ngModelChange)="onStatusChange($event, c.filters[0].optionsDomain, c)" [settings]="mySettings_singleSelect" [texts]="myTexts_singleSelect"></ss-multiselect-dropdown>
+                                    </div>
+                                </ng-container>
+                    </div>
+                    <div class="card-block" *ngIf="c.type == 'filter' && c.filters[0].type == 'range'">
+                        <div class="cover">
+                            <label class="">{{c.filters[0].displayName}}</label>
+                            <div>
+                                <ion-range-slider class="icon-range-slider" #sliderElement [from]="c.filters[0].selectedValue" type="single" [min]="c.filters[0].minValue" [max]="c.filters[0].maxValue"
+                                    grid="true" (onFinish)="sliderOnFinish($event, c, sliderElement.from)"></ion-range-slider>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-block" *ngIf="c.type == 'group'">
+                        <div class="cover" *ngFor="let x of c.filters">
+                            <label></label>
+                            <div class="checkbox-slider-wrap">
+                                <div class="checkbox-Left">
+                                    <div>
+                                        <!-- <input class="form-check-input" type="checkbox" [checked]="x.filterApplied ==='Y'" name="x.displayName" value="x.displayName"
+                                            (change)="onSelectingGroupFilters(x,$event.target.checked)"> -->
+                                            
+                                        <span>{{x.displayName}}
+                                            <br/>
+                                            <span *ngIf="x.operator == 'lt'">{{localeService.getLocalizedString('filters.LESS_THAN')}}</span>
+                                            <span *ngIf="x.operator == 'gt'">{{localeService.getLocalizedString('filters.GREATER_THAN')}}</span>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="range-Right" *ngIf="x.type == 'range'">
+                                    <ion-range-slider #sliderElement [from]="x.selectedValue" type="single" [min]="x.minValue" [max]="x.maxValue"
+                                        grid="true" (onFinish)="sliderOnFinish($event, x, sliderElement)"></ion-range-slider>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-block" *ngIf="c.type === 'filter' && c.filters[0].type === 'radio' ">                        
+                            <div class="cover">
+                                <div *ngFor="let aRadio of c.filters[0].optionsDomain" class="float-left mb-2 radio-custom">
+                                    <input (change)="onEATermChange(c,aRadio)" [(ngModel)]="filtersService.eaTermValue" id="{{aRadio}}" name="eaTerm" type="radio" value="{{aRadio}}">
+                                    <label for="{{aRadio}}">
+                                        <span class='custom-radio-btn'>
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </span>
+                                        <span>
+                                            <span></span>
+                                        </span>{{aRadio}} </label>
+                                </div>
+                            </div>
+                    </div>
+                </ng-template>
+            </ngb-panel>
+        </ngb-accordion>
+        <!-- /#accordion -->
+    </div>
+    <!-- /#sidebar-opt-content -->
+    <div class="fixed-bottom shadow float-right">
+        <button class="clear-filter btn btn-secondary mr-3" (click)="clearFilters();" [ngClass]="{'disabled':filterAppliedCount === 0 && !enableClearAll}">
+            {{localeService.getLocalizedString('filters.CLEAR_ALL')}}
+        </button>
+        <button class="filled-btn btn btn-primary" (click)="applyFilters();" [ngClass]="{'disabled':filterAppliedCount === 0}">
+            {{localeService.getLocalizedString('common.APPLY')}} ({{filterAppliedCount}})
+        </button>
+    </div>
+
+</div>
+<!-- /#sidebar-container -->

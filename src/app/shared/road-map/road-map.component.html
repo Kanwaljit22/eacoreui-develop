@@ -1,0 +1,13 @@
+<section class="d-flex w-100 pt-3 pb-3" *ngIf="booleanCheck" [ngClass]="{'proposal-flow': utilitiesService.proposalFlow}">
+  <div class="container-fluid bg-white">
+    <ul class="roadmap-steps" [ngClass]="{'qual-completed': (qualService.qualification.qualStatus === constantsService.QUALIFICATION_COMPLETE && !utilitiesService.proposalFlow), 'proposal-completed': ((this.proposalDataService.proposalDataObject.proposalData.status === this.constantsService.QUALIFICATION_COMPLETE || this.appDataService.isProposalPending || this.appDataService.isPendingAdjustmentStatus) && utilitiesService.proposalFlow)}">
+        <!--progressbar [value]="percentageComplete"></progressbar-->
+      <li class="step" *ngFor="let roadMap of roadMaps; let index=index;" [ngClass]="{'visited':index < currentStep,'active': index === currentStep}">
+          <span class="step--icon"><i id="index{{index}}" (click)="showRoadMap(index)" [ngClass]="{'icon-check2': (index < currentStep)}"></i></span>
+          <span (click)="showRoadMap(index)" class="step--label">{{roadMap.name}}</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<ng-template app-dynamic></ng-template>

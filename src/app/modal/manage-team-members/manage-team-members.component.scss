@@ -1,0 +1,116 @@
+.customHeightScroll {
+    display: block;
+}
+
+table.customHeightScroll thead,
+table.customHeightScroll tbody.customTbodyScroll {
+    display: table-row;
+    float: left;
+    width: 100%;
+    overflow-y: scroll;
+}
+
+table.customHeightScroll tbody {
+    display: block;
+}
+
+table.customHeightScroll tbody.customTbodyScroll {
+    min-height: 0;
+    max-height: 220px;
+    overflow-y: scroll;
+    display: table-row;
+    width: 100%;
+    float: left;
+}
+
+table.customHeightScroll tr {
+    display: table;
+    width: 100%;
+}
+
+.custom-scroll--height {
+    border: 0px;
+}
+
+.custom-scroll--height thead {
+    float: left;
+    width: 100%;
+    /* padding-right: 30px; */
+    overflow-y: scroll;
+    height: 36px;
+    display: block !important;
+    position: relative;
+    overflow-x: hidden;
+    box-sizing: border-box;
+    margin-bottom: -1px;
+    border: 0px;
+}
+
+.custom-scroll--height th:first-child {
+    border-top: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+}
+
+.custom-scroll--height th:last-child {
+    width: 19%;
+    /* position  : relative; */
+    /* left      : -14px; */
+    /* z-index   : 1000000; */
+    padding-right: 22px;
+    border-top: 1px solid #ccc;
+}
+
+
+/*----------- Search bar CSS --------------*/
+
+.extented-sales .form-control-placeholder.labelClass {
+    font-size: 12px;
+    transition: none;
+    -webkit-transition: none;
+    position: absolute;
+    left: 0;
+    top: -12px !important;
+}
+
+table tbody .empty-row td {
+    color: #cccccc;
+    padding: 15px;
+}
+
+table td .position-relative .custom-select {
+    border-bottom: 0 !important;
+    padding-top: 0px;
+}
+
+table td .position-relative .custom-dropdown select {
+    padding: 0px 12px 0px 0px;
+    z-index: 5;
+    height: 18px;
+    font-size: 13px;
+}
+
+.card-title {
+    color: #58585b;
+    font-size: 12px;
+    font-weight: 400;
+    margin-bottom: 6px;
+}
+
+.searchList table td {
+    font-size: 14px;
+}
+
+.card-body div>label.label-check {
+    display: flex;
+    white-space: normal;
+    line-height: 1.3;
+}
+
+.card-tile-text {
+    color: #585858;
+    font-size: 15px;
+    padding: 5px 10px;
+    word-break: break-all;
+    font-weight: 300;
+    background-color: #fff;
+}

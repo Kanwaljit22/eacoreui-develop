@@ -1,0 +1,104 @@
+@font-face {
+  font-family: 'qualifications';
+  src:  url('../fonts/qualifications.eot?8ui357');
+  src:  url('../fonts/qualifications.eot?8ui357#iefix') format('embedded-opentype'),
+    url('../fonts/qualifications.ttf?8ui357') format('truetype'),
+    url('../fonts/qualifications.woff?8ui357') format('woff'),
+    url('../fonts/qualifications.svg?8ui357#qualifications') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'qualifications' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-success:before {
+  content: "\e912";
+  color: #fff;
+}
+.icon-check:before {
+  content: "\e911";
+  color: #58585b;
+}
+.icon-close-btn:before {
+  content: "\e910";
+  color: #005073;
+}
+.icon-configure:before {
+  content: "\e90c";
+  color: #005073;
+}
+.icon-full-screen:before {
+  content: "\e90f";
+  color: #00bceb;
+}
+.icon-filters:before {
+  content: "\e90b";
+  color: #00bceb;
+}
+.icon-save:before {
+  content: "\e90d";
+  color: #00bceb;
+}
+.icon-view-applied:before {
+  content: "\e90e";
+  color: #00bceb;
+}
+.icon-arrow-up .path1:before {
+  content: "\e909";
+  color: rgb(255, 255, 255);
+}
+.icon-arrow-up .path2:before {
+  content: "\e90a";
+  margin-left: -1.82421875em;
+  color: rgb(0, 186, 234);
+}
+.icon-icon-email:before {
+  content: "\e906";
+  color: #00bceb;
+}
+.icon-icon-link:before {
+  content: "\e907";
+  color: #00bceb;
+}
+.icon-flag:before {
+  content: "\e908";
+  color: #00bceb;
+}
+.icon-flag-checked:before {
+  content: "\e905";
+  color: #00bceb;
+}
+.icon-bookmarks:before {
+  content: "\e900";
+  color: #00bceb;
+}
+.icon-feedback .path1:before {
+  content: "\e901";
+  color: rgb(255, 110, 0);
+}
+.icon-feedback .path2:before {
+  content: "\e902";
+  margin-left: -1.4970703125em;
+  color: rgb(153, 153, 153);
+}
+.icon-help:before {
+  content: "\e903";
+  color: #00bceb;
+}
+.icon-nine-dots:before {
+  content: "\e904";
+  color: #00bceb;
+}

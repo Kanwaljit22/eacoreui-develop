@@ -1,0 +1,251 @@
+<div class="custom-flyout-overlay"></div>
+<div class="custom-flyout vNext w-715">
+    <div class="heading">
+        <div class="d-flex justify-content-between align-items-top">
+            <div class="heading-title">
+                <h2 class="heading--h2">{{'price-estimation.CHANGE_BILLING_TERM' | localizationPipe : localizationService.localizedkeySet.size}} {{selectedEnrollemnt?.name}}</h2>
+            </div>
+            <div class="d-flex flex-column align-items-end">
+                <div class="d-flex align-items-center mb-3">
+                <button class="icon-close-btn mt-0" (click)="close()" type="button" attr.action-id="{{dataIdConstantsService.editEnrollment_button_close}}"></button>
+                </div>
+                <div class="mt-4 d-flex justify-content-end">
+                    <button class="btn btn-secondary" type="button" (click)="close()" attr.action-id="{{dataIdConstantsService.editEnrollment_button_cancel}}">{{'common.CANCEL' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                    <button class="btn btn-primary ml-2" type="button" (click)="Update()" attr.action-id="{{dataIdConstantsService.editEnrollment_button_update}}" [disabled]="disableButton || isRsdMax90Days">{{'common.CONTINUE' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="body">
+        <app-message></app-message>
+        <div class="alert alert--info alert-dismissable" *ngIf="isProposalEarlyFollowOn">
+            <span class="alert-icon">
+                <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span
+                        class="path3"></span></span>
+            </span>
+            <span class="txt">{{'price-estimation.ATTRIBUTES_LOCKED_LABEL' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+        </div>
+        <div class="alert alert--warning alert-dismissable" *ngIf="selectedEnrollemnt?.disableRsdAndTermUpdate && !isProposalEarlyFollowOn">
+            <span class="alert-icon">
+                <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span
+                        class="path3"></span></span>
+            </span>
+            <span class="txt">{{'price-estimation.ATTRIBUTES_LOCKED_LABEL' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+        </div>
+        <div *ngIf="!isOverdue && priceEstimateStoreService.renewalSubscriptionDataForSuite?.type === 'EARLY_FOLLOWON'" class="alert alert--info alert-dismissable">
+            <span class="alert-icon">
+                <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+            </span>
+            <span>{{'price-estimation.RSD_SETTING_FOR_SERVICE_MSG' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+        </div>
+        <div *ngIf="!isOverdue && priceEstimateStoreService.renewalSubscriptionDataForSuite?.type === 'ON_TIME_FOLLOWON'" class="alert alert--info alert-dismissable">
+            <span class="alert-icon">
+                <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+            </span>
+            <span>{{'price-estimation.RSD_SET_TO_DATE_FOR_CURRENT_EA_SUB' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+        </div>
+        <div *ngIf="isOverdue" class="alert alert--info alert-dismissable">
+            <span class="alert-icon">
+                <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+            </span>
+            <span>{{'price-estimation.RSD_SET_TO_THREE_DAYS_FOR_SUB' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+        </div>
+        <div *ngIf="selectedEnrollemnt?.cxAttached">
+            <ng-container *ngIf="!(proposalStoreService.proposalData?.dealInfo?.subscriptionUpgradeDeal)">
+                <div class="alert alert--warning alert-dismissable" *ngIf="!isRsdMax90Days">
+                    <span class="alert-icon">
+                        <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span
+                                class="path3"></span></span>
+                    </span>
+                    <span class="txt">{{'common.ALLOW_270_DAYS_MESSAGE' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                </div>
+                <div class="alert alert--danger alert-dismissable" *ngIf="isRsdMax90Days">
+                    <span class="alert-icon">
+                        <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span
+                                class="path3"></span></span>
+                    </span>
+                    <span class="txt">{{'common.ALLOW_270_DAYS_MESSAGE' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                </div>
+            </ng-container>
+            
+            <ng-container>
+                <div class="alert alert--warning alert-dismissable" *ngIf="proposalStoreService.proposalData?.dealInfo?.subscriptionUpgradeDeal">
+                    <span class="alert-icon">
+                        <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span
+                                class="path3"></span></span>
+                    </span>
+                    <span class="txt">{{'common.REQUESTED_DATE_LESS_THAN_30' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                </div>
+            </ng-container>
+        </div>
+        <div class="row">
+            <div class="col-12 d-flex">
+                <div class="w-25">
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group datePicker mt-0" (click)="onUserClickDateSelection()" attr.data-id="{{dataIdConstantsService.editEnrollment_link_userClickDateSelection}}">
+                                <label class="customer-label mb-1">{{'common.REQUESTED_START_DATE' | localizationPipe : localizationService.localizedkeySet.size}}</label>
+                                <ng-container>
+                                    <span *ngIf="proposalStoreService.proposalData.dealInfo?.subscriptionUpgradeDeal" class="i-vNext-info ml-1 cursor-pointer" #target placement='right-top'
+                                    ngbTooltip="{{'common.RSD_RESTRICTED_UPGRADE_INFO' | localizationPipe : localizationService.localizedkeySet.size}}" [positionTarget]="target"></span>
+                                </ng-container>
+                                <input appElementFocus readonly="true" type="text" class="form-control" attr.data-id="{{dataIdConstantsService.editEnrollment_text_datePicker}}"
+                                #dpFull="bsDatepicker" [(ngModel)]="eaStartDate" placement="bottom left"
+                                    [minDate]="todaysDate" [maxDate]="expectedMaxDate" bsDatepicker (bsValueChange)="onDateSelection($event)"
+                                    [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY', showWeekNumbers: false }" [bsConfig]="{containerClass:'theme-vNext'}" [datesDisabled]="datesDisabled" [disabled] = "selectedEnrollemnt?.disableRsdAndTermUpdate || (isChangeSubFlow)">
+ 
+                                    <span class="cal-wrap" (click)="dpFull.toggle();" attr.data-id="{{dataIdConstantsService.editEnrollment_icon_datePickerCalendar}}"
+                                    [attr.aria-expanded]="dpFull.isOpen" *ngIf="!isProposalEarlyFollowOn && !(isChangeSubFlow)"><span
+                                        class="i-vNext-calendar"></span></span>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 mb-4">            
+                <h6 class="card-title heading--h6 bolder mb-2">{{'common.BILLING_MODEL' | localizationPipe : localizationService.localizedkeySet.size}}</h6>
+                <div class="mr-3 radio-custom" *ngFor = "let billing of billingData; let index = index;" [ngClass]="{'disabled': (isChangeSubFlow && selectedEnrollemnt?.includedInChangeSub) || (isFreqSelected)}">
+                    <input id="prepaid" type="radio" name="billingRadio" value="prepaid" [checked]="selectedBillingModel === billing.id" [value]="billing.id"
+                    attr.data-id="{{dataIdConstantsService.editEnrollment_radio_billingModel}}{{index}}"    (change)="billingSelected($event)">
+                    <label for="prepaid">
+                        <span class="custom-radio-btn"><span class="path1"></span><span class="path2"></span></span><span><span></span></span>{{billing.uiOption.displayName}}
+                    </label>
+                </div>
+
+                <!-- <div class="mr-3 radio-custom">
+                    <input id="monthly" type="radio" name="durationRadio" value="monthly">
+                    <label for="monthly">
+                        <span class="custom-radio-btn"><span class="path1"></span><span class="path2"></span></span><span><span></span></span>Monthly
+                    </label>
+                </div> -->
+
+                <!-- <div class="mr-3 radio-custom">
+                    <input id="annual" type="radio" name="durationRadio" value="annual">
+                    <label for="annual">
+                        <span class="custom-radio-btn"><span class="path1"></span><span class="path2"></span></span><span><span></span></span>Annual
+                    </label>
+                </div> -->
+
+                <div class="mt-2" *ngIf="frequencyModelDisplayName && isBillingTermUpdatedForCapital">
+                    <small class="text-info">
+                        <!-- <i class="icon-warning1-icon"></i> -->
+                        <span class="icon-msg-Info mr-1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                        <span>{{'common.CAPITAL_FREQUENCY_SELECTION_WARN_MSG' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                    </small>
+                </div>
+            </div>
+            
+
+            <div class="col-12 mb-4">
+                <h6 class="customer-label bold-txt mb-2">{{'common.CAPITAL_FINANCING_FREQUENCY' | localizationPipe : localizationService.localizedkeySet.size}} 
+                    <span class="i-vNext-info mr-2 cursor-pointer" ngbTooltip="{{'common.CAPITAL_FINANCING_TIP' | localizationPipe : localizationService.localizedkeySet.size}}" container="body" placement="top"></span></h6>
+
+                
+                <div class="mr-3 radio-custom">
+                    <input id="noSelect" type="radio" name="capitalFinanceRadioNone" value="noSelect" [checked]="!frequencyModelDisplayName || !capitalFinancingData?.length"
+                    attr.data-id="{{dataIdConstantsService.editEnrollment_input_cffSelectOption}}" (change)="selectOpted()" [disabled]="proposalStoreService.isReadOnly || isChangeSubFlow">
+                    <label for="noSelect">
+                        <span class="custom-radio-btn"><span class="path1"></span><span class="path2"></span></span><span><span></span></span>None
+                    </label>
+                </div>
+
+                <div class="mr-3 radio-custom" *ngFor = "let capitalFinance of capitalFinancingData; let index = index;">
+                    <input id="annual" type="radio" name="capitalFinanceRadio" value="annual" [checked]="frequencyModelDisplayName === capitalFinance?.id" [value]="capitalFinance?.uiOption?.displayName"
+                    attr.data-id="{{dataIdConstantsService.editEnrollment_input_cffModal}}{{capitalFinance?.id}}" (change)="capitalFrequencySelected(capitalFinance)" [disabled]="proposalStoreService.isReadOnly|| (isChangeSubFlow && !frequencyModelDisplayName) || selectedEnrollemnt?.includedInSubscription">
+                    <label for="annual">
+                        <span class="custom-radio-btn"><span class="path1"></span><span class="path2"></span></span><span><span></span></span>{{capitalFinance?.uiOption?.displayName ? capitalFinance?.uiOption.displayName : capitalFinance?.id}}
+                    </label>
+                </div>
+            </div>
+
+            <!-- Changes for Capital Financing Frequency Sep 23 release end-->
+            
+            <div class="col-7">
+                <h6 class="card-title heading--h6 bolder mb-2">{{'common.DURATION_LABEL' | localizationPipe : localizationService.localizedkeySet.size}}</h6>
+                <div class="d-flex">
+                    <div class="mr-3 radio-custom"
+                        [class.active-arrow]="selectedDuration === 36 && !customDate">
+                        <input id="radio36" type="radio" name="durationRadio" attr.data-id="{{dataIdConstantsService.editEnrollment_radio_months36}}"
+                            [checked]="selectedDuration === 36" [value]="durationTypes.MONTHS36"
+                            (change)="checkDurationsSelected($event)" [disabled] = "selectedEnrollemnt?.disableRsdAndTermUpdate || (isChangeSubFlow)">
+                        <label for="radio36">
+                            <span class='custom-radio-btn'>
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                            </span>
+                            <span>
+                                <span></span>
+                            </span>36</label>
+                    </div>
+                    <div class="mr-3 radio-custom"
+                        [class.active-arrow]="selectedDuration === 60 && !customDate">
+                        <input id="radio60" type="radio" name="durationRadio" attr.data-id="{{dataIdConstantsService.editEnrollment_radio_months60}}"
+                            [checked]="selectedDuration === 60" [value]="durationTypes.MONTHS60"
+                            (change)="checkDurationsSelected($event)" [disabled] = "selectedEnrollemnt?.disableRsdAndTermUpdate || (isChangeSubFlow)">
+                        <label for="radio60">
+                            <span class='custom-radio-btn'>
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                            </span>
+                            <span>
+                                <span></span>
+                            </span>60</label>
+                    </div>
+                    <div class="mr-3 radio-custom"
+                        [class.active-arrow]="(selectedDuration === 0 || selectedDuration !== 60 && selectedDuration !== 36)">
+                        <input id="radio-ctm" type="radio" name="durationRadio" attr.data-id="{{dataIdConstantsService.editEnrollment_radio_customMonths}}"
+                            [checked]="(selectedDuration === 0 || selectedDuration !== 60 && selectedDuration !== 36)"
+                            [value]="durationTypes.MONTHSCUSTOM" (change)="checkDurationsSelected($event)" [disabled] = "selectedEnrollemnt?.disableRsdAndTermUpdate || (isChangeSubFlow)">
+                        <label for="radio-ctm">
+                            <span class='custom-radio-btn'>
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                            </span>
+                            <span>
+                                <span></span>
+                            </span>{{'common.CUSTOM' | localizationPipe : localizationService.localizedkeySet.size}}</label>
+                    </div>
+                    <!-- <div class="mr-3 radio-custom" *ngIf="coTerm">
+                        <input id="radio-coterm" type="radio" [value]="durationTypes.MONTHSCOTERM"
+                            [checked]='coTerm' name="durationRadio">
+                        <label for="radio-coterm">
+                            <span class='custom-radio-btn'>
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                            </span>
+                            <span>
+                                <span></span>
+                            </span>Co-Term</label>
+                    </div>  -->
+                </div>
+                <hr class="weight-1">
+                <div class="w-100 vNext-rageSlider">
+                    <ngx-slider [(value)]="simpleSlider.value" [options]="options"
+                        (userChangeEnd)="sliderChange(simpleSlider.value)" [ngClass]="{'disabled': (isChangeSubFlow)}"></ngx-slider>
+                </div>
+            </div>            
+            <div class="col-5 d-flex mb-3">
+                <div class="form-group mt-0">
+                    <h6 class="card-title heading--h6 bolder mb-1">{{'common.SELECTED_DURATION' | localizationPipe : localizationService.localizedkeySet.size}}</h6>
+                    <input appelementfocus="" class="form-control" attr.data-id="{{dataIdConstantsService.editEnrollment_number_duration}}"
+                        (keydown)='utilitiesService.allowOnlyNumber($event)'
+                        [(ngModel)]="selectedDuration" (blur)='updateDuration()' type="number" [ngClass]="{'disabled': coTerm }" [disabled] = "selectedEnrollemnt?.disableRsdAndTermUpdate">
+                </div>
+            </div>
+
+            <!-- <div class="col-12 mt-4">
+                <hr class="weight-1">
+            </div>
+
+            <div class="col-12">
+                <div class="d-flex justify-content-end pb-4">
+                    <button class="btn btn-secondary sm" type="button" (click)="close()">Cancel</button>
+                    <button class="btn btn-primary sm ml-2" type="button" (click)="Update()" [disabled]="disableButton">Update</button>
+                </div>
+            </div> -->
+        </div>
+    </div>
+</div>

@@ -1,0 +1,25 @@
+<div class="col-12 vNext-pagination justify-content-between">
+    <div class="col pl-0" *ngIf="showPaginationResults">
+        <label class="mb-0 pagination-label">{{'common.SHOW' | localizationPipe : localizationService.localizedkeySet.size}} {{getResultInitial()}}-{{getResultEnd()}} of {{paginationObject?.noOfRecords}} <span>{{'ng-pagination.RESULTS' | localizationPipe : localizationService.localizedkeySet.size}}</span> </label>
+    </div> 
+    <div class="row justify-content-end pr-0">
+        <div class="col-auto d-flex justify-content-end align-items-center">
+            <ngb-pagination [collectionSize]="paginationObject.noOfRecords" [(page)]="paginationObject.currentPage"
+                [boundaryLinks]="true" [maxSize]="5" [pageSize]="paginationObject.pageSize"
+                (pageChange)="pageChange('page')">
+            </ngb-pagination>
+            <div>
+                <label class="mr-2 mb-0">{{localizationService.getLocalizedString('ng-pagination.ITEMS_PER_PAGE')}}</label>
+                <select [(ngModel)]="paginationObject.pageSize" (ngModelChange)="pageChange('pageSize')">
+                    <option [ngValue]="10" [selected] *ngIf="eaStoreService.isFromDashboard">10</option>
+                    <option [ngValue]="50" *ngIf="eaStoreService.isFromDashboard || (!eaStoreService.isFromDashboard && isSelectMoreBu)">50</option>
+                    <option [ngValue]="50" [selected] *ngIf="!eaStoreService.isFromDashboard && !isSelectMoreBu">50</option>
+                    <option [ngValue]="100">100</option>
+                    <option [ngValue]="150">150</option>
+                    <option [ngValue]="200" *ngIf="!isSelectMoreBu">200</option>
+                    <option [ngValue]="200" [selected] *ngIf="!eaStoreService.isFromDashboard && isSelectMoreBu">200</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>

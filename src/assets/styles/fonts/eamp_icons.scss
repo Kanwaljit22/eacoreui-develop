@@ -1,0 +1,47 @@
+@font-face {
+    font-family: 'eamp';
+    src:  url('../../fonts/eamp.eot?2xbvbe');
+    src:  url('../../fonts/eamp.eot?2xbvbe#iefix') format('embedded-opentype'),
+      url('../../fonts/eamp.ttf?2xbvbe') format('truetype'),
+      url('../../fonts/eamp.woff?2xbvbe') format('woff'),
+      url('../../fonts/eamp.svg?2xbvbe#svg-icon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+  }
+  
+  [class^="eaicon-"],
+[class*=" eaicon-"]  {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'eamp' !important;
+    speak: never;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+  
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  .eaicon-arrow-down-fill:before {
+    content: "\e904";
+    color: #227bb1;
+  }
+  .eaicon-scan:before {
+    content: "\e903";
+    color: #227bb1;
+  }
+  .eaicon-migration-update:before {
+    content: "\e900";
+    color: #227bb1;
+  }
+  .eaicon-migration-to-filled:before {
+    content: "\e901";
+  }
+  .eaicon-migration-from-filled:before {
+    content: "\e902";
+  }
+  

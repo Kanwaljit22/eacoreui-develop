@@ -1,0 +1,54 @@
+[
+    {
+        "qualificationName": "Cisco EA for Cisco ONE-Adobe-WW-FY18",
+        "dealId": "12345678",
+        "ciscoAccountManager": "Paul Sorge",
+        "partner": "World Wide Technology",
+        "children": [
+            {
+                "proposalName": "EA - C1 - Adobe - 3 year option (4 suites)",
+                "status": "Quoting",
+                "totalNetPrice": "1571012.00",
+                "term": "36",
+                "startDate": "Jul-1-2018",
+                "billingModel": "Prepaid",
+                "transactingCountry": "United States"
+            },
+            {
+                "proposalName": "EA - C1 - Adobe - 5 year option (4 suites)",
+                "status": "Negotiation",
+                "totalNetPrice": "2334087.00",
+                "term": "60",
+                "startDate": "Jul-1-2018",
+                "billingModel": "Prepaid",
+                "transactingCountry": "United States"
+            }
+        ]
+    },
+    {
+        "qualificationName": "Cisco EA for Collab & Security-Adobe-WW-FY19",
+        "dealId": "",
+        "ciscoAccountManager": "Paul Sorge",
+        "partner": "World Wide Technology",
+        "children": [
+            {
+                "proposalName": "EA - C1 - Adobe - 3 year option (4 suites)",
+                "status": "Quoting",
+                "totalNetPrice": "1571012.00",
+                "term": "36",
+                "startDate": "Jul-1-2018",
+                "billingModel": "Prepaid",
+                "transactingCountry": "United States"
+            },
+            {
+                "proposalName": "EA - C1 - Adobe - 5 year option (4 suites)",
+                "status": "Negotiation",
+                "totalNetPrice": "2334087.00",
+                "term": "60",
+                "startDate": "Jul-1-2018",
+                "billingModel": "Prepaid",
+                "transactingCountry": "United States"
+            }
+        ]
+    }
+]

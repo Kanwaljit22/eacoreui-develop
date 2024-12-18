@@ -1,0 +1,14 @@
+<div class="modal-body vNext modal-without-header">
+    <button class="icon-close-btn" (click)="close()" attr.action-id="{{dataIdConstantsService.changeDealCompletion_button_close}}" type="button"></button>
+    <h2>{{localizationService.getLocalizedString('common.ALL_SET_TO_GO')}}</h2>
+
+    <div class="content-security">
+        <div class="icon-animation-wrap"><img src="../../../assets/images/icons/security-service.gif"></div>
+        <h5 class="heading--h5 mb-2">{{localizationService.getLocalizedString('change-deal-completion.ID_CHANGED_SUCCESSFULLY')}}</h5>
+        <p>{{localizationService.getLocalizedString('change-deal-completion.NOW_YOU_CAN_WORK')}}</p>
+    </div>
+
+    <div class="justify-content-center d-flex pb-4 paddingT10">
+        <button class="btn btn-primary" (click)="goToNewProject()" attr.action-id="{{dataIdConstantsService.changeDealCompletion_button_done}}">{{localizationService.getLocalizedString('common.DONE')}}</button>
+    </div>
+</div>

@@ -1,0 +1,116 @@
+<div class="row list-style m-0 mt-3 mb-3 active" *ngFor='let data of complianceHoldData'>
+    <div class="col p-0">
+      <div class="list-item--name align-items-center">
+        <div class="col-6">
+          <h3 class="heading ellipsis">
+            <a href="javascript:void(0);">{{data.proposalName}} ({{data.proposalId}})</a></h3>
+        </div>
+        <div class="col-6 text-right">
+          <ul class="tile-list">
+            <li class="list-led-info">{{data.complianceHold.dealType}}</li>
+            <!-- <li *ngIf='data.complianceHold.status === "COMPLETE"' class="tile-head--release">Hold Release: Yes</li> -->
+            <li class="pr-0" *ngIf='data.complianceHold.status !== "COMPLETE"'><span class="badge badge-not-submitted badge-t3">On hold</span></li>
+            <li class="pr-0" *ngIf='data.complianceHold.status === "COMPLETE"'><span class="badge badge-validated badge-t3">Released On: {{data.complianceHold.completedAt | date: "dd-MMMM-yyyy HH:mm:ss"}}</span></li>
+            <!-- <li *ngIf='data.complianceHold.status !== "COMPLETE"' class="tile-head--release">Released On: NA</li> -->
+          </ul>
+        </div>
+      </div>
+  
+      <div class="list-item border--top solid m-0">
+        <div class="list-item--val col-2">
+              <label>Customer Name</label>
+              <h4 class="label-name">
+                <span class="ellipsis" container="body" placement="top" ngbTooltip="{{data.complianceHold.customerName}}">{{data.complianceHold.customerName}}</span>
+              </h4>
+        </div>
+        <div class="list-item--val col-2">
+          <label>Deal ID</label>
+          <h4 class="label-name">
+            <div *ngIf="data.complianceHold.dealId">
+            <span class="ellipsis" container="body" placement="top">{{data.complianceHold.dealId}}</span>
+            </div>
+          </h4>
+        </div>
+        <div class="list-item--val col-2">
+          <label>Web Order ID</label>
+          <h4 class="label-name">
+            <div *ngIf="data.complianceHold.webOrderId">
+              <span class="ellipsis" container="body" placement="top" tooltip="Cisco DNA for Switching, Cisco">{{data.complianceHold.webOrderId}}</span>
+              </div>
+  
+          </h4>
+        </div>
+       
+        <div class="list-item--val col-2">
+          <label>Dedicated Software Specialist</label>
+          <h4 class="label-name"><span class="ellipsis" container="body" placement="top" tooltip="US">{{getSpecialistdata(data.complianceHold)}}</span></h4>
+        </div>
+        
+        <div class="list-item--val col-2">
+          <label>Account Manager</label>
+          <h4 class="label-name"><span class="ellipsis" container="body" placement="top" tooltip="US">{{getAccountManager(data.complianceHold) }}</span></h4>
+        </div>
+  
+        <div class="list-item--val col-2">
+          <label>Order Submitted On</label>
+          <h4 class="label-name">
+            <div *ngIf="data.complianceHold.orderSubmittedAtAsStr">
+              {{data.complianceHold.orderSubmittedAtAsStr}}
+            </div>
+          </h4>
+        </div>
+  
+      </div>
+  
+      <div class="list-item border--top dashed m-0">
+        <div class="list-item--val col-2">
+          <label>Legal Package Signature</label>
+          <h4 class="label-name yes" *ngIf='data.complianceHold.euifSigned'>Signed</h4>
+          <h4 class="label-name no" *ngIf='!data.complianceHold.euifSigned'>Not Signed</h4>
+        </div>
+        <div class="list-item--val col-2">
+          <label>LOA Signed</label>
+          <h4 class="label-name yes" *ngIf='!data.complianceHold.loaRequired && !data.complianceHold.loaSigned'>Not Required</h4>
+          <h4 class="label-name yes" *ngIf='data.complianceHold.loaSigned && data.complianceHold.loaRequired'>Signed</h4>
+          <h4 class="label-name no" *ngIf='!data.complianceHold.loaSigned && data.complianceHold.loaRequired'>Not Signed</h4>
+        </div>
+        <div class="list-item--val col-2">
+          <label>Partner Authorization</label>
+          <h4 class="label-name yes" *ngIf='data.complianceHold.purchaseAuthorized'>Authorized</h4>
+          <h4 class="label-name no" *ngIf='!data.complianceHold.purchaseAuthorized'>Not Authorized</h4>
+        </div>
+        <div class="list-item--val col-2">
+          <label>Smart Account</label>
+          <h4 class="label-name yes" *ngIf='data.complianceHold.smartAccountActive'>
+            <span class="ellipsis"  container="body" placement="top" ngbTooltip="Active ({{accountNamesRenderer(data.complianceHold.mlbSmartAccountNames)}})">Active ({{accountNamesRenderer(data.complianceHold.mlbSmartAccountNames)}})</span>
+          </h4>
+          <h4 class="label-name no" *ngIf='!data.complianceHold.smartAccountActive'>
+            <span class="ellipsis"  container="body" placement="top" ngbTooltip="Inactive ({{accountNamesRenderer(data.complianceHold.mlbSmartAccountNames)}})">Inactive ({{accountNamesRenderer(data.complianceHold.mlbSmartAccountNames)}})</span>
+          </h4>
+        </div>
+        <!-- <div class="list-item--val col-2">
+          <label>Virtual Account Created</label>
+          <h4 class="label-name yes" *ngIf='data.complianceHold.allVAsCreated'>Created</h4>
+          <h4 class="label-name no" *ngIf='!data.complianceHold.allVAsCreated'>Not Created</h4>
+        </div>       -->
+
+        <div class="list-item--val col-2">
+          <label>Requested Start Date</label>
+          <h4 class="label-name">
+            <div>
+              {{requestedStartDateRenderer(data.complianceHold.mlbsRequestedStartDateStr)}}
+            </div>
+          </h4>
+        </div>     
+        <div class="list-item--val col-2">
+          <label>Time Spent on Hold</label>
+          <h4 class="label-name"> 
+             <div *ngIf="data.complianceHold.complianceHoldCycleTime">
+            {{data.complianceHold.complianceHoldCycleTime}}
+           </div>
+      </h4>
+        </div>
+   
+    </div>
+  </div>
+  </div>

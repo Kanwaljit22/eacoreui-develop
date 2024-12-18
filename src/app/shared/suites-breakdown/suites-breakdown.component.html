@@ -1,0 +1,27 @@
+<div  class="debug-overlay"  (click)="close()"></div>
+<div class="right-flyout w-75" [ngClass]="{'open': accountHealthInsighService.showSuitesFlyout}">
+<h1 class="right-flyout--heading mb-0">Suites Breakdown for {{archDisplayName}}<span><i
+    class="icon-close-btn" (click)="close()"></i></span></h1>
+<div class="right-flyout_content mt-4">
+    <div *ngIf="showGrid && suitesRowData?.length > 0">
+        <ag-grid-angular #agGrid id="ag-grid" style="width: 100%;height:650px" class="ag-fresh"[gridOptions]="gridOptions"
+            [columnDefs]="columnDefs" [rowData]="suitesRowData" [getNodeChildDetails]="getNodeChildDetails" enableColResize enableSorting enableFilter groupHeaders suppressRowClickSelection
+            toolPanelSuppressGroups toolPanelSuppressValues debug rowHeight="30" rowSelection="multiple" (modelUpdated)="onModelUpdated()"
+            (cellClicked)="onCellClicked($event)" (cellDoubleClicked)="onCellDoubleClicked($event)" (cellContextMenu)="onCellContextMenu($event)"
+            (cellValueChanged)="onCellValueChanged($event)" (cellFocused)="onCellFocused($event)" (rowSelected)="onRowSelected($event)"
+            (selectionChanged)="onSelectionChanged()" (beforeFilterChanged)="onBeforeFilterChanged()" (afterFilterChanged)="onAfterFilterChanged()"
+            (filterModified)="onFilterModified()" (beforeSortChanged)="onBeforeSortChanged()" (afterSortChanged)="onAfterSortChanged()"
+            (virtualRowRemoved)="onVirtualRowRemoved($event)" (rowClicked)="onRowClicked($event)" (gridReady)="onReady($event)"
+            (columnEverythingChanged)="onColumnEvent($event)" (columnRowGroupChanged)="onColumnEvent($event)" (columnValueChanged)="onColumnEvent($event)"
+            (columnMoved)="onColumnEvent($event)" (columnVisible)="onColumnEvent($event)" (columnGroupOpened)="onColumnEvent($event)"
+            (columnResized)="onColumnEvent($event)" (columnPinnedCountChanged)="onColumnEvent($event)">
+        </ag-grid-angular> 
+    </div>
+  </div> 
+  <div *ngIf='!showGrid' class="alert alert--info alert-dismissable">
+        <span class="alert-icon">
+            <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+        </span>
+        <span> No data found </span>
+     </div>
+</div>

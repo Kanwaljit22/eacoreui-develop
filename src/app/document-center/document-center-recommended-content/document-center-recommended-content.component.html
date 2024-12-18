@@ -1,0 +1,156 @@
+<div class="container-fluid recommended-proposal bg-white py-4" >
+
+        <div class="row">
+            <div class="col-md-8">
+
+                <!-- <h3 class="mb-1">Recommended Content for this Proposal</h3> -->
+                <div class="recommended-left row m-0" *ngFor="let x of rcmdContentData?.documents ; let i = index;" >
+                    <div class="col-11 pl-0">
+                        <h3> {{ x.title }} </h3>
+                        <p> {{ x.cdcdescription }} </p>
+                        <ul>
+                            <li>
+                                <!-- <img src="../assets/images/star-rating.svg" height="16px"
+                                    class="float-left mr-1"> -->
+
+                                    
+                           <ng-template #t let-fill="fill">
+                            <span class="star" [class.full]="fill === 100">
+                              <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
+                            </span>
+                          </ng-template>
+                          
+                          <ngb-rating [(rate)]="x.avgrating" [starTemplate]="t" [readonly]="true" max="5"></ngb-rating>
+
+                                    <strong> {{x.avgrating}} </strong></li>
+                            <li><strong>Author: </strong>{{x.author}}</li>
+                            <li><strong>Language: </strong> {{ x.locale === 'en_US' ? 'English' : x.locale }} </li>
+                            <li><strong>File size: </strong> 
+                                <ng-container *ngIf="x?.size"> {{ x.size | fileSize }} </ng-container>
+                                <ng-container *ngIf="!x?.size" > NA </ng-container>
+                             </li>
+                        </ul>    
+
+                        
+                        <ul class="disc-type">
+                            <li><strong>{{ x.contentsubcategory }}</strong></li>
+                            <li><strong>Validated: </strong> {{x.date | date: 'd MMM, y' }}</li>
+                            <li><strong>Source: </strong> {{x.sesource}}  </li>
+                            <li><strong>Access Level : </strong> {{ x.accesslevel.toString() }} </li>
+                        </ul>
+                        <ul class="proposal-button recommended-button">
+                            <li>
+                                <button class="proposal-view" (click)="downloadDocuments(x.path)"><a
+                                        #downloadZipLink [hidden]="true"></a><i class="icon-view"></i>View</button>
+                            </li>
+                            <li *ngIf="x.filetype !== 'LINK' "  >
+                                <button class="proposal-download"  (click)="downloadDocuments(x.path)"> <a
+                                        #downloadZipLink [hidden]="true"></a><i class="icon-download"></i>Download</button>
+                            </li>
+                            <li>
+                                <button class="proposal-share" (click)="shareDocuments(x.url,i,'document')"><i
+                                        class="icon-share"></i>Share</button>
+                            </li>
+    
+                            
+                        <div class="share-flyout top-flyout" id="share-proposal" *ngIf="showCopy === i" style="top:40px;left:0;width:400px;" >
+                                <span class="icon-arrow-up" [class.right67]="x.filetype==='LINK'"><span class="path1"></span><span class="path2"></span></span>
+                                  <!-- <a class="close close-small dropdown-menu-close" href="javascript:void(0);" kdfapp="buildnprice" kdfpage="comman" kdfid="closeModel"></a> -->
+                                  <div class="share-proposal-content">
+                                    <label>Copy this URL to share</label>
+                                    <div class="spacer5"></div>
+                                    <input style="width:280px;padding:2px ;"  type="text" class="shareProposalLink" value="{{x.url}}" kdfapp="buildnprice" kdfpage="comman" kdfid="shareTextbox" #userinput>
+                                    <button class="btn btn-primary" (click) = "copy($event)" type="button" id="copy">Copy</button>
+                                    <div class="clear"></div>
+                                    <!-- <div class="small-info"><strong>Access Level: </strong>{{selectedDocument.accesslevel}}</div> -->
+                                  </div>
+                            </div>
+    
+                        </ul>
+    
+    
+    
+                    </div>
+    
+                    <div class="col-1 p-0">
+                        <span class="recommended-icons"
+                            [ngClass]="{'icon-ppt1': x.filetype === 'PPT' ,
+                                        'icon-pdf1': x.filetype === 'PDF' , 
+                                        'icon-xls1': x.filetype === 'XLS' ,
+                                        'icon-doc1': x.filetype === 'DOC' ,
+                                        'icon-html1': x.filetype === 'LINK' 
+                                        }"
+                        ><span class="path1"></span><span
+                                class="path2"></span><span class="path3"></span><span class="path4"></span><span
+                                class="path5"></span><span class="path6"></span><span class="path7"></span><span
+                                class="path8"></span></span>
+                         
+                    </div>
+                </div>
+
+                <div class="clearfix mt-4" id="noSearchData"
+                    *ngIf="apiCallComplete && !rcmdContentData?.documents">
+                    <span class="icon-no-result-found">
+                        <span class="path1"></span><span class="path2"></span><span class="path3"></span><span
+                            class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span><span
+                            class="path8"></span><span class="path9"></span><span class="path10"></span><span class="path11"></span>
+                    </span>
+                    <h6> No Recommended Content found.</h6>
+                </div>  
+
+            </div>
+    
+            <div class="col-md-4 border-left">
+                <h3 class="mb-1">Sales Hubs for this Proposal</h3>
+                <div class=" recommended-right" *ngFor="let y of rcmdContentData?.salesHubs; let j = index;">
+                    <h3><a href="javascript:void(0);" class="sales-title" (click)="showSaleshubDetail(y.uri)" > {{y.title}} </a><img class="float-right" src="assets/images/salesHub-icon.png"
+                            width="18" height="18"></h3>
+                    <p class="clearfix" > {{ y.cdcdescription }} </p>
+                    <ul>
+                        <li>Sales Hub</li>
+                        <li><strong>Access Level: </strong> {{ y.accesslevel.toString() }}  </li>
+                    </ul>
+                   
+                    <ul class="proposal-button recommended-button">
+                            <li>
+                                <button class="proposal-view" (click)="downloadDocuments(y.url)" ><a
+                                        #downloadZipLink [hidden]="true"></a><i class="icon-view"></i>View</button>
+                            </li>
+    
+                            <li>
+                                <button class="proposal-share" (click)="shareDocuments(y.url,j,'saleshub')"><i
+                                        class="icon-share"></i>Share</button>
+                            </li>
+    
+                            
+                        <div class="share-flyout top-flyout" id="share-proposal" *ngIf="showCopy_saleshub === j" style="top:40px;left:-100px;width:400px;" >
+                                <span class="icon-arrow-up"><span class="path1"></span><span class="path2"></span></span>
+                                  <!-- <a class="close close-small dropdown-menu-close" href="javascript:void(0);" kdfapp="buildnprice" kdfpage="comman" kdfid="closeModel"></a> -->
+                                  <div class="share-proposal-content">
+                                    <label>Copy this URL to share</label>
+                                    <div class="spacer5"></div>
+                                    <input style="width:280px;padding:1px 2px ;"  type="text" class="shareProposalLink" value="{{y.url}}" kdfapp="buildnprice" kdfpage="comman" kdfid="shareTextbox" #userinput>
+                                    <button class="btn btn-primary" (click) = "copy($event)" type="button" id="copy">Copy</button>
+                                    <div class="clear"></div>
+                                    <!-- <div class="small-info"><strong>Access Level: </strong>{{selectedDocument.accesslevel}}</div> -->
+                                  </div>
+                            </div>
+                        </ul>
+    
+    
+                </div>
+
+
+                <div class="clearfix mt-4" id="noSearchData"
+                *ngIf="apiCallComplete && !rcmdContentData?.salesHubs">
+                <span class="icon-no-result-found">
+                    <span class="path1"></span><span class="path2"></span><span class="path3"></span><span
+                        class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span><span
+                        class="path8"></span><span class="path9"></span><span class="path10"></span><span class="path11"></span>
+                </span>
+                <h6> No Sales Hub Content found.</h6>
+            </div> 
+    
+            </div>
+        </div>
+    </div>

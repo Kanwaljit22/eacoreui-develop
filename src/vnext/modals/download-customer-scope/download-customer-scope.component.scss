@@ -1,0 +1,42 @@
+.scope-details {
+    h3{ font-size: 16px; color: #394454; margin-bottom: 18px;}
+
+
+    ul{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        overflow: hidden;
+
+    }
+    li{
+        background: #F4F6F8;
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
+        margin-bottom: 10px;
+        div{
+            padding: 5px 0px;
+            display: flex;
+            flex-direction: column;
+          &.radio-custom {
+            span {
+                font-size: 18px;
+            }
+          }
+
+            span{ font-size: 11px; color: #626262; }
+            label{ font-size: 14px; color:#394454}
+        }
+
+
+        &:last-child{
+            margin-bottom: 0;
+        }
+    }
+}
+.table-container {
+    max-height: 250px; 
+    overflow-y: auto;
+}

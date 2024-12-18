@@ -1,0 +1,148 @@
+.navigation-tabs {
+    display: flex;
+    border-bottom: 1px solid #e4e4e4;
+    margin-bottom: 20px;
+    .nav-items {
+        margin-right: 50px;
+        line-height: 1;
+
+        a {
+            font-size: 0.875rem;
+            color: #5D656C;
+            font-weight: 400;
+            padding-bottom: 8px;
+            display: block;
+
+            &.active {
+                color: #227BB1;
+                border-bottom: 4px solid #00BCEB;
+            }
+        }
+    }
+}
+
+.custom-flyout {
+    &.cav-detail {
+        width: 1200px;
+    }
+}
+
+/*  Table Styling -- Starts Here  */
+.primary-table {
+    table-layout: fixed;
+    &.cav-table {
+        thead {
+            th {
+                border-right: 0;
+            }
+        }
+    }
+    thead {
+        th {
+            color: #6c757d;
+            font-size: rem(13);
+            font-weight: 700;
+            background-color: #fff;
+            padding-top: 10px;
+            padding-bottom: 8px;
+            border-top: 1px solid #e4e4e4;
+            border-bottom: 1px solid #e4e4e4;
+            border-right: 1px dashed #e4e4e4;
+            position: static;
+            vertical-align:bottom;
+
+            &:last-child {
+                border-right: 0;
+            }
+
+            &.colspan-border {
+                &--bottom {
+                    box-shadow: 0 2px 0 #e4e4e4;
+                }  
+                &--left {
+                    border-left: 1px dashed #e4e4e4;
+                }
+                &--right {
+                    border-right: 1px dashed #e4e4e4;
+                }
+            }
+        }
+    }       
+
+    tbody {
+        tr {
+            background-color: #fff;
+            border-bottom: 1px solid #e4e4e4;
+            &:nth-child(2n+1) {
+                background-color: #fff; 
+            }
+            &:hover {
+                background-color: #fff;
+            }
+
+            &.main-row {
+                background-color: #f3f3f3;
+
+                td {
+                    color: #6c757d;
+                    font-weight: 700;
+                }
+            }
+            &.table-sub-row {
+                td {
+                    &:first-child {
+                        padding-left: 36px;
+                    }  
+                }
+            }
+            &.due-renewal {
+                background-color: #fef7ec;
+            }
+        }
+        td {
+            color: #394454;
+            font-size: rem(13);
+            font-weight: 400;
+            border-right: 1px dashed #e4e4e4;
+            vertical-align: middle;
+
+            &:last-child {
+                border-right:0;
+            }
+
+            .form-control {
+                padding: 7px 6px;
+                text-align: right;
+                line-height: 1;
+            }
+
+            .i-vNext-trash-bold {
+                font-size: 0.9375rem;
+                &::before {
+                    color: #059fd9;
+                }
+            }
+        }
+    }
+
+
+    tfoot {
+        td {
+            padding: 8px 10px;
+            font-weight: 700;
+            color: #394454;
+            border-right: 1px dashed #e4e4e4;
+            border-bottom: 1px solid #e4e4e4;
+
+            &:last-child {
+                border-right:0;
+            }
+        }
+    }
+
+}
+
+.party-details {
+    padding: 10px 15px;
+    background: #F6F7FA;
+}

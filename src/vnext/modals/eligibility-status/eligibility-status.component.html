@@ -1,0 +1,213 @@
+<div class="modal-body vNext modal-without-header">
+    <button class="icon-close-btn" (click)="close()" attr.action-id="{{dataIdConstantsService.eligibilityStatus_button_closeIcon}}" type="button"></button>
+
+    <h2>{{localizationService.getLocalizedString('common.PROGRAM_ELIGIBILITY')}}</h2>
+</div>
+<div class="modal-body vNext modal-without-header">
+    <!-- <div class="col-12 mb-2">
+        <h5 class="heading--h5">Program Eligibility Status</h5>
+    </div> -->
+
+    <div class="col-12 mb-3">
+        <div *ngIf='showEligibleMsg; else notEligible' class="alert alert--success">
+            <span class="alert-icon">
+                <span class="icon-done1"><span class="path1"></span><span class="path2"></span></span>
+            </span>
+            <span class="txt"><span class="bold-txt">{{localizationService.getLocalizedString('eligibility-status.HURRAY')}}</span> {{isSpnaProposal ? localizationService.getLocalizedString('eligibility-status.ELIGIBLE_TO_BUY_THIS_SPNA_PROGRAM') : localizationService.getLocalizedString('eligibility-status.ELIGIBLE_TO_BUY_THIS_PROGRAM')}}</span>
+        </div>
+        <ng-template #notEligible>
+            <div class="alert alert--danger alert-dismissable mt-2">
+                <span class="alert-icon">
+                    <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                </span>
+                <span>{{isSpnaProposal ? localizationService.getLocalizedString('eligibility-status.YOU_ARE_NOT_ELIGIBLE_SPNA_PROGRAM') : localizationService.getLocalizedString('eligibility-status.YOU_ARE_NOT_ELIGIBLE_EA_3.0_PROGRAM') }}</span>
+            </div>
+        </ng-template>
+    </div>
+
+    <div class="col-12 mb-4" *ngIf="!isSpnaProposal">
+        <div class="progress-bg">
+            <h5>{{localizationService.getLocalizedString('eligibility-status.PROGRAM_ELIGIBILITY_STATUS')}}</h5>
+            <!--Start Disti flow for sept release-->
+            <ng-container *ngIf="!eaService.isResellerLoggedIn && !proposalStoreService.proposalData?.hideCollabPartnerNetPriceInfo">
+            <div class="d-flex align-items-center vNext-progress">
+                <div class="progress" [ngClass]="{'danger' : percentage < 100}">
+                    <div role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" class="progress-bar"
+                        [ngStyle]="widthForProgressBar"></div>
+                </div>
+            </div>
+
+                <div class="vNext-progress-desc">
+                    <span>{{localizationService.getLocalizedString('eligibility-status.PROGRAM_ELIGIBILITY_VALUE')}} ({{proposalStoreService.proposalData?.currencyCode}}): <span class="bold-txt">
+                            {{(programEligibilityData?.proposal?.commitInfo?.fullCommitTcv) ?
+                            utilitiesService.formatValue(utilitiesService.getFloatValue(programEligibilityData.proposal.commitInfo.fullCommitTcv))
+                            : '0.00'}}
+                        </span> out of
+                        {{(programEligibilityData?.proposal?.commitInfo?.threshold) ?
+                    utilitiesService.formatValue(utilitiesService.getFloatValue(programEligibilityData.proposal.commitInfo.threshold))
+                    : '0.00'}}</span>
+                </div>
+                </ng-container>
+                <!--End Disti flow for sept release-->
+        </div>
+    </div>
+
+
+    <div class="col-12 mb-2">
+        <h5 class="heading--h5">{{localizationService.getLocalizedString('eligibility-status.PORTFOLIO_SUMMARY')}}</h5>
+        <div *ngIf="(pcPrimaryEnrollments.length || (pcEnrollmentNames.length && isOnlySecurityPresent)) && !isSpnaProposal">
+            <div class="alert alert--danger alert-dismissable mt-2">
+                <span class="alert-icon">
+                    <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                </span>
+                <span><span *ngIf="!isOnlySecurityPresent">{{setEnrollmentNamesString(pcPrimaryEnrollments)}} {{ pcPrimaryEnrollments.length === 1? 'is' : 'are'}}</span><span *ngIf="pcEnrollmentNames.length && isOnlySecurityPresent">{{localizationService.getLocalizedString('eligibility-status.SECURITY_IS')}}</span>&nbsp;<span>{{localizationService.getLocalizedString('eligibility-status.NOT_ELIGIBLE_TO_BUY')}}</span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 mb-5">
+        <table class="primary-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">{{localizationService.getLocalizedString('common.PORTFOLIO')}}</th>
+                    <th class="text-center" rowspan="2" width="135px">{{localizationService.getLocalizedString('eligibility-status.ELIGIBILITY')}}</th>
+                    <th class="text-center fully-committed" colspan="2">
+                        <!-- <span class="i-vNext-check-circle mr-2" style="position: relative; top:1px;"></span> -->
+                        <span class="i-vNext-Full-1 mr-2" style="position: relative; top:1px;"><span class="path1"></span><span class="path2"></span></span>
+                        {{localizationService.getLocalizedString('eligibility-status.FULLY_COMMITTED_SUITES')}}</th>
+                    <th class="text-center partially-committed" colspan="2">
+                        <!-- <span class="i-vNext-partially-commited mr-2" style="position: relative; top:1px;"></span> -->
+                         <span class="i-vNext-partially-commited mr-2" style="position: relative; top:1px;"></span>{{localizationService.getLocalizedString('eligibility-status.PARTIALLY_COMMITTED_SUITES')}}</th>
+                </tr>
+                <tr>
+                    <th class="text-right fully-committed" width="110px">{{localizationService.getLocalizedString('common.NO_OF_SUITES')}}</th>
+                    <th class="text-right fully-committed" width="130px">TCV ({{proposalStoreService.proposalData.currencyCode}})</th>
+                    <th class="text-right partially-committed" width="110px">{{localizationService.getLocalizedString('common.NO_OF_SUITES')}}</th>
+                    <th class="text-right partially-committed" width="130px">TCV ({{proposalStoreService.proposalData.currencyCode}})</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor='let enrollment of programEligibilityData.enrollments'>
+                    <td>{{enrollment.name}}</td>
+                    <td *ngIf='enrollment.commitInfo?.committed' class="success-check text-center" [ngClass]="{'eligibility-status': isSpnaProposal}"><span *ngIf='enrollment.id!=5'
+                            class="icon-done1"><span class="path1"></span><span class="path2"></span></span>
+                            <div class="tooltip bs-tooltip-top" *ngIf="isSpnaProposal && enrollment?.commitInfo?.threshold">
+                                <div class="arrow"></div>
+                                <div class="tooltip-inner">
+                                    <span class="d-block mb-1"><b>Eligibility Criteria</b></span>
+                                    <span class="d-block mb-2">Minimum TCV {{(enrollment?.commitInfo?.threshold) ?
+                                        utilitiesService.formatValue(utilitiesService.getFloatValue(enrollment.commitInfo.threshold))
+                                        : '0.00'}} {{proposalStoreService.proposalData?.currencyCode}}
+                                        along with all suites Fully Committed.</span>
+                                </div>
+                            </div> 
+                        <span *ngIf='enrollment.id===5' class="sm-text">{{localizationService.getLocalizedString('eligibility-status.SAME_AS_ASSOCIATED')}}</span>
+                    </td>
+                    <td *ngIf='showWarnStatus(enrollment)' class="warning-check text-center"><span *ngIf='enrollment.id!=5'
+                            class="icon-done1"><span class="path1"></span><span class="path2"></span></span>
+                        <span *ngIf='enrollment.id===5' class="sm-text">{{localizationService.getLocalizedString('eligibility-status.SAME_AS_ASSOCIATED')}}</span>
+                    </td>
+                    <td *ngIf='setDangerStatus(enrollment)' class="danger-check text-center" [ngClass]="{'eligibility-status': isSpnaProposal}">
+                        <span class="alert-icon">
+                            <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                        </span>
+                        <div class="tooltip bs-tooltip-top" *ngIf="isSpnaProposal">
+                            <div class="arrow"></div>
+                            <div class="tooltip-inner">
+                                <span class="d-block mb-1"><b>Eligibility Criteria</b></span>
+                                <span class="d-block mb-2">Minimum TCV {{(enrollment?.commitInfo?.threshold) ?
+                                    utilitiesService.formatValue(utilitiesService.getFloatValue(enrollment.commitInfo.threshold))
+                                    : '0.00'}} {{proposalStoreService.proposalData?.currencyCode}}
+                                    along with all suites Fully Committed.</span>
+                            </div>
+                        </div> 
+                    </td>
+                    <td class="text-right fully-committed">{{enrollment.commitInfo?.fcSuiteCount}}</td>
+                   
+
+                    <!--Start Disti flow for sept release-->
+                   
+                    <ng-container *ngIf="!eaService.isResellerLoggedIn && !proposalStoreService.proposalData?.hideCollabPartnerNetPriceInfo">
+                    <td class="text-right fully-committed">
+                        {{(enrollment?.commitInfo?.fcTcv) ?
+                        utilitiesService.formatValue(utilitiesService.getFloatValue(enrollment.commitInfo.fcTcv))
+                        : '0.00'}}
+                    </td>
+                    </ng-container>
+                    <ng-container *ngIf="eaService.isResellerLoggedIn || (proposalStoreService.proposalData?.hideCollabPartnerNetPriceInfo)">
+                        <td class="text-right fully-committed">
+                            --
+                        </td>
+                    </ng-container>
+                    
+                    <!--End Disti flow for sept release-->
+
+                    <td class="text-right partially-committed">{{enrollment.commitInfo?.pcSuiteCount}}</td>
+
+        
+                            <!--Start Disti flow for sept release-->
+                           
+                            <ng-container *ngIf="!eaService.isResellerLoggedIn && !proposalStoreService.proposalData?.hideCollabPartnerNetPriceInfo">
+                            <td class="text-right partially-committed">
+                                {{(enrollment?.commitInfo?.pcTcv) ?
+                                utilitiesService.formatValue(utilitiesService.getFloatValue(enrollment.commitInfo.pcTcv))
+                                : '0.00'}}
+                            </td>
+                            </ng-container>
+                            <ng-container *ngIf="eaService.isResellerLoggedIn || (proposalStoreService.proposalData?.hideCollabPartnerNetPriceInfo)">
+                                <td class="text-right partially-committed">
+                                    --
+                                </td>
+                            </ng-container>
+                            
+                            <!--End Disti flow for sept release-->
+        
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td>{{localizationService.getLocalizedString('common.TOTAL')}}</td>
+                    <td></td>
+                    <td class="text-right fully-committed">{{totalFcCount}}</td>
+
+                    <!--Start Disti flow for sept release-->
+                        <ng-container *ngIf="!eaService.isResellerLoggedIn && !proposalStoreService.proposalData?.hideCollabPartnerNetPriceInfo">
+                        <td class="text-right fully-committed">
+                            {{(programEligibilityData?.proposal?.commitInfo?.fullCommitTcv) ?
+                            utilitiesService.formatValue(utilitiesService.getFloatValue(programEligibilityData.proposal.commitInfo.fullCommitTcv))
+                            : '0.00'}}
+                        </td>
+                        </ng-container>
+                        <ng-container *ngIf="eaService.isResellerLoggedIn || (proposalStoreService.proposalData?.hideCollabPartnerNetPriceInfo)">
+                            <td class="text-right fully-committed">
+                                --
+                            </td>
+                        </ng-container>
+                    
+                    <!--End Disti flow for sept release-->
+                    <td class="text-right partially-committed">{{totalPcCount}}</td>
+                    
+                    <!--Start Disti flow for sept release-->
+                        <ng-container *ngIf="!eaService.isResellerLoggedIn && !proposalStoreService.proposalData?.hideCollabPartnerNetPriceInfo">
+                                <td class="text-right partially-committed">
+                                        {{(programEligibilityData?.proposal?.commitInfo?.partialCommitTcv) ?
+                                        utilitiesService.formatValue(utilitiesService.getFloatValue(programEligibilityData.proposal.commitInfo.partialCommitTcv))
+                                        : '0.00'}}
+                                    </td>
+                        </ng-container>
+                        <ng-container *ngIf="eaService.isResellerLoggedIn || (proposalStoreService.proposalData?.hideCollabPartnerNetPriceInfo)">
+                            <td class="text-right partially-committed">
+                                --
+                            </td>
+                        </ng-container>
+                    <!--End Disti flow for sept release-->                    
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+<!-- <div class="text-center d-block pb-4 paddingT10">
+    <button class="btn btn-secondary sm" type="button" (click)="close()">Cancel</button>
+    <button class="btn btn-primary sm ml-3" type="button" (click)="continue()">Continue</button>
+</div> -->

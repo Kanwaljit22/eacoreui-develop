@@ -1,0 +1,259 @@
+.sub-heaing {
+    position: relative;
+}
+
+.sub-heaing .create-new {
+    position: absolute;
+    right: 0px;
+    top: 29px;
+}
+
+.main-table.summaryView-table {
+    float: left;
+    width: 100%;
+}
+
+.blank-state {
+    clear: both;
+    text-align: center;
+    padding: 0 55px;
+}
+
+.icon-no-qual {
+    font-size: 100px;
+    margin-top: 90px;
+    display: inline-block;
+    margin-bottom: 22px;
+}
+
+.blank-state h1 {
+    font-size: 18px;
+    margin-bottom: 1px;
+    color: #BFBFBF;
+}
+
+.blank-state .blank-state-header {
+    width: 100%;
+    float: left;
+    border-bottom: 2px solid #E8E8E8;
+    padding: 15px 0;
+    position: relative;
+}
+
+.blank-state .blank-state-header h1 {
+    font-size: 22px !important;
+    text-align: left;
+    font-weight: 100;
+    color: #818182;
+    letter-spacing: 0.03em;
+}
+
+.blank-state .blank-state-header:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    height: 2px;
+    background-color: #005073;
+    width: 80px;
+}
+
+.blank-state p {
+    font-size: 13px;
+    margin-bottom: 12px;
+    color: #818182;
+}
+
+.btn:focus,
+.btn:active {
+    box-shadow: none;
+}
+
+.qualify-btn {
+    position: relative;
+}
+
+.qualEAQualificationNameResult {
+    margin-top: 15px;       /*this property for lookup deal*/
+    position: relative;
+    box-shadow: 0px 1px 6px -1px rgba(0, 0, 0, 0.20);
+    -webkit-box-shadow: 0px 1px 6px -1px rgba(0, 0, 0, 0.20);
+}
+
+.qualEAQualificationNameResult.activeDeal {
+    margin-bottom: 10px;
+}
+
+.form-group.txt-area-group textarea.form-control {
+    background-color: transparent;
+}
+
+.lookingFor {
+    background: #fff;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-top: 0 !important;
+    border-radius: 0;
+    width: calc(100%);
+    position: relative;
+    left: 0px;
+    .label-check {
+        span.custom-checkbox-btn{ font-size: 15px;}
+        span.check-text{ font-size: 12px;}
+    }
+}
+
+.blank-enterprise {
+    background: url("../../../assets/images/blank-enterprise.svg");
+    width: 80px;
+    height: 80px;
+    display: inline-block;
+    border-radius: 50%;
+    margin-top: 80px;
+    margin-bottom: 22px;
+    background-color: #EDEDED;
+    background-size: 50px;
+    background-repeat: no-repeat;
+    padding: 10px;
+    background-position: center;
+}
+
+
+/*Crad block
+============================*/
+
+.card-block {
+    clear: both;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.card-block-title {
+    clear: both;
+    background: #f2f2f4;
+    color: #58585b;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.card-block-title h3 {
+    font-size: 15px;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.card-block-body {
+    padding: 25px 10px;
+    clear: both;
+}
+
+.editable .edit-field {
+    position: absolute;
+    right: 0px;
+    bottom: 9px
+}
+
+
+/*Body CSS*/
+
+body {
+    background: #fff;
+}
+
+
+/*Body CSS ends*/
+
+
+/*Header CSS*/
+
+
+/*Header CSS ends*/
+
+
+/*Sub Header CSS*/
+
+.sub-heaing h3 {
+    font-family: "CiscoSans";
+    letter-spacing: 0.5px;
+    font-size: 14px;
+    font-weight: 300;
+    color: #58585b;
+    padding: 10px 0;
+    border-bottom: 1px solid #ccc;
+}
+
+.sub-heaing h3:after {
+    width: 55px;
+    content: "";
+    display: block;
+    height: 3px;
+    background: #005073;
+    position: absolute;
+    bottom: 0px;
+}
+
+
+/*Sub Header CSS ends*/
+
+
+/*Qualification Section CSS*/
+
+.badge-in-progress,
+.badge-in-valid,
+.badge-valid,
+.badge-active,
+.badge-closed {
+    font-size: 11px;
+    line-height: 14px;
+    text-transform: uppercase;
+    color: #fff;
+    height: 18px;
+    position: relative;
+    top: 0px;
+    display: inline-block;
+    font-size: 300;
+}
+
+.badge-in-progress {
+    background-color: #f49138;
+}
+
+.badge-in-valid {
+    background-color: #999;
+}
+
+.badge-valid {
+    background-color: #6cc04a;
+}
+
+.badge-active {
+    background-color: #6cc04a;
+}
+
+.badge-closed {
+    background-color: #c82439;
+}
+
+.sub-heaing h3.qual-sub-heading {
+    font-family: "CiscoSans";
+    letter-spacing: 0.5px;
+    font-size: 22.4px;
+    font-weight: 300;
+    color: #818182;
+    padding: 20px 0 7px;
+    border-bottom: 1px solid #ccc;
+    line-height: 39.7px;
+}
+
+.icon-duplicate:before {
+    content: "\E9BD";
+    color: #005073;
+}
+
+.icon-trash:before {
+    content: "\E9BE";
+    color: #005073;
+}
+
+
+/*Qualification Section CSS ends*/

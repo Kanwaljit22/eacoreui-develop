@@ -1,0 +1,20 @@
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+-webkit-appearance: none;
+margin: 0;
+}
+input[type=number] {
+-moz-appearance: textfield;
+}
+.custom-flyout.cust-sm {
+    width: 620px;
+}
+.custom-flyout .heading-title .heading--h2 {
+    color: #394454;
+    font-weight: 400;
+}
+.custom-flyout {
+    .body {
+        height: 100vh;
+    }
+}

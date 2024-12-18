@@ -1,0 +1,28 @@
+<div  id="toastr" class="notifications-panel in-heading"
+ [ngClass]="{'notifications-panel--success' :toastPackage.toastType === 'toast-success', 'notifications-panel--error' :toastPackage.toastType === 'toast-error', 'notifications-panel--notification' : toastPackage.toastType === 'toast-warning'}"  [style.display]="state.value === 'inactive' ? 'none' : ''" >
+    <span *ngIf="toastPackage.toastType === 'toast-success'" class="icon-alert-success"></span>
+
+    <span *ngIf="toastPackage.toastType === 'toast-warning'" class="icon-ag-notification2"></span>
+
+    <span *ngIf="toastPackage.toastType === 'toast-info'" class="icon-Info"></span>
+
+    <span *ngIf="toastPackage.toastType === 'toast-error'" class="icon-notification notifications-panel--error">
+        <span class="icon-plain-cross"></span>
+    </span>
+
+
+  <strong *ngIf="title" [class]="options.titleClass" [attr.aria-label]="title">
+    {{ title }}
+  </strong>
+  <strong *ngIf="message && options.enableHtml" role="alert" aria-live="polite"
+     [innerHTML]="message">
+  </strong>
+  <span *ngIf="message && !options.enableHtml" role="alert" aria-live="polite"
+   [attr.aria-label]="message">
+    {{ message }}
+  </span>
+
+  <div *ngIf="options.progressBar">
+  <div class="toast-progress" [style.width]="width + '%'"></div>
+  </div>
+</div>

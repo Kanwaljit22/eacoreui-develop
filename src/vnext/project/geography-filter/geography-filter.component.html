@@ -1,0 +1,395 @@
+<div class="custom-flyout-overlay"></div>
+<section class="filter-slide">
+    <div class="filter-header">
+        <h3 class="heading--h3">{{localizationService.getLocalizedString('common.DEFINE_GEOGRAPHY_LABEL')}}</h3>
+        <button type="button" class="icon-close-btn mt-0" attr.action-id="{{dataIdConstantsService.geographyFilter_button_closeIcon}}" (click)="close()"></button>
+    </div>
+    <!-- End of Filter header -->
+
+    <div class="filter-body">
+        <div class="filter-desc">
+            <p>{{localizationService.getLocalizedString('common.SITES_DESELECTED_OMITTED')}}</p>
+        </div>
+        
+
+
+        <div class="filter-list">
+                <ng-container *ngFor = "let theater of theatreList; let index = index;">
+                    <div class="f-body">
+                    <ul class="f-items parent-items">
+                        <li class="d-flex justify-content-between">
+                            <div class="d-flex">
+                            <label class="label-check">
+                                <input class="form-check-input" type="checkbox" attr.data-id="{{dataIdConstantsService.geographyFilter_checkbox_selectDeselectAllTheater}}{{index}}" [checked]="theater.selected" (change)="selectDeselectAll($event, theater)">
+                                <span class="custom-checkbox-btn i-vNext-fonts">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                    <span class="path3"></span>
+                                </span>
+                                
+                            </label>
+                            <span class="label-name">{{theater.name}}</span>
+                        </div>
+                            <a *ngIf="(theater.selectedCountriesCount > 0 && !theater.defaultCountryPresent) || (theater.selectedCountriesCount >= 2 && theater.defaultCountryPresent)" class="no-wrap" attr.action-id="{{dataIdConstantsService.geographyFilter_link_deselectAll}}{{index}}" (click)="deSelectAll(theater)" href="javascript:void(0);">Deselect All</a>
+                            <a *ngIf="(theater.selectedCountriesCount === 0 && !theater.defaultCountryPresent) || (theater.selectedCountriesCount === 1 && theater.defaultCountryPresent)" class="no-wrap" attr.action-id="{{dataIdConstantsService.geographyFilter_link_selectAll}}{{index}}" (click)="selectAll(theater)" href="javascript:void(0);">Select All</a>
+                        </li>
+                    </ul>
+                    
+                    <ul class="f-items child-items">
+                        <ng-container *ngFor = "let countryObj of theater.countries; let i = index">
+                        <li class="d-flex">
+                            <label class="label-check">
+                                <input class="form-check-input"  type="checkbox" attr.data-id="{{dataIdConstantsService.geographyFilter_checkbox_changeCountryStatus}}{{i}}" (change)= "changeCountryStatus($event,countryObj,theater)" [checked]="countryObj.selected" [disabled] = "countryObj.code === dealCountry"> 
+                                <span class="custom-checkbox-btn i-vNext-fonts">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                    <span class="path3"></span>
+                                </span>
+                               
+                            </label>
+                            <span class="label-name">{{countryObj.name}} <span *ngIf= "countryObj.code === dealCountry" class="i-vNext-help-filled ml-1" [ngbTooltip]="(eaService.isSpnaFlow) ? localizationService.getLocalizedString('common.BU_PARTIES_INFO_TOOLTIP_SPNA') :  localizationService.getLocalizedString('common.BU_PARTIES_INFO_TOOLTIP')"></span></span>
+                        </li>
+                    </ng-container>
+                    </ul>
+                    </div>
+                </ng-container>
+              <!-- <ul class="f-items parent-items">
+                    <li>
+                        <label class="label-check">
+                            <input class="form-check-input" type="checkbox" checked>
+                            <span class="custom-checkbox-btn i-vNext-fonts">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                                <span class="path3"></span>
+                            </span>
+                            <span>Americas</span>
+                        </label>
+                    </li>
+                </ul>
+                <ul class="f-items child-items">
+                    <li>
+                        <label class="label-check">
+                            <input class="form-check-input" type="checkbox" checked>
+                            <span class="custom-checkbox-btn i-vNext-fonts">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                                <span class="path3"></span>
+                            </span>
+                            <span>Argentina</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="label-check">
+                            <input class="form-check-input" type="checkbox" checked>
+                            <span class="custom-checkbox-btn i-vNext-fonts">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                                <span class="path3"></span>
+                            </span>
+                            <span>Bolivia</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="label-check">
+                            <input class="form-check-input" type="checkbox" checked>
+                            <span class="custom-checkbox-btn i-vNext-fonts">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                                <span class="path3"></span>
+                            </span>
+                            <span>Brazil</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="label-check">
+                            <input class="form-check-input" type="checkbox" checked>
+                            <span class="custom-checkbox-btn i-vNext-fonts">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                                <span class="path3"></span>
+                            </span>
+                            <span>Canada</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="label-check">
+                            <input class="form-check-input" type="checkbox" checked>
+                            <span class="custom-checkbox-btn i-vNext-fonts">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                                <span class="path3"></span>
+                            </span>
+                            <span>Chile</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="label-check">
+                            <input class="form-check-input" type="checkbox" checked>
+                            <span class="custom-checkbox-btn i-vNext-fonts">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                                <span class="path3"></span>
+                            </span>
+                            <span>Costa Rica</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="label-check">
+                            <input class="form-check-input" type="checkbox" checked>
+                            <span class="custom-checkbox-btn i-vNext-fonts">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                                <span class="path3"></span>
+                            </span>
+                            <span>Dominican Republic</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="label-check">
+                            <input class="form-check-input" type="checkbox" checked>
+                            <span class="custom-checkbox-btn i-vNext-fonts">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                                <span class="path3"></span>
+                            </span>
+                            <span>Ecuador</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="label-check">
+                            <input class="form-check-input" type="checkbox" checked>
+                            <span class="custom-checkbox-btn i-vNext-fonts">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                                <span class="path3"></span>
+                            </span>
+                            <span>Guatemala</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="label-check">
+                            <input class="form-check-input" type="checkbox" checked>
+                            <span class="custom-checkbox-btn i-vNext-fonts">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                                <span class="path3"></span>
+                            </span>
+                            <span>Honduras</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="label-check">
+                            <input class="form-check-input" type="checkbox" checked>
+                            <span class="custom-checkbox-btn i-vNext-fonts">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                                <span class="path3"></span>
+                            </span>
+                            <span>Mexico</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="label-check">
+                            <input class="form-check-input" type="checkbox" checked>
+                            <span class="custom-checkbox-btn i-vNext-fonts">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                                <span class="path3"></span>
+                            </span>
+                            <span>Panama</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="label-check">
+                            <input class="form-check-input" type="checkbox" checked>
+                            <span class="custom-checkbox-btn i-vNext-fonts">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                                <span class="path3"></span>
+                            </span>
+                            <span>Paraguay</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="label-check">
+                            <input class="form-check-input" type="checkbox" checked>
+                            <span class="custom-checkbox-btn i-vNext-fonts">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                                <span class="path3"></span>
+                            </span>
+                            <span>Peru</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="label-check">
+                            <input class="form-check-input" type="checkbox" checked>
+                            <span class="custom-checkbox-btn i-vNext-fonts">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                                <span class="path3"></span>
+                            </span>
+                            <span>Puerto Rico</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="label-check">
+                            <input class="form-check-input" type="checkbox" checked disabled>
+                            <span class="custom-checkbox-btn i-vNext-fonts">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                                <span class="path3"></span>
+                            </span>
+                            <span>United States<span class="i-vNext-help-filled ml-1"></span></span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="label-check">
+                            <input class="form-check-input" type="checkbox" checked>
+                            <span class="custom-checkbox-btn i-vNext-fonts">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                                <span class="path3"></span>
+                            </span>
+                            <span>Uruguay</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="label-check">
+                            <input class="form-check-input" type="checkbox" checked>
+                            <span class="custom-checkbox-btn i-vNext-fonts">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                                <span class="path3"></span>
+                            </span>
+                            <span>Venezuela</span>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+            <div class="f-head">
+                <h5 class="heading--h5">APJC</h5>
+                <a href="javascript:void(0);">Deselect All</a>
+            </div>
+            <div class="f-body">
+                <ul class="f-items">
+                    <li>
+                        <label class="label-check">
+                            <input class="form-check-input" type="checkbox" checked>
+                            <span class="custom-checkbox-btn i-vNext-fonts">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                                <span class="path3"></span>
+                            </span>
+                            <span>Country Name</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="label-check">
+                            <input class="form-check-input" type="checkbox" checked>
+                            <span class="custom-checkbox-btn i-vNext-fonts">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                                <span class="path3"></span>
+                            </span>
+                            <span>Country Name</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="label-check">
+                            <input class="form-check-input" type="checkbox" checked>
+                            <span class="custom-checkbox-btn i-vNext-fonts">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                                <span class="path3"></span>
+                            </span>
+                            <span>Country Name</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="label-check">
+                            <input class="form-check-input" type="checkbox" checked>
+                            <span class="custom-checkbox-btn i-vNext-fonts">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                                <span class="path3"></span>
+                            </span>
+                            <span>Country Name</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="label-check">
+                            <input class="form-check-input" type="checkbox" checked>
+                            <span class="custom-checkbox-btn i-vNext-fonts">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                                <span class="path3"></span>
+                            </span>
+                            <span>Country Name</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="label-check">
+                            <input class="form-check-input" type="checkbox" checked>
+                            <span class="custom-checkbox-btn i-vNext-fonts">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                                <span class="path3"></span>
+                            </span>
+                            <span>Country Name</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="label-check">
+                            <input class="form-check-input" type="checkbox" checked>
+                            <span class="custom-checkbox-btn i-vNext-fonts">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                                <span class="path3"></span>
+                            </span>
+                            <span>Country Name</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="label-check">
+                            <input class="form-check-input" type="checkbox" checked>
+                            <span class="custom-checkbox-btn i-vNext-fonts">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                                <span class="path3"></span>
+                            </span>
+                            <span>Country Name</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="label-check">
+                            <input class="form-check-input" type="checkbox" checked>
+                            <span class="custom-checkbox-btn i-vNext-fonts">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                                <span class="path3"></span>
+                            </span>
+                            <span>Country Name</span>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="label-check">
+                            <input class="form-check-input" type="checkbox" checked>
+                            <span class="custom-checkbox-btn i-vNext-fonts">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                                <span class="path3"></span>
+                            </span>
+                            <span>Country Name</span>
+                        </label>
+                    </li>
+                </ul> -->
+        </div>
+    </div>     
+
+    <div class="filter-footer">
+        <button class="btn btn-secondary mx-1" attr.action-id="{{dataIdConstantsService.geographyFilter_button_closeButton}}" (click)="close()" id="{{elementIdConstantsService.GeographyFilter_Cancel}}">{{localizationService.getLocalizedString('common.CANCEL')}}</button>
+        <button class="btn btn-primary mx-1" attr.action-id="{{dataIdConstantsService.geographyFilter_button_saveSelectedCountries}}" (click)="saveSelectedCountries()" id="{{elementIdConstantsService.GeographyFilter_Apply}}">{{localizationService.getLocalizedString('common.APPLY')}}</button>
+    </div>
+    <!-- End of Filter Footer -->
+</section>

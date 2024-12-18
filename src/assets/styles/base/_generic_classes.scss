@@ -1,0 +1,443 @@
+
+.down-for-maintenance {
+    text-align: center;
+    margin-top: rem(30);
+    .icon-maintenance {
+        font-size: rem(300);
+        margin-bottom: rem(30);
+        display: inline-block;
+    }
+    h1 {
+        line-height: normal;
+        font-size: rem(36);
+        text-align: center;
+        color: #58585B;
+        font-weight: 100;
+    }
+    h3 {
+        line-height: rem(23);
+        font-size: rem(14);
+        text-align: center;
+        color: #9E9EA2;
+    }
+    h2 {
+        line-height: rem(26);
+        font-size: rem(16);
+        text-align: center;
+        color: #58585B;
+    }
+}
+
+.poweredBy {
+    font-size: rem(18);
+    text-align: right;
+    padding-bottom: 0px;
+    color: #78787d;
+    font-weight: 600;
+    span,
+    img {
+        display: inline-block;
+        padding-right: 5px;
+        vertical-align: top;
+    }
+}
+
+.border-radius-unset {
+    @include border-radius(0);
+}
+
+.border {
+    &--top {
+        border-width: 0;
+        border-top-width: 1px;
+        border-top-color: $border-color;
+        &.solid {
+            border-style: solid;
+        }
+        &.dashed {
+            border-style: dashed;
+        }
+    }
+    &--right {
+        border-width: 0;
+        border-right-width: 1px;
+        border-right-color: $border-color;
+        &.solid {
+            border-right-style: solid;
+        }
+        &.dashed {
+            border-right-style: dashed;
+        }
+    }
+    &--bottom {
+        border-width: 0;
+        border-bottom-width: 1px;
+        border-bottom-color: $border-color;
+        &.solid {
+            border-bottom-style: solid;
+        }
+        &.dashed {
+            border-bottom-style: dashed;
+        }
+    }
+    &--left {
+        border-width: 0;
+        border-left-width: 1px;
+        border-left-color: $border-color;
+        &.solid {
+            border-left-style: solid;
+        }
+        &.dashed {
+            border-left-style: dashed;
+        }
+    }
+    &--all {
+        border: 1px $border-color;
+        &.solid {
+            border-style: solid;
+        }
+        &.dashed {
+            border-style: dashed;
+        }
+    }
+}
+
+.base--border-radius {
+    @include border-radius(10px);
+}
+
+.active--border-left {
+    border-left: $half-spacing solid $link-color;
+}
+
+.fixer-body {
+    overflow: hidden;
+}
+
+.small-text {
+    font-size: rem(13);
+    font-weight: normal;
+}
+
+.normal-text {
+    font-size: rem(15);
+    font-weight: normal;
+}
+
+.flex-center {
+    @include flex-center;
+}
+
+.no-wrap {
+    white-space: nowrap;
+}
+
+.gutter-space {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #D6D6D6;
+}
+
+.white-bg {
+    background-color: $white-color;
+}
+
+.gray-background {
+    background: #F3F3F3;
+}
+
+.full-wide {
+    width: 100% !important;
+}
+
+.height-flyOut {
+    max-height: calc(100vh - 42px);
+}
+
+.flex-grow-1 {
+    flex-grow: 1;
+}
+
+.pos-relative {
+    position: relative;
+}
+
+.mt-10 {
+    margin-top: 10px;
+}
+
+.mt-30 {
+    margin-top: 32px;
+}
+
+.input-validation-error {
+    padding-left: 5px;
+    color: #ff0000;
+    background-color: #ffeeee !important;
+}
+
+.admin-features-grid-list {
+    height: 20vh;
+    overflow-y: auto;
+    clear: both;
+}
+
+.mt-20 {
+    margin-top: 20px;
+}
+
+.pt-10 {
+    padding-top: 10px;
+}
+
+.pt-5 {
+    padding-top: 5px !important;
+}
+.calender-date {
+    background: url('../../images/calender-icon.svg')no-repeat 0px 0px;
+    width: 20px;
+    height: 20px;
+    display: block;
+    position: absolute;
+    right: 3px;
+    top: 15px;
+    cursor: pointer;
+}
+
+.tab-panel input.form-control {
+    text-align: center;
+    width: 11%;
+    background: transparent;
+    border: none;
+    padding: 6px 0 0 0;
+    border-bottom: 1px solid $border-color;
+}
+.right-flyout .right-flyout_content .fullScreenBtn .icon-search{
+    font-size: rem(18);
+}
+.form-control:focus{
+    box-shadow: none !important;
+}
+
+/*  Box Borders width checkboxes  */
+.max-460 {
+    max-width: 460px;
+    .heading--h4 {        
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        color: $primary-text;
+    }
+}
+
+.box {
+    &-bordered {
+        position: relative;
+        background-color: $white-color;
+        border: 1px solid lightgray;
+        display: inline-block;
+        @include border-radius(5px);
+        margin-right: $qtr-spacing;
+        padding: 4px $qtr-spacing;
+        max-width: 210px;
+        vertical-align: middle;
+
+        .label-check{
+            width: 16px;
+            min-height: 16px;
+
+            & + span {
+                font-weight: 600;
+                color: $primary-text;
+            }
+        }
+
+        &.approved-cell-grey {
+            border-color: #4e982f;
+            background: #eaf3e6;
+        }
+
+        &.approved-cell-matched {
+            border-color: #005073;
+            background: #e7f8ff;
+        }
+
+        &.rejected-cell-matched {
+            border-color: #d5941c;
+            background: #f8f2e8;
+        }
+
+        &.disabled-cell {
+            border-color: $border-color;
+            background: $primary-bg;
+        }
+    }
+}
+
+.w-85 {
+    width: 85% !important;
+}
+.guide--check {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+.guide--check li {
+    border: 2px solid #d6d6d6;
+    width: 180px;
+    border-radius: 5px;
+    height: 190px;
+    display: flex;
+    padding-top: 30px;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+    cursor: pointer;
+}
+.guide--check li:hover {
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.4);
+}
+.guide--check li.active:hover{
+    box-shadow: none;
+}
+.guide--check li svg {
+    width: 60px;
+    height: 80px;
+}
+.guide--check .badge {
+    background: #666;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 300 !important;
+    margin-top: 2px;
+}
+.guide--check li + li{
+    margin-left: 15px;
+}
+.guide--check li.active {
+    border-color: #005073;
+    background: rgba(0, 80, 115, 0.1);
+}
+.guide--check li .icon-tick-check{
+    display: none;
+}
+.guide--check li.active .icon-tick-check {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    display: block;
+    font-size: 18px;
+    .path1::before{
+        color: $theme-color;
+    }
+}
+.guide-me .overflow_scroll {
+    padding: 25px;
+    height: calc(100vh - 25px); 
+    overflow: scroll;
+    color: #333;
+    &.hasfooter { height: calc(100vh - 100px); }
+}
+.guide-me.cps-component.open {
+    right: 0;
+}
+.guide-me.cps-component {
+    right: -700px;
+    width: 700px;
+}
+.guide-me .icon-minus , .guide-me .icon-plus {
+    font-size: 16px;
+    margin-right: 7px;
+    vertical-align: middle;
+    cursor: pointer;
+}
+.guide-me-bg{
+    height: calc(100% - 220px);
+    background: url(../../icons/guide-me-bg.svg);
+    background-repeat: no-repeat;
+    background-position: center bottom 20px;
+    background-size: contain;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    padding-top: 30px;
+
+}
+.before-border::before {
+    content: '';
+    width: 180px;
+    height: 1px;
+    display: block;
+    background: #d6d6d6;
+    margin: auto;
+    margin-bottom: 20px;
+}
+.drag-n-drop {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px dashed #999;
+    border-radius: 5px;
+    padding: 50px;
+}
+.drag-n-drop input[type="file"] {
+    width: 80px;
+    margin-left: -80px;
+    opacity: 0;
+}
+.drag-n-drop.active {
+    background: #E7F8FF;
+    border-color: #005073;
+    text-align: center;
+}
+.drag-n-drop .icon-doc1,
+.drag-n-drop .icon-ppt1,
+.drag-n-drop .icon-xls1,
+.drag-n-drop .icon-pdf1 {
+    font-size: 46px;
+}
+.drag-n-drop .my-drop-zone a {
+    display: block;
+    font-size: 13px;
+}
+.drag-n-drop .my-drop-zone {
+    color: #999;
+    font-size: 14px;
+}
+.list-activity {
+    padding: 10px 15px;
+    border-top: 1px solid #d6d6d6;
+}
+.list-activity p{
+    font-size: 14px;
+    color: #333;
+}
+.list-activity .activity-heading{
+    color: #666;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+.list-activity .activity-dp{
+    width: 31px;
+    height: 29px;
+    background: #2D9CDB;
+    font-size: 12px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+.list-activity .badge {
+    background: #f3f3f3;
+    font-size: 11px;
+    line-height: 16px;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}

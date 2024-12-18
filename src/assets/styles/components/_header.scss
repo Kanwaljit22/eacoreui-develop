@@ -1,0 +1,397 @@
+header {
+    background-color: #fff;
+    float: left;
+    width: 100%;
+    padding: 10px 0;
+    position: relative;
+    -webkit-box-shadow: 0px 0px 19px -1px rgba(0, 0, 0, 0.13);
+    -moz-box-shadow: 0px 0px 19px -1px rgba(0, 0, 0, 0.13);
+    box-shadow: 0px 0px 19px -1px rgba(0, 0, 0, 0.13);
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    span {
+        display: inline-block;
+        background: transparent;
+        h2 {
+            font-size: 24px;
+            font-family: 'CiscoSans';
+            color: #333;
+            font-weight: 300;
+            line-height: 1;
+        }
+        h3 {
+            font-size: 14px;
+            font-family: 'CiscoSans';
+            color: #333;
+            padding-bottom: 3px;
+            font-weight: 400;
+        }
+        &.site-logo {
+            float: left;
+            margin-right: 16px;
+        }
+    }
+}
+
+.navbar-nav {
+    .announcement {
+        .icon-announcement {
+            position: relative;
+            top: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .notify {
+            background: #E2231A;
+            border: 2px solid #FFFFFF;
+            color: white;
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            font-size: 13px;
+            border-radius: 100%;
+            padding: 3px 5px 2px;
+            position: absolute;
+            left: -11px;
+            top: -13px;
+            font-weight: 600;
+            line-height: 1;
+        }
+    }
+    &.rightNav {
+        &>li:first-child {
+            margin: 0px 0px;
+            border-right: 0px solid #f2f3f6;
+            padding-right: 0px;
+            /*padding-right: 20px;*/
+            &.announcement {
+                border-right: 1px solid #ccc;
+                padding-right: 15px;
+            }
+        }
+        .dropdown.profile {
+            margin: 5px 0px 0px 15px;
+            a {
+                padding: 0 0 8px 0;
+            }
+        }
+    }
+}
+
+
+/*  Right Side Navigation  */
+
+header nav.navbar .navbar-nav.rightNav>li>a .user-name {
+    color: #333;
+    display: inline-flex;
+    padding: 0;
+    font-size: 16px;
+    line-height: 19px;
+    font-weight: 600;
+    max-width: 350px;
+}
+
+header nav.navbar .navbar-nav.rightNav>li>a:hover .user-name,
+header nav.navbar .navbar-nav.rightNav>li>a:hover .ico-dropdown:before {
+    color: #005073;
+}
+
+header nav.navbar .navbar-nav.rightNav .dropdown a .ico-dropdown {
+    font-size: 10px;
+    margin-left: 15px;
+    margin-top: 4px;
+}
+
+.rightNav .dropdown-menu.profile-links .icon-arrow-up {
+    font-size: 9px;
+    right: 16px;
+    top: -9px;
+    .path2::before {
+        display: none;
+    }
+}
+
+
+header nav.navbar li a span.icon-txt {
+    color: #58585b;
+    display: block;
+    opacity: 1;
+    transition: all 0.5s ease 0s;
+    line-height: 14px;
+    font-size: 11px;
+    letter-spacing: 0.03em;
+}
+
+header nav.navbar li a:hover span.icon-txt {
+    font-family: 'CiscoSans';
+}
+
+.ico-app .path2::before,
+.ico-app .path3::before {
+    color: #005073;
+}
+
+.ico-help .path2::before,
+.ico-help .path3::before {
+    color: #005073;
+}
+
+.ico-app .path2::before,
+.ico-app .path3::before:hover {
+    color: #039CD6;
+}
+
+.ico-help .path2::before,
+.ico-help .path3::before:hover {
+    color: #039CD6;
+}
+
+
+/****** dropdown icon arrow****/
+
+header .navbar-nav.ml-auto.rightNav.text-center .dropdown {
+    position: relative;
+}
+
+
+/*****dropdown styling******/
+
+.navbar-expand-lg .navbar-nav .dropdown-menu {
+    position: absolute;
+    right: -21px;
+}
+
+header nav.navbar .navbar-nav.rightNav>li>a:hover .user-name,
+header nav.navbar .navbar-nav.rightNav>li>a:hover .ico-dropdown:before {
+    color: #005073;
+}
+
+.dropdown-menu.profile-links {
+    width: 200px;
+    left: auto;
+    right: 0;
+    top: 26px;
+}
+
+.dropdown .dropdown-menu {
+    background-color: #fff;
+    margin: 0px;
+    padding: 5px 0 !important;
+    border: 1px solid #005073;
+    box-shadow: 2px 6px 46px -1px rgba(0, 0, 0, 0.10);
+    border-radius: 0px;
+}
+
+.dropdown.apps .dropdown-menu.nine-dots {
+    width: 400px;
+    left: -361px;
+    top: 30px;
+}
+
+.dropdown-menu.nine-dots ul {
+    max-height: 325px;
+}
+
+.dropdown-menu.bookmarks-link {
+    width: 339px;
+    left: -294.5px;
+    font-weight: 300;
+    top: 35px;
+}
+
+.dropdown-menu.help-links {
+    width: 253px;
+    left: -210px;
+    top: 30px;
+}
+
+.dropdown-menu.help-links .dropdown-item {
+    padding: 0;
+    line-height: normal;
+    font-weight: 300;
+}
+
+
+/***/
+
+
+/*  Icons Css  */
+
+header .navbar-nav.rightNav .dropdown .dropdown-menu>li,
+header .navbar-nav.rightNav .dropdown .dropdown-menu>li ul li {
+    transition: all 0.9s ease 0s;
+}
+
+header .navbar-nav.rightNav .dropdown .dropdown-menu>li ul li:hover {
+    background-color: #ececec;
+    display: flex;
+    width: 100%;
+}
+
+header .navbar-nav.rightNav .dropdown.profile .dropdown-menu.profile-links li.dropdown-profile:hover {
+    background-color: transparent !important;
+    color: #212529 !important;
+}
+
+header .navbar-nav.rightNav .dropdown.lastLi {
+    margin-right: 0;
+}
+
+header .navbar-nav.rightNav .dropdown.lastLi .dropdown-menu>li:hover {
+    background-color: #ececec;
+    display: flex;
+    width: 100%;
+}
+
+header .navbar-nav.rightNav .dropdown.apps .dropdown-menu>li .app-img {
+    display: inline-block;
+    margin-right: 15px;
+    vertical-align: top;
+    width: 11%;
+}
+
+header .navbar-nav.rightNav .dropdown.apps .dropdown-menu>li .app-heading {
+    display: inline-block;
+    width: 83%;
+}
+
+
+/*header .navbar-nav.rightNav .dropdown-menu li.active h5 span { color:#005073; }*/
+
+header .navbar-nav.rightNav .dropdown.apps .dropdown-menu>li h5 span {
+    display: inline-block;
+    font-family: "CiscoSans";
+    font-size: 16px;
+    padding: 0;
+    vertical-align: top;
+}
+
+header .navbar-nav.rightNav .dropdown.apps .dropdown-menu>li .app-heading .ico-trending_chart {
+    display: none;
+    font-size: 20px;
+    font-weight: bold;
+    margin: -7px 0 0;
+    vertical-align: middle;
+}
+
+header .navbar-nav.rightNav .dropdown.apps .dropdown-menu>li.active .app-heading .ico-trending_chart {
+    display: inline-block;
+}
+
+header .navbar-nav.rightNav .dropdown.apps .dropdown-menu>li h5 {
+    font-size: 16px;
+}
+
+header .navbar-nav.rightNav .dropdown.apps .dropdown-menu>li p {
+    font-family: "CiscoSans";
+    font-size: 13px;
+}
+
+
+/*  End of Right Side Navigation  */
+
+
+/*  Profile Dropdown width Proxy Addition  */
+
+.dropdown-profile {
+    padding-top: 0 !important;
+}
+
+.dropdown-menu.profile-links li {
+    float: left;
+    width: 100%;
+}
+
+.dropdown-profile span.smallTxt {
+    margin-bottom: 0px;
+}
+
+.proxyUserTitle {
+    color: #58585B;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.userInfoListItem {
+    background-color: #f2f3f6;
+    float: left;
+    width: 100%;
+    background-color: #f2f3f6 !important;
+}
+
+.userInfoListItem:hover {
+    background-color: #f2f3f6 !important;
+}
+
+.userInfoListItem span {
+    float: left;
+    width: 100%;
+    letter-spacing: 0.01em;
+}
+
+.smallTxt,
+.userPost {
+    font-size: 11px;
+    color: #999;
+    float: left;
+    width: 100%;
+}
+
+.username {
+    font-size: 13px;
+    font-weight: 700;
+    color: #049fd9;
+    margin-top: 5px;
+}
+
+
+/*  Profile Dropdown width Proxy Addition  */
+
+.dropdown.profile:hover:not(.main-nav-dropdown) .dropdown-menu,
+.dropdown.main-nav-dropdown .campaign-nav:hover .dropdown-menu {
+    display: block;
+}
+
+opdown-menu,
+.dropdown.main-nav-dropdown .campaign-nav:hover .dropdown-menu {
+    display: block;
+}
+
+.dropdown-menu li {
+    padding: 7px 10px 7px 20px;
+}
+
+/* External Links -- Starts here */
+.dropdown .dropdown-menu.external-links-wrap {
+
+right: -15px;
+min-width: 280px;
+
+h4 {
+margin-top: 15px;
+padding-left: 15px;
+}
+ul {
+overflow: unset;
+max-height: unset;
+li {
+padding-left: 0;
+padding-right: 0;
+a {
+&::after {
+display: none;
+}
+}
+}
+}
+}
+
+.navbar-expand-lg .navbar-nav .dropdown-menu.more-links-3 {
+    min-width: 850px;
+}
+
+.navbar-expand-lg .navbar-nav .dropdown-menu.more-links-4 {
+    min-width: 1090px;
+}
+/* External Links -- Ends here */

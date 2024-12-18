@@ -1,0 +1,246 @@
+<div class="row enrollment-row" [ngClass] = "{'limited-enrollment': 5 > enrollmentData?.length}" *ngIf='enrollmentData?.length'>
+    <div class="col mx-1 py-5px" *ngFor = "let enrollment of enrollmentData">
+        <!-- Add class "active" to show the Active state of Tile and Arrow that points the open Tile grid -->
+        <!--Already Enrolled Block == Add Class "active-enrollment" ||  Already Enrolled but Disabled Block == Add Class "disabled" width "active-enrollment" [In Below "enrollment-block" div]-->
+        <div class="enrollment-block" (click)="displayEnrollment(enrollment)"  attr.action-id="{{dataIdConstantsService.enrollment_action_displayEnrollment}}{{enrollment?.id}}"
+        [ngClass]="{'committed-suite': !enrollment.enrolled && !enrollment.disabled , 
+        'warning-block':getWarningClassStatus(enrollment), 
+        'success-block':getSuccessClassStatus(enrollment), 
+        'danger-block': getDangerClassStatus(enrollment), 
+        'purchased-enrollment': (!enrollment?.changeSubConfig?.noMidTermPurchaseAllowed || enrollment?.notEligibleForUpgrade) && enrollment?.includedInChangeSub && isChangeSubFlow , 
+        'disabled active-enrollment':(enrollment.disabled || (enrollment.locked && !enrollment.includedInSubscription)), 
+        'active': enrollment.enrolled && this.priceEstimateStoreService.selectedEnrollment?.id === enrollment?.id && !priceEstimateStoreService.viewAllSelected && !enrollment?.includedInChangeSub && !isChangeSubFlow,
+        'enable-hover': (enrollment.disabled && (enrollment?.id === 4 || enrollment?.id === 6)) || enrollment.locked,
+        'disabled active-enrollment enable-hover':(((enrollment?.includedInSubscription && (enrollment?.id === 4 || enrollment?.id === 6))  || (!enrollment?.includedInSubscription) ) && isChangeSubFlow && eaService.isUpgradeFlow) || enrollment.forthcoming}">
+            <div class="cursor-pointer"  [ngClass]="{'disabled': proposalStoreService.isReadOnly || priceEstimateStoreService.enableRecalculateAll}">
+            <div class="head d-flex">
+                <!-- <span class="icon-wrap">
+                    <span class="" [ngClass]="{'i-vNext-Networking--Cloud1': enrollment?.id === 1, 'i-vNext-applications': enrollment?.id === 2, 'i-vNext-collaboration': enrollment?.id === 4, 'i-vNext-security': enrollment?.id === 3 , 'i-vNext-services': enrollment.name === 'Services'}"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span><span class="path8"></span><span class="path9"></span><span class="path10"></span><span class="path11"></span><span class="path12"></span></span>
+                </span> -->
+<!-- 
+                <h5 *ngIf ="enrollment?.forthcoming else spnaEnrollment" class="heading--h5 d-flex justify-content-between align-items-center w-100">Coming soon <div></div>
+                </h5> -->
+
+                <!-- <ng-template #spnaEnrollment> -->
+                <h5 class="heading--h5 d-flex justify-content-between align-items-center w-100" [ngClass]="{'disabled': ((enrollment?.id === 4 || enrollment?.id === 6) && isChangeSubFlow)}">{{enrollment.name}}
+                    <div class="" *ngIf="!proposalStoreService.isReadOnly; else disableAdd">
+                        
+                        <ng-container *ngIf="enrollment?.includedInChangeSub && isChangeSubFlow">
+                            <button class="btn btn-primary btn-green sm" attr.action-id="{{dataIdConstantsService.enrollment_button_purchased}}{{enrollment?.id}}">{{'common.PURCHASED' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                        </ng-container>
+                        <ng-container *ngIf="!enrollment?.includedInChangeSub">
+                            <button (click)='selectEnrollment(enrollment); $event.stopPropagation()' attr.action-id="{{dataIdConstantsService.enrollment_button_added}}{{enrollment?.id}}" class="btn btn-primary sm active" *ngIf='enrollment.enrolled && !enrollment.disabled && !enrollment.forthcoming' [disabled]="(enrollment?.id === 4 || enrollment?.id === 6) && enrollment?.migration"><span class="toggle-text">{{'price-estimation.enrollment.ADDED' | localizationPipe : localizationService.localizedkeySet.size}}</span></button>
+                            <button (click)='selectEnrollment(enrollment); $event.stopPropagation()' attr.action-id="{{dataIdConstantsService.enrollment_button_add}}{{enrollment?.id}}" class="btn btn-primary sm" *ngIf='!enrollment.enrolled && !enrollment.disabled && !enrollment.locked && !enrollment.forthcoming' [disabled]="((enrollment?.id === 4 || enrollment?.id === 6) && (enrollment?.migration || isChangeSubFlow)) || (isChangeSubFlow && eaService.isUpgradeFlow)">{{'common.ADD' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                            <p *ngIf="enrollment.disabled && !enrollment.isHybridSelected && !enrollment.forthcoming" attr.action-id="{{dataIdConstantsService.enrollment_button_alreadyPurchased}}{{enrollment?.id}}" class="font-italic ml-2 text-right">{{'common.ALREADY_PURCHASED' | localizationPipe : localizationService.localizedkeySet.size}}</p>
+                            <button  attr.action-id="{{dataIdConstantsService.enrollment_coming_soon}}{{enrollment?.id}}" class="btn btn-primary sm disabled" *ngIf='enrollment.forthcoming' >{{'common.COMING_SOON' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                    </ng-container>
+                    </div> 
+                    <ng-template #disableAdd>
+                        <div class="disabled">
+                            <ng-container *ngIf="enrollment?.includedInChangeSub && isChangeSubFlow">
+                                <button class="btn btn-primary btn-green sm" [ngClass]="{'disabled': enrollment?.id === 4}">{{'common.PURCHASED' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                            </ng-container>
+                            <ng-container *ngIf="!enrollment?.includedInChangeSub">
+                                <button class="btn btn-primary sm active" *ngIf='enrollment.enrolled && !enrollment.disabled'><span class="toggle-text">{{'price-estimation.enrollment.ADDED' | localizationPipe : localizationService.localizedkeySet.size}}</span> </button>
+                            <button class="btn btn-primary sm" *ngIf='!enrollment.enrolled && !enrollment.disabled'>{{'common.ADD' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                            <p *ngIf="enrollment.disabled && !enrollment.isHybridSelected" class="font-italic ml-2 text-right">{{'common.ALREADY_PURCHASED' | localizationPipe : localizationService.localizedkeySet.size}}</p>
+                            </ng-container>
+                        </div>
+                    </ng-template>
+                    
+                    <!--Start Disti flow for sept release-->
+                        <!-- <span *ngIf="enrollment.priceInfo?.totalNetToDisplay" class="no-wrap">
+                            <span class="enrollmentValue">{{ (!enrollment.priceInfo.totalNetToDisplay || eaService.isResellerLoggedIn) ? '--' : utilitiesService.formatValue(utilitiesService.getFloatValue(enrollment.priceInfo.totalNetToDisplay))}} </span><span class="currencyCode"> {{proposalStoreService.proposalData.currencyCode}}</span>
+                        </span> -->
+                    <!--End Disti flow for sept release-->
+                </h5>
+                <!-- </ng-template> -->
+            </div>
+            <div class="h-24">
+                <span *ngIf="enrollment.priceInfo?.totalNetToDisplay" class="no-wrap">
+                    <span class="enrollmentValue">{{ (!enrollment.priceInfo.totalNetToDisplay || eaService.isResellerLoggedIn) ? '--' : utilitiesService.formatValue(utilitiesService.getFloatValue(enrollment.priceInfo.totalNetToDisplay))}} </span><span class="currencyCode"> {{proposalStoreService.proposalData.currencyCode}}</span>
+                </span>
+            </div>
+            <!-- End of Title -->
+
+            <ng-template #tipFCContent>
+                {{'common.FULL_COMMIT' | localizationPipe : localizationService.localizedkeySet.size}}
+            </ng-template>
+            <ng-template #tipPCContent>
+                {{'common.PARTIAL_COMMIT' | localizationPipe : localizationService.localizedkeySet.size}}
+            </ng-template>
+            <div class="body">
+                <div class="d-flex justify-content-between mt-2 align-items-center">
+                    <div class="d-flex">
+                        <div class="committed-suite position-relative">
+                            <span class="d-flex align-items-center" attr.data-id="{{dataIdConstantsService.enrollment_icon_full}}{{enrollment?.id}}" #tooltip="ngbTooltip" [ngbTooltip]="tipFCContent" placement='top' *ngIf='!enrollment.disabled && !enrollment.locked'><span class="i-vNext-Full-1"><span class="path1"></span><span class="path2"></span></span>{{enrollment.commitInfo.fcSuiteCount}}</span>
+                        </div>
+                        <div class="committed-suite position-relative">
+                            <span class="d-flex align-items-center" attr.data-id="{{dataIdConstantsService.enrollment_icon_partial}}{{enrollment?.id}}" #tooltip="ngbTooltip" [ngbTooltip]="tipPCContent" placement='top' *ngIf='!enrollment.disabled && !enrollment.locked'><span class="i-vNext-partially-commited" *ngIf="!enrollment.disabled"></span>{{enrollment.commitInfo.pcSuiteCount}} </span>
+                        </div>
+                        <ng-template #disableEnroll>
+                            <span *ngIf="proposalStoreService.proposalData.scopeInfo && proposalStoreService.proposalData.scopeInfo?.returningCustomer && !proposalStoreService.proposalData.scopeInfo?.newEaidCreated && enrollment?.id === 6; else disableEnrollNotReturningCustomer">{{'price-estimation.HYBRID_DISABLE_RETURNING_CUSTOMER_TOOLTIP_MSG' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                            <ng-template #disableEnrollNotReturningCustomer>
+                                <span *ngIf="enrollment?.id === 6">{{'price-estimation.HYBRID_DISABLE_TOOLTIP_MSG' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                                <span *ngIf="enrollment?.id === 4">
+                                    {{'price-estimation.COLLAB_DISABLE_TOOLTIP_MSG' | localizationPipe : localizationService.localizedkeySet.size}}
+                                </span>
+                            </ng-template>
+                        </ng-template>
+                        <ng-template #disableEnrollForMigration>
+                            <span *ngIf="proposalStoreService.proposalData.scopeInfo && proposalStoreService.proposalData.scopeInfo?.returningCustomer && !proposalStoreService.proposalData.scopeInfo?.newEaidCreated; else notReturningCustomer">{{'price-estimation.HYBRID_DISABLE_RETURNING_CUSTOMER_TOOLTIP_MSG' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                            <ng-template #notReturningCustomer>
+                                <span>
+                                    {{'price-estimation.HYBRID_DISABLE_MIGRATION_TOOLTIP_MSG' | localizationPipe : localizationService.localizedkeySet.size}}
+                                </span>
+                            </ng-template>
+                        </ng-template>
+                        <ng-template #disableEnrollChangeSubUpgrade>
+                            <span>
+                                {{'common.CHNAGE_SUB_UPGRADE_NEW_PURCHASE_NOT_ALLOWED' | localizationPipe : localizationService.localizedkeySet.size}}
+                            </span>
+                        </ng-template>
+                        <ng-template #disableChangeSubUpgradeForCollab>
+                            <span>
+                                {{'price-estimation.CHNAGE_SUB_UPGRADE_NOT_APPLICABLE' | localizationPipe : localizationService.localizedkeySet.size}}
+                            </span>
+                        </ng-template>
+                        <div *ngIf="!enrollment?.includedInSubscription && isChangeSubFlow && eaService.isUpgradeFlow" #tooltip="ngbTooltip" [ngbTooltip]="(enrollment.disabled && enrollment?.includedInEAID) ? disableChangeSubUpgradeForCollab : disableEnrollChangeSubUpgrade" placement='top' container="body" style="height: 20px">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M17.2698 4.00955C17.0622 3.7717 16.8419 3.54525 16.6098 3.33122C15.2687 2.09078 13.5951 1.26819 11.7938 0.964103C9.99251 0.660013 8.14166 0.887624 6.4677 1.61907C4.79374 2.35051 3.36931 3.55407 2.36872 5.08246C1.36813 6.61085 0.834819 8.39777 0.833984 10.2246C0.838751 12.4668 1.64133 14.6342 3.09812 16.3387C3.30332 16.5758 3.52057 16.8022 3.74898 17.0171C5.49578 18.7102 7.83167 19.6591 10.2644 19.6637C12.6971 19.6682 15.0366 18.7281 16.7898 17.0415C18.5429 15.355 19.5728 13.0536 19.6624 10.6225C19.7519 8.19144 18.8941 5.82056 17.2698 4.00955ZM15.5007 4.11039L3.92315 15.2479C2.7752 13.8262 2.15344 12.0518 2.16311 10.2246C2.16546 8.68045 2.61048 7.16939 3.44534 5.87044C4.28021 4.5715 5.46996 3.53911 6.87361 2.89565C8.27726 2.2522 9.83594 2.02464 11.365 2.23993C12.894 2.45523 14.3293 3.10435 15.5007 4.11039V4.11039ZM18.3056 10.2246C18.3065 11.7814 17.8568 13.3053 17.0108 14.6123C16.1648 15.9193 14.9587 16.9536 13.538 17.5903C12.1172 18.227 10.5426 18.439 9.00403 18.2006C7.46549 17.9623 6.02878 17.2838 4.86728 16.2471L16.509 5.08205C17.6939 6.52693 18.3417 8.33762 18.3423 10.2062L18.3056 10.2246Z" fill="#DD3633"/>
+                                </svg>
+                        </div>
+                        <div *ngIf="(enrollment.id === 4 || enrollment.id === 6 || enrollment?.notEligibleForUpgrade) && enrollment?.includedInSubscription && isChangeSubFlow && eaService.isUpgradeFlow" #tooltip="ngbTooltip" [ngbTooltip]="disableChangeSubUpgradeForCollab" placement='top' container="body" style="height: 20px">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M17.2698 4.00955C17.0622 3.7717 16.8419 3.54525 16.6098 3.33122C15.2687 2.09078 13.5951 1.26819 11.7938 0.964103C9.99251 0.660013 8.14166 0.887624 6.4677 1.61907C4.79374 2.35051 3.36931 3.55407 2.36872 5.08246C1.36813 6.61085 0.834819 8.39777 0.833984 10.2246C0.838751 12.4668 1.64133 14.6342 3.09812 16.3387C3.30332 16.5758 3.52057 16.8022 3.74898 17.0171C5.49578 18.7102 7.83167 19.6591 10.2644 19.6637C12.6971 19.6682 15.0366 18.7281 16.7898 17.0415C18.5429 15.355 19.5728 13.0536 19.6624 10.6225C19.7519 8.19144 18.8941 5.82056 17.2698 4.00955ZM15.5007 4.11039L3.92315 15.2479C2.7752 13.8262 2.15344 12.0518 2.16311 10.2246C2.16546 8.68045 2.61048 7.16939 3.44534 5.87044C4.28021 4.5715 5.46996 3.53911 6.87361 2.89565C8.27726 2.2522 9.83594 2.02464 11.365 2.23993C12.894 2.45523 14.3293 3.10435 15.5007 4.11039V4.11039ZM18.3056 10.2246C18.3065 11.7814 17.8568 13.3053 17.0108 14.6123C16.1648 15.9193 14.9587 16.9536 13.538 17.5903C12.1172 18.227 10.5426 18.439 9.00403 18.2006C7.46549 17.9623 6.02878 17.2838 4.86728 16.2471L16.509 5.08205C17.6939 6.52693 18.3417 8.33762 18.3423 10.2062L18.3056 10.2246Z" fill="#DD3633"/>
+                                </svg>
+                        </div>
+                        <div *ngIf=" enrollment.disabled && (enrollment.id === 4 || enrollment.id === 6) && !enrollment?.includedInEAID && !isChangeSubFlow" #tooltip="ngbTooltip" [ngbTooltip]="(priceEstimateStoreService?.hasBfRelatedMigratedAtoForHybrid && enrollment.id === 6) ? disableEnrollForMigration : disableEnroll" placement='top' container="body" style="height: 20px">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M17.2698 4.00955C17.0622 3.7717 16.8419 3.54525 16.6098 3.33122C15.2687 2.09078 13.5951 1.26819 11.7938 0.964103C9.99251 0.660013 8.14166 0.887624 6.4677 1.61907C4.79374 2.35051 3.36931 3.55407 2.36872 5.08246C1.36813 6.61085 0.834819 8.39777 0.833984 10.2246C0.838751 12.4668 1.64133 14.6342 3.09812 16.3387C3.30332 16.5758 3.52057 16.8022 3.74898 17.0171C5.49578 18.7102 7.83167 19.6591 10.2644 19.6637C12.6971 19.6682 15.0366 18.7281 16.7898 17.0415C18.5429 15.355 19.5728 13.0536 19.6624 10.6225C19.7519 8.19144 18.8941 5.82056 17.2698 4.00955ZM15.5007 4.11039L3.92315 15.2479C2.7752 13.8262 2.15344 12.0518 2.16311 10.2246C2.16546 8.68045 2.61048 7.16939 3.44534 5.87044C4.28021 4.5715 5.46996 3.53911 6.87361 2.89565C8.27726 2.2522 9.83594 2.02464 11.365 2.23993C12.894 2.45523 14.3293 3.10435 15.5007 4.11039V4.11039ZM18.3056 10.2246C18.3065 11.7814 17.8568 13.3053 17.0108 14.6123C16.1648 15.9193 14.9587 16.9536 13.538 17.5903C12.1172 18.227 10.5426 18.439 9.00403 18.2006C7.46549 17.9623 6.02878 17.2838 4.86728 16.2471L16.509 5.08205C17.6939 6.52693 18.3417 8.33762 18.3423 10.2062L18.3056 10.2246Z" fill="#DD3633"/>
+                                </svg>
+                                
+                        </div>
+                        <ng-template #disableEnrollForChangeSub>
+                            <span *ngIf="enrollment?.id === 6">{{'common.NO_MID_TERM_PURCHASE_HYBRID' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                            <span *ngIf="enrollment?.id === 4">{{'common.NO_MID_TERM_PURCHASE' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                        </ng-template>
+                        <div *ngIf=" (enrollment.id === 4 || enrollment.id === 6) && !enrollment?.includedInEAID && isChangeSubFlow && !enrollment.locked && !eaService.isUpgradeFlow" style="height: 20px;"  #tooltip="ngbTooltip" [ngbTooltip]="disableEnrollForChangeSub" placement='top' container="body">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M17.2698 4.00955C17.0622 3.7717 16.8419 3.54525 16.6098 3.33122C15.2687 2.09078 13.5951 1.26819 11.7938 0.964103C9.99251 0.660013 8.14166 0.887624 6.4677 1.61907C4.79374 2.35051 3.36931 3.55407 2.36872 5.08246C1.36813 6.61085 0.834819 8.39777 0.833984 10.2246C0.838751 12.4668 1.64133 14.6342 3.09812 16.3387C3.30332 16.5758 3.52057 16.8022 3.74898 17.0171C5.49578 18.7102 7.83167 19.6591 10.2644 19.6637C12.6971 19.6682 15.0366 18.7281 16.7898 17.0415C18.5429 15.355 19.5728 13.0536 19.6624 10.6225C19.7519 8.19144 18.8941 5.82056 17.2698 4.00955ZM15.5007 4.11039L3.92315 15.2479C2.7752 13.8262 2.15344 12.0518 2.16311 10.2246C2.16546 8.68045 2.61048 7.16939 3.44534 5.87044C4.28021 4.5715 5.46996 3.53911 6.87361 2.89565C8.27726 2.2522 9.83594 2.02464 11.365 2.23993C12.894 2.45523 14.3293 3.10435 15.5007 4.11039V4.11039ZM18.3056 10.2246C18.3065 11.7814 17.8568 13.3053 17.0108 14.6123C16.1648 15.9193 14.9587 16.9536 13.538 17.5903C12.1172 18.227 10.5426 18.439 9.00403 18.2006C7.46549 17.9623 6.02878 17.2838 4.86728 16.2471L16.509 5.08205C17.6939 6.52693 18.3417 8.33762 18.3423 10.2062L18.3056 10.2246Z" fill="#DD3633"/>
+                                </svg>
+                        </div>
+                        
+                        <div *ngIf="!enrollment.includedInSubscription && enrollment.locked && !proposalStoreService.proposalData?.dealInfo?.subscriptionUpgradeDeal" style="height: 20px;"  class="changesub-disable">
+
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M17.2698 4.00955C17.0622 3.7717 16.8419 3.54525 16.6098 3.33122C15.2687 2.09078 13.5951 1.26819 11.7938 0.964103C9.99251 0.660013 8.14166 0.887624 6.4677 1.61907C4.79374 2.35051 3.36931 3.55407 2.36872 5.08246C1.36813 6.61085 0.834819 8.39777 0.833984 10.2246C0.838751 12.4668 1.64133 14.6342 3.09812 16.3387C3.30332 16.5758 3.52057 16.8022 3.74898 17.0171C5.49578 18.7102 7.83167 19.6591 10.2644 19.6637C12.6971 19.6682 15.0366 18.7281 16.7898 17.0415C18.5429 15.355 19.5728 13.0536 19.6624 10.6225C19.7519 8.19144 18.8941 5.82056 17.2698 4.00955ZM15.5007 4.11039L3.92315 15.2479C2.7752 13.8262 2.15344 12.0518 2.16311 10.2246C2.16546 8.68045 2.61048 7.16939 3.44534 5.87044C4.28021 4.5715 5.46996 3.53911 6.87361 2.89565C8.27726 2.2522 9.83594 2.02464 11.365 2.23993C12.894 2.45523 14.3293 3.10435 15.5007 4.11039V4.11039ZM18.3056 10.2246C18.3065 11.7814 17.8568 13.3053 17.0108 14.6123C16.1648 15.9193 14.9587 16.9536 13.538 17.5903C12.1172 18.227 10.5426 18.439 9.00403 18.2006C7.46549 17.9623 6.02878 17.2838 4.86728 16.2471L16.509 5.08205C17.6939 6.52693 18.3417 8.33762 18.3423 10.2062L18.3056 10.2246Z" fill="#DD3633"/>
+                                </svg>
+                                <!-- <button class="btn btn-primary btn-green sm" (click)="goToDocCenter()">Doc Center</button>  -->
+                                <div class="tooltip bs-tooltip-top">
+                            <div class="arrow"></div>
+                            <div class="tooltip-inner">
+                                <span class="d-block mb-1"><b>Portfolio unavailable</b></span>
+                                <span class="d-block mb-2">Customer consent required to purchase this portfolio because one or more
+                                    suites were already sold by another partner <span *ngIf="enrollment.locked && enrollment.prePurchaseInfo">
+                                        ({{enrollment.prePurchaseInfo?.begeoName | titlecase}})
+                                    </span>.</span>
+                                <span class="d-block">Visit the <a href="javascript:void();" (click)="goToDocCenter()" attr.action-id="{{dataIdConstantsService.enrollment_link_goToDocCenter}}{{enrollment?.id}}">Document Center</a> to upload or initiate e-signature for Multiple
+                                    Partner Consent.</span>
+                            </div>
+                        </div> 
+                        </div>
+                        <span class="icon-msg-error" style="font-size: 14px; margin-top: 0.15rem !important;" *ngIf="enrollment?.hasError && enrollment.enrolled && !enrollment.disabled"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                        <div style="border-left: 1px solid #e4e4e4; padding-left: 5px;" *ngIf='enrollment.cxAttached && (enrollment.enrolled || (!enrollment.enrolled && enrollment?.includedInChangeSub))'>
+                            <span class="d-flex align-items-center" style="font-size: 18px;" ngbTooltip="{{'price-estimation.SERVICES_ARE_ATTACHED' | localizationPipe : localizationService.localizedkeySet.size}}" placement="top">
+                                <span class="i-vNext-cx"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></span>
+                        </span>
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+            </div>
+            </div>
+            <!-- End of Body -->
+
+            <div class="footer" [class.open]="enrollment.detailInfo">
+                <!-- <div *ngIf="enrollment.locked && enrollment.prePurchaseInfo" class="por-details">
+                    <span class="startEnd-date">{{'price-estimation.enrollment.PARTNER_OF_RECORD' | localizationPipe : localizationService.localizedkeySet.size}} : <span><b>{{enrollment.prePurchaseInfo?.begeoName}}</b></span>
+                    </span>
+                </div> -->
+                <div class="d-flex justify-content-between align-items-center" *ngIf="!enrollment.disabled">
+                    <div *ngIf  = "enrollment?.id !== 5">
+                        <!-- <span class="icon-wrap"><span class="i-vNext-calendar"></span></span> -->
+                        <span class="startEnd-date">{{'price-estimation.enrollment.BILLING_MODEL' | localizationPipe : localizationService.localizedkeySet.size}} <span><b>{{ (enrollment.enrolled  || enrollment?.includedInChangeSub) ? enrollment.billingTerm.billingModelName : '--'}}</b></span>
+                        </span>
+                    </div>
+                    <div *ngIf  = "enrollment?.id === 5">
+                        <span class="icon-wrap"><span class="i-vNext-calendar"></span></span>
+                        <span class="startEnd-date">{{'price-estimation.enrollment.VIEW/EDIT_REQUESTED_START_DATE' | localizationPipe : localizationService.localizedkeySet.size}} <span></span>
+                        </span>
+                    </div>
+                    <div class="">
+                        <a href="javascript:void(0);" class="mr-2 disabled" *ngIf="proposalStoreService.isReadOnly || priceEstimateStoreService.enableRecalculateAll || (!enrollment.enrolled && !enrollment?.includedInChangeSub); else enableEditPortfolio"><span class="i-vNext-edit-filled disabled"></span></a>
+                        <ng-template #enableEditPortfolio>
+                            <a href="javascript:void(0);" class="mr-2" (click)="openEditEnrollment(enrollment)" attr.action-id="{{dataIdConstantsService.enrollment_link_editEnrollment}}{{enrollment?.id}}"><span class="i-vNext-edit-filled"></span></a>
+                        </ng-template>
+                        <span class="border--left solid">
+                            <a href="javascript:void(0);" class="ml-2" (click)="showDetails(enrollmentData)" attr.action-id="{{dataIdConstantsService.enrollment_link_showDetails}}{{enrollment?.id}}"><span class="i-vNext-arrow-down-heavy  "></span></a>
+                        </span>
+                    </div>
+                </div>
+                <div class="footer-dropdown" *ngIf="!enrollment.disabled">
+                    <div class="d-flex mb-2">{{'price-estimation.enrollment.REQUESTED_START_DATE' | localizationPipe : localizationService.localizedkeySet.size}} <span class="bold-txt ml-1">{{ (enrollment.enrolled || enrollment?.includedInChangeSub)? utilitiesService.formateDate(enrollment.billingTerm.rsd) : '--'}}</span></div>
+                    <div class="d-flex mb-2">{{'price-estimation.enrollment.DURATION' | localizationPipe : localizationService.localizedkeySet.size}} <span class="bold-txt ml-1" *ngIf="enrollment.enrolled || enrollment?.includedInChangeSub; else notEnrolled">{{utilitiesService.formatValue(utilitiesService.getFloatValue(enrollment.billingTerm.term))}} Months</span> 
+                        <ng-template #notEnrolled>
+                           <span class="bold-txt ml-1"> -- </span>
+                        </ng-template>
+                    </div>
+                    <div class="d-flex mb-2">{{'common.CAPITAL_FINANCING_FREQUENCY' | localizationPipe : localizationService.localizedkeySet.size}}: <span class="bold-txt ml-1" *ngIf="enrollment?.enrolled || enrollment?.includedInChangeSub; else notEnrolledCapital">{{ enrollment.billingTerm?.capitalFrequencyName  ? enrollment.billingTerm.capitalFrequencyName : '--'}}</span>
+                        <ng-template #notEnrolledCapital>
+                            <span class="bold-txt ml-1"> -- </span>
+                         </ng-template>
+                    </div>
+                </div>
+            </div>
+            <span class="enrollment-arrow"></span>
+        </div>
+    </div>    
+    <!-- End of Enrollment Block -- 5 -->
+
+    <!-- :::::::::::::::: Blank Skeleton Enrollment ::::::::::::::::::::: -->
+    <!--div class="col py-5px">
+        <div class="enrollment-block blank-enrollment">
+            <div class="head d-flex">
+                <span class="icon-wrap"><span class="skeleton"></span></span>
+                <h5 class="heading--h5"><span class="skeleton"></span></h5>
+            </div>
+            <div class="body">
+                <div class="d-flex justify-content-between mt-2 align-items-center">
+                    <div class="d-flex">
+                        <div class="committed-suite"><span class="skeleton"></span></div>
+                        <div class="committed-suite"><span class="skeleton"></span></div>
+                    </div>
+                    <div class="" >
+                        <button class="btn btn-primary sm skeleton"></button>
+                    </div>
+                </div>
+            </div>
+            <div class="footer">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex">
+                        <span class="icon-wrap"><span class="skeleton"></span></span>
+                        <span class="startEnd-date"><span class="skeleton"></span></span>
+                    </div>
+                    <div class="d-flex">
+                        <a href="javascript:void(0);" class="mr-2"><span class="skeleton"></span></a>
+                        <span class="border--left solid">
+                            <a href="javascript:void(0);" class="ml-2"><span class="skeleton"></span></a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div-->
+</div>

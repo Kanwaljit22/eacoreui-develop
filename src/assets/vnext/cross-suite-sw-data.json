@@ -1,0 +1,795 @@
+{
+    "rid": "EAMP1715969512052",
+    "user": "rbinwani",
+    "error": false,
+    "data": {
+      "enrollments": [
+        {
+          "id": 3,
+          "name": "Security",
+          "primary": false,
+          "enrolled": true,
+          "displayQnA": true,
+          "displaySeq": 4,
+          "billingTerm": {
+            "rsd": "20240517",
+            "billingModel": "Prepaid",
+            "billingModelName": "Prepaid Term",
+            "term": 35.9677419354839,
+            "coterm": {
+              "endDate": "20270515",
+              "subRefId": "SR201815",
+              "billDayInMonth": -1
+            },
+            "eaEndDateStr": "20270416",
+            "eaEndDate": 1807858800000
+          },
+          "commitInfo": {
+            "committed": true,
+            "fcSuiteCount": 0,
+            "pcSuiteCount": 0
+          },
+          "pools": [
+            {
+              "name": "Security Platform and Response",
+              "desc": "Security Platform and Response",
+              "displaySeq": 8365,
+              "display": true,
+              "suites": [
+                {
+                  "eligibleForMigration": true,
+                  "eligibleForUpgrade": true,
+                  "name": "Secure Endpoint",
+                  "desc": "Secure Endpoint",
+                  "ato": "E3-SEC-EP-PRM",
+                  "autoSelected": false,
+                  "displaySeq": 8050,
+                  "tiers": [
+                    {
+                      "name": "E3-SEC-EP-PRM-EDU",
+                      "desc": "Secure Endpoints Premier - Education",
+                      "cxOptIn": false,
+                      "educationInstituteOnly": true,
+                      "displaySeq": 8050
+                    }
+                  ],
+                  "displayGroup": true,
+                  "disabled": true,
+                  "notAllowedHybridRelated": false,
+                  "hasBfRelatedMigratedAto": false,
+                  "active": true,
+                  "cxOptIn": false,
+                  "displayDiscount": false,
+                  "includedInEAID": true,
+                  "includedInSubscription": true,
+                  
+                  "lowerTierAto": {
+                    "name": "E3-SEC-EP-PRM",
+                    "desc": "Premier"
+                  },
+                  "incompatibleAtos": [
+                    "E3-SEC-EP-ADV",
+                    "E3-SEC-EP-ADV-EDU",
+                    "E3-SEC-EP-PRM-EDU",
+                    "E3-SEC-EP-PRM",
+                    "E3-SEC-EP-ESS-EDU"
+                  ],
+                  "incompatibleSuites": [
+                    "User & Breach Protection (Combination)",
+                    "Breach Protection",
+                    "User Protection"
+                  ]
+                },
+                {
+                  "eligibleForMigration": true,
+                  "eligibleForUpgrade": false,
+                  "name": "Secure Network & Cloud Analytics",
+                  "desc": "Secure Network & Cloud Analytics",
+                  "ato": "E3-SEC-NWCLDA",
+                  "autoSelected": true,
+                  "displaySeq": 8350,
+                  "tiers": [],
+                  "displayGroup": true,
+                  "disabled": false,
+                  "active": true,
+                  "cxOptIn": false,
+                  "displayDiscount": false,
+                  "includedInEAID": false
+                  
+                },
+                {"eligibleForMigration": true,
+                "eligibleForUpgrade": true,
+                  "name": "Cisco XDR",
+                  "desc": "Cisco XDR",
+                  "ato": "E3-SEC-XDR-E",
+                  "autoSelected": false,
+                  "displaySeq": 8320,
+                  "tiers": [
+                    {
+                      "name": "E3-SEC-XDR-P",
+                      "desc": "Premier",
+                      "cxOptIn": false,
+                      "displaySeq": 8320
+                    },
+                    {
+                      "name": "E3-SEC-XDR-A",
+                      "desc": "Advantage",
+                      "cxOptIn": false,
+                      "displaySeq": 8210
+                    }
+                  ],
+                  "displayGroup": true,
+                  "disabled": true,
+                  "active": true,
+                  "cxOptIn": false,
+                  "displayDiscount": false,
+                  "includedInEAID": true,
+                  "includedInSubscription": true,
+                  
+                  "lowerTierAto": {
+                    "name": "E3-SEC-XDR-E",
+                    "desc": "Essentials"
+                  },
+                  "incompatibleAtos": [
+                    "E3-SEC-XDR-P",
+                    "E3-SEC-XDR-A"
+                  ],
+                  "incompatibleSuites": [
+                    "User & Breach Protection (Combination)",
+                    "Breach Protection",
+                    "User Protection"
+                  ]
+                },
+                {"eligibleForMigration": true,
+                "eligibleForUpgrade": false,
+                  "name": "Cisco Vulnerability Management",
+                  "desc": "Cisco Vulnerability Management",
+                  "ato": "E3-SEC-KENNA",
+                  "autoSelected": false,
+                  "displaySeq": 8365,
+                  "tiers": [],
+                  "displayGroup": true,
+                  "disabled": false,
+                  "active": true,
+                  "cxOptIn": false,
+                  "displayDiscount": false,
+                  "includedInEAID": false,
+                  
+                  "incompatibleAtos": [
+                    "E3-SEC-KENNA-PRE"
+                  ],
+                  "incompatibleSuites": [
+                    "Cloud Protection"
+                  ]
+                },
+                {"eligibleForMigration": true,
+                "eligibleForUpgrade": true,
+                  "name": "Secure Email",
+                  "desc": "Secure Email",
+                  "ato": "E3-SEC-ES-ESS",
+                  "autoSelected": true,
+                  "displaySeq": 4910,
+                  "tiers": [
+                    {
+                      "name": "E3-SEC-ES-ADV",
+                      "desc": "Advantage",
+                      "cxOptIn": false,
+                      "displaySeq": 4910
+                    }
+                  ],
+                  "displayGroup": true,
+                  "disabled": true,
+                  "active": true,
+                  "cxOptIn": false,
+                  "displayDiscount": false,
+                  "includedInEAID": true,
+                  "includedInSubscription": true,
+                  
+                  "lowerTierAto": {
+                    "name": "E3-SEC-ES-ESS",
+                    "desc": "Essentials"
+                  },
+                  "incompatibleAtos": [
+                    "E3-SEC-ES-ESS"
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Zero Trust",
+              "desc": "Zero Trust",
+              "displaySeq": 4300,
+              "display": true,
+              "suites": [
+                {"eligibleForMigration": true,
+                "eligibleForUpgrade": true,
+                  "name": "Duo",
+                  "desc": "Duo",
+                  "ato": "E3-SEC-DUO-ESS",
+                  "inclusion": true,
+                  "autoSelected": false,
+                  "displaySeq": 4295,
+                  "billingTerm": {
+                    "rsd": "20240517",
+                    "billingModel": "Prepaid",
+                    "term": 35.9677419354839,
+                    "coterm": {
+                      "endDate": "20270515",
+                      "subRefId": "SR201815",
+                      "billDayInMonth": -1
+                    },
+                    "eaEndDateStr": "20270416",
+                    "eaEndDate": 1807858800000
+                  },
+                  "qtyUnit": "User",
+                  "commitInfo": {
+                    "committed": true,
+                    "fcSuiteCount": 0,
+                    "pcSuiteCount": 0,
+                    "overrideRequested": false,
+                    "overrideEligible": false,
+                    "overrideAllowed": false
+                  },
+                  "groups": [
+                    {
+                      "id": "Duo Subaccount",
+                      "name": "Duo Subaccount",
+                      "displaySeq": 2
+                    },
+                    {
+                      "id": "Support Options",
+                      "name": "Support Options",
+                      "displaySeq": 3
+                    },
+                    {
+                      "id": "Duo",
+                      "name": "Duo",
+                      "displaySeq": 1
+                    }
+                  ],
+                  "tiers": [
+                    {
+                      "name": "E3-SEC-DUO-ADV",
+                      "desc": "Advantage",
+                      "cxOptIn": false,
+                      "displaySeq": 4235
+                    },
+                    {
+                      "name": "E3-SEC-DUO-PRE",
+                      "desc": "Premier",
+                      "cxOptIn": false,
+                      "displaySeq": 4240
+                    }
+                  ],
+                  "displayGroup": true,
+                  "disabled": false,
+                  "notAllowedHybridRelated": false,
+                  "hasBfRelatedMigratedAto": false,
+                  "active": true,
+                  "cxOptIn": false,
+                  "migration": false,
+                  "displayDiscount": true,
+                  "includedInEAID": true,
+                  "includedInSubscription": true,
+                  "qualifiesForHigherScuRange": false,
+                  
+                  "lowerTierAto": {
+                    "name": "E3-SEC-DUO-ESS",
+                    "desc": "Essentials"
+                  },
+                  "incompatibleAtos": [
+                    "E3-SEC-DUO-EAD-F",
+                    "E3-SEC-DUO-EES-FS",
+                    "E3-SEC-DUO-FEDMFA",
+                    "E3-SEC-DUO-EDUBYD",
+                    "E3-SEC-DUO-EES-HC",
+                    "E3-SEC-DUO-EAD-FS",
+                    "E3-SEC-DUO-ACS",
+                    "E3-SEC-DUO-EPR-F",
+                    "E3-SEC-DUO-EPR-FS",
+                    "E3-SEC-DUO-EDUACS",
+                    "E3-SEC-DUO-BYD",
+                    "E3-SEC-DUO-FEDACS",
+                    "E3-SEC-DUO-MFA",
+                    "E3-SEC-DUO-PRE",
+                    "E3-SEC-DUO-EDUMFA",
+                    "E3-SEC-DUO-ESS",
+                    "E3-SEC-DUO-EES-F",
+                    "E3-SEC-DUO-EPR-HC",
+                    "E3-SEC-DUO-EAD-HC"
+                  ],
+                  "incompatibleSuites": [
+                    "User & Breach Protection (Combination)",
+                    "Breach Protection",
+                    "User Protection"
+                  ]
+                },
+                {"eligibleForMigration": true,
+                "eligibleForUpgrade": false,
+                  "name": "Secure Workload",
+                  "desc": "Secure Workload",
+                  "ato": "E3-SEC-WKLD",
+                  "autoSelected": true,
+                  "displaySeq": 4300,
+                  "tiers": [],
+                  "displayGroup": true,
+                  "disabled": false,
+                  "active": true,
+                  "cxOptIn": false,
+                  "displayDiscount": false,
+                  "includedInEAID": false,
+                  "incompatibleSuites": [
+                    "Cloud Protection"
+                  ]
+                },
+                {"eligibleForMigration": true,
+                "eligibleForUpgrade": false,
+                  "name": "Identity Services Engine (ISE)",
+                  "desc": "Identity Services Engine (ISE)",
+                  "ato": "E3-SEC-ISE",
+                  "autoSelected": true,
+                  "displaySeq": 4100,
+                  "tiers": [],
+                  "displayGroup": true,
+                  "disabled": false,
+                  "active": true,
+                  "upgraded": true,
+                  "cxOptIn": false,
+                  "displayDiscount": false,
+                  "includedInEAID": false
+                }
+              ]
+            },
+            {
+              "name": "Protection",
+              "desc": "Protection",
+              "displaySeq": 4085,
+              "display": true,
+              "suites": [
+                {
+                  "eligibleForMigration": false,
+                  "eligibleForUpgrade": false,
+                  "name": "User & Breach Protection (Combination)",
+                  "desc": "User & Breach Protection (Combination)",
+                  "ato": "E3-SEC-S-CBPEUPE",
+                  "autoSelected": true,
+                  "displaySeq": 4085,
+                  "tiers": [],
+                  "displayGroup": true,
+                  "disabled": false,
+                  "active": true,
+                  "cxOptIn": false,
+                  "serviceAttachMandatory": true,
+                  "displayDiscount": false,
+                  "includedInEAID": false,
+                  "incompatibleAtos": [
+                    "E3-SEC-S-CBPAUPA",
+                    "E3-SEC-S-CBPAUPE",
+                    "E3-SEC-S-CBPEUPA"
+                  ],
+                  "incompatibleSuites": [
+                    "Cisco XDR",
+                    "Cisco Email Threat Defense",
+                    "Breach Protection",
+                    "User Protection",
+                    "Cisco Secure Access",
+                    "Secure Endpoint",
+                    "Duo"
+                  ],
+                  "alreadySelectedIncompatibleSuites": [
+                    "Cisco XDR",
+                    "Secure Endpoint",
+                    "Duo"
+                  ]
+                },
+                {"eligibleForMigration": false,
+                "eligibleForUpgrade": false,
+                  "name": "Breach Protection",
+                  "desc": "Breach Protection",
+                  "ato": "E3-SEC-S-BPE",
+                  "autoSelected": false,
+                  "displaySeq": 4045,
+                  "tiers": [],
+                  "displayGroup": true,
+                  "disabled": false,
+                  "active": true,
+                  "cxOptIn": false,
+                  "serviceAttachMandatory": true,
+                  "displayDiscount": false,
+                  "includedInEAID": false,
+                  "incompatibleAtos": [
+                    "E3-SEC-S-BPEUPE",
+                    "E3-SEC-S-BPA",
+                    "E3-SEC-S-BPAUPE",
+                    "E3-SEC-S-BPEUPA",
+                    "E3-SEC-S-BPAUPA"
+                  ],
+                  "incompatibleSuites": [
+                    "User & Breach Protection (Combination)",
+                    "Cisco XDR",
+                    "Cisco Email Threat Defense",
+                    "User Protection",
+                    "Cisco Secure Access",
+                    "Secure Endpoint",
+                    "Duo"
+                  ],
+                  "alreadySelectedIncompatibleSuites": [
+                    "Cisco XDR",
+                    "Secure Endpoint",
+                    "Duo"
+                  ]
+                },
+                {"eligibleForMigration": false,
+                "eligibleForUpgrade": false,
+                  "name": "User Protection",
+                  "desc": "User Protection",
+                  "ato": "E3-SEC-S-UPE",
+                  "autoSelected": false,
+                  "displaySeq": 4015,
+                  "tiers": [],
+                  "displayGroup": true,
+                  "disabled": false,
+                  "active": true,
+                  "cxOptIn": false,
+                  "serviceAttachMandatory": true,
+                  "displayDiscount": false,
+                  "includedInEAID": false,
+                  "incompatibleAtos": [
+                    "E3-SEC-S-UPA"
+                  ],
+                  "incompatibleSuites": [
+                    "User & Breach Protection (Combination)",
+                    "Cisco XDR",
+                    "Cisco Email Threat Defense",
+                    "Breach Protection",
+                    "Cisco Secure Access",
+                    "Secure Endpoint",
+                    "Duo"
+                  ],
+                  "alreadySelectedIncompatibleSuites": [
+                    "Cisco XDR",
+                    "Secure Endpoint",
+                    "Duo"
+                  ]
+                },
+                {"eligibleForMigration": true,
+                "eligibleForUpgrade": false,
+                "migrateToSuites": [ 
+                  {
+                    "name": "User & Breach Protection (Combination)",
+                    "desc": "User & Breach Protection (Combination)",
+                    "ato": "E3-SEC-S-CBPEUPE",
+                    "displaySeq": 2,
+                    "mappingType": ["Partial", "Full"],
+                    "tiers": [
+                      {
+                        "name": "E3-SEC-S-CBPEUPE",
+                        "desc": "Premier",
+                        "cxOptIn": false,
+                        "displaySeq": 4240,
+                        "defaultSel": true
+                      },
+                      {
+                        "name": "E3-SEC-S-CBPUPPEO",
+                        "desc": "Premier2",
+                        "cxOptIn": false,
+                        "displaySeq": 4240
+                      }
+                    ]
+                  }
+                ],
+                  "name": "Cloud Protection",
+                  "desc": "Cloud Protection",
+                  "ato": "E3-SEC-S-CPE",
+                  "autoSelected": true,
+                  "displaySeq": 4005,
+                  "tiers": [],
+                  "displayGroup": true,
+                  "disabled": false,
+                  "active": true,
+                  "cxOptIn": false,
+                  "serviceAttachMandatory": true,
+                  "displayDiscount": false,
+                  "includedInEAID": false,
+                  "incompatibleAtos": [
+                    "E3-SEC-S-CPA"
+                  ],
+                  "incompatibleSuites": [
+                    "Secure Workload",
+                    "Cisco Vulnerability Management",
+                    "User & Breach Protection (Combination)"
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Cloud and Network Security",
+              "desc": "Cloud and Network Security",
+              "displaySeq": 4800,
+              "display": true,
+              "suites": [
+                {"eligibleForMigration": true,
+                "eligibleForUpgrade": true,
+                  "name": "Umbrella",
+                  "desc": "Umbrella",
+                  "ato": "E3-SEC-UMBDNSE",
+                  "autoSelected": true,
+                  "displaySeq": 4450,
+                  "tiers": [
+                    {
+                      "name": "E3-SEC-SIG-EDU",
+                      "desc": "SIG Education",
+                      "cxOptIn": false,
+                      "educationInstituteOnly": true,
+                      "displaySeq": 4450
+                    },
+                    {
+                      "name": "E3-SEC-UMBSIGE",
+                      "desc": "SIG Essentials",
+                      "cxOptIn": false,
+                      "displaySeq": 4430
+                    },
+                    {
+                      "name": "E3-SEC-UMBDNSA",
+                      "desc": "DNS Advantage",
+                      "cxOptIn": false,
+                      "displaySeq": 4410
+                    },
+                    {
+                      "name": "E3-SEC-UMBSIGA",
+                      "desc": "SIG Advantage",
+                      "cxOptIn": false,
+                      "displaySeq": 4440
+                    }
+                  ],
+                  "displayGroup": true,
+                  "disabled": true,
+                  "notAllowedHybridRelated": false,
+                  "hasBfRelatedMigratedAto": false,
+                  "active": true,
+                  "cxOptIn": false,
+                  "serviceAttachMandatory": true,
+                  "displayDiscount": false,
+                  "includedInEAID": true,
+                  "includedInSubscription": true,
+                  "lowerTierAto": {
+                    "name": "E3-SEC-UMBDNSE",
+                    "desc": "DNS Essentials"
+                  },
+                  "incompatibleAtos": [
+                    "E3-SEC-UMB-EDU",
+                    "E3-SEC-UMBDNSA",
+                    "E3-SEC-UMBSIGA",
+                    "E3-SEC-UMBSIGE",
+                    "E3-SEC-SIG-EDU"
+                  ]
+                },
+                {"eligibleForMigration": true,
+                "eligibleForUpgrade": false,
+                  "name": "Secure Web",
+                  "desc": "Secure Web",
+                  "ato": "E3-SEC-WEB",
+                  "autoSelected": true,
+                  "displaySeq": 4700,
+                  "tiers": [],
+                  "displayGroup": true,
+                  "disabled": false,
+                  "active": true,
+                  "cxOptIn": false,
+                  "displayDiscount": false,
+                  "includedInEAID": false
+                },
+                {"eligibleForMigration": true,
+                "eligibleForUpgrade": false,
+                  "name": "Cisco Secure Access",
+                  "desc": "Cisco Secure Access",
+                  "ato": "E3-SEC-SECACCESS-E",
+                  "autoSelected": true,
+                  "displaySeq": 4600,
+                  "tiers": [],
+                  "displayGroup": true,
+                  "disabled": false,
+                  "notAllowedHybridRelated": false,
+                  "hasBfRelatedMigratedAto": false,
+                  "active": true,
+                  "cxOptIn": false,
+                  "serviceAttachMandatory": true,
+                  "displayDiscount": false,
+                  "includedInEAID": false,
+                  "incompatibleAtos": [
+                    "E3-SEC-SECACCESS-A"
+                  ],
+                  "incompatibleSuites": [
+                    "User & Breach Protection (Combination)",
+                    "Breach Protection",
+                    "User Protection"
+                  ]
+                },
+                {"eligibleForMigration": true,
+                "eligibleForUpgrade": false,
+                  "name": "Secure Firewall",
+                  "desc": "Secure Firewall",
+                  "ato": "E3-SEC-SFW",
+                  "autoSelected": true,
+                  "displaySeq": 4800,
+                  "tiers": [],
+                  "displayGroup": true,
+                  "disabled": false,
+                  "active": true,
+                  "cxOptIn": false,
+                  "displayDiscount": false,
+                  "includedInEAID": false
+                }
+              ]
+            },
+            {
+              "name": "Add-on Products",
+              "desc": "Add-on Products",
+              "displaySeq": 9000,
+              "display": true,
+              "suites": [
+                {"eligibleForMigration": true,
+                "eligibleForUpgrade": false,
+                  "name": "Cisco Email Threat Defense",
+                  "desc": "Cisco Email Threat Defense",
+                  "ato": "E3-SEC-ETD-ESS",
+                  "autoSelected": false,
+                  "displaySeq": 8840,
+                  "tiers": [],
+                  "displayGroup": true,
+                  "disabled": false,
+                  "active": true,
+                  "cxOptIn": false,
+                  "displayDiscount": false,
+                  "includedInEAID": false,
+                  "incompatibleSuites": [
+                    "User & Breach Protection (Combination)",
+                    "Breach Protection",
+                    "User Protection"
+                  ]
+                },
+                {"eligibleForMigration": true,
+                "eligibleForUpgrade": false,
+                  "name": "Security Analytics for Logging (SAL)",
+                  "desc": "Security Analytics for Logging (SAL)",
+                  "ato": "E3-SEC-SAL-LT",
+                  "autoSelected": true,
+                  "displaySeq": 8820,
+                  "tiers": [],
+                  "displayGroup": true,
+                  "disabled": false,
+                  "active": true,
+                  "cxOptIn": false,
+                  "displayDiscount": false,
+                  "includedInEAID": false,
+                  
+                  "incompatibleAtos": [
+                    "E3-SEC-SAL-LA",
+                    "E3-SEC-SAL-TA"
+                  ]
+                },
+                {"eligibleForMigration": true,
+                "eligibleForUpgrade": false,
+                  "name": "Cloudlock",
+                  "desc": "Cloudlock",
+                  "ato": "E3-SEC-CLDLK",
+                  "autoSelected": true,
+                  "displaySeq": 8700,
+                  "tiers": [],
+                  "displayGroup": true,
+                  "disabled": false,
+                  "active": true,
+                  "cxOptIn": false,
+                  "serviceAttachMandatory": true,
+                  "displayDiscount": false,
+                  "includedInEAID": false
+                  
+                },
+                {"eligibleForMigration": true,
+                "eligibleForUpgrade": false,
+                  "name": "Cisco Talos Incident Response",
+                  "desc": "Cisco Talos Incident Response",
+                  "ato": "E3-SEC-CTIR",
+                  "autoSelected": true,
+                  "displaySeq": 9000,
+                  "tiers": [],
+                  "displayGroup": true,
+                  "disabled": false,
+                  "active": true,
+                  "cxOptIn": false,
+                  "displayDiscount": false,
+                  "includedInEAID": false
+                  
+                },
+                {"eligibleForMigration": true,
+                "eligibleForUpgrade": false,
+                  "name": "Secure Malware Analytics SaaS",
+                  "desc": "Secure Malware Analytics SaaS",
+                  "ato": "E3-SEC-SMA",
+                  "autoSelected": true,
+                  "displaySeq": 8500,
+                  "tiers": [],
+                  "displayGroup": true,
+                  "disabled": false,
+                  "active": true,
+                  "cxOptIn": false,
+                  "displayDiscount": false,
+                  "includedInEAID": false
+                  
+                },
+                {"eligibleForMigration": true,
+                "eligibleForUpgrade": false,
+                  "name": "Security Add-ons",
+                  "desc": "Security Add-ons",
+                  "ato": "E3-SEC-ADDONS",
+                  "autoSelected": true,
+                  "displaySeq": 8400,
+                  "tiers": [],
+                  "displayGroup": true,
+                  "disabled": false,
+                  "notAllowedHybridRelated": false,
+                  "hasBfRelatedMigratedAto": false,
+                  "active": true,
+                  "cxOptIn": false,
+                  "displayDiscount": false,
+                  "includedInEAID": false
+                  
+                },
+                {"eligibleForMigration": true,
+                "eligibleForUpgrade": false,
+                  "name": "Cisco Secure DDOS protection",
+                  "desc": "Cisco Secure DDOS protection",
+                  "ato": "E3-SEC-DDOS",
+                  "autoSelected": true,
+                  "displaySeq": 8900,
+                  "tiers": [],
+                  "displayGroup": true,
+                  "disabled": false,
+                  "active": true,
+                  "cxOptIn": false,
+                  "serviceAttachMandatory": true,
+                  "displayDiscount": false,
+                  "includedInEAID": false
+                  
+                },
+                {"eligibleForMigration": true,
+                "eligibleForUpgrade": false,
+                  "name": "Cisco Defense Orchestrator (CDO)",
+                  "desc": "Cisco Defense Orchestrator (CDO)",
+                  "ato": "E3-SEC-CDO",
+                  "autoSelected": true,
+                  "displaySeq": 8600,
+                  "tiers": [],
+                  "displayGroup": true,
+                  "disabled": false,
+                  "active": true,
+                  "cxOptIn": false,
+                  "displayDiscount": false,
+                  "includedInEAID": false
+                  
+                }
+              ]
+            }
+          ],
+          "priceInfo": {},
+          "disabled": false,
+          "includedInEAID": true,
+          "active": true,
+          "externalConfiguration": false,
+          "cxOptInAllowed": true,
+          "cxAttached": false,
+          "service": false,
+          "securityTier": "TIER_3",
+          "selectedTierScuRange": {
+            "min": 1000,
+            "max": 4999
+          },
+          "disableRsdAndTermUpdate": false,
+          "includedInSubscription": true,
+          "embeddedHwSupportAttached": false
+        }
+      ]
+    },
+    "buildVersion": "NOV 11-14-2021 09:53 EST RELEASE",
+    "currentDate": 1715969513460
+  }

@@ -1,0 +1,74 @@
+<!-- Start Page Content Wrapper -->
+<section class="breadcrumbWrapper" id="breadcrumbWrapper">
+    <div class="container-fluid">
+        <div class="row align-items-center">
+            <div class="col-lg-12">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="#">
+                            <span class="icon-home"></span>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="#">{{appDataService.customerName}}</a>
+                    </li>
+                    <li class="breadcrumb-item active">Qualifications</li>
+                </ol>
+            </div>
+        </div>
+        <div class="fullScreenBreadcrumb">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="#">{{appDataService.customerName}}</a>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End of breadcrumbs -->
+
+
+<div class="clearfix"></div>
+<div id="page-header" class="global-bookmark">
+    <section id="deal-info" class="subHeaderWrap whiteBgHeadWrap">
+        <div class="container-fluid">
+
+            <!-- Main Drop Down -->
+            <div class="row">
+                <div class="col-auto pr-0">
+                    <div class="page-sub-title">
+                        <h2 class="microsoft-corporation" maxlength="65" placement="top" ngbTooltip="{{qualService.qualification.name}}">{{qualService.qualification.name}}<div class="subTitle-iconWrap"><span class="icon-header-edit" (click)="editQualificationName()"></span></div></h2>
+                        <!--div class="subTitle-iconWrap">
+                      
+                       <span class="icon-header-tree"><span class="path1"></span><span class="path2"></span></span>
+                  </div-->
+                        
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="row">
+                        <div class="col text-right">
+                            <h4>Deal ID</h4>
+                            <h2 class="digit">{{qualService.qualification.dealId}}</h2>
+                        </div>
+                        <div class="col text-right">
+                            <h4>Account Manager</h4>
+                            <h2 class="digit">{{qualService.qualification.accountManagerName}}</h2>
+                        </div>
+                        <div class="col text-right">
+                            <h4>Status</h4>
+                            <h2 class="digit">{{qualService.qualification.status}}</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <!-- Sub Drop Down -->
+        </div>
+    </section>
+</div>
+<router-outlet></router-outlet>

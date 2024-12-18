@@ -1,0 +1,5 @@
+<div  *ngIf="params" class="d3-value">
+<div appBullet [percentage]='params.value' *ngIf='params.colDef.field !== "LDOS_PERCENTAGE"' [reverse]='true'  [options] = 'options'></div>
+<div appBullet [percentage]='params.value' *ngIf='params.colDef.field === "LDOS_PERCENTAGE"' [reverse]='false'  [options] = 'options'></div>
+<span>{{params.value}}</span>
+</div>

@@ -1,0 +1,82 @@
+<div class="modal-header">
+    <h5 class="modal-title">
+        {{localeService.getLocalizedString('modal.searchlocate.SEARCH_AND_LOCATE')}} <!--span class="icon-info-line-level"></span-->
+    </h5>
+    <button type="button" class="icon-close-btn" data-dismiss="modal" aria-label="Close" (click)="cancel()"></button>
+</div>
+
+<div class="modal-body">
+    <div class="body-content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="searchLocate-wrap search-wrap">
+                    <ul class="list-inline w-100">
+                        <li *ngIf="searchSalesOrder" (click)="inputFocus()">
+                            <label for="salesOrder" class="form-control-placeholder">{{localeService.getLocalizedString('modal.searchlocate.SALES_ORDER')}}</label>
+                            <a href="javascript:void(0)" class="clear-search" [ngClass]="{'disableClear': !modelArr.length}" (click)="clearAll()">{{localeService.getLocalizedString('filters.CLEAR_ALL')}}</a>
+                            <div class="added-item">
+                                <span class="name-tag" *ngFor="let item of modelArr"><span class="tag-val">{{item}}</span>
+								<span class="icon-close-btn" (click)="removeSelected(item)"></span>
+                                </span>
+                                <ng-template #rt let-r="result" let-t="term">
+                                    {{r.value}}
+                                </ng-template>
+                                <input class="form-control" name="salesOrder" (ngModelChange)="keyUp($event, salesOrder)" (keyup)="keyUp($event, salesOrder)" [(ngModel)]="salesOrder" (keydown)="keyDown($event)" type="text" required="" id="salesOrder" />
+                                <span class="outline"></span>
+                            </div>
+                        </li>
+                        <li *ngIf="searchInstall" (click)="inputFocus()">
+                            <label for="installSite" class="form-control-placeholder">{{ibSummaryService.popupTextboxLabel}}</label>
+                            <a href="javascript:void(0)" class="clear-search" [ngClass]="{'disableClear': !modelArr.length}" (click)="clearAll()">{{localeService.getLocalizedString('filters.CLEAR_ALL')}}</a>
+                            <div class="added-item">
+                                <span class="name-tag" *ngFor="let item of modelArr"><span class="tag-val">{{item}}</span>
+								<span class="icon-close-btn" (click)="removeSelected(item)"></span>
+                                </span>
+                                <ng-template #rt let-r="result" let-t="term">
+                                    {{r.value}}
+                                </ng-template>
+                                <input class="form-control" name="installSite" (ngModelChange)="keyUp($event, installSite)" (keyup)="keyUp($event, installSite)" [(ngModel)]="installSite" type="text" required="" id="installSite" />
+                                <span class="outline"></span>
+                            </div>
+                        </li>
+                        <li *ngIf="searchContract" (click)="inputFocus()">
+                            <a href="javascript:void(0)" class="clear-search" [ngClass]="{'disableClear': !modelArr.length}" (click)="clearAll()">{{localeService.getLocalizedString('filters.CLEAR_ALL')}}</a>
+                            <div class="added-item">
+                                <label for="contractNumber" class="form-control-placeholder">{{ibSummaryService.popupTextboxLabel}}</label>
+                                <span class="name-tag" *ngFor="let item of modelArr"><span class="tag-val">{{item}}</span>
+								<span class="icon-close-btn" (click)="removeSelected(item)"></span>
+                                </span>
+                                <ng-template #rt let-r="result" let-t="term">
+                                    {{r.value}}
+                                </ng-template>
+                                <input class="form-control" name="contractNumber" (ngModelChange)="keyUp($event, contractNumber)" (keyup)="keyUp($event, contractNumber)" (keydown)="keyDown($event)" [(ngModel)]="contractNumber" type="text" required="" id="contractNumber" />
+                                <span class="outline"></span>
+                            </div>
+                        </li>
+                        <li *ngIf="searchSerial" (click)="inputFocus()">
+                            <label for="serialNumber" class="form-control-placeholder">{{localeService.getLocalizedString('modal.searchlocate.SERIAL_NUMBER')}}</label>
+                            <a href="javascript:void(0)" class="clear-search" [ngClass]="{'disableClear': !modelArr.length}" (click)="clearAll()">{{localeService.getLocalizedString('filters.CLEAR_ALL')}}</a>
+                            <div class="added-item">
+                                <span class="name-tag" *ngFor="let item of modelArr"><span class="tag-val">{{item}}</span>
+								<span class="icon-close-btn" (click)="removeSelected(item)"></span>
+                                </span>
+                                <ng-template #rt let-r="result" let-t="term">
+                                    {{r.value}}
+                                </ng-template>
+                                <input class="form-control" name="serialNumber" (ngModelChange)="keyUp($event, serialNumber)" (keyup)="keyUp($event, serialNumber)" [(ngModel)]="serialNumber" type="text" required="" id="serialNumber" />
+                                <span class="outline"></span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="mt-4"></div>
+            </div>
+        </div>
+    </div>
+
+ <div class="clearfix"></div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="cancel()">{{localeService.getLocalizedString('common.CANCEL')}}</button>
+    <button type="button" class="btn btn-primary" data-dismiss="modal" [ngClass]="{'disabled': !modelArr.length}" [disabled]="!modelArr.length" (click)="locate()">{{localeService.getLocalizedString('common.LOCATE')}}</button>
+</div>

@@ -1,0 +1,22 @@
+<div class="modal-header">
+    <h5 class="modal-title" *ngIf='!proposalDataService.caseCreatedForCxProposal'>Important Information</h5> 
+    <h5 class="modal-title" *ngIf='proposalDataService.caseCreatedForCxProposal'>Confirmation</h5> 
+    <button class="icon-close-btn" data-dismiss="modal" type="button" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+
+<div class="modal-body" *ngIf='!proposalDataService.caseCreatedForCxProposal'>
+    <div class="info-txt">Please note "Cascade Discount" will cascade discount to hardware instances, this process will take some time and prices may revise once cascading is complete.</div>
+    <div class="info-txt">Once prices revise we will inform you</div>
+</div>
+<div class="modal-body" *ngIf='proposalDataService.caseCreatedForCxProposal'>
+    <div *ngIf='!caseId' class="info-txt">The case has been submitted successfully. To see the case details please click
+        on
+        "Help & Support - Open a Case" on the Software Price Estimation page.</div>
+    <div *ngIf='caseId' class="info-txt">The case {{caseId}} has been updated successfully.</div>
+</div>
+
+<div class="modal-footer">
+    <div class="col-md-12 d-flex justify-content-end">
+        <button class="btn btn-primary ml-2" type="button" (click) = 'continue()'>OK</button>
+    </div>
+</div>

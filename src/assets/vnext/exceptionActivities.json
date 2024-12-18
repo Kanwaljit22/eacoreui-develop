@@ -1,0 +1,723 @@
+{
+    "rid": "68947219-72da-4bf8-9e4f-d1fb70639b74",
+    "user": "rbinwani",
+    "error": false,
+    "data": {
+          "proposalExceptionActivities": [
+            {
+               "id": "611d5af68cb7a350c2618eb2",
+               "groupId": "6bc9b1b8-bf77-4766-8601-02f6f5d926f8",
+               "groupSeq": 1,
+               "proposalObjId": "611bf2f339ea5a611bb5adbb",
+               "seq": 1,
+               "exceptionType": "DNA_THRESHOLD",
+               "exceptionName": "Total TCV for DNA proposal must meet threshold by price list",
+               "exceptionDescription": "Total TCV for DNA proposal must meet threshold by price list",
+               "status": "PENDING",
+               "requestedBy": "prguntur",
+               "requestReasons": [
+                  "Allow less than minimum value threshold due to value EA in process"
+               ],
+               "requestComment": "test",
+               "requestedAt": "2021-08-18T19:10:06.805+0000",
+               "teamName": "Cisco EA Program",
+               "deleted": false,
+               "updatedBy": "prguntur",
+               "updatedAt": "2021-08-18T19:10:06.805+0000",
+               "createdBy": "prguntur",
+               "createdAt": "2021-08-18T19:09:42.604+0000",
+               "cycleTime": 126602,
+               "autoApproved": false,
+               "cause": [
+                  {
+                     "code": "EA038",
+                     "text": "This Proposal does not meet the 100,000 USD minimum threshold for Cisco DNA Advantage suites.",
+                     "severity": "WARN",
+                     "token": [
+                        {
+                           "name": "DNA_PREMIER",
+                           "value": "DNA_PREMIER"
+                        },
+                        {
+                           "name": "DNA_ADVANTAGE",
+                           "value": "DNA_ADVANTAGE"
+                        },
+                        {
+                           "name": "THRESHOLD",
+                           "value": "100,000"
+                        },
+                        {
+                           "name": "CURRENCY",
+                           "value": "USD"
+                        }
+                     ],
+                     "createdAt": "2021-08-18T19:09:42.482+0000",
+                     "createdBy": "prguntur",
+                     "lineLevel": false,
+                     "type": "DNA",
+                     "exceptionCause": {
+                      "proposalObjId": "611bf2f339ea5a611bb5adbb",
+                        "requested": "19109.88000000000101863406598567963",
+                        "expected": "100000.0"
+                     },
+                     "key": "EA038~DNA_PREMIER-DNA_PREMIER~DNA_ADVANTAGE-DNA_ADVANTAGE~THRESHOLD-100,000~CURRENCY-USD"
+                  }
+               ],
+               "teamMembers": [
+                  {
+                     "cecId": "rishiksi",
+                     "name": "Rishikesh Singh",
+                     "primary": true,
+                     "regions": [
+                        "EMEAR"
+                     ]
+                  },
+                  {
+                     "cecId": "sghule",
+                     "name": "Sukriti Ghule",
+                     "primary": true,
+                     "regions": [
+                        "AMERICAS"
+                     ]
+                  },
+                  {
+                     "cecId": "eishih",
+                     "name": "Eileen Shih",
+                     "primary": true,
+                     "regions": [
+                        "AMERICAS"
+                     ]
+                  },
+                  {
+                     "cecId": "chlester",
+                     "name": "Charles Lester",
+                     "primary": true,
+                     "regions": [
+                        "AMERICAS"
+                     ]
+                  },
+                  {
+                     "cecId": "logrant",
+                     "name": "Lori Grant",
+                     "primary": true,
+                     "regions": [
+                        "EMEAR",
+                        "APJC"
+                     ]
+                  },
+                  {
+                     "cecId": "mzapolni",
+                     "name": "Magdalena Zapolnik",
+                     "primary": true,
+                     "regions": [
+                        "APJC"
+                     ]
+                  },
+                  {
+                     "cecId": "sakorada",
+                     "name": "SARATHCHANDRA BOSE KORADA",
+                     "primary": true,
+                     "regions": [
+                        "AMERICAS",
+                        "EMEAR",
+                        "APJC"
+                     ]
+                  },
+                  {
+                     "cecId": "subharri",
+                     "name": "Subhasini Harris",
+                     "primary": false,
+                     "regions": [
+                        "AMERICAS",
+                        "EMEAR",
+                        "APJC"
+                     ]
+                  },
+                  {
+                     "cecId": "nekedia",
+                     "name": "Neelima Rajeev Kedia",
+                     "primary": false,
+                     "regions": [
+                        "AMERICAS",
+                        "EMEAR",
+                        "APJC"
+                     ]
+                  },
+                  {
+                     "cecId": "vdovala",
+                     "name": "Venkata Naga Madhavi Dovala",
+                     "primary": false,
+                     "regions": [
+                        "AMERICAS",
+                        "EMEAR",
+                        "APJC"
+                     ]
+                  },
+                  {
+                     "cecId": "trzope",
+                     "name": "Trupti Zope",
+                     "primary": false,
+                     "regions": [
+                        "EMEAR"
+                     ]
+                  },
+                  {
+                     "cecId": "rbinwani",
+                     "name": "Romesh Binwani",
+                     "primary": false,
+                     "regions": [
+                        "AMERICAS",
+                        "EMEAR",
+                        "APJC"
+                     ]
+                  },
+                  {
+                     "cecId": "vinchauh",
+                     "name": "Vinay Chauhan",
+                     "primary": false,
+                     "regions": [
+                        "AMERICAS",
+                        "EMEAR",
+                        "APJC"
+                     ]
+                  },
+                  {
+                     "cecId": "yasikhan",
+                     "name": "Yasir Khan",
+                     "primary": false
+                  },
+                  {
+                     "cecId": "bdattani",
+                     "name": "Bhumita Dattani",
+                     "primary": false
+                  },
+                  {
+                     "cecId": "jasande2",
+                     "name": "Jason Anderson",
+                     "primary": false
+                  },
+                  {
+                     "cecId": "mwhitbec",
+                     "name": "Monte Whitbeck",
+                     "primary": false,
+                     "regions": [
+                        "AMERICAS",
+                        "EMEAR",
+                        "APJC"
+                     ]
+                  },
+                  {
+                     "cecId": "skylee",
+                     "name": "Skye Lee",
+                     "primary": false,
+                     "regions": [
+                        "AMERICAS",
+                        "EMEAR",
+                        "APJC"
+                     ]
+                  },
+                  {
+                     "cecId": "mguedet",
+                     "name": "Marc Guedet",
+                     "primary": false,
+                     "regions": [
+                        "AMERICAS",
+                        "EMEAR",
+                        "APJC"
+                     ]
+                  },
+                  {
+                     "cecId": "panolte",
+                     "name": "Patricia Nolte",
+                     "primary": false,
+                     "regions": [
+                        "AMERICAS",
+                        "EMEAR",
+                        "APJC"
+                     ]
+                  },
+                  {
+                     "cecId": "maulisha",
+                     "name": "Maulik S Shah",
+                     "primary": false,
+                     "regions": [
+                        "APJC"
+                     ]
+                  },
+                  {
+                     "cecId": "mkrzysik",
+                     "name": "Michal Krzysik",
+                     "primary": false,
+                     "regions": [
+                        "EMEAR"
+                     ]
+                  },
+                  {
+                     "cecId": "jkotarba",
+                     "name": "Jakub Kotarba",
+                     "primary": false,
+                     "regions": [
+                        "EMEAR"
+                     ]
+                  },
+                  {
+                     "cecId": "subharri",
+                     "name": "Subhasini Harris",
+                     "primary": false,
+                     "regions": [
+                        "APJC"
+                     ]
+                  },
+                  {
+                     "cecId": "mamunn",
+                     "name": "Mia Munn",
+                     "primary": false,
+                     "regions": [
+                        "APJC"
+                     ]
+                  },
+                  {
+                     "cecId": "ubhardwa",
+                     "name": "Umang Bhardwaj",
+                     "primary": false,
+                     "regions": [
+                        "APJC"
+                     ]
+                  },
+                  {
+                     "cecId": "namsheik",
+                     "name": "Namrah Sheikh",
+                     "primary": false,
+                     "regions": [
+                        "AMERICAS"
+                     ]
+                  },
+                  {
+                     "cecId": "shashwpa",
+                     "name": "Shashwat Pathak",
+                     "primary": false,
+                     "regions": [
+                        "APJC"
+                     ]
+                  },
+                  {
+                     "cecId": "jostudha",
+                     "name": "Jon Studham",
+                     "primary": false,
+                     "regions": [
+                        "APJC",
+                        "AMERICAS"
+                     ]
+                  },
+                  {
+                     "cecId": "markpace",
+                     "name": "Mark Pace",
+                     "primary": false,
+                     "regions": [
+                        "AMERICAS"
+                     ]
+                  },
+                  {
+                     "cecId": "rbelling",
+                     "name": "Robin Bellings",
+                     "primary": false,
+                     "regions": [
+                        "AMERICAS"
+                     ]
+                  },
+                  {
+                     "cecId": "ksankarr",
+                     "name": "Kalpana Sankarraman",
+                     "primary": false,
+                     "regions": [
+                        "AMERICAS"
+                     ]
+                  },
+                  {
+                     "cecId": "subharri",
+                     "name": "Subhasini Harris",
+                     "primary": false,
+                     "regions": [
+                        "EMEAR"
+                     ]
+                  }
+               ],
+               "allowedToBecomeApprover": false,
+               "notificationSent": false,
+               "caseEmailInitiated": false,
+               "additionalApproverAssigned": false,
+               "approverAssigned": false,
+               "decision": "Pending",
+               "cycleTimeStr": "2 mins 2 secs",
+               "actioned": false,
+               "label": "Total TCV for DNA proposal must meet threshold by price list",
+               "rejected": false,
+               "approved": false,
+               "awaitingDecision": true,
+               "requested": true,
+               "withdrawn": false,
+               "awatingSubmissionForApproval": false,
+               "messages": [
+                  "This Proposal does not meet the 100,000 USD minimum threshold for Cisco DNA Advantage suites."
+               ]
+            },
+            {
+               "id": "611d5af68cb7a350c2618eb4",
+               "groupId": "6bc9b1b8-bf77-4766-8601-02f6f5d926f8",
+               "groupSeq": 1,
+               "proposalObjId": "611bf2f339ea5a611bb5adbb",
+               "seq": 1,
+               "exceptionType": "DNA_THRESHOLD_BY_SUITE_COUNT",
+               "exceptionName": "Total TCV for DNA proposal must meet threshold by price list",
+               "exceptionDescription": "Total TCV for DNA proposal must meet threshold by price list",
+               "status": "New",
+               "requestedBy": "prguntur",
+               "requestReasons": [
+                  "DNA/DCN linked proposal Threshold Exception"
+               ],
+               "requestComment": "test",
+               "requestedAt": "2021-08-18T19:10:06.924+0000",
+               "teamName": "Cisco EA Program",
+               "deleted": false,
+               "updatedBy": "prguntur",
+               "updatedAt": "2021-08-18T19:10:06.924+0000",
+               "createdBy": "prguntur",
+               "createdAt": "2021-08-18T19:09:42.810+0000",
+               "cycleTime": 126483,
+               "autoApproved": false,
+               "cause": [
+                  {
+                     "code": "EA038",
+                     "text": "This Proposal does not meet the 100,000 USD minimum threshold for Cisco DNA Advantage suites.",
+                     "severity": "WARN",
+                     "token": [
+                        {
+                           "name": "DNA_PREMIER",
+                           "value": "DNA_PREMIER"
+                        },
+                        {
+                           "name": "DNA_ADVANTAGE",
+                           "value": "DNA_ADVANTAGE"
+                        },
+                        {
+                           "name": "THRESHOLD",
+                           "value": "100,000"
+                        },
+                        {
+                           "name": "CURRENCY",
+                           "value": "USD"
+                        }
+                     ],
+                     "createdAt": "2021-08-18T19:09:42.693+0000",
+                     "createdBy": "prguntur",
+                     "lineLevel": false,
+                     "type": "DNA",
+                     "exceptionCause": {
+                      "proposalObjId": "611bf2f339ea5a611bb5adbb",
+                        "requested": "19109.88000000000101863406598567963",
+                        "expected": "100000.0"
+                     },
+                     "key": "EA038~DNA_PREMIER-DNA_PREMIER~DNA_ADVANTAGE-DNA_ADVANTAGE~THRESHOLD-100,000~CURRENCY-USD"
+                  }
+               ],
+               "teamMembers": [
+                  {
+                     "cecId": "rishiksi",
+                     "name": "Rishikesh Singh",
+                     "primary": true,
+                     "regions": [
+                        "EMEAR"
+                     ]
+                  },
+                  {
+                     "cecId": "sghule",
+                     "name": "Sukriti Ghule",
+                     "primary": true,
+                     "regions": [
+                        "AMERICAS"
+                     ]
+                  },
+                  {
+                     "cecId": "eishih",
+                     "name": "Eileen Shih",
+                     "primary": true,
+                     "regions": [
+                        "AMERICAS"
+                     ]
+                  },
+                  {
+                     "cecId": "chlester",
+                     "name": "Charles Lester",
+                     "primary": true,
+                     "regions": [
+                        "AMERICAS"
+                     ]
+                  },
+                  {
+                     "cecId": "logrant",
+                     "name": "Lori Grant",
+                     "primary": true,
+                     "regions": [
+                        "EMEAR",
+                        "APJC"
+                     ]
+                  },
+                  {
+                     "cecId": "mzapolni",
+                     "name": "Magdalena Zapolnik",
+                     "primary": true,
+                     "regions": [
+                        "APJC"
+                     ]
+                  },
+                  {
+                     "cecId": "sakorada",
+                     "name": "SARATHCHANDRA BOSE KORADA",
+                     "primary": true,
+                     "regions": [
+                        "AMERICAS",
+                        "EMEAR",
+                        "APJC"
+                     ]
+                  },
+                  {
+                     "cecId": "subharri",
+                     "name": "Subhasini Harris",
+                     "primary": false,
+                     "regions": [
+                        "AMERICAS",
+                        "EMEAR",
+                        "APJC"
+                     ]
+                  },
+                  {
+                     "cecId": "nekedia",
+                     "name": "Neelima Rajeev Kedia",
+                     "primary": false,
+                     "regions": [
+                        "AMERICAS",
+                        "EMEAR",
+                        "APJC"
+                     ]
+                  },
+                  {
+                     "cecId": "vdovala",
+                     "name": "Venkata Naga Madhavi Dovala",
+                     "primary": false,
+                     "regions": [
+                        "AMERICAS",
+                        "EMEAR",
+                        "APJC"
+                     ]
+                  },
+                  {
+                     "cecId": "trzope",
+                     "name": "Trupti Zope",
+                     "primary": false,
+                     "regions": [
+                        "EMEAR"
+                     ]
+                  },
+                  {
+                     "cecId": "rbinwani",
+                     "name": "Romesh Binwani",
+                     "primary": false,
+                     "regions": [
+                        "AMERICAS",
+                        "EMEAR",
+                        "APJC"
+                     ]
+                  },
+                  {
+                     "cecId": "vinchauh",
+                     "name": "Vinay Chauhan",
+                     "primary": false,
+                     "regions": [
+                        "AMERICAS",
+                        "EMEAR",
+                        "APJC"
+                     ]
+                  },
+                  {
+                     "cecId": "yasikhan",
+                     "name": "Yasir Khan",
+                     "primary": false
+                  },
+                  {
+                     "cecId": "bdattani",
+                     "name": "Bhumita Dattani",
+                     "primary": false
+                  },
+                  {
+                     "cecId": "jasande2",
+                     "name": "Jason Anderson",
+                     "primary": false
+                  },
+                  {
+                     "cecId": "mwhitbec",
+                     "name": "Monte Whitbeck",
+                     "primary": false,
+                     "regions": [
+                        "AMERICAS",
+                        "EMEAR",
+                        "APJC"
+                     ]
+                  },
+                  {
+                     "cecId": "skylee",
+                     "name": "Skye Lee",
+                     "primary": false,
+                     "regions": [
+                        "AMERICAS",
+                        "EMEAR",
+                        "APJC"
+                     ]
+                  },
+                  {
+                     "cecId": "mguedet",
+                     "name": "Marc Guedet",
+                     "primary": false,
+                     "regions": [
+                        "AMERICAS",
+                        "EMEAR",
+                        "APJC"
+                     ]
+                  },
+                  {
+                     "cecId": "panolte",
+                     "name": "Patricia Nolte",
+                     "primary": false,
+                     "regions": [
+                        "AMERICAS",
+                        "EMEAR",
+                        "APJC"
+                     ]
+                  },
+                  {
+                     "cecId": "maulisha",
+                     "name": "Maulik S Shah",
+                     "primary": false,
+                     "regions": [
+                        "APJC"
+                     ]
+                  },
+                  {
+                     "cecId": "mkrzysik",
+                     "name": "Michal Krzysik",
+                     "primary": false,
+                     "regions": [
+                        "EMEAR"
+                     ]
+                  },
+                  {
+                     "cecId": "jkotarba",
+                     "name": "Jakub Kotarba",
+                     "primary": false,
+                     "regions": [
+                        "EMEAR"
+                     ]
+                  },
+                  {
+                     "cecId": "subharri",
+                     "name": "Subhasini Harris",
+                     "primary": false,
+                     "regions": [
+                        "APJC"
+                     ]
+                  },
+                  {
+                     "cecId": "mamunn",
+                     "name": "Mia Munn",
+                     "primary": false,
+                     "regions": [
+                        "APJC"
+                     ]
+                  },
+                  {
+                     "cecId": "ubhardwa",
+                     "name": "Umang Bhardwaj",
+                     "primary": false,
+                     "regions": [
+                        "APJC"
+                     ]
+                  },
+                  {
+                     "cecId": "namsheik",
+                     "name": "Namrah Sheikh",
+                     "primary": false,
+                     "regions": [
+                        "AMERICAS"
+                     ]
+                  },
+                  {
+                     "cecId": "shashwpa",
+                     "name": "Shashwat Pathak",
+                     "primary": false,
+                     "regions": [
+                        "APJC"
+                     ]
+                  },
+                  {
+                     "cecId": "jostudha",
+                     "name": "Jon Studham",
+                     "primary": false,
+                     "regions": [
+                        "APJC",
+                        "AMERICAS"
+                     ]
+                  },
+                  {
+                     "cecId": "markpace",
+                     "name": "Mark Pace",
+                     "primary": false,
+                     "regions": [
+                        "AMERICAS"
+                     ]
+                  },
+                  {
+                     "cecId": "rbelling",
+                     "name": "Robin Bellings",
+                     "primary": false,
+                     "regions": [
+                        "AMERICAS"
+                     ]
+                  },
+                  {
+                     "cecId": "ksankarr",
+                     "name": "Kalpana Sankarraman",
+                     "primary": false,
+                     "regions": [
+                        "AMERICAS"
+                     ]
+                  },
+                  {
+                     "cecId": "subharri",
+                     "name": "Subhasini Harris",
+                     "primary": false,
+                     "regions": [
+                        "EMEAR"
+                     ]
+                  }
+               ],
+               "allowedToBecomeApprover": false,
+               "notificationSent": false,
+               "caseEmailInitiated": false,
+               "additionalApproverAssigned": false,
+               "approverAssigned": false,
+               "decision": "new",
+               "cycleTimeStr": "2 mins 2 secs",
+               "actioned": false,
+               "label": "Total TCV for DNA proposal must meet threshold by price list",
+               "rejected": false,
+               "approved": false,
+               "awaitingDecision": true,
+               "requested": true,
+               "withdrawn": false,
+               "awatingSubmissionForApproval": false,
+               "messages": [
+                  "This Proposal does not meet the 100,000 USD minimum threshold for Cisco DNA Advantage suites."
+               ]
+            }
+         ]
+        }
+}

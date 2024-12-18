@@ -1,0 +1,15 @@
+<div class="guide-me-overlay" (click)="hideDetails()"></div>
+<div class="show">
+  <div class="guide-me">
+    <div class="guide-me__content">
+      <h1 class="guide-me--label">How to Move Cisco EA Quantity<span><i class="icon-close-btn" (click)="hideDetails()"></i></span></h1>
+      <!--p class="label-head">View of all the Documents Created for the Customer Proposal</p-->
+      <!-- Content for API Begin -->
+      <div class="EA-qty--conatiner" [innerHTML]="features | stringToHtml"></div>
+     <!-- Content for API END -->
+    </div>
+  </div>
+</div>
+<!-- <div [innerHTML]="features | stringToHtml" class="show"></div> -->
+
+

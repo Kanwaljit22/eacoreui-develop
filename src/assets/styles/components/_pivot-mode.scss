@@ -1,0 +1,125 @@
+.ag-tool-panel-wrapper {font-family: "ciscoSans";}
+.ag-tool-panel-wrapper .ag-primary-cols-filter-wrapper{ display:none;}
+span.ag-icon.ag-icon-checkbox-checked, .ag-icon.ag-icon-checkbox-unchecked,.ag-icon.ag-icon-checkbox-unchecked-readonly,.ag-icon-checkbox-indeterminate {
+    width: 20px;
+    display: inline-block;
+    height: 18px;
+    margin-left: 8px;
+    margin-top: 5px;
+}
+
+[ref="cbPivotMode"] .ag-wrapper {
+    display: none;
+}.ag-side-bar.ag-unselectable.ag-side-bar-right {
+    background: #f3f3f3;
+}
+
+.ag-tool-panel-wrapper {
+    min-width: 312px;
+    border: 1px solid #d6d6d6;
+}
+
+span.ag-column-tool-panel-column-label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block !important;
+}
+
+.ag-pivot-mode-panel .ag-labeled {
+    position: absolute;
+    left: 26px;
+    font-size: 16px;
+    line-height: 22px;
+    display: flex;
+    align-items: center;
+    color: #333333;
+    top: 3px;
+}
+
+.ag-pivot-mode-panel {
+    position: relative;
+}
+
+
+.ag-tool-panel-wrapper {
+   
+}
+
+.ag-side-button button span {
+    display: none;
+}
+
+.ag-side-button button {
+    border: 0;
+     background:transparent;
+}
+.ag-side-button button:after{ content:"\eaea"; font-family:"enterpriseAgreement";}
+
+.ag-side-buttons {
+    height: 20px;
+    position: absolute;
+    right: 31px;
+    top: 8px;
+}
+
+.ag-side-bar {
+    position: relative;
+}
+
+span.ag-column-tool-panel-column-label {
+    font-size: 16px;
+    line-height: 22px;
+    display: flex;
+    align-items: center;
+    color: #333333;
+}
+
+.ag-column-tool-panel-column {
+    border-bottom: 1px solid #D6D6D6;
+    background: #F3F3F3;
+    padding: 5px 0;
+}
+
+.ag-icon.ag-icon-grip {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin: 0 5px;
+}
+.ag-icon.ag-icon-grip:after{
+    content:"\ec4f";
+    color: #D6D6D6;
+}
+span.ag-column-drop-title {
+    background: #fff;
+    display: block;
+    width: 100%;
+    padding: 11px;
+    position: relative;
+    box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.15);
+}
+
+span.ag-column-drop-title:after {
+    content: "\e917";
+    font-family: enterpriseAgreement;
+    color: #fff;
+    position: absolute;
+    bottom: -14px;
+    left: 14px;
+}
+
+span.ag-column-drop-empty-message {
+    border: 1px dashed #d6d6d6;
+    margin-top: 20px;
+    padding: 20px;
+    text-align: center;
+    margin: 20px 30px;
+}
+
+.ag-column-panel {
+    overflow: auto;
+}
+.ag-column-select-panel {
+    flex-grow: 3;
+}

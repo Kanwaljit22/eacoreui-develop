@@ -1,0 +1,20 @@
+<div class="modal-body vNext modal-without-header">
+        
+    <h2>{{localizationService.getLocalizedString('common.LOOKUP_DEAL_ID')}}</h2>
+    <div class="vNext-lookupcontent">
+        <h5 class="px-4">{{localizationService.getLocalizedString('lookup-dealid.YOU_NEED_TO_LOOKUP')}}</h5>
+        <div class="px-3 mb-2"><app-message [displayModalMsg] = 'true'></app-message></div>
+        <div class="form-group mt-0 text-left px-3">
+            <label  class="customer-label">{{localizationService.getLocalizedString('common.DEAL_ID')}}<sup>*</sup></label>
+            <div class="position-relative w-100 d-flex">
+                <input appelementfocus="" class="form-control paddingR35" [(ngModel)]="dealId" (keyup.enter)="lookUpDeal()" required="" type="text" id="" attr.data-id="{{dataIdConstantsService.lookUpDeal_text_dealId}}">
+            </div>
+        </div>
+    </div>
+
+  
+
+    <div class="text-center d-block pb-4">
+        <button class="btn btn-primary" [disabled]='!dealId' (click)='lookUpDeal()' attr.action-id="{{dataIdConstantsService.lookUpDeal_button_lookUp}}">{{localizationService.getLocalizedString('common.LOOKUP')}}</button>
+    </div>
+</div>

@@ -1,0 +1,51 @@
+<div class=" modal-without-header vNext">
+    <button class="icon-close-btn" (click)="close()" type="button" attr.action-id="{{dataIdConstantsService.downloadCustomerScope_button_closeIcon}}"></button>
+    <h2>{{'download-customer-scope.DOWNLOAD_CUSTOMER_SCOPE_DETAILS' | localizationPipe: localizationService.localizedkeySet.size}}</h2>
+</div>
+
+<div class="modal-body vNext modal-without-header table-container">
+    <app-message [displayModalMsg] = 'true'></app-message>
+    <div class="scope-details" *ngIf="downloadVersionData?.length">
+        <h3>{{'download-customer-scope.DOWNLOAD_CUSTOMER_SCOPE_MSG' | localizationPipe: localizationService.localizedkeySet.size}}</h3>
+        <ul>
+            <li *ngFor="let data of downloadVersionData; let i = index;">
+                <div>
+                    <div class="mr-2 radio-custom">
+                        <a #downloadZipLink [hidden]="true"></a>
+                        <input id="noSelect" type="radio" name="downloadVersion" 
+                        attr.data-id="{{dataIdConstantsService.downloadCustomerScope_input_selectVersion}}{{data.version}}" (change)="selectVersion(data)" [checked]="data.checked">
+                        <label for="version">
+                            <span class="custom-radio-btn"><span class="path1"></span><span class="path2"></span></span><span><span></span></span>
+                        </label>
+                    </div>
+                </div>
+                <div>
+                    <span *ngIf="data.currentVersion">{{'download-customer-scope.CURRENT_VERSION' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                    <span *ngIf="!data.currentVersion">{{'download-customer-scope.PREVIOUS_VERSION' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                    <label>{{data.version}}</label>
+                </div>
+                <div>
+                    <span>{{'common.SAVED' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                    <label>{{data.saved}}</label>
+                </div>
+                <div>
+                    <span>{{'common.CREATED_BY' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                    <label>{{data.createdBy}}</label>
+                </div>
+            </li>
+           
+        </ul>
+    </div>
+    <div class="col-12" *ngIf="noDataFound">
+        <div class="alert alert--info alert-dismissable">
+            <span class="alert-icon">
+                <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+            </span>
+            <span>{{'common.NO_DATA_FOUND' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+        </div>
+    </div>
+</div>
+<div class="modal-footer justify-content-center vNext">
+    <button type="button" attr.action-id="{{dataIdConstantsService.downloadCustomerScope_button_cancel}}" class="btn btn-secondary cancel-btn" id="{{elementIdConstantsService.DownloadCustomerScope_Cancel}}" (click)="close()">{{'common.CANCEL' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+    <button class="btn btn-primary ml-2" *ngIf="downloadVersionData?.length" [disabled]="!selectedVersion?.version" type="button" attr.action-id="{{dataIdConstantsService.downloadCustomerScope_button_downloadFile}}"  (click)="download()">{{'common.CONFIRM_DOWNLOAD' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+</div>

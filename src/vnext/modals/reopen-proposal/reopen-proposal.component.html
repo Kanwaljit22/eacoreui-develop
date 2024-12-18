@@ -1,0 +1,42 @@
+<div class="modal-body vNext modal-without-header" attr.page-id="{{dataIdConstantsService.reopeProposal_page_reopenProposalModal}}">
+    <button class="icon-close-btn" type="button" attr.action-id="{{dataIdConstantsService.reopeProposal_button_closeIcon}}" (click)="close()"></button>
+    <h2 class="mb-5">{{localizationService.getLocalizedString('reopen-proposal.REOPEN_PROPOSAL')}}</h2>
+    <!-- End of header -->
+    
+    <div class="vNext-lookup-desc pb-2 px-5">
+        <p class="mb-4">{{localizationService.getLocalizedString('reopen-proposal.TRIGGER_RECALCULATION')}}</p>
+        <p>{{localizationService.getLocalizedString('reopen-proposal.BOOKED_ORDER_PLACED_UNTIL_RESOLUTION')}}</p>
+
+        <div>
+            <div class="alert alert--warning align-items-start mt-2 mb-4">                
+                <span class="alert-icon">
+                    <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                </span>
+                <span class="infoTxt pl-1">
+                    {{localizationService.getLocalizedString('reopen-proposal.DO_NOT_REOPEN_A_PROPOSAL_IF')}}
+                    <ul class="pl-1 ml-1">
+                        <li>
+                            {{localizationService.getLocalizedString('reopen-proposal.QUOTE_AND_RESUBMIT_FOR_APPROVAL')}}
+                        </li>
+                        <li>
+                            {{localizationService.getLocalizedString('reopen-proposal.REQUEST_START_DATE_MATCH')}}
+                        </li>
+                    </ul>
+                </span>
+            </div> 
+        </div>
+
+        <div class="acknowldge-div mb-4">
+            <label class="label-check">
+                <input class="form-check-input" id="" type="checkbox" value="" (change) = "accept()" attr.data-id="{{dataIdConstantsService.reopeProposal_checkbox_acceptReopen}}"  [checked]="acceptReopen" >
+                <span class="custom-checkbox-btn i-vNext-fonts"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                <span> {{localizationService.getLocalizedString('reopen-proposal.BY_CONTINUING_YOU_AGREE_TO_RECALCULATE')}}</span>
+            </label>
+        </div>
+    </div>
+
+    <div class="text-center d-block pb-4">
+        <button class="btn btn-secondary" type="button" attr.action-id="{{dataIdConstantsService.reopeProposal_button_closeButton}}" (click)="close()" id="{{elementIdConstantsService.ReopenProposal_Cancel}}">{{localizationService.getLocalizedString('common.CANCEL')}}</button>
+        <button class="btn btn-primary ml-3" type="button" (click)="reopen()" attr.action-id="{{dataIdConstantsService.reopeProposal_button_reopen}}"  [disabled]="!acceptReopen">{{localizationService.getLocalizedString('reopen-proposal.I_WANT_TO_REOPEN')}}</button>
+    </div>
+</div>

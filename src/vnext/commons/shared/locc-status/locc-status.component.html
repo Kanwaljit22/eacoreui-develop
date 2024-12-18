@@ -1,0 +1,49 @@
+
+            <div class="subHeaderWrap vNext" *ngIf="projectStoreService.projectData?.dealInfo?.partnerDeal || projectStoreService.projectData?.dealInfo?.distiDeal || (!projectStoreService.projectData?.dealInfo?.partnerDeal)">
+                    <div  class="data-column border--left solid">
+                        <h4 class="digit">{{localizationService.getLocalizedString('common.LOCC_STATUS')}}</h4>
+                        <!-- <div class="dropdown lh-1" *ngIf="!vnextStoreService.loccDetail?.loccSigned">
+                            <a href="javascript:void(0);" class="pending-text mb-0"
+                                (click)="showLocc()">{{vnextStoreService.loccDetail?.loccInitiated ? 'Pending Signature '
+                                : 'Not Signed '}}</a>
+                        </div> --> 
+                        <div class="dropdown lh-1 no-wrap">
+                            <a href="javascript:void(0);" class="pending-text mb-0" *ngIf="!vnextStoreService.loccDetail?.loccSigned"
+                                (click)="showDropDown()" attr.action-id="{{dataIdConstantsService.loccStatus_link_loccStatus}}">{{vnextStoreService.loccDetail?.loccInitiated ? 'Pending Signature '
+                                : 'Not Signed '}}<span class="ico-dropdown"></span></a>
+                            <a href="javascript:void(0);" class="success-text mb-0" attr.action-id="{{dataIdConstantsService.loccStatus_link_loccSigned}}" (click)="showDropDown()" *ngIf="vnextStoreService.loccDetail?.loccSigned">{{localizationService.getLocalizedString('common.SIGNED')}}<span
+                                    class="ico-dropdown"></span></a>
+                            <div class="dropdown-menu md t-30" [class.show]="showLoccDrop">
+                                <a href="javascript:void(0);" (click)="showDropDown()" attr.action-id="{{dataIdConstantsService.loccStatus_link_loccStatusClose}}"><span class="icon-close-btn"></span></a>
+                                <a #downloadZipLink [hidden]="true"></a>
+                                <a href="javascript:void(0);" (click)="downloadLoccFile()" attr.action-id="{{dataIdConstantsService.loccStatus_link_downloadLoccFile}}">
+                                <div class="d-flex">
+                                    <span class="severity-badge bg-green" container="body" ngbTooltip="{{'common.CISCO_CONFIDENTIAL' | localizationPipe : localizationService.localizedkeySet.size}}" placement="top-left">C</span>
+                                    <span class="icon-pdf1 mr-3"><span class="path1"></span><span class="path2"></span><span
+                                            class="path3"></span><span class="path4"></span><span class="path5"></span><span
+                                            class="path6"></span><span class="path7"></span><span class="path8"></span><span
+                                            class="path9"></span><span class="path10"></span><span class="path11"></span><span
+                                            class="path12"></span></span>
+                                        
+                
+                                    <div class="description-box">
+                                        <h4 class="sm-heading">{{localizationService.getLocalizedString('common.LOCC')}}</h4>
+                                        <span class="badge badge-valid mb-1">{{localizationService.getLocalizedString('common.SIGNED')}}</span>
+                                        <p class="secondary-text">
+                                            <small>{{localizationService.getLocalizedString('common.VALID_UNTIL')}} {{vnextStoreService.loccDetail?.loccExpiredDate ?
+                                                vnextStoreService.loccDetail?.loccExpiredDate : '--' }}</small>
+                                        </p>
+                                    </div>
+                                </div>
+                            </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+
+
+
+
+
+

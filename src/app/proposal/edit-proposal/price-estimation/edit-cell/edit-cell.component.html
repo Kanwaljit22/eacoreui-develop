@@ -1,0 +1,34 @@
+<!-- doropdown for allowing boolean values for line level starts here -->
+<div *ngIf= "onlyBooleanAllowed" class="edit-box--input" (click)="onClick($event, params)"
+    (clickOutside)="onClickedOutside($event, data,suiteId,lineItemId) && edited" [attachOutsideOnClick]=true><i
+        class="icon-error-edit"></i>
+        <!-- <input [appFocus]="focusedField" [hidden]="!edited" [(ngModel)]="data"
+        class="ag-cell-edit-input text-right" name="data" type="text" (keydown)="keyUpa($event, data)" id="data"
+        (blur)="onClickedOutside($event, data,suiteId,lineItemId) && edited" tabindex="-1"> -->
+     <div *ngIf= 'appDataService.archName !== constantsService.SECURITY' [hidden]="!showDrop" class='addon-action' (click)="openDrop()">{{data}}
+        <span class='icon-arow-down'></span>
+        <div class='addon-dropdown' aria-labelledby='mainDropdown' [hidden]="!showDropOptions"><span
+                class='icon-arrow-up'><span class='path1'></span><span class='path2'></span></span>
+            <ul>
+                <li *ngFor="let val of options"><a class='dropdown-item MVP2qualification' href='javascript:void(0)'
+                        (click)="selectValue(val)">{{val}}</a></li>
+            </ul>
+        </div>
+    </div> 
+    <div *ngIf= 'appDataService.archName === constantsService.SECURITY'>
+        <span *ngIf="!readOnlyMode"class="col-select" [hidden]="data !== 0" (click)="changeSecurityExpantion(lineItemId,params.node.data.productTypeId,params.node.data.groupName,suiteId)">Select</span>
+        <span *ngIf="readOnlyMode" class="col-select-disabled" [hidden]="data !== 0">Select</span>
+        <span *ngIf="!readOnlyMode" class="col-selected" [ngClass]="{'col-select':checkForMultipleSelection(params.node.data.productTypeId,params.node.data.groupName,suiteId)}" [hidden]="data === 0" (click)="checkAndUpdateMultipleSelections(lineItemId,params.node.data.productTypeId,params.node.data.groupName,suiteId)">Selected <span class="icon-tick-01"></span></span>
+        <span *ngIf="readOnlyMode" class="col-selected" [hidden]="data === 0">Selected <span class="icon-tick-01"></span></span>   
+    <span [hidden]="showDrop" [ngClass]="{'text-link': params.node.level === 0}"
+        (click)="expandAll(params)">{{data}}</span>
+    </div>
+
+</div>
+<!-- doropdown for allowing boolean values for line level ends here -->
+<!-- for Editable cells if not onlybooleanallwed flag  -->
+<div *ngIf= "!onlyBooleanAllowed" class="edit-box--input"   (click)="onClick($event, params)" (clickOutside)="onClickedOutside($event, data,suiteId,lineItemId) && edited" [attachOutsideOnClick]=true><i class="icon-error-edit"></i><input [appFocus]="focusedField" [hidden]="!edited" [(ngModel)]="data" class="ag-cell-edit-input text-right" name="data" type="text" (keydown)="keyUpa($event, data)"
+     (blur)="onClickedOutside($event, data,suiteId,lineItemId) && edited" tabindex="-1">
+<span [hidden]="edited" [ngClass]="{'text-link': params.node.level === 0}"(click)="expandAll(params)">{{data}}</span>
+
+</div>

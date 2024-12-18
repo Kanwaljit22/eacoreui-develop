@@ -1,0 +1,188 @@
+{
+    "data":
+    {
+      
+            "type": "YEARLY",
+            "maxTerm": 4,
+            "enrollmentConf": [
+                {
+                    "id": 1,
+                    "name": "Networking Infrastructure",
+                   "isCXEnrollment": false,
+                    "displaySeq":1,
+                    "pools": [
+                        {
+                            "name": "Cisco DNX Software",
+                            "displaySeq":1,
+                            "atos": [
+                                {
+                                    "name": "ATO 1",
+                                    "suiteName": "Cisco DNA Wireless",
+                                    "commitStatus": "FULL_COMMIT",
+                                    "displaySeq":1,
+                                    "isEligibleForGA": true,
+                                    "termDetails": [
+                                        {
+                                            "term": 1,
+                                            "swPercent": 10
+                                        },
+                                        {
+                                            "term": 2,
+                                            "swPercent": 15
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "ATO 1",
+                                    "suiteName": "Cisco DNA Wireless",
+                                    "commitStatus": "FULL_COMMIT",
+                                    "displaySeq":1,
+                                    "isEligibleForGA": true,
+                                    "termDetails": [
+                                        {
+                                            "term": 1,
+                                            "swPercent": 5
+                                        },
+                                        {
+                                            "term": 2,
+                                            "swPercent": 10
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "ATO 1",
+                                    "suiteName": "Cisco DNA Wireless",
+                                    "commitStatus": "FULL_COMMIT",
+                                    "displaySeq":1,
+                                    "isEligibleForGA": true,
+                                    "termDetails": [
+                                        {
+                                            "term": 1,
+                                            "swPercent": 10
+                                        },
+                                        {
+                                            "term": 2,
+                                            "swPercent": 15
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "ATO 1",
+                                    "suiteName": "Cisco DNA Wireless",
+                                    "commitStatus": "FULL_COMMIT",
+                                    "displaySeq":1,
+                                    "isEligibleForGA": true,
+                                    "termDetails": [
+                                        {
+                                            "term": 1,
+                                            "swPercent": 10
+                                        },
+                                        {
+                                            "term": 2,
+                                            "swPercent": 15
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Cisco DNX Software123",
+                            "displaySeq":1,
+                            "atos": [
+                                {
+                                    "name": "ATO 1",
+                                    "suiteName": "Cisco DNA Wireless",
+                                    "commitStatus": "FULL_COMMIT",
+                                    "displaySeq":1,
+                                    "isEligibleForGA": true,
+                                    "termDetails": [
+                                        {
+                                            "term": 1,
+                                            "swPercent": 10
+                                        },
+                                        {
+                                            "term": 2,
+                                            "swPercent": 15
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "id": 1,
+                    "name": "Application Infrastructure",
+                   "isCXEnrollment": false,
+                    "displaySeq":1,
+                    "pools": [
+                        {
+                            "name": "Cisco DNX Software",
+                            "displaySeq":1,
+                            "atos": [
+                                {
+                                    "name": "ATO 1",
+                                    "suiteName": "Cisco DNA Wireless",
+                                    "commitStatus": "FULL_COMMIT",
+                                    "displaySeq":1,
+                                    "isEligibleForGA": true,
+                                    "termDetails": [
+                                        {
+                                            "term": 1,
+                                            "swPercent": 10
+                                        },
+                                        {
+                                            "term": 2,
+                                            "swPercent": 20
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "id": 5,
+                    "name": "Networking Infrastructure Services",
+                    "isCXEnrollment": true,
+                    "displaySeq":2,
+                    "pools": [
+                        {
+                            "atos": [
+                                {
+                                    "name": "ATO 1",
+                                    "suiteName": "Cisco DNA Wireless Services",
+                                    "commitStatus": "FULL_COMMIT",
+                                    "displaySeq":1,
+                                    "isEligibleForGA": true,
+                                    "termDetails": [
+                                        {
+                                            "term": 1,
+                                            "swCxPercent": 10,
+                                            "hwCxPercent": 15
+                                        },
+                                        {
+                                            "term": 2,
+                                            "swCxPercent": 15,
+                                            "hwCxPercent": 15
+                                        },
+                                        {
+                                            "term": 3,
+                                            "hwCxPercent": 15
+                                        },{
+                                            "term": 4,
+                                            "swCxPercent": 15
+                                            
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }          
+}
+
+
+

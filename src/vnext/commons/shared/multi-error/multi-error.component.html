@@ -1,0 +1,83 @@
+<!-- RSD info message -->
+<div class="alert alert--info" *ngIf="rsdInfoMsg?.code">
+    <span class="alert-icon">
+        <span class="icon-msg-Info">
+            <span class="path1"></span>
+            <span class="path2"></span>
+            <span class="path3"></span>
+        </span>
+    </span>
+    <span>{{rsdInfoMsg.text}}</span>
+</div> 
+ 
+ <div class="alert alert--danger alert-dismissable clearfix mt-2"  [ngClass]="{'warning':!messagesObj.errors.length}" *ngIf = "message && (messagesObj.errors.length || messagesObj.warns.length) " (mouseleave) ="displayMsgScroll = false;">
+        <span class="alert-icon">
+            <span class="icon-msg-error" [ngClass]="{'icon-msg-warning':!messagesObj.errors.length, 'icon-msg-error': messagesObj.errors.length > 0}"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+        </span>
+        <span class="infoTxt custom-lh-qtr">{{localizationService.getLocalizedString('common.multi-error.THERE_ARE')}} 
+            
+       <span  *ngIf  = "messagesObj.errors.length > 0" class="import txt-blue" (click)="opnemultierror = true;" (clickOutside)="opnemultierror = false;">{{messagesObj.errors.length}} {{localizationService.getLocalizedString('common.multi-error.ERRORS')}}
+
+        <div class="error-list alert-error" *ngIf="opnemultierror">
+            <div class="alert-head">{{localizationService.getLocalizedString('common.SHOWING')}} {{messagesObj.errors.length}} {{localizationService.getLocalizedString('common.ERRORS_OF')}} {{messagesObj.errors.length}}</div>
+            <div class="overflow-hidden" [class.error-list-scroll] = "overflowVisibles">
+            <div class="alert alert--danger" *ngFor="let messageObject of messagesObj.errors">
+                <span class="alert-icon">
+                    <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                </span>
+                <span>{{messageObject.text}}</span>
+            </div>
+            </div>
+            <!-- <div class="more-errors" (click)="toggleClass($event)" [ngClass]="{'d-none': messagesObj.errors.length < 6 || displayMsgScroll}"><a href="javascript:void(0);">{{messagesObj.errors.length - 5}} More <span class="i-vNext-arrow-down-heavy"></span></a></div> -->
+            <div class="more-errors" (click)="toggleClass($event)" [ngClass]="{'d-none': messagesObj.errors.length < 6 || displayMsgScroll}"><a href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.multiError_link_showMore}}" (click) = "overflowVisible()">{{overflowVisibles == false ? ('common.SHOW_MORE' | localizationPipe : localizationService.localizedkeySet.size) : ('common.SHOW_LESS' | localizationPipe : localizationService.localizedkeySet.size)}} <span class="i-vNext-arrow-down-heavy" [class.up] = "overflowVisibles"></span></a></div>
+            <!-- This link will show when we have more the 5 Error and when we click on it .. it will hide and add "open" class to "<div class="error-list alert-error">" -->
+        </div>
+        </span> 
+        <!-- Warning List -- Starts Here -->
+
+       <ng-container *ngIf  = "messagesObj.warns.length > 0"> 
+       <span *ngIf = "messagesObj.info.length && messagesObj.errors.length"> , </span>
+       <span *ngIf = "!messagesObj.info.length && messagesObj.errors.length"> {{localizationService.getLocalizedString('common.multi-error.AND')}} </span>
+        <span class="import txt-blue" (click)="openMultiWarning = true;" (clickOutside)="openMultiWarning = false;">{{messagesObj.warns.length}} {{localizationService.getLocalizedString('common.multi-error.WARNINGS')}} 
+
+            <div class="error-list alert-error list-new" [ngClass]="{'single-warning': !messagesObj.errors.length}" *ngIf="openMultiWarning">
+                <div class="alert alert--warning" *ngFor="let messageObject of messagesObj.warns">
+                    <span class="alert-icon">
+                        <span class="icon-msg-warning">
+                            <span class="path1"></span>
+                            <span class="path2"></span>
+                            <span class="path3"></span>
+                        </span>
+                    </span>
+                    <span>{{messageObject.text}}</span>
+                </div>
+                <!--<div class="more-errors"><a href="javascript:void(0);">5 More <span class="i-vNext-arrow-down-heavy"></span></a></div>-->
+                <!-- This link will show when we have more the 5 Warnings and when we click on it .. it will hide and add "open" class to "<div class="error-list alert-error list-new">" -->
+            </div>
+         </span> 
+         </ng-container >
+         <ng-container *ngIf  = "messagesObj.info.length > 0"> 
+            <span *ngIf = "messagesObj.errors.length || messagesObj.warns.length"> {{localizationService.getLocalizedString('common.multi-error.AND')}} </span>
+             <span class="import txt-blue" (click)="openMultiInfo = true;" (clickOutside)="openMultiInfo = false;">{{messagesObj.info.length}} Info
+     
+                 <div class="error-list alert-error list-info" *ngIf="openMultiInfo" [ngClass]="{'single-info': !messagesObj.warns.length}">
+                     <div class="alert alert--info" *ngFor="let messageObject of messagesObj.info">
+                         <span class="alert-icon">
+                             <span class="icon-msg-Info">
+                                 <span class="path1"></span>
+                                 <span class="path2"></span>
+                                 <span class="path3"></span>
+                             </span>
+                         </span>
+                         <span>{{messageObject.text}}</span>
+                     </div>
+                     <!--<div class="more-errors"><a href="javascript:void(0);">5 More <span class="i-vNext-arrow-down-heavy"></span></a></div>-->
+                     <!-- This link will show when we have more the 5 Warnings and when we click on it .. it will hide and add "open" class to "<div class="error-list alert-error list-new">" -->
+                 </div>
+              </span> 
+              </ng-container >.<span *ngIf = "messagesObj.errors.length > 0"> {{localizationService.getLocalizedString('common.multi-error.REVIEW_CORRECT_CONFIGURATION')}} </span></span>
+            <!-- <span class="icon-close-btn lh-1"></span> -->
+
+</div> 
+
+<!-- <span>There are proposal available in price estimate</span> -->

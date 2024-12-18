@@ -1,0 +1,335 @@
+
+<ng-container *ngIf="!closeSlide">
+  <div class="custom-slider-bg"></div>
+  <ng-container *ngFor="let c of tourGuide; let i = index;">
+  <div class="custom-slider" *ngIf="selectedIndex === i"><img [src]="c.url"/></div> 
+  </ng-container>
+    <div class="slider-controls">
+      <div class="skip-slide" (click)="closeSlideBanner()">Skip slide</div>
+      <div class="slide-count">{{selectedIndex + 1}}/8</div>
+      <div class="slide-pagination">
+      <span class="n-link" (click)="backSlide()" [hidden]="selectedIndex === 0"><span class="icon-up-arrow back"></span><span   class="mr-3">Back</span></span>
+      <span class="n-link" [hidden]="selectedIndex === maxSlide" (click)="nextSlide()"><span>Next</span><span  class="icon-up-arrow next"></span></span>
+      <span *ngIf="selectedIndex === maxSlide" (click)="closeSlideBanner()">Got It</span></div>
+    </div>
+</ng-container>
+  
+<div class="clearfix"></div>
+<!-- <div class="container-fluid" *ngIf="appDataService.maintainanceMessage.length > 0 && showMessage && !appDataService.underMaintainance">
+    <div class="bannerHeading mt-3">
+        <div class="maintenance">
+            <h3>{{localeService.getLocalizedString('dashboard.MAINTANANCE')}}</h3>
+            <p>{{appDataService.maintainanceMessage}}</p>
+            <a [id]="appDataService.createUniqueId('CLOSE_MAINTANANCE',appDataService.pageContext)" href="#" (click)="close()"
+                class="closeMsg"></a>
+        </div>
+    </div>
+</div> -->
+<div class="clearfix"></div>
+<div class="container-fluid pt-2">
+  <message *ngIf="!appDataService.underMaintainance"></message>
+
+  <!-- <div class="alert alert--info dismissible" *ngIf="appDataService.showSoftwareSpecialistMessage && !appDataService.underMaintainance && !partnerLedFlow">
+    <span class="alert-icon">
+      <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+    </span>
+    <span class="txt">{{localeService.getLocalizedMessage('authentication.MESSAGE_SOFTWARE_SPECIALIST_START')}}<a
+              [id]="appDataService.createUniqueId('MESSAGE_SOFTWARE_SPECIALIST',appDataService.pageContext)" href="javascript:void(0)"
+              (click)="openSpecialist()">{{localeService.getLocalizedMessage('authentication.MESSAGE_SOFTWARE_SPECIALIST_MIDDLE')}}</a>{{localeService.getLocalizedMessage('authentication.MESSAGE_SOFTWARE_SPECIALIST_END')}}</span>
+    <span class="alert-action">
+      <button [id]="appDataService.createUniqueId('CLOSE',appDataService.pageContext)" class="icon-close-btn mt-0" (click)="closeSoftwareSpecialistMessage()" type="button"></button>
+    </span>
+  </div> -->
+
+  <div class="alert alert--info dismissible">
+    <span class="alert-icon">
+      <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+    </span>
+    <span class="txt">{{localeService.getLocalizedMessage('common.EOS_BANNER_NEW_MSG')}}<a href="https://salesconnect.cisco.com/softwarebuyingprograms/s/enterprise-agreement-20" 
+      target="_blank" class="text--link">
+      <b>{{localeService.getLocalizedMessage('authentication.EOS_SALES_CONNECT_LINK')}}</b></a></span>
+  </div>
+  <!-- <div class="down-for-maintenance" *ngIf="appDataService.underMaintainance">
+      <span class="icon-maintenance">
+          <span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span
+              class="path5"></span><span class="path6"></span><span class="path7"></span><span class="path8"></span><span
+              class="path9"></span><span class="path10"></span><span class="path11"></span><span class="path12"></span><span
+              class="path13"></span><span class="path14"></span><span class="path15"></span><span class="path16"></span><span
+              class="path17"></span><span class="path18"></span><span class="path19"></span><span class="path20"></span><span
+              class="path21"></span><span class="path22"></span><span class="path23"></span><span class="path24"></span><span
+              class="path25"></span><span class="path26"></span><span class="path27"></span><span class="path28"></span><span
+              class="path29"></span><span class="path30"></span><span class="path31"></span><span class="path32"></span><span
+              class="path33"></span><span class="path34"></span><span class="path35"></span><span class="path36"></span><span
+              class="path37"></span><span class="path38"></span><span class="path39"></span><span class="path40"></span><span
+              class="path41"></span><span class="path42"></span><span class="path43"></span><span class="path44"></span><span
+              class="path45"></span><span class="path46"></span><span class="path47"></span><span class="path48"></span><span
+              class="path49"></span><span class="path50"></span><span class="path51"></span><span class="path52"></span><span
+              class="path53"></span>
+      </span>
+      <h1>{{localeService.getLocalizedString('dashboard.MAINTANANCE')}}</h1>
+      <h3>{{appDataService.underMaintainanceMessage}}</h3>
+  </div> -->
+</div>
+<ng-conatiner *ngIf="!partnerLedFlow && displayProspects">
+<div class="banner__slider">
+<div class="discr-box left__in" [ngClass]="{'active' : firstBanner}">
+  <div class="container-fluid market-landing-width">
+    <h1 class="lg-heading mb-0">{{localeService.getLocalizedString('dashboard.SELL_MORE')}}</h1>
+    <p class="subheading mt-1">{{localeService.getLocalizedString('dashboard.ENTERPRISE_AGREEMENT_MANAGEMENT')}}</p>
+  </div>
+</div>
+<div class="discr-box-2 right__in" [ngClass]="{'active' : secondBanner}">
+  <div class="container-fluid market-landing-width">
+    <h1 class="lg-heading mb-0" style="color:#fff;">New Experience Launched!</h1>
+    <p class="subheading mt-1" style="color:#fff;">Take a tour for the New and Modern experience which can really help you perform better.</p>
+    <button (click)="closeSlide = false;" class="btn">Take the Tour</button>
+  </div>
+</div>
+</div>
+<div class="banner-thumbnails">
+ <ul>
+   <li *ngFor="let a of slides" (click)="selectSlide(a)" [ngClass]="{'active-thumb': a.active}"> <a href="javascript:void(0)"><img [src]="a.url"/></a></li>
+  </ul>
+</div>
+</ng-conatiner>
+<!--Begin Prospects-->
+  <div class="prospect-combo gray-container-bg pt-4" *ngIf="displayProspects">
+    <div class="container-fluid market-landing-width">
+      <div class="row">
+        <div class="col-4 text-adjust">
+          <h1 class="lg-heading mb-4 mt-4">{{localeService.getLocalizedString('dashboard.TOP_POTENTIAL_PROSPETCS')}}</h1>
+          <h6 class="sm-heading mb-4">{{localeService.getLocalizedString('dashboard.SELECT_TOP_PROSPECTS')}}</h6>
+          <div class="d-flex">
+            <!-- <button class="btn btn-primary" (click)="viewAllProspects()">See All Prospects</button> -->
+            <div (clickOutside)="onProsOutside($event)" class="dropdown select-dropdown with-dropdown">
+                <button class="btn btn-primary" type="button"  aria-haspopup="true" aria-expanded="false"><span (click)="viewAllProspects()">{{selectedProspectView}}</span>
+                </button>
+                <!-- <div class="dropdown-menu dropdown-all-propspect" *ngIf="openProspectDrop">
+                    <a class="dropdown-item" href="javascript:void(0)" [ngClass]="{'active': selectedProspectView === e}" *ngFor="let e of ProspectViewOptions" (click)="selectProspect(e)">{{e}}<span class="icon-tick"></span></a>
+                </div> -->
+            </div>
+         </div>
+        </div>
+        <div class="col-8 tile-wrap">
+          <!-- <div class="tiles-toggle d-flex align-items-center justify-content-end pb-3">
+            <div class="tiles-toggle-txt p-0">I want to view </div>
+            <div class="dropdown select-dropdown">
+                <button class="dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" (click)="openProspectDrop = !openProspectDrop"><span>{{selectedProspectView}}.</span><i class="icon-arrow-stroke-right"></i>
+                </button>
+                <div class="dropdown-menu" *ngIf="openProspectDrop">
+                    <a class="dropdown-item" href="javascript:void(0)" [ngClass]="{'active': selectedProspectView === b}" *ngFor="let e of ProspectViewOptions" (click)="selectProspect(e)">{{e}}<span class="icon-tick"></span></a>
+                </div>
+            </div>
+         </div> -->
+      <div class="globalSwitchWrap text-right mb-2" *ngIf="appDataService.userInfo?.salesAccountView && !showFavoritesProspects">
+          <span>Sales Account View</span>
+          <ui-switch  kdfid="globalView" kdfapp="enterpriseAgreement" kdfpage="enterpriseAgreement" [(ngModel)]="globalView" checked size="small" color="#ABE3F2" switchColor="#00BCEA" (change)="globalSwitchChange($event)"></ui-switch>
+          <span>Global View</span>
+      </div>
+
+    <!-- <div class="globalSwitchWrap my-prospects look-up text-right mb-2" *ngIf="appDataService.userInfo?.salesAccountView && showFavoritesProspects">
+        <span>Sales Account View</span>
+        <ui-switch class="disabled" kdfid="globalView" kdfapp="enterpriseAgreement" kdfpage="enterpriseAgreement" [(ngModel)]="globalView" checked size="small" color="#ABE3F2" switchColor="#00BCEA"></ui-switch>
+        <span>Global View</span>
+    </div> -->
+          <app-prospects-list [prospectData]="prospectsData" [showFavoritesProspects]="showFavoritesProspects"></app-prospects-list>
+        </div>
+        <div class="no-data-preloader" *ngIf="dashboardService.prospectLoader">
+            <app-loader></app-loader>
+        </div>
+      </div>
+    </div>
+  </div>
+
+   <!--Begin Buying trigger-->
+  <!-- <div class="buying-triggers">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-6">
+          <h2 class="sub-heading">Top 3 Agreements with upcoming True Forward</h2>
+         <app-upcoming-agreements [upcomingTfData]="upcomingTfData"></app-upcoming-agreements>
+        </div>
+
+        <div class="col-6">
+          <h2 class="sub-heading">Top 3 Upcoming Renewals</h2>
+          <app-upcoming-agreements [upcomingRenewalData]="upcomingRenewalData"></app-upcoming-agreements>
+        </div>
+      </div>
+      <div class="w-100 border-top my-5"></div>
+
+      <div class="row">
+        <div class="col-12">
+          <h2 class="sub-heading">Top 3 Active Agreements</h2>
+          <app-active-agreements [activeAgreementData]="activeAgreementData"></app-active-agreements>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+   <!--My EA Deal-->
+   <div class="buying-triggers recent-qualifications mt-3 mb-5" *ngIf="displayMyDeal && partnerLedFlow">
+      <div class="container-fluid market-landing-width">
+        <h1 class="lg-heading text-center">My EA Deals</h1>
+        <div class="tiles-toggle d-flex align-items-center justify-content-center pb-3">
+            <div class="tiles-toggle-txt p-0">I want to view Deals </div>
+            <div class="dropdown select-dropdown" (clickOutside)="onDealOutside($event)">
+                <button class="dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" (click)="openDealDrop = !openDealDrop"><span>{{selectedDealView}}.</span><i class="icon-arrow-stroke-right"></i>
+                </button>
+                <div class="dropdown-menu" *ngIf="openDealDrop">
+                    <a class="dropdown-item" href="javascript:void(0)" [ngClass]="{'active': selectedDealView === c}" *ngFor="let c of DealViewOptions" (click)="selectDeal(c)">{{c}}<span class="icon-tick"></span></a>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-12" id="noSearchData" *ngIf="dealData?.length === 0">
+            <img class="no-deal-created" src="assets/images/no-data-available.svg">
+            <div class="no-qual-list">{{localeService.getLocalizedString('dashboard.NO_DEAL_CREATED')}}</div>
+        </div>
+        <app-deal-list (dealDataRecieved)='dealDataReceived($event)' [dealCreatedByTeam]="dealCreatedByTeam"  [userDashboard]= "true" class="app-qual-list"  style="width:100%;"></app-deal-list>
+        <div class="no-data-preloader" *ngIf="dashboardService.dealLoader">
+            <app-loader></app-loader>
+        </div>
+        <div class="row" *ngIf="dealData?.length !== 0">
+          <div class="col-12 text-center">
+            <button class="btn btn-primary" (click)="goToMyDeals()">See All Deals</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="buying-triggers recent-qualifications white-container-bg" *ngIf='!appDataService.isPatnerLedFlow && proposalPendingDataLoaded'>
+      <div class="container-fluid market-landing-width">
+        <h1 class="lg-heading text-center">{{localeService.getLocalizedString('dashboard.EXCEPTION_APPOVAL')}}</h1>
+        <div class="row">
+          <div class="col-6 min-info-list">
+            <div class="list-style ml-0">
+              <div class="list-item border--all solid" (click)='pendingProposal("myProposal")' [ngClass]="{'disabled': proposalPendingForMyApproval === 0 }">
+                <div class="list-item--val">
+                  <span class="list-item--name ellipsis">
+                    <span class="heading--h3 normal"><a href="javascript:void(0)">{{localeService.getLocalizedString('dashboard.PENDING_MY_APPROVALS')}}</a></span>
+                  </span>
+                </div>
+                <div class="list-item--val">
+                  <div class="arc-count" [ngClass]="{'disabled': proposalPendingForMyApproval === 0 }"><a href="javascript:void(0)">{{proposalPendingForMyApproval}}</a></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-6 min-info-list">
+            <div class="list-style ml-0">
+              <div class="list-item border--all solid" (click)='pendingProposal("teamProposal")' [ngClass]="{'disabled': proposalPendingForTeamApproval === 0 }">
+                <div class="list-item--val">
+                  <span class="list-item--name ellipsis">
+                    <span class="heading--h3 normal"><a href="javascript:void(0)">{{localeService.getLocalizedString('dashboard.PENDING_TEAMS_APPROVALS')}}</a></span>
+                  </span>
+                </div>
+                <div class="list-item--val">
+                  <div class="arc-count" [ngClass]="{'disabled': proposalPendingForTeamApproval === 0 }"><a href="javascript:void(0)">{{proposalPendingForTeamApproval}}</a></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--My Recent Qualifications-->
+    <div class="buying-triggers recent-qualifications" [ngClass]="{'gray-container-bg': (proposalPendingDataLoaded || appDataService.isPatnerLedFlow), 'white-container-bg' : !(proposalPendingDataLoaded || appDataService.isPatnerLedFlow)}">
+        <div class="container-fluid market-landing-width">
+          <h1 class="lg-heading text-center">{{localeService.getLocalizedString('dashboard.qual.MY_RECENT_QUALIFICATION')}}</h1>
+          <div class="tiles-toggle d-flex align-items-center justify-content-center pb-3">
+              <div class="tiles-toggle-txt p-0">{{localeService.getLocalizedString('dashboard.qual.I_WANT_TO_VIEW_QUALIFICATIONS')}}</div>
+              <div class="dropdown select-dropdown" (clickOutside)="onQualOutside($event)">
+                  <button class="dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" (click)="openQualDrop = !openQualDrop"><span>{{selectedQualView}}.</span><i class="icon-arrow-stroke-right"></i>
+                  </button>
+                  <div class="dropdown-menu" *ngIf="openQualDrop">
+                      <a class="dropdown-item" href="javascript:void(0)" [ngClass]="{'active': selectedQualView === a}" *ngFor="let a of QualViewoptions" (click)="selectQual(a)">{{a}}<span class="icon-tick"></span></a>
+                  </div>
+              </div>
+          </div>
+          <div class="col-xl-12" id="noSearchData" *ngIf="qualData?.data.length === 0 && isCreatedbyQualView && qualDataLoaded">
+              <img class="no-qual-created" src="assets/images/no-data-available.svg">
+              <div class="no-qual-list">{{localeService.getLocalizedString('dashboard.qual.NO_QUAL_CREATED')}}</div>
+          </div>
+          <div class="col-xl-12" id="noSearchData" *ngIf="qualData?.data.length === 0 && !isCreatedbyQualView && qualDataLoaded">
+              <img class="no-qual-shared" src="assets/images/no-data-available.svg">
+              <div class="no-qual-list">{{localeService.getLocalizedString('dashboard.qual.NO_QUAL_SHARED')}}</div>
+          </div>
+          <app-qual-list class="app-qual-list" *ngIf="qualData?.data.length !== 0" [qualData]="qualData" [qualListOnDashboard]=true style="width:100%;"></app-qual-list>
+          <div class="no-data-preloader" *ngIf="dashboardService.qualificationLoader">
+              <app-loader></app-loader>
+          </div>
+          <div class="row" *ngIf="qualData?.data.length !== 0">
+            <div class="col-12 text-center">
+              <button class="btn btn-primary" (click)="goToQualification()">{{localeService.getLocalizedString('dashboard.qual.button.SEE_ALL_QUALIFICATION')}}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!--My Recent Proposals-->
+      <div class="buying-triggers recent-qualifications pb-0" [ngClass]="{'white-container-bg': proposalPendingDataLoaded || appDataService.isPatnerLedFlow, 'gray-container-bg' : !(proposalPendingDataLoaded || appDataService.isPatnerLedFlow)}">
+        <div class="container-fluid market-landing-width">
+          <h1 class="lg-heading text-center">{{localeService.getLocalizedString('dashboard.proposal.MY_RECENT_PROPOSAL')}}</h1>
+          <div class="tiles-toggle d-flex align-items-center justify-content-center pb-3">
+              <div class="tiles-toggle-txt p-0">{{localeService.getLocalizedString('dashboard.proposal.I_WANT_TO_VIEW_PROPSALS')}}</div>
+              <div class="dropdown select-dropdown" (clickOutside)="onProposalOutside($event)">
+                  <button class="dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" (click)="openProposalDrop = !openProposalDrop"><span>{{selectedProposalView}}.</span><i class="icon-arrow-stroke-right"></i>
+                  </button>
+                  <div class="dropdown-menu" *ngIf="openProposalDrop">
+                      <a class="dropdown-item" href="javascript:void(0)" [ngClass]="{'active': selectedProposalView === b}" *ngFor="let b of QualViewoptions" (click)="selectProposal(b)">{{b}}<span class="icon-tick"></span></a>
+                  </div>
+              </div>
+          </div>
+          <div class="col-xl-12" id="noSearchData" *ngIf="proposalData?.data.length === 0 && isCreatedByProposalView && proposalDataLoaded ">
+              <img class="no-proposal-created" src="assets/images/no-data-available.svg">  
+            <div class="no-qual-list">{{localeService.getLocalizedString('dashboard.proposal.NO_PROPOSAL_CREATED')}}</div>
+          </div>
+          <div class="col-xl-12" id="noSearchData" *ngIf="proposalData?.data.length === 0 && !isCreatedByProposalView && proposalDataLoaded">
+              <img class="no-proposal-shared" src="assets/images/no-data-available.svg">  
+            <div class="no-qual-list">{{localeService.getLocalizedString('dashboard.proposal.NO_PROPOSAL_SHARED')}}</div>
+          </div>
+          <app-proposal-list class="" *ngIf="proposalData?.data.length !== 0"  [proposalData]="proposalData" style="width:100%;"></app-proposal-list>
+          <div class="no-data-preloader" *ngIf="dashboardService.proposalLoader">
+              <app-loader></app-loader>
+          </div>
+          <div class="row" *ngIf="proposalData?.data.length !== 0">
+            <div class="col-12 text-center">
+              <button class="btn btn-primary" (click)="goToProposalList()">{{localeService.getLocalizedString('dashboard.proposal.button.SEE_ALL_PROPOSAL')}}</button>
+            </div>
+          </div>
+      </div>
+
+      <div class="container-fluid myProposal mt-0 mb-1">
+          <div class="poweredBy"><span>Powered by <span class="ccw--text">CCW</span></span><span class="ccw-footer"></span><span>and</span><span class="d-a-footer"></span></div>    
+  </div>
+  
+      </div>
+
+
+          <!--Proposals on Compliance Hold-->
+    <!--<div class="buying-triggers recent-qualifications gray-container-bg">
+      <div class="container-fluid market-landing-width">
+        <h1 class="lg-heading text-center">{{localeService.getLocalizedString('dashboard.poposal.PROPOSAL_ON_COMPLIANCE_HOLD')}}</h1>
+        <div class="tiles-toggle d-flex align-items-center justify-content-center pb-3">
+            <div class="tiles-toggle-txt p-0">{{localeService.getLocalizedString('dashboard.proposal.I_WANT_TO_VIEW_PROPSALS')}}</div>
+            <div class="dropdown select-dropdown" (clickOutside)="onCompOutside($event)">
+                <button class="dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" (click)="openComplianceDrop = !openComplianceDrop"><span>on Hold.</span><i class="icon-arrow-stroke-right"></i>
+                </button>
+                <div class="dropdown-menu" *ngIf="openComplianceDrop">
+                    <a class="dropdown-item" href="javascript:void(0)" [ngClass]="{'active': selectedComplianceView === a}" *ngFor="let a of QualViewoptions" (click)="selectCompliance(a)">{{a}}<span class="icon-tick"></span></a>
+                </div>
+            </div>
+        </div>
+       <app-manage-compliance-hold-new></app-manage-compliance-hold-new>
+        <div class="no-data-preloader" *ngIf="dashboardService.qualificationLoader">
+            <app-loader></app-loader>
+        </div>
+        <div class="row">
+          <div class="col-12 text-center">
+            <button class="btn btn-primary">{{localeService.getLocalizedString('dashboard.proposal.button.SEE_ALL_ORDERS')}}</button>
+          </div>
+        </div>
+      </div>
+    </div> -->

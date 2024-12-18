@@ -1,0 +1,23 @@
+<!--<ea-progressbar></ea-progressbar>-->
+<div [hidden]='!blockUiService.spinnerConfig.block'>
+    <ea-progressbar></ea-progressbar>
+</div>
+<router-outlet></router-outlet>
+
+<!-- footer for vnext -->
+<div class="vnext-footer">
+    <hr class="weight-1 mb-0">
+    <div class="container-fluid myProposal mt-0 py-2 vNext">
+        <ul class="inline-listing border-right-li">
+            <li><a href="javascript:void(0)"  (click)=" navigateTo('common.TERMS_CONDITIONS')" attr.action-id="{{dataIdConstantsService.ea_link_termsConditions}}">{{localizationService.getLocalizedString('common.TERMS_CONDITIONS')}}</a></li>
+            <li><a href="javascript:void(0)"  (click)=" navigateTo('common.PRIVACY_STATEMENT')" attr.action-id="{{dataIdConstantsService.ea_link_privacyStatement}}">{{localizationService.getLocalizedString('common.PRIVACY_STATEMENT')}}</a></li>
+            <li><a href="javascript:void(0)"  (click)=" navigateTo('common.COOKIE_POLICY')" attr.action-id="{{dataIdConstantsService.ea_link_cookiePloicy}}">{{localizationService.getLocalizedString('common.COOKIE_POLICY')}}</a></li>
+            <li><a href="javascript:void(0)"  (click)=" navigateTo('common.TRADEMARKS')" attr.action-id="{{dataIdConstantsService.ea_link_trademarks}}">{{localizationService.getLocalizedString('common.TRADEMARKS')}}</a></li>
+        </ul>
+    </div>
+</div>
+<span class="adrum-script-core"></span>
+<span class="adrum-script">
+
+</span>
+<span class="adrum-script-old"></span>

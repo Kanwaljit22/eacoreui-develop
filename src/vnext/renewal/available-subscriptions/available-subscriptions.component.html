@@ -1,0 +1,142 @@
+<div class="mt-3">
+  <h5 class="mb-3">{{'available-subscriptions.TABLE_TITLE_ONE' | localizationPipe : localizationService.localizedkeySet.size}}</h5>
+  <table  *ngIf="availableSubscriptions?.length; else noSubscriptionsList" class="table table-bordered">
+    <thead>
+      <tr>
+        <th class="p-2 text-center">
+          <label class="label-check">
+            <input class="form-check-input" type="checkbox" [disabled]="proposalStoreService.proposalData?.renewalInfo?.id" (change)="toggleAllAvailableSelection()" [checked]="allAvailableSelected" />
+            <span class="custom-checkbox-btn i-vNext-fonts">
+              <span class="path1"></span>
+              <span class="path2"></span>
+              <span class="path3"></span>
+            </span>
+          </label>
+        </th>
+        <th class="p-2 text-center">{{'available-subscriptions.SUBSCRIPTION_ID' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+        <th class="p-2 text-center">{{'available-subscriptions.SUBSCRIPTION_STATUS' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+        <th class="p-2 text-center">{{'available-subscriptions.OFFER_TYPE' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+        <th class="p-2 text-center">{{'common.DAYS_LEFT' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+        <th class="p-2 text-center">{{'available-subscriptions.START_DATE' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+        <th class="p-2 text-center">{{'available-subscriptions.END_DATE' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+        <th class="p-2 text-center">{{'available-subscriptions.SUITES_INCLUDED' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+        <th class="p-2 text-center">{{'available-subscriptions.PARTNER_NAME' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+        <th class="p-2 text-center">{{'available-subscriptions.PROGRAM_ID' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+        <th class="p-2 text-center">{{'available-subscriptions.EA_MOTION' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let sub of availableSubscriptions">
+        <td class="p-2 text-center">
+          <label class="label-check">
+            <input class="form-check-input" type="checkbox" [disabled]="proposalStoreService.proposalData?.renewalInfo?.id" (change)="toggleSelection(sub)" [checked]="sub.selected" />
+            <span class="custom-checkbox-btn i-vNext-fonts">
+              <span class="path1"></span>
+              <span class="path2"></span>
+              <span class="path3"></span>
+            </span>
+          </label>
+        </td>
+        <td class="p-2 text-center">
+          <a href="javascript:void(0);" (click)="emitSubUi(sub.subRefId)">{{sub?.subRefId}}</a>
+        </td>
+        <td class="p-2 text-center">
+          <span
+            class="badge"
+            [ngClass]="{
+                'badge-approved': transformToLowercaseExceptFirstLetter(sub.statusDesc || '') === 'Active',
+                'badge-submitted': transformToLowercaseExceptFirstLetter(sub.statusDesc || '') !== 'Active'
+            }"
+          >
+          {{ transformToLowercaseExceptFirstLetter(sub.statusDesc || '') }}
+        </span>
+        </td>
+        <td class="p-2 text-center">{{ sub?.offerType }}</td>
+        <td class="p-2 text-center">{{ sub?.daysLeft }}</td>
+        <td class="p-2 text-center">{{ sub?.startDateStr }}</td>
+        <td class="p-2 text-center">{{ sub?.endDateStr }}</td>
+        <td class="p-2 text-center">
+          <span class="d-inline-block ellipsis" placement="top" ngbTooltip="{{(sub.suites) ? sub?.suites.join(', ') : ''}}" style="max-width: 150px;">
+            {{ sub?.suites?.join(', ') }}
+          </span>
+        </td>
+        <td class="p-2 text-center">{{ sub?.partner?.beGeoName }}</td>
+        <td class="p-2 text-center">{{ sub?.masterAgreementId }}</td>
+        <td class="p-2 text-center">
+          <span *ngIf="sub?.buyingProgramTransactionType === 'MSEA'">{{'common.MSEA' | localizationPipe : localizationService.localizedkeySet.size}} </span>
+                        <span *ngIf="sub?.buyingProgramTransactionType === 'EA'">
+                            {{'common.EA' | localizationPipe : localizationService.localizedkeySet.size}}
+                        </span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h5 class="mb-3">{{'available-subscriptions.TABLE_TITLE_TWO' | localizationPipe : localizationService.localizedkeySet.size}}</h5>
+  <div *ngIf="otherSubscriptions?.length; else noSubscriptionsList" class="table-responsive">
+    <table class="table table-bordered w-75">
+      <thead>
+        <tr>
+          <th class="p-2 text-center">
+            <label class="label-check">
+              <input class="form-check-input" type="checkbox" [disabled]="proposalStoreService.proposalData?.renewalInfo?.id" (change)="toggleAllOtherSelection()" [checked]="allOtherSelected" />
+              <span class="custom-checkbox-btn i-vNext-fonts">
+                <span class="path1"></span>
+                <span class="path2"></span>
+                <span class="path3"></span>
+              </span>
+            </label>
+          </th>
+          <th class="p-2 text-center">{{'available-subscriptions.SUBSCRIPTION_ID' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+          <th class="p-2 text-center">{{'available-subscriptions.SUBSCRIPTION_STATUS' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+          <th class="p-2 text-center">{{'available-subscriptions.OFFER_TYPE' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+          <th class="p-2 text-center">{{'common.DAYS_LEFT' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+          <th class="p-2 text-center">{{'available-subscriptions.START_DATE' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+          <th class="p-2 text-center">{{'available-subscriptions.END_DATE' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+          <th class="p-2 text-center">{{'available-subscriptions.SUITES_INCLUDED' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+          <th class="p-2 text-center">{{'available-subscriptions.PARTNER_NAME' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let sub of otherSubscriptions">
+          <td class="p-2 text-center">
+            <label class="label-check">
+              <input class="form-check-input" type="checkbox" [disabled]="proposalStoreService.proposalData?.renewalInfo?.id" (change)="toggleSelection(sub)" [checked]="sub.selected" />
+              <span class="custom-checkbox-btn i-vNext-fonts">
+                <span class="path1"></span>
+                <span class="path2"></span>
+                <span class="path3"></span>
+              </span>
+            </label>
+          </td>
+          <td class="p-2 text-center">
+            <a href="javascript:void(0);" (click)="emitSubUi(sub.subRefId)">{{sub?.subRefId}}</a>
+          </td>
+          <td class="p-2 text-center">
+            <span
+              class="badge"
+              [ngClass]="{
+                'badge-approved': transformToLowercaseExceptFirstLetter(sub.statusDesc || '') === 'Active',
+                'badge-submitted': transformToLowercaseExceptFirstLetter(sub.statusDesc || '') !== 'Active'
+              }"
+            >
+            {{ transformToLowercaseExceptFirstLetter(sub.statusDesc || '') }}
+          </span>
+          </td>
+          <td class="p-2 text-center">{{ sub.offerType }}</td>
+          <td class="p-2 text-center">{{ sub.daysLeft }}</td>
+          <td class="p-2 text-center">{{ sub.startDateStr }}</td>
+          <td class="p-2 text-center">{{ sub.endDateStr }}</td>
+          <td class="p-2 text-center">
+            <span class="d-inline-block ellipsis" placement="top" ngbTooltip="{{ sub.ea2Suites?.join(', ') || '' }}" style="max-width: 150px;">
+              {{ sub.ea2Suites?.join(', ') || '' }}
+            </span>
+          </td>
+          <td class="p-2 text-center">{{ sub.partner?.beGeoName }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <ng-template #noSubscriptionsList>
+    <p class="no-record mb-3">{{'renewal.NO_SUBSCRIPTION_FOUND' | localizationPipe : localizationService.localizedkeySet.size}}</p>
+  </ng-template>
+</div>

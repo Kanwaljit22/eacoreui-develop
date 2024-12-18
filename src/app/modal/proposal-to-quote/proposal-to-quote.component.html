@@ -1,0 +1,99 @@
+<div class="modal-header">
+    <h5 class="modal-title">Proposal to Quote Conversion</h5>
+    <button aria-label="Close" class="icon-close-btn" data-dismiss="modal" type="button"
+        (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+<div class="modal-body architecture-details border-bottom-0">
+    <div class="grid-block mt-3">
+        <div class="row">
+
+            <div class="col-4">
+                <label>Proposal Name</label>
+                <h4 class="label-name">
+                    <span class="ellipsis">{{quoteData?.proposalName}}</span>
+                </h4>
+            </div>
+            <div class="col-4">
+                <label>Architecture</label>
+                <h4 class="label-name">
+                    <span class="ellipsis">{{quoteData?.archName}}</span>
+                </h4>
+            </div>
+            <div class="col-4">
+                <label>Partner</label>
+                <h4 class="label-name">{{quoteData?.partner}}</h4>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="alert alert--info" *ngIf="type !== 'goToQuote'">
+        <span class="alert-icon">
+            <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+          </span>
+        <span class="txt">Please create a new proposal or clone an existing one to create a new quote</span>
+    </div> 
+    <div  *ngIf="invalidPartner" class="alert alert--warning alert-dismissable">
+
+        <span class="alert-icon">
+            <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+        </span>
+        <span>{{localeService.getLocalizedMessage('bom.INVALID_PARTNER')}}</span>
+    </div>
+
+    <div id="table-scroll" style="max-height:456px; overflow-y: auto;">
+        <table class="primary-table">
+            <thead>
+                <tr>
+                    <th width="50%">Quote Name</th>
+                    <th width="25%">Partner Name</th>
+                    <th width="12%">Create Date</th>
+                    <th width="13%">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let quote of quotesList">
+                    <td>
+                        <div class="radio-custom"><!-- <label class="label-check"><input class="form-input" disabled="disabled" type="checkbox" value=""><span></span></label> -->
+                        <input type="radio" class="radio_quoteName" [(ngModel)]="radioSelected" name="list_name"
+                            [value]="quote['quoteId']" (change)="onItemChange(item)" /><label
+                            for="no">
+                            <span class='custom-radio-btn'>
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                            </span>
+                            <span><span></span></span>{{quote['quoteName']}}</label>
+                        <!-- <span><input type="radio" class="radio_quoteName" [(ngModel)]="radioSelected" name="list_name" [value]="quote['quoteName']" (change)="onItemChange(item)"/></span> -->
+                    </div>
+                    </td>
+                    <td><span *ngIf="quote['partnerInfo']">{{quote['partnerInfo']['beGeoName']}}</span></td>
+                    <td><span *ngIf="quote['partnerInfo']">{{quote['partnerInfo']['createdOn']}}</span></td>
+                    <td>{{quote['quoteStatusDesc']}}</td>
+                </tr>
+
+
+                <!-- <td>
+                        <label class="label-check">
+                                <input class="form-input" disabled="disabled" type="checkbox" value="">
+                                <span></span>
+                              </label>
+                    <span>DNA test cross Q2 (421948759)</span>
+                </td>
+                <td>SHI International Corp.</td>
+                <td>21-Sep-2019</td>
+                <td>Approved</td>
+            </tr> -->
+
+
+            </tbody>
+        </table>
+
+    </div>
+</div>
+<div class="modal-footer mt-4" *ngIf="type !== 'goToQuote'">
+    <button class="btn btn-primary btn-continue" type="button" (click)="createNewQuote()">Create New Quote</button>
+    <button class="btn btn-primary marginR10" [disabled]="!radioSelected" type="button" (click)="updateQuote()">Update this Quote</button>
+</div>
+<div class="modal-footer mt-4" *ngIf="type === 'goToQuote'">
+    <button class="btn btn-primary marginR10" [disabled]="!radioSelected" type="button" (click)="updateQuote()">{{this.localeService.getLocalizedString('bom.GO_TO_CCW')}}</button>
+</div>

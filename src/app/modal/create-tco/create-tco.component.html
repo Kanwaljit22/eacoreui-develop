@@ -1,0 +1,23 @@
+<div class="modal-header">
+    <h5 class="modal-title">
+{{headerMessage}}
+    </h5>
+    <button type="button" class="icon-close-btn" data-dismiss="modal" aria-label="Close" (click)="close()"></button>
+</div>
+<div class="modal-body">
+    <div class="card border-0">
+    <div class="form-group">
+        <label class="customer-label" for="createTco" (click)="focusInput('createTco')">
+           {{localeService.getLocalizedString('tco.list.edit.TCO_NAME')}}
+        </label>
+        <input appElementFocus class="form-control" [(ngModel)]="tcoName"
+            id="createTco" name="createTco" required="" type="text" (ngModelChange)="isNameChanged($event)">
+    </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="close()">{{localeService.getLocalizedString('common.CANCEL')}}</button>
+    <button *ngIf = "!isUpdateTCO" type="button" class="btn btn-primary" (click)="create()" [disabled]="!isCreateTCO">{{localeService.getLocalizedString('common.DONE')}}</button>
+    <button *ngIf = "isUpdateTCO" type="button" class="btn btn-primary" (click)="update()" [disabled]="!isUpdate">{{localeService.getLocalizedString('common.UPDATE')}}</button>
+
+</div>

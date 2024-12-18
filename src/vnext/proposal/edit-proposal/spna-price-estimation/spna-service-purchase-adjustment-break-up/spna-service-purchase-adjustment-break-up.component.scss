@@ -1,0 +1,169 @@
+$browser-context:16;
+@function rem($pixels, $context: $browser-context) {
+    @return #{$pixels/$context}rem;
+} 
+/*  Table Styling -- Starts Here  */
+.primary-table {
+    thead {
+        th {
+            color: #6c757d;
+            font-size: 0.813rem;
+            font-weight: 700;
+            background-color: #fff;
+            padding-top: 10px;
+            padding-bottom: 8px;
+            border-top: 1px solid #e4e4e4;
+            border-bottom: 1px solid #e4e4e4;
+            border-right: 1px dashed #e4e4e4;
+            position: static;
+            vertical-align: middle;
+            height: 39px;
+
+            &:last-child {
+                border-right: 0;
+            }
+
+            &.colspan-border {
+                &--bottom {
+                    box-shadow: 0 2px 0 #e4e4e4;
+                }  
+                &--left {
+                    border-left: 1px dashed #e4e4e4;
+                }
+                &--right {
+                    border-right: 1px dashed #e4e4e4;
+                }
+            }
+        }
+    }       
+
+    tbody {
+        tr {
+            background-color: #fff;
+            border-bottom: 1px solid #e4e4e4;
+            &:nth-child(2n+1) {
+                background-color: #fff; 
+            }
+            &:hover {
+                background-color: #fff;
+            }
+
+            &.main-row {
+                background-color: #f3f3f3;
+
+                td {
+                    color: #6c757d;
+                    font-weight: 700;
+                }
+            }
+            &.table-sub-row {
+                td {
+                    &:first-child {
+                        padding-left: 36px;
+                    }  
+                }
+            }
+            &.level-2 {
+                td {
+                    &:first-child {
+                        padding-left: 66px;
+                    }  
+                }
+            }
+        }
+        td {
+            color: #394454;
+            font-size: 0.813rem;
+            font-weight: 400;
+            border-right: 1px dashed #e4e4e4;
+            vertical-align: middle;
+            height: 39px;
+
+            &:last-child {
+                border-right:0;
+            }
+
+            .form-control {
+                padding: 7px 6px;
+                text-align: right;
+                line-height: 1;
+            }
+        }
+    }
+
+    .empty-table-data {
+        text-align: center;
+        padding: 10px;
+    }
+
+    tfoot {
+        td {
+            padding: 8px 10px;
+            font-weight: 700;
+            color: #394454;
+            border-right: 1px dashed #e4e4e4;
+            border-bottom: 1px solid #e4e4e4;
+            height: 39px;
+
+            &:last-child {
+                border-right:0;
+            }
+        }
+    }
+
+    .expCol-wrap {
+        position: relative;
+        top: 2px;
+        margin-right: 10px;
+        cursor: pointer;
+        font-size: 1rem;
+    }
+
+    .badge {
+        font-size: 0.625rem;
+        border-radius: 30px;
+        &.fill {
+            &.hq {
+                background-color: #069697;
+                color: #fff;
+            }
+
+            &.br {
+                background-color: #4f91ff;
+                color: #fff;
+            }
+        }
+    }
+
+    .border-right {
+        &.dashed {
+            border-right: 1px dashed #e4e4e4 !important;
+        }
+    }
+}
+.primary-table tbody tr.main-row td:nth-child(1) {
+    padding-left: 10px;
+}
+.primary-table tbody tr.main-row td {
+    color: #394454;
+}
+.primary-table tbody tr td:nth-child(1) {
+    padding-left: 35px;
+}
+.custom-flyout .heading .dropdown .dropdown-link{
+        font-size: rem(28);
+
+        .icon-arrow-stroke {
+            font-size: 10px;
+            margin-left: 12px;
+            font-weight: 700;
+
+            &::before{
+                color: #227BB1;
+            }
+        }
+    }
+
+    .custom-flyout.cust-md{
+        width: 1170px;
+    }

@@ -1,0 +1,54 @@
+[
+    {
+        "quarter": "Net Price ALC (All Feature)",
+        "areas": [
+            {
+                "freq": {
+                    "HW": 4300,
+                    "HW Services": 3100,
+                    "SW": 2300,
+                    "SW Services": 1000
+                }
+            }
+        ]
+    },
+    {
+        "quarter": "BAU (Selected Features)",
+        "areas": [
+            {
+                "freq": {
+                    "HW": 8300,
+                    "HW Services": 3000,
+                    "SW": 7400,
+                    "SW Services": 1000
+                }
+            }
+        ]
+    },
+    {
+        "quarter": "C1",
+        "areas": [
+            {
+                "freq": {
+                    "HW": 4400,
+                    "HW Services": 8300,
+                    "SW": 2100,
+                    "SW Services": 3000
+                }
+            }
+        ]
+    },
+    {
+        "quarter": "EA",
+        "areas": [
+            {
+                "freq": {
+                    "HW": 8200,
+                    "HW Services": 5100,
+                    "SW": 6900,
+                    "SW Services": 1000
+                }
+            }
+        ]
+    }
+]

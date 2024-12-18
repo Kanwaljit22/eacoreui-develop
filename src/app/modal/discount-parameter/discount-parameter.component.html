@@ -1,0 +1,60 @@
+<div class="modal-header" id="discount-modal">
+  <h5 class="modal-title pull-left">{{title}}</h5>
+  <button [id] = "appDataService.createUniqueId('CANCEL_ICON',appDataService.pageContext)" type="button" class="icon-close-btn" aria-label="Close" (click)="bsModalRef.hide()">
+  </button>
+</div>
+
+<div class="modal-body">
+  <span class="noteText pull-right">{{localeService.getLocalizedString('modal.pricingparam.VALUE_IN_PERCENTAGE')}}</span>
+  <!-- <form>
+    <div class="mb-3 row" *ngFor="let discount of headerDiscounts">
+      <label class="col-sm-9 col-form-label discount-label upper"><span>{{discount.name}}</span>
+          <span style="margin-top: 0px; font-weight: normal; text-transform: normal; margin-bottom: 0px;" class="noteText" *ngIf="discount.name === constantsService.SW_SERVICE_DISC && proposalDataService.proposalDataObject.proposalData.billingModel === constantsService.PREPAID_TERM ">{{localeService.getLocalizedMessage('price.est.PREPAID_MULTI_YEAR_DISC')}}</span>
+      </label>
+      <div class="col-sm-3">
+        <input [id] = "appDataService.createUniqueId(discount.name,appDataService.pageContext)" type="text" class="form-control" [value]="discount.value" #inputSelected (keyup)="inputValueChange($event,discount.name)">
+      </div>
+      
+    </div> 
+  </form> -->
+  <div>
+     <app-slider-with-input (valueChange)='onValueChanged()' *ngFor="let slider of sliders" [simpleSlider]="slider"></app-slider-with-input>
+    <!-- <app-slider-with-input (valueChange)='onValueChanged()' class="modal-slider" *ngFor="let discount of headerDiscounts" [simpleSlider]="discount"></app-slider-with-input> -->
+</div>
+<div *ngIf="message !== 'applyDiscount'">
+  <div class="row pt-2">
+    <div class="text-left pb-2" style="font-size: 12px;color: #333;margin-left: 15px;">Eligible RAMP Discount % &amp;
+      Amount</div>
+    <div class="text-right pb-2" style="font-size: 12px;color: #333;margin-left: 110px;">All prices are shown in USD</div>
+  </div>
+  <!-- <div class="text-left pb-2" style="font-size: 12px; color: #333;">Eligible RAMP Discount % & Amount</div>
+  <div class="text-right pb-2" style="font-size: 12px; color: #333;">All prices are shown in
+    {{constantsService.CURRENCY}}</div> -->
+  <table class="primary-table">
+    <thead>
+      <tr>
+        <th width="50%">Suite Name</th>
+        <th width="25%">Ramp Discount</th>
+        <th width="25%" class="text-right">Amount</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor='let ramp of rampCreditDetails'>
+        <td>{{ramp.suiteName}}</td>
+        <td>{{ramp.percent}} %</td>
+        <td class="text-right">{{utilitiesService.formatValue(ramp.amount)}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div class="info-text-message" *ngIf="message !== 'applyDiscount'">
+  <strong>IMPORTANT</strong> – Consider your stacked discount structure and note that the RAMP promotion combined with a high discount is less likely to receive BU Finance approval. In order to reduce unnecessary cycles, we recommend you remove the RAMP promotion prior to submitting your proposal    
+</div>
+  <div class="clearfix"></div>
+</div>
+<div class="modal-footer">
+  <span *ngIf="message === 'applyDiscount'" class="noteText">{{localeService.getLocalizedMessage('modal.discountparam.DISC_APPLICABLE')}}</span>
+  <button [id] = "appDataService.createUniqueId('CANCEL',appDataService.pageContext)" type="button" class="btn btn-secondary" (click)="decline()">{{localeService.getLocalizedString('common.CANCEL')}}</button>
+  <button *ngIf="message === 'applyDiscount'" [id] = "appDataService.createUniqueId('APPLY',appDataService.pageContext)" [disabled]="isDisableApply" type="button" class="btn btn-primary" (click)="confirm()">{{localeService.getLocalizedString('common.APPLY')}}</button>
+  <button *ngIf="message !== 'applyDiscount'" [id] = "appDataService.createUniqueId('APPLY',appDataService.pageContext)" [disabled]="isDisableApply" type="button" class="btn btn-primary" (click)="confirmRamp()">{{localeService.getLocalizedString('common.APPLY')}}</button>
+</div>

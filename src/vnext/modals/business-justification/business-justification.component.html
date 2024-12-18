@@ -1,0 +1,19 @@
+<div class="modal-body vNext modal-without-header">
+    <button class="icon-close-btn" (click)="close()" type="button" attr.action-id="{{dataIdConstantsService.business_justification_button_closeIcon}}"></button>
+    <h2>
+        {{'common.BUSINESS_JUSTIFICATION' | localizationPipe : localizationService.localizedkeySet.size}}
+    </h2>
+</div>
+<div class="modal-body vNext modal-without-header">
+<div class="card border-0">
+    <div class="position-relative mt-1 marginB20 element-hasvalue form-group">
+      <span class="customer-label">{{'common.PERCENTAGE_SW_INSTALL_CHINA_DEAL' | localizationPipe : localizationService.localizedkeySet.size}}<sup> *</sup></span> 
+        <input (keydown)='utilitiesService.allowOnlyNumber($event)' type="number" (paste)="onPaste($event)" (keyup)='inputValueChange($event)' [(ngModel)]="percentage"  class="form-control mt-0" >
+    </div>
+ </div>
+</div>
+<div class="modal-footer justify-content-center">
+    <button type="button" class="btn btn-secondary" (click)="close()">{{'common.CANCEL' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+
+    <button type="button"  class="btn btn-primary" [disabled] = "!percentage && percentage !== 0" (click)="done()">{{'common.CONTINUE' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+  </div>

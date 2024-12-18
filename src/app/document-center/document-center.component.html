@@ -1,0 +1,120 @@
+<app-sub-header [screenName]='constantsService.DOC_CENTER'></app-sub-header>
+<app-financial-summary [financialSummaryData]="proposalDataService.summaryData" [financialSummaryTotalData]="proposalDataService.pinnedResult"></app-financial-summary>
+<div class="popover-message popover-success" *ngIf="customerSuccessNote">
+    <i class="icon-success"></i>
+    <span>{{customerSuccessMsg}}</span>
+    <button [id]="appDataService.createUniqueId('customerSuccessMsg',appDataService.pageContext)" (click)="hideCustomerMsg()" class="icon-close-btn" type="button"></button>
+</div>
+<div id="filter-area">
+    <div class="container-fluid">
+        <div class="row align-items-center">
+            <div class="col-md-7">
+                <h2>{{localeService.getLocalizedString('proposal.summary.DOCUMENT_CENTER_BUTTON')}}</h2>
+            </div>
+            <div class="col-md-5">
+                <ul class="qualify-btn">
+                    <!-- <li class="viewProspect">
+                <button type="button" class="btn btn-secondary">Disqualify</button>
+              </li>
+              <li class="viewIbsummary">
+                <button type="button" class="btn btn-secondary">View IB Summary</button>
+              </li> -->
+                    <li class="viewProspect">
+                        <button [id]="appDataService.createUniqueId('PROPOSAL_LIST',appDataService.pageContext)" type="button" (click)="goToProposalList()" class="btn btn-secondary">{{localeService.getLocalizedString('common.PROPOSAL_LIST')}}</button>
+                    </li>
+                    <li class="viewProspect" *ngIf="!appDataService.isGroupSelected">
+                        <button [id]="appDataService.createUniqueId('SALES_READINESS',appDataService.pageContext)" type="button" (click)="salesReadiness()" class="btn btn-secondary">{{localeService.getLocalizedString('common.SALES_READINESS')}}</button>
+                    </li>
+                    <li class="viewProspect" *ngIf="appDataService.isGroupSelected">
+                        <button [id]="appDataService.createUniqueId('SALES_READINESS',appDataService.pageContext)" type="button" class="btn btn-secondary" disabled>{{localeService.getLocalizedString('common.SALES_READINESS')}}</button>
+                    </li>
+                    <li class="viewProspect">
+                        <button [id]="appDataService.createUniqueId('PREVIEW_QUOTE',appDataService.pageContext)" type="button" (click)="goToPreviewquotePage()" class="btn btn-primary">{{localeService.getLocalizedString('common.PREVIEW_QUOTE')}}</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- <app-title-with-buttons [titleWithButton]="titleWithButton"></app-title-with-buttons>       -->
+    </div>
+</div>
+
+<!-- To show cross Architecture related message -->
+<div class="container-fluid mt-2" *ngIf="this.proposalDataService.proposalDataObject.proposalData.isCrossArchitecture === true">
+    <div class="clearfix"></div>
+    <div class="alert alert--info alert-dismissable">
+        <span class="alert-icon">
+            <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+        </span>
+        <span>{{localeService.getLocalizedMessage('proposal.documentcenter.CROSS_ARCHITECTURE_MESSAGE')}}</span>
+    </div>
+    <div class="alert alert--info alert-dismissable" *ngIf="this.proposalDataService?.proposalDataObject?.proposalData?.isStatusIncompleteCrossArch && this.proposalDataService.proposalDataObject.proposalData.isStatusInconsistentCrossArch">
+        <span class="alert-icon">
+            <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+        </span>
+        <span>
+            {{localeService.getLocalizedMessage('common.documentcenter.ONE_MORE_LINKED_PROPOSAL_PARAM_NOT_CONSISTENT_NOT_COMPLETE_PLEASE_FIX')}}
+        </span>
+    </div>
+
+    <div class="alert alert--info alert-dismissable" *ngIf="!this.proposalDataService?.proposalDataObject?.proposalData?.isStatusIncompleteCrossArch && this.proposalDataService.proposalDataObject.proposalData.isStatusInconsistentCrossArch">
+        <span class="alert-icon">
+            <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+        </span>
+        <span>
+            {{localeService.getLocalizedMessage('proposal.documentcenter.ONE_MORE_LINKED_PROPOSAL_PARAM_NOT_CONSISTENT_PLEASE_FIX')}}</span>
+    </div>
+
+    <div class="alert alert--info alert-dismissable" *ngIf="this.isStatusNotCompleteToAllowDownload() && this.proposalDataService?.proposalDataObject?.proposalData?.isStatusIncompleteCrossArch && !this.proposalDataService.proposalDataObject.proposalData.isStatusInconsistentCrossArch">
+        <span class="alert-icon">
+            <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+        </span>
+
+        <span>
+            {{localeService.getLocalizedMessage('proposal.documentcenter.ONE_MORE_LINKED_PROPOSAL_NOT_COMPLETE_PLEASE_FIX')}}</span>
+    </div>
+</div>
+
+<div class="container-fluid" *ngIf = "proposalDataService.cxProposalFlow">
+<div class="alert alert--warning alert--cx-info mt-2">
+    <div class="cx-msg">
+        <p class="msg">
+        <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+        IB and Pricing reports are available on IB Assessment page. Please <a href="javascript:void(0);" (click)="openIBAssessment()">click here</a> to download the reports.</p>
+    </div>
+</div>
+</div>
+
+
+<!--  -->
+<div class="clearfix"></div>
+<!--Recommended Content Begin-->
+<div class="container-fluid recommended-tabs pt-3">
+    <div class="row m-0">
+        <ul>
+            <li (click)="showSalesConnect = false" [ngClass]="{'active': !showSalesConnect}"><a href="javascript:void(0);"><svg style="vertical-align: middle;" width="20" height="30" viewBox="0 0 20 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18.5211 25.3326H1.62748C0.938516 25.3326 0.379883 24.7739 0.379883 24.085V4.61592C0.379883 3.92695 0.938516 3.36832 1.62748 3.36832H18.5211C19.2101 3.36832 19.7687 3.92675 19.7687 4.61592V24.0852C19.7687 24.7741 19.2101 25.3326 18.5211 25.3326Z" fill="#0C588F"/>
+                        <path d="M18.5211 24.7437H1.62748C0.938516 24.7437 0.379883 24.185 0.379883 23.4961V4.02702C0.379883 3.33805 0.938516 2.77942 1.62748 2.77942H18.5211C19.2101 2.77942 19.7687 3.33786 19.7687 4.02702V23.4963C19.7687 24.1852 19.2101 24.7437 18.5211 24.7437Z" fill="#1BA0D7"/>
+                        <path d="M16.698 22.395H3.45048C3.22082 22.395 3.03455 22.2087 3.03455 21.9793V6.32922C3.03455 6.09956 3.22082 5.91348 3.45048 5.91348H16.698C16.9277 5.91348 17.114 6.09956 17.114 6.32922V21.9791C17.114 22.2087 16.9277 22.395 16.698 22.395Z" fill="#71CCF2"/>
+                        <path d="M16.698 22.0024H3.45048C3.22082 22.0024 3.03455 21.8162 3.03455 21.5867V5.93664C3.03455 5.70699 3.22082 5.5209 3.45048 5.5209H16.698C16.9277 5.5209 17.114 5.70699 17.114 5.93664V21.5865C17.114 21.8162 16.9277 22.0024 16.698 22.0024Z" fill="white"/>
+                        <path d="M16.0289 6.36995L15.2505 3.57729C15.1254 3.12799 14.7159 2.81726 14.2496 2.81726H11.006C11.006 3.35533 10.5699 3.79139 10.0318 3.79139C9.494 3.79139 9.0577 3.35533 9.0577 2.81726H5.81402C5.34755 2.81726 4.93823 3.12799 4.81315 3.57729L4.03473 6.36995C3.8503 7.03237 4.34816 7.68817 5.03584 7.68817H15.0286C15.7155 7.68817 16.2136 7.03237 16.0289 6.36995Z" fill="#E6E7E8"/>
+                        <path d="M16.0289 5.59076L15.2505 2.79809C15.1254 2.34879 14.7159 2.03806 14.2496 2.03806H11.006C11.006 2.57614 10.5699 3.0122 10.0318 3.0122C9.494 3.0122 9.0577 2.57614 9.0577 2.03806H5.81402C5.34755 2.03806 4.93823 2.34879 4.81315 2.79809L4.03473 5.59076C3.8503 6.25318 4.34816 6.90898 5.03584 6.90898H15.0286C15.7155 6.90898 16.2136 6.25293 16.0289 5.59076Z" fill="#97C844"/>
+                        <path d="M15.9011 5.13191C15.7186 5.41542 15.402 5.6099 15.028 5.6099H5.0353C4.66154 5.6099 4.34467 5.41517 4.16221 5.13191L4.03419 5.59077C3.84976 6.25319 4.34762 6.90899 5.0353 6.90899H15.028C15.7157 6.90899 16.2136 6.25319 16.0289 5.59077L15.9011 5.13191Z" fill="#66921D"/>
+                        <path d="M10.0317 4.48146C11.3813 4.48146 12.4754 3.3874 12.4754 2.03779H11.214C11.214 2.69089 10.6848 3.22014 10.0317 3.22014C9.37884 3.22014 8.84935 2.69065 8.84935 2.03779H7.58827C7.58802 3.3874 8.68209 4.48146 10.0317 4.48146Z" fill="#66921D"/>
+                        <path d="M10.0316 0.0245667C8.91965 0.0245667 8.01836 0.925861 8.01836 2.03783C8.01836 3.14979 8.91965 4.05108 10.0316 4.05108C11.1436 4.05108 12.0449 3.14979 12.0449 2.03783C12.0449 0.925861 11.1436 0.0245667 10.0316 0.0245667ZM10.0316 3.01196C9.49378 3.01196 9.05748 2.5759 9.05748 2.03783C9.05748 1.49975 9.49378 1.06369 10.0316 1.06369C10.5697 1.06369 11.0057 1.49975 11.0057 2.03783C11.0057 2.5759 10.5697 3.01196 10.0316 3.01196Z" fill="#97C844"/>
+                        <path d="M12.596 9.33454H7.2524C7.00046 9.33454 6.79626 9.09016 6.79626 8.78864C6.79626 8.48712 7.00046 8.24274 7.2524 8.24274H12.596C12.848 8.24274 13.0522 8.48712 13.0522 8.78864C13.0522 9.09016 12.8481 9.33454 12.596 9.33454Z" fill="#D1D3D4"/>
+                        <path d="M14.8767 12.2558H4.97188C4.71994 12.2558 4.51575 12.0114 4.51575 11.7099C4.51575 11.4084 4.71994 11.164 4.97188 11.164H14.8769C15.1288 11.164 15.333 11.4084 15.333 11.7099C15.3328 12.0114 15.1288 12.2558 14.8767 12.2558Z" fill="#D1D3D4"/>
+                        <path d="M14.8767 14.8641H4.97188C4.71994 14.8641 4.51575 14.6198 4.51575 14.3182C4.51575 14.0167 4.71994 13.7723 4.97188 13.7723H14.8769C15.1288 13.7723 15.333 14.0167 15.333 14.3182C15.3328 14.6198 15.1288 14.8641 14.8767 14.8641Z" fill="#D1D3D4"/>
+                        <path d="M14.8768 17.4723H4.97194C4.72 17.4723 4.5158 17.2279 4.5158 16.9264C4.5158 16.6249 4.72 16.3805 4.97194 16.3805H14.8769C15.1289 16.3805 15.3331 16.6249 15.3331 16.9264C15.3329 17.2279 15.1289 17.4723 14.8768 17.4723Z" fill="#D1D3D4"/>
+                        <path d="M14.8767 20.0658H4.97188C4.71994 20.0658 4.51575 19.8214 4.51575 19.5199C4.51575 19.2183 4.71994 18.974 4.97188 18.974H14.8769C15.1288 18.974 15.333 19.2183 15.333 19.5199C15.3328 19.8214 15.1288 20.0658 14.8767 20.0658Z" fill="#D1D3D4"/>
+                        </svg>&nbsp; {{localeService.getLocalizedString('docusign.DOCUMENT_CENTER_PROPOSAL')}}</a></li>
+            <li (click)="showSalesConnect = true" [ngClass]="{'active': showSalesConnect}"><a href="javascript:void(0);"><svg style="vertical-align: middle;" width="35" height="29" id="Vector_Smart_Object_Image" data-name="Vector Smart Object Image" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 29 20"><defs><style>.cls-1{fill:#e3a116;}.cls-2{fill:#78bf1f;}.cls-3{fill:#fff;}.cls-4{fill:#95da40;}.cls-5{fill:#f9b526;}.cls-6{fill:#caff8a;}.cls-7{fill:#ffcf69;}.cls-8{fill:#3bbcf9;}.cls-9{fill:#93dbfd;}.cls-10{fill:#14a6eb;}</style></defs><title>SalesConnect</title><path class="cls-1" d="M12.85,8a1.28,1.28,0,0,0,1.38-1.4V6.06c0,.7-.16,1.24-1.26,1.29a2.42,2.42,0,0,0-2.37,2.37,2.38,2.38,0,0,0,0,.39C10.63,8.63,11.72,8.11,12.85,8ZM17,14.27a2.23,2.23,0,0,1-2.26,2.34c-1.24,0-1.82.47-1.82,1.64V19c0-1.18.58-1.64,1.82-1.64A2.28,2.28,0,0,0,17,15.13,5.91,5.91,0,0,0,17,14.27Z"/><path class="cls-2" d="M18.43,14.34a5.86,5.86,0,0,0,0-.63,2.46,2.46,0,0,0-2.38-2.46H14.31c-1.34,0-2.23-.69-2.23-1.81a1.1,1.1,0,0,0,0,.28A2,2,0,0,0,14.31,12h1.76A2.4,2.4,0,0,1,18.43,14.34Z"/><path class="cls-3" d="M14.72,12.09s-1,0-2.1,0a2.23,2.23,0,0,1-2-2.2s0,.07,0,.11a2.24,2.24,0,0,0,2,2.32c1.1.07,2.1,0,2.1,0A2.26,2.26,0,0,1,17,14.47s0-.08,0-.12A2.26,2.26,0,0,0,14.72,12.09Z"/><path class="cls-4" d="M24,4H15.71v2.1c0,.85-.36,1.32-1.49,1.5-1.38.22-2,.79-2.11,1.8,0,.07,0,.06,0,.08,0,1.12.89,1.81,2.23,1.81h1.76a2.46,2.46,0,0,1,2.38,2.46,6,6,0,0,1,0,.63h0a2.4,2.4,0,0,1-2.37,2.37c-1.52,0-1.73.78-1.73,1.55v1H24a2.63,2.63,0,0,0,2.58-2.63l0-10A2.63,2.63,0,0,0,24,4Z"/><path class="cls-5" d="M14.72,12.09s-1,0-2.1,0a2.24,2.24,0,0,1-2-2.32A2.43,2.43,0,0,1,13,7.35c1.17-.09,1.24-.6,1.24-1.29V4H5.09A2.63,2.63,0,0,0,2.46,6.59l0,10a2.63,2.63,0,0,0,2.63,2.63H12.9v-1c0-1.18.61-1.56,1.86-1.61A2.18,2.18,0,0,0,17,14.35,2.26,2.26,0,0,0,14.72,12.09Z"/><path class="cls-2" d="M26.53,16.69A2.63,2.63,0,0,1,24,19.24H14.34V20H24a2.63,2.63,0,0,0,2.58-2.63v-.68Z"/><path class="cls-1" d="M5.29,19.24H5.06a2.63,2.63,0,0,1-2.63-2.55v.68A2.63,2.63,0,0,0,5.06,20H12.9v-.76H5.29Z"/><path class="cls-6" d="M24,4.19a2.63,2.63,0,0,1,2.61,2.6V6.59A2.63,2.63,0,0,0,24,4H15.71v.23H24Z"/><path class="cls-7" d="M5.29,4H5.09A2.63,2.63,0,0,0,2.46,6.59v.2h0A2.63,2.63,0,0,1,5.09,4.19h9.13V4Z"/><path class="cls-8" d="M17,0h-4.9A2.25,2.25,0,0,0,9.81,2.25v.9h1.33v-.3c0-.94.74-1.35,1.66-1.35h3.59c.92,0,1.66.41,1.66,1.35v.3h1.16v-.9A2.25,2.25,0,0,0,17,0Z"/><path class="cls-9" d="M17,0h-4.9A2.25,2.25,0,0,0,9.81,2.25v.31A2.25,2.25,0,0,1,12.06.31H17a2.18,2.18,0,0,1,2.25,2.16V2.25A2.25,2.25,0,0,0,17,0Z"/><path class="cls-6" d="M15.71,6.28V6.05c0,.75-.34,1.3-1.47,1.48-1.49.23-2.12.9-2.16,1.94,0,0,0,0,0,.06.14-1,.78-1.54,2.15-1.76C15.36,7.59,15.71,7,15.71,6.28Zm2.74,7.78a2.06,2.06,0,0,1,0,.26h0a2.4,2.4,0,0,1-2.37,2.37c-1.52,0-1.73.78-1.73,1.55v.23c0-.77.21-1.55,1.73-1.55a2.4,2.4,0,0,0,2.37-2.37h0A4.08,4.08,0,0,0,18.45,14.07Z"/><path class="cls-7" d="M14.73,12.09s-1,0-2.1,0a2.23,2.23,0,0,1-2-2.2s0,.07,0,.11a2.24,2.24,0,0,0,2,2.32c1.1.07,2.1,0,2.1,0A2.26,2.26,0,0,1,17,14.47s0-.08,0-.12A2.26,2.26,0,0,0,14.73,12.09Z"/><path class="cls-10" d="M18,3.15v-.3c0-.94-.74-1.35-1.66-1.35H12.8c-.92,0-1.66.41-1.66,1.35v.3H9.81l.15.23h1.58V3.11c0-.84.68-1.18,1.53-1.18h3c.84,0,1.53.33,1.53,1.18v.27h1.43l.15-.24Z"/></svg>&nbsp;  {{localeService.getLocalizedString('docusign.DOCUMENT_CENTER_RECOMMENDED')}}</a></li>
+        </ul>
+    </div>
+</div>
+<app-document-center-recommended-content *ngIf="showSalesConnect"></app-document-center-recommended-content>
+<!--Recommended Content END-->
+
+<div class="container-fluid">
+    <message></message>
+</div>
+<app-document-center-proposal-documents (showCustomerSuccessMsg)="changeCustomerSuccessMsg($event)" *ngIf="!showSalesConnect"></app-document-center-proposal-documents>

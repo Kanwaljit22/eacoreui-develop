@@ -1,0 +1,160 @@
+.custom-tooltip-wrap .custom-tooltip-inner {
+    bottom: calc(100% + 3px);
+    border: none;
+    border-bottom: 5px solid #005073;
+    box-shadow: 0px -10px 30px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: 0px -10px 30px rgba(0, 0, 0, 0.4);
+    -webkit-box-shadow: 0px -10px 30px rgba(0, 0, 0, 0.4);
+    border-radius: 5px;
+    display: none;
+    left: 10px;
+    padding: 10px 10px 20px 10px;
+    position: absolute;
+    top: -36px;
+    right: auto;
+    background-color: #fff;
+	line-height: 1;
+	z-index: 1;
+}
+
+.custom-tooltip-wrap:hover .custom-tooltip-inner {
+	display: block;
+}
+
+.custom-tooltip-inner .icon-fill-arrow-down {
+    position: absolute;
+    top: auto;
+    left: 25%;
+    bottom: -2px;
+}
+
+.custom-tooltip-inner .icon-fill-arrow-down:after, .custom-tooltip-inner .icon-fill-arrow-down:before {
+	top: 100%;
+	left: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+
+.custom-tooltip-inner .icon-fill-arrow-down:after {
+	border-color: rgba(0, 80, 115, 0);
+	border-top-color: #005073;
+	border-width: 12px;
+	margin-left: -12px;
+}
+.custom-tooltip-inner .icon-fill-arrow-down:before {
+	border-color: rgba(0, 80, 115, 0);
+	border-top-color: #005073;
+	border-width: 12px;
+	margin-left: -12px;
+}
+
+
+/*  Old Custom Tooltip  */
+.clickProposal .tooltip-custom .tooltip-right {
+    white-space: normal;
+    top: auto;
+    bottom: 30px;
+}
+.clickProposal:hover .tooltip-custom .tooltip-right {
+    visibility: visible;
+    margin-top: -55px;
+    margin-left: -0.8%;
+}
+.clickProposal:hover .arrow-right {
+    visibility: visible;
+    left: 70px !important;
+    width: auto;
+}
+
+/* customer tool tip for download icon in deal list page starts */
+.custom-tooltip-locc-wrap:hover .tooltip-custom .tooltip-right {
+    visibility: visible;
+    white-space: nowrap;
+    top: 30px !important;
+    margin-top: -60px;
+}
+.custom-tooltip-locc-wrap .tooltip-custom .tooltip-right {
+    margin-left: -59px;
+}
+.custom-tooltip-locc-wrap:hover .arrow-right {
+    visibility: visible;
+    left: 42%!important;
+}
+/* customer tool tip for download icon in deal list page ends */
+.tooltip-custom .tooltip-right {
+    border: 1px solid #0E9BD6;
+    box-shadow: 0px 1px 6px 0px rgba(14, 155, 214, 1);
+    white-space: nowrap;
+    top: 25px;
+}
+
+.tooltip-custom .arrow-right, .tooltip-custom .arrow-right:after {
+    position: absolute;
+    display: block;
+    width: 0;
+    height: 0;
+    border-color: transparent;
+    border-style: solid;
+}
+
+.tooltip-custom .tooltip-right .arrow-right:after {
+    content: "";
+    border-width: 6px;
+    top: -6px;
+    left: 1px;
+    border-right-color: #fff;
+    border-left-width: 0;
+}
+
+.tooltip-custom .tooltip-right .arrow-right {
+    bottom: -12px;
+    left: 84px;
+    margin-top: 15px;
+    border-right-color: #0E9BD6;
+    border-left-width: 0;
+    border-width: 6px;
+    opacity: 1;
+    transform: rotate(270deg);
+}
+
+.tooltip-custom .tooltip-right {
+    margin-top: -40px;
+    margin-left: -86px;
+}
+
+
+
+
+.tooltip-custom .tooltip-right.drop-bottom {
+    margin-top: 0 !important;
+    top: 30px;
+    bottom: auto;
+}
+.tooltip-custom .iconFlagWrap .tooltip-right.drop-bottom {
+    margin-top: 5px !important;
+}
+
+.tooltip-custom .tooltip-right.drop-bottom .arrow-right {
+    transform: rotate(90deg);
+    top: -28px;
+    bottom: auto;
+}
+
+.eol-eos {
+    text-align: left;
+    padding: 5px 2px;
+}
+.eol-eos p:last-child {
+    margin-bottom: 0;
+}
+.eol-eos p {
+    margin-bottom: 5px;
+}
+
+.eosTip .tooltip-inner {
+    max-width: 500px;
+}

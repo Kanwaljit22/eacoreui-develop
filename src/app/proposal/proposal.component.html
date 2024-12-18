@@ -1,0 +1,29 @@
+<app-sub-header></app-sub-header>
+<div id="filter-area" class="mb-3" *ngIf="appDataService.userDashboardFLow !== 'userFlow'">
+    <div class="container-fluid">
+        <!-- <app-title-with-buttons [titleWithButton]="titleWithButton"></app-title-with-buttons> -->
+        <div>
+            <div class="row align-items-center">
+                <div class="col-md-5">
+                    <h2>Proposals</h2>
+                </div>
+                <div class="col-md-7">
+                    <ul class="qualify-btn">
+                        <!-- *ngIf="appDataService.displayRenewal" -->
+                        <li class="viewProspect" *ngIf="utilitiesService.isFollowonButtonDisplay() && !this.qualService.subRefID">
+                            <button type="button" class="btn btn-secondary" (click)="initiateRenewal()" [ngClass]="{'disabled': !displayButton || qualService.twoTUserUsingDistiDeal }"><span class="icon-btn-back"></span><span
+                                    class="mid-text">Initiate Follow-on</span><span class="icon-btn-continue"></span>
+                            </button>
+                        </li>
+                        <li class="viewProspect" >
+                            <button type="button" class="btn btn-primary" (click)="createProposal()" [ngClass]="{'disabled':!displayButton || qualService.twoTUserUsingDistiDeal}"><span class="icon-btn-back"></span><span
+                                    class="mid-text">Create New</span><span class="icon-btn-continue"></span>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-template app-dynamic></ng-template>

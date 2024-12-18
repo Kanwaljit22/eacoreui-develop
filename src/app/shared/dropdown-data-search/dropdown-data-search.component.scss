@@ -1,0 +1,27 @@
+/************inner-content-box*********/
+
+.dropdown-menu li.dropdown-item.check-control {
+    display     : inline-block;
+    width       : auto;
+    padding     : 0 10px;
+    border-right: 1px solid #ccc;
+}
+
+.dropdown-menu li.dropdown-item.check-control:last-child {
+    border-right: 0;
+}
+
+.dropdown-menu .defaultView li.dropdown-item.check-control {
+    display     : inline-block;
+    width       : auto;
+    padding     : 0 10px;
+    border-right: 1px solid #ccc;
+}
+
+.dropdown-menu .defaultView li.dropdown-item.check-control:last-child {
+    border-right: 0;
+}
+
+.inner-content-box {
+    padding: 10px;
+}

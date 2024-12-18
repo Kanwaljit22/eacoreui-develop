@@ -1,0 +1,309 @@
+.token-box {
+    background: $primary-bg;
+    padding: $triqtr-spacing 0;
+    position: relative;
+    &.strategic-offer, &.bpIDs {
+        background: none !important;
+    }
+    &.token-box-bordered {
+        border-top: 1px solid $border-color;
+        border-bottom: 1px solid $border-color;
+    }
+    .token--title {
+        font-size: rem(20);
+        color: $primary-text;
+        font-weight: 400;
+        padding: $qtr-spacing 0px;
+        display: flex;
+        white-space: nowrap;
+        span {
+            white-space: normal;
+        }
+        a{
+            font-size: rem(13);
+        }
+    }
+    .token{
+        border: 1px solid $border-color;
+        background: $white-color;
+        border-radius: 5px;
+        padding: $half-spacing $triqtr-spacing;
+        display: flex;
+        align-items: center;
+        transition: all 0.5s ease;
+        overflow: hidden;
+        position:relative;
+        &:hover {
+            cursor: pointer;
+            border: 1px solid $theme-color;
+            box-shadow: 0px 0px 14px rgba(0, 80, 115, 0.34);
+            .icon-msg-Info {
+                visibility: visible;
+                cursor: pointer;
+            }
+        }
+        &.shadow {
+            box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1);
+            height: 100%;
+        }
+        &.no-hover:hover {
+            cursor    : default;
+            box-shadow: 0px 0px 0px;
+            border    : 1px solid $border-color
+        }
+        & +.token {
+            margin-top: $triqtr-spacing;
+        }
+        &.active {
+            box-shadow: 6px 6px 20px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(-90deg, #005073 6.25%, #15ADCC 100%) !important;
+            border    : none;
+            .architecture--name {
+                color: $white-color;
+            }
+        }
+    }
+    .icon-msg-Info {
+        position: relative;
+        top: 1px;
+        visibility: hidden;
+        padding-left: $qtr-spacing;
+        font-size  : rem(14);
+        line-height: 1.2;
+    }
+    .text-hgt {
+        padding: $qtr-spacing $triqtr-spacing;
+        .token--title {
+            white-space: normal;
+            height     : 52px;
+        }
+    }
+    .architecture--name {
+        font-size    : rem(17);
+        font-weight  : 400;
+        @include ellipsis;
+        margin-top: 2px;
+    }
+    .architecture--icon {
+        font-size   : rem(30);
+        margin-right: $qtr-spacing;
+    }
+    .token--icons {
+        font-size : rem(48);
+        margin-right: $half-spacing;
+    }
+    .token--data {
+        font-size: rem(34);
+        color: $primary-text;
+        display: block;
+        line-height: 1;
+        font-weight: 400;
+        padding-top: $qtr-spacing;
+    }
+    .token--label {
+        font-size: rem(14);
+        color: $secondary-text;
+        font-weight: 400;
+        letter-spacing: 0.03em;
+    }
+    .token--data-lg {
+        font-size  : rem(36);
+        color      : $primary-text;
+        line-height: 1;
+    }
+    .progress-data {
+        display        : flex;
+        align-items    : center;
+        justify-content: space-between;
+        .token--data-lg {
+            margin-right  : $triqtr-spacing;
+            letter-spacing: -1.5px;
+        }
+    }
+    .progress {
+        position: relative;
+        width: 100%;
+        left: unset;
+        height: 30px;
+        border-radius: 0;
+        overflow: visible;
+        background: $primary-bg;
+        .progress-bar {
+            position: relative;
+            &::after {
+                content: '';
+                height: 38px;
+                width: 5px;
+                background: $black-color;
+                right: 0;
+                position: absolute;
+                bottom: -3px;
+            }
+            &.bg-success {
+                background: #2CB584 !important;
+            }
+        }
+    }
+    .renewals-tile{
+        .token{
+            height: 100%;
+        }
+        .token--title {
+            justify-content: space-between;
+            align-items: center;
+            padding: 0;
+        }
+        .verticalBarChart {
+            width: 100% !important;
+            height: 125px;
+        }
+    }
+    .verticalBarChart {
+        height: 280px;
+    }
+    .token--description {
+        font-weight : 300;
+        letter-spacing: 0.03em;
+        padding-bottom: $qtr-spacing;
+        font-size: rem(14);
+        b {
+            font-weight: 600;
+        }
+    }
+    .donut-chart {
+        height: 85px;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+    }
+    .chart-block {
+        padding-top: $triqtr-spacing;
+        position: relative;
+        .renewal-legend {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 270px;
+            right: 0;
+            margin: 0 auto;
+            display: block;
+            text {
+                margin: 0 $base-spacing 0 $qtr-spacing;
+            }
+        }
+    }
+    .token--tile {
+        background     : $tile-bg-header;
+        padding        : $qtr-spacing $triqtr-spacing;
+        margin-top     : $qtr-spacing;
+        border-radius  : 5px;
+        display        : flex;
+        justify-content: space-between;
+        align-items    : center;
+        .token--title {
+            font-size: rem(18);
+        }
+        .token--data {
+            font-size: rem(28);
+        }
+        .token--tile-flex {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-grow: 1;
+            max-width: 80%;
+        }
+    }
+    .badge {
+        font-size: rem(11);
+        line-height: rem(20);
+        padding: 0 $half-spacing;
+        color: $primary-text;
+        font-weight: 700 !important;
+        border-radius: 10px;
+        margin-left: $qtr-spacing;
+        text-transform: uppercase;
+        &.brownfield {
+            background: #DBB57B;
+        }
+        &.greenfield {
+            background: #67C1BA;
+        }
+    }
+    .scroll-changed {
+        height: 290px;
+        overflow-y: auto;
+    }
+    .badge-light-bordered {
+        border: 1px solid #999999;
+    }
+    .custom-width {
+        max-width: 22.3%;
+    }
+
+    .strategic-offer-buttons .prev-item{ rotate: -180deg; left: -38px; top: 390px;}
+    .strategic-offer-buttons .next-item{ right: -15px; top: 390px;}
+    .strategic-offer-buttons {
+        .next-item.bpId {
+            top: 60px;
+        }
+        .prev-item.bpId{ top: 60px; left: -25px;}
+    }
+
+    .strategic-offer-buttons .prev-item .icon-arrow-right:before, .strategic-offer-buttons .next-item .icon-arrow-right:before{
+        color: #516a93;
+    } 
+    .strategic-offer-buttons .prev-item, .strategic-offer-buttons .next-item{
+        background: transparent;
+    } 
+    .prev-item , .next-item {
+        position: absolute;
+        top: 50%;
+        margin-top: -16px;
+        background-color: rgba(0, 0, 0, 0.45);
+        height: rem(30);
+        width: rem(30);
+        font-size: rem(30);
+        border-radius: rem(30);
+        cursor: pointer;
+        z-index : 9999;
+    }
+    .prev-item {
+        left: 2px;
+    }
+    .next-item {
+        right: 2px;
+    }
+    .ico-left-round , .ico-right-round {
+        position: relative;
+        top     : -4px;
+        .path2:before {
+            color: #fff;
+        }
+    }
+    .architecture-wrap {
+        padding : $triqtr-spacing 0;;
+        .architecture-row {
+            flex-wrap: nowrap;
+            transition: all 0.5s ease 0s;
+            .col-2{
+                padding:0 0 0 $triqtr-spacing;
+            }
+        }
+    }
+    .more-details-icon {
+        font-size: rem(10);
+        margin-left: $qtr-spacing;
+        &::before {
+            color: $theme-color;
+        }
+    }
+    .v-seperator {
+        margin-right: $triqtr-spacing;
+    }
+    .dropdown-wrap.value-more:hover .icon-arrow-right {
+        transform: rotate(90deg);
+    }
+}

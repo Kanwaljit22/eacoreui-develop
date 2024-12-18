@@ -1,0 +1,30 @@
+$browser-context:16;
+@function rem($pixels, $context: $browser-context) {
+    @return #{$pixels/$context}rem;
+}
+
+.custom-flyout {
+    .heading {
+        padding-top: 40px;
+        .heading-title {
+            .heading--h2 {
+                padding-right: 20px !important;
+            }
+        }
+        .icon-close-btn{
+            top: 50px;
+            right: 50px;
+        }
+    }
+    &.cust-md {
+        width: 1140px;
+    }
+    .heading--h5{
+        color: #394454;
+    }
+}
+@media screen and (max-width:1370px){
+    .custom-flyout .body {
+        max-height: calc(100% - 100px);
+    }
+}

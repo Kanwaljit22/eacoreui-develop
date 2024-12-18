@@ -1,0 +1,140 @@
+<div class="debug-overlay" (click)="partnerDealCreationService.showLoccFlyout = false;"></div>
+<div class="right-flyout open w-75">
+  <div>
+    <h1 class="right-flyout--heading mb-0"  id="page-header">{{localeService.getLocalizedString('partner.LOA_INITIATE_SIGNATURE')}}<span><i class="icon-close-btn"
+          (click)="close()"></i></span></h1>
+          <app-copy-link></app-copy-link>
+    <div class="" class="right-flyout_content" style="padding: 25px;">
+        <div class="create-new_qualification-wrapper">
+      <ng-conatiner class="create-new_qualification">
+        <div class="row m-0 w-100 functionality-area" *ngIf="initiateStep1">
+            <div class="col-10">
+            <ol type="1">
+                <li>
+                <p class="primary-text">{{localeService.getLocalizedString('docusign.CUSTOMER_READINESS')}}</p>
+                <span class="light-text">{{localeService.getLocalizedMessage('partner.IS_CUSTOMER_READY')}}</span>
+                <div class="input-group">
+                    <div class="radio-wrapper radio-custom">
+                        <input type="radio" name="yes-no" value="yes"  [checked] = "!disableContinue" (change)="isCustomerReady($event)">
+                        <label>
+                            <span class='custom-radio-btn'>
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                            </span>
+
+                            <span>{{localeService.getLocalizedString('docusign.YES')}}</span>
+                        </label>
+                    </div>
+                    <div class="radio-wrapper radio-custom">
+                        <input type="radio" name="yes-no" value="no"  [checked] = "disableContinue" (change)="isCustomerReady($event)">
+                        <label>
+                            <span class='custom-radio-btn'>
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                            </span>
+                            <span>{{localeService.getLocalizedString('docusign.NO')}}</span>
+                        </label>
+                    </div>
+                </div>
+                </li>
+            </ol>
+            </div>
+            <div class="col-2 text-right">
+                <span class="secondary-text">{{localeService.getLocalizedString('docusign.STEP')}} 1 <span class="light-text">{{localeService.getLocalizedString('docusign.OF')}} 3</span></span>
+            </div>
+            <div class="col-12 locc-aleart-wrap">
+                <div class="alert alert--warning alert-dismissable clearfix mt-2">
+                    <span class="alert-icon">
+                        <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                    </span>
+                    <span>Come back at a later time once the customer is ready.</span></div>
+            </div>
+        </div>
+        <div class="row m-0 w-100 functionality-area" *ngIf="initiateStep2">
+            <div class="col-9 pr-0 pl-0">
+                <p class="primary-text">2.  {{localeService.getLocalizedString('docusign.CONFIRM_REPRESENTATIVE_INFO')}}</p>
+                <ul class="info-wrap mt-2">
+                    <li>
+                        <p class="light-text">{{localeService.getLocalizedString('qual.whoinvolved.PREFERRED_LEGAL_NAME')}}</p>
+                        <p class="primary-text">{{this.loaCustomerContact?.preferredLegalName ? this.loaCustomerContact?.preferredLegalName : '-' }}</p>
+                    <li>
+                        <p class="light-text">{{localeService.getLocalizedString('qual.whoinvolved.NAME')}}</p>
+                        <p class="primary-text">{{this.loaCustomerContact?.repName ? this.loaCustomerContact?.repName : '-' }}</p>
+                    <li>
+                        <p class="light-text">{{localeService.getLocalizedString('qual.whoinvolved.TITLE')}}</p>
+                        <p class="primary-text">{{this.loaCustomerContact?.repTitle ? this.loaCustomerContact?.repTitle : '-'}}</p>
+                    </li>
+                     <li>
+                        <p class="light-text">{{localeService.getLocalizedString('common.EMAIL')}}</p>
+                        <p class="primary-text">{{this.loaCustomerContact?.repEmail ? this.loaCustomerContact?.repEmail : '-' }}</p>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-2 text-right pl-0">
+                <span class="secondary-text mb-3 d-block">{{localeService.getLocalizedString('docusign.STEP')}} 2 <span class="light-text">{{localeService.getLocalizedString('docusign.OF')}} 3</span></span>
+                <button (click)="goToWhoInvolved()" class="btn btn-secondary" type="button">{{localeService.getLocalizedString('docusign.EDIT_CUST_INFO')}}</button>
+                <!-- <button class="btn btn-secondary" type="button" *ngIf="!isLoaCustomerContactPresent" disabled>{{localeService.getLocalizedString('docusign.EDIT_CUST_INFO')}}</button> -->
+            </div>
+            <div class="text-danger mt-2" role="alert" *ngIf="!loaCustomerContact?.repName || !loaCustomerContact?.repTitle || !loaCustomerContact?.phoneNumber">
+                <i class="icon-error-icon"></i><span>The mandatory attributes are not entered. Please enter them to proceed further.</span>
+            </div>
+        </div>
+        <div class="row m-0 w-100 functionality-area" *ngIf="initiateStep3">
+            <div class="col-10">
+                <p class="primary-text">3.  {{localeService.getLocalizedString('docusign.PREVIEW_DOCUMENT')}}</p>
+                <span class="light-text">{{localeService.getLocalizedMessage('partner.LOA_TAKE_A_MOMENT')}}</span>
+                <p class="secondary-text">What’s included?</p>
+                <p class="light-text">{{localeService.getLocalizedString('partner.LOA')}}</p>
+                <p class="light-text"><a #downloadZipLink [hidden]="true"></a><a href="javascript:void(0);" class="d-inline-block" (click)="downloadAuthorizationLetter()" >{{localeService.getLocalizedString('common.CLICK_HERE')}}</a> {{localeService.getLocalizedString('docusign.TO_DOWNLOAD')}}</p>
+            </div>
+            <div class="col-2 text-right">
+                <span class="secondary-text">{{localeService.getLocalizedString('docusign.STEP')}} 3 <span class="light-text">{{localeService.getLocalizedString('docusign.OF')}} 3</span></span>
+            </div>
+        </div>
+        <div class="row m-0 w-100 functionality-area" *ngIf="signaturePending">
+            <div class="col-12">
+                <p class="primary-text mb-1">{{localeService.getLocalizedString('common.STATUS')}} - <span class="text-warning">{{localeService.getLocalizedString('docusign.PENDING_SIGN')}}</span></p>
+                <span class="icon-watch icon-box"></span>
+                <div class="description-box">
+                <p class="light-text"><b class="secondary-text">{{localeService.getLocalizedString('partner.LOA_ESIGNATURE_INIT')}}</b> {{localeService.getLocalizedString('docusign.ELEC_COPIES')}} <a #downloadZipLink [hidden]="true"></a><a href="javascript:void(0);" (click)="downloadAuthorizationLetter()" class="d-inline">{{localeService.getLocalizedString('partner.LOA')}}</a> {{localeService.getLocalizedString('docusign.HAVE_BEEN_REQ')}} <span class="secondary-text">{{this.loaCustomerContact?.repName}} ({{this.loaCustomerContact?.repEmail}})</span></p>
+                <p class="light-text small-text">{{localeService.getLocalizedMessage('docusign.CONNECT_WITH_CUSTOMER_REP')}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="row m-0 w-100 functionality-area" *ngIf="signatureSigned">
+            <div class="col-12">
+                <p class="primary-text mb-1">{{localeService.getLocalizedString('common.STATUS')}} - <span class="text-success">{{localeService.getLocalizedString('docusign.SIGNED')}}</span></p>
+                <span class="icon-success-01 icon-box"></span>
+                <div class="description-box">
+                <p class="light-text"><b class="secondary-text">{{localeService.getLocalizedString('partner.LOA_ESIGNATURE_COMPLETED')}}</b> {{localeService.getLocalizedString('docusign.ELEC_COPIES')}} <a #downloadZipLink [hidden]="true"></a><a href="javascript:void(0);" (click)="downloadAuthorizationLetter()" class="d-inline">{{localeService.getLocalizedString('partner.LOA')}}</a> {{localeService.getLocalizedString('docusign.HAVE_BEEN_REQ')}} <span class="secondary-text">{{this.loaCustomerContact?.repName}} ({{this.loaCustomerContact?.repEmail}})</span></p>
+                </div>
+            </div>
+        </div>
+      </ng-conatiner>
+
+      <ng-conatiner class="create-new_qualification-footer">
+        
+         <button class="btn btn-secondary  btn-back ml-2" (click)="back()" type="button" *ngIf="initiateStep2 || initiateStep3"> 
+                 <span class="icon-btn-back"></span><span class="mid-text">{{localeService.getLocalizedString('common.BACK')}}</span> 
+         </button>
+         <button class="btn btn-primary btn-continue ml-2" [disabled]="disableContinue || ((!isLoaCustomerContactPresent || !loaCustomerContact?.repName || !loaCustomerContact?.repTitle || !loaCustomerContact?.phoneNumber) && initiateStep2)" type="button" *ngIf="initiateStep1 || initiateStep2 " (click)="continue()">
+             <span class="mid-text">{{localeService.getLocalizedString('common.CONTINUE')}}</span> <span class="icon-btn-continue"></span>
+         </button>
+         <button (click)="docusign()" class="btn btn-primary ml-2" type="button" *ngIf="initiateStep3 && !signaturePending">
+             <span class="mid-text">{{localeService.getLocalizedString('docusign.INITIATE_E-SIGNATURE')}}</span>
+         </button>
+       
+         <button (click)="sendAgain()" class="btn btn-primary ml-2" type="button" *ngIf="(initiateStep3 && signaturePending) || this.isShowSendAgain">
+             <span class="mid-text">{{localeService.getLocalizedString('docusign.SEND_AGAIN')}}</span>
+        </button>
+        <!-- <button class="btn btn-primary btn-continue ml-2" type="button" *ngIf="(initiateStep3 && signaturePending) || this.isShowSendAgain" (click)="continueDealLookup()">
+           <span class="mid-text">{{localeService.getLocalizedString('common.CONTINUE')}}</span> <span class="icon-btn-continue"></span>
+       </button> -->
+         
+       </ng-conatiner>
+
+       </div>
+       <!-- End of Wrapper -->
+    </div>
+  </div>
+</div>

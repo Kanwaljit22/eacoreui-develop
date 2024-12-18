@@ -1,0 +1,122 @@
+[
+    {
+        "colId": "ruleName",
+        "headerName": "Exception Rule Name",
+        "field": "ruleName",
+        "pinned": "left",
+        "suppressMenu": true,
+        "suppressSorting": true
+    },
+    {
+        "colId": "ruleDescription",
+        "headerName": "Exception Rule Description",
+        "field": "ruleDescription",
+        "suppressMenu": true,
+        "suppressSorting": true
+    },
+    {
+        "colId": "architecture",
+        "headerName": "Architecture",
+        "field": "architecture",
+        "suppressMenu": true,
+        "suppressSorting": true
+    },
+    {
+        "colId": "minThreshold",
+        "headerName": "NS Min. Threshold",
+        "field": "thresholds",
+        "suppressMenu": true,
+        "suppressSorting": true
+    },
+    {
+        "colId": "maxThreshold",
+        "headerName": "NS Max. Threshold",
+        "field": "thresholds",
+        "suppressMenu": true,
+        "suppressSorting": true
+    },
+    {
+        "colId": "nsType",
+        "headerName": "NS Type",
+        "field": "defineRule.nsType",
+        "suppressMenu": true,
+        "suppressSorting": true
+    },
+    {
+        "colId": "nsCategory",
+        "headerName": "NS Category",
+        "field": "defineRule.nsCategory",
+        "suppressMenu": true,
+        "suppressSorting": true
+    },
+    {
+        "colId": "reasons",
+        "headerName": "Reason Presets",
+        "field": "defineRule.reasons",
+        "suppressMenu": true,
+        "suppressSorting": true
+    },
+    {
+        "colId": "messageToSeller",
+        "headerName": "Message To Seller",
+        "field": "defineRule.messageToSeller",
+        "suppressMenu": true,
+        "suppressSorting": true
+    },
+    {
+        "colId": "triggerMechanism",
+        "headerName": "Trigger Mechanism",
+        "field": "defineRule.triggerMechanism",
+        "suppressMenu": true,
+        "suppressSorting": true
+    },
+    {
+        "colId": "functionGroup",
+        "headerName": "Function Group",
+        "field": "functionGroup",
+        "suppressMenu": true,
+        "suppressSorting": true
+    },
+    {
+        "colId": "teams",
+        "headerName": "Routing Team",
+        "field": "teams",
+        "suppressMenu": true,
+        "suppressSorting": true
+    },
+    {
+        "colId": "mode",
+        "headerName": "Mode",
+        "field": "mode",
+        "suppressMenu": true,
+        "suppressSorting": true
+    },
+    {
+        "colId": "createdOn",
+        "headerName": "Created On",
+        "field": "createdOn",
+        "suppressMenu": true,
+        "suppressSorting": true
+    },
+    {
+        "colId": "createdBy",
+        "headerName": "Created By",
+        "field": "createdBy",
+        "suppressMenu": true,
+        "suppressSorting": true
+    },
+    {
+        "colId": "updatedAt",
+        "headerName": "Last Updated On",
+        "field": "updatedAt",
+        "suppressMenu": true,
+        "suppressSorting": true
+    },
+    {
+        "colId": "updatedBy",
+        "headerName": "Last Updated By",
+        "field": "updatedBy",
+        "suppressMenu": true,
+        "suppressSorting": true
+    }
+]

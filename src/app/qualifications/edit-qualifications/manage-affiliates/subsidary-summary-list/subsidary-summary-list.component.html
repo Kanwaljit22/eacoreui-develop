@@ -1,0 +1,20 @@
+<div class="overlay show"></div>
+<div class="right-flyout open w-85 architectureBreakdown use-dropdowns">
+  <h1 class="right-flyout--heading mb-0">{{this.selectedRow.subsidiaryName}}<span>
+      <!-- <div class="btn-group">
+        <button type="button" class="dropdown-toggle-new" >{{partnerData?.partnerName}}<span class="icon-arrow-stroke-right"></span></button>
+        <div class="dropdown-menu dropdown-toggle-menu" *ngIf="showArchDrop"> 
+          <div class="dropdown-scroll"><div *ngFor='let partner of partnerDropdown'>
+            <a class="dropdown-item active" (click)='changePartner(partner)'>{{partner?.partnerName}}<span *ngIf='partner.partnerId === partnerData.partnerId' class="icon-tick-01"></span></a>
+          </div>
+        </div>
+        </div>
+      </div> -->
+    </span><i class="icon-close-btn" (click)="onClose.emit(null)"></i></h1>
+  <div class="right-flyout_content pt-3">
+    <app-smart-subsidiaries dynamicId="sl_" selectedView="summary" [isSummaryList]="true">
+
+    </app-smart-subsidiaries>
+  </div>
+
+</div>

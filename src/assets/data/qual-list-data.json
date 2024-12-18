@@ -1,0 +1,26 @@
+[
+    {
+        "qualName": "Test Qual Cisco Led",
+        "dealId": 210484493,
+        "am": "Maurice Burke",
+        "status": "In Progress",
+        "customerName": "INTERNATIONAL BUSINESS MACHINES CORPORATION",
+        "salesTeam": "Corey Freeze, Macyn Baker, Maurice Burke, Alejandro Cruz"
+    },
+    {
+        "qualName": "DNT_EAMP",
+        "dealId": 40481876,
+        "am": "Ann Kaiser",
+        "status": "Complete",
+        "customerName": "GOOGLE INC",
+        "salesTeam": "Amanda Hager"
+    },
+    {
+        "qualName": "DE289935",
+        "dealId": 1234567,
+        "am": "ROY MCGILLIS",
+        "status": "Complete",
+        "customerName": "STATE OF NEW JERSEY",
+        "salesTeam": "Macyn Baker, ROY MCGILLIS, Alejandro Cruz"
+    }
+]

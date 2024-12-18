@@ -1,0 +1,210 @@
+[
+    {
+        "customerGuName": "Govt of te United States",
+        "id": "7469263",
+        "address1": "20 Massachusetts Ave NW",
+        "address2": "Floor 5",
+        "address3": "Suite No. 7",
+        "city": "Washington, DC",
+        "eaQty": "102,593",
+        "nelAmount": "152,000.00",
+        "nesAmount": "67",
+        "children": [
+            {
+                "customerGuName": "US Dept. of Homeland Security",
+                "id": "216426861",
+                "address1": "9137 Cypress Rd.",
+                "address2": "Floor 5",
+                "address3": "Suite No. 7",
+                "city": "South Plainfield",
+                "eaQty": "47,225",
+                "nelAmount": "593,000.00",
+                "nesAmount": "909",
+                "children": [
+                    {
+                        "customerGuName": "US Dept. of Homeland Security",
+                        "id": "216426861",
+                        "address1": "9137 Cypress Rd.",
+                        "address2": "Floor 5",
+                        "address3": "Suite No. 7",
+                        "city": "South Plainfield",
+                        "eaQty": "47,225",
+                        "nelAmount": "593,000.00",
+                        "nesAmount": "909"
+                    },
+                    {
+                        "customerGuName": "US Dept. of Homeland Security",
+                        "id": "216426861",
+                        "address1": "9137 Cypress Rd.",
+                        "address2": "Floor 5",
+                        "address3": "Suite No. 7",
+                        "city": "South Plainfield",
+                        "eaQty": "47,225",
+                        "nelAmount": "593,000.00",
+                        "nesAmount": "909"
+                    },
+                    {
+                        "customerGuName": "US Dept. of Homeland Security",
+                        "id": "216426861",
+                        "address1": "9137 Cypress Rd.",
+                        "address2": "Floor 5",
+                        "address3": "Suite No. 7",
+                        "city": "South Plainfield",
+                        "eaQty": "47,225",
+                        "nelAmount": "593,000.00",
+                        "nesAmount": "909"
+                    }
+                ]
+            },
+            {
+                "customerGuName": "US Dept. of Homeland Security",
+                "id": "174404534",
+                "address1": "7364, Peachtree Street",
+                "address2": "Floor 5",
+                "address3": "Suite No. 7",
+                "city": "Westwood",
+                "eaQty": "134,193",
+                "nelAmount": "0",
+                "nesAmount": "",
+                "children": [
+                    {
+                        "customerGuName": "US Dept. of Homeland Security",
+                        "id": "174404534",
+                        "address1": "7364, Peachtree Street",
+                        "address2": "Floor 5",
+                        "address3": "Suite No. 7",
+                        "city": "Westwood",
+                        "eaQty": "134,193",
+                        "nelAmount": "0",
+                        "nesAmount": ""
+                    },
+                    {
+                        "customerGuName": "US Dept. of Homeland Security",
+                        "id": "174404534",
+                        "address1": "7364, Peachtree Street",
+                        "address2": "Floor 5",
+                        "address3": "Suite No. 7",
+                        "city": "Westwood",
+                        "eaQty": "134,193",
+                        "nelAmount": "0",
+                        "nesAmount": ""
+                    },
+                    {
+                        "customerGuName": "US Dept. of Homeland Security",
+                        "id": "174404534",
+                        "address1": "7364, Peachtree Street",
+                        "address2": "Floor 5",
+                        "address3": "Suite No. 7",
+                        "city": "Westwood",
+                        "eaQty": "134,193",
+                        "nelAmount": "0",
+                        "nesAmount": ""
+                    },
+                    {
+                        "customerGuName": "US Dept. of Homeland Security",
+                        "id": "174404534",
+                        "address1": "7364, Peachtree Street",
+                        "address2": "Floor 5",
+                        "address3": "Suite No. 7",
+                        "city": "Westwood",
+                        "eaQty": "134,193",
+                        "nelAmount": "0",
+                        "nesAmount": ""
+                    }
+                ]
+            },
+            {
+                "customerGuName": "US Citizenship and Immigration",
+                "id": "164816105",
+                "address1": "964, Hillcrest St.",
+                "address2": "Floor 5",
+                "address3": "Suite No. 7",
+                "city": "Hendersonville",
+                "eaQty": "289",
+                "nelAmount": "550,000.00",
+                "nesAmount": "54",
+                "children": [
+                    {
+                        "customerGuName": "US Citizenship and Immigration",
+                        "id": "164816105",
+                        "address1": "964, Hillcrest St.",
+                        "address2": "Floor 5",
+                        "address3": "Suite No. 7",
+                        "city": "Hendersonville",
+                        "eaQty": "289",
+                        "nelAmount": "550,000.00",
+                        "nesAmount": "54"
+                    },
+                    {
+                        "customerGuName": "US Citizenship and Immigration",
+                        "id": "164816105",
+                        "address1": "964, Hillcrest St.",
+                        "address2": "Floor 5",
+                        "address3": "Suite No. 7",
+                        "city": "Hendersonville",
+                        "eaQty": "289",
+                        "nelAmount": "550,000.00",
+                        "nesAmount": "54"
+                    },
+                    {
+                        "customerGuName": "US Citizenship and Immigration",
+                        "id": "164816105",
+                        "address1": "964, Hillcrest St.",
+                        "address2": "Floor 5",
+                        "address3": "Suite No. 7",
+                        "city": "Hendersonville",
+                        "eaQty": "289",
+                        "nelAmount": "550,000.00",
+                        "nesAmount": "54"
+                    }
+                ]
+            },
+            {
+                "customerGuName": "US Dept. of Agriculture",
+                "id": "178554062",
+                "address1": "87 E. El Dorado Court",
+                "address2": "Floor 5",
+                "address3": "Suite No. 7",
+                "city": "Clarksburg",
+                "eaQty": "33",
+                "nelAmount": "63,00.00",
+                "nesAmount": "318",
+                "children": [
+                    {
+                        "customerGuName": "US Dept. of Agriculture",
+                        "id": "178554062",
+                        "address1": "87 E. El Dorado Court",
+                        "address2": "Floor 5",
+                        "address3": "Suite No. 7",
+                        "city": "Clarksburg",
+                        "eaQty": "33",
+                        "nelAmount": "63,00.00",
+                        "nesAmount": "318"
+                    },
+                    {
+                        "customerGuName": "US Dept. of Agriculture",
+                        "id": "178554062",
+                        "address1": "87 E. El Dorado Court",
+                        "address2": "Floor 5",
+                        "address3": "Suite No. 7",
+                        "city": "Clarksburg",
+                        "eaQty": "33",
+                        "nelAmount": "63,00.00",
+                        "nesAmount": "318"
+                    },
+                    {
+                        "customerGuName": "US Dept. of Agriculture",
+                        "id": "178554062",
+                        "address1": "87 E. El Dorado Court",
+                        "address2": "Floor 5",
+                        "address3": "Suite No. 7",
+                        "city": "Clarksburg",
+                        "eaQty": "33",
+                        "nelAmount": "63,00.00",
+                        "nesAmount": "318"
+                    }
+                ]
+            }
+        ]
+    }
+]

@@ -1,0 +1,16 @@
+<div class="modal-header">
+    <h5 class="modal-title pull-left">{{localeService.getLocalizedString('modal.pricingparam.PRICING_PARAM')}} {{suiteName}}</h5>
+    <button [id] = "appDataService.createUniqueId('CLOSE',appDataService.pageContext)" class="icon-close-btn" type="button"aria-label="Close" (click)="bsModalRef.hide()"></button>
+</div>
+<div class="modal-body">
+        <span class="noteText pull-right">{{localeService.getLocalizedString('modal.pricingparam.VALUE_IN_PERCENTAGE')}}</span>
+        <div *ngIf="showSlider" >
+            <app-slider-with-input (valueChange)='onValueChanged()' *ngFor="let slider of sliders" [simpleSlider]="slider"></app-slider-with-input>
+        </div>
+</div>
+<div class="modal-footer">
+    <!-- <span class="noteText">Note: Discount will be applicable to all the suites.</span> -->
+    <button [id] = "appDataService.createUniqueId('CANCEL',appDataService.pageContext)" class="btn btn-secondary" type="button" (click)="decline()">{{localeService.getLocalizedString('common.CANCEL')}}</button>
+    <button [id] = "appDataService.createUniqueId('APPLY',appDataService.pageContext)" [disabled]="isDisableApply" class="btn btn-primary" type="button" (click)="confirm()" >{{localeService.getLocalizedString('common.APPLY')}}</button>
+</div>
+

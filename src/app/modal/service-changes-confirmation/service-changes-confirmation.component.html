@@ -1,0 +1,18 @@
+<div class="modal-header">
+    <h5 class="modal-title">
+     Confirmation
+    </h5>
+    <button type="button" class="icon-close-btn" data-dismiss="modal" aria-label="Close" (click)="close()"></button>
+  </div>
+<div class="modal-body">
+    <div class="body-content info-alert-message">
+      <div class="text-center confirmation-icon-wrap d-block">
+        <span class="icon-done1"><span class="path1"></span><span class="path2"></span></span>
+      </div>
+      <div class="info-txt text-center">You have successfully added <span class="bold-txt">{{message}}</span></div>
+      <div class="info-txt text-center" *ngIf="mangeServiceConfirmation && !isFromSummaryPage">You can click on "Manage Teams" to edit this information</div>
+      <div class="d-block text-center">
+        <button type="button" class="btn btn-primary" (click)="close()"><span class="mid-text">Done</span></button>
+      </div>
+    </div>
+  </div>

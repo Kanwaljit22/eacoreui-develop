@@ -1,0 +1,115 @@
+[
+    {
+        "headerName": "",
+        "suppressSorting": true,
+        "suppressMenu": true,
+        "pinned": true,
+        "suppressToolPanel": true,
+        "suppressMovable": true,
+        "suppressResize": true,
+        "width": 50,
+        "minWidth": 30
+    },
+    {
+        "headerName": "SALES ORDER NO.",
+        "field": "salesOrderNo",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 150,
+        "minWidth": 60,
+        "cellClass": "text-link",
+        "suppressMenu": true
+    },
+    {
+        "headerName": "WEB ORDER ID",
+        "field": "webOrderId",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 150,
+        "minWidth": 60,
+        "suppressMenu": true
+    },
+    {
+        "headerName": "ORDER NAME",
+        "field": "orderName",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 150,
+        "minWidth": 60,
+        "suppressMenu": true
+    },
+    {
+        "headerName": "STATUS",
+        "field": "statusSales",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 180,
+        "minWidth": 60,
+        "suppressMenu": true
+    },
+    {
+        "headerName": "SHIP TO",
+        "field": "shipTo",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 180,
+        "minWidth": 60,
+        "suppressMenu": true
+    },
+    {
+        "headerName": "ORDER TOTAL",
+        "field": "orderTotal",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 160,
+        "minWidth": 60,
+        "cellRenderer": "currencyFormat",
+        "suppressMenu": true
+    },
+    {
+        "headerName": "DEAL ID",
+        "field": "dealId",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 160,
+        "minWidth": 60,
+        "suppressMenu": true
+    },
+    {
+        "headerName": "NUMBER OF ASSETS",
+        "field": "numberOfAssets",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 170,
+        "minWidth": 60,
+        "suppressMenu": true
+    },
+    {
+        "headerName": "NUMBER OF ASSETS TAGGED",
+        "field": "noaTagged",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 170,
+        "minWidth": 60,
+        "suppressMenu": true
+    },
+    {
+        "headerName": "NUMBER OF ASSETS UN TAGGED",
+        "field": "noaUntagged",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 170,
+        "minWidth": 60,
+        "suppressMenu": true
+    }
+]

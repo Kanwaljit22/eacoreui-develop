@@ -1,0 +1,37 @@
+{
+    "data": {
+        "smartAccounts": [
+            {
+                "smrtAccntId": "12345",
+                "smrtAccntName": "Google Inc",
+                "accountType": "CUSTOMER",
+                "domain": "google.com",
+                "programName": "EA3.0",
+                "defaultVAName": "XYZ",
+                "defaultVAStatus": "XYZ",
+                "defaultVAId": "1234"
+            },
+            {
+                "smrtAccntId": "2345789",
+                "smrtAccntName": "China Telecommunications",
+                "accountType": "CUSTOMER",
+                "domain": "chinatelecom.com",
+                "programName": "EA3.0",
+                "defaultVAName": "XYZ",
+                "defaultVAStatus": "XYZ",
+                "defaultVAId": "1234"
+            },
+            {
+                "smrtAccntId": "1312353",
+                "smrtAccntName": "Alphabet Inc",
+                "accountType": "CUSTOMER",
+                "domain": "us.alphabet.org",
+                "programName": "EA3.0",
+                "defaultVAName": "XYZ",
+                "defaultVAStatus": "XYZ",
+                "defaultVAId": "1234"
+            }
+        ],
+        "ea2": false
+    }
+}

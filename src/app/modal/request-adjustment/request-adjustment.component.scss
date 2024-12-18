@@ -1,0 +1,101 @@
+.my-drop-zone {
+    border       : dashed 1px #0E709E;
+    padding      : 21px 25px;
+    border-radius: 3px;
+    margin       : 0px 30px 0px 25px;
+    background   : #F2FBFD;
+    font-size    : 16px;
+}
+
+.my-drop-zone .icon-close-btn {
+    margin-left: 8px;
+    position   : relative;
+    right      : 0;
+    top        : -4px;
+    width      : 20px;
+}
+
+.my-drop-zone div {
+    line-height: 10px;
+}
+
+.my-drop-zone div>div>span {
+    position    : relative;
+    padding-left: 35px;
+    margin-top  : 0;
+    display     : inline-block;
+    top         : 5px;
+    width       : 100%
+}
+
+.my-drop-zone div>div>span .icon-pdf1 {
+    position: absolute;
+    left    : 0px;
+    top     : 0px;
+}
+
+.my-drop-zone .wrap-text {
+    width     : 100%;
+    text-align: left;
+}
+
+.drag-drop-text {
+    display      : inline-block;
+    overflow     : hidden;
+    white-space  : nowrap;
+    max-width    : calc(100% - 35px);
+    text-align   : left;
+    line-height  : 20px;
+    text-overflow: ellipsis;
+}
+
+.icon-xls1,
+.icon-wrong-file {
+    font-size     : 25px;
+    vertical-align: middle;
+    margin-right  : 10px;
+}
+
+
+
+.tooltip-custom .tooltip-right {
+    border    : 1px solid #0E9BD6;
+    box-shadow: 0px 1px 6px 0px rgba(14, 155, 214, 1);
+}
+
+.arrow-right,
+.arrow-right:after {
+    position    : absolute;
+    display     : block;
+    width       : 0;
+    height      : 0;
+    border-color: transparent;
+    border-style: solid;
+}
+
+.tooltip-custom .tooltip-right .arrow-right:after {
+    content           : "";
+    border-width      : 6px;
+    top               : -6px;
+    left              : 1px;
+    border-right-color: #fff;
+    border-left-width : 0;
+}
+
+.tooltip-custom .tooltip-right .arrow-right {
+    top               : 50%;
+    left              : 84px;
+    margin-top        : 15px;
+    border-right-color: #0E9BD6;
+    border-left-width : 0;
+    border-width      : 6px;
+    opacity           : 1;
+    transform         : rotate(270deg);
+}
+
+.tooltip-custom .tooltip-right {
+    margin-top : -40px;
+    margin-left: -86px;
+}
+
+/*End AG Grid custom tooltip*/

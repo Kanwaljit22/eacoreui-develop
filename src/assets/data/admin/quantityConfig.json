@@ -1,0 +1,21 @@
+{
+  "data": [
+    {
+      "id": "",
+      "suiteId": 29,
+      "atoName": "ISE",
+      "minorLine": "E2SF-I-ISE-BASE-10",
+      "configRuleMultiplier": 0,
+      "maxQty": 0,
+      "minQty": 10,
+      "higherEducationRuleMultiplier": 0,
+      "k12RuleMultiplier": 0,
+      "higherEducationMaxCount": 0,
+      "k12MaxCount": 0,
+      "minOrderableMultiplier": 1,
+      "ignoreScuCount": true,
+      "ignoreBookingQty": true,
+      "countIn1Pack": 500
+    }
+  ]
+}

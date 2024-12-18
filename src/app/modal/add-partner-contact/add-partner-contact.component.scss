@@ -1,0 +1,64 @@
+.dashed-border-box {
+    border: 1px dashed #cccccc;
+    background: #FBFBFB;
+    padding: 20px;
+    margin: 20px 0;
+}
+
+.modal {
+    z-index: 9999;
+}
+
+.scroll-table {
+    width: 100%;
+    overflow: auto;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.scroll-table.zero-state {
+    overflow: hidden;
+}
+
+.scroll-table.zero-state table td {
+    width: 100px !important;
+}
+
+.empty-row td {
+    font-size: 13px;
+    color: #cccccc;
+    padding: 50px 0;
+}
+
+.empty-row.info {
+    color: #999999;
+}
+
+.empty-row.info td span {
+    font-size: 11px;
+}
+
+.empty-row.info td span.icon-info-cr {
+    font-size: 14px;
+    vertical-align: middle;
+}
+
+.btn-secondary.disabled,
+.btn-secondary:disabled {
+    background: none !important;
+    color: #cccccc !important;
+    border-color: #cccccc;
+}
+
+.note {
+    font-size: 11px;
+    line-height: 13px;
+    color: #999999;
+    margin-top: 3px;
+    display: inline-block;
+}
+
+.table-head {
+    font-weight: 400;
+    margin-bottom: 7px;
+}

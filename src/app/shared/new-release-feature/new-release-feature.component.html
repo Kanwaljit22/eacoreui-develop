@@ -1,0 +1,88 @@
+<div class="modal-backdrop fade show"></div>
+<!-- <div class="release-model" style="display: none;">
+
+  <div class="release-model-dialog">
+<div class="release-header">
+    <span class="release-logo"></span>
+    <div class="release-app-info"><h3>Cisco Commerce</h3> 
+    <h2>Enterprise Agreement Management</h2>
+  </div>
+    <span class="icon-close-btn"></span>
+</div>
+    <div class="release-body">
+      <ul class="release-content">
+        <li class="release-list"><strong>Lorem ipsum dolor sit amet,</strong> consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</li>
+        <li class="release-list"><strong>Lorem ipsum dolor sit amet,</strong> consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</li>
+        <li class="release-list"><strong>Lorem ipsum dolor sit amet,</strong> consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</li>
+        <li class="release-list"><strong>Lorem ipsum dolor sit amet,</strong> consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</li>
+      </ul>
+    </div>
+    <div class="release-footer"><p>Reach out to our goal team at <a href="mailto:ea_management_support_support@cisco.com?Subject=New%20Release%20Features">ea_support@cisco.com</a>. Learn more about Enterprise Agreement on <a href="">SalesConnect</a>.</p>
+      <button class="btn btn-primary" type="button" id="">Don’t show this message untill the next release</button>
+    </div>
+  </div>
+</div> -->
+<div class="release-info">
+    <span class="icon-new-release"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span><span class="path8"></span><span class="path9"></span><span class="path10"></span><span class="path11"></span><span class="path12"></span><span class="path13"></span><span class="path14"></span><span class="path15"></span></span>
+  <h1>We have an update for you. 
+    <span class="right-arrow-line">
+      <!-- <img src="../../../assets/images/arrow-right.png" width="175" alt="→"/> -->
+      <!-- <svg width="176" height="20" viewBox="0 0 176 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <line x1="1" y1="9.95508" x2="174.86" y2="9.95509" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <line x1="174.451" y1="9.88571" x2="167.246" y2="1.40959" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <line x1="1" y1="-1" x2="12.1244" y2="-1" transform="matrix(-0.647648 0.761939 0.761939 0.647648 175.86 10)" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg> -->
+  </span></h1>
+<h3>We are back with all new improvements with higher performance that makes your experience better than yesterday!</h3>
+<div class="skip-info"><a href="javascript:void(0)" (click)="neverShow()">Don't Show Again</a>
+  <!-- <span class="sep"></span>
+  <a href="javascript:void(0)" (click)="skipNow()">Skip for now</a> -->
+</div>
+</div>
+<div class="release-sidebar">
+  <div class="release-sidebar--header" *ngIf='releaseData'>
+    <i class="icon-close-btn" (click)="neverShow()"></i>
+<div class="release-note"><i class="icon-announcement"></i>Release Announcements</div>
+<div class="release-filter"><i class="icon-sales-filter" (click)="showAllReleases()"></i><h1>{{releaseData.pageHeader}}</h1></div>
+<div class="fliters-option" *ngIf="showRelease">
+    <span class="icon-arrow-up"><span class="path1"></span><span class="path2"></span></span>
+  <p>Select date you want to view for Release Announcements</p> 
+    <div class="radio-label radio-custom" *ngFor='let version of versions'>
+      <input id="aRadio" name="eaTerm" type="radio" value="aRadio" [checked]="releaseData.pageHeader == version.releaseName" (change)="changeRelease($event,version)">
+      <label for="aRadio">
+        <span class='custom-radio-btn'>
+          <span class="path1"></span>
+          <span class="path2"></span>
+      </span>
+          <span>
+              <span></span>
+          </span></label><span>{{version.releaseName}}<ng-container *ngIf='version.title'> - {{version.title}}</ng-container></span>
+        </div>
+</div>  
+</div>
+<div *ngIf='releaseData'>
+  <div class="release-sidebar--content" >
+    <div class="realease-new" *ngFor='let context of releaseData.contexts'>
+      <h2>{{context.label}}</h2>
+      <div *ngFor='let feature of context.features'>
+        <h3>{{feature.label}}</h3>
+        <span [innerHTML]="feature.description | stringToHtml"></span>
+        <div *ngIf='feature.uiElements'>
+          <div *ngFor='let element of feature.uiElements'>
+            <span class="inner-image"><img src="{{element.value}}" alt="image" /></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="release-notes">
+    <h3>Improvements:</h3>
+    <ul class="release-order">
+      <li class="release-order--list">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        <span class="inner-image"></span>
+      </li>
+    </ul>
+  </div> -->
+  </div>
+  </div>
+</div>

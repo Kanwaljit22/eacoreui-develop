@@ -1,0 +1,235 @@
+/*-----------Card Styling-------------*/
+
+table tbody .empty-row td {
+    color: #cccccc;
+    padding: 15px;
+}
+
+.card-body.border-top {
+    border-top: 1px solid #cccccc;
+    padding-top: 15px;
+    border-bottom: 1px solid #cccccc;
+    padding-bottom: 30px;
+    margin-bottom: 9px;
+}
+
+.border-left {
+    border-left: 1px solid #cccccc;
+}
+
+.custom-padding {
+    padding: 15px 30px 20px 30px;
+}
+
+.customer-scope h5 {
+    padding: 23px 0 0 25px;
+}
+
+.tab-panel {
+    border-top: 1px solid #cccccc;
+    position: relative;
+    margin-top: 15px;
+}
+
+.tab-panel .position-relative {
+    margin: 11px 30px 10px 25px;
+}
+
+i.up-arrow {
+    border: solid #cccccc;
+    border-width: 0 1px 1px 0;
+    background: #ffffff;
+    display: inline-block;
+    padding: 8px;
+    position: absolute;
+    top: -9px;
+    left: 135px;
+}
+
+.up-arrow {
+    transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+}
+
+.browse-box {
+    background: rgba(0, 0, 0, .03);
+    border: 1px dashed #cccccc;
+    text-align: center;
+    padding: 26px 0;
+    margin: 10px 30px 15px 25px;
+}
+
+.sub-heading {
+    clear: both;
+}
+
+.sub-heading h1 {
+    text-transform: uppercase;
+}
+
+.icon-pdf1,
+.icon-wrong-file {
+    font-size: 25px;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+.file-name .icon-close-btn {
+    vertical-align: middle;
+}
+
+input#qualEADealId.form-control {
+    padding-right: 80px;
+}
+
+.form-group.txt-area-group textarea.form-control {
+    background-color: transparent;
+}
+
+.lookingFor {
+    background: #fff;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-top: 0 !important;
+    border-radius: 0;
+    width: calc(100%);
+    position: relative;
+    left: 0px;
+}
+
+.customer .form-control-placeholder {
+    top: 0px;
+}
+
+.add-member button {
+    margin-top: 7px;
+}
+
+.custom-dropdown .form-control-placeholder {
+    color: #58585b;
+}
+
+.position-relative .custom-select {
+    background-image: none;
+    background-color: transparent;
+    color: #fff;
+    border-bottom: 1px solid #cccccc !important;
+    border: 0;
+    border-radius: 0;
+    padding: 0 20px 0 0;
+}
+
+.custom-dropdown .custom-select:focus+label+.icon-down-arrow {
+    transform: rotate(180deg);
+}
+
+table td .position-relative .custom-select {
+    border-bottom: 0 !important;
+}
+
+.icon-edit,
+.icon-tree {
+    cursor: pointer;
+}
+
+.my-drop-zone {
+    border: dashed 1px #0E709E;
+    padding: 21px 25px;
+    border-radius: 3px;
+    margin: 0px 30px 0px 25px;
+    background: #F2FBFD;
+    font-size: 16px;
+}
+
+.my-drop-zone .icon-close-btn {
+    cursor: pointer;
+}
+
+.dragDropRemove {
+    background: transparent;
+    padding: 0px;
+    border: 0px;
+}
+
+.fileUploadWrap {
+    display: none;
+}
+
+.nv-file-over {
+    border: dashed 1px #6cc04a;
+    background-color: #6cc04a1a;
+    margin-bottom: 10px;
+    padding-right: 50px;
+    position: relative;
+}
+
+.my-drop-zone.file-format-error {
+    border-color: #c82439;
+    background-color: #fdf4f5;
+    margin-bottom: 10px;
+}
+
+.my-drop-zone.file-format-error .icon-close-btn {
+    position: relative;
+    top: 2px;
+    left: 10px;
+}
+
+.my-drop-zone.file-format-error .file-name {
+    font-size: 13px;
+    max-width: 280px;
+    overflow: hidden;
+    /*text-overflow: ellipsis;*/
+    display: inline-block;
+    position: relative;
+    padding-right: 25px;
+}
+
+.my-drop-zone.file-format-error .icon-file {
+    font-size: 40px;
+    display: block;
+    margin: 0px auto 15px;
+    width: 30px;
+}
+
+.my-drop-zone.file-format-error .file-name button {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+}
+
+.my-drop-zone.file-format-error .incorrect-format {
+    font-size: 13px;
+    color: #58585b;
+    display: block;
+}
+
+.autocomplete-list {
+    background-color: #fff;
+    border: 1px solid #005073;
+    border-radius: 0px;
+    box-shadow: 0px 0px 8px 1px rgba(0, 0, 0, 0.22);
+    position: absolute;
+    width: 100%;
+    width: calc(100% + 3px);
+    left: -1px;
+    z-index: 100;
+    max-height: 172px;
+    overflow: auto;
+    padding: 6px 0px;
+    top: 100%;
+}
+
+.autocomplete-list ul {
+    margin: 0;
+    padding: 0;
+}
+
+.autocomplete-list ul li {
+    cursor: pointer;
+    list-style: inside none none;
+    padding: 6px 20px 5px;
+    font-size: 16px;
+    color: #005073;
+    font-weight: normal;
+}

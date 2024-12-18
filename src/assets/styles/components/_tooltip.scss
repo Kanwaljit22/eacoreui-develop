@@ -1,0 +1,42 @@
+.bs-tooltip-top .arrow,
+.bs-tooltip-bottom .arrow {
+    left: calc(50% - 1px) !important;
+}
+
+.tooltip.bs-tooltip-auto[x-placement^=top] .arrow::before,
+.tooltip.bs-tooltip-top .arrow::before {
+    margin-left     : 4px !important;
+    content         : "";
+    border-width    : 5px 5px 0;
+    border-top-color: #000;
+} 
+
+.tooltip {
+    .tooltip-inner {
+        ul.incremental-tip {
+          padding-left: 20px;
+            li {
+              list-style: disc;
+            }
+        }
+      }
+}
+
+
+.tooltip.subsc-details-tip {
+    &.in:after {
+        display: none !important;
+    }
+    &.bs-tooltip-right {
+        padding: 0;
+    }
+}
+
+@media screen and (max-width:1366px) {
+    .tooltip.subsc-details-tip {
+        &.bs-tooltip-right {
+            top: 20px !important;
+            left: 10px !important;
+        }
+    }
+}

@@ -1,0 +1,573 @@
+<div class="vNext mh-700" *ngIf="showCreateProposal" attr.page-id="{{dataIdConstantsService.createPro_page_createProposalPage}}">
+    <!-- vNext Form Area -- Starts here -->
+    <div class="container-fluid vNext">
+        <div id="filter-area" class="vNext mb-3">
+            <div class="row align-items-center">
+                <div class="col-md-5">
+                    <h2>{{'create-proposal.CREATE_PROPOSAL' | localizationPipe : localizationService.localizedkeySet.size}}</h2>
+                </div>
+                <div class="col-md-7">
+                    <ul class="qualify-btn">
+                        <li><button type="button" class="btn btn-primary absolute-button" attr.action-id="{{dataIdConstantsService.createPro_button_createProposal}}" id="{{elementIdConstantsService.CREATE_PROPOSAL_CONTINUE}}"
+                            [ngClass]='{"disabled": !proposalName || disableContinueButton || !selectedDuration || (coTerm && !selectedSubscription && !eaService.features?.COTERM_SEPT_REL) || !selectedBillingModel?.uiOption?.displayName || (eaService.features?.CROSS_SUITE_MIGRATION_REL && projectStoreService.projectData?.noUpgradeMigrateOptionsAvailable) || !countryOfTranscation?.countryName ||
+                            displayDurationMsg || (eaService.features.SPNA_REL && eaService.isSpnaFlow && ( (proposalStoreService.masterAgreementInfo?.masterAgreement && !proposalStoreService.masterAgreementInfo?.contractNumber) || (projectStoreService.projectData?.scopeInfo?.returningCustomer && !projectStoreService.projectData?.scopeInfo?.newEaidCreated) ) ), "changeSub": isChangeSubFlow}'
+                                (click)="createProposal()">{{'common.CONTINUE' | localizationPipe : localizationService.localizedkeySet.size}}</button></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <app-message></app-message>
+        <div class="row">
+            <div class="col-12 mb-3" *ngIf='eaService.features.MSEA_REL && showEntitledError'>
+                <div class="alert alert--danger alert-dismissable mt-2">
+                    <span class="alert-icon">
+                        <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span
+                                class="path3"></span></span>
+                    </span>
+                    <span>{{'common.ENTITLED_ERROR_MSG' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                    
+                </div>
+            </div> 
+
+             <div class="col-12 mb-3" *ngIf='eaService.features.SPNA_REL && eaService.isSpnaFlow && projectStoreService.projectData?.scopeInfo?.returningCustomer && !projectStoreService.projectData?.scopeInfo?.newEaidCreated'>
+                <div class="alert alert--danger alert-dismissable mt-2">
+                    <span class="alert-icon">
+                        <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span
+                                class="path3"></span></span>
+                    </span>
+                    <span>{{'create-proposal.SPNA_RESTRICTED' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                    
+                </div>
+            </div> 
+            <div class="col-12 mb-3" *ngIf='(eaService.features?.CROSS_SUITE_MIGRATION_REL  && projectStoreService.projectData?.noUpgradeMigrateOptionsAvailable)'>
+                <div class="alert alert--danger alert-dismissable mt-2">
+                    <span class="alert-icon">
+                        <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span
+                                class="path3"></span></span>
+                    </span>
+                    <span>{{'create-proposal.NO_UPGRADE_MIGRATION_OPTIONS_AVAILABLE' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                    
+                </div>
+            </div> 
+
+            <!-- commented out for future use -->
+            <div class="col-12 mb-3" *ngIf='(projectStoreService.projectData?.scopeInfo?.returningCustomer && !projectStoreService.projectData?.scopeInfo?.newEaidCreated) && !projectStoreService.projectData?.dealInfo?.partnerDeal'>
+                <div class="d-flex justify-content-between align-items-center info-alert-blue bl-3">
+                    <span class="d-flex align-items-center">
+                        <span class="icon-msg-Info mr-3"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                        <span class="pos-rel t-1">{{'create-proposal.RETURNING_CUSTOMER_SALES_LED_FLOW_MESSAGE' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                    </span>
+                </div>
+            </div>
+
+            <div class="col-12 mb-3" *ngIf='displayInformationMsg'>
+                <div class="d-flex justify-content-between align-items-center info-alert-blue bl-3">
+                    <span class="d-flex align-items-center">
+                        <span class="icon-msg-Info mr-3"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                        <!--We have smart defaulted the basic proposal and billing information. Please verify and continue.-->
+                        <span class="pos-rel t-1">{{'create-proposal.PRE-PRE-POPULATED_FIELDS' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                    </span>
+                    <a href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.createPro_link_closeInfoMsg}}" (click)='displayInformationMsg = false;' class="lh-1" id="{{elementIdConstantsService.CREATE_PROPOSAL_PRE_POPULATED_MESSAGE_CLONE_ICON}}"><span class="icon-close-btn"></span></a>
+                </div>
+            </div>
+
+           
+        </div>
+
+        <div class="row">
+            <div class="col-7 border--right-before pr-40">
+                <div class="d-flex">
+                    <div class="form-group pr-15 w-50">
+                        <label class="customer-label">{{'common.PROPOSAL_NAME' | localizationPipe : localizationService.localizedkeySet.size}}<sup>*</sup></label>
+                        <input appelementfocus="" placeholder="{{'common.PROPOSAL_NAME' | localizationPipe : localizationService.localizedkeySet.size}}" [(ngModel)]='proposalName'
+                            class="form-control" required="" type="text" maxlength="250" id="" attr.data-id="{{dataIdConstantsService.createPro_text_proposalName}}">
+                        <small class="text-danger d-none"><i class="icon-error-icon"></i><span>{{'common.FIELD_REQUIRED' | localizationPipe : localizationService.localizedkeySet.size}}</span></small>
+                    </div>
+                </div>
+
+                <div class="d-flex">
+                    <div class="form-group pr-15 w-50">
+                        <label class="customer-label">{{'common.COUNTRY_SERVICE' | localizationPipe : localizationService.localizedkeySet.size}}<sup>*</sup></label>
+                        <div class="select-items dropdown" *ngIf='countryOfTransactionArray.length'>
+                            <span class="dropdown--typeAhead__arrow-management">
+                                    <input class="btn--text drop-button dropdown-toggle drop-button-input" [ngClass]='{"disable-arrow": countryOfTransactionArray?.length === 1}'
+                                    (focus)="showCountryDrop = true" attr.data-id="{{dataIdConstantsService.createPro_text_countrySearch}}" (blur)="checkCountry()"
+                                    type="text" [(ngModel)]="countrySearch" (ngModelChange)="search()" id="searchCountry" name="searchCountry">
+                                    <span class="icon-arrow-stroke" (click)="showCountryDrop = !showCountryDrop" attr.action-id="{{dataIdConstantsService.createPro_icon_countrySearch}}"></span>
+                            </span>
+                            <div class="dropdown-menu" *ngIf='countryOfTransactionArray.length > 1' [class.show]="showCountryDrop">
+                                <ul>
+                                    <li *ngFor='let country of countryOfTransactionArray | searchFilter: countrySearch : searchArray : true; let index = index;'
+                                        (click)="selectCountryOfTransaction(country)" attr.action-id="{{dataIdConstantsService.createPro_dropdown_selectCountryOfTransaction}}{{country?.isoCountryAlpha2}}">{{country.countryName}}</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <small class="text-danger d-none"><i class="icon-error-icon"></i><span>{{'common.FIELD_REQUIRED' | localizationPipe : localizationService.localizedkeySet.size}}</span></small>
+                    </div>
+
+                    <div class="form-group pl-15 w-50" (clickOutside)="showPriceListDrop = false;">
+                        <label class="customer-label">{{'common.PRICE_LIST' | localizationPipe : localizationService.localizedkeySet.size}}<sup>*</sup></label>
+                        <div class="select-items dropdown" *ngIf='priceListArray.length' [ngClass]='{"no-select": priceListArray?.length === 1}'>
+                            <span class="dropdown--typeAhead__arrow-management">
+                                <button class="btn--text drop-button dropdown-toggle" type="button" attr.action-id="{{dataIdConstantsService.createPro_button_priceList}}" [ngClass]='{"disable-arrow": priceListArray?.length === 1}'
+                                    (click)="showPriceListDrop = !showPriceListDrop">{{selectedPriceList?.description}}</button>
+                            </span>
+                            <div class="dropdown-menu" *ngIf='priceListArray.length > 1' [class.show]="showPriceListDrop">
+                                <ul>
+                                    <li *ngFor='let priceList of priceListArray; let index = index;' (click)='selectPriceList(priceList)' attr.action-id="{{dataIdConstantsService.createPro_dropdown_selectPriceList}}{{priceList?.priceListId}}">
+                                        {{priceList.description}}</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <small class="text-danger d-none"><i class="icon-error-icon"></i><span>{{'common.FIELD_REQUIRED' | localizationPipe : localizationService.localizedkeySet.size}}</span></small>
+                    </div>
+                </div>
+
+                <hr class="weight-1 mt-1">
+
+                <div class="d-flex">
+                    <div class="form-group pr-15 w-50 mb-0">
+                        <label class="customer-label">{{'common.PARTNER' | localizationPipe : localizationService.localizedkeySet.size}}<sup *ngIf='selectedPartner.beGeoId'>*</sup></label>
+                        <div class="select-items dropdown" *ngIf='selectedPartner.beGeoId'
+                            (clickOutside)="showPartnerDropdown = false;" [ngClass]='{"no-select": partnersArray?.length === 1}'>
+                            <span class="dropdown--typeAhead__arrow-management">
+                                <button class="btn--text drop-button dropdown-toggle" attr.action-id="{{dataIdConstantsService.createPro_button_partnerList}}" [ngClass]='{"disable-arrow": partnersArray?.length === 1}'
+                                    (click)="showPartnerDropdown = !showPartnerDropdown"
+                                    type="button">{{selectedPartner.beGeoName}}</button>
+                            </span>
+                            <div class="dropdown-menu" *ngIf='partnersArray.length > 1' [class.show]="showPartnerDropdown">
+                                <ul>
+                                    <li *ngFor='let partner of partnersArray; let index = index;' (click)="setSelectedPartner(partner)" attr.action-id="{{dataIdConstantsService.createPro_dropdown_selectPartner}}{{partner.beGeoName}}">
+                                        {{partner.beGeoName}}</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div *ngIf="!selectedPartner.beGeoId && partnerApiCalled">
+                            <div><br />
+                                <div>
+                                    <span class="alert-icon">
+                                        <span class="icon-warning1"><span class="path1"></span><span class="path2"></span>
+                                            <span class="path3"></span></span></span>
+                                    <span *ngIf='projectStoreService.projectData?.dealInfo?.partnerDeal && !(projectStoreService.projectData?.changeSubscriptionDeal && projectStoreService.projectData.dealInfo?.directRTM); else ciscoDeal'>{{'common.NO_PARTNER_AVAILABLE_DEAL_PROPOSAL_COLLABORATE_COMPLIANCE_HOLD' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                                        <ng-template #ciscoDeal>
+                                            <span> {{'common.NO_PARTNER_AVAILABLE_DEAL_PROPOSAL' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                                        </ng-template>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <small class="text-danger"><i class="icon-error-icon"></i>
+                            <span>This field is required</span>
+                        </small> -->
+                    </div>
+
+                    <!-- to show distributor name -->
+                    <div class="form-group pl-15 w-50 mb-0" *ngIf="projectStoreService.projectData?.dealInfo?.buyMethodDisti && !distWithSidApiCalled">
+                        <label class="customer-label">{{'create-proposal.DISTRIBUTORS' | localizationPipe : localizationService.localizedkeySet.size}}<sup>*</sup></label>
+                        <div class="select-items disabled" *ngIf='(partnersArray.length && distiName); else noDistiFound'>
+                            <input appelementfocus="" class="form-control" required="" type="text" id=""
+                                [ngModel]="distiName" disabled attr.data-id="{{dataIdConstantsService.createPro_text_distiName}}">
+                        </div>
+                        <ng-template #noDistiFound>
+                            <div><br />
+                                <div>
+                                    <span class="alert-icon">
+                                        <span class="icon-warning1"><span class="path1"></span><span class="path2"></span>
+                                            <span class="path3"></span></span></span>
+                                    <span>{{'common.DISTRIBUTOR_NOT_AVAILABLE' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </div>  
+                    <!-- to show distributor name for cisco led with Sid present --> 
+                    <div class="form-group pl-15 w-50 mb-0" *ngIf="distWithSidApiCalled && distiName">
+                        <label class="customer-label">{{'create-proposal.DISTRIBUTORS' | localizationPipe : localizationService.localizedkeySet.size}}<sup>*</sup></label>
+                        <div class="select-items disabled" *ngIf='distiName; else noDistiWithSidFound'>
+                            <input appelementfocus="" class="form-control" required="" type="text" id=""
+                                [ngModel]="distiName" disabled attr.data-id="{{dataIdConstantsService.createPro_text_distiName}}">
+                        </div>
+                        <ng-template #noDistiWithSidFound>
+                            <div><br />
+                                <div>
+                                    <span class="alert-icon">
+                                        <span class="icon-warning1"><span class="path1"></span><span class="path2"></span>
+                                            <span class="path3"></span></span></span>
+                                    <span>{{'common.DISTRIBUTOR_NOT_AVAILABLE' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </div>    
+                    <!-- to show distributor name for cisco led with Sid present -->              
+                </div>
+                <!-- end of disti section -->
+                <div class="d-flex mt-3" *ngIf="intendedUse">
+                    <div class="form-group pr-15 w-50">
+                        <label class="customer-label">{{'common.INTENTED_USE' | localizationPipe : localizationService.localizedkeySet.size}}</label>
+                        <input appelementfocus="" [(ngModel)]='intendedUse'
+                            class="form-control  intended-Use"  required="" type="text" disabled attr.data-id="">
+                    </div>
+                </div>
+            </div>
+
+            <!--  End of Left Section  -->
+
+            <div class="col-5 pl-40">
+
+                <div class="col-12">
+                    <div class="row">
+
+                        <div class="form-group pr-4 w-65" (clickOutside)="showBillingModalDrop = false;">
+                            <label class="customer-label">{{'common.BILLING_MODEL' | localizationPipe : localizationService.localizedkeySet.size}}<sup>*</sup></label>
+                            <div class="select-items dropdown" [ngClass]="{'disabled': isFreqSelected && eaService.features.SEP_REL}">
+                                <span class="dropdown--typeAhead__arrow-management">
+                                    <button *ngIf="selectedBillingModel?.uiOption?.displayName" class="btn--text drop-button dropdown-toggle" attr.action-id="{{dataIdConstantsService.createPro_button_billingModal}}" [ngClass]='{"disable-arrow": billingData?.length === 1}'
+                                        (click)="showBillingModalDrop = !showBillingModalDrop"
+                                        type="button">{{selectedBillingModel?.uiOption?.displayName}}</button>
+                                    <button *ngIf="!selectedBillingModel?.uiOption?.displayName" class="btn--text drop-button dropdown-toggle" attr.action-id="{{dataIdConstantsService.createPro_button_billingModal}}" [ngClass]='{"disable-arrow": billingData?.length === 1}'
+                                    (click)="showBillingModalDrop = !showBillingModalDrop"
+                                    type="button">{{'common.SELECT_BILLING_MODEL' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                                </span>
+                                <div class="dropdown-menu billing-modal-drop" [class.show]="showBillingModalDrop">
+                                    <ul>
+                                        <li *ngFor='let billingModel of billingData; let index = index;'
+                                        (click)="selectBillingModal(billingModel)" attr.action-id="{{dataIdConstantsService.createPro_dropdown_selectBillingModal}}{{billingModel?.id}}">{{billingModel?.uiOption?.displayName}}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <small class="text-danger d-none"><i class="icon-error-icon"></i><span>{{'common.FIELD_REQUIRED' | localizationPipe : localizationService.localizedkeySet.size}}</span></small>
+                            <small class="text-info mt-2" *ngIf="frequencyModelDisplayName && isBillingTermUpdatedForCapital">
+                                <!-- <i class="icon-warning1-icon"></i> -->
+                                <span class="icon-msg-Info mr-1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                                <span>{{'common.CAPITAL_FREQUENCY_SELECTION_WARN_MSG' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                            </small>
+                        </div>
+
+                        <div class="w-35">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group datePicker">
+                                        <label class="customer-label">{{'common.REQUESTED_START_DATE' | localizationPipe : localizationService.localizedkeySet.size}}<sup>*</sup>
+                                        </label>
+                                            <span *ngIf="projectStoreService.projectData?.dealInfo?.subscriptionUpgradeDeal" class="i-vNext-info ml-1 cursor-pointer" #target placement='top-end' 
+                                            ngbTooltip="{{'common.RSD_RESTRICTED_UPGRADE_INFO' | localizationPipe : localizationService.localizedkeySet.size}}" [positionTarget]="target"></span>
+                                        <input appElementFocus readonly="true" type="text" class="form-control"
+                                            #dpFull="bsDatepicker" [(ngModel)]="eaStartDate" placement="bottom right"
+                                            [minDate]="todaysDate" [maxDate]="expectedMaxDate" bsDatepicker
+                                            (bsValueChange)="onDateSelection($event)" attr.data-id="{{dataIdConstantsService.createPro_text_datePicker}}"
+                                            [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY', showWeekNumbers: false, containerClass:'theme-vNext'}">
+
+                                        <span class="cal-wrap" (click)="dpFull.toggle()" attr.action-id="{{dataIdConstantsService.createPro_icon_calendar}}"
+                                            [attr.aria-expanded]="dpFull.isOpen"><span class="i-vNext-calendar"></span></span>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-12" *ngIf="eaService.features.SEP_REL">
+                    <div class="row">
+                        <!-- <div class="form-group pr-4 w-65"  (clickOutside)="showCapitalFinancingDrop = false;">
+                            <label class="customer-label">{{'common.CAPITAL_FINANCING_FREQUENCY' | localizationPipe : localizationService.localizedkeySet.size}}
+                                <span class="i-vNext-info ml-1 cursor-pointer" #capitalFinancing placement='top' 
+                                ngbTooltip="{{'common.CAPITAL_FINANCING_TIP' | localizationPipe : localizationService.localizedkeySet.size}}" [positionTarget]="capitalFinancing"></span>
+                            </label>
+                          
+                            <div class="select-items dropdown" [ngClass]="{'disabled': isChangeSubFlow && !frequencyModelDisplayName }">
+                                <span class="dropdown--typeAhead__arrow-management">
+                                    <button class="btn--text drop-button dropdown-toggle" attr.action-id="{{dataIdConstantsService.createPro_button_capitalFinancing}}" [ngClass]='{"disable-arrow": isChangeSubFlow && !frequencyModelDisplayName}'
+                                        (click)="showCapitalFinancingDrop = !showCapitalFinancingDrop"
+                                        type="button">{{frequencyModelDisplayName != '' ? frequencyModelDisplayName : "Select"}}</button>
+                                </span>
+                                <div class="dropdown-menu billing-modal-drop" [class.show]="showCapitalFinancingDrop">
+                                    <ul>
+                                        <li (click)="selectOpted()" *ngIf="!isChangeSubFlow || (isChangeSubFlow && !frequencyModelDisplayName)" attr.data-id="{{dataIdConstantsService.createPro_dropdown_cffSelectOption}}">{{'common.SELECT' | localizationPipe : localizationService.localizedkeySet.size}}</li>
+                                        <li *ngFor='let capitalFinance of capitalFinancingData; let index = index;'
+                                            (click)="capitalFrequencySelected(capitalFinance)" attr.data-id="{{dataIdConstantsService.editEnrollment_dropdown_cffModal}}{{capitalFinance?.id}}">{{capitalFinance?.id}}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div> -->
+                        <div class="col-12 px-0 pb-3 pr-4">
+                            <h6 class="customer-label bold-txt mb-2">{{'common.CAPITAL_FINANCING_FREQUENCY' | localizationPipe : localizationService.localizedkeySet.size}} 
+                                <span class="i-vNext-info mr-2 cursor-pointer" ngbTooltip="{{'common.CAPITAL_FINANCING_TIP' | localizationPipe : localizationService.localizedkeySet.size}}" container="body" placement="top"></span></h6>
+                            
+                            <div class="mr-3 radio-custom">
+                                <input id="noSelect" type="radio" name="capitalFinanceRadioNone" value="noSelect" [checked]="!frequencyModelDisplayName || !capitalFinancingData.length"
+                                attr.data-id="{{dataIdConstantsService.createPro_input_selectOptedcff}}" (change)="selectOpted()" [disabled]="isChangeSubFlow">
+                                <label for="noSelect">
+                                    <span class="custom-radio-btn"><span class="path1"></span><span class="path2"></span></span><span><span></span></span>None
+                                </label>
+                            </div>
+            
+                            <div class="mr-3 radio-custom" *ngFor = "let capitalFinance of capitalFinancingData; let index = index;">
+                                <input id="annual" type="radio" name="capitalFinanceRadio" value="annual" [checked]="frequencyModelDisplayName === capitalFinance?.id" [value]="capitalFinance?.uiOption?.displayName"
+                                attr.data-id="{{dataIdConstantsService.createPro_input_cffModal}}{{capitalFinance?.id}}" (change)="capitalFrequencySelected(capitalFinance)" [disabled]="isChangeSubFlow && !frequencyModelDisplayName">
+                                <label for="annual">
+                                    <span class="custom-radio-btn"><span class="path1"></span><span class="path2"></span></span><span><span></span></span>{{capitalFinance?.uiOption?.displayName ? capitalFinance?.uiOption.displayName : capitalFinance?.id}}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="row">
+                        <div class="w-70 px-0 pb-3 pr-4">
+                            <label class="customer-label">{{'common.DURATION' | localizationPipe : localizationService.localizedkeySet.size}}<sup>*</sup></label>
+                            <div class="d-flex">
+                                <div class="mr-3 radio-custom"
+                                    [class.active-arrow]="selectedDuration === 36 && !(coTerm || customDate)">
+                                    <input id="radio36" type="radio" name="durationRadio" attr.data-id="{{dataIdConstantsService.createPro_radio_months36}}"
+                                        [checked]="selectedDuration === 36 && !coTerm" [value]="durationTypes?.MONTHS36"
+                                        (change)="checkDurationsSelected($event)" [disabled]="isChangeSubFlow">
+                                    <label for="radio36">
+                                        <span class='custom-radio-btn'>
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </span>
+                                        <span>
+                                            <span></span>
+                                        </span>36</label>
+                                </div>
+                                <div class="mr-3 radio-custom"
+                                    [class.active-arrow]="selectedDuration === 60 && !(coTerm || customDate)">
+                                    <input id="radio60" type="radio" name="durationRadio" attr.data-id="{{dataIdConstantsService.createPro_radio_months60}}"
+                                        [checked]="selectedDuration === 60 && !coTerm" [value]="durationTypes?.MONTHS60"
+                                        (change)="checkDurationsSelected($event)" [disabled]="isChangeSubFlow">
+                                    <label for="radio60">
+                                        <span class='custom-radio-btn'>
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </span>
+                                        <span>
+                                            <span></span>
+                                        </span>60</label>
+                                </div>
+                                <div class="mr-3 radio-custom"
+                                    [class.active-arrow]="(selectedDuration === 0 || selectedDuration !== 60 && selectedDuration !== 36) && !coTerm">
+                                    <input id="radio-ctm" type="radio" name="durationRadio" attr.data-id="{{dataIdConstantsService.createPro_radio_customMonths}}"
+                                        [checked]="(selectedDuration === 0 || selectedDuration !== 60 && selectedDuration !== 36) && !coTerm"
+                                        [value]="durationTypes?.MONTHSCUSTOM" (change)="checkDurationsSelected($event)" [disabled]="isChangeSubFlow">
+                                    <label for="radio-ctm">
+                                        <span class='custom-radio-btn'>
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </span>
+                                        <span>
+                                            <span></span>
+                                        </span>{{'common.CUSTOM' | localizationPipe : localizationService.localizedkeySet.size}}</label>
+                                </div>
+                                <div class="mr-3 radio-custom co-term-radio" [class.active-arrow]="coTerm" >
+                                    <input id="radio-coterm" type="radio" [value]="durationTypes?.MONTHSCOTERM"
+                                        [checked]='coTerm' name="durationRadio" attr.data-id="{{dataIdConstantsService.createPro_radio_coterm}}"
+                                        (change)="checkDurationsSelected($event)">
+                                    <label for="radio-coterm">
+                                        <span class='custom-radio-btn'>
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </span>
+                                        <span>
+                                            <span></span>
+                                        </span>{{'common.CO-TERM' | localizationPipe : localizationService.localizedkeySet.size}}</label>
+                                </div>
+                            </div>
+
+                            <div class="col-12 px-0 vNext-rageSlider" *ngIf=' !coTerm'>
+                                    <!--h6 class="card-title heading--h6 bolder mb-1 w-100">Duration</h6-->
+                                    <ngx-slider [(value)]="simpleSlider.value" [options]="options" attr.action-id="{{dataIdConstantsService.createPro_slider_termDuration}}"
+                                        (userChangeEnd)="sliderChange(simpleSlider.value)"></ngx-slider>
+                            </div>
+                        </div>                        
+
+                        <div class="w-30">
+                            <div class="form-group">
+                                <label class="customer-label">{{'common.SELECTED_DURATION' | localizationPipe : localizationService.localizedkeySet.size}}</label>
+
+                                <input appelementfocus="" class="form-control disabled highlightRed" attr.data-id="{{dataIdConstantsService.createPro_number_termDuration}}" *ngIf="eaService.features?.COTERM_SEPT_REL && coTerm && selectedDuration == null; else oldFlow"
+                                     type="number" disabled>
+                                <ng-template #oldFlow>
+                                    <input appelementfocus="" class="form-control" attr.data-id="{{dataIdConstantsService.createPro_number_termDuration}}"
+                                    (keydown)='utilitiesService.allowOnlyNumber($event)'
+                                    [(ngModel)]="selectedDuration" (blur)='updateDuration()' type="number" [ngClass]="{'disabled': coTerm, 'highlightRed' : selectedDuration == null}">
+                                </ng-template>
+                            </div>
+                        </div>
+
+                        <!-- Co-Term table -- Starts here -->
+                        <div *ngIf="displayDurationMsg" class="alert alert--danger alert-dismissable mb-2">
+                            <span class="alert-icon">
+                                <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                            </span>
+                            <span *ngIf="isChangeSubFlow || (!eaService.features?.COTERM_SEPT_REL && coTerm)">{{'common.COTERM_DURATION_MESSAGE_COTERM_FLOW' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                            <span *ngIf="eaService.features?.COTERM_SEPT_REL && coTerm && !isChangeSubFlow">{{'common.COTERM_DURATION_MESSAGE_COTERM_FLOW_NEW' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                        </div>
+                        <div class="col-12 px-0" *ngIf="coTerm && !subscriptionSelectionMessage && !isChangeSubFlow">
+                            <div class="d-flex justify-content-between align-items-center info-alert-blue bl-3">
+                                <span class="d-flex align-items-center">
+                                    <span class="icon-msg-Info mr-3"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                                    <span class="pos-rel t-1" *ngIf="!eaService.features?.COTERM_SEPT_REL">{{'create-proposal.CO-TERM_PROPOSAL_EXISTING_SUBSCRIPTION' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                                    <span class="pos-rel t-1" *ngIf="eaService.features?.COTERM_SEPT_REL">{{'create-proposal.CO-TERM_PROPOSAL_EXISTING_SUBSCRIPTION_NEW_MSG' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="alert alert--success alert-dismissable" *ngIf="coTerm && subscriptionSelectionMessage && !isChangeSubFlow">
+                            <span class="alert-icon">
+                                <span class="icon-done1"><span class="path1"></span><span class="path2"></span></span>
+                            </span>
+                            <span>{{'common.SUCCESSFULLY_SELECTED_SUBSCRIPTION' | localizationPipe : localizationService.localizedkeySet.size}} </span>
+                        </div>
+                        <!-- Co-Term -- Ends here -->
+                    </div>
+                </div>
+                <!-- coterm End date section starts here -->
+                <div class="col-12 pt-3" *ngIf="coTerm && !isChangeSubFlow && eaService.features?.COTERM_SEPT_REL">
+                    <div class="row">
+                        <div class="w-35">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group datePicker" (click)="onUserClickEndDateSelection()">
+                                        <label class="customer-label">{{'common.COTERM_END_DATE_LABEL' | localizationPipe : localizationService.localizedkeySet.size}}<sup>*</sup>
+                                        </label>
+                                        <input appElementFocus readonly="true" type="text" class="form-control" *ngIf="!showCotermSelection && !isCotermAdded" placeholder="Select Date" (click)="allowCotermSelection()">
+
+                                        <input appElementFocus readonly="true" type="text" class="form-control" *ngIf="showCotermSelection"
+                                            #coDpFull="bsDatepicker" [(ngModel)]="cotermEndDate" placement="bottom right"
+                                            [minDate]="cotermEndDateMin" [maxDate]="cotermEndDateMax" bsDatepicker
+                                            (bsValueChange)="onEndDateSelection($event)" attr.data-id="{{dataIdConstantsService.createPro_text_datePicker_cotermEndDate}}"
+                                            [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY', showWeekNumbers: false, containerClass:'theme-vNext'}" [ngClass]="{'disabled': selectedSubscription}" [isOpen]="isCoOpen">
+
+                                        <span class="cal-wrap" (click)="cotermCalendarOpen()" attr.action-id="{{dataIdConstantsService.createPro_icon_calendar_cotermEndDate}}"
+                                            ><span class="i-vNext-calendar" *ngIf="!selectedSubscription"></span></span>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-65 px-0 pb-3 pt-4" style="padding-left: 10.5rem !important;">
+                            <button type="button" class="btn btn-primary" (click)="lookUpSubscription()" attr.action-id="{{dataIdConstantsService.createPro_button_lookUpSubscription}}" id="{{elementIdConstantsService.CREATE_PROPOSAL_LOOKUP_SUBSCRIPTION}}">{{'common.LOOKUP_SUBSCRIPTION' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- coterm End date section ends here -->
+            </div>
+        </div>
+        <!-- vNext Form Area -- Ends Here -->
+
+        <!-- Co-term -- Choose Subscription for Co-Term -- Starts here -->
+        <app-subscription-list [selectedSubscription]="selectedSubscription" [cotermSelected]="coTerm" [startDate] = "eaStartDate" (subscriptionSelected)='selectSubscription($event)' *ngIf="coTerm && !isChangeSubFlow" [isChangeSubFlow]="false"> </app-subscription-list>
+        <app-subscription-list [selectedSubscription]="selectedSubscription" [cotermSelected]="coTerm" [startDate] = "eaStartDate" (subscriptionSelected)='selectSubscription($event)' *ngIf="coTerm && isChangeSubFlow && subSearchApiCalled" [isChangeSubFlow]="true"> </app-subscription-list>
+        <!-- Co-term -- Choose Subscription for Co-Term -- Starts here -->
+
+        <hr class="weight-1 mt-4">
+
+        <!-- <div class="mt-30">
+            <div class="row">
+            <div class="col-12">
+            <div class="input-group">
+            <p class="mr-3">{{localizationService.getLocalizedString('common.EA_SCOPE')}}<sup>&nbsp;*</sup></p>
+            <div class="radio-wrapper radio-custom mr-4">
+            <input type="radio" name="customerScope" id="yes" (change)="isCustomerScope = true" [checked]="isCustomerScope">
+            <label for="yes">
+            <span class='custom-radio-btn'>
+            <span class="path1"></span>
+            <span class="path2"></span>
+            </span>
+            <span>{{localizationService.getLocalizedString('common.Yes')}}</span>
+            </label>
+            </div>
+            <div class="radio-wrapper radio-custom mr-4">
+            <input type="radio" name="customerScope" id="no" (change)="isCustomerScope = false; displayJustificationWarning=true; displayJustificationPartnerWarning = true" [checked]="!isCustomerScope">
+            <label for="no">
+            <span class='custom-radio-btn'>
+            <span class="path1"></span>
+            <span class="path2"></span>
+            </span>
+            <span>{{localizationService.getLocalizedString('common.No')}}</span>
+            </label>
+            </div>
+            </div>
+            </div>
+            </div>
+            </div> -->
+            
+            <!-- <div class="row">
+            <div class="col-7 pr-5">
+            <div> -->
+            <!-- <div *ngIf="displayJustificationWarning" class="alert alert--warning alert-dismissable">
+            <span class="alert-icon">
+            <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+            </span>
+            <span>{{localizationService.getLocalizedString('common.JUSTIFICATION_WARN')}}</span>
+            <a href="javascript:void(0);" (click)='displayJustificationWarning = false;' class="cross-button"><span class="icon-close-btn"></span></a>
+            </div> -->
+            <!-- <div *ngIf="displayJustificationPartnerWarning" class="alert alert--warning alert-dismissable">
+            <span class="alert-icon">
+            <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+            </span>
+            <span>{{localizationService.getLocalizedString('common.JUSTIFICATION_WARN_PARTNER')}}</span>
+            <a href="javascript:void(0);" (click)='displayJustificationPartnerWarning = false;' class="cross-button"><span class="icon-close-btn"></span></a>
+            </div> -->
+            <!-- <h5 class="customer-label mt-20">{{localizationService.getLocalizedString('common.RENEWAL_DETAILS')}}</h5>
+            <small class="d-block">{{localizationService.getLocalizedString('common.INCLUDE_SUBSCRIPTION_IDS')}}</small>
+            <textarea id="renewalDetails" type="text" class="form-control" name="renewalDetails" rows="4" cols="100" [(ngModel)]="renewalDetails" [placeholder]="localizationService.getLocalizedString('common.TYPE_HERE')"></textarea>
+            </div>
+            </div>
+            </div> -->
+        <!--vNext Tile -- Starts here -->
+
+        <ng-container *ngIf="isMspAuth">
+            <div class="row mt-20">
+                <app-managed-service-provider [isMsea]="isMsea" [isChangeSubFlow]="isChangeSubFlow"></app-managed-service-provider>
+            </div>
+            <hr class="weight-1 mt-4" *ngIf="!eaService.isSpnaFlow">
+        </ng-container>
+        <ng-container *ngIf="eaService.features.SPNA_REL && eaService.isSpnaFlow">
+            <div class="row mt-20">
+                <app-master-agreement></app-master-agreement>
+            </div>
+            <hr class="weight-1 mt-4">
+        </ng-container>
+        <div class="row mt-30">
+            <div class="col-12 mb-2 mt-1">
+                <h5 class="heading--h6 dark bold-txt">
+                    {{'common.BUYING_PROGRAM' | localizationPipe : localizationService.localizedkeySet.size}}<sup>*</sup>
+                </h5>
+            </div>
+            <div class="col-12 d-flex">
+                <figure class="figure d-flex align-items-center active" [class.active]="vNext" (click)="vNext = true;" attr.action-id="{{dataIdConstantsService.createPro_figure_selectBuyingProgramSpna}}" *ngIf="eaService.features.SPNA_REL && eaService.isSpnaFlow; else ea3Flow">
+                    <span class="icon-tick-check i-vNext-tick-check"></span>
+                    <div class="figure-img-wrap"><img class="figure-img"
+                            src="../../../assets/images/icons/ea-3.0.svg">
+                    </div>
+                    <figcaption class="figure-caption">
+                        <h4 class="heading--h4">{{'common.SPNA' | localizationPipe : localizationService.localizedkeySet.size}}</h4>
+                        <!-- <p>{{'create-proposal.SPNA_BUNDLE_OFFER_DESC' | localizationPipe : localizationService.localizedkeySet.size}}</p> -->
+                    </figcaption>
+                </figure>
+                <ng-template #ea3Flow>
+                    <figure class="figure d-flex align-items-center active" [class.active]="vNext" (click)="vNext = true;" attr.action-id="{{dataIdConstantsService.createPro_figure_selectBuyingProgramEa3}}">
+                        <span class="icon-tick-check i-vNext-tick-check"></span>
+                        <div class="figure-img-wrap"><img class="figure-img"
+                                src="../../../assets/images/icons/ea-3.0.svg">
+                        </div>
+                        <figcaption class="figure-caption">
+                            <h4 class="heading--h4">{{'common.EA3_LABEL' | localizationPipe : localizationService.localizedkeySet.size}}</h4>
+                            <p>{{'create-proposal.AGREEMENTS_WITH_PREFERENTIAL_PRICING' | localizationPipe : localizationService.localizedkeySet.size}}</p>
+                        </figcaption>
+                    </figure>
+                </ng-template>
+                <!-- <figure class="figure d-flex align-items-center" [class.active]="!vNext" (click)="vNext = false;">
+                <div class="figure-img-wrap"><img class="figure-img" src="../../../assets/images/icons/ea-2.0.svg">
+                </div>
+                <figcaption class="figure-caption pl-3">
+                    <h4 class="heading--h4 bolder">EA 2.0 offer</h4>
+                    <p>Choose bundled offers which gives additional befenits to your needs.</p>
+                </figcaption>
+            </figure> -->
+            </div>
+        </div>
+    </div>
+    <!--vNext Tile -- Ends here -->
+</div>

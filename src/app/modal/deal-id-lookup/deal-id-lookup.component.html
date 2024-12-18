@@ -1,0 +1,254 @@
+<div class="modal-header">
+    <h5 class="modal-title">{{localeService.getLocalizedString('prospect.PROSPECT_DEAL_LOOK_UP')}}</h5>
+    <button aria-label="Close"  *ngIf='!sfdcPunchInDeal' class="icon-close-btn" data-dismiss="modal" type="button" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+<!-- <message></message> -->
+<div class="modal-body">
+    <div class="card border-none">
+            <div *ngIf="appDataService.displayChangeSub && (!appDataService.changeSubInLimitedMode || appDataService.allowChangSub)">Please Select an Option:
+                <div class="row">
+                <div class="col-12">
+                    <div class="input-group">
+                        <div class="radio-wrapper radio-custom mr-4">
+                            <input type="radio" [checked]="!isChangeSubSelected" name="authorization" value="lookup"
+                                (change)="selectDealLookUp($event)">
+                            <label>
+                                <span class='custom-radio-btn'>
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                </span>
+                                <span>Create a new Cisco EA subscription</span>
+                            </label>
+                        </div>
+                        <div class="radio-wrapper radio-custom mr-4">
+                            <input type="radio" name="authorization" value="changeSub" [checked]="isChangeSubSelected"
+                                (change)="selectDealLookUp($event)">
+                            <label>
+                                <span class='custom-radio-btn'>
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                </span>
+                                <span>Change an existing Cisco EA subscription</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        <div class="d-flex align-items-center mt-2" *ngIf='!isChangeSubSelected'>
+            <div class="form-group m-0 element-hasvalue flex-grow-1 pr-4" [ngClass]="{'error': errorDealID}">
+                <label class="customer-label" (click)="focusDealIdInput(appDataService.createUniqueId('qualEADealId',appDataService.pageContext))">{{localeService.getLocalizedString('qual.create.DEAL')}}
+              {{localeService.getLocalizedString('qual.create.ID')}} <sup>*</sup>
+            </label>
+                <input appElementFocus class="form-control" [disabled]= 'sfdcPunchInDeal' (keyup.enter)="searchDeal()" id="qualEADealId" (ngModelChange)="updateDealLookUpID()" [(ngModel)]="qualEADealId" name="qualEADealId" required="" type="text">
+            </div>
+            <button class="btn btn-secondary" type="button" [disabled]="!qualEADealId" (click)="searchDeal()">{{localeService.getLocalizedString('common.SEARCH')}}</button>
+        </div>
+        <div class="d-flex align-items-center mt-2" *ngIf='isChangeSubSelected'>
+                <div class="form-group m-0 element-hasvalue flex-grow-1 pr-4" [ngClass]="{'error': errorSubID}">
+                    <label class="customer-label" (click)="focusDealIdInput(appDataService.createUniqueId('subscriptionId',appDataService.pageContext))">Subscription ID
+                   <sup>*</sup>
+                </label>
+                    <input appElementFocus class="form-control" (keyup.enter)="subLookup()" id="subscriptionId" (ngModelChange)="updateSubId()" [(ngModel)]="subscriptionId" name="subscriptionId" required="" type="text">
+                </div>
+                <button class="btn btn-secondary" type="button" [disabled]="!subscriptionId" (click)="subLookup()">Lookup</button>
+            </div>
+        <message *ngIf="errorDealID" class="deal-id-lookup"></message>
+        <div *ngIf='errorSubID' class="alert alert--danger alert-dismissable mb-2 mt-3">
+                <span class="alert-icon">
+                    <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span></span>
+                </span>
+                <span>{{subscriptionId}} is not valid subscription id to change your existing subscription. Please enter another Subscription Id</span>
+                <!-- <a class="close" style="cursor: pointer;" (click)="removeAlert(message)">&times;</a> -->
+            </div>
+        <!-- locc message for cisco led with partner deal if locc not signed or nor initiated yet  -->
+        <div class="alert alert--warning" *ngIf="showLoccMsg && isProspectFound" style="margin-top: 10px;">
+            <i class="arrow up"></i>
+            <span class="alert-icon">
+        <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+            </span>
+            <span class="infoTxt">{{localeService.getLocalizedMessage('partner.LOA_LETTER_OF_AUTHORIZATION')}}{{localeService.getLocalizedMessage('partner.LOA_CISCO_LED_MESSAGE')}}</span>
+        </div>
+        <!-- end of locc message -->
+
+        <div *ngIf="showDealSummary">
+            <div class="deal-summary">
+                <div class="row">
+                    <div class="col-1">
+                        <label>{{localeService.getLocalizedString('qual.create.DEAL')}} {{localeService.getLocalizedString('qual.create.ID')}}</label>
+                        <span>{{newQualData.dealId}}</span>
+                    </div>
+                    <div class="col-2">
+                        <label *ngIf="!isPartnerDeal">{{localeService.getLocalizedString('qual.create.OPPORTUNITY')}} {{localeService.getLocalizedString('qual.whoinvolved.NAME')}}</label>
+                        <label *ngIf="isPartnerDeal">{{localeService.getLocalizedString('qual.create.DEAL')}} {{localeService.getLocalizedString('qual.whoinvolved.NAME')}}</label>
+                        <ng-template #tipContent>{{newQualData.optyName}}</ng-template>
+                        <span class="ellipsis" #optyName [ngbTooltip]="tipContent" container="body" triggers="manual" #t="ngbTooltip" (mouseenter)="open(t)" (mouseleave)="t.close()">{{newQualData.optyName}}</span>
+                    </div>
+                    <div class="col-3">
+                        <label>{{localeService.getLocalizedString('qual.create.ACCOUNT_NAME')}}
+              & {{localeService.getLocalizedString('qual.create.ADDRESS')}}</label>
+                        <span> <strong>{{newQualData.accountName}}</strong>
+                <br />{{newQualData.accountAddress}}</span>
+                    </div>
+                    <div class="col" *ngIf="isPartnerDeal">
+                        <label>{{localeService.getLocalizedString('common.PARTNER_INFO')}}</label>
+                        <span>{{this.qualService?.qualification?.primaryPartnerName}}</span>
+                    </div>
+                    <div class="col" *ngIf="!isPartnerDeal">
+                        <label>{{localeService.getLocalizedString('qual.create.STAGE')}}</label>
+                        <span>{{newQualData.stage}}</span>
+                    </div>
+                    <div class="col-1" *ngIf="isPartnerDeal">
+                        <label>{{localeService.getLocalizedString('qual.create.DEAL')}} {{localeService.getLocalizedString('common.STATUS')}}</label>
+                        <span>{{newQualData.dealStatusDesc}}</span>
+                    </div>
+                    <div class="col">
+                        <label>{{localeService.getLocalizedString('qual.create.EXP_BOOK_DATE')}}</label>
+                        <span *ngIf="!isPartnerDeal">{{newQualData.bookDate}}</span>
+                        <span *ngIf="isPartnerDeal">{{(newQualData.bookDate) ? (newQualData.bookDate  | date:'dd-MMM-yyyy') : '-'}}</span>
+                    </div>
+                    <div class="col">
+                        <label>{{localeService.getLocalizedString('qual.create.DEAL')}}
+              {{localeService.getLocalizedString('qual.create.OWNER')}}</label>
+                        <span>{{newQualData.optyOwner}}</span>
+                    </div>
+                </div>
+            </div>
+            <!-- show no prospects found message -->
+            <div *ngIf="!isProspectFound" style="margin-top: 10px;" class="alert alert--danger alert-dismissable clearfix">
+                <span class="alert-icon">
+          <span class="icon-alert-error"></span>
+                </span>
+                <span style="padding-left: 15px;">{{localeService.getLocalizedString('deal.NO_PROSPECTS_FOUND')}}
+        </span>
+            </div>
+            <!-- end of no prospects found message -->
+            <app-prospect-architectures (closeDealModal)="cancel()" [matching]="isCustomerMatching" [prospectDetailsData]="prospectDetails" [state]="state" *ngIf="isProspectFound"></app-prospect-architectures>
+            <div *ngIf="isProspectFound">
+                <label class="label-check">
+          <input class="form-check-input" type="checkbox" (change)="matchDealId()" [disabled]="showLoccMsg">
+          <span class="custom-checkbox-btn">
+            <span class="path1"></span>
+            <span class="path2"></span>
+        </span>
+          <span>{{localeService.getLocalizedString('qual.create.ASSOCIATE')}}
+              <strong>{{localeService.getLocalizedString('qual.create.DEAL')}} {{localeService.getLocalizedString('qual.create.ID')}} </strong>{{localeService.getLocalizedString('qual.create.WITH_QUAL')}} {{localeService.getLocalizedString('qual.create.DEAL_CHANGE')}}</span>
+        </label>
+            </div>
+
+            <div class="clearfix"></div>
+            <div class="row" *ngIf="resultMatch && showDealSummary">
+                <div class="col-lg-12">
+                    <div class="form-group txt">
+                        <label class="customer-label" for="qualEAQualificationName" (click)="focusDealIdInput(appDataService.createUniqueId('qualEAQualificationName',appDataService.pageContext))">{{localeService.getLocalizedString('common.QUALIFICATION')}}
+                            {{localeService.getLocalizedString('qual.whoinvolved.NAME')}}
+                            <span class="import">*</span>
+                          </label>
+                        <input [id]="appDataService.createUniqueId('qualEAQualificationName',appDataService.pageContext)" class="form-control" maxlength="65" appElementFocus id="qualEAQualificationName" [(ngModel)]="qualEAQualificationName" (ngModelChange)="isQualNameBlank()"
+                            name="qualEAQualificationName" required="" type="text">
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="row" *ngIf="resultMatch && showDealSummary">
+        <div class="col-lg-12">
+          <div class="form-group mb-3">
+            <input [id]="appDataService.createUniqueId('eaQualDescription',appDataService.pageContext)" type="text"
+              class="form-control" appElementFocus id="eaQualDescription" [(ngModel)]="eaQualDescription"
+              name="eaQualDescription" required="">
+            <label class="form-control-placeholder" for="eaQualDescription"
+              (click)="focusDealIdInput(appDataService.createUniqueId('eaQualDescription',appDataService.pageContext))">{{localeService.getLocalizedString('qual.create.DESC')}}</label>
+          </div>
+        </div>
+      </div> -->
+
+        </div>
+        <!-- Info message to be shown after user selects subId -->
+        <div class="row m-0 mt-3 alert alert--info" *ngIf="isChangeSubSelected && subscriptionList.length > 0 && selectedSubId">
+            <i class="arrow up"></i>
+            <span class="alert-icon">
+            <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+            </span>
+            <span class="infoTxt">{{localeService.getLocalizedString('qual.change.subscription.ACCESS_MSG')}}</span>
+        </div>
+        <div class="row m-0 mt-3" *ngIf='subscriptionList.length > 0 && subscriptionId && isSubIdValid'>
+                <div class="col-12 list-style p-0" *ngFor='let subscription of subscriptionList'>
+                    <div class="list-item half--border-radius row p-0 m-0" [ngClass]='{"selected": subscription.subscriptionId === selectedSubId}' >
+                        <div class="col-3 d-flex">
+                            <div class="d-inline-flex align-self-center mr-2" *ngIf="subscription.archName">                                                   
+                                <span class="icon-DNA-new architecture--icon" *ngIf="subscription.archName.toLowerCase().search('dna') > -1"><span class="path1"></span><span class="path2"></span><span
+                                class="path3"></span><span class="path4"></span><span class="path5"></span><span
+                                class="path6"></span><span class="path7"></span></span>
+            
+                                <span class="icon-data-center-new architecture--icon" *ngIf="subscription.archName.toLowerCase().search('data') > -1"><span class="path1"></span><span
+                                class="path2"></span><span class="path3"></span><span class="path4"></span><span
+                                class="path5"></span><span class="path6"></span><span class="path7"></span><span
+                                class="path8"></span></span>
+                                <span class="icon-security-new architecture--icon" *ngIf="subscription.archName.toLowerCase().search('security') > -1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                                <span class="icon-cross-arch-tile architecture--icon" *ngIf="subscription.archName === 'cross_arch'"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span><span class="path8"></span><span class="path9"></span><span class="path10"></span></span>
+                                <span class="icon-cisco-1 architecture--icon" *ngIf="subscription.archName === 'cisco_one'"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span></span>
+                            </div>
+                            <h2 class="heading--h3 mb-0 align-self-center" style="cursor: pointer;"><a href="javascript:void(0);">{{subscription.virtualAccountName}}</a></h2>
+                        </div>
+                        
+                        <div class="col-9 pl-0">
+                            <div class="list-item pt-2 pb-2 row m-0">
+                                <div class="col-2 list-item--val" *ngIf="subscription?.smartAccountName">
+                                    <label>Smart Account</label>
+                                    <h4 class="label-name ellipsis" placement="top-center" container="body" ngbTooltip="{{subscription.smartAccountName}}">{{subscription.smartAccountName}}</h4>
+                                </div>
+                                <div class="col-md-3 list-item--val">
+                                    <label>Start Date</label>
+                                    <div class="label-name d-block">{{subscription.startDate}}
+                                        <div class="timeline-dots-container">
+                                            <div class="progress">
+                                                <div class="progress-bar"></div>
+                                            </div>
+                                            <div class="timeline-dots-main">
+                                                <span class="dots light-grey"></span>
+                                                <span class="dots light-grey"></span>
+                                                <span class="dots light-grey"></span>
+                                                <span class="dots light-grey"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col list-item--val">
+                                    <label>End Date</label>
+                                    <h4 class="label-name">{{subscription.endDate}}</h4>
+                                </div>
+                                <div class="col list-item--val">
+                                    <label>Subscription ID</label>
+                                    <h4 class="label-name">{{subscription.subscriptionId}}</h4>
+                                </div>
+                                <div class="col-auto list-item--val">
+                                    <label>Agreement Status</label>
+                                    <span class="label-name d-block active text-success">{{subscription.status}}</span>
+                                </div>
+                                <div class="col-auto list-item--val" [hidden]="readOnlyMode" (click)='selectSubscription(subscription)' *ngIf='subscription.subscriptionId !== selectedSubId'>
+                                    <button type="button" class="btn btn-secondary">Select</button>
+                                </div>
+                                <div class="col-auto list-item--val" [hidden]="readOnlyMode" *ngIf='subscription.subscriptionId === selectedSubId' (click)='deselectSubscription()'>
+                                    <button type="button" class="btn btn-secondary">Deselect</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End of Subscription to Co-Term-->
+                </div>
+            </div>
+        <div class="search-look-up" *ngIf="searchDealId && !isChangeSubSelected">
+            <span class="tco-arrow"></span>
+            <img src="assets/images/Look-up-deal-ID.png">
+            <p class="look-up-message">{{localeService.getLocalizedString('prospect.ENTER_DEAL_ID')}}</p>
+        </div>
+        <div class="invalid-look-up" *ngIf="invalidDealId">
+            <img src="assets/images/deal-ID-not-found.png">
+            <p class="look-up-message">{{localeService.getLocalizedString('prospect.NO_DEAL_FOUND')}}</p>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-secondary"  [disabled]= 'sfdcPunchInDeal' type="button" (click)="cancel()">{{localeService.getLocalizedString('common.CANCEL')}}</button>
+    <button class="btn btn-primary" *ngIf='!isChangeSubSelected' type="button" disabled="" (click)="createQual()" [disabled]="!resultMatch || isQualNameInvalid">{{localeService.getLocalizedString('common.CREATE')}} {{localeService.getLocalizedString('common.QUALIFICATION')}}</button>
+    <button class="btn btn-primary" *ngIf='isChangeSubSelected' type="button" disabled="" (click)="continue()" [disabled]="errorSubID || !selectedSubId || qualService.disabledContinueButton">Continue</button>
+</div>

@@ -1,0 +1,168 @@
+{
+    "error": false,
+    "data": [
+        {
+            "type": "BUYINGPROGRAM",
+            "name": "Buying Program",
+            "inputType": "checkbox",
+            "filters": [
+                {
+                    "name": "SPNA 3.0",
+                    "id": "spna",
+                    "selected": true
+                },
+                {
+                    "name": "EA 3.0",
+                    "id": "3.0",
+                    "selected": true
+                },
+                {
+                    "name": "EA 2.0",
+                    "id": "2.0",
+                    "selected": true
+                }
+            ]
+        },
+        {
+            "type": "LOCCSIGNED",
+            "name": "LoCC (Partner deals only)",
+            "inputType": "checkbox",
+            "filters": [
+                {
+                    "name": "Signed",
+                    "id": "true",
+                    "selected": true
+                },
+                {
+                    "name": "Not Signed",
+                    "id": "false",
+                    "selected": true
+                }
+            ],
+            "checkForPartnerUser": true,
+            "checkForPartnerSuperUser": false
+        },
+        {
+            "type": "DISPLAYFILTER",
+            "name": "Creator",
+            "inputType": "radio",
+            "filters": [
+                {
+                    "name": "Created by Me",
+                    "id": "createdByMe",
+                    "selected": true
+                },
+                {
+                    "name": "Shared with Me",
+                    "id": "sharedWithMe"
+                },
+                {
+                    "name": "Created by All",
+                    "id": "ALLRECORDS_SUPERUSER",
+                    "checkForSuperUser": true
+                },
+                {
+                    "name": "Shared by Cisco",
+                    "id": "sharedByCisco",
+                    "checkForPartnerUser": true,
+                    "checkForPartnerSuperUser": false
+                },
+                {
+                    "name": "My Company's Proposals",
+                    "id": "myCompanyProposals",
+                    "checkForPartnerUser": false,
+                    "checkForPartnerSuperUser": true
+                }
+            ]
+        },
+        {
+            "type": "DEALSTATUS",
+            "name": "Deal Status: Active",
+            "inputType": "checkbox",
+            "filters": [
+                {
+                    "name": "Approved",
+                    "id": "Approved",
+                    "selected": true
+                },
+                {
+                    "name": "Approval In Progress",
+                    "id": "Approval In Progress",
+                    "selected": true
+                },
+                {
+                    "name": "Approved Not Ready To Order",
+                    "id": "Approved Not Ready To Order",
+                    "selected": true
+                },
+                {
+                    "name": "More Information Required",
+                    "id": "More Information Required",
+                    "selected": true
+                },
+                {
+                    "name": "More Information Required - BOM",
+                    "id": "More Information Required-BOM",
+                    "selected": true
+                },
+                {
+                    "name": "Not Submitted",
+                    "id": "Not Submitted",
+                    "selected": true
+                },
+                {
+                    "name": "Ordered",
+                    "id": "Ordered",
+                    "selected": true
+                },
+                {
+                    "name": "Qualified",
+                    "id": "Qualified",
+                    "selected": true
+                },
+                {
+                    "name": "Qualification In Progress",
+                    "id": "Qualification in Progress",
+                    "selected": true
+                },
+                {
+                    "name": "Re-Opened",
+                    "id": "Re-Opened",
+                    "selected": true
+                }
+            ]
+        },
+        {
+            "type": "DEALSTATUS",
+            "name": "Deal Status: Inactive",
+            "inputType": "checkbox",
+            "filters": [
+                {
+                    "name": "Cancelled",
+                    "id": "Cancelled",
+                    "selected": true
+                },
+                {
+                    "name": "Closed",
+                    "id": "Closed",
+                    "selected": true
+                },
+                {
+                    "name": "Expired",
+                    "id": "Expired",
+                    "selected": true
+                },
+                {
+                    "name": "Lost",
+                    "id": "Lost",
+                    "selected": true
+                },
+                {
+                    "name": "Rejected",
+                    "id": "Rejected",
+                    "selected": true
+                }
+            ]
+        }
+    ]
+}

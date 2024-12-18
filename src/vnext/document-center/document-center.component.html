@@ -1,0 +1,298 @@
+<!-- <ng-template *ngIf='displayDocCenterPage'> -->
+     <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+              <app-message></app-message>
+          </div>
+        </div>
+      </div> 
+    <section class="vNext" attr.page-id="{{dataIdConstantsService.documentCenter_page_documentCenterPage}}">
+        <div class="container-fluid vNext">
+            <div id="filter-area" class="vNext mb-3">
+                <div class="row align-items-center">
+                    <div class="col-md-5 col-sm-5 col-5">
+                        <ul class="inline-listing nav-tabs">
+                            <li *ngIf="!eaService.features?.IRONCLAD_C2A || proposalStoreService.inflightDocusign " [ngClass]="{'active' : displayLegalPackage,'disabled':displayMultiPartner && proposalStoreService.proposalData.status !== 'COMPLETE'}"  (click) = 'showLegalPackage()'>
+                                <a class="px-0" href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.documentCenter_link_legalPackage}}">{{(eaService.isSpnaFlow) ? ('common.CISCO_SPNA_LEGAL_PACKAGE' | localizationPipe : localizationService.localizedkeySet.size) : ('common.CISCO_EA_LEGAL_PACKAGE' | localizationPipe : localizationService.localizedkeySet.size)}}</a>
+                            </li> 
+                            <li *ngIf="eaService.features?.IRONCLAD_C2A && !proposalStoreService.inflightDocusign " [ngClass]="{'active' : displayLegalPackage,'disabled':displayMultiPartner && proposalStoreService.proposalData.status !== 'COMPLETE'}"  (click) = 'showLegalPackage()'>
+                                <a class="px-0" href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.documentCenter_link_legalPackage}}">{{(eaService.isSpnaFlow) ? ('common.CISCO_SPNA_LEGAL_PACKAGE' | localizationPipe : localizationService.localizedkeySet.size) : ('common.CISCO_EA_TERMS_PACKAGE' | localizationPipe : localizationService.localizedkeySet.size)}}</a>
+                            </li> 
+                            <li [ngClass]="{'active' : (!displayLegalPackage && !displayMultiPartner),'disabled':displayMultiPartner && proposalStoreService.proposalData.status !== 'COMPLETE'}" (click)='showDocuments()'>
+                                <a class="px-0" href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.documentCenter_link_documentCenter}}">{{'common.DOCUMENT_CENTER' | localizationPipe : localizationService.localizedkeySet.size}}</a>
+                            </li>
+                            <li *ngIf="enableMultiPartnerTab && !eaService.isUpgradeFlow" [ngClass]="{'active' : displayMultiPartner}" (click)='showMultiPartnerConsent()'>
+                                <a class="px-0" href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.documentCenter_link_multiPartnerConsent}}">{{'common.MULTI_PARTNER_CONSENT' | localizationPipe : localizationService.localizedkeySet.size}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-7 col-sm-7 col-7">
+                        <ul class="qualify-btn">
+                            
+                            <!-- <li><button *ngIf='!eaStoreService.docObjData?.proposalObjectId' type="button" class="btn btn-secondary sm">Proposal List</button></li> -->
+                            <li *ngIf='!eaStoreService.docObjData?.proposalObjectId && proposalStoreService.proposalData.status === "COMPLETE"' (click)='backToDashboard()'><button type="button" attr.action-id="{{dataIdConstantsService.documentCenter_button_backToProposalDashboard}}" class="btn btn-secondary sm">{{'common.BACK_TO_PROPOSAL_DASHBOARD' | localizationPipe : localizationService.localizedkeySet.size}}</button></li>
+                            <li *ngIf='!eaStoreService.docObjData?.proposalObjectId  && proposalStoreService.proposalData.status !== "COMPLETE"' (click)='backToDashboard()'><button type="button" attr.action-id="{{dataIdConstantsService.documentCenter_button_backToProposal}}" class="btn btn-secondary sm" id="{{elementIdConstantsService.DocumentCenter_Back_To_Proposal}}">{{'common.BACK_TO_PROPOSAL' | localizationPipe : localizationService.localizedkeySet.size}}</button></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!--section class="vNext" id="locc-tab-content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="section-content">
+                    <div class="row">
+                        <div class="col-12">
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="section-sidebar">
+                    <div class="vNext-actions--outer">
+                        <div class="vNext-actions-initiate">
+                            <div class="vNext-action-icon-wrap">
+                                <img src="../../assets/images/cisco-ea-leagal.png">
+                            </div>
+                            <h5 class="heading--h5 mb-2">Cisco EA Legal Package Wizard</h5>
+                            <p class="mb-3">Complete all the required steps to complete EA Legal Package.</p>
+                    
+                            <ul class="vNext-action-listing d-inline-block">
+                                <li>Customer Information<sup>*</sup></li>
+                                <li>LoA Terms & Condition<sup>*</sup></li>
+                                <li>Initiate Signature<sup>*</sup></li>
+                            </ul>
+                    
+                            <hr class="weight-1 w-100">
+    
+                            <div class="w-100 d-flex justify-content-center">
+                                <a class="lh-1" href="javascript:void(0);">Need help to understand Cisco Legal Package!</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section-->
+    
+    <section *ngIf='!displayLegalPackage && !displayMultiPartner' class="vNext" id="docu-center-tab-content" attr.page-id="{{dataIdConstantsService.documentCenter_page_documentCenterPage}}">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="section-content">
+                    <div class="row">
+                        <div class="col-12">
+                            <h5 class="heading--h5 marginB-10">{{'common.CUSTOMER_CONVERSATIONS' | localizationPipe : localizationService.localizedkeySet.size}}</h5>
+                        </div>
+                        <div class="col-12">
+                             <div class="tile-flex marginB-10" *ngIf='!hideDataForSubscriber'>
+                                <div class="d-flex">
+                                    <span class="severity-badge bg-green" ngbTooltip="{{'common.CISCO_CONFIDENTIAL' | localizationPipe : localizationService.localizedkeySet.size}}" placement="top-left">C</span>
+                                    <div class="icon-wrap">
+                                        <span class="i-vNext-pdf"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span></span>
+                                    </div>
+                                    <div class="tile-flex--content">
+                                        <h6 class="heading--h6">{{'common.PROPOSAL_SUMMARY' | localizationPipe : localizationService.localizedkeySet.size}}</h6>
+                                        <p>{{'common.PROPOSAL_SUMMARY_DOC_DESC' | localizationPipe : localizationService.localizedkeySet.size}}</p>
+                                    </div>
+                                </div>
+                                <div class="">
+                                    <a #downloadZipLink [hidden]="true"></a>
+                                    <a href="javascript:void(0);" (click)="downloadSummaryDoc()" attr.action-id="{{dataIdConstantsService.documentCenter_link_download}}">
+                                        <span class="i-vNext-download mr-1"></span> {{'common.DOWNLOAD' | localizationPipe : localizationService.localizedkeySet.size}}
+                                    </a>
+                                </div>
+                            </div>
+    
+                            <div class="tile-flex marginB-10" *ngIf='!hideDataForSubscriber && !proposalStoreService.proposalData?.dealInfo?.subscriptionUpgradeDeal'>
+                                <div class="d-flex">
+                                    <span class="severity-badge bg-orange" ngbTooltip="{{'common.HIGHLY_CONFIDENTIAL' | localizationPipe : localizationService.localizedkeySet.size}}" placement="top-left">H</span>
+                                    <div class="icon-wrap">
+                                        <span class="i-vNext-xls-big"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span></span>
+                                    </div>
+                                    <div class="tile-flex--content">
+                                        <h6 class="heading--h6">{{'common.CUSTOMER_INSTALL_BASE_REPORT_2' | localizationPipe : localizationService.localizedkeySet.size}}</h6>
+                                        <p>{{'common.PRICING_DETAILS_OF_THE_PROPOSAL_NEW' | localizationPipe : localizationService.localizedkeySet.size}}</p>
+                                    </div>
+                                </div>
+                                <div class="">
+                                    <a href="javascript:void(0);" (click)="requestIb()" attr.action-id="{{dataIdConstantsService.documentCenter_link_requestIb}}">
+                                        <span class="i-vNext-file mr-2"></span>
+                                        <span>{{'common.SEND_REQUEST' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="tile-flex-column marginB-10" *ngIf="displayCreditMemoTile">
+                                <div class="d-flex justify-content-between w-100 marginB-10"> 
+                                    <div class="d-flex">
+                                        <span class="severity-badge bg-orange" ngbTooltip="{{'common.HIGHLY_CONFIDENTIAL' | localizationPipe : localizationService.localizedkeySet.size}}" placement="top-left">H</span>
+                                        <div class="icon-wrap">
+                                            <span class="i-vNext-xls-big"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span></span>
+                                        </div>
+                                        <div class="tile-flex--content">
+                                            <h6 class="heading--h6">{{'common.CREDIT_MEMO_ESTIMATION' | localizationPipe : localizationService.localizedkeySet.size}}</h6>
+                                            <p>{{'common.CREDIT_DESCRIPTION' | localizationPipe : localizationService.localizedkeySet.size}}</p>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <a #downloadZipLink [hidden]="true"></a>
+                                        <a *ngIf="!creditMemoDownload" href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.documentCenter_link_download}}">
+                                            <span class="d-flex text-muted"><span class="i-vNext-download mr-2 disabled"></span> {{'common.DOWNLOAD' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                                        </a>
+                                        <a *ngIf="creditMemoDownload" href="javascript:void(0);" (click)="downloadCreditMemo()" attr.action-id="{{dataIdConstantsService.documentCenter_link_download}}" class="d-flex">
+                                            <span class="i-vNext-download mr-2"></span> {{'common.DOWNLOAD' | localizationPipe : localizationService.localizedkeySet.size}}
+                                        </a>
+                                    </div>
+                                </div>
+                                <div *ngIf="!creditMemoDownload" class="alert alert--warning">
+                                    <span class="alert-icon">
+                                        <span class="icon-msg-warning"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                                    </span>
+                                    <span>{{'common.CREDIT_DESCRIPTION_WARNING' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- LOCC commented out for future use -->
+                    <!-- <hr class="weight-1 marginT10 marginB20" *ngIf="vnextService.isPartnerUserLoggedIn() && !hideDataForSubscriber">
+    
+                    <div class="row" *ngIf="vnextService.isPartnerUserLoggedIn() && !hideDataForSubscriber">
+                        <div class="col-12">
+                            <h5 class="heading--h5 marginB-10">{{'common.LEGAL_DOCUMENTS' | localizationPipe : localizationService.localizedkeySet.size}}</h5>
+                        </div>
+                        <div class="col-12">
+                            <div class="tile-flex marginB-10">
+                                <div class="d-flex">
+                                    <div class="icon-wrap">
+                                        <span class="i-vNext-pdf"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span></span>
+                                    </div>
+                                    <div class="tile-flex--content">
+                                        <h6 class="heading--h6">{{'common.LOCC' | localizationPipe : localizationService.localizedkeySet.size}}</h6>
+                                        <p>{{'common.CUSTOMER_CONCENT_REQUIRED' | localizationPipe : localizationService.localizedkeySet.size}}</p>
+                                    </div>
+                                </div>
+                                <div class="">
+                                    <ul class="inline-listing border-right-li">
+                                        <li>
+                                            <a #downloadZipLink [hidden]="true"></a>
+                                            <a href="javascript:void(0);" (click)="downloadLoccFile()" attr.action-id="{{dataIdConstantsService.documentCenter_link_downloadLoccFile}}" ><span class="i-vNext-download mr-1"></span> {{'common.locc.DOWNLOAD_LOCC' | localizationPipe : localizationService.localizedkeySet.size}}</a>
+                                        </li>
+                                        <li>
+                                            <span class="badge badge-valid" *ngIf="vnextStoreService.loccDetail?.loccSigned">{{'common.SIGNED' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                                            <span class="badge badge-in-progress" *ngIf="!vnextStoreService.loccDetail?.loccSigned">{{vnextStoreService.loccDetail?.loccInitiated ? ('common.PENDING_SIGNATURE' | localizationPipe : localizationService.localizedkeySet.size): ('common.locc.NOT_SIGNED' | localizationPipe : localizationService.localizedkeySet.size)}}</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                    <!-- LOCC commented out for future use -->
+                </div>
+    
+                <div class="section-sidebar d-none">
+                    <h5 class="heading--h5 marginB-10">Recommended Content from SalesConnect</h5>
+                    <div class="vNext-actions--outer">
+                        <div class="vNext-actions">
+                            <div class="d-flex align-items-start vNext-actions-inner">
+                                <div class="icon-wrap">
+                                    <span class="i-vNext-xls-big"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span></span>
+                                </div>
+                                <div class="text-wrap">
+                                    <h6 class="heading--h6">DNA EA Price Estimate Tool for Multi-Suite Discount...</h6>
+                                    <ul class="inline-listing rating-listing">
+                                        <li><span class="i-vNext-rating-star"></span></li>
+                                        <li><span class="i-vNext-rating-star"></span></li>
+                                        <li><span class="i-vNext-rating-star"></span></li>
+                                        <li class="disabled-rating"><span class="i-vNext-rating-star"></span></li>
+                                        <li class="disabled-rating"><span class="i-vNext-rating-star"></span></li>
+                                    </ul>
+                                    <ul class="inline-listing border-right-li">
+                                        <li>
+                                            <a href="javascript:void(0);">View</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0);">Download</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0);">Share</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!--  End of Action -- 1  -->
+    
+                            <div class="d-flex align-items-start vNext-actions-inner">
+                                <div class="icon-wrap">
+                                    <span class="i-vNext-PPT"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span><span class="path8"></span></span>
+                                </div>
+                                <div class="text-wrap">
+                                    <h6 class="heading--h6">Customer Proposal Package</h6>
+                                    <ul class="inline-listing rating-listing">
+                                        <li><span class="i-vNext-rating-star"></span></li>
+                                        <li><span class="i-vNext-rating-star"></span></li>
+                                        <li><span class="i-vNext-rating-star"></span></li>
+                                        <li class="disabled-rating"><span class="i-vNext-rating-star"></span></li>
+                                        <li class="disabled-rating"><span class="i-vNext-rating-star"></span></li>
+                                    </ul>
+                                    <ul class="inline-listing border-right-li">
+                                        <li>
+                                            <a href="javascript:void(0);">View</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0);">Download</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0);">Share</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!--  End of Action -- 2  -->
+    
+                            <div class="d-flex align-items-start vNext-actions-inner">
+                                <div class="icon-wrap">
+                                    <span class="i-vNext-xls-big"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span></span>
+                                </div>
+                                <div class="text-wrap">
+                                    <h6 class="heading--h6">DNA EA Price Estimate Tool for Multi-Suite Discount...</h6>
+                                    <ul class="inline-listing rating-listing">
+                                        <li><span class="i-vNext-rating-star"></span></li>
+                                        <li><span class="i-vNext-rating-star"></span></li>
+                                        <li><span class="i-vNext-rating-star"></span></li>
+                                        <li class="disabled-rating"><span class="i-vNext-rating-star"></span></li>
+                                        <li class="disabled-rating"><span class="i-vNext-rating-star"></span></li>
+                                    </ul>
+                                    <ul class="inline-listing border-right-li">
+                                        <li>
+                                            <a href="javascript:void(0);">View</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0);">Download</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0);">Share</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!--  End of Action -- 3  -->
+    
+                            <div class="vNext-actions-footer">
+                                <a href="javascript:void(0);"><span class="briefcase-img"></span>SalesConnect Recommended content</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    
+    <!-- Lagal Package -- Starts here -->
+    <app-legal-package *ngIf='displayLegalPackage' [editLegalPackage]="editLegalPackage"></app-legal-package>
+    <!-- </ng-template> -->
+    <app-multi-partner-concent *ngIf='displayMultiPartner && enableMultiPartnerTab && !eaService.isUpgradeFlow'></app-multi-partner-concent>
+    
+    <app-financial-summary *ngIf="proposalStoreService.showFinancialSummary"></app-financial-summary>

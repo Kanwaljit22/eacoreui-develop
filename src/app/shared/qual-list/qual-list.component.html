@@ -1,0 +1,446 @@
+<!--This Div !qualListOnDashboard is not used in Lifecycle view for now-->
+<div *ngIf="!qualListOnDashboard">
+    <div class="text-right" style="margin-bottom: 10px; ">
+        <a *ngIf="!displayGridView" href="javascript:void(0)" (click)="toggleView()"><i class="icon-grid"></i><span>Grid
+                View</span></a>
+        <a *ngIf="displayGridView" href="javascript:void(0)" (click)="toggleView()"><i class="icon-list"></i><span>List
+                View</span></a>
+    </div>
+	
+    <div class="row clearfix marginB20 123">
+        <div *ngIf="displayGridView && rowData.length >0" style="width: 100%; height: 100vh;">
+            <ag-grid-angular #agGrid id="ag-grid" style="width: 100%; height: 100%;" appTableHeight
+                class="ag-fresh"
+                (gridReady)="onGridReady($event)" [gridOptions]="gridOptions" [columnDefs]="columnDefs"
+                [rowData]="rowData" enableColResize enableSorting enableFilter groupHeaders suppressRowClickSelection
+                toolPanelSuppressGroups toolPanelSuppressValues debug rowHeight="30"  [sideBar]="false"
+                (cellClicked)="onCellClicked($event)" (cellMouseOver)="utilitiesService.onCellMouseOver($event, 1)">
+            </ag-grid-angular>
+        </div>
+        <div *ngIf="!displayGridView">
+            <div class="col-xl-12"
+                *ngFor="let c of qualData.data | searchFilter: searchQual: searchArray; let i = index;">
+                <div class="dashboard-list">
+                    <div class="main-block" [ngClass]="{'active': c.showProposal}">
+                        <div class="fixed-button" (click)="viewProposal(c, i)">
+                            <a href="javascript:void(0)">
+                                <span
+                                    *ngIf="!c.showProposal">{{localeService.getLocalizedString('qualproposallist.VIEW')}}
+                                    {{c.proposalCount}}
+                                    {{localeService.getLocalizedString('qualproposallist.PROPOSAL(S)')}}</span>
+                                <span
+                                    *ngIf="c.showProposal">{{localeService.getLocalizedString('qualproposallist.HIDE')}}
+                                    {{localeService.getLocalizedString('qualproposallist.PROPOSAL(S)')}}</span>
+                                <span class="icon-down-arrow"></span>
+                            </a>
+                        </div>
+                        <div class="user-list-grid">
+                            <div class="grid-header">
+                                <div class="row" [ngClass]="{'myQual2': !isCreatedbyQualView }">
+                                    <div class="col-8">
+                                        <h3 class="heading">
+                                            <a [id]='appDataService.createUniqueId(c.name,appDataService.pageContext)'
+                                                class="ellipsis" href="javascript:void(0);"
+                                                (click)="viewQualSummary(c)">{{c.name}} ({{c.qualId}})</a>
+                                            <a href="javascript:void(0);" class="ml-2" container="body" placement="top-left" ngbTooltip="{{localeService.getLocalizedMessage('qualList.NOT_EDITIABLE_TOOLTIP')}}">
+                                                <span [id]='appDataService.createUniqueId("editQualName",appDataService.pageContext)'
+                                                    *ngIf="constantsService.DASHBOARDPAGECONTEXT !== appDataService.pageContext"
+                                                    (click)="editQualName(c, i)"
+                                                    [ngClass]="{'disabled-edit': disableEditIcon(c)}"
+                                                    class="icon-header-edit "></span>
+                                            </a>
+                                        </h3>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="text-right">
+                                            <span *ngIf='!c.partnerDeal && !partnerFlow'
+                                                class="list-led-info">{{localeService.getLocalizedString('qualproposallist.CISCO_LED')}}</span>
+                                            <span *ngIf='c.partnerDeal && !partnerFlow'
+                                                class="list-led-info">{{localeService.getLocalizedString('qualproposallist.PARTNER_LED')}}</span>
+                                            <span class="badge badge-in-progress badge-t3"
+                                                *ngIf="c.status === constantsService.IN_PROGRESS_STATUS">{{c.status}}</span>
+                                            <span class="badge badge-validated badge-t3"
+                                                *ngIf="c.status === constantsService.QUALIFICATION_COMPLETE">{{c.status}}</span>
+
+                                            <!-- <div class="delete-qual" *ngIf="constantsService.DASHBOARDPAGECONTEXT !== appDataService.pageContext"><span class="icon-delete" [ngClass]="{'disabled': c.userAccessType !== constantsService.USER_READ_WRITE_ACCESS}"  (click)="deleteQual(c , i)"></span></div> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="grid-block">
+                                <div class="row">
+                                    <div class="col-2">
+                                        <label>{{localeService.getLocalizedString('qualproposallist.ACCOUNT_MANAGER')}}</label>
+                                        <h4 *ngIf="c.am" class="label-name"><span class="ellipsis">{{c.am}}</span></h4>
+                                        <h4 class="label-name biggerTxt" *ngIf="!c.am"> -- </h4>
+                                    </div>
+                                    <div class="col-3">
+                                        <label>{{localeService.getLocalizedString('qualproposallist.CUSTOMER_NAME')}}</label>
+                                        <h4 class="label-name">
+                                            <span class="ellipsis" placement="top" container="body"
+                                                ngbTooltip="{{c.customerName}}">{{c.customerName}}</span>
+                                        </h4>
+                                    </div>
+                                    <div class="col-1">
+                                        <label>{{localeService.getLocalizedString('qual.create.DEAL')}}
+                                            {{localeService.getLocalizedString('qual.create.ID')}}</label>
+                                        <h4 class="label-name">{{c.dealId}}</h4>
+                                    </div>
+                                    <div class="col-3">
+                                        <label>{{localeService.getLocalizedString('qualproposallist.CISCO_TEAM')}}</label>
+                                        <h4>
+                                            <span class="linkText-wrap team-popover" *ngIf="c.salesTeam">
+                                                <span class="ellipsis">{{c.salesTeam}}</span>
+                                                <div class="dropdown-menu"><span class="icon-arrow-up"><span
+                                                            class="path1"></span><span class="path2"></span></span>
+                                                    <div class="more-info-wrap without-scroll">
+                                                        <div class="more-info-title">
+                                                            <div class="row-outter" style="width:100%;">
+                                                                <div class="row-list--data widthTD30">
+                                                                    <strong>Name</strong></div>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="more-info-content" style="padding-right:0px;">
+                                                            <!--Begin Inner content-->
+                                                            <div *ngFor="let a of c.salesTeamList" class="row-list">
+                                                                <div class="row-list--data ellipsis">{{a}}</div>
+                                                            </div>
+
+                                                            <!--End Inner content-->
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </span>
+                                            <h4 class="label-name biggerTxt" *ngIf="!c.salesTeam"> -- </h4>
+                                        </h4>
+                                    </div>
+                                    <div class="col-3" *ngIf="c.partnerDeal">
+                                        <label>{{localeService.getLocalizedString('qualproposallist.PARTNER_TEAM')}}</label>
+                                        <h4>
+                                            <span class="linkText-wrap team-popover" *ngIf="c.partnerTeam">
+                                                <span class="ellipsis">{{c.partnerTeam}}</span>
+                                                <div class="dropdown-menu"><span class="icon-arrow-up"><span
+                                                            class="path1"></span><span class="path2"></span></span>
+                                                    <div class="more-info-wrap without-scroll">
+                                                        <div class="more-info-title">
+                                                            <div class="row-outter" style="width:100%;">
+                                                                <div class="row-list--data widthTD30">
+                                                                    <strong>Name</strong></div>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="more-info-content" style="padding-right:0px;">
+                                                            <!--Begin Inner content-->
+                                                            <div *ngFor="let p of c.partnerTeamList" class="row-list">
+                                                                <div class="row-list--data ellipsis">{{p}}</div>
+                                                            </div>
+
+                                                            <!--End Inner content-->
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </span>
+                                            <h4 class="label-name biggerTxt" *ngIf="!c.partnerTeam"> -- </h4>
+                                        </h4>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="expanded-content" *ngIf="c.showProposal">
+                                <div class="proposal-bg">
+                                    <div class="expanded-content-title">
+                                        <h4>{{localeService.getLocalizedString('common.PROPOSALS')}}</h4>
+                                    </div>
+                                    <div class="boxshadow-none" *ngIf="c.proposal?.data?.length && c.proposalVisible">
+                                        <app-proposal-list class="" style="width:100%;" [proposalListOnQual]='true' [proposalData]="c.proposal"></app-proposal-list>
+                                        <!-- End of Block - Accordion Inner Content - 1 -->
+                                    </div>
+                                    <div *ngIf="!c.proposal && c.proposalVisible ">
+                                        <div class="main-block-inner text-center mb-3">
+                                            <div class="col-12">
+                                                {{localeService.getLocalizedString('dashboard.proposal.NO_PROPOSAL_CREATED')}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="list-item border--top dashed footer justify-content-between"
+                            *ngIf="constantsService.DASHBOARDPAGECONTEXT !== appDataService.pageContext">
+                            <ul class="tile-list">
+                                <li placement="top-left" container="body"
+                                    ngbTooltip="{{localeService.getLocalizedMessage('qualList.DELETE_TOOLTIP')}}">
+                                    <!-- <a *ngIf="c.userAccessType !== constantsService.USER_READ_WRITE_ACCESS" [id]='appDataService.createUniqueId("DELETE",appDataService.pageContext)' href="javascript:void(0)" [ngClass]="{'disabled':true}">{{localeService.getLocalizedString('common.DELETE')}}</a> -->
+                                    <a [id]='appDataService.createUniqueId("DELETE",appDataService.pageContext)'
+                                        href="javascript:void(0)" [ngClass]="{'disabled':disableDelete(c)}"
+                                        (click)="deleteQual(c , i)">{{localeService.getLocalizedString('common.DELETE')}}</a>
+                                </li>
+                                <li placement="top-left" container="body"
+                                    ngbTooltip="{{localeService.getLocalizedMessage('qualList.NOT_EDITIABLE_TOOLTIP')}}">
+                                    <a [id]='appDataService.createUniqueId("MANAGE_TEAM",appDataService.pageContext)'
+                                        href="javascript:void(0);" [ngClass]="{'disabled':disableManageTeam(c)}"
+                                        (click)="openManageModal(c,null)">{{localeService.getLocalizedString('common.MANAGE_TEAM')}}</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix mt-4" id="noSearchData"
+                *ngIf="(qualData.data | searchFilter: searchQual : searchArray).length === 0 && searchQual">
+                <span class="icon-no-result-found">
+                    <span class="path1"></span><span class="path2"></span><span class="path3"></span><span
+                        class="path4"></span><span class="path5"></span><span class="path6"></span><span
+                        class="path7"></span><span class="path8"></span><span class="path9"></span><span
+                        class="path10"></span><span class="path11"></span>
+                </span>
+                <h6>{{localeService.getLocalizedString('qual.list.NO_QUAL_FOUND')}}</h6>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- lifecycle-UI  -->
+
+    <div class="row">
+        <div class="col-md-12" *ngIf="qualListOnDashboard">
+            <div class="toggle-grid-list" *ngIf="qualData.isToggleVisible && qualData.data.length > 0">
+                <a *ngIf="!displayGridView" href="javascript:void(0)" (click)="toggleView()"><i class="icon-grid"></i><span>Grid
+                        View</span></a>
+                <a *ngIf="displayGridView" href="javascript:void(0)" (click)="toggleView()"><i class="icon-list"></i><span>Tile
+                        View</span></a>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="displayGridView && rowData.length >0" style="width: 100%; height: 100vh;">
+        <ag-grid-angular #agGrid id="ag-grid" style="width: 100%; height: 100%;" appTableHeight
+            class="ag-fresh"
+            (gridReady)="onGridReady($event)" [gridOptions]="gridOptions" [columnDefs]="columnDefs" [sideBar]="false"
+            [rowData]="rowData" enableColResize enableSorting enableFilter groupHeaders suppressRowClickSelection
+            toolPanelSuppressGroups toolPanelSuppressValues debug rowHeight="30"  [sideBar]="false"
+            (cellClicked)="onCellClicked($event)" (cellMouseOver)="utilitiesService.onCellMouseOver($event, 1)">
+        </ag-grid-angular>
+    </div>
+    <div *ngIf="!displayGridView" class="col-12 mt-2">
+        <div class="row align-items-center list-style mb-3"
+            *ngFor="let c of qualData.data | searchFilter: searchQual: searchArray; let i = index;">
+            <div class="col-11 p-0 border-right">
+                <div [ngClass]="{'active': c.showProposal}">
+                    <!-- <div class="fixed-button" (click)="viewProposal(c, i)">
+                <a href="javascript:void(0)">
+                    <span *ngIf="!c.showProposal">{{localeService.getLocalizedString('qualproposallist.VIEW')}} {{c.proposalCount}} {{localeService.getLocalizedString('qualproposallist.PROPOSAL(S)')}}</span>
+                    <span *ngIf="c.showProposal">{{localeService.getLocalizedString('qualproposallist.HIDE')}} {{localeService.getLocalizedString('qualproposallist.PROPOSAL(S)')}}</span>
+                    <span class="icon-down-arrow"></span>
+                </a>
+            </div> -->
+                    <div class="row list-item--name align-items-center" [ngClass]="{'myQual2': !isCreatedbyQualView }">
+                            <div class="col-8">
+                                <h3 class="heading">
+                                    <a [id]='appDataService.createUniqueId(c.name,appDataService.pageContext)'
+                                        class="ellipsis" href="javascript:void(0);"
+                                        (click)="viewQualSummary(c)">{{c.name}} ({{c.qualId}})</a>
+                                    <a href="javascript:void(0);" class="ml-2" container="body" placement="top-left"
+                                        ngbTooltip="{{localeService.getLocalizedMessage('qualList.NOT_EDITIABLE_TOOLTIP')}}">
+                                        <span [id]='appDataService.createUniqueId("editQualName",appDataService.pageContext)'
+                                            *ngIf="qualData.editIcon"
+                                            (click)="editQualName(c)"
+                                            [ngClass]="{'disabled-edit': disableEditIcon(c)}"
+                                            class="icon-header-edit "></span>
+                                    </a>
+                                </h3>
+                            </div>
+                            <div class="col-4 text-right">
+                                <ul class="tile-list">
+                                    <li *ngIf='!c.partnerDeal && !partnerFlow'
+                                        class="">{{localeService.getLocalizedString('qualproposallist.CISCO_LED')}}</li>
+                                    <li *ngIf='c.partnerDeal && !partnerFlow'
+                                        class="">{{localeService.getLocalizedString('qualproposallist.PARTNER_LED')}}</li>
+                                    <li class="pr-0">
+                                        <span class="badge badge-in-progress badge-t3"
+                                        *ngIf="c.status === constantsService.IN_PROGRESS_STATUS">{{c.status}}</span>
+                                        <span class="badge badge-validated badge-t3"
+                                        *ngIf="c.status === constantsService.QUALIFICATION_COMPLETE">{{c.status}}</span>
+                                    </li>
+
+                                    <!-- <div class="delete-qual" *ngIf="constantsService.DASHBOARDPAGECONTEXT !== appDataService.pageContext"><span class="icon-delete" [ngClass]="{'disabled': c.userAccessType !== constantsService.USER_READ_WRITE_ACCESS}"  (click)="deleteQual(c , i)"></span></div> -->
+                                </ul>
+                            </div>
+                        
+                    </div>
+                    <div class="list-item border--top solid row m-0">
+                        <!-- <li class="col-3">
+                        <label>Created by</label>
+                        <h4 class="label-name"><span class="ellipsis">{{c.qualificationCreatedByName}}</span></h4>
+                </li> -->
+                        <div class="list-item--val col-2">
+                            <label>{{localeService.getLocalizedString('qualproposallist.ACCOUNT_MANAGER')}}</label>
+                            <h3 *ngIf="c.am" class="label-name"><span class="ellipsis">{{c.am}}</span></h3>
+                            <h3 class="label-name biggerTxt" *ngIf="!c.am"> -- </h3>
+                        </div>
+                        <div class="list-item--val col-3 overflow-hidden">
+                            <label>{{localeService.getLocalizedString('qualproposallist.CUSTOMER_NAME')}}</label>
+                            <h3 class="label-name">
+                                <span class="ellipsis" placement="top" container="body"
+                                    ngbTooltip="{{c.customerName}}">{{c.customerName}}</span>
+                            </h3>
+                        </div>
+                        <div class="list-item--val col-1">
+                            <label>{{localeService.getLocalizedString('qual.create.DEAL')}}
+                                {{localeService.getLocalizedString('qual.create.ID')}}</label>
+                            <h3 class="label-name">{{c.dealId}}</h3>
+                        </div>
+                        <div class="list-item--val col-3">
+                            <label>{{localeService.getLocalizedString('qualproposallist.CISCO_TEAM')}}</label>
+                            <h3>
+                                <span class="linkText-wrap team-popover" *ngIf="c.salesTeam">
+                                    <span class="ellipsis">{{c.salesTeam}}</span>
+                                    <div class="dropdown-menu"><span class="icon-arrow-up"><span
+                                                class="path1"></span><span class="path2"></span></span>
+                                        <div class="more-info-wrap without-scroll">
+                                            <div class="more-info-title">
+                                                <div class="row-outter" style="width:100%;">
+                                                    <div class="row-list--data widthTD30"><strong>Name</strong>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="more-info-content" style="padding-right:0px;">
+                                                <!--Begin Inner content-->
+                                                <div *ngFor="let a of c.salesTeamList" class="row-list">
+                                                    <div class="row-list--data ellipsis">{{a}}</div>
+                                                </div>
+                                                <!--End Inner content-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </span>
+                                <h3 class="label-name biggerTxt" *ngIf="!c.salesTeam"> -- </h3>
+                            </h3>
+                        </div>
+                        <div class="list-item--val col-2" *ngIf="c.partnerDeal">
+                            <label>{{localeService.getLocalizedString('qualproposallist.PARTNER_TEAM')}}</label>
+                            <h3>
+                                <span class="linkText-wrap team-popover" *ngIf="c.partnerTeam">
+                                    <span class="ellipsis">{{c.partnerTeam}}</span>
+                                    <div class="dropdown-menu"><span class="icon-arrow-up"><span
+                                                class="path1"></span><span class="path2"></span></span>
+                                        <div class="more-info-wrap without-scroll">
+                                            <div class="more-info-title">
+                                                <div class="row-outter" style="width:100%;">
+                                                    <div class="row-list--data widthTD30"><strong>Name</strong>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="more-info-content" style="padding-right:0px;">
+                                                <!--Begin Inner content-->
+                                                <div *ngFor="let p of c.partnerTeamList" class="row-list">
+                                                    <div class="row-list--data ellipsis">{{p}}</div>
+                                                </div>
+
+                                                <!--End Inner content-->
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </span>
+                                <h3 class="label-name biggerTxt" *ngIf="!c.partnerTeam"> -- </h3>
+                            </h3>
+                        </div>
+                    </div>
+
+                    <div class="expanded-content" *ngIf="c.showProposal">
+                        <div class="proposal-bg">
+                            <div class="expanded-content-title">
+                                <h4>{{localeService.getLocalizedString('common.PROPOSALS')}}</h4>
+                            </div>
+                            <div class="boxshadow-none" *ngIf="c.proposal?.data?.length && c.proposalVisible">
+                                <app-proposal-list class="" style="width:100%;" [proposalListOnQual]='true' [proposalData]="c.proposal"></app-proposal-list>
+                                <!-- End of Block - Accordion Inner Content - 1 -->
+                            </div>
+                            <div *ngIf="!c.proposal && c.proposalVisible ">
+                                <div class="main-block-inner text-center mb-3">
+                                    <div class="col-12">
+                                        {{localeService.getLocalizedString('dashboard.proposal.NO_PROPOSAL_CREATED')}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="list-item border--top dashed footer justify-content-between"
+                        *ngIf="qualData.editIcon">
+                        <ul class="tile-list">
+                            <li (click)="cloneQualOrChangeDealId(false, c)" placement="top-left" container="body" >
+                                <a href="javascript:void(0)"  [ngClass]="{'disabled':disableClone()}">Clone</a>
+                            </li>
+                            <li placement="top-left" container="body">
+                                <a href="javascript:void(0)" (click)="cloneQualOrChangeDealId(true, c)" [ngClass]="{'disabled':(disableChangeDeal(c) || (!c.changeSubscriptionDeal && partnerFlow))}">Change Deal ID</a>
+                            </li>
+                            <li placement="top-left" container="body"
+                                ngbTooltip="{{localeService.getLocalizedMessage('qualList.DELETE_TOOLTIP')}}">
+                                <!-- <a *ngIf="c.userAccessType !== constantsService.USER_READ_WRITE_ACCESS" [id]='appDataService.createUniqueId("DELETE",appDataService.pageContext)' href="javascript:void(0)" [ngClass]="{'disabled':true}">{{localeService.getLocalizedString('common.DELETE')}}</a> -->
+                                <a [id]='appDataService.createUniqueId("DELETE",appDataService.pageContext)'
+                                    href="javascript:void(0)" [ngClass]="{'disabled':disableDelete(c)}"
+                                    (click)="deleteQual(c , i)">{{localeService.getLocalizedString('common.DELETE')}}</a>
+                            </li>
+                            <li placement="top-left" container="body"
+                                ngbTooltip="{{localeService.getLocalizedMessage('qualList.NOT_EDITIABLE_TOOLTIP')}}">
+                                <a [id]='appDataService.createUniqueId("MANAGE_TEAM",appDataService.pageContext)'
+                                    href="javascript:void(0);" [ngClass]="{'disabled':disableManageTeam(c)}"
+                                    (click)="openManageModal(c,null)">{{localeService.getLocalizedString('common.MANAGE_TEAM')}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- <div class="recommend-block recommend-footerblock text-right" *ngIf="constantsService.DASHBOARDPAGECONTEXT !== appDataService.pageContext && !(c.userAccessType === constantsService.USER_READ_WRITE_ACCESS || appDataService.userInfo.rwSuperUser)">
+                <div class="float-left proposal-action">
+                    <span class="line-height" placement="top-left" container="body" ngbTooltip="{{localeService.getLocalizedMessage('qualList.DELETE_TOOLTIP')}}">
+                        <a [id]='appDataService.createUniqueId("DELETE",appDataService.pageContext)' href="javascript:void(0)"  [ngClass]="{'disabled':true}">{{localeService.getLocalizedString('common.DELETE')}}</a>
+                    </span>
+                    <span class="sep"></span>
+                    <span class="line-height" placement="top-left" container="body" ngbTooltip="{{localeService.getLocalizedMessage('qualList.NOT_EDITIABLE_TOOLTIP')}}">
+                        <a [id]='appDataService.createUniqueId("MANAGE_TEAM",appDataService.pageContext)' [ngClass]="{'disabled':true}" >{{localeService.getLocalizedString('common.MANAGE_TEAM')}}</a>
+                    </span>
+                </div>
+                <ul></ul>
+            </div> -->
+                </div>
+
+                <div [ngClass]="{'guide-me-overlay': c.showProposal}" (click)="viewProposal(c, i)"></div>
+                <div class="proposals-count-flyout w-75" [ngClass]="{'active': c.showProposal}"
+                    *ngIf="c.proposal?.data?.length && c.proposalVisible">
+                    <div class="d-flex justify-content-between flyout-header">
+                        <p> Proposal for {{c.name}}</p>
+                        <button class="icon-close-btn m-0" type="button" (click)="viewProposal(c, i)"></button>
+                    </div>
+                    <div class="proposal-bg right-flyout-prop-scroll pt-0">
+                        <app-proposal-list class="" style="width:100%;" [proposalListOnQual]='true' [proposalData]="c.proposal"></app-proposal-list>
+                        <!-- End of Block - Accordion Inner Content - 1 -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-1 text-center">
+                <div class="list-item--val">
+                    <label>No. of Proposals</label>
+                        <p class="count">
+                            <a href="javascript:void(0);" style="cursor: default;" *ngIf="!c?.proposalCount"
+                            > 0 </a>
+
+                            <a href="javascript:void(0);" *ngIf="c.proposalCount > 0"
+                            (click)="viewProposal(c, i)">{{c.proposalCount}}</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="clearfix mt-4" style="width: 100%;" id="noSearchData"
+        *ngIf="((qualData.data | searchFilter: searchQual : searchArray).length === 0 && searchQual) || (qualData.data.length === 0 && !displayGridView)">
+        <img src="assets/images/no-data-available.svg">
+        <h6>No Active Qualifications Available</h6>
+        </div>
+

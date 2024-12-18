@@ -1,0 +1,259 @@
+
+<app-sub-header [screenName] = 'constantsService.SALES_READINESS'></app-sub-header>  
+<app-financial-summary [financialSummaryData] = "proposalDataService.summaryData"  [financialSummaryTotalData] = "proposalDataService.pinnedResult" ></app-financial-summary> 
+
+<div id="filter-area" class="mb-3" >
+    <div class="container-fluid">
+        <div class="row align-items-center">
+            <div class="col-md-7">
+                <h2>{{localeService.getLocalizedString('common.SALES_READINESS')}}</h2>
+            </div>
+            <div class="col-md-5">
+                <ul class="qualify-btn">
+                        
+                    <li>
+                        <button type="button" (click)="goToProposalList()" class="btn btn-secondary">{{localeService.getLocalizedString('common.PROPOSAL_LIST')}}</button>
+                    </li>
+                    <li>
+                            <button  [id]="appDataService.createUniqueId('DOCUMENT_CENTER_BUTTON',appDataService.pageContext)" type="button" (click)="goToDocumentCenter()"   class="btn btn-secondary">{{localeService.getLocalizedString('proposal.summary.DOCUMENT_CENTER_BUTTON')}}</button>
+                        </li>
+                        <li>
+                            <button [id]="appDataService.createUniqueId('PREVIEW_QUOTE',appDataService.pageContext)" type="button" (click)="goToPreviewQuotePage()"  class="btn btn-primary">{{localeService.getLocalizedString('common.PREVIEW_QUOTE')}}</button>
+                        </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<message></message>
+
+<!---latest UI-->
+<div class="clearfix"></div>
+<div class="container-fluid mt-4" style="display: none;">
+
+        <div class="sales-readiness">
+                <div class="sales-heading--title">
+                        <div class="sales-heading-block">All Proposal</div>
+                        <div class="sales-heading-cat" *ngFor="let proposal of allProposalData">
+                                <span class="icon-DNA" *ngIf="proposal.architectureName === 'Cisco DNA'"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span></span>
+    
+                                <span class="icon-data-center" *ngIf="proposal.architectureName === 'Cisco Data Center'">
+                                    <span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span><span class="path8"></span><span class="path9"></span><span class="path10"></span><span class="path11"></span><span class="path12"></span><span class="path13"></span><span class="path14"></span><span class="path15"></span><span class="path16"></span>
+                                    </span>
+                                    <span class="icon-security" *ngIf="proposal.architectureName === 'Cisco Security Choice'">
+                                            <span class="path1"></span><span class="path2"></span><span class="path3"></span>
+                                        </span>
+                            <span class="title-sale"><strong>{{proposal.architectureName}}</strong></span>
+                            <span class="icon-info-line-level-fill"></span>
+                        </div>
+                    </div>
+    <div  *ngFor="let c of salesReadinessData; let i = index">
+            <div class="sales-heading--row">
+                <div class="sales-main--col">
+            <div class="sales-main--col-description">
+                <span (click)="expandCollapse(c)" class="expan1-collapse1" [ngClass]="c.open ? 'icon-expand1' : 'icon-collapse1'"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></span>
+                {{c.name}}</div>
+                </div>
+                <div class="sales-col" *ngFor="let e of allProposalData"></div>
+            </div>
+            <div *ngIf="c.open">
+            <div class="sales-table--row">
+                        <div class="sales-description-col">
+                            <div class="sales-description-inner"><strong>Stage</strong></div></div>
+                        <div class="sales-col" *ngFor="let obj of allProposalData"></div>
+            </div>
+            <div class="sales-table--row" *ngFor="let d of c.activityLines">
+                    <div class="sales-description-col">
+                        <div class="sales-description-inner">{{d.displayName}}</div></div>
+                    <div class="sales-col" *ngFor="let b of allProposalData"><i class="{{getApplicableStatusClass(b.status)}}"><span class="path1"></span><span class="path2"></span><span class="path3"></span>
+                    </i><span class="{{getSalesClass(b.status)}}">{{b.status}}</span></div>
+         </div>
+        </div>
+    </div>
+            <!--Begin main div-->
+        </div>
+    </div>
+
+
+<div class="container-fluid mt-4">
+
+    <div class="sales-readiness" *ngFor="let a of salesReadinessData; let i = index">
+        <!--Begin main div-->
+        <div class="main-sales-block" [ngClass]="a.open ? 'active' : '' ">
+            <div class="sales-heading"><span (click)="expandCollapse(a)" class="expan1-collapse1" [ngClass]="a.open ? 'icon-expand1' : 'icon-collapse1'">
+                    <span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></span>
+                <h2>{{a.name}}</h2>
+            </div>
+            <div class="sales-grid" *ngIf="a.open">
+                <table class="t-grid" width="100%">
+                    <thead>
+                        <tr>
+                            <th *ngFor="let titleStr of coloumnTitleHeader">{{titleStr}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let b of a.activityLines; let j = index">
+                        <td width="37%" class="stage-info"><div class="sales-row-info"><i class="{{getApplicableStatusClass(b.status)}}"><span class="path1"></span><span class="path2"></span><span class="path3"></span>
+</i><ng-template #tipContent >{{b.displayName}}</ng-template><span>{{b.displayName}}</span>
+</div></td>
+                        <td width="10%"><span class="{{getSalesClass(b.status)}}">{{b.status}}</span></td>
+                        <td width="18%">{{(b.completedBy)}}</td>
+                        <td width="18%"><span *ngIf="b.completedOn && b.completedOn.length>0">{{b.completedOn | date:'dd MMM y'}}</span><time *ngIf="b.completedOn && b.completedOn.length>0">{{b.completedOn | date:'shortTime'}}</time></td>
+                        <td width="17%">
+                            <a *ngIf="b.actionLabel && b.actionLabel.length>0" href="javascript:void(0)" (click)="salesReadinessNavigation(b)"><i  class="{{getLogoClass(b.identifier)}}"></i><span>{{b.actionLabel}}</span></a>
+                    <!-- style="display: none;" -->
+                            <div class="custom-dropdown" *ngIf="b.manualActions && b.manualActions.length>0 && b.identifier.toUpperCase() === PARTNER_AUTHORIZATION">
+                            <div ngbDropdown class="select-items" #myDrop="ngbDropdown" (click)="myDrop.open();">
+                                <span class="dropdown--typeAhead__arrow-management">
+                                    <button type="button" appElementFocus class="btn--text drop-button" id="dropdownManual" ngbDropdownAnchor dropdownManual>
+                                        {{selectedAction}}</button>
+                                </span>
+                                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                                    <ul>
+                                        <li *ngFor="let c of b.manualActions" class="dropdown-item" (click)="changeValidation(b,c)">{{c}}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!--End main div-->
+    </div>
+</div>
+
+
+<!--Begin Timeline-->
+<div id="timeline-review" *ngIf="showTimeline">
+    <div class="timeline--head"><span class="icon-timeline"><span class="path1"></span><span class="path2"></span><span
+                class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span
+                class="path7"></span></span>
+        <h1>Timeline</h1>
+        <button aria-label="Close" class="icon-close-btn" type="button" (click)="closeTimeline()"></button>
+    </div>
+    
+    <!--Begin timeline-content-->
+    <div class="timeline-content">
+            <div class="day-sep">
+                    <div class="this-week">This week</div>
+                </div>
+        <div class="clearfix">
+            <div class="timeline--main active">
+                <ul class="timeline-list">
+                    <li class="timeline-list__item">
+                        <div class="timeline-list--head">
+                            <div class="timeline-user"></div>
+                            <h5 class="ellipsis"><strong>You</strong> successfully created proposal ‘DNA Access’.
+                                <span class="postedBy">2 days ago</span></h5>
+                            <span class="icon-arrow-stroke"></span>
+                        </div>
+                        <ul class="posted-list">
+                            <li class="posted-list__item">
+                                <label>Country/Region Transaction</label>
+                                UNITED STATES
+                            </li>
+                            <li class="posted-list__item">
+                                <label>Billing Model</label>
+                                Prepaid Term
+                            </li>
+                            <li class="posted-list__item">
+                                <label>Duration</label>
+                                36 Months
+                            </li>
+                        </ul>
+                        <div class="more-details"><a href="javascript:void(0)">More Details</a> <span class="icon-arrow-stroke-right"></span></div>
+                    </li>
+                </ul>
+            </div>
+            <!--Begin Second List-->
+            <div class="timeline--main active">
+                <ul class="timeline-list">
+                    <li class="timeline-list__item">
+                        <div class="timeline-list--head">
+                            <div class="timeline-user"></div>
+                            <h5 class="ellipsis"><strong>Tim Wilson</strong> added 2 subsidiaries to the qualification
+                                <span class="postedBy">25 Oct 2018</span></h5>
+                            <span class="icon-arrow-stroke"></span>
+                        </div>
+                        <ul class="posted-list--gird">
+                            <li class="posted-list--gird__item">Aquantive Inc</li>
+                            <li class="posted-list--gird__item">Asia Microsoft Ltd</li>
+                        </ul>
+                        <div class="more-details"><a href="javascript:void(0)">More Details</a> <span class="icon-arrow-stroke-right"></span></div>
+                    </li>
+                </ul>
+            </div>
+            <!--End Second List-->
+
+            <!--Begin Second List-->
+            <div class="timeline--main">
+                <ul class="timeline-list">
+                    <li class="timeline-list__item">
+                        <div class="timeline-list--head">
+                            <div class="timeline-user"></div>
+                            <h5 class="ellipsis"><strong>Renee Young</strong> added 3 geographies to the qualification
+                                <span class="postedBy">25 Oct 2018</span></h5>
+                            <span class="icon-arrow-stroke"></span>
+                        </div>
+                        <ul class="posted-list--gird">
+                            <li class="posted-list--gird__item">Aquantive Inc</li>
+                            <li class="posted-list--gird__item">Asia Microsoft Ltd</li>
+                        </ul>
+                        <div class="more-details"><a href="javascript:void(0)">More Details</a> <span class="icon-arrow-stroke-right"></span></div>
+                    </li>
+                </ul>
+            </div>
+            <!--End Second List-->
+        </div>
+        <div class="day-sep">
+            <div class="this-week">Last Month</div>
+        </div>
+        <div class="clearfix">
+            <!--Begin Second List-->
+            <div class="timeline--main">
+                <ul class="timeline-list">
+                    <li class="timeline-list__item">
+                        <div class="timeline-list--head">
+                            <div class="timeline-user"></div>
+                            <h5 class="ellipsis"><strong>You</strong> initiated Qualification ‘Renewal C1 EA’
+                                <span class="postedBy">12 Aug 2018</span></h5>
+                            <span class="icon-arrow-stroke"></span>
+                        </div>
+                        <ul class="posted-list--gird">
+                            <li class="posted-list--gird__item">Aquantive Inc</li>
+                            <li class="posted-list--gird__item">Asia Microsoft Ltd</li>
+                        </ul>
+                        <div class="more-details"><a href="javascript:void(0)">More Details</a> <span class="icon-arrow-stroke-right"></span></div>
+                    </li>
+                </ul>
+            </div>
+            <!--End Second List-->
+            <!--Begin Second List-->
+            <div class="timeline--main">
+                <ul class="timeline-list">
+                    <li class="timeline-list__item">
+                        <div class="timeline-list--head">
+                            <div class="timeline-user"></div>
+                            <h5 class="ellipsis"><strong>Christina Davis</strong> re-opened Qualification ‘Opportunity 1’
+                                <span class="postedBy">02 Aug 2018</span></h5>
+                            <span class="icon-arrow-stroke"></span>
+                        </div>
+                        <ul class="posted-list--gird">
+                            <li class="posted-list--gird__item">Aquantive Inc</li>
+                            <li class="posted-list--gird__item">Asia Microsoft Ltd</li>
+                        </ul>
+                        <div class="more-details"><a href="javascript:void(0)">More Details</a> <span class="icon-arrow-stroke-right"></span></div>
+                    </li>
+                </ul>
+            </div>
+            <!--End Second List-->
+        </div>
+    </div>
+    <!--End timeline--content-->
+</div>
+<!--End Timeline-->
+<app-activity-log  *ngIf="salesReadinessContainer.activityLog"></app-activity-log>
+<div (click)="salesReadinessContainer.activityLog = false;" *ngIf="salesReadinessContainer.activityLog" class="guide-me-overlay"></div>

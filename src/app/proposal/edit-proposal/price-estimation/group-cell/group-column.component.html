@@ -1,0 +1,71 @@
+<ng-container *ngIf="column === 'parameterIcon'">
+    <ng-container [ngSwitch]="type">
+        <span *ngSwitchCase="types.GROUP" [ngStyle]="style">
+            {{params.value}}
+            <!-- <span *ngIf="params.node.aggData && params.node.aggData.isSubscription">subscription</span> -->
+            <!-- <a *ngIf='!appDataService.userInfo.purchaseAdjustmentUser && !params.data.serviceLevels' href="javascript:void(0);" (click)="openModal()">Apply
+                Discount</a> -->
+            <div  class='action-items'>Action
+                <span class='icon-arow-down'></span>
+                <div class='dropdown-menu dropdown-menu-priceestimate' aria-labelledby='mainDropdown' *ngIf='(((this.appDataService.userInfo.rwSuperUser || this.appDataService.isReadWriteAccess) && !this.appDataService.roadMapPath) || (this.appDataService.isPendingAdjustmentStatus && appDataService.userInfo.purchaseAdjustmentUser))'>
+                    <span class='icon-arrow-up' *ngIf='(((this.appDataService.userInfo.rwSuperUser || this.appDataService.isReadWriteAccess) && !this.appDataService.roadMapPath) || (this.appDataService.isPendingAdjustmentStatus && appDataService.userInfo.purchaseAdjustmentUser))'><span class='path1'></span><span class='path2'></span></span>
+                    <ul *ngIf='(((this.appDataService.userInfo.rwSuperUser || this.appDataService.isReadWriteAccess) && !this.appDataService.roadMapPath) || (this.appDataService.isPendingAdjustmentStatus && appDataService.userInfo.purchaseAdjustmentUser))'>
+                        <li *ngIf='(this.appDataService.userInfo.rwSuperUser || this.appDataService.isReadWriteAccess) && !this.appDataService.roadMapPath && !is2tPartner'><a class='dropdown-item MVP2qualification' href='javascript:void(0)' (click)="openModal()">Apply Discount</a></li>
+                        <li *ngIf='((this.appDataService.userInfo.rwSuperUser || this.appDataService.isReadWriteAccess) && !this.appDataService.roadMapPath)  || (this.appDataService.roadMapPath && this.appDataService.isPendingAdjustmentStatus)'><a *ngIf='appDataService.userInfo.purchaseAdjustmentUser' class='dropdown-item ib-summary' href='javascript:void(0)'
+                                (click)="openRequest()">Request Adjustment</a></li>
+                        <li *ngIf='(this.appDataService.userInfo.rwSuperUser || this.appDataService.isReadWriteAccess) && !this.appDataService.roadMapPath'><a *ngIf='params.data.serviceLevels && params.data.serviceLevels.length > 0' class='dropdown-item ib-summary'
+                                href='javascript:void(0)' (click)="openService()">Change Service Level</a></li>
+                            <!--  <li *ngIf="appDataService.archName === constantsService.SECURITY"><a class='dropdown-item ib-summary'
+                                    href='javascript:void(0)' (click)="editOption()">Edit Configure Option</a></li>-->
+                    </ul>
+                </div>
+            </div>
+        </span>
+        <span *ngSwitchCase="types.PINNED" [ngStyle]="style">{{params.value}}</span>
+        <span *ngSwitchDefault>{{params.value}}</span>
+    </ng-container>
+</ng-container>
+<ng-container *ngIf="column === 'name'">
+    <ng-container *ngIf="!params.node.rowPinned && params.data.serviceLevel && params.data.serviceLevels">
+        <span *ngIf="params.data.serviceLevel === 'Basic Support'">
+            {{params.value}}<span class="legends basic--support"> {{params.data.serviceLevel}}</span>
+        </span>
+        <span *ngIf="params.data.serviceLevel !== 'Basic Support'">
+            {{params.value}}<span class="legends solution--support"> {{params.data.serviceLevel}}</span>
+        </span>
+   </ng-container>
+   <ng-container *ngIf="appDataService.archName === 'C1_DC' && !params.node.rowPinned && params.node.level === 0 && !params.data.serviceLevel && !params.data.serviceLevels">
+        <span>{{params.value}}</span>
+   </ng-container>
+   <ng-container  *ngIf="!params.node.rowPinned && params.data.configStatus && params.node.level === 0 && params.data.configStatus !== 'undefined'">
+        <span class="suite-name" placement="top-left" container="body" ngbTooltip="{{params.data.description}}">{{params.value}}</span>
+        <!-- <div class="suiteTooltip"><span class="icon-arrow-up"><span class="path1"></span><span class="path2"></span></span>{{params.data.description}}</div> -->
+        <!-- <div class="tooltip-custom"><span class="tooltiptext tooltip-right"><span class="arrow-right"></span> </span></div> -->
+        <!-- <div class="select-dropdown dropdown security-select-dropdown" (clickOutside)="tierOutside($event)">
+            <div class="security-dropdown" (click)="showDropdown = !showDropdown;">
+                <span class="dropdown-text">{{selectedTierValue}}</span>
+                <span class="icon-arow-down"></span>
+            </div>
+            <div class="dropdown-menu" *ngIf="showDropdown">
+                <a href="javascript:void(0)" class="dropdown-item" *ngFor="let a of tierOptions" [ngClass]="{'active': selectedTierValue === a.value}" (click)="selectTier(a)">{{a.value}}<small>{{a.description}}</small> <span class="icon-tick"></span></a>
+            </div>
+        </div> -->
+        <div class="edit-config-row-btn"><span class="config-text" (click)="displaySuiteInf(params)">Help</span></div>
+   </ng-container>
+   <ng-template #tipContent >{{params.value}}</ng-template>
+   <span class="d-flex justify-content-between align-items-center">
+    <span  class="ellipsis" #suiteName [ngbTooltip]="tipContent"  triggers="manual" #t="ngbTooltip" (mouseenter)="showTooltip(t, params)"
+    (mouseleave)="t.close()" *ngIf="appDataService.archName === 'C1_DNA' || params.node.level !== 0">{{params.value}}</span>
+    <ng-template #tipEos>
+        <div class="eol-eos">
+            <p>On {{params.data.nonOrderableMessages.eoExtDate}} Cisco has announced the following for <a href="javascript:void(0)">{{params.data.name}}:</a></p>
+            <p><b>End of New Subscription Sale Date</b>:{{params.data.nonOrderableMessages.eosDate}}</p>
+            <p><b>End of Change/Renewal Date</b>:{{params.data.nonOrderableMessages.eocrDate}}</p>
+            <p><b>Last Date of Support</b>:{{params.data.nonOrderableMessages.ldosDate}}</p>
+            <p>For more information. click <a href="javascript:void(0)" (click)="redirect(params.data.nonOrderableMessages.eosBulletinLink)">here.</a></p>
+      </div>
+    </ng-template>
+   
+    <span class="warning-badge badge-right" *ngIf="!params.node.rowPinned && params.node.level === 0 && params.data.nonOrderableMessages"  placement="top-left"  container="body"  [autoClose]="true" triggers="click"  tooltipClass="eosTip"  [ngbTooltip]="tipEos"> EOS</span>
+   </span>
+</ng-container>

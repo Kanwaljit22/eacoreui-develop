@@ -1,0 +1,51 @@
+<div class="modal-body vNext modal-without-header">
+    <button class="icon-close-btn" type="button" attr.action-id="{{dataIdConstantsService.lookUpSubscription_button_closeIcon}}" (click)="close()"></button>
+    <h2>{{'common.LOOKUP_SUBSCRIPTION' | localizationPipe : localizationService.localizedkeySet.size}}</h2>
+    <h5 class="text-center">{{'lookup-subscription.LOOKUP_SUBSCRIPTION_ID' | localizationPipe : localizationService.localizedkeySet.size}}</h5>
+    <div class="change-dealId-wrap">
+        <app-message [displayModalMsg]="true"></app-message>
+        <div class="form-group mt-0 text-left px-3 d-flex align-items-end justify-content-center">
+            <div>  
+                <label  class="customer-label">{{'common.SUBSCRIPTION_ID' | localizationPipe : localizationService.localizedkeySet.size}}<sup>*</sup></label>
+                <div class="position-relative w-100 d-flex">
+                    <input appelementfocus="" class="form-control paddingR35" [(ngModel)]="newSubscriptionId" attr.data-id="{{dataIdConstantsService.lookUpSubscription_text_subscriptionId}}" (keyup.enter)="lookUpSubscription()" required="" type="text" id="">
+                </div>
+            </div>
+            <button class="btn btn-secondary" [disabled]="!newSubscriptionId" attr.action-id="{{dataIdConstantsService.lookUpSubscription_button_lookUp}}" (click)="lookUpSubscription()">{{'common.LOOKUP' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+        </div>
+        <div class="change-dealId-innerwrap" *ngIf="isSearchDataAvailable && !showErrorMessage">
+            <h5 class="mb-2">{{'lookup-subscription.ASSOCIATED_WITH_SUBSCRIPTION_ID' | localizationPipe : localizationService.localizedkeySet.size}}</h5>
+            <table class="primary-table">
+                <thead>
+                    <tr>
+                        <th>{{'common.SUBSCRIPTION_ID' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                        <th>{{'common.START_DATE' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                        <th>{{'common.END_DATE' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                        <th>{{'common.AGREEMENT_STATUS' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{searchedSubscription.subRefId}}</td>
+                        <td>{{searchedSubscription?.subscriptionStart | date:"dd-MMM-yyyy"}}</td>
+                        <td>{{searchedSubscription?.subscriptionEnd | date:"dd-MMM-yyyy"}}</td>
+                        <td><span class="badge badge-valid rounded">{{'lookup-subscription.ACTIVE' | localizationPipe : localizationService.localizedkeySet.size}}</span></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="text-center d-block w-100 mt-5">
+                <button class="btn btn-secondary" type="button" attr.action-id="{{dataIdConstantsService.lookUpSubscription_button_closeButton}}"(click)="close()" id="{{elementIdConstantsService.LookupSubscription_Cancel}}">{{'common.CANCEL' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                <button class="btn btn-primary" [disabled]="!isSearchDataAvailable || displayDurationMsg" attr.action-id="{{dataIdConstantsService.lookUpSubscription_button_continue}}" id="{{elementIdConstantsService.LOOK_UP_SUBSCRIPTION_CONTINUE}}" (click)="continue()">{{'common.CONTINUE' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+            </div>
+        </div>
+         <div *ngIf="showErrorMessage ||  displayDurationMsg">
+            <div class="alert alert--danger alert-dismissable mt-2">
+                <span class="alert-icon">
+                    <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                </span>
+                <span *ngIf  = "showErrorMessage">{{'lookup-subscription.INVALID_SUBSCRIPTION_ID' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                <span *ngIf  = "displayDurationMsg">{{'lookup-subscription.CO_TERMING' | localizationPipe : localizationService.localizedkeySet.size}}</span>                
+            </div>
+        </div> 
+    </div>
+</div>

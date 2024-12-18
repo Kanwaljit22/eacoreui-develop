@@ -1,0 +1,25 @@
+<div class="modal-body vNext modal-without-header" attr.page-id="{{dataIdConstantsService.deferLocc_modal_deferLoccDoc}}">
+    <button class="icon-close-btn" type="button" attr.action-id="{{dataIdConstantsService.deferLocc_button_closeModal}}" (click)="close()"></button>
+    <h2 class="mb-5" attr.data-id="{{dataIdConstantsService.deferLocc_label_deferLoccDoc}}">{{'defer-locc.LOCC' | localizationPipe : localizationService.localizedkeySet.size}}</h2>
+    <!-- End of header -->
+
+    <div class="px-5">
+        <h5 class="heading--h5 mb-3" attr.data-id="{{dataIdConstantsService.deferLocc_label_deferLoccDocMsg}}">{{'defer-locc.BY_DEFERRING_LOCC' | localizationPipe : localizationService.localizedkeySet.size}}</h5>
+        <ul class="inline-listing full-width-listing disc">
+            <li attr.data-id="{{dataIdConstantsService.deferLocc_label_incumbentPartner}}">{{'defer-locc.INCUMBENT_PARTNER' | localizationPipe : localizationService.localizedkeySet.size}}</li>
+            <li attr.data-id="{{dataIdConstantsService.deferLocc_label_validCcwQuote}}">{{'defer-locc.VALID_CCW_QUOTE' | localizationPipe : localizationService.localizedkeySet.size}}</li>
+            <li attr.data-id="{{dataIdConstantsService.deferLocc_label_salesAssets}}">{{'defer-locc.SALES_ASSETS' | localizationPipe : localizationService.localizedkeySet.size}}</li>
+        </ul>
+    </div>
+    <div class="px-5">
+        <span class="reminder-text" attr.data-id="{{dataIdConstantsService.deferLocc_label_loccAtLaterTime}}">{{'defer-locc.LOCC_AT_A_LATER_TIME' | localizationPipe : localizationService.localizedkeySet.size}} <span
+                class="bold-txt d-inline" attr.data-id="{{dataIdConstantsService.deferLocc_label_likeToProceed}}">{{'defer-locc.WOULD_YOU_LIKE_TO_PROCCED' | localizationPipe : localizationService.localizedkeySet.size}}</span></span>
+    </div>
+    <!-- End of Body -->
+
+    <div class="text-center d-block p-5">
+        <button class="btn btn-secondary" type="button" attr.action-id="{{dataIdConstantsService.deferLocc_button_close}}" (click)="close()">{{'common.No' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+        <button class="btn btn-primary ml-3" type="button" attr.action-id="{{dataIdConstantsService.deferLocc_button_defer}}" (click)="defer()">{{'common.Yes' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+    </div>
+    <!-- End of Footer Buttons Area -->
+</div>

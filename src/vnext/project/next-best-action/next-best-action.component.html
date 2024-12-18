@@ -1,0 +1,113 @@
+<div class="vNext-actions--outer" id="nextBestAction">
+    <div class="vNext-actions-initiate" [class.overlay-blur]="(projectStoreService.lockProject && projectStoreService.projectData?.scopeInfo?.returningCustomer && !projectStoreService.projectData?.scopeInfo?.newEaidCreated && projectStoreService.projectData.status !== 'COMPLETE') || projectStoreService.blurSubsidiaries || projectStoreService.projectReadOnlyMode" *ngIf="!showActions || projectStoreService.blurSubsidiaries">
+        <div class="vNext-action-icon-wrap">
+            <span class="i-vNext-graphic"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span><span class="path8"></span><span class="path9"></span></span>
+        </div>
+        <h5 class="heading--h5 mb-2" attr.data-id="{{dataIdConstantsService.nextBestAction_label_projectNextBestAction}}">{{localizationService.getLocalizedString('create-project.next-based-action.SUGGESTED_ACTIONS_WILL_APPEAR_HERE')}}</h5>
+        <p class="mb-3">{{localizationService.getLocalizedString('create-project.next-based-action.PROJECT_CREATION_PROGRESS')}}</p>
+
+
+ <!--Start Disti flow for sept release-->
+
+    <ul class="vNext-action-listing d-inline-block">
+        <li *ngIf="(projectStoreService.projectData?.dealInfo?.partnerDeal || projectStoreService.projectData?.dealInfo?.distiDeal) && !(projectStoreService.projectData?.changeSubscriptionDeal && projectStoreService.projectData?.dealInfo?.directRTM)" attr.data-id="{{dataIdConstantsService.nextBestAction_label_loccDoc}}" [ngClass]="{'active':projectStoreService.nextBestActionsStatusObj.isLoccDone}">{{localizationService.getLocalizedString('create-project.next-based-action.LOCC_DOCUMENT')}}</li>
+        <li [ngClass]="{'active':projectStoreService.nextBestActionsStatusObj.isCavAdded}" attr.data-id="{{dataIdConstantsService.nextBestAction_label_SelectSubsidiaries}}">{{localizationService.getLocalizedString('common.SELECT_SUBSIDIARY')}}</li>
+        <li *ngIf="(!projectStoreService.projectData?.dealInfo?.partnerDeal && !projectStoreService.projectData?.dealInfo?.distiDeal) || (projectStoreService.projectData?.changeSubscriptionDeal && projectStoreService.projectData?.dealInfo?.directRTM)" attr.data-id="{{dataIdConstantsService.nextBestAction_label_addCiscoTeam}}" [ngClass]="{'active':projectStoreService.nextBestActionsStatusObj.isCiscoTeamMemberAdded}">{{localizationService.getLocalizedString('create-project.next-based-action.ADD_CISCO_TEAM')}}</li>
+        <li  *ngIf="(projectStoreService.projectData?.dealInfo?.partnerDeal || projectStoreService.projectData?.dealInfo?.distiDeal) && !(projectStoreService.projectData?.changeSubscriptionDeal && projectStoreService.projectData?.dealInfo?.directRTM)" [ngClass]="{'active':projectStoreService.nextBestActionsStatusObj.isPartnerAdded}" attr.data-id="{{dataIdConstantsService.nextBestAction_label_addTeamMembers}}">{{localizationService.getLocalizedString('create-project.next-based-action.ADD_TEAM_MEMBERS')}}</li>
+    </ul>
+
+ <!--End Disti flow for sept release-->
+        <div class="w-100 d-flex justify-content-center">
+            <button class="btn btn-primary" attr.action-id="{{dataIdConstantsService.nextBestAction_button_done}}" (click)="showNextActions('COMPLETE')" [disabled]="!(isEnableDone && projectStoreService.projectData?.smartAccount?.smrtAccntName) || projectStoreService.blurSubsidiaries || !projectStoreService.projectEditAccess">{{projectStoreService.isClickedEditProject ? localizationService.getLocalizedString('create-project.next-based-action.I_AM_DONE_EDIT')  : localizationService.getLocalizedString('create-project.next-based-action.I_AM_DONE')}}</button>
+        </div>
+    </div>
+
+    <div class="vNext-actions" [class.overlay-blur]="!showActions || projectStoreService.blurSubsidiaries">
+        <h5 class="heading--h5 lh-1 mb-3" attr.data-id="{{dataIdConstantsService.nextBestAction_label_suggestedActions}}">{{'common.SUGGESTED_ACTIONS_FOR_NAVIGATION' | localizationPipe : localizationService.localizedkeySet.size}}</h5>
+
+        <div class="d-flex align-items-center vNext-actions-inner highlight" attr.data-id="{{dataIdConstantsService.nextBestAction_link_createProposal}}" id="{{elementIdConstantsService.Project_CreateNew_Proposal}}" (click)="createProposal()" [ngClass]="{'disabled': (!eaService.features?.PARTNER_SUPER_USER_REL && !projectStoreService.projectEditAccess) || (eaService.features?.PARTNER_SUPER_USER_REL && !projectStoreService.proposalCreateAccess) || ((eaService.isDistiOpty && eaService.isResellerLoggedIn) || (eaService.isDistiLoggedIn && eaService.isResellerOpty)) || projectStoreService.projectData.dealInfo?.globalDealScope}" *ngIf="!(!projectStoreService.projectData.dealInfo?.partnerDeal && isPartnerUserLoggedIn)">
+            <div class="img-wrap">
+                <span class="i-vNext-create-new-proposal"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+            </div>
+            <div class="text-wrap">
+                <h6 class="heading--h6" attr.data-id="{{dataIdConstantsService.nextBestAction_label_createProposal}}">{{localizationService.getLocalizedString('common.CREATE_PROPOSAL')}}</h6>
+                <p>{{localizationService.getLocalizedString('create-project.next-based-action.SUITES_AND_ESTIMATE_THE_PRICE')}}</p>
+            </div>
+        </div>
+        <!--  End of Action -- 1  -->
+
+        <hr class="weight-1 my-3 custm-weight-2">
+
+        <!-- <div class="d-flex align-items-center vNext-actions-inner disabled">
+            <div class="img-wrap">
+                <img src="assets/images/icons/initiate-follow-on.svg">
+            </div>
+            <div class="text-wrap">
+                <h6 class="heading--h6">Initiate Follow-On</h6>
+                <p>Initiate subscription Follow-On</p>
+            </div>
+        </div> -->
+        <!--  End of Action -- 2  -->
+          <!-- clone proposal Starts -->
+
+             <ng-container *ngIf="eaService.features?.PARTNER_SUPER_USER_REL && projectStoreService.projectData?.cloneProposalEligible && projectStoreService.projectEditAccess && !projectStoreService.projectData.dealInfo?.partnerDeal && !isPartnerUserLoggedIn">
+                <div class="d-flex align-items-center vNext-actions-inner highlight" [ngClass]="{'disabled': projectStoreService.projectData.dealInfo?.globalDealScope}" attr.data-id="{{dataIdConstantsService.nextBestAction_link_cloneProposal}}" (click)="cloneProposal()" id="{{elementIdConstantsService.Project_Clone_Proposal}}">
+                    <div class="img-wrap">
+                        <img src="assets/images/clone-proposal.png" style="width: 24px; height: 30px;" />
+                    </div>
+                    <div class="text-wrap">
+                        <h6 class="heading--h6" attr.data-id="{{dataIdConstantsService.nextBestAction_label_cloneProposal}}">{{localizationService.getLocalizedString('common.CLONE_PROPOSAL')}}</h6>
+                        <p>{{localizationService.getLocalizedString('create-project.next-based-action.CLONE_PROPOSAL_DESCRIPTION')}}</p>
+                    </div>
+                </div>
+        
+                <hr class="weight-1 my-3 custm-weight-2">
+            </ng-container> 
+
+          <!-- clone proposal Ends -->
+
+         <div class="d-flex align-items-center vNext-actions-inner" attr.data-id="{{dataIdConstantsService.nextBestAction_button_viewProposalList}}" (click)="viewProposalList()"  id="{{elementIdConstantsService.PROJECT_GO_TO_PROPOSAL_LIST}}">
+            <div class="img-wrap">
+                <span class="i-vNext-proposal-list"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span></span>
+            </div>
+            <div class="text-wrap">
+                <h6 class="heading--h6" attr.data-id="{{dataIdConstantsService.nextBestAction_label_proposalList}}">{{localizationService.getLocalizedString('common.PROPSAL_LIST')}}</h6>
+                <p>{{localizationService.getLocalizedString('create-project.next-based-action.VIEW_AND_MANAGE_ALL_YOUR_PROPOSALS')}}</p>
+            </div>
+        </div> 
+
+        <div *ngIf="!(projectStoreService.projectData?.dealInfo?.subscriptionUpgradeDeal || (!projectStoreService.projectData.dealInfo?.partnerDeal && isPartnerUserLoggedIn))" class="d-flex align-items-center vNext-actions-inner" attr.data-id="{{dataIdConstantsService.nextBestAction_button_changeDealId}}"  id="{{elementIdConstantsService.PROJECT_CHANGE_DEAL_ID}}" (click)="changeDealId()" [ngClass]="{'disabled': !projectStoreService.projectEditAccess || ((eaService.isDistiOpty && eaService.isResellerLoggedIn) || (eaService.isDistiLoggedIn && eaService.isResellerOpty))}">
+            <div class="img-wrap">
+                <span class="i-vNext-copy-proposal"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span><span class="path8"></span><span class="path9"></span><span class="path10"></span><span class="path11"></span><span class="path12"></span><span class="path13"></span></span>
+            </div>
+
+            <div class="text-wrap">
+                <h6 class="heading--h6" attr.data-id="{{dataIdConstantsService.nextBestAction_label_changeDealId}}">{{localizationService.getLocalizedString('common.CHANGE_DEAL_ID')}}</h6>
+                <p>{{localizationService.getLocalizedString('create-project.next-based-action.USING_ANOTHER_DEAL_ID')}}</p>
+            </div>
+        </div>
+
+        <!--  End of Action -- 3  -->
+
+        <!-- <div class="d-flex align-items-center vNext-actions-inner disabled">
+            <div class="img-wrap">
+                <span class="i-vNext-copy-proposal"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span><span class="path8"></span><span class="path9"></span><span class="path10"></span><span class="path11"></span><span class="path12"></span><span class="path13"></span></span>
+            </div>
+
+            <div class="text-wrap">
+                <h6 class="heading--h6">Copy Project</h6>
+                <p>Copy project and associated proposals to a new deal.</p>
+            </div>
+        </div> -->
+        <!--  End of Action -- 4  -->
+
+        <!-- <div class="d-flex footer vNext-actions-inner">
+            <div class="text-wrap">
+                <h6 class="heading--h6">Project Locked</h6>
+                <p class="marginB10">Your Project is locked with all the essentials which you have filled in.</p>
+                <p>I want to <a href="javascript:void(0);" (click)="editProject('IN_PROGRESS')">edit Project</a>.</p>
+            </div>
+        </div> -->
+        <!--  End of Action -- Footer  -->
+    </div>
+</div>

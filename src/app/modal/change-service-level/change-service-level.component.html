@@ -1,0 +1,42 @@
+<div class="modal-header">
+  <h5 class="modal-title">{{localeService.getLocalizedString('serviceLevel.CHANGE_SERVICE_LEVEL')}}</h5>
+  <button class="icon-close-btn" type="button" (click)="close()"></button>
+</div>
+<div class="modal-body">
+  <div class="change-service-support" *ngIf = 'serviceLevels.length > 1'>
+    <span class="service-supportTitle">{{localeService.getLocalizedString('serviceLevel.CURRENT_SERVICE_LEVEL')}}</span>
+    <span class="service-supportValue">{{selectedServiceLevel}}</span>
+  </div>
+
+  <div *ngIf = 'serviceLevels.length > 1' class="card border-0">
+  <span class="form-control-placeholder">Please Select the New Service Support Level</span>
+  <div class="custom-dropdown">
+    <div ngbDropdown class="select-items" #myDropSupport="ngbDropdown" (click)="myDropSupport.open();">
+        <span class="dropdown--typeAhead__arrow-management">
+            <button type="button" appElementFocus class="btn--text drop-button" id="dropdownManual" ngbDropdownAnchor dropdownManual>
+                {{selectedSupport}}</button>
+        </span>
+        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <ul>
+                <li *ngFor="let b of serviceLevels" class="dropdown-item" (click)="changeSupport(b)">{{b.serviceLevel}}</li>
+            </ul>
+        </div>
+    </div>
+    <!-- <label class="form_label form-control-placeholder custom-select-lbl" [ngClass]="{'labelClass': selectedSupport}">{{localeService.getLocalizedString('serviceLevel.CHANGE_SERVICE_LEVEL')}} {{localeService.getLocalizedString('serviceLevel.TO')}}
+    </label> -->
+</div>
+</div>
+<div *ngIf = 'serviceLevels.length === 1'>
+  <div class="alert alert--info">
+    <span class="alert-icon">
+      <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+    </span>
+    <span>{{localeService.getLocalizedString('serviceLevel.DEFAULT_MSG_START')}} {{selectedServiceLevel}}. {{localeService.getLocalizedString('serviceLevel.DEFAULT_MSG_END')}}</span>
+  </div>
+</div>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-secondary" type="button" (click)="close()">{{localeService.getLocalizedString('common.CANCEL')}}</button>
+
+  <button class="btn btn-primary"  [disabled]="disableUpdate" (click)="update()" type="button">{{localeService.getLocalizedString('qual.create.CHANGE')}}</button>
+</div>

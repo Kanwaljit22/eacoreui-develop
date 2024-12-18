@@ -1,0 +1,4426 @@
+{
+    "status": "SUCCESS",
+    "totalRecords": 101,
+    "result":
+     [
+    {
+        "key": "ng-pagination.ITEMS_PER_PAGE",
+        "value": "Items per page"
+    },
+    {
+        "key": "financial-summary.FINANCIAL_SUMMARY",
+        "value": "Financial Summary"
+    },
+    {
+        "key": "common.TOTAL_LIST_PRICE",
+        "value": "Total List Price"
+    },
+    {
+        "key": "financial-summary.TOTAL_DISCOUNT_AMOUNT",
+        "value": "Total Discount Amount"
+    },
+    {
+        "key": "financial-summary.NET_SOFTWARE_AMOUNT",
+        "value": "Net Software Amount"
+    },
+    {
+        "key": "financial-summary.NET_SERVICE_AMOUNT",
+        "value": "Net Service Amount"
+    },
+    {
+        "key": "financial-summary.TOTAL_NET_AMOUNT",
+        "value": "Total Net Amount"
+    },
+    {
+        "key": "initiate-locc-message.YOU_HAVE_NOT",
+        "value": "You have not"
+    },
+    {
+        "key": "initiate-locc-message.QUOTE_COMPLETE_BEFORE_CONVERTING",
+        "value": "LoCC. Before converting to Quote you need to complete it."
+    },
+    {
+        "key": "initiate-locc.LABEL",
+        "value": "Initiate LoCC"
+    },
+    {
+        "key": "common.VALID_UNTIL",
+        "value": "Valid until:"
+    },
+    {
+        "key": "common.PROPOSAL_NAME",
+        "value": "Proposal Name"
+    },
+    {
+        "key": "common.DELETE",
+        "value": "Delete"
+    },
+    {
+        "key": "common.NO_PROPOSALS_FOUND",
+        "value": "No Proposals found with the loggedIn user."
+    },
+    {
+        "key": "create-project.PROJECT_DETAILS",
+        "value": "Project Details"
+    },
+    {
+        "key": "create-project.PROJECT_EDIT MODE",
+        "value": "Currently, you are in Project edit mode"
+    },
+    {
+        "key": "create-project.PROJECT_NAME",
+        "value": "Project Name"
+    },
+    {
+        "key": "create-project.PARTNER_OBJ_TEAM",
+        "value": "partnerTeam"
+    },
+    {
+        "key": "create-project.PARTNER_OBJ_SEARCH_TYPE",
+        "value": "Add Member"
+    },
+    {
+        "key": "create-project.next-based-action.SUGGESTED_ACTIONS_WILL_APPEAR_HERE",
+        "value": "Suggested actions will appear here."
+    },
+    {
+        "key": "create-project.next-based-action.PROJECT_CREATION_PROGRESS",
+        "value": "Project creation progress:"
+    },
+    {
+        "key": "create-project.next-based-action.LOCC_DOCUMENT",
+        "value": "LoCC Document"
+    },
+    {
+        "key": "create-project.next-based-action.ADD_CISCO_TEAM",
+        "value": "Add Cisco Team"
+    },
+    {
+        "key": "create-project.next-based-action.ADD_TEAM_MEMBERS",
+        "value": "Add Team Members"
+    },
+    {
+        "key": "create-project.next-based-action.SUITES_AND_ESTIMATE_THE_PRICE",
+        "value": "Choose suites and estimate the price for your proposal here"
+    },
+    {
+        "key": "create-project.next-based-action.VIEW_AND_MANAGE_ALL_YOUR_PROPOSALS",
+        "value": "View and manage all your proposals"
+    },
+    {
+        "key": "create-project.next-based-action.I_AM_DONE_EDIT",
+        "value": "I am done with my edits"
+    },
+    {
+        "key": "create-project.next-based-action.I_AM_DONE",
+        "value": "I am Done"
+    },
+    {
+        "key": "create-project.next-based-action.USING_ANOTHER_DEAL_ID",
+        "value": "Clone project and associated proposals using another Deal ID"
+    },
+    {
+        "key": "create-project.subsidiaries.CISCO_EA_3.0_CUSTOMER",
+        "value": "The customer is an existing Cisco EA 3.0 customer."
+    },
+    {
+        "key": "create-project.subsidiaries.BELOW_IS_YOUR_BUYING_PROGRAM_ID",
+        "value": "Below is your Buying Program ID. Click the continue button to restore the customer definition."
+    },
+    {
+        "key": "create-project.subsidiaries.EA_BUYING_PROGRAM_ID",
+        "value": "Buying Program Id"
+    },
+    {
+        "key": "create-project.subsidiaries.CUSTOMER_ACCOUNT_VIEW_ID",
+        "value": "We have pre-populated the Customer Account View ID (CAV ID). You may add/remove customer subsidiaries as needed."
+    },
+    {
+        "key": "create-project.subsidiaries.CUSTOMER_ACCOUNT",
+        "value": "Customer Account (CAV ID)"
+    },
+    {
+        "key": "create-project.subsidiaries.YOU_HAVE",
+        "value": "You have"
+    },
+    {
+        "key": "create-project.subsidiaries.MORE_BU",
+        "value": "more BU’s,"
+    },
+    {
+        "key": "create-project.subsidiaries.TO_VIEW",
+        "value": "to view"
+    },
+    {
+        "key": "create-project.subsidiaries.SUITES",
+        "value": "Suites:"
+    },
+    {
+        "key": "create-project.subsidiaries.PORTFOLIO",
+        "value": "Portfolio(s):"
+    },
+    {
+        "key": "create-project.subsidiaries.BU",
+        "value": "bu"
+    },
+    {
+        "key": "select-more-bu.SAVE_CONTINUE",
+        "value": "Save & Continue"
+    },
+    {
+        "key": "select-more-bu.ALL_BU_IDS",
+        "value": "All BU IDs"
+    },
+    {
+        "key": "select-more-bu.PARTIAL",
+        "value": "Partial"
+    },
+    {
+        "key": "select-more-bu.ASSOCIATED_SITES",
+        "value": "Associated Parties"
+    },
+    {
+        "key": "select-more-bu.SITE_NAME_ID",
+        "value": "Party Name ID"
+    },
+    {
+        "key": "select-more-bu.SITE_ADDRESS",
+        "value": "Party Address"
+    },
+    {
+        "key": "select-more-bu.VIEW_SITES_ASSOCIATED_SITES",
+        "value": "Please click on \"View Parties\" to see associated parties"
+    },
+    {
+        "key": "select-more-bu.ORG_ID",
+        "value": "Organization IDs (Meraki only)"
+    },
+    {
+        "key": "select-more-bu.TIPS",
+        "value": "Tips"
+    },
+    {
+        "key": "select-more-bu.TIPS_MSG",
+        "value": "- only enter numerical values and commas. Contact your Meraki software specialist for assistance on how to obtain the list of Organization IDs for your proposal."
+    },
+    {
+        "key": "select-more-bu.INVALID_ORG_ID",
+        "value": "Entered Org Id is invalid."
+    },
+    {
+        "key": "select-more-bu.MAX_RANGE_FOR_ID",
+        "value": "The maximum Organization IDs limit is 500."
+    },
+    {
+        "key": "select-more-bu.MERAKI_SAVE_MSG",
+        "value": "Enter the list of Meraki Organization IDs in the area textfield below and click the \"Save\" button once done."
+    },
+    {
+        "key": "select-more-bu.DOWNLOAD_ORG_ID",
+        "value": "Download Org ID"
+    },
+    {
+        "key": "select-more-bu.REMOVE_ALL",
+        "value": "Remove All"
+    },
+    {
+        "key": "select-more-bu.MERAKI",
+        "value": "meraki"
+    },
+    {
+        "key": "select-more-bu.ENGAGE_SUPPORT_TEAM",
+        "value": "Engage the Support Team"
+    },
+    {
+        "key": "select-more-bu.ADD_ORG_PLACEHOLDER",
+        "value": "Add Organization IDs with comma-separated values"
+    },
+    {
+        "key": "select-more-bu.INITIAL",
+        "value": "initial"
+    },
+    {
+        "key": "select-more-bu.DOWNLOAD_EXCEL_LABEL",
+        "value": "Download Excel"
+    },
+    {
+        "key": "create-proposal.CREATE_PROPOSAL",
+        "value": "Create Proposal"
+    },
+    {
+        "key": "create-proposal.PRE-PRE-POPULATED_FIELDS",
+        "value": "We have pre-populated most of the fields for you but feel free to change them as necessary."
+    },
+    {
+        "key": "create-proposal.DISTRIBUTORS",
+        "value": "Distributors"
+    },
+    {
+        "key": "create-proposal.CO-TERM_PROPOSAL_EXISTING_SUBSCRIPTION",
+        "value": "If you wish to co-term your proposal with an existing subscription, you will need to select one from the list below."
+    },
+    {
+        "key": "create-proposal.AGREEMENTS_WITH_PREFERENTIAL_PRICING",
+        "value": "Agreements with preferential pricing and additional customer benefits."
+    },
+    {
+        "key": "create-proposal.DEMO_PROPOSAL",
+        "value": "Demo Proposal"
+    },
+    {
+        "key": "edit-proposal-parameters.EDIT_PROPOSAL",
+        "value": "Edit Proposal"
+    },
+    {
+        "key": "edit-proposal-parameters.FORCE_PORTFOLIO_UPDATE",
+        "value": "Changes to the term, billing and requested start date will force all the portfolio(s) in your proposal to be updated."
+    },
+    {
+        "key": "edit-proposal-parameters.CX_RSD_MESSAGE",
+        "value": "Since there are services attached to one or many portfolios in your proposal, selection of start date greater than 90 days will be cascaded only on the enrollments which do not have the service attached."
+    },
+    {
+        "key": "edit-proposal-parameters.REVIEW_EAMS_DELIVERY_OPTION",
+        "value": "Please review EAMS Delivery option selected for the Service suites."
+    },
+    {
+        "key": "edit-proposal-parameters.PROPOSAL_BASIC_INFORMATION",
+        "value": "Proposal Basic Information"
+    },
+    {
+        "key": "edit-proposal-parameters.PARTNER_INFORMATION",
+        "value": "Partner / Distributor information"
+    },
+    {
+        "key": "edit-proposal-parameters.DISTRIBUTOR_INFORMATION",
+        "value": "Distributor information"
+    },
+    {
+        "key": "common.DISTRIBUTOR_NAME",
+        "value": "Distributor Name"
+    },
+    {
+        "key": "add-suites.qna.SELECT_TIER",
+        "value": "Select one of the Tier"
+    },
+    {
+        "key": "add-suites.qna.SUITES_PARTIALLY_COMMITTED",
+        "value": "No commitment. All the suites will be marked as partially committed."
+    },
+    {
+        "key": "add-suites.qna.FOR_DETAILS",
+        "value": "for details."
+    },
+    {
+        "key": "add-suites.qna.TO_HIDE_DETAILS",
+        "value": "to hide details."
+    },
+    {
+        "key": "add-suites.qna.SUITES_COMMITMENT_VALUE",
+        "value": "Suites commitment value"
+    },
+    {
+        "key": "add-suites.qna.COMMITMENT_VALUE",
+        "value": "Commitment Value"
+    },
+    {
+        "key": "add-suites.qna.SELECT_SELLING_MODEL",
+        "value": "Select a selling model for Security"
+    },
+    {
+        "key": "add-suites.qna.FOR_SUPPLEMENT_QTY",
+        "value": "For supplemental quantities"
+    },
+    {
+        "key": "add-suites.qna.ACCESS_ONLY",
+        "value": "Access Only"
+    },
+    {
+        "key": "add-suites.qna.PARTIAL_COMMITMENT",
+        "value": "Partial commitment at list prices"
+    },
+    {
+        "key": "add-suites.qna.AVAILABLE_COMBINATION",
+        "value": "Available in combination with another portfolio"
+    },
+    {
+        "key": "add-suites.qna.FOR_ENTERPRISE_COVERAGE",
+        "value": "For enterprise coverage"
+    },
+    {
+        "key": "add-suites.qna.COMMITMENT_TIERS",
+        "value": "Commitment Tiers"
+    },
+    {
+        "key": "add-suites.qna.PREFERENTIAL_PRICING",
+        "value": "Preferential pricing, eligible for bundle discounts"
+    },
+    {
+        "key": "add-suites.qna.COMMITMENT_TIER_SET",
+        "value": "Commitment tier set for the duration of the Enterprise Agreement"
+    },
+    {
+        "key": "add-suites.qna.SELECT_COMMITMENT_TIER",
+        "value": "Select a Commitment Tier"
+    },
+    {
+        "key": "add-suites.qna.RECOMMENDED",
+        "value": "Recommended"
+    },
+    {
+        "key": "add-suites.qna.SELECT_SERVICE_MANDATORY",
+        "value": "You need to select this service mandatorily"
+    },
+    {
+        "key": "add-suites.qna.NO_BILL_FOUND",
+        "value": "No Bill to addresses found"
+    },
+    {
+        "key": "add-suites.qna.SEARCH_BILL_ID_DROPDOWN",
+        "value": "Select Bill to ID from dropdown"
+    },
+    {
+        "key": "add-suites.qna.SEARCH_BY_PARTNER",
+        "value": "Search by Partner name and Bill-To ID"
+    },
+    {
+        "key": "add-suites.qna.SEARCH_BILL_ID",
+        "value": "Search by Bill to ID"
+    },
+    {
+        "key": "price-estimation.CHANGE_BILLING_TERM",
+        "value": "Change Billing Term for"
+    },
+    {
+        "key": "price-estimation.quantity-install-base-break-up.INSTALL_BASE_BREAKUP",
+        "value": "Quantity Found in Install Base Breakup for"
+    },
+    {
+        "key": "price-estimation.quantity-install-base-break-up.QUANTITY_FOUND_IN_INSTALL_BASE",
+        "value": "Quantity Found in Install Base"
+    },
+    {
+        "key": "price-estimation.quantity-install-base-break-up.PRODUCT_FAMILIES",
+        "value": "No. of Product Families"
+    },
+    {
+        "key": "price-estimation.quantity-install-base-break-up.UNCOVERED",
+        "value": "Uncovered"
+    },
+    {
+        "key": "price-estimation.quantity-install-base-break-up.COVERED",
+        "value": "Covered"
+    },
+    {
+        "key": "price-estimation.quantity-install-base-break-up.TAKE OVER",
+        "value": "Take Over"
+    },
+    {
+        "key": "price-estimation.add-services.SERVICES",
+        "value": "Services"
+    },
+    {
+        "key": "price-estimation.add-services.BILLING_MODEL_ALIGNED",
+        "value": "Services Billing Model and Duration are aligned to your Software Terms."
+    },
+    {
+        "key": "price-estimation.add-services.SERVICE_INFORMATION",
+        "value": "Service Information"
+    },
+    {
+        "key": "price-estimation.add-services.ATTACH_RATE",
+        "value": "Attach Rate (%)"
+    },
+    {
+        "key": "price-estimation.add-services.REQUESTED_START_DATE_SHOULD_BE_15-90_DAYS",
+        "value": "Requested Start Date should be 15-90 days. If you change Requested Start Date, it will change Requested Start Date of selected Enrollment and your Purchase Adjustment will be adjusted accordingly."
+    },
+    {
+        "key": "price-estimation.add-services.CHANGED_THE_REQUESTED_START_DATE",
+        "value": "You have changed the Requested Start Date of Services and system will auto update Requested Start Date of associated Enrollment."
+    },
+    {
+        "key": "price-estimation.add-services.SERVICE_REQUESTED_START_DATE",
+        "value": "Service requested start date for your selected Enrollment"
+    },
+    {
+        "key": "price-estimation.add-services.YOUR_BILL_TO_ID",
+        "value": "What is your Bill to ID?"
+    },
+    {
+        "key": "price-estimation.add-services.NAME_ADDRESS",
+        "value": "Name & Address"
+    },
+    {
+        "key": "price-estimation.add-services.ADD_ATTACH_RATE",
+        "value": "Add attach rate for the related suites."
+    },
+    {
+        "key": "price-estimation.add-services.ENROLLMENT_POOLS_SUITES",
+        "value": "Enrollment Pools & Suites"
+    },
+    {
+        "key": "add-suites.EA_PROGRAM_GUIDE",
+        "value": "Reference: EA 3.0 Program Guide"
+    },
+    {
+        "key": "add-suites.QUESTIONS",
+        "value": "Questions"
+    },
+    {
+        "key": "add-suites.SUITE_SELECTION",
+        "value": "Suite(s) Selection"
+    },
+    {
+        "key": "add-suites.SERVICE_INFO",
+        "value": "Service Info"
+    },
+    {
+        "key": "add-suites.ENTER_ORG_ID_ON_PROJECT_PAGE",
+        "value": "Please enter org id on project page as you have selected Meraki suites on this proposal."
+    },
+    {
+        "key": "add-suites.SELECT_SUITE",
+        "value": "Select suite(s)"
+    },
+    {
+        "key": "add-suites.WISH_TO_ADD_SERVICES",
+        "value": "Do you wish to add the Services portfolio to the selected suites?"
+    },
+    {
+        "key": "add-suites.SERVICES_ADDED",
+        "value": "Services added"
+    },
+    {
+        "key": "add-suites.SERVICE_CANNOT_BE_ADDED",
+        "value": "Since LoCC is not signed, Services cannot be added."
+    },
+    {
+        "key": "add-suites.FILL_INFORMATION_FOR_SERVICES",
+        "value": "Please fill out the information for services"
+    },
+    {
+        "key": "add-suites.BILL_TO_ADDRESS",
+        "value": "Bill to Address"
+    },
+    {
+        "key": "add-suites.SHOW_MORE_DETAIL",
+        "value": "Show More Details"
+    },
+    {
+        "key": "add-suites.HIDE_DETAILS",
+        "value": "Hide Details"
+    },
+    {
+        "key": "add-suites.CHOOSE_EAMS_DELIVERY_TYPE",
+        "value": "Choose EAMS delivery type"
+    },
+    {
+        "key": "add-suites.SELECT_SERVICE_SUITE",
+        "value": "Select Service suite(s)"
+    },
+    {
+        "key": "add-suites.SERVICE_SUITES",
+        "value": "Service Suites"
+    },
+    {
+        "key": "add-suites.SERVICE_NOT_APPLICABLE",
+        "value": "The Services Portfolio is not currently available for this suite."
+    },
+    {
+        "key": "price-estimation.PROPOSAL_ACTIONS",
+        "value": "Proposal Actions"
+    },
+    {
+        "key": "price-estimation.REQUEST_DOCUMENT",
+        "value": "Request Documents"
+    },
+    {
+        "key": "price-estimation.ELIGIBLE",
+        "value": "Eligible"
+    },
+    {
+        "key": "price-estimation.NOT_ELIGIBLE",
+        "value": "Not Eligible"
+    },
+    {
+        "key": "price-estimation.ENTER_SERVICE_SPECIALIST_AND_DEALS_ASSURER",
+        "value": "Please enter the Service Specialist and Deals Assurer in the Cisco Team using Manage Teams under Proposal Actions."
+    },
+    {
+        "key": "price-estimation.PROJECT_EDIT_MODE",
+        "value": "Associated Project is in editable mode. Please submit the Project to continue working on the proposal"
+    },
+    {
+        "key": "price-estimation.NOTICE_TO_EXISTING_CUSTOMERS",
+        "value": "Notice to existing EA customers"
+    },
+    {
+        "key": "price-estimation.NOTICE_TO_EXISTING_CUSTOMERS_MESSAGE",
+        "value": "If you are pursuing an EA renewal, you will need to select the “Engage Support Team” under the “Proposal Actions” menu and include details regarding your customer’s existing EA subscription(s). Early renewals must satisfy requirements from finance and will be subject to further review to ensure the Annual Recurring Revenue (ARR) minimums are met. As a reminder, renewals for Collaboration Flex and Services EA to EA 3.0 will be supported in a subsequent release."
+    },
+    {
+        "key": "price-estimation.SELECT_PORTFOLIO",
+        "value": "Select Your Portfolio(s)"
+    },
+    {
+        "key": "price-estimation.CONFIGURING",
+        "value": "Configuring"
+    },
+    {
+        "key": "price-estimation.ALL_PORTFOLIO",
+        "value": "All Portfolios"
+    },
+    {
+        "key": "price-estimation.SHOW_ALL_PORTFOLIOS",
+        "value": "Show all Portfolios (Read Only)"
+    },
+    {
+        "key": "price-estimation.ADD_SUITE_SERVICE",
+        "value": "Add/Remove Suites and Services"
+    },
+    {
+        "key": "price-estimation.QUESTIONNAIRE",
+        "value": "Questionnaire"
+    },
+    {
+        "key": "price-estimation.ELIGIBLE_TO_AVAIL_SERVICES",
+        "value": "You are eligible to avail support services from your Partner. You can click on"
+    },
+    {
+        "key": "price-estimation.WISH_TO_SWITCH",
+        "value": "if you wish to switch to EA Management Support from Partner."
+    },
+    {
+        "key": "price-estimation.WISH_TO_ADD_SERVICES_FOR_PORTFOLIO",
+        "value": "Do you wish to add services to this portfolio?"
+    },
+    {
+        "key": "price-estimation.RETRIEVING_HARDWARE_IB",
+        "value": "System is working on retrieving Hardware Install Base (IB) data and associated Service prices."
+    },
+    {
+        "key": "price-estimation.SERVICES_SUCCESSFULLY_PRICED",
+        "value": "Your Services have been successfully priced."
+    },
+    {
+        "key": "price-estimation.SUITES_UNAVAILABLE",
+        "value": "Some suites are unavailable as they have already been purchased by the customer."
+    },
+    {
+        "key": "price-estimation.SELECT_PORTFOLIO_FROM_ABOVE",
+        "value": "Please select your portfolio(s) from above"
+    },
+    {
+        "key": "price-estimation.SOLUTIONS_SUITES_LABEL",
+        "value": "Solutions & Suites"
+    },
+    {
+        "key": "price-estimation.BILLING_SKU_QTY_LABEL",
+        "value": "Billing SKU Quantity"
+    },
+    {
+        "key": "price-estimation.SERVICE_DISCOUNT_LABEL",
+        "value": "Service Discount (%)"
+    },
+    {
+        "key": "price-estimation.BUNDLE_DISCOUNT_LABEL",
+        "value": "EA Bundle Discount (%)"
+    },
+    {
+        "key": "price-estimation.SUBSCRIPTION_DISCOUNT_LABEL",
+        "value": "Subscription Discount (%)"
+    },
+    {
+        "key": "price-estimation.PURCHASE_ADJUSTMENT_BREAK_UP_LABEL",
+        "value": "Purchase Adjustment Break-up"
+    },
+    {
+        "key": "price-estimation.AVERAGE_DISCOUNT_BREAK_UP_LABEL",
+        "value": "Average Discount (%) Break-up"
+    },
+    {
+        "key": "price-estimation.ADJUSTED_QTY_ONE_OR_MORE_SUITE_INVALID_MSG",
+        "value": "One or more configurations in this suite are invalid. Please Review and correct the configurations."
+    },
+    {
+        "key": "price-estimation.ADJUSTED_QTY_FULLY_COMMITTED_MSG",
+        "value": "Hurray! This suite is now Fully Committed."
+    },
+    {
+        "key": "price-estimation.ADJUSTED_QTY_FULLY_COMMIT_REQUIREMENT_MSG",
+        "value": "To Fully Commit this suite, ensure that the Desired Entitlement meets/exceeds both the Current Quantity (if applicable) and the Commit Value."
+    },
+    {
+        "key": "price-estimation.ADJUSTED_QTY_ENTERPRISE_COVERAGE",
+        "value": "Enterprise Coverage"
+    },
+    {
+        "key": "price-estimation.ADJUSTED_QTY_COMMIT_VALUE_TOOLTIP",
+        "value": "The commit value is net of subscription discounts and bundle discounts, but before one-time credits and purchase adjustments."
+    },
+    {
+        "key": "price-estimation.ADJUSTED_QTY_ENTERPRISE_COVERAGE_TOOLTIP",
+        "value": "The current customer IB licence count should be matched for Enterprise Coverage, with a 10% allowance."
+    },
+    {
+        "key": "price-estimation.UPGRADE_SUMMARY",
+        "value": "View Upgrade Summary"
+    },
+    {
+        "key": "price-estimation.ADJUSTED_QTY_COMMIT_QUANTITY_TOOLTIP",
+        "value": "100% of ISE Premium licenses and 50% of ISE Advantage licenses contribute to the Commit Quantity. Essentials and ADM do not count towards the Commit Quantity."
+    },
+    {
+        "key": "adjust-desired-quantity.ADJUST_DESIRED_QUANTITY_FOR",
+        "value": "Adjust Desired Quantity for"
+    },
+    {
+        "key": "adjust-desired-quantity.COMMIT_VALUE",
+        "value": "Commit Value"
+    },
+    {
+        "key": "adjust-desired-quantity.COMMIT_QUANTITY",
+        "value": "Commit Quantity"
+    },
+    {
+        "key": "adjust-desired-quantity.TOTAL_COMMIT_QUANTITY",
+        "value": "Total Commit Quantity"
+    },
+    {
+        "key": "adjust-desired-quantity.FULLY_COMMITTED",
+        "value": "Fully Committed"
+    },
+    {
+        "key": "adjust-desired-quantity.PARTIALLY_COMMITTED",
+        "value": "Partially Committed"
+    },
+    {
+        "key": "adjust-desired-quantity.RECALCULATE",
+        "value": "Recalculate"
+    },
+    {
+        "key": "adjust-desired-quantity.SAVE_DONE",
+        "value": "Save and Done"
+    },
+    {
+        "key": "adjust-desired-quantity.ITEM_DESCRIPTION",
+        "value": "Item Description"
+    },
+    {
+        "key": "adjust-desired-quantity.QUANTITY_FOUND",
+        "value": "Customer Install Base Quantity"
+    },
+    {
+        "key": "price-estimation.DESIRED_QUANTITY",
+        "value": "Quantity Desired"
+    },
+    {
+        "key": "adjust-desired-quantity.COMMIT_NET_PRICE",
+        "value": "Commit Net Price"
+    },
+    {
+        "key": "adjust-desired-quantity.ENTERPRISE",
+        "value": "Enterprise"
+    },
+    {
+        "key": "adjust-desired-quantity.PREMIER",
+        "value": "Premier"
+    },
+    {
+        "key": "adjust-desired-quantity.DAY2OPS",
+        "value": "Day2Ops"
+    },
+    {
+        "key": "adjust-desired-quantity.PRO",
+        "value": "Pro"
+    },
+    {
+        "key": "adjust-desired-quantity.ADVANCED",
+        "value": "Advanced"
+    },
+    {
+        "key": "adjust-desired-quantity.PEAK",
+        "value": "Peak"
+    },
+    {
+        "key": "adjust-desired-quantity.ADD_ON",
+        "value": "Add-on"
+    },
+    {
+        "key": "adjust-desired-quantity.NOT_APPLICABLE_ACCESS_ONLY",
+        "value": "Not Applicable (Access Only)"
+    },
+    {
+        "key": "proposal-dashboard.PROPOSAL_DASHBOARD",
+        "value": "Proposal Dashboard"
+    },
+    {
+        "key": "proposal-dashboard.REOPEN_PROPOSAL",
+        "value": "Re-open Proposal"
+    },
+    {
+        "key": "proposal-dashboard.BACK_TO_PROPOSAL",
+        "value": "Back to Proposal"
+    },
+    {
+        "key": "proposal-dashboard.RSD_IN_QUOTE_NOT_EXCEED_90_DAYS",
+        "value": "The Requested Start Date in the quote may not exceed 90 days. At time of quoting, the system will automatically adjust the date if necessary."
+    },
+    {
+        "key": "proposal-dashboard.PROPOSAL_QUALIFIES_FOR_FREE_DNA-C_APPLIANCE",
+        "value": "Good news! This proposal qualifies for a free DNA-C appliance. The part number (EA-DNAC-OFFER) will automatically be added to your quote and it need to be configured. You will need to contact ea-dnac-offer@cisco.com to obtain the pre-approval that the configuration in your quote is valid."
+    },
+    {
+        "key": "proposal-dashboard.PROPOSAL_QUALIFIES_FOR_FREE_DCN_SOLUTION_STARTER",
+        "value": "Good news! This proposal qualifies for a free DCN Solution Starter. The part number (ACI-SOLN-STARTER) will automatically be added to your quote and it will need to be configured. You will need to contact ea-dcn-offer@cisco.com to obtain the pre-approval that the configuration in your quote is valid."
+    },
+    {
+        "key": "proposal-dashboard.PROPOSAL_SUCCESSFULLY_COPIED",
+        "value": "Proposal is successfully copied. Please review your copied proposal"
+    },
+    {
+        "key": "proposal-dashboard.LIFECYCLE",
+        "value": "Lifecycle"
+    },
+    {
+        "key": "proposal-dashboard.NET_SOFTWARE_VALUE",
+        "value": "Net Software Value"
+    },
+    {
+        "key": "proposal-dashboard.POST-PURCHASE_ADJUSTMENT",
+        "value": "Post-Purchase Adjustment"
+    },
+    {
+        "key": "proposal-dashboard.NET_SERVICE_VALUE",
+        "value": "Net Service Value"
+    },
+    {
+        "key": "proposal-dashboard.GO_TO_QUOTE",
+        "value": "Go to Quote"
+    },
+    {
+        "key": "proposal-dashboard.GO_TO_FINAL_STEP",
+        "value": "Go to Quote to get to the final step."
+    },
+    {
+        "key": "proposal-dashboard.CONVERT_TO_FINAL_STEP",
+        "value": "Convert to Quote to get to the final step."
+    },
+    {
+        "key": "proposal-dashboard.INITIATE_LEGAL_PACKAGE",
+        "value": "Initiate Legal Package"
+    },
+    {
+        "key": "proposal-dashboard.COMPLETE_LEGAL_PACKAGE",
+        "value": "Complete Legal Package for better engagement."
+    },
+    {
+        "key": "proposal-dashboard.GENERATE_PROPOSAL_TCV_IB_REPORT",
+        "value": "Go to Document center to generate proposal TCV, IB Report to engage your customer."
+    },
+    {
+        "key": "proposal-dashboard.DIFFERENT_EA_TERM_AND_START_DATE",
+        "value": "Copy Proposal with different EA Term and Start Date"
+    },
+    {
+        "key": "proposal-dashboard.GO_TO_PROPOSAL_LIST",
+        "value": "Go to Proposal List"
+    },
+    {
+        "key": "proposal-dashboard.NAVIGATE_TO_OTHER_PROPOSALS_ASSOCIATED",
+        "value": "You can navigate to other proposals associated with this project."
+    },
+    {
+        "key": "project-proposal-list.PROPOSAL_FOR",
+        "value": "Proposal for"
+    },
+    {
+        "key": "common.GO_TO_PROJECT",
+        "value": "Go to Project"
+    },
+    {
+        "key": "ea_dashboard.SHOW_RESULTS_BY",
+        "value": "Show Results by"
+    },
+    {
+        "key": "ea_dashboard.EA_DEALS",
+        "value": "EA Deals and Proposals"
+    },
+    {
+        "key": "ea_dashboard.PROJECTS_QUALIFICATIONS",
+        "value": "Projects & Qualifications"
+    },
+    {
+        "key": "ea_dashboard.PROPOSALS",
+        "value": "Proposals"
+    },
+    {
+        "key": "ea_dashboard.PENDING_EXCEPTIONS",
+        "value": "Pending Exceptions"
+    },
+    {
+        "key": "ea_dashboard.CUSTOMER_NAME",
+        "value": "Customer Name"
+    },
+    {
+        "key": "ea_dashboard.CREATED_ON",
+        "value": "Created On"
+    },
+    {
+        "key": "ea_dashboard.NO_DEALS_FOUND_MSG",
+        "value": "No Deals found with the logged in user."
+    },
+    {
+        "key": "ea_dashboard.NO_DEALS_FOUND",
+        "value": "No Deals found"
+    },
+    {
+        "key": "ea_dashboard.PROJECTS_QUALIFICATION_NAME",
+        "value": "Project & Qualification Name"
+    },
+    {
+        "key": "ea_dashboard.NO_PROJECTS_FOUND_MSG",
+        "value": "No Projects found with the logged in user."
+    },
+    {
+        "key": "ea_dashboard.PORTFOLIOS_HEADER",
+        "value": "Enrollment / Architecture"
+    },
+    {
+        "key": "ea_dashboard.NO_PROPOSALS_FOUND_USER",
+        "value": "No Proposals found with the logged in user."
+    },
+    {
+        "key": "ea_dashboard.NO_PROPOSALS_FOUND_DEAL",
+        "value": "No Proposals found with selected Deal."
+    },
+    {
+        "key": "ea_dashboard.SUBMITED_BY",
+        "value": "Submited By"
+    },
+    {
+        "key": "ea_dashboard.REVIEW_TEAMS",
+        "value": "Reviewer Team(s)"
+    },
+    {
+        "key": "ea_dashboard.EXCEPTION_REQUESTED",
+        "value": "Exception Requested"
+    },
+    {
+        "key": "ea_dashboard.ELAPSED_TIME",
+        "value": "Elapsed Time"
+    },
+    {
+        "key": "ea_dashboard.TIME_TAKEN",
+        "value": "Time taken"
+    },
+    {
+        "key": "ea_dashboard.NO_PENDING_APPROVAL_PROPOSALS_FOUND",
+        "value": "No Proposals Pending for Approval found with the logged in user."
+    },
+    {
+        "key": "ea_dashboard.CREATED_BY_ME",
+        "value": "Created By Me"
+    },
+    {
+        "key": "ea_dashboard.CREATED_BY_TEAM",
+        "value": "Created By Team"
+    },
+    {
+        "key": "ea_dashboard.SHARED_WITH_ME",
+        "value": "Shared With Me"
+    },
+    {
+        "key": "ea_dashboard.PENDING_MY_TEAM_APPROVALS",
+        "value": "Pending My Team’s Approvals"
+    },
+    {
+        "key": "ea_dashboard.PENDING_MY_APPROVALS",
+        "value": "Pending My Approvals"
+    },
+    {
+        "key": "ea_dashboard.DEAL_PROPOSAL_LIST_LABEL_1",
+        "value": "Proposals Associated with"
+    },
+    {
+        "key": "ea_dashboard.DEAL_PROPOSAL_LIST_LABEL_2",
+        "value": "Deal for"
+    },
+    {
+        "key": "ea_dashboard.NO_PROPOSAL_FOUND",
+        "value": "No Proposals exists for this Deal ID... yet"
+    },
+    {
+        "key": "common.FILTERS",
+        "value": "Filters"
+    },
+    {
+        "key": "ea_dashboard.RESULTS_FOR",
+        "value": " results for "
+    },
+    {
+        "key": "ea_dashboard.VISIT_QUOTING_PAGE",
+        "value": "Nothing here! Visit Quoting-Items page to get started."
+    },
+    {
+        "key": "ea_dashboard.PROJECT_QUALIFICATIONS",
+        "value": "Project/Qualifications"
+    },
+    {
+        "key": "ea_dashboard.LOCC_SIGNED",
+        "value": "LoCC Signed"
+    },
+    {
+        "key": "eaLanding.SELECT_BUYING_PROGRAM",
+        "value": "Select a Buying Program"
+    },
+    {
+        "key": "eaLanding.EA2_DESCRIPTION",
+        "value": "Available since 2015, encompassing Cisco DNA, Cisco Data Center, and Security Choice."
+    },
+    {
+        "key": "eaLanding.EA2_LABEL",
+        "value": "EA 2.0"
+    },
+    {
+        "key": "eaLanding.PILOT_DESCRIPTION",
+        "value": "Cisco’s new Enterprise Agreement includes five portfolios: Networking Infrastructure, Applications Infrastructure, Collaboration, Security, and Services."
+    },
+    {
+        "key": "common.ASSIGN_SMART_ACCOUNT",
+        "value": "Assign Smart Account"
+    },
+    {
+        "key": "eaLanding.DISCLAIMER",
+        "value": "Disclaimer:"
+    },
+    {
+        "key": "eaLanding.DISCLAIMER_DESCRIPTION",
+        "value": "Selecting the EA program is a one-time event for this Deal ID and it cannot be undone. Please review the accuracy of your selection before continuing."
+    },
+    {
+        "key": "add-case-id-pa.CASE_ID",
+        "value": "Case ID"
+    },
+    {
+        "key": "add-case-id-pa.ENTER_CASE_ID",
+        "value": "Enter Case ID"
+    },
+    {
+        "key": "enable-security-enroll.NO_THANKS",
+        "value": "No Thanks"
+    },
+    {
+        "key": "add-security-service-enroll.PRIMARY_PORTFOLIOS",
+        "value": "You are eligible to attach Security as you have commited one of the primary portfolio(s)."
+    },
+    {
+        "key": "add-security-service-enroll.BINGO_YOU_HAVE_ADDED",
+        "value": "Bingo! You have added"
+    },
+    {
+        "key": "add-security-service-enroll.NOT_NOW",
+        "value": "Not now"
+    },
+    {
+        "key": "apply-discount.VALUES_ARE_IN_PERCENTAGES",
+        "value": "Values are in Percentages"
+    },
+    {
+        "key": "change-deal-completion.ID_CHANGED_SUCCESSFULLY",
+        "value": "Bingo! Deal ID changed successfully."
+    },
+    {
+        "key": "change-deal-completion.NOW_YOU_CAN_WORK",
+        "value": "Now you can work on the project with the changed Deal ID."
+    },
+    {
+        "key": "change-deal-id.YOU_NEED_TO_LOOKUP",
+        "value": "Please provide the destination Deal ID"
+    },
+    {
+        "key": "change-deal-id.AS_EXISTING_DEAL_ID",
+        "value": "Entered Deal ID is same as existing Deal ID. Please change"
+    },
+    {
+        "key": "change-deal-id.INVALID_DEAL",
+        "value": "Invalid Deal"
+    },
+    {
+        "key": "change-deal-id.HERE_IS_THE_RESULT_OF_LOOK_UP",
+        "value": "Here is the result of Look up!"
+    },
+    {
+        "key": "change-deal-id.OPPORTUNITY_NAME",
+        "value": "Opportunity Name"
+    },
+    {
+        "key": "change-deal-id.ACCOUNT_NAME_ADDRESS",
+        "value": "Customer Account Name & Address"
+    },
+    {
+        "key": "change-deal-id.CHANGE_THIS_DEAL",
+        "value": "I want to change this Deal ID with my exisitng Deal ID."
+    },
+    {
+        "key": "change-deal-id.INCLUDES_ITEMS",
+        "value": "Includes Items"
+    },
+    {
+        "key": "convert-quote.LIST_OF_EXISTING_QUOTES_TO_CHOOSE_FROM",
+        "value": "Here is the list of existing Quotes to choose from"
+    },
+    {
+        "key": "convert-quote.QUOTE_NAME",
+        "value": "Quote Name"
+    },
+    {
+        "key": "convert-quote.QUOTE_ID",
+        "value": "Quote ID"
+    },
+    {
+        "key": "convert-quote.DONT_HAVE_EXISTING_QUOTE",
+        "value": "You don't have any existing quote."
+    },
+    {
+        "key": "convert-quote.CREATE_NEW_QUOTE",
+        "value": "Create New Quote"
+    },
+    {
+        "key": "convert-quote.CREATE_A_NEW_QUOTE",
+        "value": "Create a New Quote"
+    },
+    {
+        "key": "convert-quote.PROCEED",
+        "value": "Proceed"
+    },
+    {
+        "key": "defer-locc.LOCC",
+        "value": "Defer the Letter of Customer Consent (LoCC) for now"
+    },
+    {
+        "key": "defer-locc.BY_DEFERRING_LOCC",
+        "value": "By deferring the Letter of Customer Consent (LoCC) step for now, you will be ableto create your proposal, however:"
+    },
+    {
+        "key": "defer-locc.INCUMBENT_PARTNER",
+        "value": "The installed base data will be limited to only include transactions in which you were the incumbent partner."
+    },
+    {
+        "key": "defer-locc.VALID_CCW_QUOTE",
+        "value": "You will not be able to convert your proposal into a valid CCW quote"
+    },
+    {
+        "key": "defer-locc.SALES_ASSETS",
+        "value": "You will not be able to access the customized legal documents and sales assets"
+    },
+    {
+        "key": "defer-locc.LOCC_AT_A_LATER_TIME",
+        "value": "As a reminder, you will be able to process the LoCC at a later time."
+    },
+    {
+        "key": "defer-locc.WOULD_YOU_LIKE_TO_PROCCED",
+        "value": "Would you like to procced?"
+    },
+    {
+        "key": "dial-down-ramp.DIAL_DOWN_RAMP",
+        "value": "Dial Down Ramp"
+    },
+    {
+        "key": "dial-down-ramp.RAMP_DISCOUNT_AMOUNT",
+        "value": "Eligible RAMP Discount % & Amount"
+    },
+    {
+        "key": "dial-down-ramp.ALL_PRICES_IN_USD",
+        "value": "All prices are shown in USD"
+    },
+    {
+        "key": "dial-down-ramp.SUITES_NAME",
+        "value": "Suites Name"
+    },
+    {
+        "key": "dial-down-ramp.RAMP_DISCOUNT",
+        "value": "RAMP Discount"
+    },
+    {
+        "key": "dial-down-ramp.AMOUNT",
+        "value": "Amount"
+    },
+    {
+        "key": "dial-down-ramp.SWITCHING",
+        "value": "Cisco DNA for Switching"
+    },
+    {
+        "key": "dial-down-ramp.WIRELESS",
+        "value": "Cisco DNA for Wireless"
+    },
+    {
+        "key": "dial-down-ramp.ROUTING",
+        "value": "Cisco DNA for Routing"
+    },
+    {
+        "key": "dial-down-ramp.CONSIDER_YOUR_STACKED_DISCOUNT",
+        "value": "Important: Consider your stacked discount structure and note that the RAMP promotion"
+    },
+    {
+        "key": "docusign-initiation-warning.E_SIGNATURE_REQUEST",
+        "value": "A e-Signature request has already been initiated for this Letter of Customer Consent. Initiating e-Signature again will overwrite any previously signed documents."
+    },
+    {
+        "key": "docusign-initiation-warning.ARE_YOU_SURE_YOU_WANT_TO_CONTINUE",
+        "value": "Are you sure you want to continue?"
+    },
+    {
+        "key": "eams-delivery.EA_MANAGEMENT_SUPPORT_DELIVERY_TYPE",
+        "value": "Select EA Management Support delivery type"
+    },
+    {
+        "key": "eams-delivery.ADD_PARTNER_CONTACT_INFO",
+        "value": "Great! Add partner contact information before going forward."
+    },
+    {
+        "key": "eams-delivery.PARTNER_CONTACT_NUMBER",
+        "value": "Partner Contact Number"
+    },
+    {
+        "key": "edit-customer-representative.REPRESENTATIVE_INFO",
+        "value": "Edit Customer Representative Info"
+    },
+    {
+        "key": "edit-customer-representative.ADD_REPRESENTATIVE_INFO",
+        "value": "Add Customer Representative Info"
+    },
+    {
+        "key": "edit-customer-representative.E_MAIL_REQUIRED",
+        "value": "E-Mail (Required for Docusign)"
+    },
+    {
+        "key": "edit-customer-representative.PERSONAL_DOMAIN_ADDRESS",
+        "value": "Personal domain address Restricted"
+    },
+    {
+        "key": "edit-preferred-legal.EDIT_PREFERRED_LEGAL_INFO",
+        "value": "Edit Preferred Legal Info"
+    },
+    {
+        "key": "edit-preferred-legal.COMPANY_NAME",
+        "value": "Company Name"
+    },
+    {
+        "key": "edit-preferred-legal.ADDRESS_LINE_1",
+        "value": "Address Line 1"
+    },
+    {
+        "key": "edit-preferred-legal.ADDRESS_LINE_2",
+        "value": "Address Line 2"
+    },
+    {
+        "key": "edit-preferred-legal.Country_Region",
+        "value": "Country/Region"
+    },
+    {
+        "key": "edit-preferred-legal.STATE",
+        "value": "State"
+    },
+    {
+        "key": "edit-preferred-legal.CITY",
+        "value": "City"
+    },
+    {
+        "key": "edit-preferred-legal.ZIP",
+        "value": "Zip"
+    },
+    {
+        "key": "edit-preferred-legal.ADD_ADDRESS",
+        "value": "Add address"
+    },
+    {
+        "key": "edit-project.RE-OPEN_PROJECT",
+        "value": "Re-open Project"
+    },
+    {
+        "key": "edit-project.REOPEN_PROJECT",
+        "value": "Reopen Project"
+    },
+    {
+        "key": "edit-project.PRICING_MAY_CHANGE",
+        "value": "By re-opening the project, all associated proposals will also re-open and you will be required to complete them again, which means the pricing may change."
+    },
+    {
+        "key": "edit-project.DO_NOT_REOPEN_PROJECT",
+        "value": "Do not re-open the project if you already have an approved CCW quote that you plan to transact as-is.  If you need to add new team members to your project, this action can be done from the Price Estimation page of your proposal directly."
+    },
+    {
+        "key": "edit-project.PROPOSAL_AND_QUOTE_WILL_NEED_TO_BE_UPDATED",
+        "value": "By continuing, you understand that your proposal and quote will need to be updated."
+    },
+    {
+        "key": "edit-project.I_WANT_TO_EDIT",
+        "value": "Yes, I want to edit"
+    },
+    {
+        "key": "eligibility-status.HURRAY",
+        "value": "Hurray!"
+    },
+    {
+        "key": "eligibility-status.ELIGIBLE_TO_BUY_THIS_PROGRAM",
+        "value": "You are now eligible to buy this program"
+    },
+    {
+        "key": "eligibility-status.YOU_ARE_NOT_ELIGIBLE_EA_3.0_PROGRAM",
+        "value": "You are not eligible to proceed with EA 3.0 program, either because you have not met the minimum program eligibility value (or) you have not met the minimum suite commitment at each portfolio level (or) both."
+    },
+    {
+        "key": "eligibility-status.PROGRAM_ELIGIBILITY_STATUS",
+        "value": "Program Eligibility Status"
+    },
+    {
+        "key": "eligibility-status.PROGRAM_ELIGIBILITY_VALUE",
+        "value": "Program Eligibility value"
+    },
+    {
+        "key": "eligibility-status.PORTFOLIO_SUMMARY",
+        "value": "Portfolio Summary"
+    },
+    {
+        "key": "eligibility-status.NOT_ELIGIBLE_TO_BUY",
+        "value": "not eligible to buy as you have not met the minimum suite commitment."
+    },
+    {
+        "key": "eligibility-status.SECURITY_IS",
+        "value": "Security is"
+    },
+    {
+        "key": "eligibility-status.ELIGIBILITY",
+        "value": "Eligibility"
+    },
+    {
+        "key": "eligibility-status.FULLY_COMMITTED_SUITES",
+        "value": "Fully Committed Suites"
+    },
+    {
+        "key": "eligibility-status.PARTIALLY_COMMITTED_SUITES",
+        "value": "Partially Committed Suites"
+    },
+    {
+        "key": "eligibility-status.SAME_AS_ASSOCIATED",
+        "value": "Same as associated software portfolio"
+    },
+    {
+        "key": "enagage-support-team.WITHDRAW_EXCEPTION_CONFIRMATION",
+        "value": "You have already created exceptions. Do you want to withdraw it please click on the \"Withdraw Exception\"."
+    },
+    {
+        "key": "enagage-support-team.REASONS",
+        "value": "Reasons"
+    },
+    {
+        "key": "enagage-support-team.WITHDRAW_EXCEPTION",
+        "value": "Withdraw Exception"
+    },
+    {
+        "key": "enagage-support-team.ADD_BUSINESS_JUSTIFICATION",
+        "value": "Add your business justification here"
+    },
+    {
+        "key": "exception-approval-success.proposal.APPROVED_THE_PROPOSAL",
+        "value": "You have successfully Approved the proposal."
+    },
+    {
+        "key": "future-consumable-items.FUTURE_CONSUMABLE_ITEMS",
+        "value": "Future Consumable Item(s)"
+    },
+    {
+        "key": "future-consumable-items.SUITES_FOR_FUTURE_DOWNLOADS",
+        "value": "We noticed that customer is willing to entitle the below suites for future downloads."
+    },
+    {
+        "key": "future-consumable-items.DOWNLOAD_THE_LICENSE",
+        "value": "How you want customer to download the license"
+    },
+    {
+        "key": "future-consumable-items.DOWNLOAD_LICENSE_OPTIONS",
+        "value": "Download License Options"
+    },
+    {
+        "key": "lookup-dealid.YOU_NEED_TO_LOOKUP",
+        "value": "You need to Lookup Deal ID to get to the Proposal creation."
+    },
+    {
+        "key": "common.LOOKUP_SUBSCRIPTION",
+        "value": "Lookup Subscription"
+    },
+    {
+        "key": "lookup-subscription.LOOKUP_SUBSCRIPTION_ID",
+        "value": "You need to lookup Subscription ID to get to the Subscription"
+    },
+    {
+        "key": "lookup-subscription.ASSOCIATED_WITH_SUBSCRIPTION_ID",
+        "value": "Here are the details associated with searched Subscription ID"
+    },
+    {
+        "key": "common.AGREEMENT_STATUS",
+        "value": "Agreement Status"
+    },
+    {
+        "key": "lookup-subscription.INVALID_SUBSCRIPTION_ID",
+        "value": "This is an invalid subscription ID"
+    },
+    {
+        "key": "lookup-subscription.CO_TERMING",
+        "value": "Subscription cannot be used for co-terming"
+    },
+    {
+        "key": "lookup-subscription.ACTIVE",
+        "value": "Active"
+    },
+    {
+        "key": "manage-team.MANAGE_TEAMS",
+        "value": "Manage Team(s)"
+    },
+    {
+        "key": "reopen-proposal.REOPEN_PROPOSAL",
+        "value": "Reopen Proposal"
+    },
+    {
+        "key": "reopen-proposal.TRIGGER_RECALCULATION",
+        "value": "Editing this project reopens and triggers a recalculation of Purchase Adjustments and Price for All proposals under it."
+    },
+    {
+        "key": "reopen-proposal.BOOKED_ORDER_PLACED_UNTIL_RESOLUTION",
+        "value": "Booked order will be placed on Compliance hold until resolution of price discrepancy if quote does not match EAMP Price because the Project was re-opened."
+    },
+    {
+        "key": "reopen-proposal.DO_NOT_REOPEN_A_PROPOSAL_IF",
+        "value": " Do not Reopen a Proposal if:"
+    },
+    {
+        "key": "reopen-proposal.QUOTE_AND_RESUBMIT_FOR_APPROVAL",
+        "value": "You have an approved quote unless you plan to regenerate the quote and resubmit for Approval."
+    },
+    {
+        "key": "reopen-proposal.REQUEST_START_DATE_MATCH",
+        "value": "Request Start Date in EAMP does not have to match Requested Start Dated on Quote or Order."
+    },
+    {
+        "key": "reopen-proposal.BY_CONTINUING_YOU_AGREE_TO_RECALCULATE",
+        "value": "By continuing you agree to recalculate of the Price and Purchase Adjustment in EAMP and to getting a new Quote and Quote approval."
+    },
+    {
+        "key": "reopen-proposal.I_WANT_TO_REOPEN",
+        "value": "Yes, I want to Reopen"
+    },
+    {
+        "key": "common.CUSTOMER_CONVERSATIONS",
+        "value": "Documents for your customer conversations"
+    },
+    {
+        "key": "common.CUSTOMER_INSTALL_BASE_REPORT",
+        "value": "Customer Install Base Report"
+    },
+    {
+        "key": "common.PRICING_DETAILS_OF_THE_PROPOSAL",
+        "value": "Install Base Assessment (IBA) line level details for the selected Portfolios"
+    },
+    {
+        "key": "common.SEND_REQUEST",
+        "value": "Send Request"
+    },
+    {
+        "key": "review-accept.REVIEW_ACCEPT",
+        "value": "Review & Accept"
+    },
+    {
+        "key": "review-accept.ALMOST_DONE_PROJECT_CREATION",
+        "value": "You’re almost done with the creation of your project."
+    },
+    {
+        "key": "review-accept.PROVIDING_ACCURATE_INFORMATION",
+        "value": "In order to procced with the next steps (i.e. proposal creation, quote creation etc.), you are required to confirm you have taken all  proper measures to verify and validate the accuracy of the deal parameters you have defined for this proposal. Your support in providing accurate information is a critical part of the process as it will help guarantee a positive sales experience while protecting Cisco’s business. As a reminder, it is in violation of"
+    },
+    {
+        "key": "review-accept.BUSINESS_CONDUCT",
+        "value": "Cisco’s Code of Business Conduct"
+    },
+    {
+        "key": "review-accept.ACCURACY_OF_THE_DEAL_PARAMETERS",
+        "value": "By clicking the “Accept” button, you agree that you have taken all proper measures to verify and validate the accuracy of the deal parameters you have defined for the project."
+    },
+    {
+        "key": "review-accept.ACCEPT",
+        "value": "Accept"
+    },
+    {
+        "key": "services-cascade-discount-confirmation.IMPORTANT_INFORMATION",
+        "value": "Important Information"
+    },
+    {
+        "key": "services-cascade-discount-confirmation.CASCADE_DISCOUNT",
+        "value": "Please note \"Cascade Discount\" will cascade discount to hardware instances, this process will take some time and prices may revise once cascading is complete."
+    },
+    {
+        "key": "services-cascade-discount-confirmation.PRICES_REVISE",
+        "value": "Once prices revise we will inform you"
+    },
+    {
+        "key": "services-discount.SUPPORT_TYPE",
+        "value": "Support Type"
+    },
+    {
+        "key": "services-discount.HARDWARE_SUPPORT",
+        "value": "Hardware Support"
+    },
+    {
+        "key": "services-discount.SOFTWARE_SUPPORT",
+        "value": "Software Support"
+    },
+    {
+        "key": "submit-for-approval.SUBMIT_FOR_APPROVAL",
+        "value": "Business Justifications"
+    },
+    {
+        "key": "submit-for-approval.REASON_TO_GET",
+        "value": "Reason to get"
+    },
+    {
+        "key": "submit-for-approval.SELECT_REASONS",
+        "value": "Select Reason(s)"
+    },
+    {
+        "key": "submit-for-approval.COMMENT_PLACEHOLDER",
+        "value": "Provide supporting details for the Exception Request(s) above"
+    },
+    {
+        "key": "submit-for-approval.DRAG_DROP",
+        "value": "Drag & Drop"
+    },
+    {
+        "key": "submit-for-approval.YOUR_FILES_HERE",
+        "value": "your files here, or"
+    },
+    {
+        "key": "submit-for-approval.BROWSE",
+        "value": "browse"
+    },
+    {
+        "key": "submit-for-approval.PLEASE_UPLOAD_PDF_FORMAT_ONLY",
+        "value": "This format is not supported. Please upload PDF format only"
+    },
+    {
+        "key": "submit-for-approval.CLICKING_THE_SUBMIT_BUTTON",
+        "value": "By clicking the “Submit” button, you agree that you have taken all proper measures to verify and validate the accuracy of the deal parameters you have defined for this proposal."
+    },
+    {
+        "key": "submit-for-approval.AS_A_REMINDER",
+        "value": "As a reminder, it is in violation of"
+    },
+    {
+        "key": "submit-for-approval.BUSINESS_CONDUCT",
+        "value": "Cisco's Code of Business Conduct"
+    },
+    {
+        "key": "submit-for-approval.PROVIDE_BUSINESS_JUSTIFICATION",
+        "value": "Provide Business Justification"
+    },
+    {
+        "key": "unenroll-confirmation.ARE_YOU_SURE_YOU_WANT_TO_REMOVE",
+        "value": "Are you sure you want to remove"
+    },
+    {
+        "key": "upload-document.CONFIRMATION",
+        "value": "Confirmation"
+    },
+    {
+        "key": "upload-document.HELLO",
+        "value": "Hello,"
+    },
+    {
+        "key": "upload-document.REQUIRED_TO_INDICATE_DATES",
+        "value": "You are required to indicate the dates when the legal documents were signed by the authorized end-customer representative."
+    },
+    {
+        "key": "upload-document.AUTHORIZED_END_CUSTOMER_REPRESENTATIVES",
+        "value": "Yes, I acknowledge that the uploaded file(s) are signed by the authorized end-customer representative(s) on the date(s) mentioned above."
+    },
+    {
+        "key": "upload-document.SELECT_DATE_PLACEHOLDER",
+        "value": "Select Date"
+    },
+    {
+        "key": "view-authorization.YOUR_CISCO_EA_AUTHORIZATION",
+        "value": "Your Cisco EA Authorization"
+    },
+    {
+        "key": "view-authorization.AUTHORIZED",
+        "value": "Authorized"
+    },
+    {
+        "key": "view-authorization.UNAUTHORIZED",
+        "value": "Unauthorized"
+    },
+    {
+        "key": "view-authorization.TEMPORARY_AUTHORIZED",
+        "value": "Temporarily Authorized"
+    },
+    {
+        "key": "view-authorization.YOU_HAVE_NO_CISCO_EA_AUTHORIZATIONS",
+        "value": "You have no Cisco EA Authorizations."
+    },
+    {
+        "key": "view-authorization.ADDITIONAL_AUTHORIZATIONS",
+        "value": "to Enroll in Additional Authorizations"
+    },
+    {
+        "key": "withdraw-exception.RECALL_THIS_SUBMITTED_PROPOSAL",
+        "value": "Are you sure you want to recall this proposal submitted for exception approval(s)?"
+    },
+    {
+        "key": "delete-smart-account.REMOVE_SMART_ACCOUNT_HEADER_LABEL",
+        "value": "Remove Smart Account Assignment"
+    },
+    {
+        "key": "delete-smart-account.REMOVE_SMART_ACCOUNT_BODY_TEXT",
+        "value": "This will remove the Smart Account Assignment. "
+    },
+    {
+        "key": "delete-smart-account.DO_YOU_WIH_TO_CONTINUE",
+        "value": "Do you wish to continue?"
+    },
+    {
+        "key": "delete-smart-account.REMOVE_ASSIGNMENTS",
+        "value": "Remove Assignments"
+    },
+    {
+        "key": "delete-smart-account.REMOVE_ACCOUNT_ASSIGNMENT",
+        "value": "Remove Account Assignment"
+    },
+    {
+        "key": "view-sites.SITES_ASSOCIATED_WITH",
+        "value": "Parties Associated with"
+    },
+    {
+        "key": "view-sites.GOOGLE_INC",
+        "value": "Google Inc"
+    },
+    {
+        "key": "view-sites.CUSTOMER_SITE/ORGANIZATION_NAME",
+        "value": "Customer Party/Organization Name (Party ID)"
+    },
+    {
+        "key": "view-sites.COMPLETE_ADDRESS",
+        "value": "Complete Address"
+    },
+    {
+        "key": "create-project.SEARCH_PARTIES",
+        "value": "Search Parties"
+    },
+    {
+        "key": "update-purchase-adjustment.APPLY_ADJUSTMENT",
+        "value": "Apply Adjustment & Save"
+    },
+    {
+        "key": "update-purchase-adjustment.ADD_REASONS",
+        "value": "Please add the reason and click on “Apply Adjustment & Save” button to save Purchase adjustment"
+    },
+    {
+        "key": "update-purchase-adjustment.MANAGE_PURCHASE_ADJUSTMENT_WARN",
+        "value": "Manual Purchase Adjustments cannot be entered for Collab Portfolio."
+    },
+    {
+        "key": "update-purchase-adjustment.REASON",
+        "value": "Reason"
+    },
+    {
+        "key": "update-purchase-adjustment.NO_SUITES",
+        "value": "No Suites are selected in this Pool."
+    },
+    {
+        "key": "update-purchase-adjustment.UPLOAD_FILE",
+        "value": "Upload File"
+    },
+    {
+        "key": "update-purchase-adjustment.DOWNLOAD_TEMPLATE",
+        "value": "Download Template"
+    },
+    {
+        "key": "update-purchase-adjustment.ADD_COMMENT",
+        "value": "Add Comment"
+    },
+    {
+        "key": "update-purchase-adjustment.RESET",
+        "value": "Reset"
+    },
+    {
+        "key": "service-purchase-adjustment-break-up.PURCHASE_ADJUSTMENT",
+        "value": "Purchase Adjustment for"
+    },
+    {
+        "key": "service-purchase-adjustment-break-up.PROGRAM_MIGRATION_INCENTIVE",
+        "value": "Program Migration Incentive"
+    },
+    {
+        "key": "service-purchase-adjustment-break-up.UNCOVERED_ASSET_CREDIT",
+        "value": "Uncovered Asset Credit"
+    },
+    {
+        "key": "manage-collab-purchase-adjustment.SELECT_CREDIT_CATEGORY",
+        "value": "Select Credit Category"
+    },
+    {
+        "key": "manage-collab-purchase-adjustment.NO_CREDITS_AVAILABLE",
+        "value": "There no Credit(s) available for the  selected values."
+    },
+    {
+        "key": "manage-collab-purchase-adjustment.QUANTITY",
+        "value": "Quantity"
+    },
+    {
+        "key": "manage-collab-purchase-adjustment.DISQUALIFIED_CREDIT",
+        "value": "These credits are disqualified with the current configuration. Please adjust the configuration to apply for the credits."
+    },
+    {
+        "key": "legal-package.EA_PROGRAM_TERMS_&_LETTER_OF_AGREEMENT",
+        "value": "Legal Package consists of EA Program Terms & Letter of Agreement (LoA)."
+    },
+    {
+        "key": "legal-package.UPLOAD_EXECUTED_LEGAL_PACKAGE",
+        "value": "Upload executed legal package (Physical signature)"
+    },
+    {
+        "key": "legal-package.CUSTOMER_REPRESENTATIVES_ONLY",
+        "value": "You can add up-to 2 customer representatives"
+    },
+    {
+        "key": "legal-package.LEGAL_DOCUMENT",
+        "value": "Please select the preferred language"
+    },
+    {
+        "key": "legal-package.SELECT_LANGUAGE",
+        "value": "Select language"
+    },
+    {
+        "key": "legal-package.SUCCESSFULLY_GENERATED_LEGAL_PACKAGE",
+        "value": "We have successfully generated Legal Package for you"
+    },
+    {
+        "key": "common.CISCO_EA_LEGAL_PACKAGE",
+        "value": "Cisco EA Legal Package"
+    },
+    {
+        "key": "legal-package.DOWNLOAD_LEGAL_PACKAGE",
+        "value": "Download Legal Package(Physical Signature)"
+    },
+    {
+        "key": "common.ELECTRONIC_COPIES_OF_THE",
+        "value": "e-Signature Initiated. Electronic copies of the"
+    },
+    {
+        "key": "legal-package.E_SIGNATURE_COMPLETED",
+        "value": "e-Signature Completed. Electronic copies of the"
+    },
+    {
+        "key": "legal-package.HAVE_BEEN_SIGNED_BY",
+        "value": "have been signed by"
+    },
+    {
+        "key": "legal-package.PHYSICAL_SIGNATURE_UPLOADED",
+        "value": "Physical Signature Uploaded. Physical Copies of the"
+    },
+    {
+        "key": "legal-package.HAVE_BEEN_SIGNED",
+        "value": "have been signed."
+    },
+    {
+        "key": "legal-package.RESTART",
+        "value": "Restart"
+    },
+    {
+        "key": "legal-package.UPLOAD_THE_EXECUTED_EA_PROGRAM_TERMS",
+        "value": "Use this space to upload the executed EA Program Terms."
+    },
+    {
+        "key": "legal-package.LETTER_OF_AGREEMENT",
+        "value": "Letter of Agreement"
+    },
+    {
+        "key": "legal-package.CUSTOMER_SIGNED_ANY_LETTER_OF_AGREEMENT",
+        "value": "Has the customer signed a Letter of Agreement (LOA)?"
+    },
+    {
+        "key": "legal-package.CUSTOMER_INFORMATION",
+        "value": "Customer Information"
+    },
+    {
+        "key": "legal-package.LOA_TERMS_&_CONDITION",
+        "value": "LoA Terms & Condition"
+    },
+    {
+        "key": "legal-package.INITIATE_SIGNATURE",
+        "value": "Initiate Signature"
+    },
+    {
+        "key": "legal-package.UNDERSTAND_CISCO_LEGAL_PACKAGE",
+        "value": "Need help to understand Cisco Legal Package!"
+    },
+    {
+        "key": "legal-package.ADD_CUSTOMER_REPRESENTATIVE",
+        "value": "Add Customer Representative"
+    },
+    {
+        "key": "legal-package.INITIATE_E-SIGNATURE",
+        "value": "Initiate e-Signature"
+    },
+    {
+        "key": "legal-package.EXECUTED_LETTER_OF_AGREEMENT",
+        "value": "Use this space to upload the executed Letter of Agreement."
+    },
+    {
+        "key": "common.BACK_TO_PROPOSAL_DASHBOARD",
+        "value": "Back to Proposal Dashboard"
+    },
+    {
+        "key": "common.PROPOSAL_SUMMARY_DOC_DESC",
+        "value": "Summary of the proposal parameters that may be shared with the end-customer as part of the negotiation."
+    },
+    {
+        "key": "price-estimation.associated-services-grid.RETRIEVING_HARDWARE_INSTALL_BASE",
+        "value": "System is working on retrieving Hardware Install Base (IB) data and associated Services prices. This may take up to 30 minutes from the last edit made to the proposal. If the status does not change automatically within this time, please raise a case."
+    },
+    {
+        "key": "price-estimation.associated-services-grid.ASSOCIATED_SERVICES",
+        "value": "Associated Services"
+    },
+    {
+        "key": "price-estimation.associated-services-grid.SERVICES_SUCCESSFULLY_PRICED",
+        "value": "Services has been successfully priced"
+    },
+    {
+        "key": "price-estimation.associated-services-grid.ERRORS_ON_THE_HARDWARE_INSTALL_BASE",
+        "value": "There are errors on the Hardware Install Base (IB) data. Please click on"
+    },
+    {
+        "key": "price-estimation.associated-services-grid.CONTINUE_WITH_YOUR_PROPOSAL",
+        "value": "to take corrective actions and then continue with your proposal."
+    },
+    {
+        "key": "price-estimation.associated-services-grid.APPLIED_DISCOUNT",
+        "value": "Prices are indicative only. Once you are satisfied with the applied Discount, please click on"
+    },
+    {
+        "key": "price-estimation.associated-services-grid.APPLY_AT_HARDWARE_INSTALL_BASE",
+        "value": "to apply at Hardware Install Base (IB) data. The process will take some time and we will inform you once prices get revised."
+    },
+    {
+        "key": "price-estimation.associated-services-grid.IB_SYSTEMATIC_REPULL_MSG_PART1",
+        "value": "The IB Assessment for this proposal is more than"
+    },
+    {
+        "key": "price-estimation.associated-services-grid.IB_SYSTEMATIC_REPULL_MSG_PART2",
+        "value": "days old. Please "
+    },
+    {
+        "key": "price-estimation.associated-services-grid.IB_SYSTEMATIC_REPULL_MSG_PART3",
+        "value": " to re-process the IB assessment. This action will apply to all Services portfolio"
+    },
+    {
+        "key": "price-estimation.enrollment.ADDED",
+        "value": "Added"
+    },
+    {
+        "key": "price-estimation.enrollment.BILLING_MODEL",
+        "value": "Billing Model:"
+    },
+    {
+        "key": "price-estimation.enrollment.VIEW/EDIT_REQUESTED_START_DATE",
+        "value": "View/Edit Requested Start Date"
+    },
+    {
+        "key": "price-estimation.enrollment.REQUESTED_START_DATE",
+        "value": "Requested Start Date:"
+    },
+    {
+        "key": "price-estimation.enrollment.DURATION",
+        "value": "Duration:"
+    },
+    {
+        "key": "common.SELECT_DISCOUNT_CATEGORY",
+        "value": "Select Discount Category"
+    },
+    {
+        "key": "manage-purchase-adjustment.SUITE",
+        "value": "Suite(s)"
+    },
+    {
+        "key": "manage-purchase-adjustment.DIAL_DOWN_RAMP",
+        "value": "Dial Down RAMP"
+    },
+    {
+        "key": "manage-purchase-adjustment.DISCOUNT",
+        "value": "Discount"
+    },
+    {
+        "key": "manage-purchase-adjustment.NO_MERAKI_CREDIT",
+        "value": "No credits found for this suite, to request custom ramp for Meraki suites please submit through"
+    },
+    {
+        "key": "manage-purchase-adjustment.SMARTSHEEET",
+        "value": "Smartsheet"
+    },
+    {
+        "key": "common.ADD_ONE_TIME_DISCOUNTS",
+        "value": "Add One-time Discount(s)"
+    },
+    {
+        "key": "common.ADD_DISCOUNT",
+        "value": "Add Discount"
+    },
+    {
+        "key": "purchase-adjustment-break-up.SUITES_ITEMS",
+        "value": "Suites/Items"
+    },
+    {
+        "key": "purchase-adjustment-break-up.DNA_SWITCHING",
+        "value": "DNA Switching"
+    },
+    {
+        "key": "purchase-adjustment-break-up.24_PORT_CISCO_DNA",
+        "value": "C2960X/XR 24-PORT CISCO DNA"
+    },
+    {
+        "key": "purchase-adjustment-break-up.48_PORT_CISCO_DNA",
+        "value": "C2960X/XR 48-PORT CISCO DNA"
+    },
+    {
+        "key": "purchase-adjustment-break-up.CISCO_DNA_CAT_3560CX_12_PORT",
+        "value": "CISCO DNA Cat 3560CX 12 Port"
+    },
+    {
+        "key": "purchase-adjustment-break-up.CISCO_DNA_CAT_3560CX_8_PORT",
+        "value": "CISCO DNA Cat 3560CX 8 Port"
+    },
+    {
+        "key": "purchase-adjustment-break-up.CISCO_DNA_CAT_3560CX_24_PORT",
+        "value": "CISCO DNA Cat 3560CX 24 Port"
+    },
+    {
+        "key": "purchase-adjustment-break-up.CISCO_DNA_CAT_3560CX_48_PORT",
+        "value": "CISCO DNA Cat 3560CX 48 Port"
+    },
+    {
+        "key": "purchase-adjustment-break-up.CISCO_DNA_CAT_3860CX_12/24_PORT",
+        "value": "CISCO DNA Cat 3860CX 12/24 Port"
+    },
+    {
+        "key": "purchase-adjustment-break-up.CISCO_DNA_CAT_3860CX_24_PORT",
+        "value": "CISCO DNA Cat 3860CX 24 Port"
+    },
+    {
+        "key": "purchase-adjustment-break-up.DNA_WIRELESS",
+        "value": "DNA Wireless"
+    },
+    {
+        "key": "price-estimation.TOTAL_CONTRACT",
+        "value": "Total Contract Value Break-up for"
+    },
+    {
+        "key": "price-estimation.benefitsWizard.LABEL",
+        "value": "EA 3.0 Benefits"
+    },
+    {
+        "key": "price-estimation.benefitsWizard.MULTI_SUITES_DISCOUNT",
+        "value": "Multi Suites Discount"
+    },
+    {
+        "key": "price-estimation.benefitsWizard.DISCOUNT_ON_MULTI_SUITES",
+        "value": "10% discount on multi Suites"
+    },
+    {
+        "key": "price-estimation.benefitsWizard.MULTI_PORTFOLIOS_DISCOUNT",
+        "value": "Multi Portfolios Discount"
+    },
+    {
+        "key": "price-estimation.benefitsWizard.DISCOUNT_ON_MULTI_ENROLLMENT_PORTFOLIOS",
+        "value": "5% discount on Multi Enrollment Portfolios"
+    },
+    {
+        "key": "price-estimation.benefitsWizard.MULTI_SUITES_DISCOUNT_PERCENTAGE",
+        "value": "10%"
+    },
+    {
+        "key": "price-estimation.benefitsWizard.MULTI_SOLUTION_DISCOUNT_PERCENTAGE",
+        "value": "5%"
+    },
+    {
+        "key": "price-estimation.benefitsWizard.MULTI_SOLUTION_DISCOUNT",
+        "value": "Multi Solutions Discount"
+    },
+    {
+        "key": "price-estimation.benefitsWizard.DISCOUNT_ON_MULTI_SOLUTIONS",
+        "value": "15% discount on Multi Solutions"
+    },
+    {
+        "key": "price-estimation.benefitsWizard.MULTI_SUITES_SOLUTIONS_PERCENTAGE",
+        "value": "15%"
+    },
+    {
+        "key": "price-estimation.benefitsWizard.BENEFITS_BREAKDOWN",
+        "value": "Here is the list of benefits breakdown"
+    },
+    {
+        "key": "price-estimation.benefitsWizard.BENEFITS",
+        "value": "Benefits"
+    },
+    {
+        "key": "price-estimation.benefitsWizard.FULL_COMMITMENT_EA_SUITES",
+        "value": "Full Commitment EA Suites"
+    },
+    {
+        "key": "price-estimation.benefitsWizard.PARTIAL_COMMITMENT_EA_SUITES",
+        "value": "Partial Commitment EA Suites"
+    },
+    {
+        "key": "price-estimation.benefitsWizard.ALA_CARTE_SALE",
+        "value": "A La Carte Sale"
+    },
+    {
+        "key": "price-estimation.benefitsWizard.DISCOUNT_TIER",
+        "value": "Discount Tier"
+    },
+    {
+        "key": "price-estimation.benefitsWizard.FIXED_PRICE",
+        "value": "Fixed Price"
+    },
+    {
+        "key": "price-estimation.benefitsWizard.ACCESS_EAWS",
+        "value": "Access through EAWS"
+    },
+    {
+        "key": "price-estimation.benefitsWizard.COTERM",
+        "value": "CO-Term"
+    },
+    {
+        "key": "price-estimation.benefitsWizard.INCENTIVE",
+        "value": "Incentives: (eg: Ramp, Multi-suite Discount)"
+    },
+    {
+        "key": "price-estimation.benefitsWizard.TRUE_FORWARD",
+        "value": "True Forward"
+    },
+    {
+        "key": "price-estimation.benefitsWizard.ANNUAL_QUATERLY",
+        "value": "Annual* or Quarterly"
+    },
+    {
+        "key": "price-estimation.benefitsWizard.QUARTERLY",
+        "value": "Quarterly"
+    },
+    {
+        "key": "price-estimation.benefitsWizard.VALUE_SHIFT_WITHIN_SUITE",
+        "value": "Value Shift within Suite"
+    },
+    {
+        "key": "price-estimation.benefitsWizard.ANNUAL_TRUE_FORWARD_LABEL",
+        "value": "* Annual True Forward available for Networking & Cloud"
+    },
+    {
+        "key": "proposalSummary.ONLY_A_LIMITED_NUMBER_OF_OPPORTUNITIES",
+        "value": "An extra validation step to ensure your proposal meets the quality standards required to transact. Please allow one business day for the Quality Review team to process your exception request."
+    },
+    {
+        "key": "proposalSummary.SUCCESSFULLY_CLAIMED_THIS_PROPOSAL",
+        "value": "You have successfully claimed this proposal as the reviewer. Please review the proposal and use the bottom section of this page to approve or reject the exception request."
+    },
+    {
+        "key": "proposalSummary.GO_TO_PRICE_ESTIMATION_PAGE",
+        "value": "Go to Price Estimation Page"
+    },
+    {
+        "key": "proposalSummary.STATUS_OF_YOUR_REQUESTED_EXCEPTION",
+        "value": "This proposal has one or more exceptions. For details, please view the status of your requested exception(s) at the bottom of the page"
+    },
+    {
+        "key": "proposalSummary.THRESHOLD_LIMIT",
+        "value": "The threshold limit for delisting has been exceeded. Export the delisted lines and add lines back to the IB Assessment or work with the deal assurer."
+    },
+    {
+        "key": "proposalSummary.SUBMIT_FOR_APPROVAL",
+        "value": "Submit For Approval"
+    },
+    {
+        "key": "proposalSummary.PRICE_ESTIMATE_OF_SELECTED_PORTFOLIO",
+        "value": "Price Estimate of Selected Portfolio(s)"
+    },
+    {
+        "key": "exception.APPROVING_TEAM_INFORMATION",
+        "value": "Approving Team Information"
+    },
+    {
+        "key": "exception.STATUS_OF_REQUESTED_EXCEPTIONS",
+        "value": "Status of your requested Exception(s)"
+    },
+    {
+        "key": "exception.APPROVAL_HISTORY",
+        "value": "Approval History"
+    },
+    {
+        "key": "exception.BECOME_REVIEWER",
+        "value": "Become Reviewer"
+    },
+    {
+        "key": "exception.REVIEWER_CEC_ID",
+        "value": "Reviewer (CEC ID)"
+    },
+    {
+        "key": "exception.DATE_TIME",
+        "value": "Date & Time"
+    },
+    {
+        "key": "exception.SUBMIT_YOUR_DECISION",
+        "value": "Submit Your Decision"
+    },
+    {
+        "key": "exception.APPROVAL_DECISION",
+        "value": "Approval Decision"
+    },
+    {
+        "key": "exception.GIVE_REASON",
+        "value": "Give Reason"
+    },
+    {
+        "key": "exception.REVIEWERS_JUSTIFICATION",
+        "value": "Reviewer's Justification"
+    },
+    {
+        "key": "exception.WRITE_JUSTIFICATION",
+        "value": "Write Justification"
+    },
+    {
+        "key": "exception.SELECT_DECISION",
+        "value": "Select Decision"
+    },
+    {
+        "key": "proposalSummary.MERAKI_PA_EXCEPTION",
+        "value": "All Meraki non-EA licenses must be moved from the customer’s EA dashboards prior to provisioning. Please ensure, customer is aware of it by now to avoid any confusion."
+    },
+    {
+        "key": "price-estimation.suites-cell.MULTI_SUITE_DISCOUNT",
+        "value": "Multi Suite Discount:"
+    },
+    {
+        "key": "price-estimation.suites-cell.MULTI_SOLUTION_DISCOUNT",
+        "value": "Multi Solution Discount:"
+    },
+    {
+        "key": "price-estimation.suites-cell.MULTI_PORTFOLIO_DISCOUNT",
+        "value": "Multi Portfolio Discount:"
+    },
+    {
+        "key": "common.No",
+        "value": "No"
+    },
+    {
+        "key": "common.Yes",
+        "value": "Yes"
+    },
+    {
+        "key": "common.APPLY",
+        "value": "Apply"
+    },
+    {
+        "key": "common.STATUS",
+        "value": "Status"
+    },
+    {
+        "key": "common.SELECTED_VALUE",
+        "value": "Selected Value"
+    },
+    {
+        "key": "common.SELECT_A_REASON",
+        "value": "Select a Reason"
+    },
+    {
+        "key": "common.SELECT_REASON",
+        "value": "Select Reason"
+    },
+    {
+        "key": "common.LOCC",
+        "value": "Letter of Customer Consent (LoCC)"
+    },
+    {
+        "key": "common.LOOKUP_DEAL_ID",
+        "value": "Lookup Deal ID"
+    },
+    {
+        "key": "common.OK",
+        "value": "OK"
+    },
+    {
+        "key": "common.CLOSE",
+        "value": "Close"
+    },
+    {
+        "key": "common.PROGRAM_TERMS_SIGNED",
+        "value": "When did you get Program Terms signed?"
+    },
+    {
+        "key": "common.LOA_SIGNED",
+        "value": "When did you get LOA signed?"
+    },
+    {
+        "key": "common.subscription.CHOOSE_SUBSCRIPTION_FOR_COTERM",
+        "value": "Choose Subscription for Co-Term"
+    },
+    {
+        "key": "common.subscription.NO_SUBSCRIPTIONS_AVAILABLE",
+        "value": "No subscription available."
+    },
+    {
+        "key": "common.SUBMIT",
+        "value": "Submit"
+    },
+    {
+        "key": "common.successPopover.SUCCESS",
+        "value": "Success"
+    },
+    {
+        "key": "common.successPopover.LOCC_SENT_SUCCESS_MESSAGE",
+        "value": "You have successfully sent the LOCC to the customer for signature."
+    },
+    {
+        "key": "common.successPopover.PURCHASE_ADJUSTMENT_REQUESTED_CREATED",
+        "value": "Purchase adjustment request is created."
+    },
+    {
+        "key": "common.successPopover.ENGAGE_SUPPORT_WITHDRAWN_SUCCESSFULLY",
+        "value": "You have successfully withdrawn the support request. To submit again, please click on ‘‘Engage Support Team’’."
+    },
+    {
+        "key": "common.successPopover.APPROVE_EXCEPTION_REQUEST_SENT",
+        "value": "Request to approve exception has been sent to reviewer and you will be notified shortly about the status."
+    },
+    {
+        "key": "common.successPopover.WITHDRAWN_EXCEPTION_REQUEST_SUCCCESS",
+        "value": "You have successfully withdrawn the exception approval request. To submit again, please click on ‘‘Submit for Approval’’ button."
+    },
+    {
+        "key": "common.successPopover.CLAIMED_APPROVER_SUCCESS_SUBMIT_DECISION",
+        "value": "You have successfully claimed this Proposal as approver. Please submit your decision."
+    },
+    {
+        "key": "common.successPopover.CLAIMED_APPROVER_SUCCESS_PRICE_ESTIMATION_PAGE",
+        "value": "You have successfully claimed this Proposal as approver. Please review the details on Price Estimation page."
+    },
+    {
+        "key": "common.successPopover.PROGRAM_ELIGIBLE",
+        "value": "Program is now eligible"
+    },
+    {
+        "key": "common.successPopover.THRESHOLD_LABEL_1",
+        "value": "You have met the threashold of"
+    },
+    {
+        "key": "common.successPopover.THRESHOLD_LABEL_2",
+        "value": ", now eligible to buy this Program."
+    },
+    {
+        "key": "common.successPopover.SUITE_DESELECTED",
+        "value": "suite has been deselected"
+    },
+    {
+        "key": "common.successPopover.SUITE_DESELECTED_MESSAGE",
+        "value": "You will not be able to consume Wireless suite in the agreement, as you have deselected it from your proposal."
+    },
+    {
+        "key": "common.successPopover.REJECTED_EXCEPTION_MESSAGE",
+        "value": "You have Rejected one or more exceptions in this exception request."
+    },
+    {
+        "key": "common.successPopover.PROPSAL_COPIED_SUCCESS",
+        "value": "Proposal Copied Successfully"
+    },
+    {
+        "key": "common.successPopover.PROPSAL_COPIED_SUCCESS_MESSAGE_1",
+        "value": "You have successfully copied a new proposal"
+    },
+    {
+        "key": "common.successPopover.PROPSAL_COPIED_SUCCESS_MESSAGE_2",
+        "value": "with all details."
+    },
+    {
+        "key": "common.successPopover.GO_TO_NEWLY_CREATED_PROPOSAL",
+        "value": "Go to newly created Proposal"
+    },
+    {
+        "key": "common.successPopover.CUSTOMER_IB_REPORT_SENT_SUCCESS",
+        "value": "The Customer IB Report Package will be delivered to you via E-Mail shortly."
+    },
+    {
+        "key": "common.successPopover.PROJECT_CREATED_SUCCESS",
+        "value": "Project created successfully"
+    },
+    {
+        "key": "common.successPopover.PROJECT_COMPLETED_PROPSOALS_CAN_BE_CREATED",
+        "value": "Project is completed and user can create proposals."
+    },
+    {
+        "key": "common.successPopover.BUYING_PROGRAM_ID",
+        "value": "Your buying program id ("
+    },
+    {
+        "key": "common.successPopover.BUYING_PROGRAM_ID_1",
+        "value": ") is generated and can be used for future purchases and scoping"
+    },
+    {
+        "key": "common.successPopover.EXCEL_REQUESTED",
+        "value": "Excel Requested"
+    },
+    {
+        "key": "common.successPopover.SITE_REPORT_SENT",
+        "value": "The party report will be sent to your webex teams shortly"
+    },
+    {
+        "key": "common.successPopover.CHANGES_SAVED",
+        "value": "Changes Saved"
+    },
+    {
+        "key": "common.successPopover.ALL_CHANGES_SAVED",
+        "value": "All changes have been automatically saved"
+    },
+    {
+        "key": "common.sub-header.SMART_ACCOUNT",
+        "value": "Smart Account:"
+    },
+    {
+        "key": "common.sub-header.SMART_ACCOUNT_NAME",
+        "value": "Smart Account Name"
+    },
+    {
+        "key": "common.sub-header.ACCOUNT_DOMAIN_IDENTIFIER",
+        "value": "ACCOUNT DOMAIN/IDENTIFIER"
+    },
+    {
+        "key": "common.sub-header.CREATE_SMART_ACCOUNT",
+        "value": "Create a Smart Account"
+    },
+    {
+        "key": "common.sub-header.PARTNER",
+        "value": "Partner:"
+    },
+    {
+        "key": "common.sub-header.VIEW_AUTHORIZATION",
+        "value": "View Authorization"
+    },
+    {
+        "key": "common.sub-header.PROPOSAL_ID",
+        "value": "Proposal ID"
+    },
+    {
+        "key": "common.sub-header.PROPOSAL_STATUS",
+        "value": "Proposal Status"
+    },
+    {
+        "key": "common.sub-header.TOTAL_VALUE",
+        "value": "Total Value"
+    },
+    {
+        "key": "common.sub-header.NOT_SUBMITTED",
+        "value": "Not Submitted"
+    },
+    {
+        "key": "common.open-case.OPEN_A_CASE",
+        "value": "Open a Case"
+    },
+    {
+        "key": "common.CONFIRM",
+        "value": "Confirm"
+    },
+    {
+        "key": "common.open-case.PLEASE_READ_CAREFULLY",
+        "value": "Please read carefully:"
+    },
+    {
+        "key": "common.open-case.PROPOSAL_IS_INACCURATE",
+        "value": "If you believe the IB Assessment on your proposal is inaccurate, take a moment to verify the below:"
+    },
+    {
+        "key": "common.open-case.APPLICABLE_SUBSIDIARIES",
+        "value": "When creating the Project, did you select all the applicable subsidiaries?"
+    },
+    {
+        "key": "common.open-case.IB_ASSESSMENT_SUPPORT_TEAM",
+        "value": "Instructions on how to open a case with the IB Assessment support team:"
+    },
+    {
+        "key": "common.open-case.NAVIGATE_TO_THE",
+        "value": "Navigate to the"
+    },
+    {
+        "key": "common.open-case.PAGE",
+        "value": "page."
+    },
+    {
+        "key": "common.open-case.PROPOSAL_ACTIONS",
+        "value": "“Proposal Actions”"
+    },
+    {
+        "key": "common.open-case.DROPDOWN_ON_TOP",
+        "value": "dropdown on top."
+    },
+    {
+        "key": "common.open-case.ENGAGE_SUPPORT_TEAM",
+        "value": "“Engage Support Team”"
+    },
+    {
+        "key": "common.open-case.BUTTON",
+        "value": "button."
+    },
+    {
+        "key": "common.open-case.STEP_4",
+        "value": "Step 4"
+    },
+    {
+        "key": "common.open-case.STEP_5",
+        "value": "Step 5"
+    },
+    {
+        "key": "common.open-case.FILL_OUT_THE_FORM_AND_CLICK_THE",
+        "value": "Fill-out the form and click the"
+    },
+    {
+        "key": "common.open-case.ALWAYS_INCLUDE_INFORMATION",
+        "value": "button (as a best practice, always include as much information as possible)."
+    },
+    {
+        "key": "common.open-case.ONCE_YOU’RE_BACK_TO_THE",
+        "value": "Once you’re back to the"
+    },
+    {
+        "key": "common.open-case.PAGE_CLICK_THE",
+        "value": "page, click the"
+    },
+    {
+        "key": "common.open-case.CONTINUE",
+        "value": "“Continue”"
+    },
+    {
+        "key": "common.open-case.SUBMIT_FOR_APPROVAL",
+        "value": "“Submit for Approval”"
+    },
+    {
+        "key": "common.open-case.BACK_TO_YOU_SHORTLY",
+        "value": "buttons. A member of our support team will get back to you shortly."
+    },
+    {
+        "key": "common.open-case.GENERAL_INQUIRY",
+        "value": "Specifications regarding your General Inquiry"
+    },
+    {
+        "key": "common.open-case.SWINC_XXX",
+        "value": "SWINC-XXX (Pending Case Creation)"
+    },
+    {
+        "key": "common.open-case.CREATED_BY",
+        "value": "Created By"
+    },
+    {
+        "key": "common.open-case.TYPE",
+        "value": "Type"
+    },
+    {
+        "key": "common.open-case.CREATED_DATE",
+        "value": "Created Date"
+    },
+    {
+        "key": "common.guide-me.GUIDE_ME",
+        "value": "Guide Me"
+    },
+    {
+        "key": "common.guide-me.NO_DATA_FOUND",
+        "value": "No Data found"
+    },
+    {
+        "key": "common.PRICE_ESTIMATION",
+        "value": "Price Estimation"
+    },
+    {
+        "key": "common.BUYING_PROGRAM_ID",
+        "value": "Buying Program ID"
+    },
+    {
+        "key": "common.DEAL_OWNER",
+        "value": "Deal Owner"
+    },
+    {
+        "key": "common.EXPECTED_BOOK_DATE",
+        "value": "Expected Book Date"
+    },
+    {
+        "key": "common.SUPPORT_TEAM",
+        "value": "If the above did not solve your problem, you will need to open a case with our support team."
+    },
+    {
+        "key": "common.CLICK_THE",
+        "value": "Click the"
+    },
+    {
+        "key": "common.DEAL_STATUS",
+        "value": "Deal Status"
+    },
+    {
+        "key": "common.PARTNER_TEAM_MEMBERS",
+        "value": "Partner/Distributor Team Members"
+    },
+    {
+        "key": "common.ALL_MY_PROPOSALS",
+        "value": "All My Proposals"
+    },
+    {
+        "key": "common.ERROR_MSG",
+        "value": "System encountered error. Please contact support team"
+    },
+    {
+        "key": "common.SEARCH_PROPOSAL_PLACEHOLDER",
+        "value": "Search by Proposal ID, Proposal Name"
+    },
+    {
+        "key": "common.SEARCH_PROJECT_PLACEHOLDER",
+        "value": "Search by Deal ID, Project Name, Customer Name..."
+    },
+    {
+        "key": "common.SEARCH_PENDING_APPROVAL_PLACEHOLDER",
+        "value": "Search by Proposal ID, Proposal Name, Customer Name..."
+    },
+    {
+        "key": "common.PROXY_USER",
+        "value": "Proxy User"
+    },
+    {
+        "key": "common.NO_OF_SUITES",
+        "value": "No. of Suites"
+    },
+    {
+        "key": "common.CISCO",
+        "value": "Cisco"
+    },
+    {
+        "key": "common.PARTNER",
+        "value": "Partner"
+    },
+    {
+        "key": "common.DEAL_ID",
+        "value": "Deal ID"
+    },
+    {
+        "key": "common.LOOKUP",
+        "value": "Lookup"
+    },
+    {
+        "key": "common.UPDATE",
+        "value": "Update"
+    },
+    {
+        "key": "common.ADD_SECURITY",
+        "value": "Add Security"
+    },
+    {
+        "key": "common.ADD_SERVICES",
+        "value": "Add Services"
+    },
+    {
+        "key": "common.ALL_SET_TO_GO",
+        "value": "All set to go!"
+    },
+    {
+        "key": "common.ADDED_NETWORKING_CLOUD",
+        "value": "Bingo! You have added Networking & Cloud"
+    },
+    {
+        "key": "common.PRIMARY_ENROLLMENTS",
+        "value": "You are eligible to attach Security and Services as you have commited one of the primary enrollments."
+    },
+    {
+        "key": "common.locc.DOWNLOAD_LOCC",
+        "value": "Download LoCC"
+    },
+    {
+        "key": "common.locc.NOT_SIGNED",
+        "value": "Not Signed"
+    },
+    {
+        "key": "common.PENDING_SIGNATURE",
+        "value": "Pending Signature"
+    },
+    {
+        "key": "common.CUSTOMER_CONCENT_REQUIRED",
+        "value": "Customer consent is required before creating proposal."
+    },
+    {
+        "key": "common.E-SIGNATURE",
+        "value": "Initiate e-Signature (Electronic signature)"
+    },
+    {
+        "key": "common.UPLOAD_SIGNED_DOCUMENT",
+        "value": "Upload Signed Document(s)"
+    },
+    {
+        "key": "common.locc.DEFER_LOCC",
+        "value": "Defer LoCC"
+    },
+    {
+        "key": "common.locc.CUSTOMER_READINESS",
+        "value": "Customer Readiness"
+    },
+    {
+        "key": "common.locc.LETTER_OF_CUSTOMER_CONSENT",
+        "value": "Is the customer representative ready to sign the letter of customer consent?"
+    },
+    {
+        "key": "common.locc.STEP_1",
+        "value": "Step 1"
+    },
+    {
+        "key": "common.locc.STEP_3",
+        "value": "Step 3"
+    },
+    {
+        "key": "common.locc.STEP_2",
+        "value": "Step 2"
+    },
+    {
+        "key": "common.locc.LOCC1",
+        "value": "locc1"
+    },
+    {
+        "key": "common.locc.LOCC2",
+        "value": "locc2"
+    },
+    {
+        "key": "common.locc.UPLOAD_LOCC",
+        "value": "uploadLocc"
+    },
+    {
+        "key": "common.locc.DEFER_LOCC_ID",
+        "value": "deferLocc"
+    },
+    {
+        "key": "common.locc.INTITIATE_SIG",
+        "value": "intitateSig"
+    },
+    {
+        "key": "common.CUSTOMER_REPRESENTATIVE_INFO",
+        "value": "Confirm Customer and Customer Representative Info"
+    },
+    {
+        "key": "common.PREFERRED_LEGAL_NAME",
+        "value": "Preferred Legal Name"
+    },
+    {
+        "key": "common.CUSTOMER_REPRESENTATIVE",
+        "value": "Customer Representative"
+    },
+    {
+        "key": "common.locc.PREVIEW_DOCUMENT",
+        "value": "Preview Document"
+    },
+    {
+        "key": "common.locc.CUSTOMER_REPRESENTATIVE",
+        "value": "Take a moment to review the letter of customer consent prior to sending it to the customer representative."
+    },
+    {
+        "key": "common.locc.WHAT’S_INCLUDED",
+        "value": "What’s included?"
+    },
+    {
+        "key": "common.locc.TO_DOWNLOAD",
+        "value": "to download"
+    },
+    {
+        "key": "common.locc.E_SIGN_INITIATED",
+        "value": "e-Signature Initiated"
+    },
+    {
+        "key": "common.locc.HAVE_BEEN_REQUESTED_TO_BE_SENT_TO",
+        "value": "have been requested to be sent to"
+    },
+    {
+        "key": "common.locc.SIGN_THE_DOCUMENTS",
+        "value": "Please make sure to connect with your customer representative to ensure they sign the documents."
+    },
+    {
+        "key": "common.locc.SEND_AGAIN",
+        "value": "Send again"
+    },
+    {
+        "key": "common.locc.CUSTOMER_REPRESENTATIVE_SPACE_MSG",
+        "value": "Use this space to upload any additional legal documents that may pertain to this opportunity. Documents uploaded here will not included in the e-Signature E-mail to the customer representative."
+    },
+    {
+        "key": "common.locc.DRAG_&_DROP_FILE_HERE_OR",
+        "value": "Drag & Drop File here or"
+    },
+    {
+        "key": "common.TO_UPLOAD",
+        "value": "to upload"
+    },
+    {
+        "key": "common.BROWSE",
+        "value": "Browse"
+    },
+    {
+        "key": "common.locc.DOCUMENT_SIGN_DATE",
+        "value": "Document Sign Date"
+    },
+    {
+        "key": "common.locc.VALID_UPTO",
+        "value": "Valid upto"
+    },
+    {
+        "key": "common.SELECT_SUBSIDIARY",
+        "value": "Select Subsidiaries"
+    },
+    {
+        "key": "common.SUBSIDIARY",
+        "value": "Subsidiaries"
+    },
+    {
+        "key": "common.SEARCH_MEMBER",
+        "value": "Search Member"
+    },
+    {
+        "key": "common.CISCO_TEAM_MEMBERS",
+        "value": "Cisco Team Members"
+    },
+    {
+        "key": "common.NAME",
+        "value": "Name"
+    },
+    {
+        "key": "common.TITLE",
+        "value": "Title"
+    },
+    {
+        "key": "common.ADD",
+        "value": "Add"
+    },
+    {
+        "key": "common.NOTIFY_BY",
+        "value": "Notify By"
+    },
+    {
+        "key": "common.WEBEX_TEAMS",
+        "value": "Webex Teams"
+    },
+    {
+        "key": "common.WELCOME_KIT",
+        "value": "Welcome Kit"
+    },
+    {
+        "key": "common.CISCO_ID",
+        "value": "Cisco ID"
+    },
+    {
+        "key": "common.EMAIL",
+        "value": "Email"
+    },
+    {
+        "key": "common.JOB_TITLE",
+        "value": "Job Title"
+    },
+    {
+        "key": "common.ACTION",
+        "value": "Action"
+    },
+    {
+        "key": "common.NO_TEAM_MEMBER_ADDED",
+        "value": "No team member added"
+    },
+    {
+        "key": "common.TEAM",
+        "value": "Team"
+    },
+    {
+        "key": "common.PARTNER_ADD_MEMBER",
+        "value": "Add Member (CCO ID)"
+    },
+    {
+        "key": "common.NO_PARTNER_TEAM_MEMBER_ADDED",
+        "value": "No Partner / Distributor Team member added"
+    },
+    {
+        "key": "common.PACKAGE_WIZARD",
+        "value": "Cisco EA Legal Package Wizard"
+    },
+    {
+        "key": "common.OF_3",
+        "value": "of 3"
+    },
+    {
+        "key": "common.CONTINUE",
+        "value": "Continue"
+    },
+    {
+        "key": "common.FIELD_REQUIRED",
+        "value": "This field is required"
+    },
+    {
+        "key": "common.BACK",
+        "value": "Back"
+    },
+    {
+        "key": "common.LEGAL_PACKAGE_INFORMATION",
+        "value": "Legal Package Information"
+    },
+    {
+        "key": "common.PROGRAM_TERMS",
+        "value": "Program Terms"
+    },
+    {
+        "key": "common.SIGNED",
+        "value": "Signed"
+    },
+    {
+        "key": "common.EA_PROGRAM_TERMS",
+        "value": "EA Program Terms"
+    },
+    {
+        "key": "common.UPLOADED_BY",
+        "value": "Uploaded by"
+    },
+    {
+        "key": "common.ON",
+        "value": "on"
+    },
+    {
+        "key": "common.ERRORS_OF",
+        "value": "errors of"
+    },
+    {
+        "key": "common.WARNING_OF",
+        "value": "warning of"
+    },
+    {
+        "key": "common.CASCADE_DISCOUNT",
+        "value": "Cascade Discount"
+    },
+    {
+        "key": "common.HARDWARE_SUPPORT_DETAILS",
+        "value": "View & Edit Hardware Support Details"
+    },
+    {
+        "key": "common.RESIDUAL",
+        "value": "Residual"
+    },
+    {
+        "key": "common.RAMP",
+        "value": "Ramp"
+    },
+    {
+        "key": "common.COMPETITIVE",
+        "value": "Competitive"
+    },
+    {
+        "key": "common.ONE_TIME_ADJUSTMENT",
+        "value": "One Time Adjustment"
+    },
+    {
+        "key": "common.SWSS",
+        "value": "SWSS"
+    },
+    {
+        "key": "common.ADVANTAGE",
+        "value": "Advantage"
+    },
+    {
+        "key": "common.ESSENTIAL",
+        "value": "Essential"
+    },
+    {
+        "key": "common.TOTAL_CONTRACT_VALUE",
+        "value": "Total Contract Value"
+    },
+    {
+        "key": "common.MINIMUM_COMMITMENT_FOR_FULL_COMMIT",
+        "value": "There is a minimum commitment required for full commit."
+    },
+    {
+        "key": "common.CLICK_HERE",
+        "value": "Click here"
+    },
+    {
+        "key": "common.SUITES",
+        "value": "Suites"
+    },
+    {
+        "key": "common.DISCOUNT",
+        "value": "Discount"
+    },
+    {
+        "key": "common.CONFIGURE",
+        "value": "Configure"
+    },
+    {
+        "key": "common.SHOWING",
+        "value": "Showing 1-"
+    },
+    {
+        "key": "common.MONTHS",
+        "value": "Months"
+    },
+    {
+        "key": "common.FULL_COMMIT",
+        "value": "Full Commit"
+    },
+    {
+        "key": "common.PARTIAL_COMMIT",
+        "value": "Partial Commit"
+    },
+    {
+        "key": "common.CHANGE_SUITE_DISCOUNT",
+        "value": "Change Suite Discount"
+    },
+    {
+        "key": "common.ALREADY_PURCHASED",
+        "value": "Already Purchased"
+    },
+    {
+        "key": "common.SEARCH",
+        "value": "Search"
+    },
+    {
+        "key": "common.APPLICABLE_TO_SOFTWARE_PORTFOLIOS",
+        "value": "Requested Start Date for Services must be lesser than 90 days. This change is applicable to software Portfolios as well and may change the purchase adjustment and pricing."
+    },
+    {
+        "key": "common.SOLUTIONS_SUITES_ITEM_DESCRIPTION",
+        "value": "Solutions, Suites & Item Description"
+    },
+    {
+        "key": "common.PORTFOLIO",
+        "value": "Portfolio(s)"
+    },
+    {
+        "key": "common.COUNTRY_SERVICE",
+        "value": "Service to Country"
+    },
+    {
+        "key": "common.PRICE_LIST",
+        "value": "Price List"
+    },
+    {
+        "key": "common.BILLING_MODEL",
+        "value": "Billing Model"
+    },
+    {
+        "key": "common.REQUESTED_START_DATE",
+        "value": "Requested Start Date"
+    },
+    {
+        "key": "common.DURATION",
+        "value": "Duration (In Months)"
+    },
+    {
+        "key": "common.SELECTED_DURATION",
+        "value": "Selected Duration"
+    },
+    {
+        "key": "common.SUCCESSFULLY_SELECTED_SUBSCRIPTION",
+        "value": "You have successfully selected subscription for Co-Term."
+    },
+    {
+        "key": "common.NO_PARTNER_AVAILABLE_DEAL_PROPOSAL_COLLABORATE_COMPLIANCE_HOLD",
+        "value": "No partner is available with the Deal associated to this Proposal.If you wish to collaborate with a Partner,please add a partner on the deal before creating Proposal. This would avoid any issues with Compliance Hold during order booking."
+    },
+    {
+        "key": "common.NO_PARTNER_AVAILABLE_DEAL_PROPOSAL",
+        "value": "No partner is available with the Deal associated to this Proposal."
+    },
+    {
+        "key": "common.DISTRIBUTOR_NOT_AVAILABLE",
+        "value": "No distributor is available with the Deal associated to this Proposal."
+    },
+    {
+        "key": "common.CUSTOM",
+        "value": "Custom"
+    },
+    {
+        "key": "common.CO-TERM",
+        "value": "Co-Term"
+    },
+    {
+        "key": "common.CANCEL",
+        "value": "Cancel"
+    },
+    {
+        "key": "common.NEXT",
+        "value": "Next"
+    },
+    {
+        "key": "common.DONE",
+        "value": "Done"
+    },
+    {
+        "key": "common.TIER_1",
+        "value": "Tier 1"
+    },
+    {
+        "key": "common.TIER_2",
+        "value": "Tier 2"
+    },
+    {
+        "key": "common.TIER_3",
+        "value": "Tier 3"
+    },
+    {
+        "key": "common.TIER_4",
+        "value": "Tier 4"
+    },
+    {
+        "key": "common.TIER_5",
+        "value": "Tier 5"
+    },
+    {
+        "key": "common.PREMIUM",
+        "value": "Premium"
+    },
+    {
+        "key": "common.SUBSCRIPTION",
+        "value": "Subscription"
+    },
+    {
+        "key": "common.PERPETUAL",
+        "value": "Perpetual"
+    },
+    {
+        "key": "common.ALL",
+        "value": "All (Read Only)"
+    },
+    {
+        "key": "common.PRE-PURCHASE_ADJUSTMENT",
+        "value": "Pre-Purchase Adjustment"
+    },
+    {
+        "key": "common.UPDATE-PURCHASE-ADJUSTMENT",
+        "value": "Update Purchase Adjustment"
+    },
+    {
+        "key": "common.MORE_ACTIONS",
+        "value": "More Actions"
+    },
+    {
+        "key": "common.APPLY_DISCOUNT",
+        "value": "Apply Discount"
+    },
+    {
+        "key": "common.TEAM_NAME",
+        "value": "Team Name"
+    },
+    {
+        "key": "common.CEC_ID",
+        "value": "CEC_ID"
+    },
+    {
+        "key": "common.REGION_NAME",
+        "value": "Region Name"
+    },
+    {
+        "key": "common.REVIEWER_TYPE",
+        "value": "Reviewer Type"
+    },
+    {
+        "key": "common.EXCEPTION_REQUESTED",
+        "value": "Exception(s) requested"
+    },
+    {
+        "key": "common.SELLER_JUSTIFICATION",
+        "value": "Seller's Justification"
+    },
+    {
+        "key": "common.DECISION",
+        "value": "Decision"
+    },
+    {
+        "key": "common.TIME_TAKEN",
+        "value": "Time Taken"
+    },
+    {
+        "key": "common.CASE_NUMBER",
+        "value": "Case Number"
+    },
+    {
+        "key": "common.PRIMARY",
+        "value": "Primary"
+    },
+    {
+        "key": "common.REASON_CODE",
+        "value": "Reason Code"
+    },
+    {
+        "key": "common.REQUESTED_AT",
+        "value": "Requested at"
+    },
+    {
+        "key": "common.WORKED_AT",
+        "value": "Worked at"
+    },
+    {
+        "key": "common.TOTAL_PURCHASE_ADJUSTMENT",
+        "value": "Total Purchase Adjustment"
+    },
+    {
+        "key": "common.PURCHASE_ADJUSTMENT",
+        "value": "Purchase Adjustment"
+    },
+    {
+        "key": "common.ASSIGN_CASE",
+        "value": "Assign Case"
+    },
+    {
+        "key": "common.BUYING_PROGRAM",
+        "value": "Buying Program"
+    },
+    {
+        "key": "common.EA_TOTAL_VALUE",
+        "value": "EA Total Value"
+    },
+    {
+        "key": "common.COPY_PROPOSAL",
+        "value": "Copy Proposal"
+    },
+    {
+        "key": "common.JUSTIFICATION",
+        "value": "Justification"
+    },
+    {
+        "key": "common.VIEW_SITES",
+        "value": "View Parties"
+    },
+    {
+        "key": "common.EDIT",
+        "value": "Edit"
+    },
+    {
+        "key": "common.CREATE",
+        "value": "Create"
+    },
+    {
+        "key": "common.OPT_IN",
+        "value": "Opt In"
+    },
+    {
+        "key": "common.NAME_GU_ID",
+        "value": "NAME (GU ID)"
+    },
+    {
+        "key": "common.ADDRESS",
+        "value": "ADDRESS"
+    },
+    {
+        "key": "common.SAVE",
+        "value": "Save"
+    },
+    {
+        "key": "common.VIEW_DETAILS",
+        "value": "View Details"
+    },
+    {
+        "key": "common.OVER_ALL_TIME_TAKEN",
+        "value": "Overall Time Taken"
+    },
+    {
+        "key": "common.ASSIGN",
+        "value": "Assign"
+    },
+    {
+        "key": "common.COMPLETED_AT",
+        "value": "Completed at"
+    },
+    {
+        "key": "common.DOWNLOAD",
+        "value": "Download"
+    },
+    {
+        "key": "common.LEGAL_DOCUMENTS",
+        "value": "Legal Documents"
+    },
+    {
+        "key": "common.IMPORT",
+        "value": "Import"
+    },
+    {
+        "key": "common.TERMS_CONDITIONS",
+        "value": "Terms & Conditions"
+    },
+    {
+        "key": "common.PRIVACY_STATEMENT",
+        "value": "Privacy Statement"
+    },
+    {
+        "key": "common.COOKIE_POLICY",
+        "value": "Cookie Policy"
+    },
+    {
+        "key": "common.SELECT",
+        "value": "Select"
+    },
+    {
+        "key": "common.DESELECT",
+        "value": "Deselect"
+    },
+    {
+        "key": "common.BUSINESS_JUSTIFICATION",
+        "value": "Business Justification"
+    },
+    {
+        "key": "common.TRADEMARKS",
+        "value": "Trademarks"
+    },
+    {
+        "key": "common.SUBSCRIPTION_DISCOUNT",
+        "value": "Subscription Discount"
+    },
+    {
+        "key": "common.SERVICES_DISCOUNT",
+        "value": "Service Discount"
+    },
+    {
+        "key": "common.COMPLETE",
+        "value": "COMPLETE"
+    },
+    {
+        "key": "common.MANAGE_TEAM",
+        "value": "Manage Team"
+    },
+    {
+        "key": "common.multi-error.THERE_ARE",
+        "value": "There are"
+    },
+    {
+        "key": "common.multi-error.ERRORS",
+        "value": "Error(s)"
+    },
+    {
+        "key": "common.multi-error.AND",
+        "value": "and"
+    },
+    {
+        "key": "common.multi-error.REVIEW_CORRECT_CONFIGURATION",
+        "value": "You will need to review and correct the configuration errors in order to complete your proposal."
+    },
+    {
+        "key": "common.multi-error.WARNINGS",
+        "value": "Warnings"
+    },
+    {
+        "key": "common.header.CISCO_COMMERCE",
+        "value": "Cisco Commerce"
+    },
+    {
+        "key": "common.header.ENTERPRISE_AGREEMENT_MANAGEMENT",
+        "value": "Enterprise Agreement Management"
+    },
+    {
+        "key": "common.header.HI",
+        "value": "Hi"
+    },
+    {
+        "key": "common.TOTAL",
+        "value": "Total"
+    },
+    {
+        "key": "common.LOCC_STATUS",
+        "value": "LoCC Status"
+    },
+    {
+        "key": "common.CUSTOMER",
+        "value": "Customer"
+    },
+    {
+        "key": "common.FEDERAL",
+        "value": "Federal"
+    },
+    {
+        "key": "common.PROJECT",
+        "value": "Project"
+    },
+    {
+        "key": "common.BEST_ACTIONS_FOR_YOU",
+        "value": "Next best actions for you"
+    },
+    {
+        "key": "common.CREATE_PROPOSAL",
+        "value": "Create New Proposal"
+    },
+    {
+        "key": "common.PROPSAL_LIST",
+        "value": "Proposal List"
+    },
+    {
+        "key": "common.CHANGE_DEAL_ID",
+        "value": "Change Deal ID"
+    },
+    {
+        "key": "common.CUSTOMER_BU",
+        "value": "Customer BU (BU ID)"
+    },
+    {
+        "key": "common.EA3_LABEL",
+        "value": "EA 3.0"
+    },
+    {
+        "key": "common.DURATION_LABEL",
+        "value": "Duration"
+    },
+    {
+        "key": "common.CUSTOMER_NUMBER",
+        "value": "Customer Number:"
+    },
+    {
+        "key": "common.BILL_TO_ID",
+        "value": "Bill To ID:"
+    },
+    {
+        "key": "common.OPERATING_UNIT",
+        "value": "Operating Unit:"
+    },
+    {
+        "key": "common.RSD_CANNOT_PAST_DATE",
+        "value": "The Requested Start Date cannot be past date. Please correct the date to proceed."
+    },
+    {
+        "key": "common.PRIMARY_PARTNER",
+        "value": "Primary Partner"
+    },
+    {
+        "key": "common.CONTACT_NAME",
+        "value": "Contact Name"
+    },
+    {
+        "key": "common.CCO_ID",
+        "value": "CCO ID"
+    },
+    {
+        "key": "common.E_MAIL",
+        "value": "E-Mail"
+    },
+    {
+        "key": "common.INVALID_EMAIL_ID",
+        "value": "Invalid Email Id"
+    },
+    {
+        "key": "common.CONTACT_NUMBER",
+        "value": "Contact Number"
+    },
+    {
+        "key": "common.ENGAGE_SUPPORT_TEAM",
+        "value": "Engage Support Team"
+    },
+    {
+        "key": "common.PROGRAM_ELIGIBILITY",
+        "value": "Program Eligibility"
+    },
+    {
+        "key": "common.COPIED_PROPOSAL",
+        "value": "This is a copied proposal. Please click"
+    },
+    {
+        "key": "common.HERE",
+        "value": "here"
+    },
+    {
+        "key": "common.ORIGINAL_PROPOSAL",
+        "value": "to navigate to the original proposal"
+    },
+    {
+        "key": "common.ADJUSTED_TCV_VALIDATION_MESSAGE",
+        "value": "Please validated your Adjusted TCV, if the Net TCV is caped. PA will be adjusted accordingly"
+    },
+    {
+        "key": "common.CHANGE_DISCOUNT",
+        "value": "Change Portfolio Discount"
+    },
+    {
+        "key": "common.EAMS_DELIVERY",
+        "value": "EAMS Delivery"
+    },
+    {
+        "key": "common.PROPOSAL_SUMMARY",
+        "value": "Proposal Summary"
+    },
+    {
+        "key": "common.ALL_PRICES_SHOW",
+        "value": "All prices are shown in"
+    },
+    {
+        "key": "common.PRE_PURCHASE_ADJUSTMENT",
+        "value": "(Pre-Purchase Adjustment)"
+    },
+    {
+        "key": "common.POST_PURCHASE_ADJUSTMENT",
+        "value": "(Post-Purchase Adjustment)"
+    },
+    {
+        "key": "common.CONVERT_TO_QUOTE",
+        "value": "Convert to Quote"
+    },
+    {
+        "key": "common.DOCUMENT_CENTER",
+        "value": "Document Center"
+    },
+    {
+        "key": "common.DEAL_NAME_ID",
+        "value": "Deal Name (ID)"
+    },
+    {
+        "key": "common.KNOWINGLY_FALSE_INFORMATION",
+        "value": "to knowingly provide false information."
+    },
+    {
+        "key": "common.MANAGE_PURCHASE_ADJUSTMENT",
+        "value": "Manage Purchase Adjustment(s)"
+    },
+    {
+        "key": "common.SELECT_SUITE",
+        "value": "Select Suite"
+    },
+    {
+        "key": "common.NO_CREDITS_FOUND",
+        "value": "No Credits found for this suite."
+    },
+    {
+        "key": "common.CONTRACT_NUMBERS",
+        "value": "Contract Numbers"
+    },
+    {
+        "key": "common.PROXY",
+        "value": "Proxy"
+    },
+    {
+        "key": "common.EXIT_PROXY",
+        "value": "Exit Proxy"
+    },
+    {
+        "key": "common.SELECT_DURATION",
+        "value": "Select Duration"
+    },
+    {
+        "key": "common.ADD_CREDIT",
+        "value": "Add Credit"
+    },
+    {
+        "key": "common.LIST_OF_APPLIED_CREDITS",
+        "value": "List of Applied Credits"
+    },
+    {
+        "key": "common.CREDIT_CATEGORY",
+        "value": "Credit Category"
+    },
+    {
+        "key": "common.STARTING_FROM",
+        "value": "Starting From"
+    },
+    {
+        "key": "common.MONTHLY_CREDIT",
+        "value": "Monthly Credit"
+    },
+    {
+        "key": "common.TOTAL_CREDIT",
+        "value": "Total Credit"
+    },
+    {
+        "key": "common.SUBSCRIPTION_ID",
+        "value": "Subscription ID"
+    },
+    {
+        "key": "common.SCROLL_TO_VIEW_MORE",
+        "value": "Scroll to View More"
+    },
+    {
+        "key": "common.EA_SCOPE",
+        "value": "Does this proposal include the renewal of an existing EA subscription?"
+    },
+    {
+        "key": "common.RENEWAL_DETAILS",
+        "value": "Renewal Details"
+    },
+    {
+        "key": "common.INCLUDE_SUBSCRIPTION_IDS",
+        "value": "Please include as much information as possible, including subscription IDs"
+    },
+    {
+        "key": "common.TYPE_HERE",
+        "value": "Type here..."
+    },
+    {
+        "key": "common.JUSTIFICATION_WARN",
+        "value": "For opportunities that include follow-on/renewal, the CES team conducts a finance and operational review. CES team will be automatically engaged upon completion of the proposal"
+    },
+    {
+        "key": "common.JUSTIFICATION_WARN_PARTNER",
+        "value": "If the partner is different than the original partner for EA subscriptions, you will need to ensure the customer goes through the P2P transfer"
+    },
+    {
+        "key": "common.ALL_LABEL",
+        "value": "ALL "
+    },
+    {
+        "key": "common.ALL_SITES_SELECTED_PAGE",
+        "value": " parties on this page are selected."
+    },
+    {
+        "key": "common.ALL_SITES_BU",
+        "value": " parties in this BU ID"
+    },
+    {
+        "key": "common.ALL_SITES_SELECTED_BU",
+        "value": " parties on this BU ID are selected."
+    },
+    {
+        "key": "common.UNDO",
+        "value": "Undo"
+    },
+    {
+        "key": "common.SELECT_ALL_LABEL",
+        "value": "Select all"
+    },
+    {
+        "key": "common.BU_PARTIES_INFO_TOOLTIP",
+        "value": "The transaction country, BU ID, and party cannot be removed from the EA coverage"
+    },
+    {
+        "key": "common.DEFINE_GEOGRAPHY_LABEL",
+        "value": "Define Geography"
+    },
+    {
+        "key": "common.SITES_DESELECTED_OMITTED",
+        "value": "Parties in deselected countries will be omitted from the Enterprise Agreement"
+    },
+    {
+        "key": "adjust-desired-quantity.ESTIMATED_EA_QUANTITY",
+        "value": "Existing EA Quantity"
+    },
+    {
+        "key": "adjust-desired-quantity.CUSTOMER_IB_QTY",
+        "value": "This is your customer's latest consumption in EA workspace."
+    },
+    {
+        "key": "exception.UPSELL_DOWNSELL",
+        "value": "Upsell/ Downsell"
+    },
+    {
+        "key": "exception.TCV_OF_SUB_CANCELLED",
+        "value": "TCV of Early Follow-on"
+    },
+    {
+        "key": "exception.ESTIMATED_CREDIT",
+        "value": "Estimated Credit"
+    },
+    {
+        "key": "price-estimation.ATTRIBUTES_LOCKED_LABEL",
+        "value": "Any attributes locked at the portfolio level can be modified at the proposal level."
+    },
+    {
+        "key": "assign-smart-account.ASSIGN_A_SMART_ACCOUNT",
+        "value": "Assign a Smart Account"
+    },
+    {
+        "key": "assign-smart-account.OPTIONS",
+        "value": "Options"
+    },
+    {
+        "key": "assign-smart-account.CREATE_NEW_SMART",
+        "value": "To create a new Smart Account, go"
+    },
+    {
+        "key": "assign-smart-account.TO_CREATE_THE_ACCOUNT",
+        "value": "to create the account and then come back to search for the Smart Account you've created."
+    },
+    {
+        "key": "assign-smart-account.SEARCH_FOR_ANOTHER_ACCOUNT",
+        "value": "Search for Another Account"
+    },
+    {
+        "key": "assign-smart-account.CLEAR_RESULTS",
+        "value": "Clear Results"
+    },
+    {
+        "key": "assign-smart-account.SUGGESTED_SMART_ACCOUNTS",
+        "value": "Suggested Smart Accounts for Smart Customers"
+    },
+    {
+        "key": "assign-smart-account.NO_ACCOUNT_FOUND",
+        "value": "No matching Smart Account(s) found"
+    },
+    {
+        "key": "renewal.VIEW_SUBSCRIPTIONS_ELIGIBLE",
+        "value": "Viewing eligible subscriptions associated with your company. To view all subscriptions for the customer, upload the signed LOCC and return to this screen"
+    },
+    {
+        "key": "common.RENEWAL_SUBSCRIPTIONS",
+        "value": "Renewal Subscriptions"
+    },
+    {
+        "key": "renewal.EXISTING_EA_SUBSCRIPTION",
+        "value": "Does the customer have any existing EA subscriptions for the architectures you are looking to include in the scope?"
+    },
+    {
+        "key": "renewal.RENEWAL_SUPPORT_FOR_EXISTING_CUSTOMERS",
+        "value": "Renewal support for existing EA 3.0 customers is currently limited."
+    },
+    {
+        "key": "renewal.SELECT_VALID_SUBSCRIPTIONS",
+        "value": "You have selected subscriptions with different end dates. At this time, we can only support the renewal of subscriptions with the same end date. Please make your selections accordingly, or co-term your subscriptions first and then come back to this page."
+    },
+    {
+        "key": "renewal.EA_SUBSCRIPTION_ELIGIBLE_MIGRATION",
+        "value": "Existing EA subscriptions eligible for migration to EA 3.0 will appear here once you select 'Yes' above."
+    },
+    {
+        "key": "renewal.SELECT_SUBSCRIPTIONS",
+        "value": "Select subscriptions you’d like renew:"
+    },
+    {
+        "key": "renewal.WE_HAVE_DETECTED",
+        "value": "We have detected "
+    },
+    {
+        "key": "renewal.ELIGIBLE_FOR_RENEWAL",
+        "value": " subscriptions eligible for renewal to EA 3.0."
+    },
+    {
+        "key": "renewal.SELECTED_FOR_EARLY_RENEWAL",
+        "value": "This subscription is selected for early renewal. Please note that early renewal requires a material upgrade to the existing subscription and will be reviewed by Finance."
+    },
+    {
+        "key": "renewal.NO_SUBSCRIPTION_FOUND",
+        "value": "No Subscriptions found"
+    },
+    {
+        "key": "renewal.FIND_EA_SUBSCRIPTION",
+        "value": "Find existing EA/Collab subscriptions to renew"
+    },
+    {
+        "key": "renewal.SEARCH_WITH_SUBSCRIPTION_ID",
+        "value": "Search with a Subscription ID."
+    },
+    {
+        "key": "renewal.SUITES_INCLUDED",
+        "value": "Suite(s) included"
+    },
+    {
+        "key": "renewal.NON_STANDARD_EA_RENEWAL_SUBSCRIPTION",
+        "value": "Non-Standard EA Renewal Subscriptions"
+    },
+    {
+        "key": "renewal.PLEASE_DESCRIBE_ANY_OTHER_EA",
+        "value": "Please describe any other EAs not identified above. Upon submission of the proposal, CES team will be engaged to validate the information you provide and manually support migration of the subscription(s)."
+    },
+    {
+        "key": "renewal.ADD_ANY_ALL_RELEVANT_INFORMATION",
+        "value": "Add any and all relevant information you have, such as Subscription ID, Offers and Suites, Partner Name, Smart Account, or Sales Order Number / Web Order ID"
+    },
+    {
+        "key": "common.SELECTED",
+        "value": "Selected"
+    },
+    {
+        "key": "common.PARTNER_NAME",
+        "value": "Partner Name"
+    },
+    {
+        "key": "common.SAMRT_ACCOUNT",
+        "value": "Smart Account"
+    },
+    {
+        "key": "common.START_DATE",
+        "value": "Start Date"
+    },
+    {
+        "key": "common.END_DATE",
+        "value": "End Date"
+    },
+    {
+        "key": "renewal.NO_SEARCHED_SUBSCRIPTIONS_FOUND_MSG",
+        "value": "No subscription found with the search criteria provided."
+    },
+    {
+        "key": "renewal.SELECT_SUBSCRIPTIONS_TOOLTIP",
+        "value": "Renew existing EA subscriptions by migrating them to a single EA 3.0 agreement."
+    },
+    {
+        "key": "exception.DOWNLOAD_SUBSCRIPTION_DETAILS",
+        "value": "Download Subscription details"
+    },
+    {
+        "key": "common.REFRESH_CONSUMPTION_LABEL",
+        "value": "Refresh Consumption"
+    },
+    {
+        "key": "renewal.SUBSCRIPTION_PARTNER_DIFFERENT_THAN_DEAL",
+        "value": "Since this subscription is associated to a different partner, you will need to ensure the customer goes through the Partner to Partner transfer. This requires consent from the the incumbent partner, customer, and Cisco."
+    },
+    {
+        "key": "renewal.SUBSCRIPTION_SELECTION_CONFIRMATION_HEADER",
+        "value": "Are you satisfied with the subscriptions you have selected for renewal?"
+    },
+    {
+        "key": "renewal.SUBSCRIPTION_SELECTION_CONFIRMATION_BODY_1",
+        "value": "You will be able to view, but not edit your subscription selection for this proposal after this point."
+    },
+    {
+        "key": "renewal.SUBSCRIPTION_SELECTION_CONFIRMATION_BODY_2",
+        "value": "selection for this proposal after this point."
+    },
+    {
+        "key": "renewal.SUBSCRIPTION_SELECTION_CONFIRMATION_YES",
+        "value": "Yes, continue"
+    },
+    {
+        "key": "price-estimation.ADJUSTED_QTY_REQUEST_OVERRIDE",
+        "value": "Request Override"
+    },
+    {
+        "key": "price-estimation.ADJUSTED_QTY_VIEW_OVERRIDE_REQUEST",
+        "value": "View/Modify Override Request"
+    },
+    {
+        "key": "price-estimation.ADJUSTED_QTY_COMMIT_OVERRIDE_REQUEST",
+        "value": "Commit Override Request"
+    },
+    {
+        "key": "price-estimation.ADJUSTED_QTY_COMMIT_OVERRIDE_REQUIRE_BUSINESS",
+        "value": "Commit Overrides require Business Unit approval. The Business Unit will review the request upon completion of the proposal."
+    },
+    {
+        "key": "common.successPopover.COMMIT_OVERRIDE_SAVED",
+        "value": "Commit Override Saved"
+    },
+    {
+        "key": "common.successPopover.THE_BUSINESS_UNIT_REVIEW",
+        "value": "The Business Unit will review the request upon completion of the proposal."
+    },
+    {
+        "key": "common.successPopover.OVERRIDE_REMAINS_IN_FORCE",
+        "value": "Note: Override remains in force unless withdrawn, even if configuration changes"
+    },
+    {
+        "key": "common.successPopover.COMMIT_OVERRIDE_WITHDRAWN",
+        "value": "Commit Override Request Withdrawn"
+    },
+    {
+        "key": "common.successPopover.COMMIT_OVERRIDE_WITHDRAWN_DETERMINATION",
+        "value": "Commit Status now determined based on on usual business rules."
+    },
+    {
+        "key": "assign-smart-account.search_INVALID_EMAIL_ADDRESS_MSG",
+        "value": "Not a valid email address. Please retry with a valid email address."
+    },
+    {
+        "key": "renewal.REDECTED_MSG",
+        "value": "Please note that upon activation, licenses will be deposited in the Smart Account selected for this deal."
+    },
+    {
+        "key": "renewal.OVERDUE_MSG",
+        "value": "Subscription is under grace period. Renew as soon as possible to avoid permanent deactivation."
+    },
+    {
+        "key": "create-proposal.SUBSCRIPTION_SELECTION_CONFIRMATION_HEADER",
+        "value": "Are you satisfied with the subscriptions you have selected for renewal?"
+    },
+    {
+        "key": "create-proposal.SUBSCRIPTION_SELECTION_CONFIRMATION_BODY_1",
+        "value": "You will be able to view, but not edit your subscription selection for this proposal after this point."
+    },
+    {
+        "key": "create-proposal.SUBSCRIPTION_SELECTION_CONFIRMATION_BODY_2",
+        "value": "selection for this proposal after this point."
+    },
+    {
+        "key": "create-proposal.SUBSCRIPTION_SELECTION_CONFIRMATION_YES",
+        "value": "Yes, continue"
+    },
+    {
+        "key": "renewal.HYBRID_OFFER_QNA",
+        "value": " Do you want to migrate to EA3.0 Hybrid Work Offer or EA3.0? "
+    },
+    {
+        "key": "renewal.EA3_HYBRID_WORK_OFFER",
+        "value": "EA 3.0 Hybrid Work Offer"
+    },
+    {
+        "key": "renewal.HYBRID_OFFER_QNA_BODY",
+        "value": "(When purchasing EA 3.0 Hybrid Work Offer, automated migration is available only for Collab Flex subscriptions. You may request manual support to migrate additional subscriptions.)"
+    },
+    {
+        "key": "renewal.UNSUPPORTED_ATO_MSG",
+        "value": "This subscription cannot be migrated to EA 3.0 because it included an unsupported ATO"
+    },
+    {
+        "key": "renewal.ON_TIME_MIGRATION_MSG",
+        "value": "This subscription cannot be selected because fewer than 90 days remain"
+    },
+    {
+        "key": "renewal.SELECT_ONE_COLLAB_SUB_MSG",
+        "value": "At this time, you can only select one Collaboration Flex subscription for renewal to EA 3.0"
+    },
+    {
+        "key": "price-estimation.ARE_YOU_SURE_YOU_WANT_TO_REMOVE",
+        "value": "Are you sure you want to remove"
+    },
+    {
+        "key": "price-estimation.HYBRID_DISABLE_MIGRATION_TOOLTIP_MSG",
+        "value": "This Portfolio cannot be purchased because you are renewing an EA that already has some or all of the Hybrid Work Suites in other Portfolios."
+    },
+    {
+        "key": "price-estimation.COLLAB_DISABLE_TOOLTIP_MSG",
+        "value": "This Portfolio cannot be purchased because you have already added the Webex Suite in the Hybrid Work Portfolio. Remove the Hybrid Work Portfolio to enable purchase of this Portfolio."
+    },
+    {
+        "key": "price-estimation.HYBRID_DISABLE_TOOLTIP_MSG",
+        "value": "This Portfolio cannot be purchased because you have already added some or all of the Hybrid Work Suites in other Portfolios. Remove any Hybrid Work Suites to enable purchase of this Portfolio."
+    },
+    {
+        "key": "price-estimation.HYBRID_DISABLE_RETURNING_CUSTOMER_TOOLTIP_MSG",
+        "value": "This Portfolio cannot be purchased because you have already purchased some or all of the Hybrid Work Suites in other Portfolios."
+    },
+    {
+        "key": "common.DISTI_BILL_TO_ID_LABEL",
+        "value": "Distributor Bill to Address"
+    },
+    {
+        "key": "common.RESELLER_BILL_TO_ID_LABEL",
+        "value": "Reseller Bill to Address"
+    },
+    {
+        "key": "add-suites.DISTI_BILL_TO_ID_MSG",
+        "value": "The Disti BID that has be entered doesn’t match with Reseller BID, please select a valid one"
+    },
+    {
+        "key": "add-suites.RESELLER_BILL_TO_ID_MSG",
+        "value": "The Reseller BID that has be entered doesn’t match with Disti BID, please select a valid one"
+    },
+    {
+        "key": "add-suites.ALREADY_SELECTED_WITH_HYBRID",
+        "value": "Already selected with Hybrid Work Portfolio"
+    },
+    {
+        "key": "add-suites.ALL_SUITES_MUST_BE_PURCHASED",
+        "value": "All suites must be purchased."
+    },
+    {
+        "key": "common.LEARN_MORE",
+        "value": "Learn More"
+    },
+    {
+        "key": "common.SUITE_ATTACHED_MIGRATED",
+        "value": "Suite attached to EA subscription being renewed."
+    },
+    {
+        "key": "common.OFFER_NAME",
+        "value": "Offer Name"
+    },
+    {
+        "key": "renewal.COLLAB_SELECTION_MSG_1",
+        "value": "You have "
+    },
+    {
+        "key": "renewal.COLLAB_SELECTION_MSG_2",
+        "value": " Collaboration Flex subscriptions selected for renewal. At this time, we can only support the renewal of one (1) Collaboration Flex subscription. Please make your selections accordingly"
+    },
+    {
+        "key": "add-suites.qna.USER_COUNT_PREPOPULATED_HYBRID_MSG",
+        "value": "We've populated a minimum user count necessary for Hybrid Work Portfolio eligibility"
+    },
+    {
+        "key": "add-suites.qna.MINIMUM_USER_COUNT_MSG",
+        "value": "User count less than 250 is not accepted, please enter count more than 250."
+    },
+    {
+        "key": "add-suites.qna.USER_COUNT_FOR_EACH_SUITE_MSG",
+        "value": "This user count will be used to calculate desired quantities for each suite."
+    },
+    {
+        "key": "proposalSummary.WITHDRAW_APPROVAL_REQUEST",
+        "value": "Withdraw Approval Request"
+    },
+    {
+        "key": "proposalSummary.WITHDRAW_PA_EXCEPTION",
+        "value": "Withdraw PA Exception"
+    },
+    {
+        "key": "common.NA",
+        "value": "NA"
+    },
+    {
+        "key": "exception.UPDATE_PA",
+        "value": "Update PA"
+    },
+    {
+        "key": "common.SUITE_ATTACHED_MIGRATED",
+        "value": "Suite attached to EA subscription being renewed."
+    },
+    {
+        "key": "add-suites.SELECT_BILL_TO_ADDRESS",
+        "value": "Select a Bill to Address"
+    },
+    {
+        "key": "common.OVERRIDE_REQUESTED",
+        "value": "Override Requested"
+    },
+    {
+        "key": "common.OVERRIDE_APPROVED",
+        "value": "Override Approved"
+    },
+    {
+        "key": "common.OVERRIDE_REJECTED",
+        "value": "Override Rejected"
+    },
+    {
+        "key": "common.WITHDRAW_REQUEST",
+        "value": "Withdraw Request"
+    },
+    {
+        "key": "add-suites.ATTACH_RATE_MSG",
+        "value": "This is Customer's Attach Rate per Quarterly Corporate Attach Rate Reporting and more details can be found on Guide me."
+    },
+    {
+        "key": "price-estimation.DISTI_INVITE_TO_2T_MSG",
+        "value": "As a Distributor, you can invite the 2T Reseller to view the proposal with discounts and TCV masked"
+    },
+    {
+        "key": "price-estimation.HYBRID_PORTFOLIO_ADDED_MSG",
+        "value": "Since you have added the Hybrid Work Portfolio, you can’t add any of the Hybrid Work Suites in other portfolios."
+    },
+    {
+        "key": "price-estimation.RESELLER_RO_MODE_MSG",
+        "value": "As a Reseller, you will not have visibility into the Discount % or TCV between Cisco and the Distributor  "
+    },
+    {
+        "key": "price-estimation.PROPSAL_LOCKED_AS_2T_ACCESSING_MSG",
+        "value": "This page is locked, as the 2 Tier Partner is currently working on it. If you were working on it, the reseller may have withdrawn your access. Please contact the reseller to regain access."
+    },
+    {
+        "key": "price-estimation.RESELLER_TRANSFERRED_TO_DISTI",
+        "value": "Proposal was created by Reseller and transferred to you"
+    },
+    {
+        "key": "price-estimation.EDIT_USER_COUNT",
+        "value": "Edit User Count"
+    },
+    {
+        "key": "adjust-desired-quantity.ALLOWED_QTY_RANGE",
+        "value": "Allowed Quantity Range"
+    },
+    {
+        "key": "adjust-desired-quantity.COMMIT_NET_PRICE_TOOLTIP",
+        "value": "Commit net price determines whether the suite is fully committed and reflects only subscription discount. TCV for the suite may differ as additional discounts / adjustments are applied."
+    },
+    {
+        "key": "price-estimation.associated-services-grid.REPROCESS_IB_ASSESSMENT",
+        "value": "Re-process IB assessment"
+    },
+    {
+        "key": "price-estimation.associated-services-grid.REPROCESS_LIMIT_REACHED",
+        "value": "Re-process limit reached"
+    },
+    {
+        "key": "price-estimation.associated-services-grid.REPROCESS_TRY_AGAIN",
+        "value": "You may reprocess every 24 hours. try again in:"
+    },
+    {
+        "key": "common.HOUR",
+        "value": " hr "
+    },
+    {
+        "key": "common.MINUTES",
+        "value": " min "
+    },
+    {
+        "key": "price-estimation.RSD_SETTING_FOR_SERVICE_MSG",
+        "value": "When setting the RSD, please be mindful to avoid a lapse in service."
+    },
+    {
+        "key": "price-estimation.RSD_SET_TO_DATE_FOR_CURRENT_EA_SUB",
+        "value": "Requested Start Date set to day after end date of current EA subscription(s)."
+    },
+    {
+        "key": "price-estimation.RSD_SET_TO_THREE_DAYS_FOR_SUB",
+        "value": "Since one or more subscriptions is in grace period, RSD set to 3 days after Proposal Creation Date."
+    },
+    {
+        "key": "price-estimation.SERVICES_ARE_ATTACHED",
+        "value": "Services are attached"
+    },
+    {
+        "key": "common.MONTHS_1",
+        "value": "Month(s)"
+    },
+    {
+        "key": "proposalSummary.WITHDRAW_APPROVAL_REQUEST",
+        "value": "Withdraw Approval Request"
+    },
+    {
+        "key": "proposalSummary.WITHDRAW_PA_EXCEPTION",
+        "value": "Withdraw PA Exception"
+    },
+    {
+        "key": "common.VIEW_UPLOADED_DOCUMENTS",
+        "value": "View Uploaded Documents"
+    },
+    {
+        "key": "common.NA",
+        "value": "NA"
+    },
+    {
+        "key": "common.SELECT_PARTNER",
+        "value": "Select Partner"
+    },
+    {
+        "key": "adjust-desired-quantity.INCREASE_USER_COUNT_INFO_MSG",
+        "value": "For this user count, we recommend you increase your Desired Quantity for best results."
+    },
+    {
+        "key": "proposal-dashboard.RENEWAL_MIGRATION_INFO_MSG",
+        "value": "Please do not modify the subscription(s) selected for migration to EA 3.0. Any changes in the subscription(s)  – including purchase of additional suites, change in quantity, or change in billing parameters – will be reverted upon EA 3.0 suite instantiation."
+    },
+    {
+        "key": "renewal.SELECT_ONE_COLLAB_SUB_MSG_FOR_HYBRID",
+        "value": "At this time, you can only select one Collaboration Flex subscription for renewal to Hybrid Work Offer"
+    },
+    {
+        "key": "common.SUGGESTED_ACTIONS_FOR_NAVIGATION",
+        "value": "Suggested Actions"
+    },
+    {
+        "key": "common.PROPOSAL_DETAILS",
+        "value": "Proposal Details"
+    },
+    {
+        "key": "common.LEARN_MORE",
+        "value": "Learn More"
+    },
+    {
+        "key": "common.REVIEW_CUSTOMER_DETAILS",
+        "value": "Review the Customer Details"
+    },
+    {
+        "key": "common.sub-header.TRANSFER_TO_DISTRIBUTOR",
+        "value": "Transfer to Distributor"
+    },
+    {
+        "key": "common.GENERATE_LEGAL_PACKAGE",
+        "value": "Generate legal package for physical or electronic signature"
+    },
+    {
+        "key": "common.sub-header.WITHDRAW_FROM_DISTRIBUTOR",
+        "value": "Withdraw from Distributor"
+    },
+    {
+        "key": "common.NO_RECORDS_FOUND",
+        "value": "No Records found"
+    },
+    {
+        "key": "common.SHOW_LESS",
+        "value": "Show less"
+    },
+    {
+        "key": "common.DEAL_NAME_DEAL_ID",
+        "value": "Deal Name (Deal ID)"
+    },
+    {
+        "key": "common.SHOW_MORE",
+        "value": "Show more"
+    },
+    {
+        "key": "common.CHANGE_PRODUCT_DISCOUNT",
+        "value": "Change Product Discount"
+    },
+    {
+        "key": "common.sub-header.DISTRIBUTOR",
+        "value": "Distributor:"
+    },
+    {
+        "key": "legal-package.COMPLETE_ALL_STEPS",
+        "value": "Complete all the required steps to complete EA Legal Package."
+    },
+    {
+        "key": "adjust-desired-quantity.ALLOWED_QUANTITY_RANGE",
+        "value": "Allowed Quantity Range"
+    },
+    {
+        "key": "common.REDACTED",
+        "value": "Redacted"
+    },
+    {
+        "key": "common.TIMEOUT_MSG",
+        "value": "You will be timed out in"
+    },
+    {
+        "key": "eaLanding.LIMITED_TIME_MSG",
+        "value": "For a limited time, you may instead renew within EA 2.0."
+    },
+    {
+        "key": "eaLanding.LAUNCHED",
+        "value": "Launched in 2015; includes Cisco DNA, Cisco Data Center, and Security Choice EAs."
+    },
+    {
+        "key": "common.FOR",
+        "value": "for"
+    },
+    {
+        "key": "common.VNEXT_NOT_AUTHORIZED_MSG",
+        "value": "You are not authorize to use this tool!"
+    },
+    {
+        "key": "manage-purchase-adjustment.RAMP_DOESNT_APPLY_FOR_SUITE",
+        "value": "Ramp does not apply for this suite."
+    },
+    {
+        "key": "common.BY",
+        "value": "by"
+    },
+    {
+        "key": "common.PLEASE_WAIT",
+        "value": "Please Wait…"
+    },
+    {
+        "key": "eaLanding.MORE_INFO_RENEWAL",
+        "value": "More information about EA Renewals"
+    },
+    {
+        "key": "ng-pagination.RESULT_SORTED_BY",
+        "value": "results, sorted by last modified"
+    },
+    {
+        "key": "eaLanding.PLZ_REVIEW_MSG",
+        "value": "Please review your selection before continuing."
+    },
+    {
+        "key": "common.DOWNTIME_MAINTENANCE",
+        "value": "Downtime Maintenance"
+    },
+    {
+        "key": "eaLanding.LAUNCHED_2021",
+        "value": "Launched in 2021; supports multiple portfolios and flexible billing."
+    },
+    {
+        "key": "adjust-desired-quantity.VIEW_COMMIT_RULES",
+        "value": "View Commit Rules"
+    },
+    {
+        "key": "common.CLEAR_ALL",
+        "value": "Clear All"
+    },
+    {
+        "key": "common.REPRICING_FULLY_COMMITTED",
+        "value": "Re-pricing Proposal with suite Fully Committed"
+    },
+    {
+        "key": "eaLanding.RECOMMENDED_FOR_RENEWAL",
+        "value": "Recommended for Renewals"
+    },
+    {
+        "key": "common.DOWN_FOR_MAINTENANCE",
+        "value": "Down For Maintenance"
+    },
+    {
+        "key": "eaLanding.EXISTING_SUB_MSG",
+        "value": "Any existing subscriptions in EA 2.0 can be renewed in a new EA 3.0 agreement. You can add new suites now or anytime during the term."
+    },
+    {
+        "key": "eaLanding.BUYING_PRG_UNDONE_MSG",
+        "value": "Buying Program selection cannot be undone."
+    },
+    {
+        "key": "eaLanding.CHOOSE_SMART_ACCOUNT",
+        "value": "Choose Smart Account"
+    },
+    {
+        "key": "common.REPRICING_WITHOUT_OVERRIDE",
+        "value": "Re-pricing Proposal without Commit Override"
+    },
+    {
+        "key": "common.SHOW",
+        "value": "Showing"
+    },
+    {
+        "key": "common.SESSION_TIMEOUT",
+        "value": "Session Timeout"
+    },
+    {
+        "key": "adjust-desired-quantity.USER_QTY_LABEL_MSG",
+        "value": "Based on a Hybrid Worker User Count of "
+    },
+    {
+        "key": "add-suites.PORTFOLIO_SETUP",
+        "value": "Portfolio Setup"
+    },
+    {
+        "key": "price-estimation.EDIT_PORTFOLIO_SETUP",
+        "value": "Edit Portfolio Setup"
+    },
+    {
+        "key": "price-estimation.SUGGESTED_USER_COUNT_MSG",
+        "value": "Based on your IB Assessment, we recommend you increase your User Count to"
+    },
+    {
+        "key": "adjust-desired-quantity.HYBRID_ADJ_QTY_TOOLTIP",
+        "value": "Quantity range is based on the recommended configuration for the Hybrid User count provided, and your existing EA &amp; IB."
+    },
+    {
+        "key": "common.MSP_INFO_MSG",
+        "value": "Please follow the Smart Account nomenclature as specified in the Provider terms.  For example:  Managed Service Dedicated Smart Account must list (1) Partner Name, (2) Identified End User’s Company, (3) \"MS\" and (4) Cisco Buying Program Name \"EA3.0”. (Ex: \"Partner.com.Customer.MS.EA3.0”).  You can change the Smart Account once the order is created."
+    },
+    {
+        "key": "common.MSP_QUESTION",
+        "value": "Will this be sold through a Managed Service Provider (MSP)?"
+    },
+    {
+        "key": "price-estimation.associated-services-grid.ERRORS_ON_THE_HARDWARE_INSTALL_BASE_DATA",
+        "value": "There are errors on the Hardware Install Base(IB) data. Click on"
+    },
+    {
+        "key": "price-estimation.associated-services-grid.VERIFY_YOUR_ACCESS",
+        "value": "Verify you have CCW-R access."
+    },
+    {
+        "key": "common.SUBSCRIPTION_SERVICE_DISCOUNT",
+        "value": "Subscription Service Discount"
+    },
+    {
+        "key": "common.successPopover.HARDWARE_IB_FETCH",
+        "value": "Hardware Install Base (IB) fetch complete"
+    },
+    {
+        "key": "price-estimation.associated-services-grid.TROUBLESHOOTING_STEPS",
+        "value": "Troubleshooting Steps"
+    },
+    {
+        "key": "common.DISCOUNT_PERCENTAGE",
+        "value": "Discount (%)"
+    },
+    {
+        "key": "price-estimation.associated-services-grid.HARDWARE_INSTALL_BASE_INPROGRESS",
+        "value": "Hardware Install Base (IB) which is in progress. This may take up to 30 minutes from the last edit made to the proposal."
+    },
+    {
+        "key": "price-estimation.associated-services-grid.TIMEOUT_ERROR",
+        "value": "Time out or system error in Hardware Install Base (IB) fetch."
+    },
+    {
+        "key": "price-estimation.associated-services-grid.PROTIP",
+        "value": "Pro-Tip:"
+    },
+    {
+        "key": "common.successPopover.THANKS_FOR_YOUR_PATIENCE",
+        "value": "Thanks for your patience!"
+    },
+    {
+        "key": "price-estimation.associated-services-grid.ADDRESS_ERRORS",
+        "value": "to address the errors before continuing."
+    },
+    {
+        "key": "common.HIGHLY_CONFIDENTIAL",
+        "value": "Highly Confidential: Highly sensitive information critical to ongoing operations of Cisco."
+    },
+    {
+        "key": "common.CISCO_CONFIDENTIAL",
+        "value": "Cisco Confidential: Private or proprietary information that is protected from disclosure to the public domain."
+    },
+    {
+        "key": "common.successPopover.SUPPORT_INITIATE",
+        "value": "upon submission of the proposal."
+    },
+    {
+        "key": "common.REQUEST_EXCEPTION",
+        "value": "Request Exception"
+    },
+    {
+        "key": "legal-package.NOTE_AVAILABLE_FOR_ENGLISH",
+        "value": "Please note that this document is currently available only in English"
+    },
+    {
+        "key": "common.successPopover.EXCEPTION_REQUEST_SAVED",
+        "value": "Exception request saved. Support will initiate"
+    },
+    {
+        "key": "renewal.HYBRID_OFFER_QNA_MSG",
+        "value": "We need to know this now to populate the right Portfolios\/Solutions on the Price Estimation screen."
+    },
+    {
+        "key": "renewal.HYBRID_OFFER_QNA_DESC_MSG",
+        "value": "* When purchasing EA3.0 Hybrid Work Offer, automated migration is available only for Collab subscriptions. You may request manual support to migrate additional subscriptions."
+    },
+    {
+        "key": "enagage-support-team.SUPPORT_REVIEW",
+        "value": ", the Support team will review the requested exception(s) and adjust the proposal if needed."
+    },
+    {
+        "key": "renewal.QNA_FOR_HYBRID_OFFER",
+        "value": "Will the proposal include the EA 3.0 Hybrid Work Offer?"
+    },
+    {
+        "key": "enagage-support-team.UPON_SUBMISSION",
+        "value": "Upon submission of the proposal"
+    },
+    {
+        "key": "renewal.SELECT_ONE_COLLAB_SUB_MSG_FOR_HYBRID",
+        "value": "At this time, you can only select one Collaboration Flex subscription for renewal to Hybrid Work Offer"
+    },
+    {
+        "key": "ea_dashboard.GUIDANCE_FOR_EA_ACTIONS_LABEL",
+        "value": "Guidance for Enterprise Agreement Actions"
+    },
+    {
+        "key": "ea_dashboard.GUIDANCE_FOR_EA_ACTIONS_IMP_TEXT",
+        "value": "Not all scenarios are covered, and some of them will require Change Subscription access. Detailed instructions can be found in the"
+    },
+    {
+        "key": "ea_dashboard.CREATE_OR_RENEW_EA_SUB_LABEL",
+        "value": "1. Create or renew an EA subscription"
+    },
+    {
+        "key": "ea_dashboard.LOOKING_TO_MODIFY_SUB_TEXT",
+        "value": "Looking to create or modify a subscription?"
+    },
+    {
+        "key": "common.PURCHASED",
+        "value": "Purchased"
+    },
+    {
+        "key": "common.GO_TO_SALESFORCE",
+        "value": "Go to Salesforce"
+    },
+    {
+        "key": "ea_dashboard.CISCO_SUBSCRIPTION_PLAYBOOK_LABEL",
+        "value": "Cisco EA Change Subscription Playbook"
+    },
+    {
+        "key": "ea_dashboard.CREATE_OR_RENEW_EA_SUB_TEXT_PARTNER_LED",
+        "value": "You will need to obtain a new deal to pursue this scenario. Click the button below to find an existing Deal ID or create a new one."
+    },
+    {
+        "key": "common.NO_MID_TERM_PURCHASE",
+        "value": "No mid-term purchase"
+    },
+    {
+        "key": "ea_dashboard.BUY_MORE_OR_TRUE_FORWARD_TEXT",
+        "value": "For this scenario, you will need to click the button below to search for your subscription and modify it."
+    },
+    {
+        "key": "ea_dashboard.LOOKING_TO_MODIFY_SUB_LINK_1",
+        "value": "Learn how to initiate different "
+    },
+    {
+        "key": "price-estimation.CHANGE_SUB_INFO_MSG_1",
+        "value": "&nbsp;Full Commit or Partial Commit suites can be added to previously purchased Portfolios. "
+    },
+    {
+        "key": "common.SUBSCRIPTION_FOR_COTERM",
+        "value": "Subscription for Co-Term"
+    },
+    {
+        "key": "ea_dashboard.BACK_TO_EA_PROPOSALS",
+        "value": "Back to EA Deals and Proposals"
+    },
+    {
+        "key": "ea_dashboard.LOOKING_TO_MODIFY_SUB_LINK_2",
+        "value": "sales actions"
+    },
+    {
+        "key": "ea_dashboard.CREATE_OR_RENEW_EA_SUB_TEXT_CISCO_LED",
+        "value": "You will need to obtain a new deal to pursue this scenario. Cisco Deal IDs must be created by the Cisco sales team in Salesforce, and Partner Deal IDs must be created by the partner in CCW. As a reminder, Partner Deal IDs will become accessible by the extended sales team through Salesforce once the Cisco account manager converts it. Click the button below to access Salesforce."
+    },
+    {
+        "key": "ea_dashboard.MODIFY_QTYS_WITH_ACTIVE_SUITE_OUTSIDE_TRUE_FORWARD",
+        "value": "3. Modify products/quantities within an active suite outside the True-Forward event"
+    },
+    {
+        "key": "common.I_WANT_TO",
+        "value": "I want to..."
+    },
+    {
+        "key": "common.ACTIVE",
+        "value": "Active"
+    },
+    {
+        "key": "common.NO_MID_TERM_PURCHASE_HYBRID",
+        "value": "Hybrid Work cannot be purchased in the middle of the EA term"
+    },
+    {
+        "key": "common.IMPORTANT",
+        "value": "Important:"
+    },
+    {
+        "key": "price-estimation.CHANGE_SUB_INFO_MSG_2",
+        "value": "Newly-purchased Portfolios may require atleast one Full Commit suite."
+    },
+    {
+        "key": "price-estimation.COLLAB_DISABLE_TOOLTIP_MSG_HYBRID",
+        "value": "This Portfolio cannot be purchased because you have already added the Webex Suite in the Hybrid Work Portfolio."
+    },
+    {
+        "key": "update-purchase-adjustment.MANAGE_PURCHASE_ADJUSTMENT_HYBRID_WARN",
+        "value": "Manual Purchase Adjustments cannot be entered for Hybrid Collab Portfolio."
+    },
+    {
+        "key": "price-estimation.ENTER_WORKER_COUNT_HYBRID_MSG",
+        "value": "Please enter the knowledge worker count when configuring collab suite same as the Hybrid worker count"
+    },
+    {
+        "key": "change-deal-id.HERE_IS_THE_RESULT_OF_LOOKUP",
+        "value": "Here is the result of Lookup!"
+    },
+    {
+        "key": "common.sub-header.VIEW_DOCUMENT_CENTER",
+        "value": "View Document Center"
+    },
+    {
+        "key": "view-upgradeSummary.header",
+        "value": "Upgrade Summary"
+    },
+    {
+        "key": "view-upgradeSummary.sub-header",
+        "value": "Please review net change amount for your upgrade transaction."
+    },
+    {
+        "key": "view-upgradeSummary.error-message",
+        "value": "Total net value change for the suite is negative. Change subscription cannot proceed as such. Please increase license count and/or service coverage value to proceed."
+    },
+    {
+        "key": "view-upgradeSummary.tableheader1",
+        "value": "Enrollment Name"
+    },
+    {
+        "key": "view-upgradeSummary.tableheader2",
+        "value": "Upgrade Type"
+    },
+    {
+        "key": "view-upgradeSummary.tableheader3",
+        "value": "Commit Status"
+    },
+    {
+        "key": "view-upgradeSummary.tableheader4",
+        "value": "Existing TCV"
+    },
+    {
+        "key": "view-upgradeSummary.tableheader5",
+        "value": "Upgrade TCV"
+    },
+    {
+        "key": "view-upgradeSummary.tableheader6",
+        "value": "Net Change Amount"
+    },
+    {
+        "key": "view-upgradeSummary.closeButton",
+        "value": "Close"
+    },
+    {
+        "key": "common.capital_financing_frequency",
+        "value": "Capital Financing Frequency?"
+    },{
+        "key": "common.cff_tooltip",
+        "value": "Select this if you intend to leverage Cisco Capital for Financing."
+    }
+]
+}

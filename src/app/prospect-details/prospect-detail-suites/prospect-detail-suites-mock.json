@@ -1,0 +1,3794 @@
+{
+    "error": false,
+    "data": [
+      {
+        "name": "Access Switching (Perpetual)",
+        "column": [
+          {
+            "name": "EA_QTY",
+            "value": "166329"
+          },
+          {
+            "name": "NET_EA_LICENSE_AMOUNT",
+            "value": "225564097"
+          },
+          {
+            "name": "NET_EA_SERVICE_AMOUNT",
+            "value": "152584936"
+          },
+          {
+            "name": "NET_C1_CREDIT",
+            "value": "-26114374"
+          },
+          {
+            "name": "ANCHOR_CREDIT",
+            "value": "-19169114"
+          },
+          {
+            "name": "SWSS_RESIDUAL_AMOUNT",
+            "value": "-23809239"
+          },
+          {
+            "name": "NET_TCV",
+            "value": "309056307"
+          },
+          {
+            "name": "C1_CREDIT_FOUNDATION",
+            "value": "-26114374"
+          },
+          {
+            "name": "C1_CREDIT_ADVANCED",
+            "value": "0"
+          },
+          {
+            "name": "ANCHOR_CREDIT_FOUNDATION",
+            "value": "-19169114"
+          },
+          {
+            "name": "ANCHOR_CREDIT_ADVANCED",
+            "value": "0"
+          }
+        ],
+        "data": [
+          {
+            "name": "ACS-C2900-24",
+            "column": [
+              {
+                "name": "EA_QTY",
+                "value": "18876"
+              },
+              {
+                "name": "NET_EA_LICENSE_AMOUNT",
+                "value": "8824530"
+              },
+              {
+                "name": "NET_EA_SERVICE_AMOUNT",
+                "value": "6060895"
+              },
+              {
+                "name": "NET_C1_CREDIT",
+                "value": "-2062610"
+              },
+              {
+                "name": "ANCHOR_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "SWSS_RESIDUAL_AMOUNT",
+                "value": "-80819"
+              },
+              {
+                "name": "NET_TCV",
+                "value": "12741996"
+              },
+              {
+                "name": "C1_CREDIT_FOUNDATION",
+                "value": "-2062610"
+              },
+              {
+                "name": "C1_CREDIT_ADVANCED",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_ADVANCED",
+                "value": "0"
+              }
+            ]
+          },
+          {
+            "name": "ACS-C2900-48",
+            "column": [
+              {
+                "name": "EA_QTY",
+                "value": "15518"
+              },
+              {
+                "name": "NET_EA_LICENSE_AMOUNT",
+                "value": "12530785"
+              },
+              {
+                "name": "NET_EA_SERVICE_AMOUNT",
+                "value": "8639026"
+              },
+              {
+                "name": "NET_C1_CREDIT",
+                "value": "-1965455"
+              },
+              {
+                "name": "ANCHOR_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "SWSS_RESIDUAL_AMOUNT",
+                "value": "-101551"
+              },
+              {
+                "name": "NET_TCV",
+                "value": "19102804"
+              },
+              {
+                "name": "C1_CREDIT_FOUNDATION",
+                "value": "-1965455"
+              },
+              {
+                "name": "C1_CREDIT_ADVANCED",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_ADVANCED",
+                "value": "0"
+              }
+            ]
+          },
+          {
+            "name": "ACS-C3560CX",
+            "column": [
+              {
+                "name": "EA_QTY",
+                "value": "9358"
+              },
+              {
+                "name": "NET_EA_LICENSE_AMOUNT",
+                "value": "837541"
+              },
+              {
+                "name": "NET_EA_SERVICE_AMOUNT",
+                "value": "562041"
+              },
+              {
+                "name": "NET_C1_CREDIT",
+                "value": "-119572"
+              },
+              {
+                "name": "ANCHOR_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "SWSS_RESIDUAL_AMOUNT",
+                "value": "-562041"
+              },
+              {
+                "name": "NET_TCV",
+                "value": "717969"
+              },
+              {
+                "name": "C1_CREDIT_FOUNDATION",
+                "value": "-119572"
+              },
+              {
+                "name": "C1_CREDIT_ADVANCED",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_ADVANCED",
+                "value": "0"
+              }
+            ]
+          },
+          {
+            "name": "ACS-C3650-24",
+            "column": [
+              {
+                "name": "EA_QTY",
+                "value": "6260"
+              },
+              {
+                "name": "NET_EA_LICENSE_AMOUNT",
+                "value": "3324060"
+              },
+              {
+                "name": "NET_EA_SERVICE_AMOUNT",
+                "value": "2299235"
+              },
+              {
+                "name": "NET_C1_CREDIT",
+                "value": "-377010"
+              },
+              {
+                "name": "ANCHOR_CREDIT",
+                "value": "-793800"
+              },
+              {
+                "name": "SWSS_RESIDUAL_AMOUNT",
+                "value": "-447582"
+              },
+              {
+                "name": "NET_TCV",
+                "value": "4004904"
+              },
+              {
+                "name": "C1_CREDIT_FOUNDATION",
+                "value": "-377010"
+              },
+              {
+                "name": "C1_CREDIT_ADVANCED",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_FOUNDATION",
+                "value": "-793800"
+              },
+              {
+                "name": "ANCHOR_CREDIT_ADVANCED",
+                "value": "0"
+              }
+            ]
+          },
+          {
+            "name": "ACS-C3650-48",
+            "column": [
+              {
+                "name": "EA_QTY",
+                "value": "11003"
+              },
+              {
+                "name": "NET_EA_LICENSE_AMOUNT",
+                "value": "10051241"
+              },
+              {
+                "name": "NET_EA_SERVICE_AMOUNT",
+                "value": "6938822"
+              },
+              {
+                "name": "NET_C1_CREDIT",
+                "value": "-1259717"
+              },
+              {
+                "name": "ANCHOR_CREDIT",
+                "value": "-1764000"
+              },
+              {
+                "name": "SWSS_RESIDUAL_AMOUNT",
+                "value": "-1337148"
+              },
+              {
+                "name": "NET_TCV",
+                "value": "12629198"
+              },
+              {
+                "name": "C1_CREDIT_FOUNDATION",
+                "value": "-1259717"
+              },
+              {
+                "name": "C1_CREDIT_ADVANCED",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_FOUNDATION",
+                "value": "-1764000"
+              },
+              {
+                "name": "ANCHOR_CREDIT_ADVANCED",
+                "value": "0"
+              }
+            ]
+          },
+          {
+            "name": "ACS-C3850-12F",
+            "column": [
+              {
+                "name": "EA_QTY",
+                "value": "1340"
+              },
+              {
+                "name": "NET_EA_LICENSE_AMOUNT",
+                "value": "199660"
+              },
+              {
+                "name": "NET_EA_SERVICE_AMOUNT",
+                "value": "80480"
+              },
+              {
+                "name": "NET_C1_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "SWSS_RESIDUAL_AMOUNT",
+                "value": "-80480"
+              },
+              {
+                "name": "NET_TCV",
+                "value": "199660"
+              },
+              {
+                "name": "C1_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "C1_CREDIT_ADVANCED",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_ADVANCED",
+                "value": "0"
+              }
+            ]
+          },
+          {
+            "name": "ACS-C3850-24",
+            "column": [
+              {
+                "name": "EA_QTY",
+                "value": "20834"
+              },
+              {
+                "name": "NET_EA_LICENSE_AMOUNT",
+                "value": "14875476"
+              },
+              {
+                "name": "NET_EA_SERVICE_AMOUNT",
+                "value": "10106573"
+              },
+              {
+                "name": "NET_C1_CREDIT",
+                "value": "-1859970"
+              },
+              {
+                "name": "ANCHOR_CREDIT",
+                "value": "-3998645"
+              },
+              {
+                "name": "SWSS_RESIDUAL_AMOUNT",
+                "value": "-5661761"
+              },
+              {
+                "name": "NET_TCV",
+                "value": "13461673"
+              },
+              {
+                "name": "C1_CREDIT_FOUNDATION",
+                "value": "-1859970"
+              },
+              {
+                "name": "C1_CREDIT_ADVANCED",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_FOUNDATION",
+                "value": "-3998645"
+              },
+              {
+                "name": "ANCHOR_CREDIT_ADVANCED",
+                "value": "0"
+              }
+            ]
+          },
+          {
+            "name": "ACS-C3850-24F",
+            "column": [
+              {
+                "name": "EA_QTY",
+                "value": "3197"
+              },
+              {
+                "name": "NET_EA_LICENSE_AMOUNT",
+                "value": "476353"
+              },
+              {
+                "name": "NET_EA_SERVICE_AMOUNT",
+                "value": "192012"
+              },
+              {
+                "name": "NET_C1_CREDIT",
+                "value": "-342402"
+              },
+              {
+                "name": "ANCHOR_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "SWSS_RESIDUAL_AMOUNT",
+                "value": "-192012"
+              },
+              {
+                "name": "NET_TCV",
+                "value": "133951"
+              },
+              {
+                "name": "C1_CREDIT_FOUNDATION",
+                "value": "-342402"
+              },
+              {
+                "name": "C1_CREDIT_ADVANCED",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_ADVANCED",
+                "value": "0"
+              }
+            ]
+          },
+          {
+            "name": "ACS-C3850-48",
+            "column": [
+              {
+                "name": "EA_QTY",
+                "value": "49988"
+              },
+              {
+                "name": "NET_EA_LICENSE_AMOUNT",
+                "value": "63959646"
+              },
+              {
+                "name": "NET_EA_SERVICE_AMOUNT",
+                "value": "43302105"
+              },
+              {
+                "name": "NET_C1_CREDIT",
+                "value": "-10092696"
+              },
+              {
+                "name": "ANCHOR_CREDIT",
+                "value": "-12068244"
+              },
+              {
+                "name": "SWSS_RESIDUAL_AMOUNT",
+                "value": "-11946810"
+              },
+              {
+                "name": "NET_TCV",
+                "value": "73154001"
+              },
+              {
+                "name": "C1_CREDIT_FOUNDATION",
+                "value": "-10092696"
+              },
+              {
+                "name": "C1_CREDIT_ADVANCED",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_FOUNDATION",
+                "value": "-12068244"
+              },
+              {
+                "name": "ANCHOR_CREDIT_ADVANCED",
+                "value": "0"
+              }
+            ]
+          },
+          {
+            "name": "ACS-C3850-48F",
+            "column": [
+              {
+                "name": "EA_QTY",
+                "value": "529"
+              },
+              {
+                "name": "NET_EA_LICENSE_AMOUNT",
+                "value": "78821"
+              },
+              {
+                "name": "NET_EA_SERVICE_AMOUNT",
+                "value": "31772"
+              },
+              {
+                "name": "NET_C1_CREDIT",
+                "value": "-6407"
+              },
+              {
+                "name": "ANCHOR_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "SWSS_RESIDUAL_AMOUNT",
+                "value": "-31772"
+              },
+              {
+                "name": "NET_TCV",
+                "value": "72414"
+              },
+              {
+                "name": "C1_CREDIT_FOUNDATION",
+                "value": "-6407"
+              },
+              {
+                "name": "C1_CREDIT_ADVANCED",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_ADVANCED",
+                "value": "0"
+              }
+            ]
+          },
+          {
+            "name": "ACS-C4500",
+            "column": [
+              {
+                "name": "EA_QTY",
+                "value": "24484"
+              },
+              {
+                "name": "NET_EA_LICENSE_AMOUNT",
+                "value": "109259850"
+              },
+              {
+                "name": "NET_EA_SERVICE_AMOUNT",
+                "value": "73582010"
+              },
+              {
+                "name": "NET_C1_CREDIT",
+                "value": "-7840613"
+              },
+              {
+                "name": "ANCHOR_CREDIT",
+                "value": "-544425"
+              },
+              {
+                "name": "SWSS_RESIDUAL_AMOUNT",
+                "value": "-2702662"
+              },
+              {
+                "name": "NET_TCV",
+                "value": "171754160"
+              },
+              {
+                "name": "C1_CREDIT_FOUNDATION",
+                "value": "-7840613"
+              },
+              {
+                "name": "C1_CREDIT_ADVANCED",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_FOUNDATION",
+                "value": "-544425"
+              },
+              {
+                "name": "ANCHOR_CREDIT_ADVANCED",
+                "value": "0"
+              }
+            ]
+          },
+          {
+            "name": "ACS-C4500X-16/24",
+            "column": [
+              {
+                "name": "EA_QTY",
+                "value": "1582"
+              },
+              {
+                "name": "NET_EA_LICENSE_AMOUNT",
+                "value": "494375"
+              },
+              {
+                "name": "NET_EA_SERVICE_AMOUNT",
+                "value": "339861"
+              },
+              {
+                "name": "NET_C1_CREDIT",
+                "value": "-178438"
+              },
+              {
+                "name": "ANCHOR_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "SWSS_RESIDUAL_AMOUNT",
+                "value": "-339861"
+              },
+              {
+                "name": "NET_TCV",
+                "value": "315938"
+              },
+              {
+                "name": "C1_CREDIT_FOUNDATION",
+                "value": "-178438"
+              },
+              {
+                "name": "C1_CREDIT_ADVANCED",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_ADVANCED",
+                "value": "0"
+              }
+            ]
+          },
+          {
+            "name": "ACS-C4500X-32",
+            "column": [
+              {
+                "name": "EA_QTY",
+                "value": "1488"
+              },
+              {
+                "name": "NET_EA_LICENSE_AMOUNT",
+                "value": "465000"
+              },
+              {
+                "name": "NET_EA_SERVICE_AMOUNT",
+                "value": "319667"
+              },
+              {
+                "name": "NET_C1_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "SWSS_RESIDUAL_AMOUNT",
+                "value": "-319667"
+              },
+              {
+                "name": "NET_TCV",
+                "value": "465000"
+              },
+              {
+                "name": "C1_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "C1_CREDIT_ADVANCED",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_ADVANCED",
+                "value": "0"
+              }
+            ]
+          },
+          {
+            "name": "ACS-C6807",
+            "column": [
+              {
+                "name": "EA_QTY",
+                "value": "1151"
+              },
+              {
+                "name": "NET_EA_LICENSE_AMOUNT",
+                "value": "122006"
+              },
+              {
+                "name": "NET_EA_SERVICE_AMOUNT",
+                "value": "85082"
+              },
+              {
+                "name": "NET_C1_CREDIT",
+                "value": "-212"
+              },
+              {
+                "name": "ANCHOR_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "SWSS_RESIDUAL_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_TCV",
+                "value": "206876"
+              },
+              {
+                "name": "C1_CREDIT_FOUNDATION",
+                "value": "-212"
+              },
+              {
+                "name": "C1_CREDIT_ADVANCED",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_ADVANCED",
+                "value": "0"
+              }
+            ]
+          },
+          {
+            "name": "ACS-C6840",
+            "column": [
+              {
+                "name": "EA_QTY",
+                "value": "57"
+              },
+              {
+                "name": "NET_EA_LICENSE_AMOUNT",
+                "value": "6042"
+              },
+              {
+                "name": "NET_EA_SERVICE_AMOUNT",
+                "value": "4213"
+              },
+              {
+                "name": "NET_C1_CREDIT",
+                "value": "-6042"
+              },
+              {
+                "name": "ANCHOR_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "SWSS_RESIDUAL_AMOUNT",
+                "value": "-4213"
+              },
+              {
+                "name": "NET_TCV",
+                "value": "0"
+              },
+              {
+                "name": "C1_CREDIT_FOUNDATION",
+                "value": "-6042"
+              },
+              {
+                "name": "C1_CREDIT_ADVANCED",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_ADVANCED",
+                "value": "0"
+              }
+            ]
+          },
+          {
+            "name": "ACS-C6880",
+            "column": [
+              {
+                "name": "EA_QTY",
+                "value": "411"
+              },
+              {
+                "name": "NET_EA_LICENSE_AMOUNT",
+                "value": "37206"
+              },
+              {
+                "name": "NET_EA_SERVICE_AMOUNT",
+                "value": "25946"
+              },
+              {
+                "name": "NET_C1_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "SWSS_RESIDUAL_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_TCV",
+                "value": "63152"
+              },
+              {
+                "name": "C1_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "C1_CREDIT_ADVANCED",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_ADVANCED",
+                "value": "0"
+              }
+            ]
+          },
+          {
+            "name": "ACS-IE-4000",
+            "column": [
+              {
+                "name": "EA_QTY",
+                "value": "242"
+              },
+              {
+                "name": "NET_EA_LICENSE_AMOUNT",
+                "value": "20570"
+              },
+              {
+                "name": "NET_EA_SERVICE_AMOUNT",
+                "value": "14535"
+              },
+              {
+                "name": "NET_C1_CREDIT",
+                "value": "-3230"
+              },
+              {
+                "name": "ANCHOR_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "SWSS_RESIDUAL_AMOUNT",
+                "value": "-860"
+              },
+              {
+                "name": "NET_TCV",
+                "value": "31015"
+              },
+              {
+                "name": "C1_CREDIT_FOUNDATION",
+                "value": "-3230"
+              },
+              {
+                "name": "C1_CREDIT_ADVANCED",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_ADVANCED",
+                "value": "0"
+              }
+            ]
+          },
+          {
+            "name": "ACS-IE-5000",
+            "column": [
+              {
+                "name": "EA_QTY",
+                "value": "11"
+              },
+              {
+                "name": "NET_EA_LICENSE_AMOUNT",
+                "value": "935"
+              },
+              {
+                "name": "NET_EA_SERVICE_AMOUNT",
+                "value": "661"
+              },
+              {
+                "name": "NET_C1_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "SWSS_RESIDUAL_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_TCV",
+                "value": "1596"
+              },
+              {
+                "name": "C1_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "C1_CREDIT_ADVANCED",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_ADVANCED",
+                "value": "0"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Access Switching (Subscription)",
+        "column": [
+          {
+            "name": "EA_QTY",
+            "value": "3185"
+          },
+          {
+            "name": "NET_EA_LICENSE_AMOUNT",
+            "value": "0"
+          },
+          {
+            "name": "NET_EA_SERVICE_AMOUNT",
+            "value": "0"
+          },
+          {
+            "name": "NET_C1_CREDIT",
+            "value": "0"
+          },
+          {
+            "name": "ANCHOR_CREDIT",
+            "value": "0"
+          },
+          {
+            "name": "SWSS_RESIDUAL_AMOUNT",
+            "value": "0"
+          },
+          {
+            "name": "NET_TCV",
+            "value": "0"
+          },
+          {
+            "name": "C1_CREDIT_FOUNDATION",
+            "value": "0"
+          },
+          {
+            "name": "C1_CREDIT_ADVANCED",
+            "value": "0"
+          },
+          {
+            "name": "ANCHOR_CREDIT_FOUNDATION",
+            "value": "0"
+          },
+          {
+            "name": "ANCHOR_CREDIT_ADVANCED",
+            "value": "0"
+          }
+        ],
+        "data": [
+          {
+            "name": "ACS-C3650-24-T",
+            "column": [
+              {
+                "name": "EA_QTY",
+                "value": "0"
+              },
+              {
+                "name": "NET_EA_LICENSE_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_EA_SERVICE_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_C1_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "SWSS_RESIDUAL_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_TCV",
+                "value": "0"
+              },
+              {
+                "name": "C1_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "C1_CREDIT_ADVANCED",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_ADVANCED",
+                "value": "0"
+              }
+            ]
+          },
+          {
+            "name": "ACS-C3650-48-T",
+            "column": [
+              {
+                "name": "EA_QTY",
+                "value": "0"
+              },
+              {
+                "name": "NET_EA_LICENSE_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_EA_SERVICE_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_C1_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "SWSS_RESIDUAL_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_TCV",
+                "value": "0"
+              },
+              {
+                "name": "C1_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "C1_CREDIT_ADVANCED",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_ADVANCED",
+                "value": "0"
+              }
+            ]
+          },
+          {
+            "name": "ACS-C3850-24-T",
+            "column": [
+              {
+                "name": "EA_QTY",
+                "value": "0"
+              },
+              {
+                "name": "NET_EA_LICENSE_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_EA_SERVICE_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_C1_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "SWSS_RESIDUAL_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_TCV",
+                "value": "0"
+              },
+              {
+                "name": "C1_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "C1_CREDIT_ADVANCED",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_ADVANCED",
+                "value": "0"
+              }
+            ]
+          },
+          {
+            "name": "ACS-C3850-24F-T",
+            "column": [
+              {
+                "name": "EA_QTY",
+                "value": "0"
+              },
+              {
+                "name": "NET_EA_LICENSE_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_EA_SERVICE_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_C1_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "SWSS_RESIDUAL_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_TCV",
+                "value": "0"
+              },
+              {
+                "name": "C1_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "C1_CREDIT_ADVANCED",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_ADVANCED",
+                "value": "0"
+              }
+            ]
+          },
+          {
+            "name": "ACS-C3850-48-T",
+            "column": [
+              {
+                "name": "EA_QTY",
+                "value": "0"
+              },
+              {
+                "name": "NET_EA_LICENSE_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_EA_SERVICE_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_C1_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "SWSS_RESIDUAL_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_TCV",
+                "value": "0"
+              },
+              {
+                "name": "C1_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "C1_CREDIT_ADVANCED",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_ADVANCED",
+                "value": "0"
+              }
+            ]
+          },
+          {
+            "name": "ACS-C4500-T",
+            "column": [
+              {
+                "name": "EA_QTY",
+                "value": "0"
+              },
+              {
+                "name": "NET_EA_LICENSE_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_EA_SERVICE_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_C1_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "SWSS_RESIDUAL_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_TCV",
+                "value": "0"
+              },
+              {
+                "name": "C1_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "C1_CREDIT_ADVANCED",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_ADVANCED",
+                "value": "0"
+              }
+            ]
+          },
+          {
+            "name": "ACS-C6500-T",
+            "column": [
+              {
+                "name": "EA_QTY",
+                "value": "1299"
+              },
+              {
+                "name": "NET_EA_LICENSE_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_EA_SERVICE_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_C1_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "SWSS_RESIDUAL_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_TCV",
+                "value": "0"
+              },
+              {
+                "name": "C1_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "C1_CREDIT_ADVANCED",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_ADVANCED",
+                "value": "0"
+              }
+            ]
+          },
+          {
+            "name": "ACS-C9300-24-T",
+            "column": [
+              {
+                "name": "EA_QTY",
+                "value": "379"
+              },
+              {
+                "name": "NET_EA_LICENSE_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_EA_SERVICE_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_C1_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "SWSS_RESIDUAL_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_TCV",
+                "value": "0"
+              },
+              {
+                "name": "C1_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "C1_CREDIT_ADVANCED",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_ADVANCED",
+                "value": "0"
+              }
+            ]
+          },
+          {
+            "name": "ACS-C9300-48-T",
+            "column": [
+              {
+                "name": "EA_QTY",
+                "value": "1079"
+              },
+              {
+                "name": "NET_EA_LICENSE_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_EA_SERVICE_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_C1_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "SWSS_RESIDUAL_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_TCV",
+                "value": "0"
+              },
+              {
+                "name": "C1_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "C1_CREDIT_ADVANCED",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_ADVANCED",
+                "value": "0"
+              }
+            ]
+          },
+          {
+            "name": "ACS-C9300-ADD-T",
+            "column": [
+              {
+                "name": "EA_QTY",
+                "value": "0"
+              },
+              {
+                "name": "NET_EA_LICENSE_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_EA_SERVICE_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_C1_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "SWSS_RESIDUAL_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_TCV",
+                "value": "0"
+              },
+              {
+                "name": "C1_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "C1_CREDIT_ADVANCED",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_ADVANCED",
+                "value": "0"
+              }
+            ]
+          },
+          {
+            "name": "ACS-C9400-T",
+            "column": [
+              {
+                "name": "EA_QTY",
+                "value": "54"
+              },
+              {
+                "name": "NET_EA_LICENSE_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_EA_SERVICE_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_C1_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "SWSS_RESIDUAL_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_TCV",
+                "value": "0"
+              },
+              {
+                "name": "C1_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "C1_CREDIT_ADVANCED",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_ADVANCED",
+                "value": "0"
+              }
+            ]
+          },
+          {
+            "name": "ACS-C9500-ADD-T",
+            "column": [
+              {
+                "name": "EA_QTY",
+                "value": "0"
+              },
+              {
+                "name": "NET_EA_LICENSE_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_EA_SERVICE_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_C1_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "SWSS_RESIDUAL_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_TCV",
+                "value": "0"
+              },
+              {
+                "name": "C1_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "C1_CREDIT_ADVANCED",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_ADVANCED",
+                "value": "0"
+              }
+            ]
+          },
+          {
+            "name": "ACS-C9500-HIGH-T",
+            "column": [
+              {
+                "name": "EA_QTY",
+                "value": "374"
+              },
+              {
+                "name": "NET_EA_LICENSE_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_EA_SERVICE_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_C1_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "SWSS_RESIDUAL_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_TCV",
+                "value": "0"
+              },
+              {
+                "name": "C1_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "C1_CREDIT_ADVANCED",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_ADVANCED",
+                "value": "0"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Access Wireless (Perpetual)",
+        "column": [
+          {
+            "name": "EA_QTY",
+            "value": "86327"
+          },
+          {
+            "name": "NET_EA_LICENSE_AMOUNT",
+            "value": "10272913"
+          },
+          {
+            "name": "NET_EA_SERVICE_AMOUNT",
+            "value": "7178953"
+          },
+          {
+            "name": "NET_C1_CREDIT",
+            "value": "-5586336"
+          },
+          {
+            "name": "ANCHOR_CREDIT",
+            "value": "-294375"
+          },
+          {
+            "name": "SWSS_RESIDUAL_AMOUNT",
+            "value": "-3859266"
+          },
+          {
+            "name": "NET_TCV",
+            "value": "7711889"
+          },
+          {
+            "name": "C1_CREDIT_FOUNDATION",
+            "value": "-5586336"
+          },
+          {
+            "name": "C1_CREDIT_ADVANCED",
+            "value": "0"
+          },
+          {
+            "name": "ANCHOR_CREDIT_FOUNDATION",
+            "value": "-294375"
+          },
+          {
+            "name": "ANCHOR_CREDIT_ADVANCED",
+            "value": "0"
+          }
+        ],
+        "data": [
+          {
+            "name": "ACW-AP",
+            "column": [
+              {
+                "name": "EA_QTY",
+                "value": "86327"
+              },
+              {
+                "name": "NET_EA_LICENSE_AMOUNT",
+                "value": "10272913"
+              },
+              {
+                "name": "NET_EA_SERVICE_AMOUNT",
+                "value": "7178953"
+              },
+              {
+                "name": "NET_C1_CREDIT",
+                "value": "-5586336"
+              },
+              {
+                "name": "ANCHOR_CREDIT",
+                "value": "-294375"
+              },
+              {
+                "name": "SWSS_RESIDUAL_AMOUNT",
+                "value": "-3859266"
+              },
+              {
+                "name": "NET_TCV",
+                "value": "7711889"
+              },
+              {
+                "name": "C1_CREDIT_FOUNDATION",
+                "value": "-5586336"
+              },
+              {
+                "name": "C1_CREDIT_ADVANCED",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_FOUNDATION",
+                "value": "-294375"
+              },
+              {
+                "name": "ANCHOR_CREDIT_ADVANCED",
+                "value": "0"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Access Wireless (Subscription)",
+        "column": [
+          {
+            "name": "EA_QTY",
+            "value": "0"
+          },
+          {
+            "name": "NET_EA_LICENSE_AMOUNT",
+            "value": "0"
+          },
+          {
+            "name": "NET_EA_SERVICE_AMOUNT",
+            "value": "0"
+          },
+          {
+            "name": "NET_C1_CREDIT",
+            "value": "0"
+          },
+          {
+            "name": "ANCHOR_CREDIT",
+            "value": "0"
+          },
+          {
+            "name": "SWSS_RESIDUAL_AMOUNT",
+            "value": "0"
+          },
+          {
+            "name": "NET_TCV",
+            "value": "0"
+          },
+          {
+            "name": "C1_CREDIT_FOUNDATION",
+            "value": "0"
+          },
+          {
+            "name": "C1_CREDIT_ADVANCED",
+            "value": "0"
+          },
+          {
+            "name": "ANCHOR_CREDIT_FOUNDATION",
+            "value": "0"
+          },
+          {
+            "name": "ANCHOR_CREDIT_ADVANCED",
+            "value": "0"
+          }
+        ],
+        "data": [
+          {
+            "name": "ACW-AP-T",
+            "column": [
+              {
+                "name": "EA_QTY",
+                "value": "0"
+              },
+              {
+                "name": "NET_EA_LICENSE_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_EA_SERVICE_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_C1_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "SWSS_RESIDUAL_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_TCV",
+                "value": "0"
+              },
+              {
+                "name": "C1_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "C1_CREDIT_ADVANCED",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_ADVANCED",
+                "value": "0"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Data Center Networking (Perpetual)",
+        "column": [
+          {
+            "name": "EA_QTY",
+            "value": "20026"
+          },
+          {
+            "name": "NET_EA_LICENSE_AMOUNT",
+            "value": "127982928"
+          },
+          {
+            "name": "NET_EA_SERVICE_AMOUNT",
+            "value": "82793548"
+          },
+          {
+            "name": "NET_C1_CREDIT",
+            "value": "-15527545"
+          },
+          {
+            "name": "ANCHOR_CREDIT",
+            "value": "-2229375"
+          },
+          {
+            "name": "SWSS_RESIDUAL_AMOUNT",
+            "value": "-6252820"
+          },
+          {
+            "name": "NET_TCV",
+            "value": "186766734"
+          },
+          {
+            "name": "C1_CREDIT_FOUNDATION",
+            "value": "-15527545"
+          },
+          {
+            "name": "C1_CREDIT_ADVANCED",
+            "value": "0"
+          },
+          {
+            "name": "ANCHOR_CREDIT_FOUNDATION",
+            "value": "-2229375"
+          },
+          {
+            "name": "ANCHOR_CREDIT_ADVANCED",
+            "value": "0"
+          }
+        ],
+        "data": [
+          {
+            "name": "DCN-MDS9100",
+            "column": [
+              {
+                "name": "EA_QTY",
+                "value": "938"
+              },
+              {
+                "name": "NET_EA_LICENSE_AMOUNT",
+                "value": "3667580"
+              },
+              {
+                "name": "NET_EA_SERVICE_AMOUNT",
+                "value": "2541633"
+              },
+              {
+                "name": "NET_C1_CREDIT",
+                "value": "-129030"
+              },
+              {
+                "name": "ANCHOR_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "SWSS_RESIDUAL_AMOUNT",
+                "value": "-28385"
+              },
+              {
+                "name": "NET_TCV",
+                "value": "6051798"
+              },
+              {
+                "name": "C1_CREDIT_FOUNDATION",
+                "value": "-129030"
+              },
+              {
+                "name": "C1_CREDIT_ADVANCED",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_ADVANCED",
+                "value": "0"
+              }
+            ]
+          },
+          {
+            "name": "DCN-MDS9200",
+            "column": [
+              {
+                "name": "EA_QTY",
+                "value": "494"
+              },
+              {
+                "name": "NET_EA_LICENSE_AMOUNT",
+                "value": "2561390"
+              },
+              {
+                "name": "NET_EA_SERVICE_AMOUNT",
+                "value": "1775614"
+              },
+              {
+                "name": "NET_C1_CREDIT",
+                "value": "-10370"
+              },
+              {
+                "name": "ANCHOR_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "SWSS_RESIDUAL_AMOUNT",
+                "value": "-11443"
+              },
+              {
+                "name": "NET_TCV",
+                "value": "4315191"
+              },
+              {
+                "name": "C1_CREDIT_FOUNDATION",
+                "value": "-10370"
+              },
+              {
+                "name": "C1_CREDIT_ADVANCED",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_ADVANCED",
+                "value": "0"
+              }
+            ]
+          },
+          {
+            "name": "DCN-MDS9300",
+            "column": [
+              {
+                "name": "EA_QTY",
+                "value": "27"
+              },
+              {
+                "name": "NET_EA_LICENSE_AMOUNT",
+                "value": "149175"
+              },
+              {
+                "name": "NET_EA_SERVICE_AMOUNT",
+                "value": "103409"
+              },
+              {
+                "name": "NET_C1_CREDIT",
+                "value": "-5525"
+              },
+              {
+                "name": "ANCHOR_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "SWSS_RESIDUAL_AMOUNT",
+                "value": "-210"
+              },
+              {
+                "name": "NET_TCV",
+                "value": "246850"
+              },
+              {
+                "name": "C1_CREDIT_FOUNDATION",
+                "value": "-5525"
+              },
+              {
+                "name": "C1_CREDIT_ADVANCED",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_ADVANCED",
+                "value": "0"
+              }
+            ]
+          },
+          {
+            "name": "DCN-MDS9700",
+            "column": [
+              {
+                "name": "EA_QTY",
+                "value": "69"
+              },
+              {
+                "name": "NET_EA_LICENSE_AMOUNT",
+                "value": "1334288"
+              },
+              {
+                "name": "NET_EA_SERVICE_AMOUNT",
+                "value": "924621"
+              },
+              {
+                "name": "NET_C1_CREDIT",
+                "value": "-154700"
+              },
+              {
+                "name": "ANCHOR_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "SWSS_RESIDUAL_AMOUNT",
+                "value": "-76885"
+              },
+              {
+                "name": "NET_TCV",
+                "value": "2027324"
+              },
+              {
+                "name": "C1_CREDIT_FOUNDATION",
+                "value": "-154700"
+              },
+              {
+                "name": "C1_CREDIT_ADVANCED",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_ADVANCED",
+                "value": "0"
+              }
+            ]
+          },
+          {
+            "name": "DCN-N3048",
+            "column": [
+              {
+                "name": "EA_QTY",
+                "value": "644"
+              },
+              {
+                "name": "NET_EA_LICENSE_AMOUNT",
+                "value": "1094800"
+              },
+              {
+                "name": "NET_EA_SERVICE_AMOUNT",
+                "value": "758696"
+              },
+              {
+                "name": "NET_C1_CREDIT",
+                "value": "-62900"
+              },
+              {
+                "name": "ANCHOR_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "SWSS_RESIDUAL_AMOUNT",
+                "value": "-8195"
+              },
+              {
+                "name": "NET_TCV",
+                "value": "1782401"
+              },
+              {
+                "name": "C1_CREDIT_FOUNDATION",
+                "value": "-62900"
+              },
+              {
+                "name": "C1_CREDIT_ADVANCED",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_ADVANCED",
+                "value": "0"
+              }
+            ]
+          },
+          {
+            "name": "DCN-N3100/3200",
+            "column": [
+              {
+                "name": "EA_QTY",
+                "value": "2137"
+              },
+              {
+                "name": "NET_EA_LICENSE_AMOUNT",
+                "value": "10898700"
+              },
+              {
+                "name": "NET_EA_SERVICE_AMOUNT",
+                "value": "7552799"
+              },
+              {
+                "name": "NET_C1_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "SWSS_RESIDUAL_AMOUNT",
+                "value": "-12995"
+              },
+              {
+                "name": "NET_TCV",
+                "value": "18438504"
+              },
+              {
+                "name": "C1_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "C1_CREDIT_ADVANCED",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_ADVANCED",
+                "value": "0"
+              }
+            ]
+          },
+          {
+            "name": "DCN-N3524",
+            "column": [
+              {
+                "name": "EA_QTY",
+                "value": "214"
+              },
+              {
+                "name": "NET_EA_LICENSE_AMOUNT",
+                "value": "1091400"
+              },
+              {
+                "name": "NET_EA_SERVICE_AMOUNT",
+                "value": "756340"
+              },
+              {
+                "name": "NET_C1_CREDIT",
+                "value": "-132600"
+              },
+              {
+                "name": "ANCHOR_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "SWSS_RESIDUAL_AMOUNT",
+                "value": "-756340"
+              },
+              {
+                "name": "NET_TCV",
+                "value": "958800"
+              },
+              {
+                "name": "C1_CREDIT_FOUNDATION",
+                "value": "-132600"
+              },
+              {
+                "name": "C1_CREDIT_ADVANCED",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_ADVANCED",
+                "value": "0"
+              }
+            ]
+          },
+          {
+            "name": "DCN-N3548",
+            "column": [
+              {
+                "name": "EA_QTY",
+                "value": "200"
+              },
+              {
+                "name": "NET_EA_LICENSE_AMOUNT",
+                "value": "1360000"
+              },
+              {
+                "name": "NET_EA_SERVICE_AMOUNT",
+                "value": "942480"
+              },
+              {
+                "name": "NET_C1_CREDIT",
+                "value": "-54400"
+              },
+              {
+                "name": "ANCHOR_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "SWSS_RESIDUAL_AMOUNT",
+                "value": "-58083"
+              },
+              {
+                "name": "NET_TCV",
+                "value": "2189997"
+              },
+              {
+                "name": "C1_CREDIT_FOUNDATION",
+                "value": "-54400"
+              },
+              {
+                "name": "C1_CREDIT_ADVANCED",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_ADVANCED",
+                "value": "0"
+              }
+            ]
+          },
+          {
+            "name": "DCN-N5548",
+            "column": [
+              {
+                "name": "EA_QTY",
+                "value": "4234"
+              },
+              {
+                "name": "NET_EA_LICENSE_AMOUNT",
+                "value": "16195050"
+              },
+              {
+                "name": "NET_EA_SERVICE_AMOUNT",
+                "value": "11228060"
+              },
+              {
+                "name": "NET_C1_CREDIT",
+                "value": "-84150"
+              },
+              {
+                "name": "ANCHOR_CREDIT",
+                "value": "-91200"
+              },
+              {
+                "name": "SWSS_RESIDUAL_AMOUNT",
+                "value": "-91202"
+              },
+              {
+                "name": "NET_TCV",
+                "value": "27156558"
+              },
+              {
+                "name": "C1_CREDIT_FOUNDATION",
+                "value": "-84150"
+              },
+              {
+                "name": "C1_CREDIT_ADVANCED",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_FOUNDATION",
+                "value": "-91200"
+              },
+              {
+                "name": "ANCHOR_CREDIT_ADVANCED",
+                "value": "0"
+              }
+            ]
+          },
+          {
+            "name": "DCN-N5596",
+            "column": [
+              {
+                "name": "EA_QTY",
+                "value": "1953"
+              },
+              {
+                "name": "NET_EA_LICENSE_AMOUNT",
+                "value": "9130275"
+              },
+              {
+                "name": "NET_EA_SERVICE_AMOUNT",
+                "value": "6329536"
+              },
+              {
+                "name": "NET_C1_CREDIT",
+                "value": "-93500"
+              },
+              {
+                "name": "ANCHOR_CREDIT",
+                "value": "-150000"
+              },
+              {
+                "name": "SWSS_RESIDUAL_AMOUNT",
+                "value": "-27547"
+              },
+              {
+                "name": "NET_TCV",
+                "value": "15188764"
+              },
+              {
+                "name": "C1_CREDIT_FOUNDATION",
+                "value": "-93500"
+              },
+              {
+                "name": "C1_CREDIT_ADVANCED",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_FOUNDATION",
+                "value": "-150000"
+              },
+              {
+                "name": "ANCHOR_CREDIT_ADVANCED",
+                "value": "0"
+              }
+            ]
+          },
+          {
+            "name": "DCN-N5612",
+            "column": [
+              {
+                "name": "EA_QTY",
+                "value": "543"
+              },
+              {
+                "name": "NET_EA_LICENSE_AMOUNT",
+                "value": "2769300"
+              },
+              {
+                "name": "NET_EA_SERVICE_AMOUNT",
+                "value": "1919125"
+              },
+              {
+                "name": "NET_C1_CREDIT",
+                "value": "-168300"
+              },
+              {
+                "name": "ANCHOR_CREDIT",
+                "value": "-410000"
+              },
+              {
+                "name": "SWSS_RESIDUAL_AMOUNT",
+                "value": "-224598"
+              },
+              {
+                "name": "NET_TCV",
+                "value": "3885526"
+              },
+              {
+                "name": "C1_CREDIT_FOUNDATION",
+                "value": "-168300"
+              },
+              {
+                "name": "C1_CREDIT_ADVANCED",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_FOUNDATION",
+                "value": "-410000"
+              },
+              {
+                "name": "ANCHOR_CREDIT_ADVANCED",
+                "value": "0"
+              }
+            ]
+          },
+          {
+            "name": "DCN-N5624",
+            "column": [
+              {
+                "name": "EA_QTY",
+                "value": "19"
+              },
+              {
+                "name": "NET_EA_LICENSE_AMOUNT",
+                "value": "96900"
+              },
+              {
+                "name": "NET_EA_SERVICE_AMOUNT",
+                "value": "67152"
+              },
+              {
+                "name": "NET_C1_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT",
+                "value": "-4000"
+              },
+              {
+                "name": "SWSS_RESIDUAL_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_TCV",
+                "value": "160052"
+              },
+              {
+                "name": "C1_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "C1_CREDIT_ADVANCED",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_FOUNDATION",
+                "value": "-4000"
+              },
+              {
+                "name": "ANCHOR_CREDIT_ADVANCED",
+                "value": "0"
+              }
+            ]
+          },
+          {
+            "name": "DCN-N5648",
+            "column": [
+              {
+                "name": "EA_QTY",
+                "value": "14"
+              },
+              {
+                "name": "NET_EA_LICENSE_AMOUNT",
+                "value": "71400"
+              },
+              {
+                "name": "NET_EA_SERVICE_AMOUNT",
+                "value": "49480"
+              },
+              {
+                "name": "NET_C1_CREDIT",
+                "value": "-25500"
+              },
+              {
+                "name": "ANCHOR_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "SWSS_RESIDUAL_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_TCV",
+                "value": "95380"
+              },
+              {
+                "name": "C1_CREDIT_FOUNDATION",
+                "value": "-25500"
+              },
+              {
+                "name": "C1_CREDIT_ADVANCED",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_ADVANCED",
+                "value": "0"
+              }
+            ]
+          },
+          {
+            "name": "DCN-N5672",
+            "column": [
+              {
+                "name": "EA_QTY",
+                "value": "2039"
+              },
+              {
+                "name": "NET_EA_LICENSE_AMOUNT",
+                "value": "10398900"
+              },
+              {
+                "name": "NET_EA_SERVICE_AMOUNT",
+                "value": "7206438"
+              },
+              {
+                "name": "NET_C1_CREDIT",
+                "value": "-816000"
+              },
+              {
+                "name": "ANCHOR_CREDIT",
+                "value": "-663000"
+              },
+              {
+                "name": "SWSS_RESIDUAL_AMOUNT",
+                "value": "-267554"
+              },
+              {
+                "name": "NET_TCV",
+                "value": "15858783"
+              },
+              {
+                "name": "C1_CREDIT_FOUNDATION",
+                "value": "-816000"
+              },
+              {
+                "name": "C1_CREDIT_ADVANCED",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_FOUNDATION",
+                "value": "-663000"
+              },
+              {
+                "name": "ANCHOR_CREDIT_ADVANCED",
+                "value": "0"
+              }
+            ]
+          },
+          {
+            "name": "DCN-N5696",
+            "column": [
+              {
+                "name": "EA_QTY",
+                "value": "159"
+              },
+              {
+                "name": "NET_EA_LICENSE_AMOUNT",
+                "value": "1148775"
+              },
+              {
+                "name": "NET_EA_SERVICE_AMOUNT",
+                "value": "796285"
+              },
+              {
+                "name": "NET_C1_CREDIT",
+                "value": "-86700"
+              },
+              {
+                "name": "ANCHOR_CREDIT",
+                "value": "-21675"
+              },
+              {
+                "name": "SWSS_RESIDUAL_AMOUNT",
+                "value": "-114094"
+              },
+              {
+                "name": "NET_TCV",
+                "value": "1722591"
+              },
+              {
+                "name": "C1_CREDIT_FOUNDATION",
+                "value": "-86700"
+              },
+              {
+                "name": "C1_CREDIT_ADVANCED",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_FOUNDATION",
+                "value": "-21675"
+              },
+              {
+                "name": "ANCHOR_CREDIT_ADVANCED",
+                "value": "0"
+              }
+            ]
+          },
+          {
+            "name": "DCN-N6001",
+            "column": [
+              {
+                "name": "EA_QTY",
+                "value": "79"
+              },
+              {
+                "name": "NET_EA_LICENSE_AMOUNT",
+                "value": "402900"
+              },
+              {
+                "name": "NET_EA_SERVICE_AMOUNT",
+                "value": "279210"
+              },
+              {
+                "name": "NET_C1_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "SWSS_RESIDUAL_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_TCV",
+                "value": "682110"
+              },
+              {
+                "name": "C1_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "C1_CREDIT_ADVANCED",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_ADVANCED",
+                "value": "0"
+              }
+            ]
+          },
+          {
+            "name": "DCN-N6004",
+            "column": [
+              {
+                "name": "EA_QTY",
+                "value": "73"
+              },
+              {
+                "name": "NET_EA_LICENSE_AMOUNT",
+                "value": "527425"
+              },
+              {
+                "name": "NET_EA_SERVICE_AMOUNT",
+                "value": "365590"
+              },
+              {
+                "name": "NET_C1_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "SWSS_RESIDUAL_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_TCV",
+                "value": "893015"
+              },
+              {
+                "name": "C1_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "C1_CREDIT_ADVANCED",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_ADVANCED",
+                "value": "0"
+              }
+            ]
+          },
+          {
+            "name": "DCN-N7004",
+            "column": [
+              {
+                "name": "EA_QTY",
+                "value": "0"
+              },
+              {
+                "name": "NET_EA_LICENSE_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_EA_SERVICE_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_C1_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "SWSS_RESIDUAL_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_TCV",
+                "value": "0"
+              },
+              {
+                "name": "C1_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "C1_CREDIT_ADVANCED",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_ADVANCED",
+                "value": "0"
+              }
+            ]
+          },
+          {
+            "name": "DCN-N7004-SUP2",
+            "column": [
+              {
+                "name": "EA_QTY",
+                "value": "87"
+              },
+              {
+                "name": "NET_EA_LICENSE_AMOUNT",
+                "value": "887400"
+              },
+              {
+                "name": "NET_EA_SERVICE_AMOUNT",
+                "value": "614968"
+              },
+              {
+                "name": "NET_C1_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "SWSS_RESIDUAL_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_TCV",
+                "value": "1502368"
+              },
+              {
+                "name": "C1_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "C1_CREDIT_ADVANCED",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_ADVANCED",
+                "value": "0"
+              }
+            ]
+          },
+          {
+            "name": "DCN-N7009/10/18",
+            "column": [
+              {
+                "name": "EA_QTY",
+                "value": "650"
+              },
+              {
+                "name": "NET_EA_LICENSE_AMOUNT",
+                "value": "13812500"
+              },
+              {
+                "name": "NET_EA_SERVICE_AMOUNT",
+                "value": "9572063"
+              },
+              {
+                "name": "NET_C1_CREDIT",
+                "value": "-191250"
+              },
+              {
+                "name": "ANCHOR_CREDIT",
+                "value": "-127500"
+              },
+              {
+                "name": "SWSS_RESIDUAL_AMOUNT",
+                "value": "-70700"
+              },
+              {
+                "name": "NET_TCV",
+                "value": "22995112"
+              },
+              {
+                "name": "C1_CREDIT_FOUNDATION",
+                "value": "-191250"
+              },
+              {
+                "name": "C1_CREDIT_ADVANCED",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_FOUNDATION",
+                "value": "-127500"
+              },
+              {
+                "name": "ANCHOR_CREDIT_ADVANCED",
+                "value": "0"
+              }
+            ]
+          },
+          {
+            "name": "DCN-N7009/10/18-SUP2",
+            "column": [
+              {
+                "name": "EA_QTY",
+                "value": "448"
+              },
+              {
+                "name": "NET_EA_LICENSE_AMOUNT",
+                "value": "9520000"
+              },
+              {
+                "name": "NET_EA_SERVICE_AMOUNT",
+                "value": "6597360"
+              },
+              {
+                "name": "NET_C1_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "SWSS_RESIDUAL_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_TCV",
+                "value": "16117360"
+              },
+              {
+                "name": "C1_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "C1_CREDIT_ADVANCED",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_ADVANCED",
+                "value": "0"
+              }
+            ]
+          },
+          {
+            "name": "DCN-N7700",
+            "column": [
+              {
+                "name": "EA_QTY",
+                "value": "242"
+              },
+              {
+                "name": "NET_EA_LICENSE_AMOUNT",
+                "value": "5142500"
+              },
+              {
+                "name": "NET_EA_SERVICE_AMOUNT",
+                "value": "3563753"
+              },
+              {
+                "name": "NET_C1_CREDIT",
+                "value": "-2422500"
+              },
+              {
+                "name": "ANCHOR_CREDIT",
+                "value": "-595000"
+              },
+              {
+                "name": "SWSS_RESIDUAL_AMOUNT",
+                "value": "-675746"
+              },
+              {
+                "name": "NET_TCV",
+                "value": "5013007"
+              },
+              {
+                "name": "C1_CREDIT_FOUNDATION",
+                "value": "-2422500"
+              },
+              {
+                "name": "C1_CREDIT_ADVANCED",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_FOUNDATION",
+                "value": "-595000"
+              },
+              {
+                "name": "ANCHOR_CREDIT_ADVANCED",
+                "value": "0"
+              }
+            ]
+          },
+          {
+            "name": "DCN-N7702",
+            "column": [
+              {
+                "name": "EA_QTY",
+                "value": "0"
+              },
+              {
+                "name": "NET_EA_LICENSE_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_EA_SERVICE_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_C1_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "SWSS_RESIDUAL_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_TCV",
+                "value": "0"
+              },
+              {
+                "name": "C1_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "C1_CREDIT_ADVANCED",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_ADVANCED",
+                "value": "0"
+              }
+            ]
+          },
+          {
+            "name": "DCN-N7706EN",
+            "column": [
+              {
+                "name": "EA_QTY",
+                "value": "1"
+              },
+              {
+                "name": "NET_EA_LICENSE_AMOUNT",
+                "value": "8500"
+              },
+              {
+                "name": "NET_EA_SERVICE_AMOUNT",
+                "value": "5891"
+              },
+              {
+                "name": "NET_C1_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "SWSS_RESIDUAL_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_TCV",
+                "value": "14391"
+              },
+              {
+                "name": "C1_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "C1_CREDIT_ADVANCED",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_ADVANCED",
+                "value": "0"
+              }
+            ]
+          },
+          {
+            "name": "DCN-N9300-48",
+            "column": [
+              {
+                "name": "EA_QTY",
+                "value": "2207"
+              },
+              {
+                "name": "NET_EA_LICENSE_AMOUNT",
+                "value": "14257220"
+              },
+              {
+                "name": "NET_EA_SERVICE_AMOUNT",
+                "value": "7050769"
+              },
+              {
+                "name": "NET_C1_CREDIT",
+                "value": "-6983260"
+              },
+              {
+                "name": "ANCHOR_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "SWSS_RESIDUAL_AMOUNT",
+                "value": "-1812084"
+              },
+              {
+                "name": "NET_TCV",
+                "value": "12512645"
+              },
+              {
+                "name": "C1_CREDIT_FOUNDATION",
+                "value": "-6983260"
+              },
+              {
+                "name": "C1_CREDIT_ADVANCED",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_ADVANCED",
+                "value": "0"
+              }
+            ]
+          },
+          {
+            "name": "DCN-N9300-96",
+            "column": [
+              {
+                "name": "EA_QTY",
+                "value": "1779"
+              },
+              {
+                "name": "NET_EA_LICENSE_AMOUNT",
+                "value": "13004490"
+              },
+              {
+                "name": "NET_EA_SERVICE_AMOUNT",
+                "value": "6456009"
+              },
+              {
+                "name": "NET_C1_CREDIT",
+                "value": "-175440"
+              },
+              {
+                "name": "ANCHOR_CREDIT",
+                "value": "-152000"
+              },
+              {
+                "name": "SWSS_RESIDUAL_AMOUNT",
+                "value": "-25747"
+              },
+              {
+                "name": "NET_TCV",
+                "value": "19107312"
+              },
+              {
+                "name": "C1_CREDIT_FOUNDATION",
+                "value": "-175440"
+              },
+              {
+                "name": "C1_CREDIT_ADVANCED",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_FOUNDATION",
+                "value": "-152000"
+              },
+              {
+                "name": "ANCHOR_CREDIT_ADVANCED",
+                "value": "0"
+              }
+            ]
+          },
+          {
+            "name": "DCN-N9332",
+            "column": [
+              {
+                "name": "EA_QTY",
+                "value": "254"
+              },
+              {
+                "name": "NET_EA_LICENSE_AMOUNT",
+                "value": "2072640"
+              },
+              {
+                "name": "NET_EA_SERVICE_AMOUNT",
+                "value": "1031489"
+              },
+              {
+                "name": "NET_C1_CREDIT",
+                "value": "-2072640"
+              },
+              {
+                "name": "ANCHOR_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "SWSS_RESIDUAL_AMOUNT",
+                "value": "-1031489"
+              },
+              {
+                "name": "NET_TCV",
+                "value": "0"
+              },
+              {
+                "name": "C1_CREDIT_FOUNDATION",
+                "value": "-2072640"
+              },
+              {
+                "name": "C1_CREDIT_ADVANCED",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_ADVANCED",
+                "value": "0"
+              }
+            ]
+          },
+          {
+            "name": "DCN-N9348",
+            "column": [
+              {
+                "name": "EA_QTY",
+                "value": "0"
+              },
+              {
+                "name": "NET_EA_LICENSE_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_EA_SERVICE_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_C1_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "SWSS_RESIDUAL_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_TCV",
+                "value": "0"
+              },
+              {
+                "name": "C1_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "C1_CREDIT_ADVANCED",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_ADVANCED",
+                "value": "0"
+              }
+            ]
+          },
+          {
+            "name": "DCN-N9500",
+            "column": [
+              {
+                "name": "EA_QTY",
+                "value": "464"
+              },
+              {
+                "name": "NET_EA_LICENSE_AMOUNT",
+                "value": "6073760"
+              },
+              {
+                "name": "NET_EA_SERVICE_AMOUNT",
+                "value": "4154452"
+              },
+              {
+                "name": "NET_C1_CREDIT",
+                "value": "-1858780"
+              },
+              {
+                "name": "ANCHOR_CREDIT",
+                "value": "-15000"
+              },
+              {
+                "name": "SWSS_RESIDUAL_AMOUNT",
+                "value": "-959523"
+              },
+              {
+                "name": "NET_TCV",
+                "value": "7394909"
+              },
+              {
+                "name": "C1_CREDIT_FOUNDATION",
+                "value": "-1858780"
+              },
+              {
+                "name": "C1_CREDIT_ADVANCED",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_FOUNDATION",
+                "value": "-15000"
+              },
+              {
+                "name": "ANCHOR_CREDIT_ADVANCED",
+                "value": "0"
+              }
+            ]
+          },
+          {
+            "name": "DCN-N9K-Fixed",
+            "column": [
+              {
+                "name": "EA_QTY",
+                "value": "58"
+              },
+              {
+                "name": "NET_EA_LICENSE_AMOUNT",
+                "value": "305660"
+              },
+              {
+                "name": "NET_EA_SERVICE_AMOUNT",
+                "value": "150326"
+              },
+              {
+                "name": "NET_C1_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "SWSS_RESIDUAL_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_TCV",
+                "value": "455986"
+              },
+              {
+                "name": "C1_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "C1_CREDIT_ADVANCED",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_ADVANCED",
+                "value": "0"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "ECS Cloud Management (Subscription)",
+        "column": [
+          {
+            "name": "EA_QTY",
+            "value": "0"
+          },
+          {
+            "name": "NET_EA_LICENSE_AMOUNT",
+            "value": "0"
+          },
+          {
+            "name": "NET_EA_SERVICE_AMOUNT",
+            "value": "0"
+          },
+          {
+            "name": "NET_C1_CREDIT",
+            "value": "0"
+          },
+          {
+            "name": "ANCHOR_CREDIT",
+            "value": "0"
+          },
+          {
+            "name": "SWSS_RESIDUAL_AMOUNT",
+            "value": "0"
+          },
+          {
+            "name": "NET_TCV",
+            "value": "0"
+          },
+          {
+            "name": "C1_CREDIT_FOUNDATION",
+            "value": "0"
+          },
+          {
+            "name": "C1_CREDIT_ADVANCED",
+            "value": "0"
+          },
+          {
+            "name": "ANCHOR_CREDIT_FOUNDATION",
+            "value": "0"
+          },
+          {
+            "name": "ANCHOR_CREDIT_ADVANCED",
+            "value": "0"
+          }
+        ],
+        "data": [
+          {
+            "name": "ECS-CM-CCM-T",
+            "column": [
+              {
+                "name": "EA_QTY",
+                "value": "0"
+              },
+              {
+                "name": "NET_EA_LICENSE_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_EA_SERVICE_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_C1_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "SWSS_RESIDUAL_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_TCV",
+                "value": "0"
+              },
+              {
+                "name": "C1_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "C1_CREDIT_ADVANCED",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_ADVANCED",
+                "value": "0"
+              }
+            ]
+          },
+          {
+            "name": "ECS-CM-CCO-T",
+            "column": [
+              {
+                "name": "EA_QTY",
+                "value": "0"
+              },
+              {
+                "name": "NET_EA_LICENSE_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_EA_SERVICE_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_C1_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "SWSS_RESIDUAL_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_TCV",
+                "value": "0"
+              },
+              {
+                "name": "C1_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "C1_CREDIT_ADVANCED",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_ADVANCED",
+                "value": "0"
+              }
+            ]
+          },
+          {
+            "name": "ECS-CM-T",
+            "column": [
+              {
+                "name": "EA_QTY",
+                "value": "0"
+              },
+              {
+                "name": "NET_EA_LICENSE_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_EA_SERVICE_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_C1_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "SWSS_RESIDUAL_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_TCV",
+                "value": "0"
+              },
+              {
+                "name": "C1_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "C1_CREDIT_ADVANCED",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_ADVANCED",
+                "value": "0"
+              }
+            ]
+          },
+          {
+            "name": "ECS-CM-VM-T",
+            "column": [
+              {
+                "name": "EA_QTY",
+                "value": "0"
+              },
+              {
+                "name": "NET_EA_LICENSE_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_EA_SERVICE_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_C1_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "SWSS_RESIDUAL_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_TCV",
+                "value": "0"
+              },
+              {
+                "name": "C1_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "C1_CREDIT_ADVANCED",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_ADVANCED",
+                "value": "0"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "ECS Infrastructure Automation (Subscription)",
+        "column": [
+          {
+            "name": "EA_QTY",
+            "value": "29359"
+          },
+          {
+            "name": "NET_EA_LICENSE_AMOUNT",
+            "value": "0"
+          },
+          {
+            "name": "NET_EA_SERVICE_AMOUNT",
+            "value": "0"
+          },
+          {
+            "name": "NET_C1_CREDIT",
+            "value": "0"
+          },
+          {
+            "name": "ANCHOR_CREDIT",
+            "value": "0"
+          },
+          {
+            "name": "SWSS_RESIDUAL_AMOUNT",
+            "value": "0"
+          },
+          {
+            "name": "NET_TCV",
+            "value": "0"
+          },
+          {
+            "name": "C1_CREDIT_FOUNDATION",
+            "value": "0"
+          },
+          {
+            "name": "C1_CREDIT_ADVANCED",
+            "value": "0"
+          },
+          {
+            "name": "ANCHOR_CREDIT_FOUNDATION",
+            "value": "0"
+          },
+          {
+            "name": "ANCHOR_CREDIT_ADVANCED",
+            "value": "0"
+          }
+        ],
+        "data": [
+          {
+            "name": "ECS-IA-T",
+            "column": [
+              {
+                "name": "EA_QTY",
+                "value": "29359"
+              },
+              {
+                "name": "NET_EA_LICENSE_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_EA_SERVICE_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_C1_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "SWSS_RESIDUAL_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_TCV",
+                "value": "0"
+              },
+              {
+                "name": "C1_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "C1_CREDIT_ADVANCED",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_ADVANCED",
+                "value": "0"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Tetration Analytics (Subscription)",
+        "column": [
+          {
+            "name": "EA_QTY",
+            "value": "4"
+          },
+          {
+            "name": "NET_EA_LICENSE_AMOUNT",
+            "value": "0"
+          },
+          {
+            "name": "NET_EA_SERVICE_AMOUNT",
+            "value": "0"
+          },
+          {
+            "name": "NET_C1_CREDIT",
+            "value": "0"
+          },
+          {
+            "name": "ANCHOR_CREDIT",
+            "value": "0"
+          },
+          {
+            "name": "SWSS_RESIDUAL_AMOUNT",
+            "value": "0"
+          },
+          {
+            "name": "NET_TCV",
+            "value": "0"
+          },
+          {
+            "name": "C1_CREDIT_FOUNDATION",
+            "value": "0"
+          },
+          {
+            "name": "C1_CREDIT_ADVANCED",
+            "value": "0"
+          },
+          {
+            "name": "ANCHOR_CREDIT_FOUNDATION",
+            "value": "0"
+          },
+          {
+            "name": "ANCHOR_CREDIT_ADVANCED",
+            "value": "0"
+          }
+        ],
+        "data": [
+          {
+            "name": "TA-T",
+            "column": [
+              {
+                "name": "EA_QTY",
+                "value": "4"
+              },
+              {
+                "name": "NET_EA_LICENSE_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_EA_SERVICE_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_C1_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT",
+                "value": "0"
+              },
+              {
+                "name": "SWSS_RESIDUAL_AMOUNT",
+                "value": "0"
+              },
+              {
+                "name": "NET_TCV",
+                "value": "0"
+              },
+              {
+                "name": "C1_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "C1_CREDIT_ADVANCED",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_FOUNDATION",
+                "value": "0"
+              },
+              {
+                "name": "ANCHOR_CREDIT_ADVANCED",
+                "value": "0"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }

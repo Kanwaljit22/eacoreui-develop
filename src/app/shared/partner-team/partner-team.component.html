@@ -1,0 +1,235 @@
+<div [ngClass]="{'col-12': dataFlow}" >
+    <div class="card partner-team">
+        <h5 *ngIf="dataFlow" class="card-header">{{localeService.getLocalizedString('qual.whoinvolved.PARTNER_TEAM')}}</h5>
+        <!---Card body-->
+        <div class="card-body extented-sales partner-team" [ngClass]="{'card-body': dataFlow}">
+            <div class="row">
+                <!-- <div class="col-12">
+                  <h5 class="card-title mb-3 sub--heading">{{localeService.getLocalizedString('qual.whoinvolved.PARTNER_TEAM')}}</h5>
+              </div> -->
+                <div class="position-relative col mb-15" (clickOutside)="onClickedOutsidePartnerBox($event)">
+                    <div class="search-wrap form-group m-0">
+                        <!-- <span class="name-tag" *ngFor="let item of selectedPartners">
+                          <span class="tag-val">{{item.fullName}}</span>
+                        <span class="icon-close-btn" (click)="removeSelectedPartners(item)"></span>
+                        </span> -->
+                        <input *ngIf='permissionService.qualManageTeam && !appDataService.roadMapPath && type === "whoInvolved"' class="form-control" name="partnersTeam" [(ngModel)]="partnersTeam" type="text" required="" appElementFocus id="partnersTeam" (ngModelChange)='onChangePartnerInputValue(partnersTeam)'>
+                        <input *ngIf='(!permissionService.qualManageTeam || appDataService.roadMapPath) && type === "whoInvolved"' [attr.disabled]="true" class="form-control" name="partnersTeam" [(ngModel)]="partnersTeam" type="text" required="" appElementFocus id="partnersTeam"
+                            (ngModelChange)='onChangePartnerInputValue(partnersTeam)'>
+                        <input *ngIf='type !== "whoInvolved"' class="form-control" name="partnersTeam" [(ngModel)]="partnersTeam" type="text" required="" appElementFocus id="partnersTeam" (ngModelChange)='onChangePartnerInputValue(partnersTeam)'>
+                        <label for="partnersTeam" [ngClass]="{'labelClass': partnersTeam.length}" class="form-control-placeholder" (click)="focusSales('partnersTeam')">{{localeService.getLocalizedString('common.SEARCH_PARTNER_BY')}}</label>
+                        <span *ngIf="searching">{{localeService.getLocalizedMessage('qual.whoinvolved.SEARCHING')}}</span>
+                        <div class="invalid-feedback" *ngIf="searchFailed">{{localeService.getLocalizedString('qual.whoinvolved.NO_SUGGESTIONS')}}</div>
+                        <div class="autocomplete-list dropdown-menu show" style=" width:847px;" *ngIf="involvedService?.partnerSuggestionsArrFiltered?.length > 0 && partnersTeam">
+                            <ul>
+                                <ng-container *ngFor="let suggestion of involvedService.partnerSuggestionsArrFiltered; let i = index">
+                                    <li (click)="onSuggestedPartnerClick(suggestion)" class="dropdown-item searchList">
+                                        <table width="100%">
+                                            <tr>
+                                                <td width="35%">{{suggestion.fullName}}</td>
+                                                <td width="35%">{{suggestion.ccoId}}</td>
+                                                <td width="25%">{{suggestion.email}}</td>
+                                            </tr>
+                                        </table>
+                                    </li>
+                                </ng-container>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2 notify-con">
+                    <label class="label-check mb-1">
+                      <input class="form-check-input" type="checkbox" (change)="checkNotifyPt('estEmail')" [checked]="ptNotifyEmail && !qualService.buyMethodDisti"
+                          [disabled]="!partnersTeam.length || qualService.buyMethodDisti || disableForDisti || !partnerDeal">
+                          <span class="custom-checkbox-btn">
+                            <span class="path1"></span>
+                            <span class="path2"></span>
+                        </span>
+                      <span></span>
+                      <span>{{localeService.getLocalizedString('qual.whoinvolved.NOTIFY_BY_EMAIL')}}</span>
+                  </label>
+                    <label class="label-check">
+                      <input class="form-check-input" type="checkbox" (change)="checkNotifyPt('estWebex')" [checked]="ptNotifyWebex && !qualService.buyMethodDisti"
+                          [disabled]="!partnersTeam.length || qualService.buyMethodDisti || disableForDisti || !partnerDeal">
+                          <span class="custom-checkbox-btn">
+                            <span class="path1"></span>
+                            <span class="path2"></span>
+                        </span>
+                      <span></span>
+                      <span>{{localeService.getLocalizedString('qual.whoinvolved.WEBEX_TEAM_MEMBERS')}}</span>
+                  </label>
+                    <!-- <label class="label-check">
+                        <input class="form-check-input" type="checkbox" (change)="checkNotifyPt('estWalkme')" [checked]="ptNotifyWalkme"
+                            [disabled]="!partnersTeam.length">
+                        <span></span>
+                        <span>{{localeService.getLocalizedString('qual.whoinvolved.WALKME_TEAM_MEMBERS')}}</span>
+                    </label>                             -->
+                </div>
+                <div class="position-relative col-md-2 mb-15 drop-height blk-sep" *ngIf="partnerDeal">
+                    <label class="custom-dropdown-lbl mb-0">{{localeService.getLocalizedString('qual.whoinvolved.ACCESS_TYPE')}}</label>
+                    <div class="custom-dropdown">
+                        <select *ngIf=" permissionService.qualManageTeam && !appDataService.roadMapPath && type === 'whoInvolved'" [disabled]="disableForDisti" class="custom-select mb-2 mr-sm-2 mb-sm-0 col myCustomSelect" name="accessType" required [(ngModel)]="ptAccessType">
+                                  <option value="rw">{{localeService.getLocalizedString('qual.whoinvolved.USER_READ_WRITE_ACCESS')}}</option>
+                                  <option value="ro">{{localeService.getLocalizedString('qual.whoinvolved.USER_READ_ONLY_ACCESS')}}</option>
+                      </select>
+                        <select *ngIf="(!permissionService.qualManageTeam || appDataService.roadMapPath) && type === 'whoInvolved'" [attr.disabled]="true" class="custom-select mb-2 mr-sm-2 mb-sm-0 col myCustomSelect" name="accessType" required [(ngModel)]="ptAccessType">
+                          <option value="rw">{{localeService.getLocalizedString('qual.whoinvolved.USER_READ_WRITE_ACCESS')}}</option>
+                          <option value="ro">{{localeService.getLocalizedString('qual.whoinvolved.USER_READ_ONLY_ACCESS')}}</option>
+                      </select>
+                        <select *ngIf="type !== 'whoInvolved'" class="custom-select mb-2 mr-sm-2 mb-sm-0 col myCustomSelect" name="accessType" required [(ngModel)]="ptAccessType">
+                            <option value="rw">{{localeService.getLocalizedString('qual.whoinvolved.USER_READ_WRITE_ACCESS')}}</option>
+                            <option value="ro">{{localeService.getLocalizedString('qual.whoinvolved.USER_READ_ONLY_ACCESS')}}</option>
+                </select>
+                        <span class="icon-down-arrow"></span>
+                    </div>
+                </div>
+                <div class="col-md-auto add-member">
+                    <span>
+                      <button [id]='appDataService.createUniqueId("SEARCH_ADD",appDataService.pageContext)'  (click)="searchAndAddPartner(partnersTeam)" class="btn btn-primary float-right" [disabled]="!partnersTeam.length">{{localeService.getLocalizedString('qual.whoinvolved.SEARCH_ADD')}}</button>
+                  </span>
+                </div>
+                <div class="col-12 mt-3">
+                    <table class="primary-table">
+                        <thead>
+                            <tr>
+                                <th rowspan="2" width="26%">{{localeService.getLocalizedString('qual.whoinvolved.NAME')}}</th>
+                                <th rowspan="2" width="9%">{{localeService.getLocalizedString('qual.whoinvolved.CCO_ID')}}</th>
+                                <th rowspan="2" width="11%" *ngIf="!partnerDeal">{{localeService.getLocalizedString('proposal.create.PARTNER_NAME')}}</th>
+                                <th rowspan="2" width="14%">{{localeService.getLocalizedString('qual.whoinvolved.E_MAIL')}}</th>
+                                <th colspan="3" class="text-center border--left solid border--right solid">Notify by</th>
+                                <th rowspan="2" width="11%" *ngIf="partnerDeal">{{localeService.getLocalizedString('qual.whoinvolved.ACCESS_TYPE')}}</th>
+                                <th rowspan="2" width="5%">{{localeService.getLocalizedString('qual.whoinvolved.ACTION')}}</th>
+                            </tr>
+                            <tr>
+                                <th width="10%" class="text-center border--right solid border--left solid"><label class="label-check" style="padding-right: 4px;">
+                               <input [id]='appDataService.createUniqueId("checkbox",appDataService.pageContext)' *ngIf='permissionService.qualManageTeam && !appDataService.roadMapPath && !qualService.buyMethodDisti && partnerDeal' [disabled]="ptMasterCheckDisabled || disableForDisti" class="form-check-input" type="checkbox" [checked]="ptNotifyAllEmail" (change)="updateNotifyAllPt('email')">
+                               <input [id]='appDataService.createUniqueId("checkbox",appDataService.pageContext)' *ngIf='!permissionService.qualManageTeam || appDataService.roadMapPath || qualService.buyMethodDisti || !partnerDeal' [attr.disabled]="true" class="form-check-input" type="checkbox" [checked]="ptNotifyAllEmail">
+                               <span class="custom-checkbox-btn">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                            </span>
+                               <span></span><span>E-Mail</span></label></th>
+                                <th width="10%" class="text-center border--right solid"><label class="label-check" style="padding-right: 4px;">
+                                <input [id]='appDataService.createUniqueId("checkbox",appDataService.pageContext)' *ngIf='permissionService.qualManageTeam && !appDataService.roadMapPath && !qualService.buyMethodDisti && partnerDeal' [disabled]="ptMasterCheckDisabled || disableForDisti" class="form-check-input" type="checkbox" [checked]="ptNotifyAllWebex" (change)="updateNotifyAllPt('webex')">
+                                <input [id]='appDataService.createUniqueId("checkbox",appDataService.pageContext)' *ngIf='!permissionService.qualManageTeam || appDataService.roadMapPath || qualService.buyMethodDisti || !partnerDeal' [attr.disabled]="true" class="form-check-input" type="checkbox" [checked]="ptNotifyAllEmail">
+                                <span class="custom-checkbox-btn">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                </span>
+                                <span></span><span>Webex Teams</span></label></th>
+                                <th width="10%" class="text-center border--right solid"><label class="label-check" style="padding-right: 4px;">
+                                <input [id]='appDataService.createUniqueId("checkbox",appDataService.pageContext)' *ngIf='permissionService.qualManageTeam && !appDataService.roadMapPath' [disabled]="ptMasterCheckDisabled" class="form-check-input" type="checkbox" [checked]="ptNotifyAllWalkme" (change)="updateNotifyAllPt('walkme')">
+                                <input [id]='appDataService.createUniqueId("checkbox",appDataService.pageContext)' *ngIf='!permissionService.qualManageTeam || appDataService.roadMapPath' [attr.disabled]="true" class="form-check-input" type="checkbox" [checked]="ptNotifyAllWalkme">
+                                <span class="custom-checkbox-btn">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                </span>
+                                
+                                <span></span><span>Welcome Kit</span>
+                               </label></th>
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="addMember">
+                            <tr *ngFor="let b of qualService.qualification.partnerTeam">
+                                <!-- <td *ngIf=" permissionService.qualManageTeam && !appDataService.roadMapPath && type === "whoInvolved""><a [id]='appDataService.createUniqueId(b.name,appDataService.pageContext)' href="https://directory.cisco.com/dir/reports/{{b.ccoId}}" target="_blank"></a>{{b.name}}</a></td> -->
+                                <!-- <td *ngIf="(!permissionService.qualManageTeam || appDataService.roadMapPath) && type === "whoInvolved""><a [id]='appDataService.createUniqueId(b.name,appDataService.pageContext)' target="_blank">{{b.name}}</a></td> -->
+                                <td>{{b.name}}</td>
+                                <td>{{b.ccoId}}</td>
+                                <td *ngIf="!partnerDeal">{{b?.beGeoName ? b?.beGeoName : '--'}}</td>
+                                <td *ngIf="permissionService.qualManageTeam && !appDataService.roadMapPath && type === 'whoInvolved'"><a [id]='appDataService.createUniqueId(b.email,appDataService.pageContext)' href="mailto:{{b.email}};">{{b.email}}</a></td>
+                                <td *ngIf="(!permissionService.qualManageTeam || appDataService.roadMapPath) && type === 'whoInvolved'"><a [id]='appDataService.createUniqueId(b.email,appDataService.pageContext)'>{{b.email}}</a></td>
+                                <td *ngIf="type !== 'whoInvolved'"><a [id]='appDataService.createUniqueId(b.email,appDataService.pageContext)' href="mailto:{{b.email}};">{{b.email}}</a></td>
+                                <td class="text-center">
+                                    <label class="label-check">
+                                      <input *ngIf='permissionService.qualManageTeam && !appDataService.roadMapPath && type === "whoInvolved" && !qualService.buyMethodDisti && partnerDeal' [disabled]="disableForDisti" class="form-check-input" type="checkbox" value="" [checked]='b.notification === "Yes" ' (change)="updatePtRow(b,'notification')">
+                                      <input *ngIf='(!permissionService.qualManageTeam || qualService.buyMethodDisti || appDataService.roadMapPath || !partnerDeal) && type === "whoInvolved"' [attr.disabled]="true" class="form-check-input" type="checkbox" value="" [checked]='b.notification === "Yes" '>
+                                      <input *ngIf='type !== "whoInvolved"' class="form-check-input" type="checkbox" value="" [checked]='b.notification === "Yes" ' [disabled]="qualService.buyMethodDisti || !partnerDeal" (change)="updatePtRow(b,'notification')">
+                                      <!-- <input *ngIf='!appDataService.isReadWriteAccess && appDataService.userInfo.roSuperUser' [attr.disabled]="true" class="form-check-input" type="checkbox" value="" [checked]='b.notification === "Yes" ' (change)="updateEstRow(b,'notification')"> -->
+                                      <span></span>
+                                      <span class="custom-checkbox-btn">
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                    </span>
+                                  </label>
+                                </td>
+                                <td width="11%" class="text-center">
+                                    <label class="label-check">
+                                      <input *ngIf='permissionService.qualManageTeam && !appDataService.roadMapPath && type === "whoInvolved" && !qualService.buyMethodDisti && partnerDeal'  [disabled]="disableForDisti" class="form-check-input" type="checkbox" value="" [checked]='b.webexNotification === "Y" ' (change)="updatePtRow(b,'webexTeam')">
+                                      <input *ngIf='(!permissionService.qualManageTeam || qualService.buyMethodDisti || appDataService.roadMapPath || !partnerDeal) && type === "whoInvolved"' [attr.disabled]="true" class="form-check-input" type="checkbox" value="" [checked]='b.webexNotification === "Y" '>
+                                      <input *ngIf='type !== "whoInvolved"' class="form-check-input" type="checkbox" value="" [checked]='b.webexNotification === "Y" ' [disabled]="qualService.buyMethodDisti || !partnerDeal" (change)="updatePtRow(b,'webexTeam')">
+                                      <span class="custom-checkbox-btn">
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                    </span>
+                                      <!-- <input *ngIf='!appDataService.isReadWriteAccess && appDataService.userInfo.roSuperUser' [attr.disabled]="true" class="form-check-input" type="checkbox" value="" [checked]='b.webexNotification === "Y" ' (change)="updateEstRow(b,'webexTeam')"> -->
+                                      <span></span>
+                                  </label>
+                                </td>
+
+                                <td width="11%" class="text-center">
+                                    <label class="label-check">
+                                            <input *ngIf='permissionService.qualManageTeam && !appDataService.roadMapPath && type === "whoInvolved"' class="form-check-input" type="checkbox" value="" [checked]='b.notifyByWelcomeKit === "Y" ' (change)="updatePtRow(b,'walkmeTeam')">
+                                            <input *ngIf='(!permissionService.qualManageTeam || appDataService.roadMapPath) && type === "whoInvolved"' [attr.disabled]="true" class="form-check-input" type="checkbox" value="" [checked]='b.notifyByWelcomeKit === "Y" '>
+                                            <input *ngIf='type !== "whoInvolved"' class="form-check-input" type="checkbox" value="" [checked]='b.notifyByWelcomeKit === "Y" ' (change)="updatePtRow(b,'walkmeTeam')">
+                                            <span class="custom-checkbox-btn">
+                                                <span class="path1"></span>
+                                                <span class="path2"></span>
+                                            </span>
+                                            <!-- <input *ngIf='!appDataService.isReadWriteAccess && appDataService.userInfo.roSuperUser' [attr.disabled]="true" class="form-check-input" type="checkbox" value="" [checked]='b.webexNotification === "Y" ' (change)="updateEstRow(b,'webexTeam')"> -->
+                                            <span></span>
+                                        </label>
+                                </td>
+
+                                <td *ngIf="partnerDeal">
+                                    <div class="position-relative list-small-drop">
+                                        <div class="custom-dropdown">
+                                            <select *ngIf="permissionService.qualManageTeam && !appDataService.roadMapPath && type === 'whoInvolved' && !(qualService.qualification.createdBy === b.ccoId )"  [disabled]="disableForDisti" class="custom-select mb-2 mr-sm-2 mb-sm-0 col myCustomSelect" name="accessType" required (change)="updatePtRow(b,'accessType')">
+                                                      <option value="rw">{{localeService.getLocalizedString('qual.whoinvolved.USER_READ_WRITE_ACCESS')}}</option>
+                                                      <option value="ro" [selected]='b.access === "ro"'>{{localeService.getLocalizedString('qual.whoinvolved.USER_READ_ONLY_ACCESS')}}</option>
+                                          </select>
+                                            <select *ngIf="(!permissionService.qualManageTeam || appDataService.roadMapPath || (qualService.qualification.createdBy === b.ccoId )) && type === 'whoInvolved'" [attr.disabled]="true" class="custom-select mb-2 mr-sm-2 mb-sm-0 col myCustomSelect" name="accessType"
+                                                required (change)="updatePtRow(b,'accessType')">
+                                              <option value="rw">{{localeService.getLocalizedString('qual.whoinvolved.USER_READ_WRITE_ACCESS')}}</option>
+                                              <option value="ro" [selected]='b.access === "ro"'>{{localeService.getLocalizedString('qual.whoinvolved.USER_READ_ONLY_ACCESS')}}</option>
+                                          </select>
+                                            <select *ngIf="type !== 'whoInvolved' && !(qualService.qualification.createdBy === b.ccoId )" class="custom-select mb-2 mr-sm-2 mb-sm-0 col myCustomSelect" name="accessType" required (change)="updatePtRow(b,'accessType')">
+                                                <option value="rw">{{localeService.getLocalizedString('qual.whoinvolved.USER_READ_WRITE_ACCESS')}}</option>
+                                                <option value="ro" [selected]='b.access === "ro"'>{{localeService.getLocalizedString('qual.whoinvolved.USER_READ_ONLY_ACCESS')}}</option>
+                                    </select>
+                                            <select *ngIf="type !== 'whoInvolved' && (qualService.qualification.createdBy === b.ccoId )" [attr.disabled]="true" class="custom-select mb-2 mr-sm-2 mb-sm-0 col myCustomSelect" name="accessType" required (change)="updatePtRow(b,'accessType')">
+                                            <option value="rw">{{localeService.getLocalizedString('qual.whoinvolved.USER_READ_WRITE_ACCESS')}}</option>
+                                            <option value="ro" [selected]='b.access === "ro"'>{{localeService.getLocalizedString('qual.whoinvolved.USER_READ_ONLY_ACCESS')}}</option>
+                                        </select>
+                                            <span class="icon-down-arrow"></span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td *ngIf="permissionService.qualManageTeam && !appDataService.roadMapPath && type === 'whoInvolved'" class="text-center">
+                                    <span [id]='appDataService.createUniqueId("DELETE_MEMBER",appDataService.pageContext)' *ngIf='qualService.qualification.partnerTeam.length > 1 || !partnerDeal' (click)="removePartnerMember(b)" class="icon-delete"></span>
+                                    <span container="body" placement="bottom-left" ngbTooltip="{{localeService.getLocalizedMessage('qual.whoinvolved.REQUIRED_PARTENR')}}" [id]='appDataService.createUniqueId("DELETE_MEMBER",appDataService.pageContext)' *ngIf='qualService.qualification.partnerTeam.length === 1 && partnerDeal'
+                                        class="icon-delete disabled"></span>
+                                </td>
+                                <td *ngIf="(!permissionService.qualManageTeam || appDataService.roadMapPath) && type === 'whoInvolved'" class="text-center">
+                                    <span [id]='appDataService.createUniqueId("DELETE_MEMBER",appDataService.pageContext)' class="icon-delete disabled"></span>
+                                </td>
+                                <td *ngIf="type !== 'whoInvolved'" class="text-center">
+                                    <span [id]='appDataService.createUniqueId("DELETE_MEMBER",appDataService.pageContext)' *ngIf='qualService.qualification.partnerTeam.length > 1 || !partnerDeal' (click)="removePartnerMember(b)" class="icon-delete"></span>
+                                    <span container="body" placement="bottom-left" ngbTooltip="{{localeService.getLocalizedMessage('qual.whoinvolved.REQUIRED_PARTENR')}}" [id]='appDataService.createUniqueId("DELETE_MEMBER",appDataService.pageContext)' *ngIf='qualService.qualification.partnerTeam.length === 1 && partnerDeal'
+                                        class="icon-delete disabled"></span>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                        <tbody *ngIf="!qualService.qualification.partnerTeam?.length || !addMember">
+                            <tr class="empty-row">
+                                <td colspan="8" class="text-center">{{localeService.getLocalizedMessage('qual.whoinvolved.NO_MEMBER')}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- col-12 -->
+            </div>
+        </div>
+        <!--Card body-->
+    </div>
+</div>

@@ -1,0 +1,36 @@
+<div (clickOutside)="showSubscriptionData = false;"> 
+    <p (click)="showSubscriptionData = !showSubscriptionData">
+        <span class="icon-attachment pr-2"></span>
+        <span class="ls-pointer text-none">Linked Subscription</span>
+        <i class="icon-arrow-stroke-right text-none"></i>
+    </p>
+    <div class="dropdown-menu auto-width linked-subscription linked-s" *ngIf="showSubscriptionData" [ngStyle]="{'display':showSubscriptionData ? 'block':'none'}">
+        <span class="icon-arrow-up"><span class="path1"></span><span class="path2"></span></span>
+        <div class="cross-hover-info cross-hover-scroll">
+            <h6>List of Linked Subscriptions</h6>
+            <table width="100%">
+                <thead>
+                    <tr>
+                        <th colspan="1">Smart Account Name</th>
+                        <th>Smart Account Id</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Subscription ID</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor='let subData of subscriptionData'>
+                        <!-- <td class="pr-0"><span _ngcontent-gtt-c8="" class="icon-dna-indigo"><span _ngcontent-gtt-c8="" class="path1"></span><span _ngcontent-gtt-c8="" class="path2"></span><span _ngcontent-gtt-c8="" class="path3"></span><span _ngcontent-gtt-c8="" class="path4"></span><span _ngcontent-gtt-c8="" class="path5"></span><span _ngcontent-gtt-c8="" class="path6"></span><span _ngcontent-gtt-c8="" class="path7"></span></span></td> -->
+                        <td class="mx-160"><app-column-grid-cell [value]="subData.smartAccountName"></app-column-grid-cell></td>
+                        <td>{{subData.smartAccountId}}</td>
+                        <td>{{subData.displayStartDate}}</td>
+                        <td>{{subData.displayEndDate}}</td>
+                        <td>
+                            <a  href="javascript:void(0)" (click)="getSubRefDetails(subData.subRefId)">{{subData.subRefId}}</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

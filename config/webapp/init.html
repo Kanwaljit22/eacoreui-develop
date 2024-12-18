@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<body>
+<script>
+console.log('in html');
+    function redirect() {
+        const getPath =  window.location.href;
+        const path = getPath.replace('/app', '').replace('/#', '');
+        window.location.replace(path)
+    }
+    redirect();
+</script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<div class="custom-flyout-overlay"></div>
+<div class="custom-flyout vNext" [class.cav-detail]="!showPortFolios || eaService.features?.RENEWAL_SEPT_REL">
+    <div class="heading">
+        <div class="d-flex justify-content-between align-items-top">
+            <div class="heading-title">
+                <h2 class="heading--h2">Buying Program ID <span><b>{{projectStoreService.currentBpId.eaId}}</b></span></h2>
+            </div>
+            <div class="d-flex flex-column align-items-end">
+                <div class="d-flex align-items-center mb-3">
+                <button class="icon-close-btn mt-0" (click)="close()" type="button" attr.action-id="{{dataIdConstantsService.bpIdDetails_button_close}}"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="body">
+        <ul class="navigation-tabs">
+            <li *ngIf="!eaService.features?.RENEWAL_SEPT_REL" class="nav-items" (click)="showPortFolios = true;" attr.action-id="{{dataIdConstantsService.bpIdDetails_link_nav_showPortfoliosSuites}}">
+                <a class="" attr.action-id="{{dataIdConstantsService.bpIdDetails_link_showPortfoliosSuites}}" [class.active]="showPortFolios" href="javascript:void(0);">Portfolios and Suites</a>
+            </li>
+            <li *ngIf="eaService.features?.RENEWAL_SEPT_REL" class="nav-items" (click)="showPortFolios = true;" attr.action-id="{{dataIdConstantsService.bpIdDetails_link_nav_showCav}}">
+                <a href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.bpIdDetails_link_showCav}}" [class.active]="showPortFolios">{{'common.SUBSCRIPTION_INFORMATION' | localizationPipe : localizationService.localizedkeySet.size}}</a>
+            </li>
+            <li class="nav-items" (click)="showPortFolios = false;" attr.action-id="{{dataIdConstantsService.bpIdDetails_link_nav_showCav}}">
+                <a href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.bpIdDetails_link_showCav}}" [class.active]="!showPortFolios">Customer Scope Information</a>
+            </li>
+        </ul>
+        <div class="d-flex d-none justify-content-end align-items-center" *ngIf="!showPortFolios">
+            <ul class="qualify-btn">
+                <li>
+                    <a #downloadZipLink [hidden]="true"></a>
+                    <button type="button"  (click)="downloadExcel()" attr.action-id="{{dataIdConstantsService.BPIDDETAILS_BUTTON_DOWNLOADEXCEL}}" class="btn btn-secondary"><span class="i-vNext-download mr-2"></span>{{localizationService.getLocalizedString('common.DOWNLOAD_EXCEL_LABEL')}}</button>
+                </li>
+            </ul>
+        </div>
+        <div class="mt-3">
+            <div class="alert alert--warning alert-dismissable mb-3" *ngIf="isSubscExpiring && showPortFolios">
+                <span class="alert-icon d-flex">
+                <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                </span>
+               <span>{{'common.HIGHLIGHT_SUBSCRIPTION_WARNING' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+            </div>
+            <div *ngIf="showPortFolios">
+                <table class="primary-table" *ngIf="!eaService.features?.RENEWAL_SEPT_REL">
+                    <thead>
+                        <tr>
+                            <th  width="250px" attr.data-id="">Portfolio(s)</th>                    
+                            <th attr.data-id="">Suites</th>
+                           
+                        </tr>
+                       
+                    </thead>
+                    <tbody>
+                            <tr *ngFor="let pools of projectStoreService.currentBpId.portfolioSuites">
+                                <td attr.data-id="">{{pools.portfolioName}}</td>
+                                <!-- <td attr.data-id="" *ngFor="let suites of pools.atosNames">{{suites}}</td> -->
+                                <td attr.data-id="">{{pools?.atosNames?.toString()}}</td>
+                            </tr>
+                    </tbody>
+                </table>
+                <table class="primary-table" *ngIf="eaService.features?.RENEWAL_SEPT_REL">
+                    <thead>
+                        <tr>
+                            <th>{{'common.SUBSCRIPTION_ID' | localizationPipe : localizationService.localizedkeySet.size}}</th>                    
+                            <th>{{'common.SUBSCRIPTION_TYPE' | localizationPipe : localizationService.localizedkeySet.size}} </th>
+                            <th>{{'common.DAYS_LEFT' | localizationPipe : localizationService.localizedkeySet.size}}</th>                
+                            <th>{{'common.SUBSCRIPTION_STATUS' | localizationPipe : localizationService.localizedkeySet.size}} </th>                
+                            <th>{{'common.START_DATE' | localizationPipe : localizationService.localizedkeySet.size}}</th>                
+                            <th>{{'common.END_DATE' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                            <th>{{'common.SUITES' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                            <th>{{'common.PARTNER' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                        </tr>
+                       
+                    </thead>
+                    <tbody>
+                        <ng-container *ngIf="subscriptionData.length > 0">
+                            <ng-container *ngFor="let subscription of subscriptionData; let i = index;">
+                                <tr [ngClass]="{'due-renewal':(subscription.type === 'ON_TIME_FOLLOWON' && subscription.statusDesc !== 'Overdue')}">
+                                    <td [attr.data-id]="dataIdConstantsService.BPIDDETAILS_SUBSCRIPTION_ID + i">{{subscription.subRefId}}</td>
+                                    <td [attr.data-id]="dataIdConstantsService.BPIDDETAILS_SUBSCRIPTION_TYPE + i">{{subscription.offerType}}</td>
+                                    <td [attr.data-id]="dataIdConstantsService.BPIDDETAILS_SUBSCRIPTION_DAYSLEFT + i">{{subscription.daysLeft}}</td>
+                                    <td [attr.data-id]="dataIdConstantsService.BPIDDETAILS_SUBSCRIPTION_STATUSDESC + i">
+                                        <span class="badge badge-approved badge-t3" *ngIf="subscription.statusDesc === 'Active'">{{subscription.statusDesc}}</span>
+                                        <span class="badge badge-in-progress badge-t3" *ngIf="subscription.statusDesc !== 'Active'">{{subscription.statusDesc}}</span>
+                                     <td [attr.data-id]="dataIdConstantsService.BPIDDETAILS_SUBSCRIPTION_STARTDATE + i">{{subscription.startDateStr}}</td>
+                                    <td [attr.data-id]="dataIdConstantsService.BPIDDETAILS_SUBSCRIPTION_ENDDATE + i">{{subscription.endDateStr}}</td>
+                                    <td [attr.data-id]="dataIdConstantsService.BPIDDETAILS_SUBSCRIPTION_SUITES + i">
+                                        <!-- <span *ngFor="let suite of subscription.suites; let i = index;  let last = last;">
+                                            {{suite}}<span *ngIf='suite.length > (i+1) && !last'>, </span>
+                                        </span></td> -->
+                                        <span class="d-inline-block ellipsis" placement="top" ngbTooltip="{{subscription.suites?.join(' ,')}}">
+                                            {{subscription.suites?.join(' ,')}}
+                                        </span></td>
+                                    <td [attr.data-id]="dataIdConstantsService.BPIDDETAILS_SUBSCRIPTION_PARTNER + i">{{subscription?.partner?.beGeoName}}</td>
+                                </tr>
+                            </ng-container>
+                        </ng-container>
+                        
+                        <tr *ngIf="!subscriptionData.length">
+                            <td colspan="8">
+                                {{'common.NO_DATA_FOUND' | localizationPipe : localizationService.localizedkeySet.size}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div *ngIf="!showPortFolios">
+                <table class="primary-table cav-table">
+                    <thead>
+                        <tr>
+                            <th attr.data-id="" class="borderR0">Customer Account (CAV ID)</th>                    
+                            <!-- <th attr.data-id="" class="borderR0">Customer BU (BU ID)</th> -->
+                        </tr>
+                        
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td attr.data-id="" class="borderR0">{{cavDetails[0]?.cavName}} ({{cavDetails[0]?.cavId}})</td>
+                            <!-- <td attr.data-id="" class="borderR0">{{cavDetails?.bus[0]?.buName}} ({{cavDetails?.bus[0]?.buId}})</td> -->
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="party-details">
+                    <div class="row">
+                        <div class="col-12">
+                            <app-message [displayModalMsg]="true"></app-message>
+                        </div>
+                    </div>
+                    <app-cav-id-details [subsidiariesData] = "cavDetails[0]?.bus" ></app-cav-id-details>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,9 @@
+.right-flyout .right-flyout_content .fullScreenBtn {
+    position: absolute;
+    right   : 20px;
+    top     : 8px;
+}
+
+.right-flyout .right-flyout_content .fullScreenBtn+.fullScreenBtn {
+    right: 50px;
+}

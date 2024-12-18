@@ -1,0 +1,23 @@
+<div class="modal-body vNext modal-without-header">
+    <button class="icon-close-btn" (click)="close()" attr.action-id="{{dataIdConstantsService.addCaseId_button_closeIcon}}" type="button"></button>
+
+    <h2>{{localizationService.getLocalizedString('add-case-id-pa.CASE_ID')}}</h2>
+</div>
+
+<div class="modal-body vNext modal-without-header">
+
+    <div class="row px-5 pt-3">
+
+        <div class="col-12">
+            <div class="form-group mt-0 mb-3">
+                <label class="customer-label mb-1" for="caseIdNumber" (click)="focusInput('caseIdNumber')">{{localizationService.getLocalizedString('add-case-id-pa.ENTER_CASE_ID')}}</label>
+                <input class="form-control" maxlength="65" appElementFocus id="caseIdNumber" [(ngModel)]="caseId" name="caseIdNumber" required="" type="text" attr.data-id="{{dataIdConstantsService.addCaseId_text_caseIdNumber}}" (ngModelChange)="isCaseIdValueChanged($event)">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary sm cancel-btn" attr.action-id="{{dataIdConstantsService.addCaseId_button_cancel}}" (click)="close()" id="{{elementIdConstantsService.AddCaseId_Cancel}}">{{localizationService.getLocalizedString('common.CANCEL')}}</button>
+    <button class="btn btn-primary ml-2" type="button" (click) = "update()" attr.action-id="{{dataIdConstantsService.addCaseId_button_update}}" [disabled]="!isUpdate">{{localizationService.getLocalizedString('common.UPDATE')}}</button>
+</div>

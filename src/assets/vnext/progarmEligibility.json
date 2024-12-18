@@ -1,0 +1,41 @@
+{
+    "rid": "f1fea1ce-0332-470c-a2f5-5d5e3cb5ad43",
+    "user": "rbinwani",
+    "error": false,
+    "data": {
+        "enrollments": [
+            {
+                "name": "Networking",
+                "isPrimary": true,
+                "commitInfo": {
+                    "committed": false,
+                    "fcSuiteCount": 0,
+                    "pcSuiteCount": 6,
+                    "fullCommitTcv": 5667,
+                    "partialCommitTcv": 677
+                }
+            },
+            {
+                "name": "Security",
+                "commitInfo": {
+                    "committed": false,
+                    "fcSuiteCount": 0,
+                    "pcSuiteCount": 6,
+                    "fullCommitTcv": 5667,
+                    "partialCommitTcv": 677
+                }
+            }
+        ],
+        "proposal": {
+            "commitInfo": {
+                "committed": false,
+                "fcSuiteCount": 0,
+                "pcSuiteCount": 6,
+                "fullCommitTcv": 5667,
+                "partialCommitTcv": 677,
+                "threshold": 100000
+            }
+        }
+    },
+    "currentDate": "2021-06-23T09:28:50.329+0000"
+}

@@ -1,0 +1,1708 @@
+
+        {
+            "guName": "The New Zealand Government",
+            "guFlag": true,
+            "type": "GU",
+            "guId": 123435,
+            "numberOfCountries": 123,
+            "numberOfHeadQuarters": 245,
+            "numberOfBranches": 345,
+            "exclusion": false,
+            "address1": "THYSSENKRUPP ALLEE 1",
+            "address2": "N/A",
+            "country": "GERMANY",
+            "city": "ESSEN",
+            "state": "N/A",
+            "postalCode": "45143",
+            "theaterName": "EMEAR",
+            "associatedGU": [
+                {
+                    "guName": "The New Zealand Government",
+                    "guFlag": true,
+                    "guId": 123434,
+                    "numberOfCountries": 123,
+                    "numberOfHeadQuarters": 245,
+                    "numberOfBranches": 345
+                },
+                {
+                    "guName": "New Zealand Airways",
+                    "guFlag": true,
+                    "guId": 123435,
+                    "numberOfCountries": 173,
+                    "numberOfHeadQuarters": 295,
+                    "numberOfBranches": 545
+                },
+                {
+                    "guName": "New Zealand Ministry",
+                    "guFlag": true,
+                    "guId": 123436,
+                    "numberOfCountries": 143,
+                    "numberOfHeadQuarters": 345,
+                    "numberOfBranches": 445
+                }
+            ],
+            "subsidaries": [
+                {
+                    "partyName": "AIR NEW ZEALAND",
+                    "type": "HQ",
+                    "partyId": 1234567,
+                    "parentName": "NEW ZEALAND",
+                    "parentId": 3456789,
+                    "subsidiaryCount": 134,
+                    "address1": "THYSSENKRUPP ALLEE 1",
+                    "address2": "N/A",
+                    "city": "ESSEN",
+                    "country": "GERMANY",
+                    "state": "CA",
+                    "postalCode": "8008",
+                    "guId": 6789543,
+                    "guName": "THYSSENKRUPP AG",
+                    "verticalMarketTop": "Government",
+                    "verticalMarketSub": "Discrete Manufacturing",
+                    "verticalMarketDetails": "Discrete Manufacturing",
+                    "subsidiaryName": "AIR NEW ZEALAND",
+                    "listOfSubsidaries": [
+                        {
+                            "type": "HQ",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "BR",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "BR",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "HQ",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "BR",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        }
+                    ]
+                },
+                {
+                    "partyName": "AIR NEW ZEALAND",
+                    "type": "HQ",
+                    "partyId": 1234567,
+                    "parentName": "NEW ZEALAND",
+                    "parentId": 3456789,
+                    "subsidiaryCount": 134,
+                    "address1": "THYSSENKRUPP ALLEE 1",
+                    "address2": "N/A",
+                    "city": "ESSEN",
+                    "country": "GERMANY",
+                    "state": "CA",
+                    "postalCode": "8008",
+                    "guId": 6789543,
+                    "guName": "THYSSENKRUPP AG",
+                    "verticalMarketTop": "Government",
+                    "verticalMarketSub": "Discrete Manufacturing",
+                    "verticalMarketDetails": "Discrete Manufacturing",
+                    "subsidiaryName": "AIR NEW ZEALAND",
+                    "listOfSubsidaries": [
+                        {
+                            "type": "HQ",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "BR",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "BR",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "HQ",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "BR",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        }
+                    ]
+                },
+                {
+                    "partyName": "AIR NEW ZEALAND",
+                    "type": "HQ",
+                    "partyId": 1234567,
+                    "parentName": "NEW ZEALAND",
+                    "parentId": 3456789,
+                    "subsidiaryCount": 134,
+                    "address1": "THYSSENKRUPP ALLEE 1",
+                    "address2": "N/A",
+                    "city": "ESSEN",
+                    "country": "GERMANY",
+                    "state": "CA",
+                    "postalCode": "8008",
+                    "guId": 6789543,
+                    "guName": "THYSSENKRUPP AG",
+                    "verticalMarketTop": "Government",
+                    "verticalMarketSub": "Discrete Manufacturing",
+                    "verticalMarketDetails": "Discrete Manufacturing",
+                    "subsidiaryName": "AIR NEW ZEALAND",
+                    "listOfSubsidaries": [
+                        {
+                            "type": "HQ",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "BR",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "BR",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "HQ",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "BR",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        }
+                    ]
+                },
+                {
+                    "partyName": "AIR NEW ZEALAND",
+                    "type": "BR",
+                    "partyId": 1234567,
+                    "parentName": "NEW ZEALAND",
+                    "parentId": 3456789,
+                    "subsidiaryCount": 134,
+                    "address1": "THYSSENKRUPP ALLEE 1",
+                    "address2": "N/A",
+                    "city": "ESSEN",
+                    "country": "GERMANY",
+                    "state": "CA",
+                    "postalCode": "8008",
+                    "guId": 6789543,
+                    "guName": "THYSSENKRUPP AG",
+                    "verticalMarketTop": "Government",
+                    "verticalMarketSub": "Discrete Manufacturing",
+                    "verticalMarketDetails": "Discrete Manufacturing",
+                    "subsidiaryName": "AIR NEW ZEALAND",
+                    "listOfSubsidaries": [
+                        {
+                            "type": "BR",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "BR",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "BR",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "BR",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "BR",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        }
+                    ]
+                },
+                {
+                    "partyName": "AIR NEW ZEALAND",
+                    "type": "HQ",
+                    "partyId": 1234567,
+                    "parentName": "NEW ZEALAND",
+                    "parentId": 3456789,
+                    "subsidiaryCount": 134,
+                    "address1": "THYSSENKRUPP ALLEE 1",
+                    "address2": "N/A",
+                    "city": "ESSEN",
+                    "country": "GERMANY",
+                    "state": "CA",
+                    "postalCode": "8008",
+                    "guId": 6789543,
+                    "guName": "THYSSENKRUPP AG",
+                    "verticalMarketTop": "Government",
+                    "verticalMarketSub": "Discrete Manufacturing",
+                    "verticalMarketDetails": "Discrete Manufacturing",
+                    "subsidiaryName": "AIR NEW ZEALAND",
+                    "listOfSubsidaries": [
+                        {
+                            "type": "HQ",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "BR",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "BR",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "HQ",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "BR",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        }
+                    ]
+                },
+                {
+                    "partyName": "AIR NEW ZEALAND",
+                    "type": "HQ",
+                    "partyId": 1234567,
+                    "parentName": "NEW ZEALAND",
+                    "parentId": 3456789,
+                    "subsidiaryCount": 134,
+                    "address1": "THYSSENKRUPP ALLEE 1",
+                    "address2": "N/A",
+                    "city": "ESSEN",
+                    "country": "GERMANY",
+                    "state": "CA",
+                    "postalCode": "8008",
+                    "guId": 6789543,
+                    "guName": "THYSSENKRUPP AG",
+                    "verticalMarketTop": "Government",
+                    "verticalMarketSub": "Discrete Manufacturing",
+                    "verticalMarketDetails": "Discrete Manufacturing",
+                    "subsidiaryName": "AIR NEW ZEALAND",
+                    "listOfSubsidaries": [
+                        {
+                            "type": "HQ",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "BR",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "BR",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "HQ",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "BR",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        }
+                    ]
+                },
+                {
+                    "partyName": "AIR NEW ZEALAND",
+                    "type": "BR",
+                    "partyId": 1234567,
+                    "parentName": "NEW ZEALAND",
+                    "parentId": 3456789,
+                    "subsidiaryCount": 134,
+                    "address1": "THYSSENKRUPP ALLEE 1",
+                    "address2": "N/A",
+                    "city": "ESSEN",
+                    "country": "GERMANY",
+                    "state": "CA",
+                    "postalCode": "8008",
+                    "guId": 6789543,
+                    "guName": "THYSSENKRUPP AG",
+                    "verticalMarketTop": "Government",
+                    "verticalMarketSub": "Discrete Manufacturing",
+                    "verticalMarketDetails": "Discrete Manufacturing",
+                    "subsidiaryName": "AIR NEW ZEALAND",
+                    "listOfSubsidaries": [
+                        {
+                            "type": "BR",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "BR",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "BR",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "BR",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "BR",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        }
+                    ]
+                },
+                {
+                    "partyName": "AIR NEW ZEALAND",
+                    "type": "HQ",
+                    "partyId": 1234567,
+                    "parentName": "NEW ZEALAND",
+                    "parentId": 3456789,
+                    "subsidiaryCount": 134,
+                    "address1": "THYSSENKRUPP ALLEE 1",
+                    "address2": "N/A",
+                    "city": "ESSEN",
+                    "country": "GERMANY",
+                    "state": "CA",
+                    "postalCode": "8008",
+                    "guId": 6789543,
+                    "guName": "THYSSENKRUPP AG",
+                    "verticalMarketTop": "Government",
+                    "verticalMarketSub": "Discrete Manufacturing",
+                    "verticalMarketDetails": "Discrete Manufacturing",
+                    "subsidiaryName": "AIR NEW ZEALAND",
+                    "listOfSubsidaries": [
+                        {
+                            "type": "HQ",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "BR",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "BR",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "HQ",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "BR",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        }
+                    ]
+                },
+                {
+                    "partyName": "AIR NEW ZEALAND",
+                    "type": "HQ",
+                    "partyId": 1234567,
+                    "parentName": "NEW ZEALAND",
+                    "parentId": 3456789,
+                    "subsidiaryCount": 134,
+                    "address1": "THYSSENKRUPP ALLEE 1",
+                    "address2": "N/A",
+                    "city": "ESSEN",
+                    "country": "GERMANY",
+                    "state": "CA",
+                    "postalCode": "8008",
+                    "guId": 6789543,
+                    "guName": "THYSSENKRUPP AG",
+                    "verticalMarketTop": "Government",
+                    "verticalMarketSub": "Discrete Manufacturing",
+                    "verticalMarketDetails": "Discrete Manufacturing",
+                    "subsidiaryName": "AIR NEW ZEALAND",
+                    "listOfSubsidaries": [
+                        {
+                            "type": "HQ",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "BR",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "BR",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "HQ",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "BR",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        }
+                    ]
+                },
+                {
+                    "partyName": "AIR NEW ZEALAND",
+                    "type": "HQ",
+                    "partyId": 1234567,
+                    "parentName": "NEW ZEALAND",
+                    "parentId": 3456789,
+                    "subsidiaryCount": 134,
+                    "address1": "THYSSENKRUPP ALLEE 1",
+                    "address2": "N/A",
+                    "city": "ESSEN",
+                    "country": "GERMANY",
+                    "state": "CA",
+                    "postalCode": "8008",
+                    "guId": 6789543,
+                    "guName": "THYSSENKRUPP AG",
+                    "verticalMarketTop": "Government",
+                    "verticalMarketSub": "Discrete Manufacturing",
+                    "verticalMarketDetails": "Discrete Manufacturing",
+                    "subsidiaryName": "AIR NEW ZEALAND",
+                    "listOfSubsidaries": [
+                        {
+                            "type": "HQ",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "BR",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "BR",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "HQ",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "BR",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        }
+                    ]
+                },
+                {
+                    "partyName": "AIR NEW ZEALAND",
+                    "type": "HQ",
+                    "partyId": 1234567,
+                    "parentName": "NEW ZEALAND",
+                    "parentId": 3456789,
+                    "subsidiaryCount": 134,
+                    "address1": "THYSSENKRUPP ALLEE 1",
+                    "address2": "N/A",
+                    "city": "ESSEN",
+                    "country": "GERMANY",
+                    "state": "CA",
+                    "postalCode": "8008",
+                    "guId": 6789543,
+                    "guName": "THYSSENKRUPP AG",
+                    "verticalMarketTop": "Government",
+                    "verticalMarketSub": "Discrete Manufacturing",
+                    "verticalMarketDetails": "Discrete Manufacturing",
+                    "subsidiaryName": "AIR NEW ZEALAND",
+                    "listOfSubsidaries": [
+                        {
+                            "type": "HQ",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "BR",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "BR",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "HQ",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "BR",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        }
+                    ]
+                },
+                {
+                    "partyName": "AIR NEW ZEALAND",
+                    "type": "HQ",
+                    "partyId": 1234567,
+                    "parentName": "NEW ZEALAND",
+                    "parentId": 3456789,
+                    "subsidiaryCount": 134,
+                    "address1": "THYSSENKRUPP ALLEE 1",
+                    "address2": "N/A",
+                    "city": "ESSEN",
+                    "country": "GERMANY",
+                    "state": "CA",
+                    "postalCode": "8008",
+                    "guId": 6789543,
+                    "guName": "THYSSENKRUPP AG",
+                    "verticalMarketTop": "Government",
+                    "verticalMarketSub": "Discrete Manufacturing",
+                    "verticalMarketDetails": "Discrete Manufacturing",
+                    "subsidiaryName": "AIR NEW ZEALAND",
+                    "listOfSubsidaries": [
+                        {
+                            "type": "HQ",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "BR",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "BR",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "HQ",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "BR",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        }
+                    ]
+                },
+                {
+                    "partyName": "AIR NEW ZEALAND",
+                    "type": "HQ",
+                    "partyId": 1234567,
+                    "parentName": "NEW ZEALAND",
+                    "parentId": 3456789,
+                    "subsidiaryCount": 134,
+                    "address1": "THYSSENKRUPP ALLEE 1",
+                    "address2": "N/A",
+                    "city": "ESSEN",
+                    "country": "GERMANY",
+                    "state": "CA",
+                    "postalCode": "8008",
+                    "guId": 6789543,
+                    "guName": "THYSSENKRUPP AG",
+                    "verticalMarketTop": "Government",
+                    "verticalMarketSub": "Discrete Manufacturing",
+                    "verticalMarketDetails": "Discrete Manufacturing",
+                    "subsidiaryName": "AIR NEW ZEALAND",
+                    "listOfSubsidaries": [
+                        {
+                            "type": "HQ",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "BR",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "BR",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "HQ",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "BR",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        }
+                    ]
+                },
+                {
+                    "partyName": "AIR NEW ZEALAND",
+                    "type": "HQ",
+                    "partyId": 1234567,
+                    "parentName": "NEW ZEALAND",
+                    "parentId": 3456789,
+                    "subsidiaryCount": 134,
+                    "address1": "THYSSENKRUPP ALLEE 1",
+                    "address2": "N/A",
+                    "city": "ESSEN",
+                    "country": "GERMANY",
+                    "state": "CA",
+                    "postalCode": "8008",
+                    "guId": 6789543,
+                    "guName": "THYSSENKRUPP AG",
+                    "verticalMarketTop": "Government",
+                    "verticalMarketSub": "Discrete Manufacturing",
+                    "verticalMarketDetails": "Discrete Manufacturing",
+                    "subsidiaryName": "AIR NEW ZEALAND",
+                    "listOfSubsidaries": [
+                        {
+                            "type": "HQ",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "BR",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "BR",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "HQ",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "BR",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        }
+                    ]
+                },
+                {
+                    "partyName": "AIR NEW ZEALAND",
+                    "type": "HQ",
+                    "partyId": 1234567,
+                    "parentName": "NEW ZEALAND",
+                    "parentId": 3456789,
+                    "subsidiaryCount": 134,
+                    "address1": "THYSSENKRUPP ALLEE 1",
+                    "address2": "N/A",
+                    "city": "ESSEN",
+                    "country": "GERMANY",
+                    "state": "CA",
+                    "postalCode": "8008",
+                    "guId": 6789543,
+                    "guName": "THYSSENKRUPP AG",
+                    "verticalMarketTop": "Government",
+                    "verticalMarketSub": "Discrete Manufacturing",
+                    "verticalMarketDetails": "Discrete Manufacturing",
+                    "subsidiaryName": "AIR NEW ZEALAND",
+                    "listOfSubsidaries": [
+                        {
+                            "type": "HQ",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "BR",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "BR",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "HQ",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "BR",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        }
+                    ]
+                },
+                {
+                    "partyName": "AIR NEW ZEALAND",
+                    "type": "HQ",
+                    "partyId": 1234567,
+                    "parentName": "NEW ZEALAND",
+                    "parentId": 3456789,
+                    "subsidiaryCount": 134,
+                    "address1": "THYSSENKRUPP ALLEE 1",
+                    "address2": "N/A",
+                    "city": "ESSEN",
+                    "country": "GERMANY",
+                    "state": "CA",
+                    "postalCode": "8008",
+                    "guId": 6789543,
+                    "guName": "THYSSENKRUPP AG",
+                    "verticalMarketTop": "Government",
+                    "verticalMarketSub": "Discrete Manufacturing",
+                    "verticalMarketDetails": "Discrete Manufacturing",
+                    "subsidiaryName": "AIR NEW ZEALAND",
+                    "listOfSubsidaries": [
+                        {
+                            "type": "HQ",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "BR",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "BR",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "HQ",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "BR",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        }
+                    ]
+                },
+                {
+                    "partyName": "AIR NEW ZEALAND",
+                    "type": "HQ",
+                    "partyId": 1234567,
+                    "parentName": "NEW ZEALAND",
+                    "parentId": 3456789,
+                    "subsidiaryCount": 134,
+                    "address1": "THYSSENKRUPP ALLEE 1",
+                    "address2": "N/A",
+                    "city": "ESSEN",
+                    "country": "GERMANY",
+                    "state": "CA",
+                    "postalCode": "8008",
+                    "guId": 6789543,
+                    "guName": "THYSSENKRUPP AG",
+                    "verticalMarketTop": "Government",
+                    "verticalMarketSub": "Discrete Manufacturing",
+                    "verticalMarketDetails": "Discrete Manufacturing",
+                    "subsidiaryName": "AIR NEW ZEALAND",
+                    "listOfSubsidaries": [
+                        {
+                            "type": "HQ",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "BR",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "BR",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "HQ",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "BR",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        }
+                    ]
+                },
+                {
+                    "partyName": "AIR NEW ZEALAND",
+                    "type": "HQ",
+                    "partyId": 1234567,
+                    "parentName": "NEW ZEALAND",
+                    "parentId": 3456789,
+                    "subsidiaryCount": 134,
+                    "address1": "THYSSENKRUPP ALLEE 1",
+                    "address2": "N/A",
+                    "city": "ESSEN",
+                    "country": "GERMANY",
+                    "state": "CA",
+                    "postalCode": "8008",
+                    "guId": 6789543,
+                    "guName": "THYSSENKRUPP AG",
+                    "verticalMarketTop": "Government",
+                    "verticalMarketSub": "Discrete Manufacturing",
+                    "verticalMarketDetails": "Discrete Manufacturing",
+                    "subsidiaryName": "AIR NEW ZEALAND",
+                    "listOfSubsidaries": [
+                        {
+                            "type": "HQ",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "BR",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "BR",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "HQ",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "BR",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        }
+                    ]
+                },
+                {
+                    "partyName": "AIR NEW ZEALAND",
+                    "type": "HQ",
+                    "partyId": 1234567,
+                    "parentName": "NEW ZEALAND",
+                    "parentId": 3456789,
+                    "subsidiaryCount": 134,
+                    "address1": "THYSSENKRUPP ALLEE 1",
+                    "address2": "N/A",
+                    "city": "ESSEN",
+                    "country": "GERMANY",
+                    "state": "CA",
+                    "postalCode": "8008",
+                    "guId": 6789543,
+                    "guName": "THYSSENKRUPP AG",
+                    "verticalMarketTop": "Government",
+                    "verticalMarketSub": "Discrete Manufacturing",
+                    "verticalMarketDetails": "Discrete Manufacturing",
+                    "subsidiaryName": "AIR NEW ZEALAND",
+                    "listOfSubsidaries": [
+                        {
+                            "type": "HQ",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "BR",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "BR",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "HQ",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "BR",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        }
+                    ]
+                },
+                {
+                    "partyName": "AIR NEW ZEALAND",
+                    "type": "HQ",
+                    "partyId": 1234567,
+                    "parentName": "NEW ZEALAND",
+                    "parentId": 3456789,
+                    "subsidiaryCount": 134,
+                    "address1": "THYSSENKRUPP ALLEE 1",
+                    "address2": "N/A",
+                    "city": "ESSEN",
+                    "country": "GERMANY",
+                    "state": "CA",
+                    "postalCode": "8008",
+                    "guId": 6789543,
+                    "guName": "THYSSENKRUPP AG",
+                    "verticalMarketTop": "Government",
+                    "verticalMarketSub": "Discrete Manufacturing",
+                    "verticalMarketDetails": "Discrete Manufacturing",
+                    "subsidiaryName": "AIR NEW ZEALAND",
+                    "listOfSubsidaries": [
+                        {
+                            "type": "HQ",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "BR",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "BR",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "HQ",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "BR",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        }
+                    ]
+                },
+                {
+                    "partyName": "AIR NEW ZEALAND",
+                    "type": "HQ",
+                    "partyId": 1234567,
+                    "parentName": "NEW ZEALAND",
+                    "parentId": 3456789,
+                    "subsidiaryCount": 134,
+                    "address1": "THYSSENKRUPP ALLEE 1",
+                    "address2": "N/A",
+                    "city": "ESSEN",
+                    "country": "GERMANY",
+                    "state": "CA",
+                    "postalCode": "8008",
+                    "guId": 6789543,
+                    "guName": "THYSSENKRUPP AG",
+                    "verticalMarketTop": "Government",
+                    "verticalMarketSub": "Discrete Manufacturing",
+                    "verticalMarketDetails": "Discrete Manufacturing",
+                    "subsidiaryName": "AIR NEW ZEALAND",
+                    "listOfSubsidaries": [
+                        {
+                            "type": "HQ",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "BR",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "BR",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "HQ",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        },
+                        {
+                            "type": "BR",
+                            "partyName": "NEW ZEALAND",
+                            "address1": "THYSSENKRUPP ALLEE 1",
+                            "address2": "N/A",
+                            "city": "ESSEN",
+                            "country": "GERMANY",
+                            "state": "CA",
+                            "postalCode": "8008"
+                        }
+                    ]
+                }
+            ],
+            "summaryData": [
+                {
+                    "subsidiaryName": "AIR NEW ZEALAND",
+                    "availableHQs": 419,
+                    "availableBranches": 555,
+                    "selectedHQs": 0,
+                    "selectedBranches": 0,
+                    "countries": [
+                        {
+                            "name": "New Zealand",
+                            "headquarters": 123,
+                            "branches": 145
+                        },
+                        {
+                            "name": "India",
+                            "headquarters": 103,
+                            "branches": 175
+                        },
+                        {
+                            "name": "USA",
+                            "headquarters": 193,
+                            "branches": 235
+                        }
+                    ]
+                },
+                {
+                    "subsidiaryName": "AIR NEW ZEALAND",
+                    "availableHQs": 226,
+                    "availableBranches": 320,
+                    "selectedHQs": 0,
+                    "selectedBranches": 0,
+                    "countries": [
+                        {
+                            "name": "New Zealand",
+                            "headquarters": 123,
+                            "branches": 145
+                        },
+                        {
+                            "name": "India",
+                            "headquarters": 103,
+                            "branches": 175
+                        }
+                    ]
+                },
+                {
+                    "subsidiaryName": "AIR NEW ZEALAND",
+                    "availableHQs": 123,
+                    "availableBranches": 145,
+                    "selectedHQs": 0,
+                    "selectedBranches": 0,
+                    "countries": [
+                        {
+                            "name": "New Zealand",
+                            "headquarters": 123,
+                            "branches": 145
+                        }
+                    ]
+                },
+                {
+                    "subsidiaryName": "AIR NEW ZEALAND",
+                    "availableHQs": 316,
+                    "availableBranches": 380,
+                    "selectedHQs": 0,
+                    "selectedBranches": 0,
+                    "countries": [
+                        {
+                            "name": "New Zealand",
+                            "headquarters": 123,
+                            "branches": 145
+                        },
+                        {
+                            "name": "USA",
+                            "headquarters": 193,
+                            "branches": 235
+                        }
+                    ]
+                },
+                {
+                    "subsidiaryName": "AIR NEW ZEALAND",
+                    "availableHQs": 419,
+                    "availableBranches": 555,
+                    "selectedHQs": 0,
+                    "selectedBranches": 0,
+                    "countries": [
+                        {
+                            "name": "New Zealand",
+                            "headquarters": 123,
+                            "branches": 145
+                        },
+                        {
+                            "name": "India",
+                            "headquarters": 103,
+                            "branches": 175
+                        },
+                        {
+                            "name": "USA",
+                            "headquarters": 193,
+                            "branches": 235
+                        }
+                    ]
+                },
+                {
+                    "subsidiaryName": "AIR NEW ZEALAND",
+                    "availableHQs": 419,
+                    "availableBranches": 555,
+                    "selectedHQs": 0,
+                    "selectedBranches": 0,
+                    "countries": [
+                        {
+                            "name": "New Zealand",
+                            "headquarters": 123,
+                            "branches": 145
+                        },
+                        {
+                            "name": "India",
+                            "headquarters": 103,
+                            "branches": 175
+                        },
+                        {
+                            "name": "USA",
+                            "headquarters": 193,
+                            "branches": 235
+                        }
+                    ]
+                },
+                {
+                    "subsidiaryName": "AIR NEW ZEALAND",
+                    "availableHQs": 419,
+                    "availableBranches": 555,
+                    "selectedHQs": 0,
+                    "selectedBranches": 0,
+                    "countries": [
+                        {
+                            "name": "New Zealand",
+                            "headquarters": 123,
+                            "branches": 145
+                        },
+                        {
+                            "name": "India",
+                            "headquarters": 103,
+                            "branches": 175
+                        },
+                        {
+                            "name": "USA",
+                            "headquarters": 193,
+                            "branches": 235
+                        }
+                    ]
+                }
+            ]
+        }

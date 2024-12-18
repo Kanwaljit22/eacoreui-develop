@@ -1,0 +1,116 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "cli": {
+    "analytics": false
+  },
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "cis-enterprise-agreement-q1fy18-html": {
+      "root": "",
+      "sourceRoot": "src",
+      "projectType": "application",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "../src/main/webapp/app/",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "tsConfig": "src/tsconfig.app.json",
+            "polyfills": "src/polyfills.ts",
+            "assets": [
+              "src/assets",
+              "src/healthcheck.html",
+              "src/favicon.ico"
+            ],
+            "styles": [
+              "src/assets/styles/common.scss",
+              "src/styles.scss",
+              "./node_modules/bootstrap/scss/bootstrap.scss",
+              "src/assets/styles/svg-icon.scss",
+              "src/assets/styles/style.scss",
+              "src/assets/styles/enterpriseAgreement.scss",
+              "src/assets/styles/proficiency-renderer.scss",
+              "src/assets/styles/tooltip-updated.scss",
+              "src/assets/styles/ion.rangeSlider.scss",
+              "src/assets/styles/ion.rangeSlider.skinFlat.scss",
+              "./node_modules/ag-grid-community/dist/styles/ag-theme-fresh/sass/ag-theme-fresh.scss",
+              "./node_modules/ag-grid-community/dist/styles/ag-grid.scss",
+              "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.scss",
+              "./node_modules/ngx-ui-switch/ui-switch.component.scss",
+              "./node_modules/intl-tel-input/build/css/intlTelInput.css"
+            ],
+            "scripts": [
+              "./node_modules/jquery/dist/jquery.min.js",
+              "./node_modules/ion-rangeslider/js/ion.rangeSlider.min.js"
+            ],
+            "aot": true,
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": true,
+            "sourceMap": true,
+            "namedChunks": true
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "aot": true,
+              "extractLicenses": true,
+              "buildOptimizer": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "cis-enterprise-agreement-q1fy18-html:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "cis-enterprise-agreement-q1fy18-html:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "cis-enterprise-agreement-q1fy18-html:build"
+          }
+        }
+      }
+    },
+    "cis-enterprise-agreement-q1fy18-html-e2e": {
+      "root": "e2e",
+      "sourceRoot": "e2e",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "./protractor.conf.js",
+            "devServerTarget": "cis-enterprise-agreement-q1fy18-html:serve"
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "cis-enterprise-agreement-q1fy18-html",
+  "schematics": {
+    "@schematics/angular:component": {
+      "prefix": "app",
+      "style": "scss"
+    },
+    "@schematics/angular:directive": {
+      "prefix": "app"
+    }
+  }
+}

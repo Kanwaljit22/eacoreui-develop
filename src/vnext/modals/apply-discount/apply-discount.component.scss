@@ -1,0 +1,36 @@
+$browser-context:16;
+@function rem($pixels, $context: $browser-context) {
+    @return #{$pixels/$context}rem;
+}
+.vNext-rageSlider{
+    position: relative;
+    padding-right: 70px;
+    .noteText{
+        &.pull-right {
+            font-size: rem(12);
+            position: absolute;
+            right: 55px;
+            top: 0px;
+            padding-right: 15px;
+            width: auto !important;
+            color: #879098;
+        }
+    }
+    .card-title {
+        font-size: 1rem;
+        color: #394454;
+    }
+}
+
+.w-19{
+    width: 19%;
+}
+.w-81{
+    width: 81%;
+}
+
+.form-label {
+    font-size: rem(14);
+    font-weight: 700;
+    color: #394454;
+}

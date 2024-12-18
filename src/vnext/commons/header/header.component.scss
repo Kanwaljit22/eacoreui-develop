@@ -1,0 +1,109 @@
+$browser-context:16;
+@function rem($pixels, $context: $browser-context) {
+    @return #{$pixels/$context}rem;
+}
+/*  vNext -- Header -- Starts here  */
+header {
+    &.vNext-header {
+        background-color: #059fd9;
+        padding: 18px 0px;
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            span {
+                &.site-logo{
+                    margin-right: 10px;
+                }
+                h3 {
+                    color: rgba(255, 255, 255, 0.7);
+                    font-size: 0.75rem;
+                }
+
+                h2 {
+                    color: #fff;
+                    font-size: 1rem;
+                    font-weight: 400;
+                }
+            }
+            .i-vNext-vnext-cart{
+                font-size: rem(27);
+                vertical-align: middle;
+                margin-left: 10px;
+            }
+            
+        }
+
+        .dropdown {
+            a {
+                .user-name {
+                    color: #fff;
+                    font-size: 0.875rem;
+
+                    .ico-dropdown::before {
+                        color: #fff;
+                    }
+                }
+            }
+
+            .dropdown-menu {
+                right: -20px !important;
+                left: auto;
+                max-width: 100%;
+                min-width: 200px;
+            }
+        }
+
+        .noti-number-badge {
+            background-color: #ffdc58;
+            height: 12px;
+            width: 12px;
+            position: absolute;
+            right: -7px;
+            border-radius: 10px;
+            top: -4px;
+            border: 2px solid #059fd9;
+            box-sizing: content-box;
+            font-size: 0.563rem;
+            text-align: center;
+        }
+    }
+}
+
+/*---------- Responsive CSS ----------*/
+
+@media screen and (min-width:1600px){
+    header.vNext-header .navbar-brand span h3 {
+        font-size: rem(13);
+    }
+    header.vNext-header .navbar-brand span h2 {
+        font-size: rem(17);
+    }
+    header.vNext-header .dropdown a .user-name {
+        font-size: rem(15);
+    }
+    header.vNext-header .navbar-brand .i-vNext-vnext-cart {
+        font-size: rem(28);
+    }
+    .site-logo img {
+        height: 31px;
+    }
+}
+
+@media screen and (min-width:1920px){
+    header.vNext-header .navbar-brand span h3 {
+        font-size: rem(14);
+    }
+    header.vNext-header .navbar-brand span h2 {
+        font-size: rem(18);
+    }
+    header.vNext-header .dropdown a .user-name {
+        font-size: rem(16);
+    }
+    header.vNext-header .navbar-brand .i-vNext-vnext-cart {
+        font-size: rem(29);
+    }
+    .site-logo img {
+        height: 32px;
+    }
+}

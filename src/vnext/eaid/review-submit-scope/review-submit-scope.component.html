@@ -1,0 +1,27 @@
+<div class="pb-4 panel">
+    <h3 class="heading-text" attr.data-id="{{dataIdConstantsService.reviewSubmitScope_header_scopeChangeReason}}">{{'common.SCOPE_CHANGE_REASON' | localizationPipe: localizationService.localizedkeySet.size}}</h3>
+    <h4 class="value mt-1" attr.data-id="{{dataIdConstantsService.reviewSubmitScope_header_scopeChangeDetails}}">{{ eaIdStoreService.eaIdData?.scopeChangeDetails?.reasonInfo?.reasonDetails ? eaIdStoreService.eaIdData?.scopeChangeDetails?.reasonInfo.reasonDetails  : eaIdStoreService.eaIdData?.scopeChangeDetails?.reasonInfo?.desc}}<span class="i-vNext-edit-filled ml-2" (click)="editReason()" attr.action-id="{{dataIdConstantsService.reviewSubmitScope_icon_edit_scopeChangeReason}}"></span></h4>
+</div>
+<div class="mb-4 mt-4">
+    <h3 class="heading-text">{{'review-submit-scope.SCOPE_CHANGE_IMPLICATIONS' | localizationPipe: localizationService.localizedkeySet.size}}</h3>
+    <h6 class="mt-2">{{'review-submit-scope.PLEAE_READ_BELOW_LISTED_IMPLICATIONS' | localizationPipe: localizationService.localizedkeySet.size}}</h6>
+    <ul class="implications-list">
+        <li>
+            {{'review-submit-scope.THE_CHANGES_CUSTOMER_SCOPE' | localizationPipe: localizationService.localizedkeySet.size}}
+        </li>
+        <li>
+            {{'review-submit-scope.INCREMENTAL_HW_ASSETS_IDENTIFIED' | localizationPipe: localizationService.localizedkeySet.size}}
+        </li>
+        <li>
+            {{'review-submit-scope.ANY_PROPOSAL_INPROGRESS_MAY_REQUIRE' | localizationPipe: localizationService.localizedkeySet.size}}
+        </li>
+    </ul>
+</div>
+<div class="mt-4">
+    <label class="label-check">
+        <input class="form-check-input" id="" type="checkbox" value="" (change)="acceptToSubmitScopeChange()"  attr.data-id="{{dataIdConstantsService.reviewSubmitScope_checkbox_acceptScopeChange}}">
+        <span class="custom-checkbox-btn i-vNext-fonts"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+        <span>
+            {{'review-submit-scope.I_CONFIRM_I_HAVE_READ_SCOPE_IMPLICATIONS' | localizationPipe: localizationService.localizedkeySet.size}}</span>
+    </label>
+</div>

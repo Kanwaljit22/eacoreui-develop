@@ -1,0 +1,149 @@
+.btn {
+    padding: 10px 20px !important;
+    font-size: rem(14);            
+    border-radius: 50px;
+    margin: 0 6px;
+
+    &:first-child {
+        margin-left: 0;
+    }
+
+    &:last-child {
+        margin-right: 0;
+    }
+
+    &.btn-primary {
+        color: #fff;
+        border-color: #227bb1;
+        background-color: #227bb1;
+    }
+
+    &.btn-secondary {
+        color: #227bb1;
+        border-color: #227bb1;
+    }
+}
+
+p {
+    a {
+        color: #00bceb;
+    }
+}
+
+
+/*Drag & Drop
+============================*/
+textarea.form-control{
+    height: 80px !important;
+}
+
+.my-drop-zone {
+    border: dashed 1px #0E709E;
+    padding: 21px 25px;
+    border-radius: 3px;
+    margin: 0px 30px 0px 25px;
+    background: #F2FBFD;
+    font-size: 16px;
+}
+
+.my-drop-zone .icon-close-btn {
+    margin-left: 8px;
+    position: relative;
+    right: 0;
+    top: -4px;
+    width: 20px;
+}
+
+.my-drop-zone div {
+    line-height: 10px;
+}
+
+.my-drop-zone div>div>span {
+    position: relative;
+    padding-left: 35px;
+    margin-top: 0;
+    display: inline-block;
+    top: 5px;
+    width: 100%
+}
+
+.my-drop-zone div>div>span .icon-pdf1 {
+    position: absolute;
+    left: 0px;
+    top: 0;
+    font-size: 21px;
+}
+
+.my-drop-zone .wrap-text {
+    width: 100%;
+    text-align: left;
+}
+
+.drag-drop-text {
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: calc(100% - 35px);
+    text-align: left;
+    line-height: 20px;
+    text-overflow: ellipsis;
+}
+
+.dragDropRemove {
+    background: transparent;
+    padding: 0px;
+    border: 0px;
+}
+
+.fileUploadWrap {
+    display: none;
+}
+
+.nv-file-over {
+    border: dashed 1px #6cc04a;
+    background-color: #6cc04a1a;
+    margin-bottom: 10px;
+    padding-right: 50px;
+    position: relative;
+}
+
+.my-drop-zone.file-format-error {
+    border-color: #c82439;
+    background-color: #fdf4f5;
+    margin-bottom: 10px;
+}
+
+.my-drop-zone.file-format-error .icon-close-btn {
+    position: relative;
+    top: 2px;
+    left: 10px;
+}
+
+.my-drop-zone.file-format-error .file-name {
+    font-size: 13px;
+    max-width: 280px;
+    overflow: hidden;
+    /*text-overflow: ellipsis;*/
+    display: inline-block;
+    position: relative;
+    padding-right: 25px;
+}
+
+.my-drop-zone.file-format-error .icon-file {
+    font-size: 40px;
+    display: block;
+    margin: 0px auto 15px;
+    width: 30px;
+}
+
+.my-drop-zone.file-format-error .file-name button {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+}
+
+.my-drop-zone.file-format-error .incorrect-format {
+    font-size: 13px;
+    color: #58585b;
+    display: block;
+}

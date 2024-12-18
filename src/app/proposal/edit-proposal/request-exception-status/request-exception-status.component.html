@@ -1,0 +1,326 @@
+<!-- <div class="flexible-div main-content-heading" *ngIf="(exceptionApprovalHistory.length > 0 && !isShowSelectReason)  || (exceptionStatusData.length > 0)">
+  <div class="col-xs-12 col-md-5 paddingL0">
+    <h1 *ngIf="!displayApprovalHistory">Status of your requested Exception(s)</h1>
+    <h1 *ngIf="displayApprovalHistory">Approval History</h1>
+  </div>
+  <a href="javascript:void(0);"  (click)='switchShowStatus(true)' *ngIf='!displayApprovalHistory && exceptionApprovalHistory.length > 0 && !isShowSelectReason' class="ml-auto">Approval History</a>
+    <a href="javascript:void(0);"  (click)='switchShowStatus(false)' *ngIf='displayApprovalHistory && exceptionStatusData.length > 0' class="ml-auto">Status of your requested Exception(s)</a>
+</div> -->
+
+<div class="exception-approval marginT20 marginB10" *ngIf="(exceptionStatusData.length > 0) || (groupExceptionApproverHistory.length > 0)">
+  <ul class="nav nav-tabs paddingL0" id="myTab" role="tablist">
+      <li class="nav-item" *ngIf="exceptionStatusData.length > 0">
+          <a aria-controls="profile" aria-selected="false" class="nav-link active" data-toggle="tab" href="javascript:" id="docusign-tab" role="tab" ng-reflect-klass="nav-link " ng-reflect-ng-class="[object Object]" (click)='switchShowStatus(false)' [ngClass]='{"active": !displayApprovalHistory}'>Status of your requested Exception(s)</a>
+      </li>
+      <li class="nav-item" *ngIf="(groupExceptionApproverHistory.length > 0)">
+          <a aria-controls="home" aria-selected="true" class="nav-link" data-toggle="tab" href="javascript:" id="upload-tab" role="tab" ng-reflect-klass="nav-link" (click)='switchShowStatus(true)' [ngClass]='{"active": displayApprovalHistory}'>Approval History</a>
+      </li>
+  </ul>
+</div>
+
+
+<div class="clearfix"></div>
+<div class="" *ngIf=" !displayApprovalHistory && (exceptionStatusData.length > 0)">
+  <!--h5 class="card-header-title">Status of your requested Exception(s) -->
+      <!-- <span *ngIf="!ciscoDealForPartner" class="price-usd">{{localeService.getLocalizedString('price.est.ALL_PRICES')}} {{constantsService.CURRENCY}}</span> -->
+  <!--/h5-->
+  <div class="">
+     <table class="primary-table" >
+      <thead>
+        <tr *ngIf="(!displayApprovalHistory && exceptionStatusData.length > 0)">
+          <th width="21%">Exception(s) Requested</th>
+          <th width="12%">Team Name</th>
+          <th width="7%" *ngIf="!isShowSelectReason">Seller's {{localeService.getLocalizedString('common.JUSTIFICATION')}}</th>
+          <th width="10%" *ngIf="!isShowSelectReason">Reviewer (CEC ID)</th>
+          <th width="4%" *ngIf="!isShowSelectReason">Decision</th>
+          <th width="8%" *ngIf="!isShowSelectReason">Reviewer's {{localeService.getLocalizedString('common.JUSTIFICATION')}}</th>
+        </tr>
+      </thead>
+      <!-- start of status of requested exceptions -->
+      <tbody *ngIf="!displayApprovalHistory && exceptionStatusData.length > 0">
+        <tr *ngFor="let data of exceptionStatusData">
+          <!-- <td>{{index + 1}}</td> -->
+          <!-- <td>{{data?.createdAt | date:"dd-MMM-yyyy"}}, {{data?.createdAt | date:"HH:mm aa"}}</td> -->
+          <td style="min-width: 260px;">
+            <div class="dropdown-wrap dropup d-inline-block" *ngIf="data.messages && data.messages.length > 0">
+              <a href="javascript:void(0);">{{data.label}}</a>
+              <div aria-labelledby="mainDropdown" class="dropdown-menu rec-dropdown messages comment-details">
+                <ul *ngFor="let message of data.messages;let index = index" style="padding-left: 15px;">
+                  <li>{{message}}</li>
+                </ul>
+                <span class="icon-fill-arrow-down"></span>
+              </div>
+            </div>
+            <!-- <div *ngIf="!data.messages || data.messages.length === 0">{{data.label}}<a #downloadZipLink [hidden]="true"></a><a *ngIf="data.documents" (click)="downloadPADocument(data)" href="javascript:"
+              class="icon-download mr-2" style="margin-left: 10px;"></a></div> -->
+            <div class="table-exception" *ngIf="!data.messages || data.messages.length === 0">
+              {{data.label}}
+              <a #downloadZipLink [hidden]="true"></a>
+              <span style="padding:0 10px; margin-left:5px; margin-right:5px; border-left: 1px solid #d6d6d6; " *ngIf="data.exceptionType === 'PURCHASE_ADJUSTMENT_REQUEST' && data.sourceRefId">Case Number: {{data.sourceRefId}}</span>
+              <a *ngIf="data.documents" (click)="downloadPADocument(data)" href="javascript:" [ngClass]="{'assign-case': data.exceptionType === 'PURCHASE_ADJUSTMENT_REQUEST' && data.sourceRefId }"><span class="icon-download-doc" placement="top" container="body"
+                ngbTooltip="View Uploaded Documents"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span></span></a>
+            </div>    
+          </td>
+          <!-- <td>Other</td> -->
+          <!-- <td>
+            <div *ngIf="data.messages">
+              <ul *ngFor="let message of data.messages;let index = index">
+                <li>{{index + 1}}. {{message}}</li>
+              </ul>
+            </div>
+            <div *ngIf="!data.messages">-</div>
+          </td> -->
+          <!-- <td *ngIf="!data.teamMembers">{{data.teamName}}</td> -->
+          <td>
+           <div class="dropdown-wrap dropup d-inline-block" *ngIf="data.teamMembers">
+             <a href="javascript:void(0);" >{{data.teamName}}</a>
+             <div aria-labelledby="mainDropdown" class="dropdown-menu rec-dropdown team-detail-flyout comment-details">
+               <div class="team-detail-flyout-inner">
+                 <table class="primary-table">
+                   <thead>
+                     <tr>
+                      <th width="38%">Name</th>
+                      <th width="20%">CEC ID</th>
+                      <th width="22%">Region Name</th>
+                      <th width="20%">Reviewer Type</th>
+                     </tr>
+                   </thead>
+                   <tbody>
+                     <tr *ngFor='let member of data.teamMembers'>
+                       <td>{{member.name}}</td>
+                       <td>{{member.cecId}}</td>   
+                       <td *ngIf="member.regions">{{convertRegionToString(member.regions)}}</td>
+                       <td *ngIf="!member.regions">--</td>                    
+                       <td *ngIf="member.primary"><span class="team-member">Primary</span></td>
+                       <td *ngIf="!member.primary">-</td>
+                       <!-- <td>{{(member.role) ? (member.role) : "-"}}</td> -->
+                     </tr>
+                   </tbody>
+                 </table>
+               </div>
+               <span class="icon-fill-arrow-down"></span>
+             </div>
+           </div>
+           <div *ngIf="!data.teamMembers">{{data.teamName}}</div>
+          </td>
+          <td *ngIf="!isShowSelectReason">
+            <div class="dropdown-wrap dropup d-inline-block" *ngIf="data.requestReason || data.requestComment">
+              <a href="javascript:void(0);">View Details</a>
+              <div aria-labelledby="mainDropdown" class="dropdown-menu rec-dropdown seller-comment comment-details">
+                <div class="form-group" >
+                  <label>Reason Code</label>
+                  <!-- <p *ngIf="data.exceptionType !== 'PURCHASE_ADJUSTMENT_REQUEST'"><strong>{{(data.requestReason) ? (data.requestReason) : '-'}}</strong></p> -->
+                  <p><strong *ngIf="!data.requestReasons">-</strong>
+                    <strong *ngIf="data.requestReasons">
+                      <span *ngFor="let reason of data?.requestReasons ; let i = index;">{{reason}}
+                        <span *ngIf='data?.requestReasons.length > (i+1)'>, </span>
+                    </span>
+                    </strong>
+                  </p>
+                </div>
+                <div class="form-group">
+                  <label>{{localeService.getLocalizedString('common.JUSTIFICATION')}}</label>
+                  <p><strong>{{(data.requestComment) ? (data.requestComment) : "-"}}</strong></p>
+                </div>
+                <span class="icon-fill-arrow-down"></span>
+              </div>
+            </div>
+            <div *ngIf="!(data.requestReason || data.requestComment)" >-</div>
+          </td>
+          <td *ngIf="!isShowSelectReason && data.actionedBy">{{data.approverName}} ({{data.actionedBy}})</td>
+          <td *ngIf="!isShowSelectReason && !data.actionedBy">-</td>
+          <td *ngIf="!isShowSelectReason">{{(data.decision) ? (data.decision) : "-"}}</td>
+          <td *ngIf="!isShowSelectReason">
+            <div class="dropup right d-inline-block" *ngIf="(data.actionReason || data.actionComment)">
+              <div class="dropdown-wrap d-inline-block">
+                <a href="javascript:void(0);">View Details</a>
+                <div aria-labelledby="mainDropdown" class="dropdown-menu rec-dropdown approver-comment comment-details">
+                  <div class="form-group">
+                    <label>Reason Code</label>
+                    <p><strong>{{(data.actionReason) ? (data.actionReason) : '-'}}</strong></p>
+                  </div>
+                  <div class="form-group">
+                    <label>{{localeService.getLocalizedString('common.JUSTIFICATION')}}</label>
+                    <p><strong>{{(data.actionComment) ? (data.actionComment) : '-'}}</strong></p>
+                  </div>
+                  <span class="icon-fill-arrow-down"></span>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="!(data.actionReason || data.actionComment)">-</div>
+          </td>
+          <!-- <td><a href="javascript:void(0);" class="icon-edit"></a><a href="javascript:void(0);" class="icon-delete marginL25"></a></td> -->
+        </tr>
+      </tbody>
+      <!-- end of status of requested exceptions -->
+    </table>
+  </div>
+</div>
+
+<div class="clearfix"></div>
+
+<div *ngIf=" displayApprovalHistory && groupExceptionApproverHistory.length > 0">
+  <div class="card" *ngFor="let data of groupExceptionApproverHistory">
+    <h5 class="card-header">{{data?.groupName}} 
+        <span *ngIf="data.cycleTime" class="price-usd float-right">Overall Time Taken: {{data.cycleTime}}</span>
+    </h5>
+    <div class="card-body"  *ngIf="(data.proposalExceptionActivities.length > 0)">
+      <table class="primary-table">
+      <thead>
+        <tr>
+          <th width="26%">Exception(s) Requested</th>
+          <th width="15%">Team Name</th>
+          <th width="10%">Seller's {{localeService.getLocalizedString('common.JUSTIFICATION')}}</th>
+          <th width="13%">Reviewer (CEC ID)</th>
+          <th width="8%">Decision</th>
+          <th width="7%">Reviewer's {{localeService.getLocalizedString('common.JUSTIFICATION')}}</th>
+          <th width="15%">Time Taken</th>
+        </tr>
+      </thead>
+      <!-- start of approval history -->
+      <tbody>
+        <tr *ngFor="let exception of data.proposalExceptionActivities">
+          <td style="min-width: 260px;">
+            <div class="dropdown-wrap dropup d-inline-block" *ngIf="exception.messages && exception.messages.length > 0">
+              <a href="javascript:void(0);">{{exception.label}}</a>
+              <div aria-labelledby="mainDropdown" class="dropdown-menu rec-dropdown messages comment-details">
+                <ul *ngFor="let message of exception.messages;let index = index" style="padding-left: 15px;">
+                  <li>{{message}}</li>
+                </ul>
+                <span class="icon-fill-arrow-down"></span>
+              </div>
+            </div>
+            <!-- <div *ngIf="!exception.messages || exception.messages.length === 0">{{exception.label}}<a #downloadZipLink [hidden]="true"></a><a *ngIf="exception.documents" (click)="downloadPADocument(exception)" href="javascript:"
+              class="icon-download mr-2" style="margin-left: 10px;"></a></div> -->
+              <div class="table-exception" *ngIf="!exception.messages || exception.messages.length === 0">
+                {{exception.label}}
+                <a #downloadZipLink [hidden]="true"></a>
+                <span style="padding:0 10px; margin-left:5px; margin-right:5px; border-left: 1px solid #d6d6d6; " *ngIf="exception.exceptionType === 'PURCHASE_ADJUSTMENT_REQUEST' && exception.sourceRefId">Case Number: {{exception.sourceRefId}}</span>
+                <a *ngIf="exception.documents" (click)="downloadPADocument(exception)" href="javascript:" [ngClass]="{'assign-case': exception.exceptionType === 'PURCHASE_ADJUSTMENT_REQUEST' && exception.sourceRefId }"><span class="icon-download-doc" placement="top" container="body"
+                  ngbTooltip="View Uploaded Documents"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span></span></a>
+              </div>
+          </td>
+          <td>
+           <div class="dropdown-wrap dropup d-inline-block" *ngIf="exception.teamMembers">
+             <a href="javascript:void(0);" >{{exception.teamName}}</a>
+             <div aria-labelledby="mainDropdown" class="dropdown-menu rec-dropdown team-detail-flyout comment-details">
+               <div class="team-detail-flyout-inner">
+                 <table class="primary-table">
+                   <thead>
+                     <tr>
+                      <th width="38%">Name</th>
+                      <th width="20%">CEC ID</th>
+                      <th width="22%">Region Name</th>
+                      <th width="20%">Reviewer Type</th>
+                     </tr>
+                   </thead>
+                   <tbody>
+                     <tr *ngFor='let member of exception.teamMembers'>
+                       <td>{{member.name}}</td>
+                       <td>{{member.cecId}}</td>
+                       <td *ngIf="member.regions">{{convertRegionToString(member.regions)}}</td>
+                       <td *ngIf="!member.regions">--</td>
+                       <td *ngIf="member.primary"><span class="team-member">Primary</span></td>
+                       <td *ngIf="!member.primary">-</td>
+                       <!-- <td>{{(member.role) ? (member.role) : "-"}}</td> -->
+                     </tr>
+                   </tbody>
+                 </table>
+               </div>
+               <span class="icon-fill-arrow-down"></span>
+             </div>
+           </div>
+           <div *ngIf="!exception.teamMembers">{{exception.teamName}}</div>
+          </td>
+          <td>
+            <div class="dropdown-wrap dropup d-inline-block" *ngIf="(exception.requestReason || exception.requestComment)">
+              <a href="javascript:void(0);">View Details</a>
+              <div aria-labelledby="mainDropdown" class="dropdown-menu rec-dropdown seller-comment comment-details">
+                <div class="form-group">
+                  <label>Reason Code</label>
+                  <!-- <p *ngIf="exception.exceptionType !== 'PURCHASE_ADJUSTMENT_REQUEST'"><strong>{{(exception.requestReason) ? (exception.requestReason) : '-'}}</strong></p> -->
+                  <p><strong *ngIf="!exception.requestReasons">-</strong>
+                    <strong *ngIf="exception.requestReasons">
+                      <span *ngFor="let reason of exception?.requestReasons ; let i = index;">{{reason}}
+                        <span *ngIf='exception?.requestReasons.length > (i+1)'>, </span>
+                    </span>
+                    </strong>
+                  </p>
+                </div>
+                <div class="form-group">
+                  <label>{{localeService.getLocalizedString('common.JUSTIFICATION')}}</label>
+                  <p><strong>{{exception.requestComment}}</strong></p>
+                </div>
+                <span class="icon-fill-arrow-down"></span>
+              </div>
+            </div>
+            <div *ngIf="!(exception.requestReason || exception.requestComment)">-</div>
+          </td>
+          <td *ngIf="exception.actionedBy">{{exception.approverName}} ({{exception.actionedBy}})</td>
+          <td *ngIf="!exception.actionedBy">-</td>
+          <td>{{(exception.decision) ? (exception.decision) : "-"}}</td>
+          <td>
+            <div class="dropup right d-inline-block" *ngIf="(exception.actionReason || exception.actionComment)">
+              <div class="dropdown-wrap d-inline-block">
+                <a href="javascript:void(0);">View Details</a>
+                <div aria-labelledby="mainDropdown" class="dropdown-menu rec-dropdown approver-comment comment-details">
+                  <div class="form-group">
+                    <label>Reason Code</label>
+                    <p><strong>{{(exception.actionReason) ? (exception.actionReason) : '-'}}</strong></p>
+                  </div>
+                  <div class="form-group">
+                    <label>{{localeService.getLocalizedString('common.JUSTIFICATION')}}</label>
+                    <p><strong>{{(exception.actionComment) ? (exception.actionComment) : '-'}}</strong></p>
+                  </div>
+                  <span class="icon-fill-arrow-down"></span>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="!(exception.actionReason || exception.actionComment)">-</div>
+          </td>
+          <td>
+            <div class="dropup right d-inline-block" *ngIf="(exception.requestedAt || exception.actionedAt || exception.approverAssignedAt) && exception.cycleTimeStr">
+              <div class="dropdown-wrap d-inline-block right">
+                <a href="javascript:void(0);">{{(exception.cycleTimeStr) ? (exception.cycleTimeStr) : '-'}}</a>
+                <div aria-labelledby="mainDropdown" class="dropdown-menu rec-dropdown cycle-time comment-details">
+                  <div class="form-group">
+                    <label>Requested At</label>
+                    <p *ngIf="exception?.requestedAt"><strong>{{exception?.requestedAt | date:"dd-MMM-yyyy"}}, {{exception?.requestedAt | date:"HH:mm aa"}}</strong></p>
+                    <p *ngIf="!exception?.requestedAt">-</p>
+                  </div>
+
+                  <div class="form-group">
+                      <label>Worked At</label>
+                      <p *ngIf="exception?.approverAssignedAt"><strong>{{exception?.approverAssignedAt | date:"dd-MMM-yyyy"}}, {{exception?.approverAssignedAt | date:"HH:mm aa"}}</strong></p>
+                      <p *ngIf="!exception?.approverAssignedAt">-</p>
+                  </div>
+
+                  <div class="form-group">
+                    <label>Completed At</label>
+                    <p *ngIf="exception?.actionedAt"><strong>{{exception?.actionedAt | date:"dd-MMM-yyyy"}}, {{exception?.actionedAt | date:"HH:mm aa"}}</strong></p>
+                    <p *ngIf="!exception?.actionedAt">-</p>
+                  </div>
+
+                  <span class="icon-fill-arrow-down"></span>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="!(exception.requestedAt || exception.actionedAt) || !exception.cycleTimeStr">{{(exception.cycleTimeStr) ? (exception.cycleTimeStr) : '-'}}</div>
+          </td>
+        </tr>
+      </tbody>
+      <!-- end of approval history -->
+    </table>
+    </div>
+  </div>
+  <!-- <div *ngFor="let data of groupExceptionApproverHistory" class="group-wrap">
+    <div class="group-row">
+      <div class="group-name">{{data?.groupName}}</div>
+      <div class="cylce-time" *ngIf="data.cycleTime">Overall Time Taken: {{data.cycleTime}}</div>
+    </div>
+    <div *ngIf="(data.proposalExceptionActivities.length > 0)" class="group-table-wrap">
+    </div>
+  </div> -->
+</div>
+
+<div class="clearfix-50"></div>

@@ -1,0 +1,1236 @@
+<div class="tco-modeling">
+  <div id="tco" class="container-fluid">
+    <div class="dummy-header"></div>
+    <div id="tco-strip">
+      <div class="page-heading padding-TB-12 margin-b-16">
+        <div class="heading-details pl-0  col-8">
+          <ng-container *ngIf="!editName">
+            <h5 class="ellipsis" ngbTooltip="{{tcoStoreService.tcoData.name}}" container="body"  placement="top">{{tcoStoreService.tcoData.name}}</h5>
+            <span class="i-vNext-edit-filled px-2" (click)="editTcoName()" attr.action-id="{{dataIdConstantsService.tco_icon_editTco}}" id="{{elementIdConstantsService.EDIT_TCO}}"></span>
+          </ng-container>
+          <div class="d-flex" *ngIf="editName" style="width: 30rem;">
+            <textarea class="form-control rename-proposal" type="text" id="tcoNameChange" name="tcoNameChange" [(ngModel)]="tcoName">
+            </textarea>
+            <ul class="rename-actions">
+                <li [ngClass]="{'disabled': !tcoName || (tcoName && (tcoStoreService.tcoData?.name === tcoName.trim()))}" class="saveName">
+                    <a href="javascript:void();" (click)="saveUpdatedName()" attr.action-id="{{dataIdConstantsService.tco_link_saveTcoName}}" id="{{elementIdConstantsService.TCO_SAVE_NAME_CHANGE}}">
+                        <span class="i-vNext-Full-1"><span class="path1"></span><span class="path2"></span></span>
+                    </a>
+                </li>
+                <li class="cancelSaveName">
+                    <a href="javascript:void();" (click)="cancelNameChange()" attr.action-id="{{dataIdConstantsService.tco_link_cancelTcoNameChange}}" id="{{elementIdConstantsService.TCO_CANCEL_NAME_CHANGE}}">
+                        <span class="i-vNext-close-circle"></span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+          <ul>
+            <!-- <li tooltip-text="Edit" *ngIf="!editName"><span class="cs-edit" (click)="editTcoName()"></span></li> -->
+            <li class="sep body-md text-secondary">{{'common.ALL_PRICE_IN' | localizationPipe : localizationService.localizedkeySet.size}} {{proposalStoreService.proposalData?.currencyCode}}</li>
+          </ul>
+        </div>
+        <ul class="vNext col-4 justify-content-end">
+          <li>
+            <button class="btn btn-secondary" (click)="backToProposal()" attr.action-id="{{dataIdConstantsService.tco_button_backToProposal}}" id="{{elementIdConstantsService.TCO_BACK_TO_PROPOSAL}}">
+              {{'tco-details.BACK_TO_PROPOSAL' | localizationPipe : localizationService.localizedkeySet.size}}            
+            </button>
+          </li>
+          <li>
+            <a #downloadZipLink [hidden]="true"></a>
+            <button class="btn btn-primary" (click)="fetchPPT()" attr.action-id="{{dataIdConstantsService.tco_button_generateProposal}}" id="{{elementIdConstantsService.TCO_GENERATE_PROPOSAL}}">
+              {{'tco-details.GENERATE_PROPOSAL' | localizationPipe : localizationService.localizedkeySet.size}}
+            </button>
+          </li>
+          <li class="sep">
+            <span class="cs-refresh" ngbTooltip="Refresh the TCO modeling based on the revised proposal." container="body" placement="top-right" style="cursor: pointer;" (click)="fetchTcoData(true)"></span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="tco-strip-stick"></div>
+    <!-- display changes for showing messages starts here -->
+    <div class="vNext">
+      <div class="row">
+        <div class="col-12">
+            <app-message></app-message>
+            <div class="alert alert--warning alert-dismissable mb-2 more--actions paddingR255" *ngIf="tcoStoreService.tcoData?.proposalPriceDirty">
+              <span class="alert-icon d-flex">
+              <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+              </span>
+             <span>{{'tco-details.TCO_REFRESH_MESSAGE' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+             <div class="alert--actions">
+              <ul class="inline-listing justify-content-end no-list-style">
+              <li><button class="btn btn-primary sm" type="button" attr.action-id="{{dataIdConstantsService.tco_button_refreshTco}}" (click)="fetchTcoData(true)" id="{{elementIdConstantsService.TCO_REFRESH_BUTTON}}">{{'common.REFRESH' | localizationPipe : localizationService.localizedkeySet.size}}</button></li>
+              </ul>
+              </div>
+          </div>
+  
+        </div>
+      </div>
+    </div>
+    <!-- display changes for showing messages ends here -->
+    <div class="tco-pricing row">
+      <div class="col-md-9">
+        <!--freeze heading section begin  -->
+        <section class="grid grid-cols-3 gap-16 header-freeze">
+          <div class="padding-L-16">
+            <h6 class="padding-B-4 padding-t-20">{{'common.BREAKDOWN' | localizationPipe : localizationService.localizedkeySet.size}}</h6>
+            <div class="body-md text-secondary" *ngIf="!isBuyingProgramTransactionTypeMsea">
+              {{'tco-details.DETAILS_ANALYSIS_OF_TCO' | localizationPipe : localizationService.localizedkeySet.size}}
+            </div>
+            <div class="body-md text-secondary" *ngIf="isBuyingProgramTransactionTypeMsea">
+              {{'tco-details.DETAILS_ANALYSIS_OF_TCO_MSEA' | localizationPipe : localizationService.localizedkeySet.size}}
+            </div>
+          </div>
+          <div class="business-section radius-top-md">
+            <h4 class="text-center padding-B-16">{{'common.BUSINESS_AS_USUAL' | localizationPipe : localizationService.localizedkeySet.size}}</h4>
+            <div class="d-flex item-center justify-between padding-B-6">
+              <div class="body-md text-secondary">{{'common.PARTNER_NET_PRICE' | localizationPipe : localizationService.localizedkeySet.size}}</div>
+              <div class="body-md font-700">{{tcoStoreService.tcoData.alc?.partnerNetPrice ? utilitiesService.formatValue(utilitiesService.getFloatValue(tcoStoreService.tcoData.alc.partnerNetPrice)) : '--'}}</div>
+            </div>
+            <div class="d-flex item-center justify-between">
+              <div class="body-md text-secondary">{{'tco-details.TOTAL_COST_OF_OWNERSHIP' | localizationPipe : localizationService.localizedkeySet.size}}</div>
+              <div class="body-md font-700">{{tcoStoreService.tcoData.alc?.customerTCO ? utilitiesService.formatValue(utilitiesService.getFloatValue(tcoStoreService.tcoData.alc.customerTCO)) : '--'}}</div>
+            </div>
+          </div>
+          <div class="ea-section radius-top-md">
+            <h4 class="text-center padding-B-16" *ngIf="!isBuyingProgramTransactionTypeMsea">{{'common.EA3_LABEL' | localizationPipe : localizationService.localizedkeySet.size}}</h4>
+            <h4 class="text-center padding-B-16" *ngIf="isBuyingProgramTransactionTypeMsea">{{'common.MSEA3_LABEL' | localizationPipe : localizationService.localizedkeySet.size}}</h4>
+            <div class="d-flex item-center justify-between padding-B-6">
+              <div class="body-md text-secondary">{{'common.PARTNER_NET_PRICE' | localizationPipe : localizationService.localizedkeySet.size}}</div>
+              <div class="body-md font-700">{{tcoStoreService.tcoData.ea?.partnerNetPrice ? utilitiesService.formatValue(utilitiesService.getFloatValue(tcoStoreService.tcoData.ea.partnerNetPrice)) : '--'}}</div>
+            </div>
+            <div class="d-flex item-center justify-between">
+              <div class="body-md text-secondary">{{'tco-details.TOTAL_COST_OF_OWNERSHIP' | localizationPipe : localizationService.localizedkeySet.size}}</div>
+              <div class="body-md font-700">{{tcoStoreService.tcoData.ea?.customerTCO ? utilitiesService.formatValue(utilitiesService.getFloatValue(tcoStoreService.tcoData.ea.customerTCO)) : '--'}}</div>
+            </div>
+            <span class="ribbon ribbon-tail">{{tcoStoreService.tcoData.savingsInfo?.percent ? tcoStoreService.tcoData.savingsInfo.percent : 0}}% Savings</span>
+          </div>
+  
+        </section>
+        <div class="header-freeze-con"></div>
+        <!-- freeze heading section begin  -->
+        <!-- Pricing main container for scrolling -->
+        <div class="pricing-section-conatiner">
+          <div class="pricing-content">
+            <!-- <ng-container>
+              <div class="pricing-header">
+                <div class="grid grid-cols-3 gap-16">
+                  <div class="d-flex item-center gap-8 padding-L-14">
+                    <span class="toggle-icons cs-collapse font-20"></span>
+                    <h6>Pricing</h6>
+                    <span tooltip-text="info" tooltip-position="right"><span class="cs-info"></span></span>
+                  </div>
+                  <div class="business-section">&nbsp;</div>
+                  <div class="ea-section text-right">
+                    &nbsp;
+                  </div>
+                </div>
+              </div>
+              <div class="pricing-accordion">
+                <div class="grid grid-cols-3 gap-16">
+                  <div class="body-md padding-L-16 padding-TB-14 d-flex gap-8 item-center">
+                    <span>List Price</span><span class="cs-info"></span>
+                  </div>
+                  <div class="business-section">
+                    <div class="d-flex item-center gap-10 w-full margin-l-12">
+                      <div class="d-flex item-center justify-between w-1-2 padding-r-16">
+                        <span class="widget-services software-cx">SW</span>
+                        <span class="value-w-80"><span class="ellipsis body-md text-default">220,000.00</span></span>
+                      </div>
+                      <div class="d-flex item-center justify-between w-1-2 pricing-details">
+                        <span class="widget-services software-cx">SW</span>
+                        <span class="value-w-80"><span class="ellipsis body-md text-default">220,000.00</span></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="ea-section">
+                    <div class="d-flex item-center gap-10 w-full margin-l-12">
+                      <div class="d-flex item-center justify-between w-1-2 padding-r-16">
+                        <span class="widget-services software-cx">SW</span>
+                        <span class="value-w-80"><span class="ellipsis body-md text-default">175,000.00</span></span>
+                      </div>
+                      <div class="d-flex item-center justify-between w-1-2 pricing-details">
+                        <span class="widget-services software-cx">SW</span>
+                        <span class="value-w-80"><span class="ellipsis body-md text-default">155,000.00</span></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+  
+                <div class="grid grid-cols-3 gap-16">
+                  <div class="body-md padding-L-16 padding-TB-14 d-flex gap-8 item-center">
+                    <span>Residual Value</span><span class="cs-info"></span>
+                  </div>
+                  <div class="business-section d-flex item-center">
+                    <div class="d-flex item-center gap-10 w-full">
+                      <input type="text" class="sw-input" value="15%">
+                      <input type="text" class="services-input" value="15%">
+                    </div>
+                  </div>
+                  <div class="ea-section padding-TB-4">
+                    <div class="d-flex item-center gap-10 w-full">
+                      <input type="text" class="sw-input" value="15%">
+                      <input type="text" class="services-input" value="15%">
+                    </div>
+                  </div>
+                </div>
+                <div class="grid grid-cols-3 gap-16">
+                  <div class="body-md padding-L-16 padding-TB-14 d-flex gap-8 item-center">
+                    <span>EA Program Discount</span><span class="cs-info"></span>
+                  </div>
+                  <div class="business-section">
+                    <div class="d-flex item-center gap-10 w-full margin-l-12">
+                      <div class="d-flex item-center justify-between w-1-2 padding-r-16">
+                        <span class="widget-services software-cx">SW</span>
+                        <span>--</span>
+                      </div>
+                      <div class="d-flex item-center justify-between w-1-2 pricing-details">
+                        <span class="widget-services software-cx">SW</span>
+                        <span class="value-w-80"><span class="ellipsis body-md text-default">--</span></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="ea-section">
+                    <div class="d-flex item-center gap-10 w-full margin-l-12">
+                      <div class="d-flex item-center justify-between w-1-2 padding-r-16">
+                        <span class="widget-services software-cx">SW</span>
+                        <span class="value-w-80"><span class="ellipsis body-md text-default">7%</span></span>
+                      </div>
+                      <div class="d-flex item-center justify-between w-1-2 pricing-details">
+                        <span class="widget-services software-cx">SW</span>
+                        <span class="value-w-80"><span class="ellipsis body-md text-default">--</span></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+  
+                <div class="grid grid-cols-3 gap-16">
+                  <div class="body-md padding-L-16 padding-TB-14 d-flex gap-8 item-center">
+                    <span>Multi-Year Discount</span><span class="cs-info"></span>
+                  </div>
+                  <div class="business-section">
+                    <div class="d-flex item-center gap-10 w-full margin-l-12">
+                      <div class="d-flex item-center justify-between w-1-2 padding-r-16">
+                        <span class="widget-services software-cx">SW</span>
+                        <span class="value-w-80"><span class="ellipsis body-md text-default">--</span></span>
+                      </div>
+                      <div class="d-flex item-center justify-between w-1-2 pricing-details">
+                        <span class="widget-services software-cx">SW</span>
+                        <span class="value-w-80"><span class="ellipsis body-md text-default">--</span></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="ea-section">
+                    <div class="d-flex item-center gap-10 w-full margin-l-12">
+                      <div class="d-flex item-center justify-between w-1-2 padding-r-16">
+                        <span class="widget-services software-cx">SW</span>
+                        <span class="value-w-80"><span class="ellipsis body-md text-default">--</span></span>
+                      </div>
+                      <div class="d-flex item-center justify-between w-1-2 pricing-details">
+                        <span class="widget-services software-cx">SW</span>
+                        <span class="value-w-80"><span class="ellipsis body-md text-default">15%</span></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="grid grid-cols-3 gap-16 row-gap">
+                <div class="body-md padding-L-16 padding-TB-14 d-flex gap-8 item-center">
+                  &nbsp;
+                </div>
+                <div class="business-section">
+                  <div class="d-flex item-center gap-10">
+                    &nbsp;
+                  </div>
+                </div>
+                <div class="ea-section">
+                  <div class="d-flex item-center gap-10 w-full">
+                    &nbsp;
+                  </div>
+                </div>
+              </div>
+            </ng-container> -->
+  
+  
+            <!--pricing mock data start-->
+            <ng-container *ngIf="tcoStoreService.pricing?.label">
+              <div>
+                <div class="grid grid-cols-3 gap-16 pricing-header">
+                  <div class="d-flex item-center gap-8 padding-L-14">
+                    <span
+                    *ngIf="expandedSections[tcoStoreService.pricing.label]"
+                    class="toggle-icons cs-collapse font-20"
+                    (click)="toggleSection(tcoStoreService.pricing.label)"
+                  ></span>
+                  <span
+                    *ngIf="!expandedSections[tcoStoreService.pricing.label]"
+                    class="toggle-icons cs-expand font-20"
+                    (click)="toggleSection(tcoStoreService.pricing.label)"
+                    ></span>
+                    <h6>{{tcoStoreService.pricing.label}}</h6>
+                    <span *ngIf="tcoStoreService.pricing?.info"><span class="cs-info" ngbTooltip="{{tcoStoreService.pricing?.info}}" container="body" placement="top-left"></span></span>
+                  </div>
+                  <div class="business-section">&nbsp;</div>
+                  <div class="ea-section text-right">&nbsp;</div>
+                </div>
+  
+              
+                <div *ngIf="expandedSections[tcoStoreService.pricing.label]" class="pricing-accordion">
+                  <ng-container *ngFor="let child of tcoStoreService.pricing.childs">
+                    <div class="grid grid-cols-3 gap-16">
+                      <div class="body-md padding-L-44 padding-TB-14 d-flex gap-8 item-center">
+                        <span>{{child.label}}</span><span *ngIf="child?.info" class="cs-info" ngbTooltip="{{child?.info}}" container="body" placement="top-left"></span>
+                      </div>
+                      <div class="business-section">
+                        <div class="grid grid-cols-2 gap-10 w-full">
+                          <div class="d-flex item-center justify-between w-full" [ngClass]="{'padding-LR-12': !child.alc.sw.editable}">
+                            <ng-container *ngIf="child.alc.sw.editable">
+                              <input type="text" (dblclick)="onDoubleClick()"  (keydown)="keyDown($event , child.isPercentageValue)" (keyup)='keyUp($event , child.isPercentageValue, child.isNegativeValue)'  class="sw-input" [ngModel]='child.alc.sw.value' (blur)="updateValue(constantsService.PRICING,constantsService.ALC,child.referenceId,constantsService.SW)">
+                              <span *ngIf="child.isPercentageValue" class="percentage-ico">%</span>
+                            </ng-container>
+                            <ng-container *ngIf="!child.alc.sw.editable">
+                              <span class="widget-services software-cx">{{'common.SW' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                              <span class="value-w-80"><span
+                                  class="ellipsis body-md text-default" ngbTooltip="{{child.alc.sw.value}}" container="body" placement="top">{{child.alc.sw.value ? utilitiesService.formatValue(utilitiesService.getFloatValue(child.alc.sw.value)) : '--'}}</span><span *ngIf="child.isPercentageValue && child.alc.sw?.value">%</span></span>
+                            </ng-container>
+                          
+                        </div>
+                        <div class="d-flex item-center justify-between w-full"  [ngClass]="{'pricing-details': !child.alc.cx.editable}">
+                          <ng-container *ngIf="child.alc.cx.editable">
+                            <input type="text" class="services-input" (dblclick)="onDoubleClick()"  (keydown)="keyDown($event , child.isPercentageValue)" (keyup)='keyUp($event , child.isPercentageValue, child.isNegativeValue)' (blur)="updateValue(constantsService.PRICING,constantsService.ALC,child.referenceId,constantsService.CX)"
+                            [ngModel]='child.alc.cx.value'>
+                            <span *ngIf="child.isPercentageValue" class="percentage-ico">%</span>
+                          </ng-container>
+                          <ng-container *ngIf="!child.alc.cx.editable">
+                            <span class="widget-services software-cx"><span class="cs-service"><span class="path1"></span><span
+                      class="path2"></span><span class="path3"></span><span class="path4"></span></span></span>
+                            <span class="value-w-80"><span
+                                class="ellipsis body-md text-default" ngbTooltip="{{child.alc.cx.value}}" container="body" placement="top">{{child.alc.cx.value ? utilitiesService.formatValue(utilitiesService.getFloatValue(child.alc.cx.value)) : '--'}}</span><span *ngIf="child.isPercentageValue && child.alc.cx?.value">%</span></span>
+                          </ng-container>
+                        </div>
+                        </div>
+                      </div>
+                      <div class="ea-section padding-TB-4">
+                        <div class="grid grid-cols-2 gap-10 w-full">
+                          <div class="d-flex item-center justify-between w-full"  [ngClass]="{'padding-LR-12': !child.ea.sw.editable}">
+                            <ng-container *ngIf="child.ea.sw.editable">
+                              <input type="text" class="sw-input" (dblclick)="onDoubleClick()"  (keydown)="keyDown($event , child.isPercentageValue)" (keyup)='keyUp($event , child.isPercentageValue, child.isNegativeValue)'  [ngModel]='child.ea.sw.value'  (blur)="updateValue(constantsService.PRICING,constantsService.EA,child.referenceId,constantsService.SW)">
+                              <span *ngIf="child.isPercentageValue" class="percentage-ico">%</span>
+                            </ng-container>
+                           
+                            <ng-container *ngIf="!child.ea.sw.editable">
+                              <span class="widget-services software-cx">{{'common.SW' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                              <span class="value-w-80"><span
+                                  class="ellipsis body-md text-default" ngbTooltip="{{child.ea.sw.value}}" container="body" placement="top">{{child.ea.sw.value ? utilitiesService.formatValue(utilitiesService.getFloatValue(child.ea.sw.value)) : '--'}}</span><span *ngIf="child.isPercentageValue && child.ea.sw?.value">%</span></span>
+                            </ng-container>
+                          </div>
+                          <div class="d-flex item-center justify-between w-full"  [ngClass]="{'pricing-details': !child.ea.sw.editable}">
+                            <ng-container  *ngIf="child.ea.cx.editable" >
+                              <input type="text" class="services-input" (dblclick)="onDoubleClick()" (keydown)="keyDown($event , child.isPercentageValue)" (keyup)='keyUp($event , child.isPercentageValue, child.isNegativeValue)' 
+                              [ngModel]='child.ea.cx.value' (blur)="updateValue(constantsService.PRICING,constantsService.EA,child.referenceId,constantsService.CX)">
+                              <span *ngIf="child.isPercentageValue" class="percentage-ico">%</span>
+                            </ng-container>
+                            
+                            <ng-container *ngIf="!child.ea.cx.editable">
+                              <span class="widget-services software-cx"><span class="cs-service"><span class="path1"></span><span
+                        class="path2"></span><span class="path3"></span><span class="path4"></span></span></span>
+                              <span class="value-w-80"><span
+                                  class="ellipsis body-md text-default" ngbTooltip="{{child.ea.cx.value}}" container="body" placement="top">{{child.ea.cx.value ? utilitiesService.formatValue(utilitiesService.getFloatValue(child.ea.cx.value)) : '--'}}</span><span *ngIf="child.isPercentageValue && child.ea.cx?.value">%</span></span>
+                            </ng-container>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+  
+              <div class="grid grid-cols-3 gap-16 row-gap">
+                <div class="body-md padding-L-16 padding-TB-14 d-flex gap-8 item-center">
+                  &nbsp;
+                </div>
+                <div class="business-section">
+                  <div class="d-flex item-center gap-10">
+                    &nbsp;
+                  </div>
+                </div>
+                <div class="ea-section">
+                  <div class="d-flex item-center gap-10 w-full">
+                    &nbsp;
+                  </div>
+                </div>
+              </div>
+              
+            </ng-container>
+            <!--pricing mock data end-->
+  
+            <!-- Partner Markup -->
+            <!-- <div class="pricing-content">
+              <div class="pricing-header">
+                <div class="grid grid-cols-3 gap-16">
+                  <div class="d-flex item-center gap-8 padding-L-14">
+                    <span class="toggle-icons cs-collapse font-20"></span>
+                    <h6>Partner Markup</h6>
+                    <span class="cs-info"></span>
+                  </div>
+                  <div class="business-section">&nbsp;</div>
+                  <div class="ea-section text-right d-flex gap-8 justify-right item-center"><a
+                      (click)="openAdvancedModelling()" href="" class="body-md item-center font-500 d-flex gap-8"
+                      data-drawer-trigger aria-controls="partner-markup" aria-expanded="false"><span
+                        class="cs-graphql"></span><span>Advanced Modelling</span></a></div>
+                </div>
+              </div>
+              <div class="pricing-accordion">
+                <div class="grid grid-cols-3 gap-16">
+                  <div class="padding-TB-10 padding-L-14">
+                    <div class="body-sm font-700 padding-B-4 d-flex flex-basis">Portfolio</div>
+                    <div class="body-md padding-TB-10 d-flex gap-8 item-center">
+                      <span>Networking Infrastructure</span><span class="cs-info"></span>
+                    </div>
+                  </div>
+                  <div class="business-section">
+                    <div class="body-sm font-700 padding-B-4 d-flex flex-basis">
+                      Average for the Term
+                    </div>
+                    <div class="d-flex item-center gap-10">
+                      <input type="text" class="sw-input" value="15%" />
+                      <input type="text" class="services-input" value="15%" />
+                    </div>
+                  </div>
+                  <div class="ea-section">
+                    <div class="body-sm font-700 padding-B-4 d-flex flex-basis">
+                      Average for the Term
+                    </div>
+                    <div class="d-flex item-center gap-10">
+                      <input type="text" class="sw-input" value="15%" />
+                      <input type="text" class="services-input" value="15%" />
+                    </div>
+                  </div>
+                </div>
+                <div class="grid grid-cols-3 gap-16">
+                  <div class="padding-TB-10 padding-L-14">
+                    <div class="body-md padding-TB-10 d-flex gap-8 item-center">
+                      <span>Applications Infrastructure</span><span class="cs-info"></span>
+                    </div>
+                  </div>
+                  <div class="business-section">
+                    <div class="d-flex item-center gap-10">
+                      <input type="text" class="sw-input" value="15%" />
+                      <input type="text" class="services-input" value="15%" />
+                    </div>
+                  </div>
+                  <div class="ea-section">
+                    <div class="d-flex item-center gap-10">
+                      <input type="text" class="sw-input" value="15%" />
+                      <input type="text" class="services-input" value="15%" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="grid grid-cols-3 gap-16 row-gap">
+                <div class="body-md padding-L-16 padding-TB-14 d-flex gap-8 item-center">
+                  &nbsp;
+                </div>
+                <div class="business-section">
+                  <div class="d-flex item-center gap-10">
+                    &nbsp;
+                  </div>
+                </div>
+                <div class="ea-section">
+                  <div class="d-flex item-center gap-10 w-full">
+                    &nbsp;
+                  </div>
+                </div>
+              </div>
+            </div> -->
+  
+  
+            <!-- Partner Markup mock start -->
+            <div class="pricing-content" *ngIf="tcoStoreService.partnerMarkup?.label">
+              <div>
+                <div class="grid grid-cols-3 gap-16 pricing-header">
+                  <div class="d-flex item-center gap-8 padding-L-14 padding-B-0">
+                      <span
+                      *ngIf="expandedSections[tcoStoreService.partnerMarkup.label]"
+                      class="toggle-icons cs-collapse font-20"
+                      (click)="toggleSection(tcoStoreService.partnerMarkup.label)"
+                    ></span>
+                    <span
+                      *ngIf="!expandedSections[tcoStoreService.partnerMarkup.label]"
+                      class="toggle-icons cs-expand font-20"
+                      (click)="toggleSection(tcoStoreService.partnerMarkup.label)"
+                      ></span>
+                      <h6>{{tcoStoreService.partnerMarkup.label}}</h6>
+                      <span class="cs-info" *ngIf="tcoStoreService.partnerMarkup?.info" ngbTooltip="{{tcoStoreService.partnerMarkup?.info}}" container="body" placement="top"></span>
+                  </div>
+                  <div class="business-section">&nbsp;</div>
+                  <div 
+                    class="ea-section text-right d-flex gap-8 justify-right item-center padding-B-0"><a *ngIf="tcoStoreService.partnerMarkup.advancedModelingAllowed"
+                      (click)="openAdvancedModelling()" class="body-md item-center font-500 d-flex gap-8" 
+                      attr.action-id="{{dataIdConstantsService.tco_link_openAdvancedModelingPartnerbreakup}}" id="{{elementIdConstantsService.TCO_OPEN_ADVANCED_MODELING_PARTNER_BREAKUP}}"><span
+                        class="cs-graphql"></span><span>{{'tco-details.ADVANCED_MODELING' | localizationPipe : localizationService.localizedkeySet.size}}</span></a></div>
+                </div>
+              </div>
+              <div *ngIf="expandedSections[tcoStoreService.partnerMarkup.label]" class="pricing-accordion">
+                <div class="grid grid-cols-3 gap-16">
+                  <div class="padding-TB-10 padding-L-44 padding-B-0">
+                    <div class="body-sm font-700 padding-B-4 d-flex flex-basis">{{'tco-details.PORTFOLIO' | localizationPipe : localizationService.localizedkeySet.size}}</div>
+                    <!-- <div class="body-md padding-TB-10 d-flex gap-8 item-center">
+                    <span>Networking Infrastructure</span
+                    ><span class="cs-info"></span>
+                  </div> -->
+                  </div>
+                  <div class="business-section padding-B-0">
+                    <div class="body-sm font-700 padding-B-4 d-flex flex-basis">
+                      {{'tco-details.AVERAGE_FOR_THE_TERM' | localizationPipe : localizationService.localizedkeySet.size}}
+                    </div>
+                    <!-- <div class="d-flex item-center gap-10">
+                    <input type="text" class="sw-input" value="15%" />
+                    <input type="text" class="services-input" value="15%" />
+                  </div> -->
+                  </div>
+                  <div class="ea-section padding-B-0">
+                    <div class="body-sm font-700 padding-B-4 d-flex flex-basis">
+                      {{'tco-details.AVERAGE_FOR_THE_TERM' | localizationPipe : localizationService.localizedkeySet.size}}
+                    </div>
+                    <!-- <div class="d-flex item-center gap-10">
+                    <input type="text" class="sw-input" value="15%" />
+                    <input type="text" class="services-input" value="15%" />
+                  </div> -->
+                  </div>
+                </div>
+                <ng-container *ngFor="let enrollemnt of tcoStoreService.partnerMarkup.enrollments">
+                  <div class="grid grid-cols-3 gap-16">
+                    <div class="padding-TB-10 padding-L-44  padding-T-0">
+                      <div class="body-md padding-TB-10 d-flex gap-8 item-center">
+                        <span>{{enrollemnt.name}}</span>
+                      </div>
+                    </div>
+                    <div class="business-section padding-T-0">
+                      <div class="d-flex item-center gap-10">
+                        <div class="d-flex align-items-center editable-input-section w-full" *ngIf="!enrollemnt.cxOnlyPurchased">
+                          <input type="text" class="sw-input" (dblclick)="onDoubleClick()" (keydown)="keyDown($event)" (keyup)='keyUp($event)' [ngModel]='enrollemnt.alcSwPercent'  (blur)="updateValue(constantsService.PARTNER_MARKUP,constantsService.ALC,constantsService.SW_PERCENTAGE,null,enrollemnt)" />
+                          <span class="percentage-ico">%</span>
+                        </div>
+                        <div class="d-flex align-items-center editable-input-section w-full" *ngIf="enrollemnt.cxOnlyPurchased">
+                          <input type="text" class="sw-input disabled"  value="--"  />
+                          
+                        </div>
+  
+                        <div class="d-flex align-items-center editable-input-section w-full" *ngIf="enrollemnt.cxAvailable">
+                          <input type="text" class="services-input" (dblclick)="onDoubleClick()" (keydown)="keyDown($event)" (keyup)='keyUp($event)' [ngModel]='enrollemnt.alcCxPercent' (blur)="updateValue(constantsService.PARTNER_MARKUP,constantsService.ALC,constantsService.HW_CX_PERCENTAGE,null,enrollemnt)" />
+                          <span class="percentage-ico">%</span>
+                        </div>  
+                        <div class="d-flex align-items-center editable-input-section w-full" *ngIf="!enrollemnt.cxAvailable">
+                          <input type="text" class="services-input disabled"  value="--"/>
+                          <!-- <span class="percentage-ico">%</span> -->
+                        </div>  
+                        <!-- <span class="percentage-sign">%</span> -->
+                      </div>
+                    </div>
+                    <div class="ea-section padding-T-0">
+                      <div class="d-flex item-center gap-10">
+                        <div class="d-flex align-items-center editable-input-section w-full" *ngIf="!enrollemnt.cxOnlyPurchased">
+                          <input type="text" class="sw-input" (dblclick)="onDoubleClick()" (keydown)="keyDown($event)" (keyup)='keyUp($event)' [ngModel]='enrollemnt.eaSwPercent'  (blur)="updateValue(constantsService.PARTNER_MARKUP,constantsService.EA,constantsService.SW_PERCENTAGE,null,enrollemnt)"/>
+                          <span class="percentage-ico">%</span>
+                        </div>
+                        <div class="d-flex align-items-center editable-input-section w-full" *ngIf="enrollemnt.cxOnlyPurchased">
+                          <input type="text" class="sw-input disabled"  value="--"/>
+                        </div>
+  
+                        <div class="d-flex align-items-center editable-input-section w-full" *ngIf="enrollemnt.cxAvailable">
+                          <input type="text" (dblclick)="onDoubleClick()" class="services-input" (keydown)="keyDown($event)" (keyup)='keyUp($event)' [ngModel]='enrollemnt.eaCxPercent'  (blur)="updateValue(constantsService.PARTNER_MARKUP,constantsService.EA,constantsService.HW_CX_PERCENTAGE,null,enrollemnt)"/>
+                          <span class="percentage-ico">%</span>
+                        </div>
+                        <div class="d-flex align-items-center editable-input-section w-full" *ngIf="!enrollemnt.cxAvailable">
+                          <input type="text" class="services-input disabled" value="--"/>
+                          <!-- <span class="percentage-ico">%</span> -->
+                        </div>
+  
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
+              </div>
+              <div class="grid grid-cols-3 gap-16 row-gap">
+                <div class="body-md padding-L-16 padding-TB-14 d-flex gap-8 item-center">
+                  &nbsp;
+                </div>
+                <div class="business-section">
+                  <div class="d-flex item-center gap-10">
+                    &nbsp;
+                  </div>
+                </div>
+                <div class="ea-section">
+                  <div class="d-flex item-center gap-10 w-full">
+                    &nbsp;
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+  
+  
+            <!--PartnerMarkup Mock end-->
+  
+            <!-- Growth expenses -->
+            <!-- <div class="pricing-content">
+              <div class="pricing-header">
+                <div class="grid grid-cols-3 gap-16">
+                  <div class="d-flex item-center gap-8 padding-L-14">
+                    <span class="toggle-icons cs-collapse font-20"></span>
+                    <h6>Growth expenses</h6>
+                    <span class="cs-info"></span>
+                  </div>
+                  <div class="business-section">&nbsp;</div>
+                  <div class="ea-section text-right d-flex gap-8 justify-right item-center"><a href=""
+                      class="body-md item-center font-500 d-flex gap-8" data-drawer-trigger
+                      aria-controls="advanced-modelling" aria-expanded="false"><span
+                        class="cs-graphql"></span><span>Advanced Modelling</span></a></div>
+                </div>
+              </div>
+              <div class="pricing-accordion">
+                <div class="grid grid-cols-3 gap-16">
+                  <div class="padding-TB-10 padding-L-14">
+                    <div class="body-sm font-700 padding-B-4">Portfolio</div>
+                    <div class="body-md padding-TB-10 d-flex gap-8 item-center">
+                      <span>Networking Infrastructure</span><span class="cs-info"></span>
+                    </div>
+                  </div>
+                  <div class="business-section">
+                    <div class="body-sm font-700 padding-B-4">
+                      Average for the Term
+                    </div>
+                    <div class="d-flex item-center gap-10">
+                      <input type="text" class="sw-input" value="15%" />
+                      <input type="text" class="services-input" value="15%" />
+                    </div>
+                  </div>
+                  <div class="ea-section">
+                    <div class="body-sm font-700 padding-B-4">
+                      Average for the Term
+                    </div>
+                    <div class="d-flex item-center gap-10">
+                      <input type="text" class="sw-input" value="15%" />
+                      <input type="text" class="services-input" value="15%" />
+                    </div>
+                  </div>
+                </div>
+                <div class="grid grid-cols-3 gap-16">
+                  <div class="padding-TB-10 padding-L-14">
+                    <div class="body-md padding-TB-10 d-flex gap-8 item-center">
+                      <span>Applications Infrastructure</span><span class="cs-info"></span>
+                    </div>
+                  </div>
+                  <div class="business-section">
+                    <div class="d-flex item-center gap-10">
+                      <input type="text" class="sw-input" value="15%" />
+                      <input type="text" class="services-input" value="15%" />
+                    </div>
+                  </div>
+                  <div class="ea-section">
+                    <div class="d-flex item-center gap-10">
+                      <input type="text" class="sw-input" value="15%" />
+                      <input type="text" class="services-input" value="15%" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="grid grid-cols-3 gap-16 row-gap">
+                <div class="body-md padding-L-16 padding-TB-14 d-flex gap-8 item-center">
+                  &nbsp;
+                </div>
+                <div class="business-section">
+                  <div class="d-flex item-center gap-10">
+                    &nbsp;
+                  </div>
+                </div>
+                <div class="ea-section">
+                  <div class="d-flex item-center gap-10 w-full">
+                    &nbsp;
+                  </div>
+                </div>
+              </div>
+            </div> -->
+  
+            <!-- Growth exp Mock start-->
+  
+            <div class="pricing-content"  *ngIf="tcoStoreService.growthExpenses?.label">
+              <div>
+                <div class="grid grid-cols-3 gap-16 pricing-header">
+                  <div class="d-flex item-center gap-8 padding-L-14">
+                    <span
+                    *ngIf="expandedSections[tcoStoreService.growthExpenses.label]"
+                    class="toggle-icons cs-collapse font-20"
+                    (click)="toggleSection(tcoStoreService.growthExpenses.label)"
+                  ></span>
+                  <span
+                    *ngIf="!expandedSections[tcoStoreService.growthExpenses.label]"
+                    class="toggle-icons cs-expand font-20"
+                    (click)="toggleSection(tcoStoreService.growthExpenses.label)"
+                    ></span>
+                    <h6>{{tcoStoreService.growthExpenses.label}}</h6>
+                    <span class="cs-info" *ngIf="tcoStoreService.growthExpenses?.info" ngbTooltip="{{tcoStoreService.growthExpenses?.info}}" container="body" placement="top"></span>
+                  </div>
+                  <div class="business-section">&nbsp;</div>
+                  <div class="ea-section text-right d-flex gap-8 justify-right item-center"  *ngIf="tcoStoreService.growthExpenses.advancedModelingAllowed">
+                    <a (click)="openAdvancedModelling('growthExpense')" class="body-md item-center font-500 d-flex gap-8" attr.action-id="{{dataIdConstantsService.tco_link_openAdvancedModelingGrowthExpense}}" id="{{elementIdConstantsService.TCO_OPEN_ADVANCED_MODELING_GROWTH_EXPENSE}}"><span
+                        class="cs-graphql"></span><span>{{'tco-details.ADVANCED_MODELING' | localizationPipe : localizationService.localizedkeySet.size}}</span></a></div>
+                </div>
+              </div>
+              <div *ngIf="expandedSections[tcoStoreService.growthExpenses.label]" class="pricing-accordion">
+                <div class="grid grid-cols-3 gap-16">
+                  <div class="padding-TB-10 padding-L-44 padding-B-0">
+                    <div class="body-sm font-700 padding-B-4">{{'tco-details.PORTFOLIO' | localizationPipe : localizationService.localizedkeySet.size}}</div>
+                    <!-- <div class="body-md padding-TB-10 d-flex gap-8 item-center">
+                      <span>Networking Infrastructure</span><span class="cs-info"></span>
+                    </div> -->
+                  </div>
+                  <div class="business-section padding-B-0">
+                    <div class="body-sm font-700 padding-B-4">
+                      {{'tco-details.AVERAGE_FOR_THE_TERM' | localizationPipe : localizationService.localizedkeySet.size}}
+                    </div>
+                    <!-- <div class="d-flex item-center gap-10">
+                      <input type="text" class="sw-input" value="15%" />
+                      <input type="text" class="services-input" value="15%" />
+                    </div> -->
+                  </div>
+                  <div class="ea-section padding-B-0">
+                    <div class="body-sm font-700 padding-B-4">
+                      {{'tco-details.AVERAGE_FOR_THE_TERM' | localizationPipe : localizationService.localizedkeySet.size}}
+                    </div>
+                    <!-- <div class="d-flex item-center gap-10">
+                      <input type="text" class="sw-input" value="15%" />
+                      <input type="text" class="services-input" value="15%" />
+                    </div> -->
+                  </div>
+                </div>
+                <ng-container *ngFor="let enrollemnt of  tcoStoreService.growthExpenses.enrollments">
+                <div class="grid grid-cols-3 gap-16">
+                  <div class="padding-TB-10 padding-L-44 padding-T-0">
+                    <div class="body-md padding-TB-10 d-flex gap-8 item-center">
+                      <span>{{enrollemnt.name}}</span>
+                    </div>
+                  </div>
+                  <div class="business-section padding-T-0">
+                    <div class="d-flex item-center gap-10">
+                      <div class="d-flex align-items-center editable-input-section w-full" *ngIf="!enrollemnt.cxOnlyPurchased">
+                        <input type="text" class="sw-input" (dblclick)="onDoubleClick()" (keydown)="keyDown($event)" (keyup)='keyUp($event)' [ngModel]='enrollemnt.alcSwPercent' (blur)="updateValue(constantsService.GROWTH_EXP,constantsService.ALC,constantsService.SW_PERCENTAGE,null,enrollemnt)"/>
+                        <span class="percentage-ico">%</span>
+                      </div>
+                      <div class="d-flex align-items-center editable-input-section w-full" *ngIf="enrollemnt.cxOnlyPurchased">
+                        <input type="text" class="sw-input disabled" value="--" />
+                      </div>
+                    <ng-container>
+                      <div class="d-flex align-items-center editable-input-section w-full" *ngIf="enrollemnt.swCxAvailable">  
+                        <input type="text" class="sw-cx-input" (dblclick)="onDoubleClick()" (keydown)="keyDown($event)" (keyup)='keyUp($event)' [ngModel]='enrollemnt.alcSwCxPercent'   (blur)="updateValue(constantsService.GROWTH_EXP,constantsService.ALC,constantsService.SW_CX_PERCENTAGE,null,enrollemnt)"/>
+                        <span class="percentage-ico">%</span>
+                      </div>
+                      <div class="d-flex align-items-center editable-input-section w-full"  *ngIf="enrollemnt.hwCxAvailable">
+                        <input type="text" class="hw-cx-input" (dblclick)="onDoubleClick()" (keydown)="keyDown($event)" (keyup)='keyUp($event)' [ngModel]='enrollemnt.alcHwCxPercent'  (blur)="updateValue(constantsService.GROWTH_EXP,constantsService.ALC,constantsService.HW_CX_PERCENTAGE,null,enrollemnt)"/>
+                        <span class="percentage-ico">%</span>
+                      </div>
+                      </ng-container>
+                      <ng-container >
+                        <div class="d-flex align-items-center editable-input-section w-full" *ngIf="!enrollemnt.swCxAvailable">  
+                          <input type="text" class="sw-cx-input disabled" value="--"/>
+                          <!-- <span class="percentage-ico">%</span> -->
+                        </div>
+                        <div class="d-flex align-items-center editable-input-section w-full" *ngIf="!enrollemnt.hwCxAvailable">
+                          <input type="text" class="hw-cx-input disabled" value="--" />
+                          <!-- <span class="percentage-ico">%</span> -->
+                        </div>
+                        </ng-container>
+                    </div>
+                  </div>
+                  <div class="ea-section padding-T-0">
+                    <div class="d-flex item-center gap-10">
+                      <div class="d-flex align-items-center editable-input-section w-full" *ngIf="!enrollemnt.cxOnlyPurchased">
+                        <input type="text" class="sw-input" (dblclick)="onDoubleClick()" (keydown)="keyDown($event)" (keyup)='keyUp($event)' [ngModel]='enrollemnt.eaSwPercent' (blur)="updateValue(constantsService.GROWTH_EXP,constantsService.EA,constantsService.SW_PERCENTAGE,null,enrollemnt)"/>
+                        <span class="percentage-ico">%</span>
+                      </div>
+                      <div class="d-flex align-items-center editable-input-section w-full" *ngIf="enrollemnt.cxOnlyPurchased">
+                        <input type="text" class="sw-input disabled" value="--" />
+                      </div>
+                      <ng-container>
+                      <div class="d-flex align-items-center editable-input-section w-full"  *ngIf="enrollemnt.swCxAvailable">
+                        <input type="text" class="sw-cx-input" (dblclick)="onDoubleClick()" (keydown)="keyDown($event)" (keyup)='keyUp($event)' [ngModel]='enrollemnt.eaSwCxPercent'  (blur)="updateValue(constantsService.GROWTH_EXP,constantsService.EA,constantsService.SW_CX_PERCENTAGE,null,enrollemnt)"/>
+                        <span class="percentage-ico">%</span>
+                      </div>
+                      <div class="d-flex align-items-center editable-input-section w-full"  *ngIf="enrollemnt.hwCxAvailable">
+                        <input type="text" class="hw-cx-input" (dblclick)="onDoubleClick()" (keydown)="keyDown($event)" (keyup)='keyUp($event)' [ngModel]='enrollemnt.eaHwCxPercent' (blur)="updateValue(constantsService.GROWTH_EXP,constantsService.EA,constantsService.HW_CX_PERCENTAGE,null,enrollemnt)"/>
+                        <span class="percentage-ico">%</span>
+                      </div>
+                    </ng-container>
+                      <ng-container>
+                        <div class="d-flex align-items-center editable-input-section w-full" *ngIf="!enrollemnt.swCxAvailable">  
+                          <input type="text" class="sw-cx-input disabled" value="--"/>
+                          <!-- <span class="percentage-ico">%</span> -->
+                        </div>
+                        <div class="d-flex align-items-center editable-input-section w-full" *ngIf="!enrollemnt.hwCxAvailable">
+                          <input type="text" class="hw-cx-input disabled" value="--" />
+                          <!-- <span class="percentage-ico">%</span> -->
+                        </div>
+                        </ng-container>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+              </div>
+              <div class="grid grid-cols-3 gap-16 row-gap">
+                <div class="body-md padding-L-16 padding-TB-14 d-flex gap-8 item-center">
+                  &nbsp;
+                </div>
+                <div class="business-section">
+                  <div class="d-flex item-center gap-10">
+                    &nbsp;
+                  </div>
+                </div>
+                <div class="ea-section">
+                  <div class="d-flex item-center gap-10 w-full">
+                    &nbsp;
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--Growth exp Mock end-->
+  
+            <!-- Time Value of money -->
+            <!-- <div class="pricing-content">
+              <div class="pricing-header">
+                <div class="grid grid-cols-3 gap-16">
+                  <div class="d-flex item-center gap-8 padding-L-14">
+                    <span class="toggle-icons cs-collapse font-20"></span>
+                    <h6>Time Value of Money</h6>
+                    <span class="cs-info"></span>
+                  </div>
+                  <div class="business-section">&nbsp;</div>
+                  <div class="ea-section text-right d-flex gap-8 justify-right item-center"><a href=""
+                      class="body-md item-center font-500 d-flex gap-8" data-drawer-trigger
+                      aria-controls="advanced-modelling" aria-expanded="false"><span
+                        class="cs-graphql"></span><span>Advanced Modelling</span></a></div>
+                </div>
+              </div>
+              <div class="pricing-accordion">
+                <div class="grid grid-cols-3 gap-16">
+                  <div class="padding-TB-10 padding-L-14">
+                    <div class="body-sm font-700 padding-B-4">Cost</div>
+                    <div class="body-md padding-TB-10 d-flex gap-8 item-center">
+                      <span>Inflation Cost</span><span class="cs-info"></span>
+                    </div>
+                  </div>
+                  <div class="business-section">
+                    <div class="body-sm font-700 padding-B-4">
+                      Average for the Term
+                    </div>
+                    <div class="d-flex item-center gap-10">
+                      <input type="text" class="sw-input" value="15%" />
+                      <input type="text" class="services-input" value="15%" />
+                    </div>
+                  </div>
+                  <div class="ea-section">
+                    <div class="body-sm font-700 padding-B-4">
+                      Average for the Term
+                    </div>
+                    <div class="d-flex item-center gap-10">
+                      <input type="text" class="sw-input" value="15%" />
+                      <input type="text" class="services-input" value="15%" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="grid grid-cols-3 gap-16 row-gap">
+                <div class="body-md padding-L-16 padding-TB-14 d-flex gap-8 item-center">
+                  &nbsp;
+                </div>
+                <div class="business-section">
+                  <div class="d-flex item-center gap-10">
+                    &nbsp;
+                  </div>
+                </div>
+                <div class="ea-section">
+                  <div class="d-flex item-center gap-10 w-full">
+                    &nbsp;
+                  </div>
+                </div>
+              </div>
+              
+            </div> -->
+                      <!-- Time Value of money -->
+                      <div class="pricing-content" *ngIf="tcoStoreService.inflation?.label">
+                        <div>
+                          <div class="grid grid-cols-3 gap-16 pricing-header">
+                            <div class="d-flex item-center gap-8 padding-L-14">                            <span
+                              *ngIf="expandedSections[tcoStoreService.inflation.label]"
+                              class="toggle-icons cs-collapse font-20"
+                              (click)="toggleSection(tcoStoreService.inflation.label)"
+                            ></span>
+                            <span
+                              *ngIf="!expandedSections[tcoStoreService.inflation.label]"
+                              class="toggle-icons cs-expand font-20"
+                              (click)="toggleSection(tcoStoreService.inflation.label)"
+                              ></span>
+                              <h6>{{tcoStoreService.inflation.label}}</h6>
+                              <span *ngIf="tcoStoreService.inflation?.info" class="cs-info" ngbTooltip="{{tcoStoreService.inflation?.info}}" container="body" placement="top"></span>
+                            </div>
+                            <div class="business-section">&nbsp;</div>
+                            <div class="ea-section text-right d-flex gap-8 justify-right item-center" *ngIf="tcoStoreService.inflation.advancedModelingAllowed"><a (click)="openAdvancedModelling()" attr.action-id="{{dataIdConstantsService.tco_link_openAdvancedModelingTimevaluemoney}}" id="{{elementIdConstantsService.TCO_OPEN_ADVANCED_MODELING_TVM}}"
+                                class="body-md item-center font-500 d-flex gap-8" data-drawer-trigger
+                                aria-controls="advanced-modelling" aria-expanded="false"><span
+                                  class="cs-graphql"></span><span> {{'tco-details.ADVANCED_MODELING' | localizationPipe : localizationService.localizedkeySet.size}}</span></a></div>
+                          </div>
+                        </div>
+                        <div *ngIf="expandedSections[tcoStoreService.inflation.label]" class="pricing-accordion">
+                          <div class="grid grid-cols-3 gap-16">
+                            <div class="padding-TB-10 padding-L-44">
+                              <div class="body-sm font-700 padding-B-4">{{'common.COST' | localizationPipe : localizationService.localizedkeySet.size}}</div>
+                              <div class="body-md padding-TB-10 d-flex gap-8 item-center">
+                                <span>{{'tco-details.INFLATION_COST' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                              </div>
+                            </div>
+                            <div class="business-section">
+                              <div class="body-sm font-700 padding-B-4">
+                                {{'tco-details.AVERAGE_FOR_THE_TERM' | localizationPipe : localizationService.localizedkeySet.size}}
+                              </div>
+                              <div class="d-flex item-center gap-10">
+                                <div class="d-flex align-items-center editable-input-section w-full" *ngIf="!tcoStoreService.inflation.cxOnlyPurchased">
+                                  <input type="text" class="sw-input" (dblclick)="onDoubleClick()" (keydown)="keyDown($event)" (keyup)='keyUp($event)' [ngModel]='tcoStoreService.inflation.alcSwPercent' (blur)="updateValue(constantsService.INFLATION,constantsService.ALC,constantsService.SW_PERCENTAGE)"/>
+                                  <span class="percentage-ico">%</span>
+                                </div>
+                                <div class="d-flex align-items-center editable-input-section w-full" *ngIf="tcoStoreService.inflation.cxOnlyPurchased">
+                                  <input type="text" class="sw-input disabled" value ="--" />
+                                </div>
+                              <ng-container >
+                                <div class="d-flex align-items-center editable-input-section w-full" *ngIf="tcoStoreService.inflation.swCxAvailable">
+                                  <input type="text" class="sw-cx-input" (dblclick)="onDoubleClick()" (keydown)="keyDown($event)" (keyup)='keyUp($event)' [ngModel]='tcoStoreService.inflation.alcSwCxPercent' (blur)="updateValue(constantsService.INFLATION,constantsService.ALC,constantsService.SW_CX_PERCENTAGE)"/>
+                                  <span class="percentage-ico">%</span>
+                                </div>
+                                <div class="d-flex align-items-center editable-input-section w-full" *ngIf="tcoStoreService.inflation.hwCxAvailable">
+                                  <input type="text" class="hw-cx-input" (dblclick)="onDoubleClick()" (keydown)="keyDown($event)" (keyup)='keyUp($event)' [ngModel]='tcoStoreService.inflation.alcHwCxPercent' (blur)="updateValue(constantsService.INFLATION,constantsService.ALC,constantsService.HW_CX_PERCENTAGE)"/>
+                                  <span class="percentage-ico">%</span>
+                                </div>
+                              </ng-container>
+                              <ng-container >
+                                <div class="d-flex align-items-center editable-input-section w-full" *ngIf="!tcoStoreService.inflation.swCxAvailable">
+                                  <input type="text" class="sw-cx-input disabled" value ="--"/>
+                                  <!-- <span class="percentage-ico">%</span> -->
+                                </div>
+                                <div class="d-flex align-items-center editable-input-section w-full" *ngIf="!tcoStoreService.inflation.hwCxAvailable">
+                                  <input type="text" class="hw-cx-input disabled" value ="--"/>
+                                  <!-- <span class="percentage-ico">%</span> -->
+                                </div>
+                              </ng-container>
+                              </div>
+                            </div>
+                            <div class="ea-section">
+                              <div class="body-sm font-700 padding-B-4">
+                                {{'tco-details.AVERAGE_FOR_THE_TERM' | localizationPipe : localizationService.localizedkeySet.size}}
+                              </div>
+                              <div class="d-flex item-center gap-10">
+                                <div class="d-flex align-items-center editable-input-section w-full" *ngIf="!tcoStoreService.inflation.cxOnlyPurchased">
+                                  <input type="text" class="sw-input" (dblclick)="onDoubleClick()" (keydown)="keyDown($event)" (keyup)='keyUp($event)' [ngModel]='tcoStoreService.inflation.eaSwPercent' (blur)="updateValue(constantsService.INFLATION,constantsService.EA,constantsService.SW_PERCENTAGE)"/>
+                                  <span class="percentage-ico">%</span>
+                                </div>
+                                <div class="d-flex align-items-center editable-input-section w-full" *ngIf="tcoStoreService.inflation.cxOnlyPurchased">
+                                  <input type="text" class="sw-input disabled" value ="--" />
+                                </div>
+                                <ng-container>
+                                <div class="d-flex align-items-center editable-input-section w-full" *ngIf="tcoStoreService.inflation.swCxAvailable">
+                                  <input type="text" class="sw-cx-input" (dblclick)="onDoubleClick()" (keydown)="keyDown($event)" (keyup)='keyUp($event)' [ngModel]='tcoStoreService.inflation.eaSwCxPercent' (blur)="updateValue(constantsService.INFLATION,constantsService.EA,constantsService.SW_CX_PERCENTAGE)"/>
+                                  <span class="percentage-ico">%</span>
+                                </div>
+                                <div class="d-flex align-items-center editable-input-section w-full" *ngIf="tcoStoreService.inflation.hwCxAvailable">
+                                  <input type="text" class="hw-cx-input" (dblclick)="onDoubleClick()" (keydown)="keyDown($event)" (keyup)='keyUp($event)' [ngModel]='tcoStoreService.inflation.eaHwCxPercent' (blur)="updateValue(constantsService.INFLATION,constantsService.EA,constantsService.HW_CX_PERCENTAGE)"/>
+                                  <span class="percentage-ico">%</span>
+                                </div>
+                              </ng-container>
+                                <ng-container>
+                                  <div class="d-flex align-items-center editable-input-section w-full" *ngIf="!tcoStoreService.inflation.swCxAvailable">
+                                    <input type="text" class="sw-cx-input disabled" value ="--"/>
+                                    <!-- <span class="percentage-ico">%</span> -->
+                                  </div>
+                                  <div class="d-flex align-items-center editable-input-section w-full" *ngIf="!tcoStoreService.inflation.hwCxAvailable">
+                                    <input type="text" class="hw-cx-input disabled" value ="--"/>
+                                    <!-- <span class="percentage-ico">%</span> -->
+                                  </div>
+                                </ng-container>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="grid grid-cols-3 gap-16 row-gap">
+                          <div class="body-md padding-L-16 padding-TB-14 d-flex gap-8 item-center">
+                            &nbsp;
+                          </div>
+                          <div class="business-section">
+                            <div class="d-flex item-center gap-10">
+                              &nbsp;
+                            </div>
+                          </div>
+                          <div class="ea-section">
+                            <div class="d-flex item-center gap-10 w-full">
+                              &nbsp;
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+  <!-- Additional cost start-->
+  <div class="pricing-content" *ngIf="tcoStoreService.additionalCosts?.childs?.length">
+    <div>
+      <div class="grid grid-cols-3 gap-16 pricing-header">
+        <div class="d-flex item-center gap-8 padding-L-14">
+          <span
+          *ngIf="expandedSections[tcoStoreService.additionalCosts.label]"
+          class="toggle-icons cs-collapse font-20"
+          (click)="toggleSection(tcoStoreService.additionalCosts.label)"
+        ></span>
+        <span
+          *ngIf="!expandedSections[tcoStoreService.additionalCosts.label]"
+          class="toggle-icons cs-expand font-20"
+          (click)="toggleSection(tcoStoreService.additionalCosts.label)"
+          ></span>
+          <h6>{{tcoStoreService.additionalCosts.label}}</h6>
+          <span *ngIf="tcoStoreService.additionalCosts?.info" class="cs-info" ngbTooltip="{{tcoStoreService.additionalCosts?.info}}" container="body" placement="top"></span>
+        </div>
+        <div class="business-section">&nbsp;</div>
+        <div class="ea-section text-right d-flex gap-8 justify-right item-center"
+          *ngIf="tcoStoreService.additionalCosts.advancedModelingAllowed"><a (click)="openAdvancedModelling()"
+            class="body-md item-center font-500 d-flex gap-8" data-drawer-trigger aria-controls="advanced-modelling"
+            aria-expanded="false"><span class="cs-graphql"></span><span>{{'tco-details.ADVANCED_MODELING' | localizationPipe : localizationService.localizedkeySet.size}}</span></a></div>
+      </div>
+    </div>
+    <div *ngIf="expandedSections[tcoStoreService.additionalCosts.label]" class="pricing-accordion">
+      <div class="grid grid-cols-3 gap-16">
+        <div class="padding-TB-10 padding-L-14">
+          <div class="body-sm font-700 padding-B-4">{{'common.COST' | localizationPipe : localizationService.localizedkeySet.size}}</div>
+        </div>
+        <div class="business-section">
+          <div class="body-sm font-700 padding-B-4">
+            {{'tco-details.AVERAGE_FOR_THE_TERM' | localizationPipe : localizationService.localizedkeySet.size}}
+          </div>
+        </div>
+        <div class="ea-section">
+          <div class="body-sm font-700 padding-B-4">
+            {{'tco-details.AVERAGE_FOR_THE_TERM' | localizationPipe : localizationService.localizedkeySet.size}}
+          </div>
+        </div>
+      </div>
+      <ng-container *ngFor="let child of  tcoStoreService.additionalCosts.childs">
+        <div class="grid grid-cols-3 gap-16">
+          <div class="padding-TB-10 padding-L-14">
+            <div class="body-md padding-TB-10 d-flex gap-8 item-center">
+              <div class="d-flex justify-content-between w-100">
+                <span>{{child.name}}</span>
+                <span class="action-icons ml-3" (click)="deleteAdditionalCost(child)"><i class="icon-trash"></i></span>
+              </div>
+            </div>
+          </div>
+          <div class="business-section">
+            <div class="d-flex item-center gap-10" *ngIf="child.alc ; else noAlcData"> 
+              <div class="d-flex align-items-center editable-input-section w-full" *ngIf="!child.alc.cxOnlyPurchased">
+                <input type="text" class="sw-input" (dblclick)="onDoubleClick()" (keydown)="keyDown($event)" (keyup)='keyUp($event)' [ngModel]='child.alc.swPercent' (blur)="updateValue(constantsService.ADDITIONAL_COST,constantsService.ALC,constantsService.SW_PERCENTAGE,null,null,child.id)"/>
+                <span class="percentage-ico">%</span>
+              </div>
+              <div class="d-flex align-items-center editable-input-section w-full" *ngIf="child.alc.cxOnlyPurchased">
+                <input type="text" class="sw-input disabled" value="--"/>
+              </div>
+              <div class="d-flex align-items-center editable-input-section w-full" *ngIf="child.alc.cxAvailable">
+                <input type="text" class="services-input" (dblclick)="onDoubleClick()" (keydown)="keyDown($event)" (keyup)='keyUp($event)' [ngModel]='child.alc.hwCxPercent' (blur)="updateValue(constantsService.ADDITIONAL_COST,constantsService.ALC,constantsService.HW_CX_PERCENTAGE,null,null,child.id)"/>
+                <span class="percentage-ico">%</span>
+              </div>
+              <div class="d-flex align-items-center editable-input-section w-full" *ngIf="!child.alc.cxAvailable">
+                <input type="text" class="services-input disabled" value="--"/>
+              </div>
+              
+            </div>
+            <ng-template #noAlcData>
+              <div class="d-flex item-center gap-10 w-full">
+                <span class="widget-services software-cx">{{'common.SW' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                <span class="value-w-80"><span class="ellipsis body-md text-default">--</span></span>
+                <span class="widget-services software-cx"><span class="cs-service"><span class="path1"></span><span
+                      class="path2"></span><span class="path3"></span><span class="path4"></span></span></span>
+                <span class="value-w-80"><span class="ellipsis body-md text-default">--</span></span>
+              </div>
+            </ng-template>
+          </div>
+          <div class="ea-section">
+            <div class="d-flex item-center gap-10" *ngIf="child.ea; else noEaData">
+              <div class="d-flex align-items-center editable-input-section w-full" *ngIf="!child.ea.cxOnlyPurchased">
+                <input type="text" class="sw-input" (dblclick)="onDoubleClick()" (keydown)="keyDown($event)" (keyup)='keyUp($event)' [ngModel]='child.ea.swPercent' (blur)="updateValue(constantsService.ADDITIONAL_COST,constantsService.EA,constantsService.SW_PERCENTAGE,null,null,child.id)"/>
+                <span class="percentage-ico">%</span>
+              </div>
+              <div class="d-flex align-items-center editable-input-section w-full" *ngIf="child.ea.cxOnlyPurchased">
+                <input type="text" class="sw-input disabled" value="--"/>
+              </div>
+              <div class="d-flex align-items-center editable-input-section w-full" *ngIf="child.ea.cxAvailable">
+                <input type="text" class="services-input" (dblclick)="onDoubleClick()" (keydown)="keyDown($event)" (keyup)='keyUp($event)' [ngModel]='child.ea.hwCxPercent' (blur)="updateValue(constantsService.ADDITIONAL_COST,constantsService.EA,constantsService.HW_CX_PERCENTAGE,null,null,child.id)"/>
+                <span class="percentage-ico">%</span>
+              </div>
+              <div class="d-flex align-items-center editable-input-section w-full" *ngIf="!child.ea.cxAvailable">
+                <input type="text" class="services-input disabled" value="--"/>
+              </div>
+              
+            </div>
+            <ng-template #noEaData>
+              <div class="d-flex item-center gap-10 w-full">
+                <span class="widget-services software-cx">SW</span>
+                <span class="value-w-80"><span class="ellipsis body-md text-default">--</span></span>
+                <span class="widget-services software-cx"><span class="cs-service"><span class="path1"></span><span
+                      class="path2"></span><span class="path3"></span><span class="path4"></span></span></span>
+                <span class="value-w-80"><span class="ellipsis body-md text-default">--</span></span>
+              </div>
+            </ng-template>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+    <div class="grid grid-cols-3 gap-16 row-gap">
+      <div class="body-md padding-L-16 padding-TB-14 d-flex gap-8 item-center">
+        &nbsp;
+      </div>
+      <div class="business-section">
+        <div class="d-flex item-center gap-10">
+          &nbsp;
+        </div>
+      </div>
+      <div class="ea-section">
+        <div class="d-flex item-center gap-10 w-full">
+          &nbsp;
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Additional cost end-->
+          </div>
+          <!-- Pricing main container for scrolling -->
+          <div class="add-additional-cost vNext"><button class="btn btn-primary" *ngIf="tcoStoreService.tcoData?.objId"
+            aria-controls="add-additional-cost" (click)="openAdditionalCost()" attr.action-id="{{dataIdConstantsService.tco_button_openAdditionalCost}}" id="{{elementIdConstantsService.TCO_OPEN_ADDITIONAL_COST}}">
+            {{'common.ADD_ADDITIONAL_COST' | localizationPipe : localizationService.localizedkeySet.size}}
+          </button></div>
+        </div>
+      </div>
+  
+      <div class="col-md-3 financial-summary border-body">
+        <section class="financial-section">
+          <div class="body-lg padding-B-16" *ngIf="!isBuyingProgramTransactionTypeMsea">{{'tco-details.TOTAL_SAVING_WITH_EA3' | localizationPipe : localizationService.localizedkeySet.size}}</div>
+          <div class="body-lg padding-B-16" *ngIf="isBuyingProgramTransactionTypeMsea">{{'tco-details.TOTAL_SAVING_WITH_MSEA3' | localizationPipe : localizationService.localizedkeySet.size}}</div>
+          <h2 class="padding-B-16">{{tcoStoreService.tcoData.savingsInfo?.amount ? utilitiesService.formatValue(utilitiesService.getFloatValue(tcoStoreService.tcoData.savingsInfo.amount)) : 0}} {{proposalStoreService.proposalData?.currencyCode}}</h2>
+          <div>
+            <div class="discount-saved-head">
+              <div>
+                <h5>{{tcoStoreService.tcoData.savingsInfo?.percent ? tcoStoreService.tcoData.savingsInfo.percent : 0}}% Savings</h5>
+              </div>
+              <span id="toggle-btn" class="toggle-btn up" (click)="showHideAppliedDiscounts()"><i [ngClass]="{'expandIcon': !showDiscountsApplied}"></i></span>
+            </div>
+            <div id="discount-saved-details" class="discount-saved-details" *ngIf="showDiscountsApplied">
+              <ul>
+                <li>
+                  <div class="financial-items gap-8">
+                    <span class="body-sm font-400">{{tcoStoreService.pricing?.label}}</span>
+                  </div>
+                  <div class="financial-items gap-8">
+                    <span class="widget-discount"><span class="cs-tags"></span><span>{{tcoStoreService.pricing?.saving?.percent ? tcoStoreService.pricing.saving.percent : 0}}%</span></span>
+                    <span class="body-sm font-400">{{tcoStoreService.pricing?.saving?.amount ? utilitiesService.formatValue(utilitiesService.getFloatValue(tcoStoreService.pricing.saving.amount)) : 0}}</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="financial-items gap-8">
+                    <span class="body-sm font-400">{{tcoStoreService.partnerMarkup?.label}}</span>
+                  </div>
+                  <div class="financial-items gap-8">
+                    <span class="widget-discount"><span class="cs-tags"></span><span>{{tcoStoreService.partnerMarkup?.saving?.percent ? tcoStoreService.partnerMarkup.saving.percent : 0}}%</span></span>
+                    <span class="body-sm font-400">{{tcoStoreService.partnerMarkup?.saving?.amount ? utilitiesService.formatValue(utilitiesService.getFloatValue(tcoStoreService.partnerMarkup.saving.amount)) : 0}}</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="financial-items gap-8">
+                    <span class="body-sm font-400">{{tcoStoreService.growthExpenses?.label}}</span>
+                  </div>
+                  <div class="financial-items gap-8">
+                    <span class="widget-discount"><span class="cs-tags"></span><span>{{tcoStoreService.growthExpenses?.saving?.percent ? tcoStoreService.growthExpenses.saving.percent : 0}}%</span></span>
+                    <span class="body-sm font-400">{{tcoStoreService.growthExpenses?.saving?.amount ? utilitiesService.formatValue(utilitiesService.getFloatValue(tcoStoreService.growthExpenses.saving.amount)) : 0}}</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="financial-items gap-8">
+                    <span class="body-sm font-400">{{tcoStoreService.inflation?.label}}</span>
+                  </div>
+                  <div class="financial-items gap-8">
+                    <span class="widget-discount"><span class="cs-tags"></span><span>{{tcoStoreService.inflation?.saving?.percent ? tcoStoreService.inflation.saving.percent : 0}}%</span></span>
+                    <span class="body-sm font-400">{{tcoStoreService.inflation?.saving?.amount ? utilitiesService.formatValue(utilitiesService.getFloatValue(tcoStoreService.inflation.saving.amount)) : 0}}</span>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+        <section class="financial-section">
+          <div class="body-lg padding-B-16">{{'common.FINANCIAL_SUMMARY' | localizationPipe : localizationService.localizedkeySet.size}} ({{proposalStoreService.proposalData?.currencyCode}})</div>
+          <ul class="padding-B-10">
+            <li class="padding-B-6">
+              <div class="financial-items gap-8">
+                <span class="body-sm color-gray font-700">{{'common.SOFTWARE' | localizationPipe : localizationService.localizedkeySet.size}}</span><span
+                  class="widget-services software-cx">{{'common.SW' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+              </div>
+              <div class="financial-items gap-8">
+                <span class="widget-discount"><span class="cs-tags"></span><span>{{tcoStoreService.tcoData.savingsInfo?.softwareEnrollments?.percent ? tcoStoreService.tcoData.savingsInfo.softwareEnrollments.percent : 0}}%</span></span>
+                <span class="body-sm color-gray font-700">{{tcoStoreService.tcoData.ea?.financialSummary?.swFinancialSummary?.amount ? utilitiesService.formatValue(utilitiesService.getFloatValue(tcoStoreService.tcoData.ea.financialSummary.swFinancialSummary.amount)) : 0}}</span>
+              </div>
+            </li>
+            <ng-container *ngFor="let enrollemnt of tcoStoreService.tcoData.ea?.financialSummary?.swFinancialSummary?.enrollments">
+            <li class="padding-B-4">
+              <div class="financial-items gap-8">
+                <span class="body-sm color-gray">{{enrollemnt.name}}</span>
+              </div>
+              <div class="financial-items gap-8">
+                <span class="body-sm color-gray">{{enrollemnt.amount ? utilitiesService.formatValue(utilitiesService.getFloatValue(enrollemnt.amount)) : 0}}</span>
+              </div>
+            </li>
+          </ng-container>
+  
+          </ul>
+          <ul class="padding-B-16" *ngIf="tcoStoreService.tcoData.ea?.financialSummary?.cxFinancialSummary?.enrollments?.length">
+            <li class="padding-B-6">
+              <div class="financial-items gap-8">
+                <span class="body-sm color-gray font-700">{{'common.SERVICES' | localizationPipe : localizationService.localizedkeySet.size}}</span><span class="widget-services software-cx"><span
+                    class="cs-service"><span class="path1"></span><span class="path2"></span><span
+                      class="path3"></span><span class="path4"></span></span></span>
+              </div>
+              <div class="financial-items gap-8">
+                <span class="widget-discount"><span class="cs-tags"></span><span>{{tcoStoreService.tcoData.savingsInfo?.servicesEnrollments?.percent ? tcoStoreService.tcoData.savingsInfo.servicesEnrollments.percent : 0}}%</span></span>
+                <span class="body-sm color-gray font-700">{{tcoStoreService.tcoData.ea?.financialSummary?.cxFinancialSummary?.amount ? utilitiesService.formatValue(utilitiesService.getFloatValue(tcoStoreService.tcoData.ea.financialSummary.cxFinancialSummary.amount)) : 0}}</span>
+              </div>
+            </li>
+            <ng-container *ngFor="let enrollemnt of tcoStoreService.tcoData.ea?.financialSummary?.cxFinancialSummary?.enrollments">
+            <li class="padding-B-4">
+              <div class="financial-items gap-8">
+                <span class="body-sm color-gray">{{enrollemnt.name}}</span>
+              </div>
+              <div class="financial-items gap-8">
+                <span class="body-sm color-gray">{{enrollemnt.amount ? utilitiesService.formatValue(utilitiesService.getFloatValue(enrollemnt.amount)) : 0}}</span>
+              </div>
+            </li>
+          </ng-container>
+          </ul>
+          <ul>
+            <li>
+              <div class="financial-items gap-8">
+                <span class="body-md color-gray font-700">{{'tco-details.TOTAL' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+              </div>
+              <div class="financial-items gap-8">
+                <!-- <span class="widget-discount"><span class="cs-tags"></span><span>check with MW team%</span></span> -->
+                <span class="body-md color-gray font-700">{{tcoStoreService.tcoData.ea?.financialSummary?.totalAmount ? utilitiesService.formatValue(utilitiesService.getFloatValue(tcoStoreService.tcoData.ea.financialSummary.totalAmount)) : 0}}</span>
+              </div>
+            </li>
+          </ul>
+        </section>
+        <app-tco-bar-chart *ngIf="tcoStoreService.tcoData.objId" [isMsea]="isBuyingProgramTransactionTypeMsea"></app-tco-bar-chart>
+      </div>
+  
+      <app-advanced-modelling *ngIf="tcoService.advancedModelling" (updateTcoPage)="fetchTcoData()" [modelType]="modelType"></app-advanced-modelling>
+      <app-add-additional-cost *ngIf="tcoService.addAdditionalCost" [tcoObjId]="tcoStoreService.tcoData.objId" [isMsea]="isBuyingProgramTransactionTypeMsea"></app-add-additional-cost>
+      <app-financial-summary *ngIf="proposalStoreService.showFinancialSummary"></app-financial-summary>
+  </div>
+  </div>
+  </div>

@@ -1,0 +1,1472 @@
+<div class="container-fluid clearfix mt-3 float-left">
+    <div *ngIf="appDataService.includedPartialIb" class="alert alert--warning alert-dismissable mb-2 mt-3">
+        <span class="alert-icon">
+            <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+        </span>
+        <span>Come back later to initiate EUIF, once LoCC has been uploaded and proposal has been re-priced.</span>
+        <!-- <a class="close" style="cursor: pointer;" (click)="removeAlert(message)">&times;</a> -->
+    </div>
+</div>
+
+<div class="container-fluid clearfix mt-3 float-left">
+    <ng-container *ngFor="let documentData of documentCenter.documentCenterData; let i = index">
+        <div class="doc-wrap" [ngClass]="{'active': i === 0, 'disabled': documentData.disable }">
+            <ng-container *ngIf="(documentData.type !== 'LOA' && documentData.type !== 'LOCC') || appDataService.includedPartialIb">
+                <div class="doc-header" *ngIf="(!appDataService.includedPartialIb && !documentData.isInstallBase  && documentData.type !== constantsService.TCO_MODELING) || (appDataService.includedPartialIb && !documentData.isInstallBase &&  documentData.type !== constantsService.CUSTOMER_PACKAGE && documentData.type !== constantsService.TCO_MODELING)">
+                    <div class="row flex-elem">
+                        <div class="col-8 inner-flex">
+                            <span *ngIf="documentData?.docCenterContainerClass" [ngClass]="[documentData?.docCenterContainerClass]"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span>
+                            <span class="path6"></span><span class="path7"></span><span class="path8"></span><span class="path9"></span><span class="path10"></span><span class="path11"></span><span class="path12"></span></span>
+
+                            <h4> {{documentData.documentLabel}}
+                                <!-- <span>{{documentData.documentLabelInfo}}</span> -->
+                                <i *ngIf="documentData.type === this.constantsService.CUSTOMER_PACKAGE" class="icon-info-line-level ml-1" placement="top-center" container="body" ngbTooltip="Legal Package consists of End User Information Form (EUIF) and EA Program Terms & Letter of Agreement (LOA)."></i>
+                            </h4>
+                            <div class="dcoument-description">{{documentData.documentLabelInfo}}</div>
+                            <!-- <span *ngIf="documentData.documentLabelDate"
+                                class="lbl-desc">{{localeService.getLocalizedString('docusign.CREATED_ON')}}
+                                <span>{{documentData.documentLabelDate}}</span>
+                            </span> -->
+                        </div>
+
+                        <ul class="action-list text-right col-4" *ngIf="documentData.type !== constantsService.EA_PROGRAM_TERMS">
+
+                            <!-- <li *ngIf="documentData.type === constantsService.CUSTOMER_PACKAGE && documentData.status === constantsService.COMPLETED ">
+                                <a (click)="downloadSignedCustomerPackage()" class="icon-download mr-2" href="javascript:void(0)"></a><a (click)="downloadSignedCustomerPackage()" href="javascript:void(0)">{{localeService.getLocalizedString('docusign.DOWNLOAD_CUST_LEGAL_REVIEW')}}</a>
+                            </li>
+                            <li *ngIf="documentData.type === constantsService.CUSTOMER_PACKAGE && documentData.status !== constantsService.COMPLETED  ">
+                                <a (click)="downloadDoc(documentData.type)" class="icon-download mr-2" href="javascript:void(0)"></a><a (click)="downloadDoc(documentData.type)" href="javascript:void(0)">{{localeService.getLocalizedString('docusign.DOWNLOAD_CUST_LEGAL_REVIEW')}}</a>
+                            </li> -->
+                            <!-- <li class="border-right-0"><a href="javascript:void(0)" class="icon-more-link"></a></li> -->
+                            <li *ngIf="documentData.shareOption" [ngClass]="{ 'disabled': documentData.disable}" (click)="openSpecialist(documentData)">
+                                <a href="javascript:void(0)" [ngClass]="{ 'disabled': documentData.disable}" class="icon-request1 mr-2"></a><a [ngClass]="{ 'disabled': documentData.disable}" href="javascript:void(0)">{{localeService.getLocalizedString('docusign.REQUEST')}}</a>
+                            </li>
+                            <li *ngIf="documentData.downloadOption && documentData.type !== constantsService.TCO_MODELING ">
+                                <a #downloadZipLink [hidden]="true"></a>
+                                <a (click)="downloadDoc(documentData.type)" href="javascript:void(0)" class="icon-download mr-2"></a><a (click)="downloadDoc(documentData.type)" href="javascript:void(0)">{{localeService.getLocalizedString('docusign.DOWNLOAD')}}</a>
+                            </li>
+                            <li *ngIf="documentData.type === this.constantsService.CUSTOMER_PACKAGE   && !showWelcomeMessage"> <span>{{ loaRequired === 'No' ? 'LOA is not required' : 'LOA is required' }}</span></li>
+                        </ul>
+                        <!-- program terms download panel starts here -->
+                        <ul class="text-right col-4 qualService" *ngIf="documentData.type === constantsService.EA_PROGRAM_TERMS">
+                            <li *ngIf="documentData.downloadOption && documentData.type !== constantsService.TCO_MODELING && documentData.type === constantsService.EA_PROGRAM_TERMS">
+                                <a #downloadZipLink [hidden]="true"></a>
+                                <a (click)="downloadDoc(documentData.type)" href="javascript:void(0)" class="icon-download mr-2"></a><a (click)="downloadDoc(documentData.type)" href="javascript:void(0)">{{localeService.getLocalizedString('docusign.DOWNLOAD_PROGRAM_TERMS_SIGNED')}}</a>
+                            </li>
+                            <li class="ml-3" *ngIf="documentData.downloadOption && documentData.type !== constantsService.TCO_MODELING && documentData.type === constantsService.EA_PROGRAM_TERMS">
+                                <span class="sale-signed">{{localeService.getLocalizedString('partner.LOA_SIGNED')}}</span>
+                                <div class="validate-text" *ngIf="programTermsSignedDate">Signed At : {{programTermsSignedDate}} </div>
+                            </li>
+
+                        </ul>
+                        <!-- program terms download panel ends here -->
+
+                        <!-- <div class="col-4 d-flex align-items-center justify-content-end" *ngIf= "!showLocc">
+                        <ul class="qualService">
+                 
+                          <li class="d-inline-flex align-items-center">
+                            <span class="pr-10">LOA Required:</span>
+                            <div class="position-relative element-hasvalue exception-model upload-options pr-10">
+                              <div class="custom-dropdown ">
+                                <div ngbDropdown class="select-items " ngbDropdownToggle>
+                                  <span class="dropdown--typeAhead__arrow-management">
+                                    <button id="dropdownManual" class="btn--text drop-button" ngbDropdownAnchor
+                                      style="width: 100%; text-align: initial;">
+                                      {{selectedOption?selectedOption:'Make Selection'}}</button>
+                                  </span>
+                                  <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                                    <ul>
+                                      <li class="dropdown-item" *ngFor="let option of options" (click)="setUploadOpotion(option)">{{option}}
+                                      </li>
+                                    </ul>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </li>
+                             <li>
+                               <a href="javascript:void(0)" (click)="uploadAuthorizationLetter()">{{localeService.getLocalizedString('partner.UPLOAD_LOA')}}</a>
+                            </li>  
+                             
+                            <li *ngIf= "!showLocc && documentCenter.isLOAUploaded">
+                                <a #downloadZipLink [hidden]="true"></a>
+                                  <a href="javascript:void(0)" (click)="openDownloadModal()"><span
+                                    class="icon-download mr-2"></span>{{localeService.getLocalizedString('partner.DOWNLOAD_LOA')}} ({{documentCenter?.loaData?.length}})</a>
+                            </li>
+                        </ul>
+                    </div>  -->
+                    </div>
+                </div>
+                <div class="doc-header" *ngIf="!documentData.isInstallBase && documentData.type === constantsService.TCO_MODELING && proposalStatus === constantsService.COMPLETE_STATUS && !appDataService.isGroupSelected">
+                    <div class="row flex-elem">
+                        <div class="col-8 inner-flex">
+                            <span *ngIf="documentData?.docCenterContainerClass" [ngClass]="[documentData?.docCenterContainerClass]"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span>
+                            <span class="path6"></span><span class="path7"></span><span class="path8"></span><span class="path9"></span><span class="path10"></span><span class="path11"></span><span class="path12"></span></span>
+
+                            <h4>{{documentData.documentLabel}}
+                            </h4>
+                            <div class="dcoument-description">{{documentData.documentLabelInfo}}</div>
+                        </div>
+                        <ul class="action-list text-right col-4">
+                            <li *ngIf="documentData.downloadOption">
+                                <a (click)="goToTCOList()" href="javascript:void(0)"><span
+                                        class="icon-view"></span>{{localeService.getLocalizedString('tco.VIEW_TCO_PROPOSALS')}}
+                                    ({{tcoCount}})</a><span class="sep-list"></span>
+                                <a *ngIf="!disableTcoCreate" (click)="initiateTCOModel()" href="javascript:void(0)">{{localeService.getLocalizedString('tco.INITIATE_TCO')}}</a>
+                                <a *ngIf="disableTcoCreate">{{localeService.getLocalizedString('tco.INITIATE_TCO')}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </ng-container>
+            <div class="clearfix doc-letter" *ngIf="isLoadLoA && !this.appDataService.isPatnerLedFlow && documentData.type === 'LOA'">
+                <app-letter-of-cc [showLocc]='false' (loaQuestionEmitter)="callCustomerLoaQuestion($event, 'loa')" [showLoaRequired]="isShowLoaRequired"></app-letter-of-cc>
+            </div>
+
+            <div class="clearfix doc-letter" *ngIf="proposalDataService.isLoccRequired &&  partnerDeal && documentData.type === 'LOCC'">
+                <app-letter-of-cc [showLocc]='true'> </app-letter-of-cc>
+            </div>
+
+
+            <div class="alert alert--info alert-dismissable" *ngIf="!proposalDataService.isLoccRequired && !proposalDataService.isBrownfieldPartner && partnerDeal && documentData.type === 'LOCC'">
+                <span class="alert-icon">
+                    <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                </span>
+                <span class="infoTxt">
+                    No Letter of Customer Consent (LoCC) is required as customer has not previously purchased any
+                    qualifying licenses for this EA
+                </span>
+            </div>
+            <div class="alert alert--info alert-dismissable" *ngIf="!proposalDataService.isLoccRequired && proposalDataService.isBrownfieldPartner && partnerDeal && documentData.type === 'LOCC'">
+                <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                <span class="infoTxt">
+                    No Letter of Customer Consent is required as customer has purchased all qualifying licenses from you
+                    as a Partner.
+                </span>
+            </div>
+
+            <!--  CCWEAMGMT-2366 -- Initial text -- Starts here -->
+            <div [hidden]="toggleTabsContainer && toggleTabsContainer[i]"  *ngIf = "showWelcomeMessage" class="p-3">
+            
+                <span class="lbl-desc my-3 pb-0" >Welcome to the Cisco EA Legal Package Wizard!</span> <br><br>
+                <span class="lbl-desc mb-3 pb-0" >This simple wizard will help you prepare and share the customized legal package with your customer representative(s). Answer the questions correctly and the wizard will auto-generate legal package with required documents for you. You will then have the option to choose the signature method between physical and electronic. EAMP preferred way is to initiate electronic signature through DocuSign.</span> <br><br>
+                <span class="lbl-desc mb-3 pb-0" >Click the continue button when ready.</span>
+             </div>               
+             <!--  CCWEAMGMT-2366 -- Initial text -- Ends here -->
+
+            <ul class="nav nav-tabs pt-2" id="myTab" role="tablist" [hidden]="toggleTabsContainer && toggleTabsContainer[i]" *ngIf="!appDataService.includedPartialIb && (appDataService.isGroupSelected || (!this.proposalDataService.proposalDataObject.proposalData.isCrossArchitecture && this.proposalDataService.proposalDataObject.proposalData.status === this.constantsService.COMPLETE_STATUS)) && !showWelcomeMessage">
+                <li class="nav-item" (click)="toggleTabs(i,'Docusign',documentData)">
+                    <a [ngClass]="{'active': !toggleDocuSignTab || !toggleDocuSignTab[i]}" class="nav-link " id="docusign-tab" data-toggle="tab" href="javascript:void(0)" role="tab" aria-controls="profile" aria-selected="false">{{localeService.getLocalizedString('common.PREPAREANDSHARE')}}</a>
+                </li>
+                <li class="nav-item" (click)="toggleTabs(i,'upload',documentData)">
+                    <a [ngClass]="{'active':!toggleDocumentCenterTab || !toggleDocumentCenterTab[i]}" class="nav-link" id="upload-tab" data-toggle="tab" href="javascript:void(0)" role="tab" aria-controls="home" aria-selected="true">{{localeService.getLocalizedString('docusign.UPLOAD')}}</a>
+                </li>
+            </ul>
+
+            <div class="tab-content border-top-0 tabOne docuSignTab" id="myTabContent" [hidden]="toggleDocuSignTab && toggleDocuSignTab[i]" *ngIf="!appDataService.includedPartialIb && (appDataService.isGroupSelected || (!this.proposalDataService.proposalDataObject.proposalData.isCrossArchitecture && this.proposalDataService.proposalDataObject.proposalData.status === this.constantsService.COMPLETE_STATUS))">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+
+                    <div class="doc-info customerReadiness mb-2" [hidden]="docuSignCustomerReadyContainer && docuSignCustomerReadyContainer[i]" *ngIf = '!showWelcomeMessage'>
+                        <h4 class="tab-head">
+
+                            {{localeService.getLocalizedString('docusign.STEP')}} {{documentData.docSignStepsComp}} {{localeService.getLocalizedString('docusign.OF')}} {{documentData.totalDocuSignSteps}} : General Information
+
+                                  <!-- <span class="steps">
+                                <span>{{localeService.getLocalizedString('docusign.STEP')}}
+                                    {{documentData.docSignStepsComp}}</span> {{localeService.getLocalizedString('docusign.OF')}} {{documentData.totalDocuSignSteps}}
+                            </span>
+
+                            {{documentData.docSignStepsComp}}. {{localeService.getLocalizedString('docusign.INITIAL_SOCIALIZATION')}}
+                            <span class="steps">
+                                <span>{{localeService.getLocalizedString('docusign.STEP')}}
+                                    {{documentData.docSignStepsComp}}</span> {{localeService.getLocalizedString('docusign.OF')}} {{documentData.totalDocuSignSteps}}
+                            </span> -->
+                        </h4>
+
+                        <!-- <span class="lbl-desc mb-1 pb-0">
+                            {{localeService.getLocalizedMessage('docusign.PROCESS_STARTED_1')}}<a class="link" href="javascript:void(0)" (click)="downloadDoc(documentData.type)">download</a> {{localeService.getLocalizedMessage('docusign.PROCESS_STARTED_2')}}
+                        </span> -->
+
+                        <!--  US CCWEAMGMT-2366 -- Starts Here  -->
+                        
+                        <div class="row m-0 docCenter-headerWrapper">
+                            <div class="col-3 pl-0">
+                                <h5 class="card-title custom-card-title">
+                                    {{localeService.getLocalizedString('qual.whoinvolved.PREFERRED_LEGAL_NAME')}} & {{localeService.getLocalizedString('qual.create.ADDRESS')}} <small><a (click)="openCustomerInfoEditModal(0)"
+                                            href="javascript:void(0)">(Change Customer Info)</a></small></h5>
+                                <address class="card-text">{{qualService.qualification?.customerInfo?.preferredLegalName}}
+                                    <br>{{qualService.qualification?.legalInfo?.addressLine1}}
+                                    <br
+                                        *ngIf="qualService.qualification.legalInfo?.addressLine2">{{qualService.qualification?.legalInfo?.addressLine2}}
+                                    <br>{{qualService.qualification?.legalInfo?.city}} {{qualService.qualification?.legalInfo?.state}}
+                                    {{qualService.qualification?.legalInfo?.zip}}
+                                    <br>{{qualService.qualification?.legalInfo?.country}}</address>
+                            </div>
+                    
+                            <div class="col-5 min-info-list">
+                                <div class="card-title custom-card-title radio-custom">
+                                     <input #custRep id="custRep" type="radio" [value]="isCustomerRepresentativeSelected"  (click)="checkRepresentative(isCustomerRepresentativeSelected)" [checked]="isCustomerRepresentativeSelected" *ngIf="createProposalService.isMSPSelected">
+                                    <label for="custRep">
+                                        <span class="custom-radio-btn"><span class="path1"></span><span class="path2"></span></span>
+                                        <span><span></span></span>
+                                        {{localeService.getLocalizedString('qual.whoinvolved.CUSTOMER_REPRESENTATIVES')}}
+                                    </label>
+                                </div>
+                                
+                                <div class="list-style ml-0" *ngIf = "qualService.qualification.customerInfo?.repName">
+                                    <div class="list-item border--all solid">
+                                        <div class="list-item--val col-3 pl-0">
+                                            <label>Name</label>
+                                            <h3>
+                                                <span class="ellipsis" placement="top" container="body"
+                                                ngbTooltip="{{qualService.qualification.customerInfo?.repName}}">{{qualService.qualification.customerInfo?.repName}}</span>
+                                            </h3>
+                                        </div>
+                                        <div class="list-item--val col-3">
+                                            <label>Title</label>
+                                            <h3>
+                                                <span class="ellipsis" placement="top" container="body"
+                                                ngbTooltip="{{qualService.qualification.customerInfo?.repTitle}}">{{qualService.qualification.customerInfo?.repTitle}}</span>
+                                            </h3>
+                                        </div>
+                                        <div class="list-item--val col-4 no-border pl-0">
+                                            <label>Email ID</label>
+                                            <h3>
+                                                <span class="ellipsis" placement="top" container="body"
+                                                ngbTooltip="{{qualService.qualification.customerInfo?.repEmail}}">{{qualService.qualification.customerInfo?.repEmail}}</span>
+                                            </h3>
+                                        </div>
+                                        <div class="list-item--val col-2 border--left solid icon-action">
+                                            <span class="cursor-pointer icon-header-edit mr-2" (click)="openCustomerInfoEditModal(3)"></span>
+                                             <span class="icon-trash disabled" *ngIf = "qualService.additionalCustomerContacts?.length>0" ></span>      	
+                                            <span class="icon-trash" *ngIf = "!qualService.additionalCustomerContacts"  (click)="deleteCustomerContact()" ></span>           
+                                        </div>
+                                    </div>
+                                    <div class="text-danger" *ngIf="!qualService.qualification.customerInfo?.repName || !qualService.qualification.customerInfo?.repTitle || !qualService.qualification.customerInfo?.phoneNumber" role="alert">
+                                        <i class="icon-error-icon"></i><span>{{localeService.getLocalizedString('common.documentcenter.CUSTOMER_REP_MANDATORY_FIELDS_MISSING')}}</span>
+                                    </div>
+                                </div>
+                    
+                                <div class="list-style ml-0" *ngIf="qualService.additionalCustomerContacts">
+                                    <div class="list-item border--all solid">
+                                        <div class="list-item--val col-3 pl-0">
+                                            <label>Name</label>
+                                            <h3>
+                                                <span class="ellipsis" placement="top" container="body"
+                                                ngbTooltip="{{qualService.additionalCustomerContacts[0]?.repName}}">{{qualService.additionalCustomerContacts[0]?.repName}}</span>
+                                            </h3>
+                                        </div>
+                                        <div class="list-item--val col-3">
+                                            <label>Title</label>
+                                            <h3>
+                                                <span class="ellipsis"placement="top" container="body"
+                                                ngbTooltip="{{qualService.additionalCustomerContacts[0]?.repTitle}}">{{qualService.additionalCustomerContacts[0]?.repTitle}}</span>
+                                            </h3>
+                                        </div>
+                                        <div class="list-item--val col-4 no-border pl-0">
+                                            <label>Email ID</label>
+                                            <h3>
+                                                <span class="ellipsis" placement="top" container="body"
+                                                ngbTooltip="{{qualService.additionalCustomerContacts[0]?.repEmail}}">{{qualService.additionalCustomerContacts[0]?.repEmail}}</span>
+                                            </h3>
+                                        </div>
+                                        <div class="list-item--val col-2 border--left solid icon-action">
+                                            <span class="cursor-pointer icon-header-edit mr-2" (click)="openCustomerInfoEditModal(4)"></span>
+                                            <span class="icon-trash" (click)="deleteAdditionalCustomerContact()"></span>                
+                                        </div>
+                                    </div>
+                                    <div class="text-danger" *ngIf="!qualService.additionalCustomerContacts[0]?.repName || !qualService.additionalCustomerContacts[0]?.repTitle || !qualService.additionalCustomerContacts[0]?.phoneNumber" role="alert">
+                                        <i class="icon-error-icon"></i><span>{{localeService.getLocalizedString('common.documentcenter.CUSTOMER_REP_MANDATORY_FIELDS_MISSING')}}</span>
+                                    </div>
+                                </div>
+                    
+                                <div>
+                                    <a *ngIf="qualService.additionalCustomerContacts?.length>0" class="disabled" href="javascript:void(0)"><span class="icon-add custom-add"><span class="path2"></span></span> Add Customer Representative</a> 
+                                    <a *ngIf="!qualService.additionalCustomerContacts && qualService.qualification.customerInfo?.repName" (click)="openCustomerInfoEditModal(2)" href="javascript:void(0)"><span class="icon-add custom-add"><span class="path2"></span></span> Add Customer Representative</a> 	
+                                    <a *ngIf="!qualService.additionalCustomerContacts && !qualService.qualification.customerInfo?.repName" (click)="openCustomerInfoEditModal(5)" href="javascript:void(0)"><span class="icon-add custom-add"><span class="path2"></span></span> Add Customer Representative</a> 
+                                     <span> (You can add upto 2 customer representatives only)</span>
+                                </div>
+                    
+                                <div class="card-title custom-card-title radio-custom mt-2" *ngIf="createProposalService.isMSPSelected && allowPartnerToSign">
+                                    <input #partnerRep id="partnerRep" type="radio" [value]="isCustomerRepresentativeSelected" (click)="checkRepresentative(isCustomerRepresentativeSelected)" [checked]="!isCustomerRepresentativeSelected">
+                                    <label for="partnerRep">
+                                        <span class="custom-radio-btn"><span class="path1"></span><span class="path2"></span></span>
+                                        <span><span></span></span>
+                                        Partner Representative
+                                    </label>
+                                </div>
+                                <div class="row my-2" *ngIf="createProposalService.isMSPSelected && allowPartnerToSign">
+                                  <div class="col-4">
+                                    <h4 class="heading--h6 light">Preferred Legal Name:</h4>
+                                  </div>
+                                  <div class="col">
+                                    <h4 class="heading--h6 uppercase dark">{{partnerRepresentativeContainer[0].data}}</h4>
+                                  </div>
+                                 </div>
+                    
+	                                <div class="list-style ml-0" *ngIf="createProposalService.isMSPSelected && partnerRepresentativeContainer[1].data && allowPartnerToSign">	
+                                    <div class="list-item border--all solid">	
+                                        <div class="list-item--val col-3 pl-0">	
+                                            <label>Name</label>	
+                                            <h3>	
+                                                <span class="ellipsis" placement="top" container="body"	
+                                                ngbTooltip="{{qualService.qualification.customerInfo?.repName}}">{{this.partnerRepresentativeContainer[1].data}}</span>	
+                                            </h3>	
+                                        </div>	
+                                        <div class="list-item--val col-3">	
+                                            <label>Title</label>	
+                                            <h3>	
+                                                <span class="ellipsis" placement="top" container="body"	
+                                                ngbTooltip="{{qualService.qualification.customerInfo?.repTitle}}">{{this.partnerRepresentativeContainer[2].data}}</span>	
+                                            </h3>	
+                                        </div>	
+                                        <div class="list-item--val col-4 no-border pl-0">	
+                                            <label>Email ID</label>	
+                                            <h3>	
+                                                <span class="ellipsis" placement="top" container="body"	
+                                                ngbTooltip="{{qualService.qualification.customerInfo?.repEmail}}">{{this.partnerRepresentativeContainer[3].data}}</span>	
+                                            </h3>	
+                                        </div>	
+                                        <div class="list-item--val col-2 border--left solid icon-action">	
+                                            <span class="cursor-pointer icon-header-edit mr-2" (click)="openPartnerInfoModal(3)"></span>	
+                                            <span class="icon-trash"  (click)="deletePartnerContact()" ></span>              	
+                                        </div>	
+                                    </div> 
+                                </div> 
+                     
+                                <div *ngIf="createProposalService.isMSPSelected && allowPartnerToSign">	
+                                    <a *ngIf="partnerRepresentativeContainer[1].data && partnerRepresentativeContainer[1].data.length >0" class="disabled" href="javascript:void(0)"><span class="icon-add custom-add"><span class="path2"></span></span> Add Partner Representative</a> 	
+                                    <a  *ngIf="partnerRepresentativeContainer[1].data.length === 0" (click)="openPartnerInfoModal(2)" href="javascript:void(0)" ><span class="icon-add custom-add"><span class="path2"></span></span> Add Partner Representative</a> 	
+                                    <span > (Only 1 Partner Representative can be added)</span>
+                                </div>
+                                <div class="text-danger" *ngIf="createProposalService.isMSPSelected && partnerRepresentativeContainer[1].data.length && (!partnerRepresentativeContainer[1].data || !partnerRepresentativeContainer[2].data || !partnerRepresentativeContainer[4].data)" role="alert">
+                                    <i class="icon-error-icon"></i><span>The mandatory attributes are not entered. Please enter them to proceed further.</span>
+                                </div>
+                            </div>
+                    
+                            <div class="col-4">
+                                <h5 class="card-title custom-card-title">Customer Scope <i class="icon-info-line-level" placement="top-right" container="body" ngbTooltip="{{localeService.getLocalizedMessage('docusign.INFO_LEGAL_DOCS')}}"></i><small class="p-0 d-block">
+                                    <a href="javascript:void(0)" (click)="openAddModal()"
+                                        *ngIf="!showChangeAffiliates() && !disableAffiliates">({{localeService.getLocalizedMessage('common.ADD_AFFILIATES')}})</a>
+                                    <a
+                                        *ngIf="!showChangeAffiliates() && disableAffiliates">({{localeService.getLocalizedMessage('common.ADD_AFFILIATES')}})</a>
+                
+                                    <a href="javascript:void(0)" (click)="openAddModal()"
+                                        *ngIf="showChangeAffiliates() && !disableAffiliates">({{localeService.getLocalizedMessage('common.CHANGE_AFFILIATES')}})</a>
+                                    <a
+                                            *ngIf="showChangeAffiliates() && disableAffiliates">({{localeService.getLocalizedMessage('common.CHANGE_AFFILIATES')}})</a>
+                    
+                                    </small></h5>
+                                <p>{{this.qualService.qualification.customerInfo.affiliateNames}}</p>
+                                <div class="file-exe"><span class="icon-pdf1" *ngIf="this.qualService.qualification.customerInfo?.filename?.length>0"><span
+                                            class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span><span class="path8"></span></span>
+                                    <span class="exe">{{this.qualService.qualification.customerInfo?.filename}}</span>
+                                </div>
+                            </div>
+                        </div>
+<!-- 
+                        <div class="alert alert--info">
+                            <span class="alert-icon">
+                                <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                            </span>
+                            <span class="txt">{{localeService.getLocalizedMessage('docusign.PROCESS_STARTED_1')}}<a class="link" href="javascript:void(0)" (click)="downloadDoc(documentData.type)">download</a> {{localeService.getLocalizedMessage('docusign.PROCESS_STARTED_2')}}</span>
+                        </div> -->
+                        <!--  End of US CCWEAMGMT-2366  -->
+
+                        
+                        <!-- <div class="clearfix">
+                            <div class="float-left mr-5 mb-2 radio-custom">
+
+                                <input type="radio" value="Yes" [checked]="isCustomerReady"
+                                    (change)="changeDocSign($event,documentData,i)">
+                                <label for="Yes">
+                                    <span class='custom-radio-btn'>
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                    </span>
+                                    <span>
+                                        <span></span>
+                                    </span>{{localeService.getLocalizedString('docusign.YES')}}</label>
+                            </div>
+
+                            <div class="float-left mb-2 radio-custom">
+                                <input type="radio" value="No" [checked]="!isCustomerReady"
+                                    (change)="changeDocSign($event,documentData,i)">
+                                <label for="No">
+                                    <span class='custom-radio-btn'>
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                    </span>
+                                    <span>
+                                        <span></span>
+                                    </span>{{localeService.getLocalizedString('docusign.NO')}}</label>
+                            </div>
+                        </div>
+
+                        <div class="alert alert--warning" *ngIf="!isCustomerReady">
+                            <i class="arrow up"></i>
+                            <span class="alert-icon">
+                                <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span
+                                        class="path3"></span></span>
+                            </span>
+                            <span class="infoTxt">
+                                {{localeService.getLocalizedMessage('docusign.COME_BACK_LATER')}}
+                                <ul class="refine-search">
+                                    <li>
+                                        <a [id]="appDataService.createUniqueId('GOT_IT',appDataService.pageContext)"
+                                            href="javascript:void(0)"
+                                            (click)="receivedNotification(documentData)">{{localeService.getLocalizedString('docusign.GOT_IT')}}</a>
+                                    </li>
+                                </ul>
+                            </span>
+                        </div> -->
+
+
+                        <!-- <div class="doc-info mt-2 pl-0"
+                            *ngIf="createProposalService.isMSPSelected && !proposalDataService.proposalDataObject.proposalData.isCrossArchitecture && isCustomerReady">
+                            <span class="lbl-desc pb-1">{{mspPartnerQuestion.question}}</span>
+                            <div class="clearfix">
+                                <div class="float-left mr-5 mb-0 radio-custom"
+                                    *ngFor="let answer of mspPartnerQuestion.answers">
+                                    <input type="radio" (change)="mspPartnerSigning(mspPartnerQuestion.answers, answer)"
+                                        value="{{answer.value}}" [checked]="answer.selected">
+                                    <label for="{{answer.value}}">
+                                        <span class='custom-radio-btn'>
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </span>
+                                        <span>
+                                            <span></span>
+                                        </span>{{answer.value}}</label>
+                                </div>
+                            </div>
+
+
+                            <div id="myTabContent2" *ngIf="mspPartnerQuestion.answers[0].selected">
+                                <div class="account-block border-0">
+                                    <h4 class="tab-head mb-2">
+                                        {{localeService.getLocalizedString('docusign.CONFIRM_PARTNER_REPRESENTATIVE_INFO')}}
+                                    </h4>
+                                    <ul>
+                                        <li
+                                            *ngFor="let representativeInfo of partnerRepresentativeContainer ; let i = index;">
+                                            <span class="head mb-0">{{representativeInfo.heading}} <sup
+                                                    *ngIf="i!==0">*</sup> </span>
+
+                                            <span *ngIf="i===0"
+                                                class="value ellipsis">{{representativeInfo.data}}</span>
+
+
+                                            <input style="height: 28px; padding-top: 0; padding-bottom: 5;"
+                                                *ngIf="i!==0" placement="top" container="body" class="form-control"
+                                                type="email" name="label"
+                                                (input)="partnerDetail(i,representativeInfo.data)"
+                                                [(ngModel)]="representativeInfo.data" #label="ngModel" placeholder="" />
+
+                                            <div class="text-danger" role="alert" *ngIf="i===3 && invalidEmail">
+                                                <i class="icon-error-icon"></i>
+                                                <span>{{localeService.getLocalizedString('common.INVALID_EMAIL')}}</span>
+                                            </div>
+
+                                            <div class="text-danger" role="alert" *ngIf="i===3 && invalidDoamin">
+                                                <i class="icon-error-icon"></i>
+                                                <span>{{localeService.getLocalizedString('common.INVALID_DOMAIN')}}</span>
+                                            </div>
+
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </div> -->
+
+                    </div>
+
+                    <!-- customer loa question starts-->
+                    <div class="doc-info customerReadiness" [hidden]="docuSignConfirmLoaContainer && docuSignConfirmLoaContainer[i]">
+
+                        <h4 class="tab-head">
+	
+                            {{localeService.getLocalizedString('docusign.STEP')}} {{documentData.docSignStepsComp}} {{localeService.getLocalizedString('docusign.OF')}} {{documentData.totalDocuSignSteps}} : {{localeService.getLocalizedString('docusign.CUSTOMER_NEGOTIATION')}}	
+                            <!-- {{documentData.docSignStepsComp}}. {{localeService.getLocalizedString('docusign.CUSTOMER_NEGOTIATION')}} -->	
+                            <!-- <span class="steps">	
+                                <span>{{localeService.getLocalizedString('docusign.STEP')}}	
+                                    {{documentData.docSignStepsComp}}</span> {{localeService.getLocalizedString('docusign.OF')}} {{documentData.totalDocuSignSteps}}	
+                            </span> -->
+                        </h4>
+                        <span class="lbl-desc mb-1 pb-0">{{localeService.getLocalizedString('docusign.MAKE_CHANGES')}}</span>
+
+
+                        <div class="clearfix">
+                            <div class="float-left mr-5 mb-2 radio-custom">
+                                <input #yes id="yes" type="radio" value="yes" [checked]="isCutomerAnsweredForLoa" (change)="changeDocSign($event,documentData,i, 1)" [disabled]='partnerLedFlow'>
+                                <label for="yes">
+                                    <span class='custom-radio-btn'>
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                    </span>
+                                    <span>
+                                        <span></span>
+                                    </span>{{localeService.getLocalizedString('docusign.YES')}}</label>
+                            </div>
+
+                            <div class="float-left mb-2 radio-custom">
+                                <input #no [checked]="!isCutomerAnsweredForLoa" id="no" type="radio" value="no" (change)="changeDocSign($event,documentData,i, 1)" [disabled]='partnerLedFlow'>
+                                <label for="noLegalDocuments">
+                                    <span class='custom-radio-btn'>
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                    </span>
+                                    <span>
+                                        <span></span>
+                                    </span>{{localeService.getLocalizedString('docusign.NO')}}</label>
+                            </div>
+                        </div>
+                        <!-- Clarifications Section -->
+                        <span class="lbl-desc mb-1 pb-0" *ngIf="isCutomerAnsweredForLoa">{{localeService.getLocalizedString('docusign.CLARIFICATIONS')}} <a class="link" href="javascript:void(0)" *ngIf="clarificationsSelected === 'yes'" (click)="controlFlyout('clarificationsTab', true)">{{standardcationsSelectedCount}} Clarification(s) Selected</a></span>
+                        <div class="clearfix" *ngIf="isCutomerAnsweredForLoa">
+                            <div class="float-left mr-5 mb-2 radio-custom">
+                                <input #yes id="yes" type="radio" value="yes" [checked]="clarificationsSelected === 'yes'" (change)="changeDocSign($event,documentData,i,2)">
+                                <label for="yes">
+                                    <span class='custom-radio-btn'>
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                    </span>
+                                    <span>
+                                        <span></span>
+                                    </span>{{localeService.getLocalizedString('docusign.YES')}}</label>
+                            </div>
+
+                            <div class="float-left mb-2 radio-custom">
+                                <input #no [checked]="clarificationsSelected === 'no'" id="no" type="radio" value="no" (change)="changeDocSign($event,documentData,i,2)">
+                                <label for="noClarifiedLanguage">
+                                    <span class='custom-radio-btn'>
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                    </span>
+                                    <span>
+                                        <span></span>
+                                    </span>{{localeService.getLocalizedString('docusign.NO')}}</label>
+                            </div>
+                        </div>
+                        <!-- Modifications Section -->
+                        <span class="lbl-desc mb-1 pb-0" *ngIf="isCutomerAnsweredForLoa && clarificationsSelected">{{localeService.getLocalizedString('docusign.MODIFICATIONS')}} <a class="link" href="javascript:void(0)" *ngIf="(this.alreadyObtained === 'no' && modificationsSelected === 'yes')" (click)="controlFlyout('modificationsTab', true)">{{modificationsSelectedCount}} Modification(s) Selected</a></span>
+                        <div class="clearfix" *ngIf="isCutomerAnsweredForLoa && clarificationsSelected">
+                            <div class="float-left mr-5 mb-2 radio-custom">
+                                <input #yes id="yes" type="radio" value="yes" [checked]="modificationsSelected === 'yes'" (change)="changeDocSign($event,documentData,i,3)">
+                                <label for="yes">
+                                    <span class='custom-radio-btn'>
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                    </span>
+                                    <span>
+                                        <span></span>
+                                    </span>{{localeService.getLocalizedString('docusign.YES')}}</label>
+                            </div>
+
+                            <div class="float-left mb-2 radio-custom">
+                                <input #no [checked]="modificationsSelected === 'no'" id="no" type="radio" value="no" (change)="changeDocSign($event,documentData,i,3)">
+                                <label for="noCustomerModifications">
+                                    <span class='custom-radio-btn'>
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                    </span>
+                                    <span>
+                                        <span></span>
+                                    </span>{{localeService.getLocalizedString('docusign.NO')}}</label>
+                            </div>
+                            <!-- <span class="lbl-desc mb-1 p-0 d-block warning-text" *ngIf='displayModificationProceedMsg && !standardcationsSelectedCount'>(please select a modification to proceed)</span> -->
+                        </div>
+
+                        <!------ Electronic signature changes starts ------->
+                        <span class="lbl-desc mb-1 pb-0 d-none">What is your customer asking for?</span>
+                        <label class="label-check m-0 mt-1 d-none"><input class="form-check-input" type="checkbox"><span class="custom-checkbox-btn"><span class="path1"></span><span class="path2"></span></span><span></span><span>Clarifications to Sales<a href="javascript:void();" class="ml-2">3 Clarification(s) Selected</a></span></label>
+                        <label class="label-check m-0 mt-1 mb-1 d-none"><input class="form-check-input" type="checkbox"><span class="custom-checkbox-btn"><span class="path1"></span><span class="path2"></span></span><span></span><span>Delegated Fallback language<a href="javascript:void();" class="ml-2">1 Modification(s) Selected</a></span></label>
+                        <!------ Electronic signature changes ends ------->
+
+                        <!-- LOA already obtained section -->
+                        <span class="lbl-desc mb-1 pb-0" *ngIf="modificationsSelected === 'yes' && modificationsSelectedCount == 0">{{localeService.getLocalizedString('docusign.ALREADY_OBTAINED_ENABLED')}}</span>
+                        <span class="lbl-desc mb-1 pb-0" *ngIf="modificationsSelected === 'yes' && modificationsSelectedCount != 0"><i>{{localeService.getLocalizedString('docusign.ALREADY_OBTAINED_DISABLED')}}</i></span>
+                        <div class="clearfix" *ngIf="modificationsSelected === 'yes'">
+                            <div class="float-left mr-5 mb-2 radio-custom">
+                                <input #yes id="yes" type="radio" value="yes" [checked]="alreadyObtained === 'yes'" (change)="changeDocSign($event,documentData,i,4)" [disabled]="modificationsSelectedCount != 0">
+                                <label for="yes">
+                                    <span class='custom-radio-btn'>
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                    </span>
+                                    <span>
+                                        <span></span>
+                                    </span>{{localeService.getLocalizedString('docusign.YES')}}</label>
+                            </div>
+
+                            <div class="float-left mb-2 radio-custom">
+                                <input #no [checked]="alreadyObtained === 'no'" id="no" type="radio" value="no" (change)="changeDocSign($event,documentData,i,4)" [disabled]="modificationsSelectedCount != 0">
+                                <label for="nolegalContractNegotiator">
+                                    <span class='custom-radio-btn'>
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                    </span>
+                                    <span>
+                                        <span></span>
+                                    </span>{{localeService.getLocalizedString('docusign.NO')}}</label>
+                            </div>
+                            <div class="alert alert--info" *ngIf='displayDraftCopymsg'>
+                                <span class="alert-icon"><span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                                </span>
+                                <span>Make sure to upload the fully executed Letter of Agreement to the "Upload" section once available.</span></div>
+                        </div>
+                        <!-- Download draft message -->
+                        <div class="alert alert--info" *ngIf="alreadyObtained === 'no' && modificationsSelectedCount != 0">
+                            <span class="alert-icon"><span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                            </span>
+                            <span>{{localeService.getLocalizedString('docusign.DOWNLOAD_DRAFT_1')}}<a class="link" href="javascript:void(0)" (click)='downloadDraftDoc()'>here</a>{{localeService.getLocalizedString('docusign.DOWNLOAD_DRAFT_2')}}</span></div>
+
+                        <app-customer-request-clarifications *ngIf="openClarifications && clarificationMode === 'clarificationsTab' " [subtitle]=" 'Clarifications' " [mainTitle]=" 'Applicable Clarification(s)' " [clarificationsList]="clarificationsList" (onclose)="handleClarificationClose($event)"></app-customer-request-clarifications>
+                        <app-customer-request-clarifications *ngIf="openClarifications && clarificationMode === 'modificationsTab' " [subtitle]=" 'Modifications' " [mainTitle]=" 'Applicable Modification(s)' " [clarificationsList]="clarificationsList" (onclose)="handleClarificationClose($event)"></app-customer-request-clarifications>
+                        <!-- <ng-container *ngIf="isCutomerAnsweredForLoa">
+                            <span
+                                class="lbl-desc mb-1 pb-0">{{localeService.getLocalizedString('docusign.CUSTOMER_QUESTION')}}</span>
+                            <div class="clearfix">
+                                <div class="label-with-link">
+                                    <label class="label-check ellipsis mb-2 mr-0 w-auto">
+                                        <input #standardCheckbox class="form-check-input" type="checkbox" name="isStandard" (click)="controlFlyout('clarificationsTab', standardCheckbox.checked)"
+                                        [(ngModel)]="isStandard">
+                                        <span class="custom-checkbox-btn"><span class="path1"></span><span
+                                                class="path2"></span></span>
+                                        <span>Language in our legal documents to be clarified</span>
+                                    </label>
+                                    <a class="link" href="javascript:void(0)" *ngIf="isStandard" (click)="controlFlyout('clarificationsTab', standardCheckbox.checked)">{{standardcationsSelectedCount}} Clarification(s) Selected</a>
+                                </div>
+
+                                <div class="label-with-link">
+                                    <label class="label-check ellipsis mr-0">
+                                        <input #nonstandardCheckbox  class="form-check-input" type="checkbox" name="isNonStandard" (click)="controlFlyout('modificationsTab', nonstandardCheckbox.checked)"
+                                            [(ngModel)]="isNonStandard">
+                                        <span class="custom-checkbox-btn"><span class="path1"></span><span
+                                                class="path2"></span></span>
+                                        <span>Non-Standard Modification(s) to any of our legal documents that will require Letter of Agreement</span>
+                                    </label>
+                                    <a class="link" href="javascript:void(0)" *ngIf="isNonStandard" (click)="controlFlyout('modificationsTab', nonstandardCheckbox.checked)">{{modificationsSelectedCount}} Modification(s) Selected</a>
+                                </div>
+                            </div>
+                            <app-customer-request-clarifications *ngIf = "openClarifications && clarificationMode === 'clarificationsTab' " [subtitle]=" 'Clarifications' " [mainTitle]=" 'Language Clarifications' " [clarificationsList]="clarificationsList" (onclose)="handleClarificationClose($event)"></app-customer-request-clarifications>
+                            <app-customer-request-clarifications *ngIf = "openClarifications && clarificationMode === 'modificationsTab' " [subtitle]=" 'Modifications' " [mainTitle]=" 'Non Standard Modifications' " [clarificationsList]="clarificationsList" (onclose)="handleClarificationClose($event)"></app-customer-request-clarifications>
+                        </ng-container> -->
+                        <!-- End of Checkboxes -->
+                        <ng-container *ngIf="isNonStandard">
+                            <span class="lbl-desc mb-1 pb-0">{{localeService.getLocalizedString('docusign.LEGAL_CONTRACT')}}</span>
+                            <!-- <span class="lbl-desc mb-1"> Do you have a letter of agreement with your customer?</span> -->
+                            <div class="clearfix">
+                                <div class="float-left mr-5 mb-2 radio-custom">
+                                    <input id="isAlreadyObtainedyes_" class="{{isAlreadyObtained}}" type="radio" [value]="'yes'" [checked]="isAlreadyObtained=='yes'" (change)="setRadioValue($event, 'isAlreadyObtained')">
+                                    <label for="isAlreadyObtainedyes_">
+                                        <span class='custom-radio-btn'>
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </span>
+                                        <span>
+                                            <span></span>
+                                        </span>{{localeService.getLocalizedString('docusign.YES')}}</label>
+                                </div>
+
+                                <div class="float-left mb-2 radio-custom">
+                                    <input id="isAlreadyObtainedNo" type="radio" [value]="'no'" [checked]="isAlreadyObtained=='no'" (change)="setRadioValue($event, 'isAlreadyObtained')">
+                                    <label for="isAlreadyObtainedNo_">
+                                        <span class='custom-radio-btn'>
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </span>
+                                        <span>
+                                            <span></span>
+                                        </span>{{localeService.getLocalizedString('docusign.NO')}}</label>
+                                </div>
+                            </div>
+
+
+                            <div class="alert alert--info alert-dismissable clearfix" *ngIf="isAlreadyObtained=='yes'">
+                                <!-- <i class="arrow up" style="left: 20px;"></i> -->
+                                <span class="alert-icon">
+                                    <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                                </span>
+                                <span class="infoTxt"> Please <a href="javascript:void(0)"
+                                        (click)="toggleTabs(i,'upload',documentData)">Click here</a> to upload the
+                                    signed LOA
+                                    <ul class="refine-search" style="margin-top: -11px;">
+                                        <li>
+                                            <a [id]="appDataService.createUniqueId('GOT_IT',appDataService.pageContext)"
+                                                href="javascript:void(0)"
+                                                (click)="receivedNotification(documentData)">{{localeService.getLocalizedString('docusign.GOT_IT')}}</a>
+                                        </li>
+                                    </ul>
+                                </span>
+                            </div>
+                        </ng-container>
+                    </div>
+                    <!-- customer loa question ends -->
+
+                    <div class="preview-doc" [hidden]="docuSignPreviewContainer && docuSignPreviewContainer[i]">
+                        <h4 class="tab-head">
+                            {{documentData.docSignStepsComp}}. {{localeService.getLocalizedString('docusign.PREVIEW_DOCUMENT')}}
+                            <span class="steps">
+                                <span>{{localeService.getLocalizedString('docusign.STEP')}}
+                                    {{documentData.docSignStepsComp}}</span> {{localeService.getLocalizedString('docusign.OF')}} {{documentData.totalDocuSignSteps}}
+                            </span>
+                        </h4>
+                        <span class="d-block lbl-desc">Legal Package Information:</span>	
+                        <span class="d-block lbl-desc">{{localeService.getLocalizedMessage('docusign.PREVIEW_BEFORE_SENDING')}}</span>
+                        <span class="d-block lbl-desc pb-0"><strong>What’s included?</strong>
+                            <ul class="doc-list">
+                                <li>End User Information Form</li>
+                                <li>Program Terms</li>
+                                <li *ngIf="modificationsSelectedCount">Letter of Agreement</li>
+                            </ul>
+                        </span>
+                        {{localeService.getLocalizedString('docusign.CLICK')}}
+                        <a [id]="appDataService.createUniqueId('HERE',appDataService.pageContext)" (click)="downloadDoc(documentData.type)" href="javascript:void(0)">{{localeService.getLocalizedString('docusign.HERE')}}</a> {{localeService.getLocalizedString('docusign.TO_DOWNLOAD')}}
+                    </div>
+
+                    <div class="confirmation" [hidden]="docuSignStatusPendingContainer && docuSignStatusPendingContainer[i]">
+                        <h4 class="tab-head">{{localeService.getLocalizedString('docusign.STATUS_DOCUSIGN')}}
+                            <span class="info">{{localeService.getLocalizedString('docusign.PENDING_SIGN')}}</span>
+                        </h4>
+                        <span class="icon-watch float-left"></span>
+                        <span class="d-block status">
+                            <strong>{{localeService.getLocalizedString('docusign.DOCSIGN_INITIATED')}}
+                            </strong>{{localeService.getLocalizedString('docusign.ELEC_COPIES')}}
+                            <a #downloadZipLink [hidden]="true"></a>
+                            <a *ngIf='uploadedFileHasLoa' [id]="appDataService.createUniqueId('LEGAL_CUST_PACKAGE',appDataService.pageContext)"
+                                (click)="downloadDoc(documentData.type)" 
+                                href="javascript:void(0)">{{localeService.getLocalizedString('docusign.LEGAL_CUST_PACKAGE')}}
+                                </a>
+                            <a *ngIf=' !uploadedFileHasLoa ' [id]="appDataService.createUniqueId('LEGAL_CUST_PACKAGE',appDataService.pageContext)"
+                                (click)="downloadDoc(documentData.type)" 
+                                href="javascript:void(0)">{{localeService.getLocalizedString('docusign.EUIF_AND_PT')}}
+                            </a>
+                            {{localeService.getLocalizedString('docusign.HAVE_BEEN_REQ')}}
+                            <span
+                                *ngIf="isCustomerRepresentativeSelected && !appDataService.includedPartialIb && documentCenter.documentCenterData[0].representativeContainer[0]">{{documentCenter.documentCenterData[0].representativeContainer[0][0].data}}
+                                ({{documentCenter.documentCenterData[0].representativeContainer[0][2].data}})
+                                <span *ngIf="qualService.additionalCustomerContacts">,{{documentCenter.documentCenterData[0].representativeContainer[1][0].data}}({{documentCenter.documentCenterData[0].representativeContainer[1][2].data}})</span>
+                            </span>
+
+                        <span *ngIf="!isCustomerRepresentativeSelected">{{partnerRepresentativeContainer[1].data}}
+                                ({{partnerRepresentativeContainer[3].data}})</span>
+
+
+                        </span>
+                        <span class="lbl-desc">{{localeService.getLocalizedMessage('docusign.CONNECT_WITH_CUSTOMER_REP')}}</span>
+                    </div>
+
+                    <div class="confirmation" [hidden]="docuSignStatusCompletedContainer && docuSignStatusCompletedContainer[i]"> 
+                        <h4 class="tab-head">{{localeService.getLocalizedString('docusign.STATUS_DOCUSIGN')}}
+                            <span class="completed">{{localeService.getLocalizedString('docusign.SIGNED')}} <span *ngIf="documentData.manualLegalPackageSignedDate"> On {{documentData.manualLegalPackageSignedDate | date: 'longDate'}}</span><span *ngIf="documentData.signedAt && !documentData.manualLegalPackageSignedDate"> On {{documentData.signedAt | date: 'longDate'}}</span></span>
+                        </h4>
+                        <span class="icon-success-01"></span>
+                        <span class="status">
+                            <strong >{{documentData.manualLegalPackageSignedDate ? localeService.getLocalizedString('docusign.PHYSICAL_SIGNATURE_COMPLETED') : localeService.getLocalizedString('docusign.DOCSIGN_COMPLETED')}}
+                            </strong>{{documentData.manualLegalPackageSignedDate ? localeService.getLocalizedString('docusign.PHYSICAL_COPIES') : localeService.getLocalizedString('docusign.ELEC_COPIES')}}
+                            <a #downloadSignedCustPackageLink [hidden]="true"></a>
+                            <a *ngIf='uploadedFileHasLoa' [id]="appDataService.createUniqueId('LEGAL_CUST_PACKAGE_SIGNED_BY',appDataService.pageContext)"
+                                (click)="downloadSignedCustomerPackage()"
+                                href="javascript:void(0)">{{localeService.getLocalizedString('docusign.LEGAL_CUST_PACKAGE')}}</a>
+                            <a *ngIf='!uploadedFileHasLoa' [id]="appDataService.createUniqueId('LEGAL_CUST_PACKAGE_SIGNED_BY',appDataService.pageContext)"
+                                (click)="downloadSignedCustomerPackage()"
+                                href="javascript:void(0)">{{localeService.getLocalizedString('docusign.EUIF_AND_PT')}}</a>
+                               
+                            {{localeService.getLocalizedString('docusign.HAVE_BEEN_SIGNED')}}<span *ngIf = "this.documentCenter.documentCenterData[0].manualCustomerPackageUploaded">.</span><span *ngIf = "!this.documentCenter.documentCenterData[0].manualCustomerPackageUploaded">{{localeService.getLocalizedString('docusign.SIGNED_BY')}}
+                            <span *ngIf="isCustomerRepresentativeSelected && documentCenter.documentCenterData[0].representativeContainer[0]">{{documentCenter.documentCenterData[0].representativeContainer[0][0].data}}
+                                ({{documentCenter.documentCenterData[0].representativeContainer[0][2].data}})</span>
+                            <span *ngIf="qualService.additionalCustomerContacts">,{{documentCenter.documentCenterData[0].representativeContainer[1][0].data}}({{documentCenter.documentCenterData[0].representativeContainer[1][2].data}})</span>
+
+                        <span *ngIf="!isCustomerRepresentativeSelected">{{partnerRepresentativeContainer[1].data}}
+                                ({{partnerRepresentativeContainer[3].data}})</span>
+                         </span>
+ 
+
+                        </span>
+                    </div>
+
+                    <div class="confirmation" *ngIf="newDocumentData.docuSignStatusCompletedContainer && isShowSendAgainButton && !uploadedFileHasLoa">
+                        <h4 class="tab-head">{{localeService.getLocalizedString('docusign.STATUS_DOCUSIGN')}} 
+                            <span class="completed">{{localeService.getLocalizedString('docusign.SIGNED')}} <span *ngIf="newDocumentData.manualLoaSignedDate"> On {{newDocumentData.manualLoaSignedDate | date: 'longDate'}}</span></span>
+                        </h4>
+                        <span class="icon-success-01"></span>
+                        <span class="status">
+                            <strong>{{localeService.getLocalizedString('docusign.PHYSICAL_SIGNATURE_COMPLETED')}}
+                            </strong>{{localeService.getLocalizedString('docusign.PHYSICAL_COPIES')}}
+                            <a #downloadSignedCustPackageLink [hidden]="true"></a>
+                            <a [id]="appDataService.createUniqueId('LEGAL_CUST_PACKAGE_SIGNED_BY',appDataService.pageContext)"
+                                (click)="downloadSignedLOA()"
+                                href="javascript:void(0)">{{localeService.getLocalizedString('docusign.LOA')}}</a>
+                            {{localeService.getLocalizedString('docusign.HAVE_BEEN_SIGNED')}}<span *ngIf = "this.documentCenter.documentCenterData[0].manualCustomerPackageUploaded">.</span><span *ngIf = "!this.documentCenter.documentCenterData[0].manualCustomerPackageUploaded"> {{localeService.getLocalizedString('docusign.SIGNED_BY')}} 
+
+                            <span
+                                *ngIf="isCustomerRepresentativeSelected">{{documentCenter.documentCenterData[0].representativeContainer[0][0].data}}
+                                ({{documentCenter.documentCenterData[0].representativeContainer[0][2].data}})</span>
+                            <span *ngIf="qualService.additionalCustomerContacts">,{{documentCenter.documentCenterData[0].representativeContainer[1][0].data}}({{documentCenter.documentCenterData[0].representativeContainer[1][2].data}})</span>
+                            
+                        <span *ngIf="!isCustomerRepresentativeSelected">{{partnerRepresentativeContainer[1].data}}
+                                ({{partnerRepresentativeContainer[3].data}})</span>
+                           </span>
+                        </span>
+                    </div>
+
+ 
+      <div class="account-block border-0" [hidden]="docuSignConfirmContainer && docuSignConfirmContainer[i]"  *ngIf="false" >	
+                        <h4 class="tab-head" *ngIf="createProposalService.isMSPSelected ">	
+                            <!-- {{documentData.docSignStepsComp}}. {{localeService.getLocalizedString('docusign.CONFIRM_REPRESENTATIVE_INFO')}} -->	
+                            {{localeService.getLocalizedString('docusign.STEP')}} {{documentData.docSignStepsComp}} {{localeService.getLocalizedString('docusign.OF')}} {{documentData.totalDocuSignSteps}} : Review & Legal Package Information
+                            <!-- <span class="steps">
+                                <span>{{localeService.getLocalizedString('docusign.STEP')}}
+                                    {{documentData.docSignStepsComp}}</span> {{localeService.getLocalizedString('docusign.OF')}} {{documentData.totalDocuSignSteps}}
+                            </span> -->
+                        </h4>
+                        <!-- Added new radio button for selection of Representative -->
+                        <div class="mb-1 radio-custom" *ngIf="createProposalService.isMSPSelected">
+                            <input id="no" type="radio" [value]="isCustomerRepresentativeSelected" (click)="checkRepresentative(isCustomerRepresentativeSelected)" [checked]="isCustomerRepresentativeSelected">
+                            <label for="partnerRepresentative">
+                                <span class="custom-radio-btn">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                </span>
+                                <span>
+                                    <span></span>
+                                </span>Customer Representative
+                            </label>
+                        </div>
+                        <!-- Added new radio button for selection of Representative :: Ends Here -->
+
+                       <ul class="representative-info">
+                            <!-- Add class "representative-info" in "ul" when using new layout-->
+                            <div *ngIf="isCustomerRepresentativeSelected && createProposalService.isMSPSelected">
+                                <li *ngFor="let representativeInfo of documentCenter.documentCenterData[0].representativeContainer[0]">
+                                    <span class="head">{{representativeInfo.heading}}</span>
+                                    <span class="value ellipsis">{{representativeInfo.data}}</span>
+                                </li>
+                                <li>
+                                    <span class="cursor-pointer icon-header-edit mr-2" (click)="openCustomerInfoEditModal(0)"></span>
+                                    <span class="icon-trash disabled"></span>
+                                </li>
+                            </div>
+                            <div *ngIf="isCustomerRepresentativeSelected && createProposalService.isMSPSelected && qualService.additionalCustomerContacts">
+                                <li *ngFor="let representativeInfo of documentCenter.documentCenterData[0].representativeContainer[1]">
+                                    <span class="head">{{representativeInfo.heading}}</span>
+                                    <span class="value ellipsis">{{representativeInfo.data}}</span>
+                                </li>
+                                <li>
+                                    <span class="cursor-pointer icon-header-edit mr-2" (click)="openCustomerInfoEditModal(1)"></span>
+                                    <span class="icon-trash" (click)="deleteAdditionalCustomerContact()"></span>
+                                </li>
+                            </div>
+                            <div *ngIf="!isCustomerRepresentativeSelected">
+                                <li *ngFor="let representativeInfo of partnerRepresentativeContainer">
+                                    <span class="head">{{representativeInfo.heading}}</span>
+                                    <span class="value ellipsis">{{representativeInfo.data}}</span>
+                                </li>
+                            </div>
+
+                            <!--commenting for CCWEAMGMT-1784-->
+                            <!--li class="editRepInfoBtn padding0" *ngIf="!isMSPPartnerSigning">
+                                <button [id]="appDataService.createUniqueId('EDIT_CUST_INFO',appDataService.pageContext)" class="btn btn-secondary float-right" type="button" (click)="openCustomerInfoEditModal()">{{localeService.getLocalizedString('docusign.EDIT_CUST_INFO')}}</button>
+                            </li-->
+                            
+                        </ul>
+
+                        <!-- Step 3 - Added Static HTML for Partner Pepresentative -->
+                        <div class="mt-1 pt-2 border--top dashed" *ngIf="createProposalService.isMSPSelected">
+                            <div class="mb-1 radio-custom">
+                                <input id="no" type="radio" [value]="isCustomerRepresentativeSelected" (click)="checkRepresentative(isCustomerRepresentativeSelected)" [checked]="!isCustomerRepresentativeSelected">
+                                <label for="partnerRepresentative">
+                                    <span class="custom-radio-btn">
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                    </span>
+                                    <span>
+                                        <span></span>
+                                    </span>{{localeService.getLocalizedString('docusign.CONFIRM_PARTNER_REPRESENTATIVE_INFO')}}
+                                </label>
+                            </div>
+
+
+                            <ul class="representative-info">
+                                        <li
+                                            *ngFor="let representativeInfo of partnerRepresentativeContainer ; let i = index;">
+                                            <span class="head mb-0">{{representativeInfo.heading}} <sup
+                                                    *ngIf="i!==0">*</sup> </span>
+
+                                            <span *ngIf="i===0"
+                                                class="value ellipsis">{{representativeInfo.data}}</span>
+
+                                            <input style="height: 28px; padding-top: 0; padding-bottom: 5;"
+                                                *ngIf="i!==0" placement="top" container="body" class="form-control"
+                                                type="email" name="label"
+                                                (input)="partnerDetail(i,representativeInfo.data)"
+                                                [(ngModel)]="representativeInfo.data" #label="ngModel" placeholder="" />
+
+                                            <div class="text-danger" role="alert" *ngIf="i===3 && invalidEmail">
+                                                <i class="icon-error-icon"></i>
+                                                <span>{{localeService.getLocalizedString('common.INVALID_EMAIL')}}</span>
+                                            </div>
+
+                                            <div class="text-danger" role="alert" *ngIf="i===3 && invalidDoamin">
+                                                <i class="icon-error-icon"></i>
+                                                <span>{{localeService.getLocalizedString('common.INVALID_DOMAIN')}}</span>
+                                            </div>
+
+                                        </li>
+                                    </ul>
+
+
+                        <ul class="representative-info">
+                                <li *ngFor="let representativeInfo of partnerRepresentativeContainer ; let i = index;">
+                                    <span class="head">{{representativeInfo.heading}}</span>
+
+                                    <span *ngIf="i===0" class="value ellipsis">{{partnerRepresentativeContainer[0].data}}</span>
+
+                                    <span class="value" *ngIf="i!==0">
+                                        <span class="form-group">
+                                            <input class="form-control custom-input" type="text" (input)="partnerDetail(i,representativeInfo.data)"
+                                                [(ngModel)]="representativeInfo.data" #label="ngModel" [disabled] = isCustomerRepresentativeSelected>
+
+                                            <div class="text-danger" role="alert" *ngIf="i===3 && invalidEmail">
+                                                <i class="icon-error-icon"></i>
+                                                <span>{{localeService.getLocalizedString('common.INVALID_EMAIL')}}</span>
+                        </div>
+
+                        <div class="text-danger" role="alert" *ngIf="i===3 && invalidDoamin">
+                            <i class="icon-error-icon"></i>
+                            <span>{{localeService.getLocalizedString('common.INVALID_DOMAIN')}}</span>
+                        </div>
+
+
+                        </span>
+                        </span>
+
+                        </li>
+                        </ul>
+                    </div>
+                    <!-- Step 3 - Added Static HTML for Partner Pepresentative :: Ends Here -->
+                    </div>
+
+                    <!-- New User Story: 1784 - Starts here -->
+
+                    <div class="account-block border-0" [hidden]="docuSignConfirmContainer && docuSignConfirmContainer[i]" *ngIf = "!isShowSendAgainButton">
+                        <h4 class="tab-head">	
+                            {{localeService.getLocalizedString('docusign.STEP')}} {{documentData.docSignStepsComp}} {{localeService.getLocalizedString('docusign.OF')}} {{documentData.totalDocuSignSteps}} : Review & Legal Package Information	
+                            <!-- {{documentData.docSignStepsComp}}. {{localeService.getLocalizedString('docusign.CONFIRM_REPRESENTATIVES_INFO')}} -->	
+                            <!-- <span class="steps">	
+                                <span>{{localeService.getLocalizedString('docusign.STEP')}}	
+                                    {{documentData.docSignStepsComp}}</span> {{localeService.getLocalizedString('docusign.OF')}} {{documentData.totalDocuSignSteps}}	
+                            </span> -->
+                        </h4>
+                        <!-- <div class="col-8 min-info-list">
+
+                            <div class="list-style ml-0">
+                                <div class="list-item border--all solid">
+                                    <div class="list-item--val col-3 pl-0" *ngFor="let representativeInfo of documentCenter.documentCenterData[0].representativeContainer[0];">
+                                        <label>{{representativeInfo.heading}}</label>
+                                        <h3>
+                                            <span class="ellipsis" placement="top" container="body"
+                                            ngbTooltip="{{representativeInfo.data}}">{{representativeInfo.data}}</span>
+                                        </h3>
+                                    </div>
+                                    <div class="list-item--val col-auto border--left solid icon-action">
+                                        <span class="cursor-pointer icon-header-edit mr-2" (click)="openCustomerInfoEditModal(0)"></span>
+                                        <span class="icon-trash disabled"></span>
+                                    </div>
+                                </div>
+                                <div class="list-item border--all solid" *ngIf="qualService.additionalCustomerContacts">
+                                    <div class="list-item--val col-3 pl-0" *ngFor="let representativeInfo of documentCenter.documentCenterData[0].representativeContainer[1];">
+                                        <label>{{representativeInfo.heading}}</label>
+                                        <h3>
+                                            <span class="ellipsis" placement="top" container="body"
+                                            ngbTooltip="{{representativeInfo.data}}">{{representativeInfo.data}}</span>
+                                        </h3>
+                                    </div>
+                                    <div class="list-item--val col-auto border--left solid icon-action">
+                                        <span class="cursor-pointer icon-header-edit mr-2" (click)="openCustomerInfoEditModal(1)"></span>
+                                        <span class="icon-trash" (click)="deleteAdditionalCustomerContact()"></span>
+                                    </div>                                                                    
+                                </div>
+                            </div>
+                        </div> -->
+                        
+                        <!--  US CCWEAMGMT-2366 -- Starts Here  -->
+                        <div class="row">
+                            <div class="col-6">
+                          
+                                <h4 class="tab-head pt-2" *ngIf = 'isCustomerRepresentativeSelected'>Review Customer Representative(s)</h4> 	
+                                <h4 class="tab-head pt-2"  *ngIf = '!isCustomerRepresentativeSelected'>Review Partner Representative</h4>   
+
+                                <div class="row my-2" *ngIf = '!isCustomerRepresentativeSelected'>
+                                  <div class="col-4">
+                                    <h4 class="heading--h6 light">Preferred Legal Name:</h4>
+                                  </div>
+                                  <div class="col">
+                                    <h4 class="heading--h6 uppercase dark">{{partnerRepresentativeContainer[0].data}}</h4>
+                                  </div>
+                                 </div>
+
+                                                              
+                                <div class="col-12 min-info-list pl-0">
+                                    <div class="list-style ml-0">
+                                        <div class="list-item border--all solid" *ngIf = 'isCustomerRepresentativeSelected && qualService.qualification.customerInfo?.repName'>
+                                            <div class="list-item--val col-4 pl-0" *ngFor="let representativeInfo of documentCenter.documentCenterData[0].representativeContainer[0];">
+                                                <ng-container *ngIf="representativeInfo.display">
+                                                <label>{{representativeInfo.heading}}</label>
+                                                <h3>
+                                                    <span class="ellipsis" placement="top" container="body"
+                                                    ngbTooltip="{{representativeInfo.data}}">{{representativeInfo.data}}</span>
+                                                </h3>
+                                            </ng-container>
+                                            </div>
+                                        </div>
+                                        <div class="list-item border--all solid" *ngIf="qualService.additionalCustomerContacts && isCustomerRepresentativeSelected">
+                                            <div class="list-item--val col-4 pl-0" *ngFor="let representativeInfo of documentCenter.documentCenterData[0].representativeContainer[1];">
+                                                <ng-container *ngIf="representativeInfo.display">
+                                                <label>{{representativeInfo.heading}}</label>
+                                                <h3>
+                                                    <span class="ellipsis" placement="top" container="body"
+                                                    ngbTooltip="{{representativeInfo.data}}">{{representativeInfo.data}}</span>
+                                                </h3>
+                                            </ng-container>
+                                            </div>                                                                   
+                                        </div>
+
+                                        <div class="list-item border--all solid" *ngIf = '!isCustomerRepresentativeSelected && partnerRepresentativeContainer[1].data.length>0'>
+                                            <div class="list-item--val col-4 pl-0" *ngFor="let representativeInfo of partnerRepresentativeContainer | slice:1">
+                                                <ng-container *ngIf="representativeInfo.display">
+                                                <label >{{representativeInfo.heading}}</label>
+                                                <h3 >
+                                                    <span class="ellipsis" placement="top" container="body"
+                                                    ngbTooltip="{{representativeInfo.data}}">{{representativeInfo.data}}</span>
+                                                </h3>
+                                            </ng-container>
+                                            </div>                                                                  
+                                        </div>
+
+                                                                 <!-- Added Static HTML for Step 3 -->
+
+                            <!-- Added Static HTML for Step 3 -- Ends Here -->
+                                    </div>
+                                </div>
+                                
+                                <div class="col-12 text-center mt-2" *ngIf = "!(isCustomerRepresentativeSelected && qualService.qualification.customerInfo?.repName   || isCustomerRepresentativeSelected && qualService.additionalCustomerContacts || !isCustomerRepresentativeSelected && partnerRepresentativeContainer[1].data.length>0)">
+                                    <div class="representative-wrap">
+                                        <span class="icon-representative"></span>
+                                        <h5 class="heading--h5">To initiate e-Signature, at least one representative must be added from step 1.</h5>
+                                    </div>
+                                </div>
+                            <h6 class="heading--h6 light" style  = 'padding-top:10px'>
+                                <span class="icon-info-line-level mr-1 rotate-180 disable"></span>To add or edit Customer Respresentative(s), visit Step 1.
+                            </h6>
+                            <br><br>
+                            <div class="doc-info customerReadiness" *ngIf='showProgramTermQuestion'>
+
+                         
+                                <span class="lbl-desc mb-1 pb-0">"Program Terms are already signed for this customer" Do you want to include ?</span>
+        
+        
+                                <div class="clearfix">
+                                    <div class="float-left mr-5 mb-2 radio-custom">
+                                        <input #yes id="programmTermYes" type="radio" value="yes" [checked]="isProgrammTermIncluded" (change)="programmTermIncluded(true)">
+                                        <label for="programmTermYes">
+                                            <span class='custom-radio-btn'>
+                                                <span class="path1"></span>
+                                                <span class="path2"></span>
+                                            </span>
+                                            <span>
+                                                <span></span>
+                                            </span>{{localeService.getLocalizedString('docusign.YES')}}</label>
+                                    </div>
+        
+                                    <div class="float-left mb-2 radio-custom">
+                                        <input #no id="programmTermNo" type="radio" value="no" [checked]="!isProgrammTermIncluded"  (change)="programmTermIncluded(false)">
+                                        <label for="programmTermNo">
+                                            <span class='custom-radio-btn'>
+                                                <span class="path1"></span>
+                                                <span class="path2"></span>
+                                            </span>
+                                            <span>
+                                                <span></span>
+                                            </span>{{localeService.getLocalizedString('docusign.NO')}}</label>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+
+                            <div class="col-6 preview-doc pl-3 border--left solid">
+                                 <h4 class="tab-head">Legal Package Information:</h4> 
+
+                                <span class="d-block lbl-desc text-dark">{{localeService.getLocalizedMessage('docusign.PREVIEW_BEFORE_SENDING')}}</span>
+                                <span class="d-block lbl-desc text-dark pb-0"><strong>What’s included?</strong>
+                                    <ol class="doc-list">
+                                        <li>End User Information Form</li>
+                                        <li *ngIf="isProgrammTermIncluded || !showProgramTermQuestion">Program Terms</li>
+                                        <li *ngIf="modificationsSelectedCount">Letter of Agreement</li>
+                                    </ol>
+                                </span>
+                            </div>
+                        </div>
+                        <!--  US CCWEAMGMT-2366 -- Ends Here  -->
+                    </div>
+
+                    <!-- New User Story: 1784 - Ends here -->
+
+                <div class="tab-footer p-0 clearfix">
+
+                    <!-- <span *ngIf="docuSignWhoesInvolvedTag[i]" class="mandatory-info">*Recipient info is read only. In order to change recipient please reset from
+                            <a (click)="openCustomerInfoEditModal()" href="javascript:void(0)" >Who's Involved</a>
+                        </span> -->
+                    <button [id]="appDataService.createUniqueId('INITIATE_DOCUSIGN',appDataService.pageContext)" *ngIf="isShowInitiateButton && appDataService.isReadWriteAccess" [disabled]="disableInitiateSignature" class="btn btn-primary float-right" (click)="requestDocSign(documentData,i)" type="button">{{localeService.getLocalizedString('docusign.INITIATE_E-SIGNATURE')}}</button>	
+                    <button [id]="appDataService.createUniqueId('INITIATE_DOCUSIGN',appDataService.pageContext)" *ngIf="isShowInitiateButton && appDataService.userInfo.roSuperUser && !appDataService.isReadWriteAccess" class="btn btn-primary float-right" disabled type="button">{{localeService.getLocalizedString('docusign.INITIATE_E-SIGNATURE')}}</button>	
+                    <button [id]="appDataService.createUniqueId('HERE',appDataService.pageContext)" *ngIf="isShowDownloadLegalPackage && appDataService.isReadWriteAccess" class="btn btn-primary float-right" (click)="downloadDoc(documentData.type)" type="button">{{localeService.getLocalizedString('docusign.DOWNLOAD_LEGAL_PACKAGE')}}</button>	
+                    <button [id]="appDataService.createUniqueId('CONTINUE',appDataService.pageContext)" *ngIf="showWelcomeMessage" class="btn btn-primary float-right btn-continue" type="button" (click)="continueWelcome()"><span	
+                                class="mid-text">{{localeService.getLocalizedString('common.CONTINUE')}}</span> <span	
+                                class="icon-btn-continue"></span></button>	
+                    <button [id]="appDataService.createUniqueId('CONTINUE',appDataService.pageContext)" *ngIf="isShowContinueButton  && !showWelcomeMessage" class="btn btn-primary float-right btn-continue" type="button" [disabled]="isDisableContinueButton || validateMandtoryFields()" (click)="continueDoc(documentData,i)"><span	
+                                class="mid-text">{{localeService.getLocalizedString('common.CONTINUE')}}</span> <span	
+                                class="icon-btn-continue"></span></button>	
+                    <button [id]="appDataService.createUniqueId('BACK',appDataService.pageContext)" *ngIf="isShowBackButton" class="btn btn-secondary btn-back btn-small float-right mr-2" type="button" (click)="backDocuSign(documentData,i)"><span class="icon-btn-back"></span> <span	
+                                class="mid-text">{{localeService.getLocalizedString('common.BACK')}}</span></button>	
+                    <button [id]="appDataService.createUniqueId('SEND_AGAIN',appDataService.pageContext)" *ngIf="isShowSendAgainButton && appDataService.isReadWriteAccess" [disabled]="isDisableSendAgainButton" class="btn btn-primary float-right" type="button" (click)="docSignSendAgain(documentData,i)">{{localeService.getLocalizedString('docusign.RESTART')}}</button>	
+                    <button [id]="appDataService.createUniqueId('SEND_AGAIN',appDataService.pageContext)" [disabled]="appDataService.userInfo.roSuperUser && !appDataService.isReadWriteAccess" *ngIf="isShowSendAgainButton && appDataService.userInfo.roSuperUser && !appDataService.isReadWriteAccess"	
+                        class="btn btn-primary float-right" type="button">{{localeService.getLocalizedString('docusign.RESTART')}}</button>
+
+                </div>
+
+            </div>
+            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                <div class="account-block">
+                    <ul>
+                        <li>
+                            <span class="head">Proposal ID</span>
+                            <span class="value">P93742967</span>
+                        </li>
+                        <li>
+                            <span class="head">Total net price (USD IN K)</span>
+                            <span class="value">1,700</span>
+                        </li>
+                        <li>
+                            <span class="head">Billing Model</span>
+                            <span class="value">Annual</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="tab-content tabTwo fileUploadTab documentCenterTab" [hidden]="toggleDocumentCenterTab && toggleDocumentCenterTab[i]" *ngIf="!appDataService.includedPartialIb">
+            <div class="doc-info customerReadiness doc-sign">
+                <h4 class="tab-head-loa-browse">
+                    {{localeService.getLocalizedString('docusign.LOA_QUESTION')}}
+                </h4>
+                <div class="clearfix">
+                    <div class="float-left mr-5 mb-2 radio-custom">
+                        <input #yes id="yes" type="radio" value="yes" [checked]="isContainsLOA=='yes'" (change)="setRadioValue($event,'isContainsLOA', i, documentData)" [disabled]='documentData.filesContainer?.length || (newDocumentData.docuSignStatusCompletedContainer && !uploadedFileHasLoa)'>
+                        <label for="yes">
+                                <span class='custom-radio-btn'>
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                </span>
+                                <span>
+                                    <span></span>
+                                </span>{{localeService.getLocalizedString('docusign.YES')}}</label>
+                    </div>
+
+                    <div class="float-left mb-2 radio-custom">
+                        <input #no [checked]="isContainsLOA=='no'" id="no" type="radio" value="no" (change)="isContainsLOAAnswered=true;setRadioValue($event,'isContainsLOA', i, documentData)" [disabled]='documentData.filesContainer?.length || (newDocumentData.docuSignStatusCompletedContainer && !uploadedFileHasLoa)'>
+                        <label for="no">
+                                <span class='custom-radio-btn'>
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                </span>
+                                <span>
+                                    <span></span>
+                                </span>{{localeService.getLocalizedString('docusign.NO')}}</label>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="doc-info customerReadiness doc-sign" *ngIf = "isContainsLOA=='yes'">
+                <h4 class="tab-head-loa-browse">Does the single file contain Letter of Agreement in it?</h4>
+                <div class="clearfix">
+                    <div class="float-left mr-5 mb-2 radio-custom">
+                        <input id="yes" type="radio"  [value]="isFileContainLOA" (click)="isLOAIncluded()" [checked] = "isFileContainLOA === constantsService.YES_RADIO_BUTTON" [disabled]='documentData.filesContainer?.length || (newDocumentData.docuSignStatusCompletedContainer && !uploadedFileHasLoa)'>
+                        <label for="yes">
+                                <span class='custom-radio-btn'>
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                </span>
+                                <span>
+                                    <span></span>
+                                </span>Yes</label>
+                    </div>
+
+                    <div class="float-left mb-2 radio-custom">
+                        <input id="no" type="radio"  [value]="isFileContainLOA" (click)="isLOANotIncluded()" [checked] = "isFileContainLOA === constantsService.NO_RADIO_BUTTON" [disabled]='documentData.filesContainer?.length || (newDocumentData.docuSignStatusCompletedContainer && !uploadedFileHasLoa)'>
+                        <label for="no">
+                                <span class='custom-radio-btn'>
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                </span>
+                                <span>
+                                    <span></span>
+                                </span>No</label>
+                    </div>
+                </div>
+            </div>
+            <div class="doc-info d-none">
+                <div class="my-drop-zone drag-drop">
+                    <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="57" height="57" viewBox="0 0 57 57" fill="none">
+                    <path d="M11.8047 4.21526V49.1835C11.8047 50.6056 12.9441 51.7584 14.3496 51.7584H34.5967H49.6776C51.0831 51.7584 52.2225 50.6056 52.2225 49.1835V16.5091C52.2225 15.8464 51.97 15.2093 51.5175 14.7302L39.9068 2.43638C39.4267 1.92798 38.7619 1.64038 38.0669 1.64038H14.3496C12.9441 1.64038 11.8047 2.79319 11.8047 4.21526Z" fill="#005073"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M17.1336 9.74869C17.1336 10.1684 17.4739 10.5086 17.8936 10.5086H23.4596C23.8793 10.5086 24.2195 10.1684 24.2195 9.74869C24.2195 9.32898 23.8793 8.98874 23.4596 8.98874H17.8936C17.4739 8.98874 17.1336 9.32898 17.1336 9.74869Z" fill="white"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M17.1336 14.9552C17.1336 15.3749 17.4738 15.7152 17.8935 15.7152H28.2721C28.6918 15.7152 29.032 15.3749 29.032 14.9552C29.032 14.5355 28.6918 14.1953 28.2721 14.1953H17.8935C17.4738 14.1953 17.1336 14.5355 17.1336 14.9552Z" fill="white"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M17.3307 20.399C17.331 20.8187 17.6714 21.1587 18.0911 21.1585L45.8751 21.1418C46.2948 21.1415 46.6348 20.8011 46.6346 20.3814C46.6343 19.9616 46.2939 19.6216 45.8742 19.6219L18.0902 19.6386C17.6705 19.6388 17.3305 19.9793 17.3307 20.399Z" fill="white"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M17.1329 31.8931C17.1331 32.3129 17.4736 32.6529 17.8933 32.6526L38.1572 32.6405C38.5769 32.6402 38.9169 32.2998 38.9167 31.8801C38.9164 31.4603 38.576 31.1203 38.1563 31.1206L17.8923 31.1327C17.4726 31.133 17.1326 31.4734 17.1329 31.8931Z" fill="white"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M17.1337 26.1459C17.134 26.5656 17.4744 26.9056 17.8941 26.9054L45.678 26.8887C46.0978 26.8884 46.4378 26.548 46.4375 26.1283C46.4373 25.7085 46.0968 25.3685 45.6771 25.3688L17.8932 25.3855C17.4735 25.3857 17.1335 25.7262 17.1337 26.1459Z" fill="white"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M17.2988 37.6404C17.2991 38.0601 17.8182 38.4001 18.4581 38.3999L43.141 38.3901C43.7809 38.3899 44.2993 38.0494 44.2989 37.6297C44.2985 37.21 43.7795 36.87 43.1396 36.8702L18.4567 36.88C17.8168 36.8802 17.2984 37.2207 17.2988 37.6404Z" fill="white"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M17.3003 43.3884C17.3007 43.8081 17.8197 44.1482 18.4596 44.1479L41.8659 44.1387C42.5058 44.1384 43.0242 43.798 43.0238 43.3783C43.0234 42.9586 42.5044 42.6185 41.8645 42.6188L18.4582 42.628C17.8184 42.6283 17.2999 42.9687 17.3003 43.3884Z" fill="white"/>
+                    </svg>
+                    <span>Drag & Drop EUIF here or <a href="javascript:void(0)">Browse</a> to upload </span>
+                </div>
+            </div>
+            <div class="doc-info mt-2 d-none">
+                <div class="my-drop-zone drag-drop">
+                    <div class="uploaded-view">
+                        <span class="icon-pdf1"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span><span class="path8"></span></span>
+                        <span>dummy.pdf</span>
+                        <a href="javascript:void();">Remove</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="file-wrap-container" *ngIf='isContainsLOA'>
+                <span class="lbl-desc" *ngIf='isContainsLOA === "yes" && isFileContainLOA === constantsService.YES_RADIO_BUTTON'>{{localeService.getLocalizedMessage('docusign.OPT_UPLOAD_MESSAGE')}}</span>
+                <span class="lbl-desc" *ngIf='isContainsLOA === "yes" && isFileContainLOA === constantsService.NO_RADIO_BUTTON'>{{localeService.getLocalizedMessage('docusign.OPT_UPLOAD_MESSAGE_EUIF')}}</span>
+
+                <!-- d-none -->
+                <span class="lbl-desc" *ngIf='isContainsLOA === "no"'>Use this space to upload the executed End User Information Form and EA Program Terms.</span>
+                <!-- d-none -->
+                <div *ngIf="!documentData.toggleConfirmedUpload && isFileContainLOA" class="noFilesUploaded">
+                    <!-- d-none -->
+                    {{localeService.getLocalizedString('docusign.NO_PDF_UPLOADED')}}
+                </div>
+
+                <div class="row mt-1">
+                    <div class="col-5 pr-0" *ngFor="let files of documentData.filesContainer; let j = index">
+                        <div class="file-wrap uploaded-file-block">
+                            <span class="icon-pdf-2"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span><span class="path8"></span>
+                            <span class="path9"></span><span class="path10"></span><span class="path11"></span><span class="path12"></span></span>
+                            <span class="d-block">
+                                    <span class="file-name" placement="top" ngbTooltip={{files.fileLabel}}>{{ files.fileLabel}}</span>
+                            <span class="badge badge-info" placement="top" ngbTooltip={{files.badgeInfo}}>{{files.badgeInfo}}</span>
+                            </span>
+                            <span class="lbl-desc">{{localeService.getLocalizedString('docusign.UPLOADED_BY')}}
+                                    <span>{{files.uploadedBy}}</span> {{localeService.getLocalizedString('docusign.ON')}}
+                            <span>{{files.createdOn}}</span>
+                            <span *ngIf="files.signedStatus" class="signed">|
+                                        <span
+                                            class="icon-tick-01"></span>{{localeService.getLocalizedString('docusign.SIGNED')}}
+                            </span>
+                            </span>
+                            <div *ngIf="appDataService.isReadWriteAccess" class="icon-wrap">
+                                <a #downloadZipLink [hidden]="true"></a>
+                                <a (click)="downloadUploadedDoc(files)" href="javascript:void(0)" class="icon-download mr-2"></a>
+                                <span class="icon-delete" (click)="removeFiles(files,j, false, isContainsLOA === 'no' || (isContainsLOA === 'yes' && isFileContainLOA === constantsService.NO_RADIO_BUTTON))"></span>
+                            </div>
+                            <div *ngIf="!appDataService.isReadWriteAccess" class="icon-wrap">
+                                <a #downloadZipLink [hidden]="true"></a>
+                                <a (click)="downloadUploadedDoc(files)" href="javascript:void(0)" class="icon-download mr-2"></a>
+                                <span class="icon-delete disabled"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="customBrowse" [hidden]="toggleBrowseTab && toggleBrowseTab[i]" *ngIf="!disableAffiliates && isContainsLOA && !documentData.filesContainer?.length && !(isContainsLOA === constantsService.YES_RADIO_BUTTON && !isFileContainLOA)">
+                <div class="tab-footer clearfix">
+                    <div ng2FileDrop [ngClass]="{'nv-file-over': hasBaseDropZoneOver, 'file-format-error': qualService.fileFormatError}" (fileOver)="fileOverBase($event)" (onFileDrop)="dropped($event, documentData, i, true, isContainsLOA === 'no' || (isContainsLOA === 'yes' && isFileContainLOA === constantsService.NO_RADIO_BUTTON))" [uploader]="uploader" class="well my-drop-zone text-center m-0">
+
+                        <!--div class="loa-file-icon d-inline-block"></div-->
+                        <!--div class="d-inline-block v-middleAlign ml-3"-->
+                        <input type="file" id="file" #file ng2FileSelect [uploader]="uploader" (change)="onFileChange($event,i,documentData,true, isContainsLOA === 'no' || (isContainsLOA === 'yes' && isFileContainLOA === constantsService.NO_RADIO_BUTTON))" hidden />
+                        <span class="mb-3 d-none">Drag and drop files here or</span>
+                        <!--d-block-->
+                        <span class="d-none"><a *ngIf="appDataService.isReadWriteAccess" [id]="appDataService.createUniqueId('BROWSE',appDataService.pageContext)" href="javascript:void(0)" (click)="file.click()">Upload Legal Package</a> or <a href="javascript:void(0);">Upload LOA</a></span>
+                        <!--d-block-->
+                        <span>{{localeService.getLocalizedString('common.DRAG')}} &amp; {{ (isContainsLOA === 'no' || (isContainsLOA === 'yes' && isFileContainLOA === constantsService.NO_RADIO_BUTTON)) ? localeService.getLocalizedString('docusign.DROP_EUIF') : localeService.getLocalizedString('docusign.DROP_LEGAL_PACKAGE')}}  here or
+                                    <a *ngIf="appDataService.isReadWriteAccess"
+                                        [id]="appDataService.createUniqueId('BROWSE',appDataService.pageContext)"
+                                        href="javascript:void(0)"
+                                        (click)="file.click()">{{localeService.getLocalizedString('common.BROWSE')}}</a>
+                                    <a *ngIf="(appDataService.userInfo.roSuperUser && !appDataService.isReadWriteAccess) || (!appDataService.isReadWriteAccess)"
+                                        [id]="appDataService.createUniqueId('BROWSE',appDataService.pageContext)">{{localeService.getLocalizedString('common.BROWSE')}}</a>
+                                    {{localeService.getLocalizedString('common.TO_UPLOAD')}}
+                                </span>
+                        <!--/div-->
+                    </div>
+                </div>
+            </div>
+            <div class="tab-footer  clearfix" [hidden]="!documentData.toggleUploadingProgress ">
+                <span class="upload-section">{{localeService.getLocalizedString('docusign.UPLOADING')}}
+                        {{documentData.fileNameInQueue}}...</span>
+            </div>
+
+            <div class="tab-footer bg-blue uploaded-file-info clearfix" [hidden]="toggleConfirmedUpload && toggleConfirmedUpload[i]">
+                <!-- Add "uploaded-loa" class with "uploaded-file-info" for updated version of Drad & Drop -->
+                <ul class="d-flex align-items-center">
+                    <li class="icon-pdf-wrap d-none"><span class="icon-pdf1"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span><span class="path8"></span>
+                        <span class="path9"></span><span class="path10"></span><span class="path11"></span><span class="path12"></span></span>
+                    </li>
+                    <!-- Updated Version Icon -->
+                    <li class="ellipsis" placement="top" ngbTooltip={{documentData.fileNameInQueue}}>
+                        {{documentData.fileNameInQueue}}</li>
+                    <li>
+                        {{localeService.getLocalizedString('docusign.UPLOAD')}} {{localeService.getLocalizedString('docusign.AS')}} {{localeService.getLocalizedString('docusign.DOCUMENT_CENTER_SIGNED_LEGAL_PACKAGE')}}
+
+                        <!-- <ss-multiselect-dropdown class="tcoBreakDropdown upload-as" [options]="selectedOptions"
+                                [(ngModel)]="documentData.viewValue" [settings]="mySettings" name="selectedReasonCode"
+                                [texts]="myTexts"></ss-multiselect-dropdown>  -->
+                    </li>
+                </ul>
+                <!-- updated version of Drag and Drop Layout -->
+                <div class="uploaded-file-footer d-none">
+                    <label class="label-check ellipsis mr-0">
+                            <input class="form-check-input" type="checkbox">
+                            <span class="custom-checkbox-btn"><span class="path1"></span><span class="path2"></span></span>
+                            <span>Signature Included Legal Package</span>
+                        </label>
+                </div>
+                <!-- updated version of Drag and Drop Layout -- Ends Here -->
+            </div>
+
+            <!-- Cutomer LOA starts -->
+
+            <ng-container *ngIf="isContainsLOA=='no' && isContainsLOAAnswered">
+                <div class="file-wrap-container">
+                    <span class="lbl-desc">{{localeService.getLocalizedMessage('docusign.OPT_UPLOAD_MESSAGE_LOA')}}</span>
+                    <div *ngIf="!newDocumentData.toggleConfirmedUpload && !isLoaPresent" class="noFilesUploaded">
+                        {{localeService.getLocalizedString('docusign.NO_PDF_UPLOADED')}}
+                    </div>
+                    <div class="row mt-1">
+                        <div class="col-5 pr-0" *ngFor="let files of documentData.loafilesContainer; let j = index">
+                            <div class="file-wrap uploaded-file-block">
+                                <span class="icon-pdf-2"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span>
+                                <span class="path8"></span><span class="path9"></span><span class="path10"></span><span class="path11"></span><span class="path12"></span></span>
+                                <span class="d-block">
+                                        <span class="file-name" placement="top"
+                                            ngbTooltip={{files.fileLabel}}>{{ files.fileLabel}}</span>
+                                <span class="badge badge-info" placement="top" ngbTooltip={{files.badgeInfo}}>{{files.badgeInfo}}</span>
+                                </span>
+                                <span class="lbl-desc">{{localeService.getLocalizedString('docusign.UPLOADED_BY')}}
+                                        <span>{{files.uploadedBy}}</span> {{localeService.getLocalizedString('docusign.ON')}}
+                                <span>{{files.createdOn}}</span>
+                                <span *ngIf="files.signedStatus" class="signed">|
+                                            <span
+                                                class="icon-tick-01"></span>{{localeService.getLocalizedString('docusign.SIGNED')}}
+                                </span>
+                                </span>
+                                <div *ngIf="appDataService.isReadWriteAccess" class="icon-wrap">
+                                    <a #downloadZipLink [hidden]="true"></a>
+                                    <a (click)="downloadUploadedDoc(files, true)" href="javascript:void(0)" class="icon-download mr-2"></a>
+                                    <span class="icon-delete" (click)="removeFiles(files,j, true)"></span>
+                                </div>
+                                <div *ngIf="!appDataService.isReadWriteAccess" class="icon-wrap">
+                                    <a #downloadZipLink [hidden]="true"></a>
+                                    <a (click)="downloadUploadedDoc(files, true)" href="javascript:void(0)" class="icon-download mr-2"></a>
+                                    <span class="icon-delete disabled"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="customBrowse" [hidden]="newDocumentData?.fileNameInQueue || newDocumentData.toggleBrowseTab || newDocumentData.toggleConfirmedUpload">
+                    <div class="tab-footer clearfix">
+                        <div ng2FileDrop [ngClass]="{'nv-file-over': hasBaseDropZoneOver, 'file-format-error': qualService.fileFormatError}" (fileOver)="fileOverBase($event)" (onFileDrop)="dropped($event, newDocumentData, i, false); newDocumentData.fileUploaded=true;" [uploader]="uploader"
+                            class="well my-drop-zone text-center m-0">
+                            <input type="file" id="loaFile" #loaFile ng2FileSelect [uploader]="uploader" (change)="onFileChange($event,i,newDocumentData)" hidden />
+                            <span>{{localeService.getLocalizedString('common.DRAG')}} &amp;
+                                {{localeService.getLocalizedString('docusign.DROP_LOA')}}
+                                    <a *ngIf="appDataService.isReadWriteAccess"
+                                        [id]="appDataService.createUniqueId('BROWSE',appDataService.pageContext)"
+                                        href="javascript:void(0)"
+                                        (click)="loaFile.click()">{{localeService.getLocalizedString('common.BROWSE')}}</a>
+                                    <a *ngIf="(appDataService.userInfo.roSuperUser && !appDataService.isReadWriteAccess) || (!appDataService.isReadWriteAccess)"
+                                        [id]="appDataService.createUniqueId('BROWSE',appDataService.pageContext)">{{localeService.getLocalizedString('common.BROWSE')}}</a>
+                                    {{localeService.getLocalizedString('common.TO_UPLOAD')}}
+                                </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-footer  clearfix" [hidden]="!newDocumentData.toggleUploadingProgress">
+                    <span class="bg-blue upload-section">{{localeService.getLocalizedString('docusign.UPLOADING')}}
+                            {{newDocumentData?.fileNameInQueue}}...</span>
+                </div>
+                <div class="tab-footer uploaded-file-info bg-blue clearfix" *ngIf="newDocumentData?.fileNameInQueue!==undefined && !newDocumentData.toggleUploadingProgress && !newDocumentData.toggleConfirmedUpload" [hidden]="!newDocumentData?.fileNameInQueue">
+                    <ul class="d-flex align-items-center">
+                        <li class="ellipsis" placement="top" ngbTooltip={{newDocumentData?.fileNameInQueue}}>
+                            {{newDocumentData?.fileNameInQueue}}</li>
+                        <li>
+                            {{localeService.getLocalizedString('docusign.UPLOAD_LOA')}} {{localeService.getLocalizedString('docusign.AS')}} {{localeService.getLocalizedString('docusign.DOCUMENT_CENTER_SIGNED_LOA')}}
+
+                            <!-- <ss-multiselect-dropdown class="tcoBreakDropdown upload-as" [options]="selectedOptions"
+                                    [(ngModel)]="documentData.viewValue" [settings]="mySettings" name="selectedReasonCode"
+                                    [texts]="myTexts"></ss-multiselect-dropdown>  -->
+                        </li>
+                    </ul>
+                </div>
+            </ng-container>
+            <!-- Customer LOA Ends -->
+            <button [id]="appDataService.createUniqueId('CONFIRM',appDataService.pageContext)" class="btn btn-primary float-right mx-3 mt-1" type="button" *ngIf="(toggleConfirmedUpload && !toggleConfirmedUpload[i]) || checkLOA()" (click)="confirmUploadFiles(i,documentData.fileNameInQueue,documentData)">Upload</button>
+            <button [id]="appDataService.createUniqueId('CANCEL',appDataService.pageContext)" class="btn btn-secondary float-right mt-1" type="button" *ngIf="(toggleConfirmedUpload && !toggleConfirmedUpload[i]) || checkLOA()" (click)="cancelUpload(i,documentData)">{{localeService.getLocalizedString('common.CANCEL')}}</button>
+            <div class="clearfix mb-2"></div>
+        </div>
+</div>
+</ng-container>
+
+
+<div class="doc-wrap " [ngClass]="{'active':true, 'disabled': isCXProposal}" *ngIf="!appDataService.includedPartialIb &&(!(appDataService.subHeaderData.subHeaderVal && appDataService.subHeaderData.subHeaderVal[7] === 'SEC' && !partnerLedFlow) || appDataService.isGroupSelected)">
+    <div class="doc-header" style="border-bottom: 1px solid #ccc;">
+        <div class="row flex-elem">
+            <div class="col-9 inner-flex"> <span class="icon-xls1"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span><span class="path8"></span>
+                <span class="path9"></span><span class="path10"></span><span class="path11"></span><span class="path12"></span></span>
+                <h4>{{localeService.getLocalizedString('docusign.LABEL_INSTALL_BASE_REPORT')}}</h4>
+                <div class="dcoument-description">
+                    {{localeService.getLocalizedString('docusign.DESCRIPTION_INSTALL_BASE_REPORT')}}</div>
+                <!--span class="lbl-desc">{{localeService.getLocalizedString('docusign.CREATED_ON')}} <span>{{documentData.documentLabelDate}}</span> </span-->
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div class="base-report-info">
+            <ul>
+                <ng-container *ngFor="let documentData of documentCenter.documentCenterData; let i = index">
+                    <ng-container *ngIf="documentData.isInstallBase">
+                        <li class="base-report-list">
+                            <h4 class="report-heading">{{documentData.documentLabel}}</h4>
+                            <h5 class="report-description">{{documentData.documentLabelInfo}}</h5>
+                            <span *ngIf="documentData.documentLabelDate" class="lbl-desc">{{localeService.getLocalizedString('docusign.CREATED_ON')}}
+                                    <span>{{documentData.documentLabelDate}}</span>
+                            </span>
+
+                            <ul class="action-list text-right base-report-action">
+                                <li *ngIf="documentData.shareOption" [ngClass]="{ 'disabled': documentData.disable}" (click)="openSpecialist(documentData)">
+                                    <a  [ngClass]="{ 'disabled': documentData.disable}" [id]="appDataService.createUniqueId('REQUEST',appDataService.pageContext)" href="javascript:void(0)" class="icon-request1 mr-2"></a><a [ngClass]="{ 'disabled': documentData.disable}" href="javascript:void(0)">{{localeService.getLocalizedString('docusign.REQUEST')}}</a>
+                                </li>
+                                <li *ngIf="documentData.downloadOption">
+                                    <a #downloadZipLink [hidden]="true"></a>
+                                    <a [id]="appDataService.createUniqueId('DOWNLOAD',appDataService.pageContext)" (click)="downloadDoc(documentData.type)" href="javascript:void(0)" class="icon-download mr-2"></a><a (click)="downloadDoc(documentData.type)" href="javascript:void(0)">{{localeService.getLocalizedString('docusign.DOWNLOAD')}}</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ng-container>
+                </ng-container>
+            </ul>
+        </div>
+    </div>
+</div>
+
+</div>

@@ -1,0 +1,191 @@
+<div class="custom-flyout-overlay"></div>
+<div class="custom-flyout vNext cust-md w-1400">
+    <div class="heading">
+        <div class="d-flex justify-content-between align-items-center mb-0">
+            <div class="heading-title">
+                <h2 class="heading--h2 mb-3">{{'common.MANAGE_OTD' | localizationPipe : localizationService.localizedkeySet.size}}</h2>
+                <!-- <button type="button" class="btn--text">Prepaid Term<span
+                        class="i-vNext-arrow-down-heavy ml-1"></span></button> -->
+            </div>
+            <div class="d-flex flex-column align-items-end">
+                <div class="d-flex align-items-center mb-3">
+                    <!-- <span class="i-vNext-enlarge mr-3"></span> -->
+                    <button class="icon-close-btn mt-0" (click)="priceEstimateService.showPurchaseAdj = false;" attr.action-id="{{dataIdConstantsService.managePa_button_close}}"
+                        type="button"></button>
+                </div>
+                <div class="mt-4 d-flex justify-content-end">
+                    <!-- <button (click)='updateCredits()' [disabled] = '!updatedAtoArray.length' class="btn btn-secondary sm">Apply</button>
+                    <button (click)='updateCredits(true)' [disabled] = '!updatedAtoArray.length' class="btn btn-primary sm ml-2">Apply & Close</button> -->
+                    <button (click)='priceEstimateService.showPurchaseAdj = false;' attr.action-id="{{dataIdConstantsService.managePa_button_done}}" class="btn btn-primary ml-2">{{'common.DONE' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="body">
+        <div class="row">
+            <div class="col-md-12">
+                <h5 class="heading--h5">{{'common.ADD_ONE_TIME_DISCOUNTS' | localizationPipe : localizationService.localizedkeySet.size}}</h5>
+            </div>
+        </div>
+        <div class="form-wrap">
+            <div class="w-350 pr-3">
+                <div class="form-group">
+                    <label class="customer-label">{{'common.SELECT_SUITE' | localizationPipe : localizationService.localizedkeySet.size}}</label>
+                    <div class="select-items dropdown" (clickOutside)="showSuites = false;">
+                        <span class="dropdown--typeAhead__arrow-management">
+                            <button  type="button" class="btn--text drop-button dropdown-toggle" attr.action-id="{{dataIdConstantsService.managePa_button_selectSuiteName}}"
+                                (click)="showSuites = !showSuites">{{selectedSuite?.name ? selectedSuite.name : ('common.SELECT' | localizationPipe : localizationService.localizedkeySet.size)}}</button>
+                        </span>
+                        <div class="dropdown-menu" [class.show]="showSuites">
+                            <ul>
+                                <ng-container *ngFor='let suite of rampEligibilityData; let index = index'>
+                                    <li *ngIf='!suite.selected'>
+                                        <label class="label-check" (click)='perpareCreditCategory(suite)' attr.action-id="{{dataIdConstantsService.managePa_dropdown_perpareCreditCategory}}{{suite?.sku}}">
+                                            <!-- <input class="form-check-input" (change)="selectSuite(suite)" [checked]="suite.selected" type="checkbox"> -->
+                                            <span class="custom-checkbox-btn i-vNext-fonts">
+                                                <span class="path1"></span>
+                                                <span class="path2"></span>
+                                                <span class="path3"></span>
+                                            </span>
+                                            <span >{{suite.name}}</span>
+                                        </label>
+                                    </li>
+                                </ng-container>
+                            </ul>
+                            <!-- <div class="list-footer">
+                                <button (click)='perpareCreditCategory()' class="btn btn-primary sm">Select</button>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="mt-2 ml-2" *ngIf='selectedSuite?.name && !creditCategoryMap.size'>
+                        <small class="text-danger"><i class="icon-error-icon"></i><span> No RAMP Credits Found for this suite.</span></small>
+                   </div> -->
+                
+            </div>
+            <div class="w-260 pr-3" *ngIf='selectedSuite?.name && !isEa2Suite'>
+                <div class="form-group">
+                    <label class="customer-label">{{'common.SELECT_DISCOUNT_CATEGORY' | localizationPipe : localizationService.localizedkeySet.size}}</label>
+                    <div class="select-items dropdown"  *ngIf='creditCategoryMap.size' (clickOutside)="showCredits = false;">
+                        <span class="dropdown--typeAhead__arrow-management">
+                            <button type="button" class="btn--text drop-button dropdown-toggle" attr.action-id="{{dataIdConstantsService.managePa_button_selectedCreditCategory}}{{selectedSuite?.sku}}"
+                                (click)="showCredits = !showCredits">{{selectedCreditCategory?.rampType ? selectedCreditCategory.rampType : ('common.SELECT' | localizationPipe : localizationService.localizedkeySet.size)}}</button>
+                        </span>
+                        <div class="dropdown-menu credit-dropdown" [class.show]="showCredits">
+                            <!-- <div class="list-header">Residual</div>
+                            <ul>
+                                <li>
+                                    <label>SWSS Residual</label>
+                                    <span>SWSS Residual Meetings Perpetual License to Premise or Cloud</span>
+                                </li>
+                            </ul>
+                            <div class="list-header">RAMP</div> -->
+                            <ul *ngFor='let creditCategory of creditCategoryMap | keyvalue; let index = index;'>
+                                <li (click) = 'creditCategorySelected(creditCategory.value)' attr.action-id="{{dataIdConstantsService.managePa_dropdown_creditCategorySelected}}{{creditCategory.value.rampType}}">
+                                    <label>{{creditCategory.value.rampType}}</label>
+                                    <span>{{creditCategory.value.rampName}}</span>
+                                </li>
+                               
+                            </ul>
+                        </div>
+                    </div>
+                    <ng-container *ngIf='!creditCategoryMap.size'>
+                      <div class="mt-2 ml-2" *ngIf='!isMerakiSuite;else showNoCredit'>
+                        {{'common.NO_CREDITS_FOUND' | localizationPipe : localizationService.localizedkeySet.size}}
+                      </div>
+                      <ng-template #showNoCredit>
+                        <div class="mt-2 ml-2">
+                            {{'manage-purchase-adjustment.NO_MERAKI_CREDIT' | localizationPipe : localizationService.localizedkeySet.size}} <span (click)="goToSmartSheet()" ><a href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.managePa_link_paSmartSheet}}">{{'manage-purchase-adjustment.SMARTSHEEET' | localizationPipe : localizationService.localizedkeySet.size}}
+                            </a></span>
+                          </div>
+                      </ng-template>
+                    </ng-container>
+                </div>
+            </div>
+            <div class="w-260 pr-3 ea2Suite" *ngIf='isEa2Suite'>
+                <div class="form-group">
+                    Ramp does not apply for this suite.
+                </div>
+            </div>
+            
+            <div class="w-160 pr-3" *ngIf='displayDurationDropdown'>
+                <div class="form-group">
+                    <label class="customer-label">{{'common.SELECT_DURATION' | localizationPipe : localizationService.localizedkeySet.size}}</label>
+                    <div class="select-items dropdown" (clickOutside)="showDurations = false;">
+                        <span class="dropdown--typeAhead__arrow-management">
+                            <button type="button" class="btn--text drop-button dropdown-toggle" attr.action-id="{{dataIdConstantsService.managePa_button_selectedDuration}}"
+                                (click)="showDurations = !showDurations">{{selectedDuration ? selectedDuration : ('common.SELECT' | localizationPipe : localizationService.localizedkeySet.size)}}</button>
+                        </span>
+                        <div class="dropdown-menu" [class.show]="showDurations">
+                            <ul>
+                                <li (click)='selectDuration(duration)' *ngFor='let duration of durationArray; let index = index;' attr.action-id="{{dataIdConstantsService.managePa_dropdown_selectDuration}}{{duration}}">{{duration}}</li>
+                                
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="w-500 pr-3 d-none">
+                <div class="form-group mt-0">
+                    <label class="customer-label">{{'common.CONTRACT_NUMBERS' | localizationPipe : localizationService.localizedkeySet.size}}</label>
+                    <input placeholder="Enter Contract Numbers here" type="text" class="form-control " attr.data-id="{{dataIdConstantsService.managePa_text_contractNumbers}}">
+                </div>
+            </div>
+            <div class="">
+                <button *ngIf='displayAddCredit' [disabled] = 'updatedAtoArray.length' (click)='addCredit()' attr.action-id="{{dataIdConstantsService.managePa_button_addCredit}}" class="btn btn-primary sm mt-4">{{'common.ADD_DISCOUNT' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+            </div>
+        </div>
+        <ng-container *ngIf='gridData.length'>
+        <div class="row">
+            <div class="col-md-12">
+                <h5 class="heading--h5">{{'common.LIST_OF_APPLIED_CREDITS' | localizationPipe : localizationService.localizedkeySet.size}}</h5>
+            </div>
+        </div>
+        <table class="primary-table">
+            <thead>
+                <tr>
+                    <th>{{'manage-purchase-adjustment.SUITE' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                    <th width="380px">{{'common.CREDIT_CATEGORY' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                    <th width="150px">{{'common.STARTING_FROM' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                    <th class="text-right" width="140px">{{'manage-purchase-adjustment.DISCOUNT' | localizationPipe : localizationService.localizedkeySet.size}} <span class="emp">(%)</span></th>
+                    <th class="text-right" width="130px">{{'common.MONTHLY_CREDIT' | localizationPipe : localizationService.localizedkeySet.size}} <span class="emp">({{proposalStoreService?.proposalData?.currencyCode}})</span></th>
+                    <th class="text-right" width="135px">{{'common.TOTAL_CREDIT' | localizationPipe : localizationService.localizedkeySet.size}} <span class="emp">({{proposalStoreService?.proposalData?.currencyCode}})</span></th>
+                    <th width="35px"></th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                    <ng-container  *ngFor='let suite of gridData,let suiteIndex = index ' >
+                            <tr *ngFor='let credit of suite?.credit?.credits; let index = index;'>
+                    <td  [ngClass]="{'borderBottom0' : suite.credit.credits.length !== (index+1) }">{{index === 0 ?  suite.poolSuiteLineName : ''}}</td>
+                    <td>{{credit?.name ? credit?.name : suite?.credit?.rampDetail?.name}}</td>
+                    <td>{{startingFrom}}</td>
+                    <td>
+                        <div class="d-flex align-items-center justify-content-end">
+                            
+                            <span>{{suite?.credit?.rampDetail?.discount ? suite.credit.rampDetail.discount : '--'}}</span>
+                            <div class="adjust-ramp position-relative" *ngIf='suite?.credit?.rampDetail?.overrideDiscountPercent' (clickOutside)='suite.displayApply = false;' >
+                                <span class="manage-tooltip-slider"  *ngIf='suite?.displayApply'>
+                                    <h6>{{'manage-purchase-adjustment.DIAL_DOWN_RAMP' | localizationPipe : localizationService.localizedkeySet.size}}</h6>
+                                    <div class="vNext-rageSlider d-flex align-items-center pr-0">
+                                    <ngx-slider [(value)]="discountToUpdate" [options]="options"></ngx-slider>
+                                   
+                                    <button (click)='updateDiscount(suite)' class="btn btn-primary ml-5" attr.action-id="{{dataIdConstantsService.managePa_button_apply}}{{suite?.sku}}">{{'common.APPLY' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                                    </div>
+                                    </span>
+                                <span class="i-vNext-adjust" (click)='showApplyDiscount(suite)' attr.action-id="{{dataIdConstantsService.managePa_icon_rampDiscount}}{{suite?.sku}}" ngbTooltip="Adjust RAMP Discount" placement='top' container="body"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span></span>
+                                 <span class="value-badge">{{suite?.credit?.rampDetail?.overrideDiscountPercent ? suite.credit.rampDetail.overrideDiscountPercent : '--'}}</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="text-right">{{credit?.monthlyCredit ?  utilitiesService.formatValue(utilitiesService.getFloatValue(credit.monthlyCredit)) : '0.00'}}</td>
+                    <td class="text-right">{{credit?.totalCredit?  utilitiesService.formatValue(utilitiesService.getFloatValue(credit.totalCredit)) : '0.00'}}</td>
+                    <td [ngClass]="{'borderBottom0' : suite.credit.credits.length !== (index+1) }"><span *ngIf='!index' class="i-vNext-trash-bold" (click)='deleteCredit(suite,suiteIndex)' attr.action-id="{{dataIdConstantsService.managePa_dropdown_deleteCredit}}{{suite?.sku}}"></span></td>
+                </tr>
+             </ng-container>
+            
+            </tbody>
+        </table>
+    </ng-container>
+    </div>
+</div>

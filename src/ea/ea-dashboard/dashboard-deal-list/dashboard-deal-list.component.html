@@ -1,0 +1,240 @@
+<div class="row">
+    <div class="col-12 marginT20 marginB10 d-flex align-items-center">
+            <a class="filters" href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.dashboardDealList_link_filter}}" (click)="eaStoreService.showHideFilterMenu = true;" *ngIf="!eaStoreService.showHideFilterMenu">
+                <span class="i-vNext-filter"></span>{{'ea_dashboard.FILTERS' | localizationPipe : localizationService.localizedkeySet.size}} 
+            </a>
+            <span class="search-result" *ngIf="isSearchedData">{{paginationObject?.noOfRecords}}{{'ea_dashboard.RESULTS_FOR' | localizationPipe : localizationService.localizedkeySet.size}}"{{searchInputValue}}"</span>
+        <ul class="inline-listing border-right-li marginL15">
+            <!-- <li class="dropdown">
+                <a href="javascript:void(0);" class="ml-2" (click)="openDrop = !openDrop" (clickOutside)="openDrop = false;" >{{selectedView}}<span class="i-vNext-arrow-down-heavy ml-1"></span></a>
+                    <ul class="dropdown-menu right" [class.show]="openDrop">
+                        <li *ngFor="let a of viewOptions">
+                            <a href="javascript:void(0);" class="dropdown-item" [ngClass]="{'active': selectedQualView === a}" (click)="selectedCreatedBy(a)">{{a}}</a>
+                        </li>
+                    </ul>
+            </li> -->
+            <li>
+                <div class="input-group search-wrap with-select mr-0">
+                    <button type="button" class="btn dropdown-toggle dropdown-toggle-split borderRad-r0" (click)="showSearchDrop = true" (clickOutside)="showSearchDrop = false;" attr.action-id="{{dataIdConstantsService.dashboardDealList_button_searchdrop}}">
+                            <span class="visually-hidden">{{selectedDropValue?.name ? selectedDropValue?.name : ('common.SELECT' | localizationPipe : localizationService.localizedkeySet.size)}}</span>
+                    </button>
+                    <ul class="dropdown-menu w-100" [class.show]="showSearchDrop">
+                        <li *ngFor="let value of searchDropdown; let index = index;">
+                            <a href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.dashboardDealList_link_dropdown_seachDropValue}}{{index}}" class="dropdown-item" (click)="updateSearch(value)">{{value.name}}</a>
+                        </li>
+                    </ul>
+                    <input type="text" class="form-control w-200 px-0" aria-label="Search" placeholder="{{localizationService.getLocalizedString('common.SEARCH')}}" attr.data-id="{{dataIdConstantsService.dashboardDealList_text_searchParam}}"  [(ngModel)]="searchParam" (keyup.enter)="getDealData()">
+                    <button type="button" class="btn borderRad-l0" attr.action-id="{{dataIdConstantsService.dashboardDealList_button_searchdata}}">
+                        <span *ngIf  = "isSearchedData; else noSearchedData" class="i-vNext-close" (click)="clearSearchInput()" attr.action-id="{{dataIdConstantsService.dashboardDealList_icon_clearSearchdata}}"></span>
+                        <ng-template #noSearchedData>
+                            <span class="i-vNext-search" [disabled]="!searchParam" id="{{elementIdConstantsService.DASHBOARD_DEAL_LIST_SEARCH}}"  (click)="getDealData()" attr.action-id="{{dataIdConstantsService.dashboardDealList_icon_SearchDealdata}}"></span>
+                        </ng-template>
+                    </button>
+                </div>
+            </li>
+        </ul>
+             <span class="d-flex justify-content-end flex-grow-1">
+               {{'ea_dashboard.LOOKING_TO_MODIFY_SUB_TEXT' | localizationPipe : localizationService.localizedkeySet.size}} &nbsp;
+                <a href="javascript:void(0);" (click)="gotoSalesActions()" id="{{elementIdConstantsService.DASHBOARD_DEAL_LIST_SALES_ACTIONS}}"  attr.action-id="{{dataIdConstantsService.dashboardDealList_link_salesAction}}" 
+                class="text--link">{{'ea_dashboard.LOOKING_TO_MODIFY_SUB_LINK_1' | localizationPipe : localizationService.localizedkeySet.size}}<b>{{'ea_dashboard.LOOKING_TO_MODIFY_SUB_LINK_2' | localizationPipe : localizationService.localizedkeySet.size}}</b></a></span>
+    </div>
+    
+    <div class="col-12">
+        <div class="alert alert--info alert-dismissable">
+            <span class="alert-icon">
+                <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+            </span>
+            <span>{{'common.EOS_BANNER_NEW_MSG' | localizationPipe : localizationService.localizedkeySet.size}}<a href="https://salesconnect.cisco.com/softwarebuyingprograms/s/enterprise-agreement-20" 
+                target="_blank" class="text--link">
+                <b>{{'ea_dashboard.EOS_SALES_CONNECT_LINK' | localizationPipe : localizationService.localizedkeySet.size}}</b></a></span>
+        </div>
+    </div>
+    
+    <div *ngIf="messagesObj.errors?.length > 0" class="col-12">
+        <div *ngFor="let message of messagesObj.errors" class="alert alert--danger alert-dismissable">
+            <span class="alert-icon">
+                <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+            </span>
+            <span [innerHTML]="message.text | eAstringToHtml"></span>
+        </div>
+    </div>
+
+    <ng-container *ngIf='displayGrid'>
+    <div class="col-12" *ngIf="dealListData?.length; else noData">
+        <!-- Table View -- Starts here  -->
+                <table class="primary-table mb-0">
+                    <!-- <thead>
+                        <tr>
+                            <th>{{localizationService.getLocalizedString('common.DEAL_NAME_ID')}}</th>
+                            <th>{{localizationService.getLocalizedString('dashboard.CUSTOMER_NAME')}}</th>
+                            <th>{{localizationService.getLocalizedString('common.BUYING_PROGRAM')}}</th>
+                            <th>
+                                <div class="d-flex justify-content-between align-items-center resp-mw-90">
+                                    <span>{{localizationService.getLocalizedString('dashboard.CREATED_ON')}}</span>
+                                    <span class="i-vNext-arrow-filled-down"></span>
+                                </div>
+                            </th>
+                            <th>{{localizationService.getLocalizedString('common.DEAL_STATUS')}}</th>
+                            <th>Proposals</th>
+                        </tr>
+                    </thead>
+                    <tbody  *ngIf='dealListData?.length; else noDataFound'>
+                        <tr *ngFor="let deal of dealListData">
+                            <td>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <a href="javascript:void(0);" (click)="openPropsalList(deal)">{{deal?.dealName}} ({{deal?.dealID}})</a>
+                                    <ul class="inline-listing border-right-li">
+                                        <li *ngIf="deal?.partnerType"><span class="proposal-type">{{deal?.partnerType}}</span></li>
+                                    </ul>
+                                </div>
+                            </td>
+                            <td>{{deal?.endCustomerName}}</td>
+                            <td>{{deal?.buyingProgram ?  (deal?.buyingProgram === '2.0'? 'EA 2.0' : 'EA 3.0') : '-'}}</td>
+                            <td>{{deal?.createdOn}}</td>
+                            <td><span class="badge" [ngClass]="{'badge-valid': deal?.dealStatus === 'Qualified' , 'badge-in-progress': deal?.dealStatus !== 'Qualified' && deal?.dealStatus !== 'Not Submitted', 'badge-closed': deal?.dealStatus === 'Not Submitted'}">{{deal?.dealStatus}}</span></td>
+                            <td><a href="javascript:void();" tooltipClass="proposal-search" placement="top" container="body" ngbTooltip="EA Deal for DNA for Common Wealth Govt (71095367)">3</a></td>
+                        </tr>
+                    </tbody> -->
+                    <ng-container *ngIf="eaService.features.PARTNER_SUPER_USER_REL && isPartnerLoggedIn && (creatorFilter?.searchValue === constantsService.SHARED_BY_CISCO) && sharedByCiscoDataView; else allOtherFilters">
+                        <thead>
+                            <tr>
+                                <th>{{'common.DEAL_NAME_DEAL_ID' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                                <th>{{localizationService.getLocalizedString('common.DEAL_STATUS')}}</th>
+                                <th>{{'ea_dashboard.CUSTOMER_NAME' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                                <th>{{'common.PROPOSAL_NAME' | localizationPipe : localizationService.localizedkeySet.size}} ({{'common.sub-header.PROPOSAL_ID' | localizationPipe : localizationService.localizedkeySet.size}})</th>
+                                <th>{{'common.QUOTE_ID' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                                <th>{{'ea_dashboard.LOCC_SIGNED' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                            </tr>
+                        </thead>
+                        <tbody  *ngIf='dealListData?.length; else noDataFound'>
+                            <tr *ngFor="let deal of dealListData; let dealIndex = index;">
+                                <td> {{deal?.dealName}} ({{deal?.dealId}})
+                                </td>
+                                <td><span class="badge" *ngIf="deal?.quoteList" [ngClass]="{
+                                    'badge-submitted': deal?.quoteList[0].dealStatus === constantsService.DEAL_QUALIFIED ||  deal?.quoteList[0].dealStatus === constantsService.ORDERED || deal?.quoteList[0].dealStatus === constantsService.APPROVAL_NOT_READY_TO_ORDER,
+                                    'badge-closed': deal?.quoteList[0].dealStatus === constantsService.CANCELLED || deal?.quoteList[0].dealStatus === constantsService.CLOSED,
+                                    'badge-approved': deal?.quoteList[0].dealStatus === constantsService.APPROVED, 
+                                    'badge-qualification-progress': deal?.quoteList[0].dealStatus === constantsService.QUALIFICATION_IN_PROGRESS || deal?.quoteList[0].dealStatus === constantsService.APPROVAL_IN_PROGRESS,
+                                    'badge-expired': deal?.quoteList[0].dealStatus === constantsService.EXPIRED,
+                                    'badge-lost': deal?.quoteList[0].dealStatus === constantsService.LOST,
+                                    'badge-more-info-BOM': deal?.quoteList[0].dealStatus === constantsService.MORE_INFO_REQUIRED_BOM,
+                                    'badge-more-info': deal?.quoteList[0].dealStatus === constantsService.MORE_INFO_REQUIRED,
+                                    'badge-not-submitted': deal?.quoteList[0].dealStatus === constantsService.NOT_SUBMITTED,
+                                    'badge-reopen': deal?.quoteList[0].dealStatus === constantsService.REOPENED,
+                                    'badge-rejected': deal?.quoteList[0].dealStatus === constantsService.REJECTED }">{{deal?.quoteList[0].dealStatus}}</span></td>
+                                <td>{{deal?.endCustNm}}</td>
+                                <td>
+                                    <div class="d-flex justify-content-between align-items-center" *ngIf="deal?.proposalList?.length && deal?.proposalList[0].proposalId">
+                                        <a href="javascript:void(0);" (click)="goToProposal(deal)" id="{{elementIdConstantsService.DASHBOARD_DEAL_LIST_GO_TO_PROPOSAL}}" attr.action-id="{{dataIdConstantsService.dashboardDealList_link_goToProposal}}{{deal?.proposalList[0].proposalId}}">{{deal?.proposalList[0].proposalName}} ({{deal?.proposalList[0].proposalId}})</a>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-flex justify-content-between align-items-center" *ngIf="deal?.quoteList?.length && deal?.quoteList[0].quoteID">
+                                        <a href="javascript:void(0);" id="{{elementIdConstantsService.DASHBOARD_DEAL_LIST_GO_TO_QUOTE}}" (click)="openQuoteUrl(deal?.proposalList[0])" attr.action-id="{{dataIdConstantsService.dashboardDealList_link_goToQuote}}{{deal?.quoteList[0].quoteID}}">{{deal?.quoteList[0].quoteID}}</a>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-flex justify-content-center">
+                                        <span class="icon-tick-01" *ngIf="deal?.loccSigned"></span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </ng-container>
+                    <ng-template #allOtherFilters>
+                        <thead>
+                            <tr>
+                                <th>{{'common.DEAL_NAME_DEAL_ID' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                                <th>{{localizationService.getLocalizedString('common.DEAL_STATUS')}}</th>
+                                <th>{{'ea_dashboard.CUSTOMER_NAME' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                                <th>{{'ea_dashboard.PROJECT_QUALIFICATIONS' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                                <th *ngIf="isPartnerLoggedIn" [hidden]="eaService.features.PARTNER_SUPER_USER_REL && (creatorFilter?.searchValue === constantsService.SHARED_BY_CISCO)">{{'ea_dashboard.LOCC_SIGNED' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                                <th>{{'common.BUYING_PROGRAM' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                                <th>{{'ea_dashboard.PROPOSALS' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                            </tr>
+                        </thead>
+                        <tbody  *ngIf='dealListData?.length; else noDataFound'>
+                            <tr *ngFor="let deal of dealListData; let dealIndex = index;">
+                                <td> {{deal?.dealName}} ({{deal?.dealId}})
+                                    <!-- <div class="d-flex justify-content-between align-items-center">
+                                        <a href="javascript:void(0);">{{deal?.dealName}} ({{deal?.dealId}})</a>
+                                    </div> -->
+                                </td>
+                                <td><span class="badge" *ngIf="deal?.quoteList?.length" [ngClass]="{
+                                    'badge-submitted': deal?.quoteList[0].dealStatus === constantsService.DEAL_QUALIFIED ||  deal?.quoteList[0].dealStatus === constantsService.ORDERED || deal?.quoteList[0].dealStatus === constantsService.APPROVAL_NOT_READY_TO_ORDER,
+                                    'badge-closed': deal?.quoteList[0].dealStatus === constantsService.CANCELLED || deal?.quoteList[0].dealStatus === constantsService.CLOSED,
+                                    'badge-approved': deal?.quoteList[0].dealStatus === constantsService.APPROVED, 
+                                    'badge-qualification-progress': deal?.quoteList[0].dealStatus === constantsService.QUALIFICATION_IN_PROGRESS || deal?.quoteList[0].dealStatus === constantsService.APPROVAL_IN_PROGRESS,
+                                    'badge-expired': deal?.quoteList[0].dealStatus === constantsService.EXPIRED,
+                                    'badge-lost': deal?.quoteList[0].dealStatus === constantsService.LOST,
+                                    'badge-more-info-BOM': deal?.quoteList[0].dealStatus === constantsService.MORE_INFO_REQUIRED_BOM,
+                                    'badge-more-info': deal?.quoteList[0].dealStatus === constantsService.MORE_INFO_REQUIRED,
+                                    'badge-not-submitted': deal?.quoteList[0].dealStatus === constantsService.NOT_SUBMITTED,
+                                    'badge-reopen': deal?.quoteList[0].dealStatus === constantsService.REOPENED,
+                                    'badge-rejected': deal?.quoteList[0].dealStatus === constantsService.REJECTED }">{{deal?.quoteList[0].dealStatus}}</span></td>
+                                <td>{{deal?.endCustNm}}</td>
+                                <td>
+                                    <div *ngIf="!deal?.projectNm">
+                                        {{'ea_dashboard.VISIT_QUOTING_PAGE' | localizationPipe : localizationService.localizedkeySet.size}}
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center" *ngIf="deal?.projectNm">
+                                        <a href="javascript:void(0);" (click)="goToProject(deal)" id="{{elementIdConstantsService.DASHBOARD_DEAL_LIST_GO_TO_PROJECT}}" attr.action-id="{{dataIdConstantsService.dashboardDealList_link_goToProject}}{{dealIndex}}">{{deal?.projectNm}}</a>
+                                        <ul class="inline-listing border-right-li" *ngIf="!isPartnerLoggedIn">
+                                            <li><span class="proposal-type">{{(deal?.dealTyp === constantsService.CISCO) ? localizationService.getLocalizedString('common.CISCO') : localizationService.getLocalizedString('common.PARTNER')}}</span></li>
+                                        </ul>
+                                    </div>
+                                </td>
+                                <td *ngIf="isPartnerLoggedIn" [hidden]="eaService.features.PARTNER_SUPER_USER_REL && (creatorFilter?.searchValue === constantsService.SHARED_BY_CISCO)">
+                                    <div class="d-flex justify-content-center">
+                                        <span class="icon-tick-01" *ngIf="deal?.loccSigned"></span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span *ngIf="deal?.buyingProgram else noBuyingprogram">
+                                        <span *ngIf="deal?.buyingProgram === '2.0'">
+                                            {{'common.EA2_LABEL' | localizationPipe : localizationService.localizedkeySet.size}}
+                                        </span>
+                                        <span *ngIf="deal?.buyingProgram === '3.0'">
+                                            {{'common.EA3_LABEL' | localizationPipe : localizationService.localizedkeySet.size}}
+                                        </span>
+                                        <span *ngIf="deal?.buyingProgram === 'spna'">
+                                            {{'common.SPNA_LABEL' | localizationPipe : localizationService.localizedkeySet.size}}
+                                        </span>
+                                    </span>
+                                    <ng-template #noBuyingprogram>
+                                        -
+                                    </ng-template>
+                                </td>
+                                <td>
+                                    <a href="javascript:void();" *ngIf="!deal?.proposalList || !deal?.proposalList.length" attr.action-id="{{dataIdConstantsService.dashboardDealList_link_goToProposalList}}{{dealIndex}}" (click)="openPropsalList(deal, true)">-</a>
+                                    <a href="javascript:void();" id="{{elementIdConstantsService.DASHBOARD_DEAL_LIST_GO_TO_PROPOSAL_LIST}}"  (click)="openPropsalList(deal)" attr.action-id="{{dataIdConstantsService.dashboardDealList_link_goToProposalList}}{{dealIndex}}" *ngIf="deal?.proposalList && deal?.proposalList.length">{{deal?.proposalList.length}}</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </ng-template>
+    
+                    <ng-template #noDataFound>
+                        <div class="col-12">
+                            <p>{{'ea_dashboard.NO_DEALS_FOUND' | localizationPipe : localizationService.localizedkeySet.size}}</p>
+                        </div>
+                    </ng-template>
+                </table>
+        <!-- Table View -- Ends here  -->
+    </div>
+    <ng-template #noData>
+        <div class="col-12">
+            <div class="alert alert--info alert-dismissable">
+                <span class="alert-icon">
+                    <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                </span>
+                <span>{{'ea_dashboard.NO_DEALS_FOUND_MSG' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+            </div>
+        </div>
+    </ng-template>
+    </ng-container>
+    <div *ngIf='paginationObject && dealListData?.length' class="col-12">
+        <app-ea-ng-pagination [paginationObject]="paginationObject" (updatedPaginationObject) = "paginationUpdated($event)"></app-ea-ng-pagination>
+    </div>
+    </div>
+    
+    <app-deal-proposal-list *ngIf="eaStoreService.showProposalsFromDeal"></app-deal-proposal-list>

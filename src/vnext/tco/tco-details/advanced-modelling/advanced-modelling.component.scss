@@ -1,0 +1,45 @@
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+-webkit-appearance: none;
+margin: 0;
+}
+input[type=number] {
+-moz-appearance: textfield;
+}
+
+.cs-info {
+  cursor: pointer;
+}
+
+.custom-flyout {
+  width: 1066px !important;
+    .body {
+      height: 100%;
+      .label-check span {
+        top: -9px;
+     }
+    } 
+}
+.tco-modeling .font-700 {
+    min-width: 200px;
+}   
+
+.advanced-growth-section {
+    overflow: scroll;
+  }
+  
+  
+  table.freeze-first-col tr th:first-child,
+  table.freeze-first-col td:first-child {
+    position: sticky;
+    width: 100px;
+    left: 0;
+    z-index: 10;
+  }
+  table.freeze-first-col tr th:first-child {
+    z-index: 11;
+  }
+
+  table.freeze-first-col tr:nth-child(2) th:first-child {
+    position: inherit;
+  }

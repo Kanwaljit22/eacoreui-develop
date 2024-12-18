@@ -1,0 +1,67 @@
+.vNext {
+    .form-control {
+        height: 100px;
+        width: 400px;
+    }
+    .vNext-lookup-desc {
+        .option-txt {
+            font-size: 16px;
+            color: #999;
+        }
+    }
+    .my-drop-zone {
+        justify-content: space-evenly;
+        height: 250px;
+        color: #394454;
+        align-items: center;
+    }
+    .upload-instruction {
+        background-color: #f4f6f8;
+        align-items: center;
+        padding: 10px 30px 10px 15px;
+        .instruction-panel {
+            color: #394454;
+            .insturction-text {
+                text-decoration: underline;
+            }
+            ul {
+                margin-left: 15px;
+                margin-top: 5px;
+                li {
+                    list-style: decimal;
+                }
+            }
+        }
+    }
+    .file-upload-section {
+        .file-section {
+            background-color: #f1f7fd;
+            padding: 10px;
+        }
+    }
+    .or-divider {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        color: #394454;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: normal;
+        &::before {
+            content: "";
+            height: 1px;
+            background: #e8e8e8;
+            flex: 1;
+            margin: 0 .50em 0 0;
+          }
+          &::after {
+            content: "";
+            height: 1px;
+            background: #e8e8e8;
+            flex: 1;
+            margin: 0 0 0 .50em;
+          }
+      }
+     
+}

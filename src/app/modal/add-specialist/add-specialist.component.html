@@ -1,0 +1,100 @@
+<!-- <div class="modal-header">
+    <h5 class="modal-title">
+        Add Specialist
+    </h5>
+    <button type="button" class="icon-close-btn" data-dismiss="modal" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+<div class="modal-body">
+    <div class="body-content">
+        <div id="table-scroll">
+            <table width="100%" class="primary-table">
+                <thead>
+                    <tr>
+                        <th width="2%">
+                            <span class="tableVal">
+              <label class="label-check">
+                <input class="form-check-input" type="checkbox" (change)="checkAll(headerSpecialist)" [(ngModel)]="headerSpecialist" value="">
+                <span></span>
+                            </label>
+                            </span>
+                        </th>
+                        <th width="38%"><span class="tableVal">NAME/CEC ID</span></th>
+                        <th width="60%"><span class="tableVal">ARCHITECTURE</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let a of specialistData">
+                        <td class="text-center">
+                            <label class="label-check">
+                  <input class="form-check-input" type="checkbox" value="" [disabled]="a.previouslyAdded" (change)="selectSpecialist(a)" [(ngModel)]="a.specialist">
+                  <span></span>
+                </label>
+                        </td>
+                        <td class="borderL0"><span class="name">{{a.name}}<label>{{a.cecId}}</label></span></td>
+                        <td>{{a.archName}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="cancelAdd()">Cancel</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" [disabled]="!selectedCategories.length" (click)="addSpecialist()">Add</button>
+    </div>
+</div> -->
+
+<div class="modal-header">
+        <h5 class="modal-title">
+            {{localeService.getLocalizedString('qual.whoinvolved.FIND_SPECIALIST')}}
+            <!--span class="info-icon">i</span-->
+        </h5>
+        <button type="button" class="icon-close-btn" data-dismiss="modal" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <div class="body-content">
+                <div class="searchbar">
+                        <input class="form-control" type="text" [(ngModel)]="searchSpecialist" id="searchSpecialist" appElementFocus>
+                        <label for="searchSpecialist" class="form-control-placeholder" (click)="focusInput('searchSpecialist')">{{localeService.getLocalizedString('qual.whoinvolved.SEARCH_BY_NAME')}}, {{localeService.getLocalizedString('common.ARCH')}}</label>
+    
+                        <!--input [(ngModel)]="searchInput" class="form-control" placeholder="Search by customer name..." type="text" /-->
+                        <i *ngIf="!searchSpecialist" class="icon-search"></i>
+                    </div>
+            <div id="table-scroll" style="max-height:456px; overflow-y: auto;" >
+                <table width="100%" class="primary-table" *ngIf="(specialistData | searchFilter: searchSpecialist : searchArray).length > 0">
+                    <thead>
+                        <tr>
+                            <!-- <th width="3%">
+                                <span class="tableVal"><label class="label-check"><input class="form-check-input" type="checkbox" 
+                    [disabled]="allChecked" (change)="checkAll(headerSpecialist)" [(ngModel)]="headerSpecialist" value=""><span></span></label>
+                                </span>
+                            </th> -->
+                            <th width="37%">{{localeService.getLocalizedString('qual.whoinvolved.NAME')}}</th>
+                            <th width="60%">{{localeService.getLocalizedString('common.ARCH')}}</th>
+                            <!-- <th width="21%">{{localeService.getLocalizedString('common.AREA_OF_SPECIALIST')}}</th>
+                            <th width="12%">{{localeService.getLocalizedString('common.COUNTRY')}}</th>
+                            <th width="15%">{{localeService.getLocalizedString('common.SEGMENT')}}</th> -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let a of specialistData | searchFilter: searchSpecialist : searchArray">
+                            <!-- <td width="3%" class="text-center"><label class="label-check">
+                        <input class="form-check-input" type="checkbox" value="" [disabled]="a.previouslyAdded" (change)="selectSpecialist(a)" [(ngModel)]="a.specialist"><span></span></label></td> -->
+                            <td><a class="float-left" href="https://directory.cisco.com/dir/reports/{{a.ccoId}}" target="_blank"><span class="name">{{a.name}}<label>{{a.cecId}}</label></span></a><a class="float-right" href="mailto:{{a.email}};"><span class="icon-email"></span></a></td>
+                            <td>{{a.archName}}</td>
+                            <!-- <td>{{a.areaOfExpertise}}</td>
+                            <td>{{a.country}}</td>
+                            <td>{{a.segment}} </td> -->
+                        </tr>
+                        
+                        <!-- <tr class="no-record"><td colspan="3">No results found</td></tr> -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="clearfix mt-4" *ngIf="(specialistData | searchFilter: searchSpecialist : searchArray).length === 0 && searchSpecialist">
+             <h6>{{localeService.getLocalizedString('qual.whoinvolved.NO_SPECIALIST')}}</h6>
+        </div>
+        
+    </div>
+    
+    

@@ -1,0 +1,334 @@
+/*Common css*/
+
+.mt-5 {
+    margin-top: 5px !important;
+}
+
+.mt-25 {
+    margin-top: 25px;
+}
+
+.mb-20 {
+    margin-bottom: 20px;
+}
+
+.mb-30 {
+    margin-bottom: 30px;
+}
+
+.mr-50 {
+    margin-right: 50px;
+}
+
+.float-left {
+    float: left !important;
+}
+
+
+/*Common css ends*/
+
+
+/*** Disabled button css ***/
+
+.btn.disabled,
+.btn-primary.disabled:hover,
+.btn-secondary.disabled:hover,
+.btn[disabled],
+.btn[disabled]:hover {
+    background-color: #ccc;
+    color: #999;
+    border-color: #ccc;
+    text-shadow: none;
+    box-shadow: 0px 0px 0px;
+    cursor: not-allowed;
+}
+
+.enterprise-agreement-prospects.active {
+    border-top: 2px solid #005073 !important;
+}
+
+
+/*Button tab css*/
+
+.proposal-tab {
+    width: 100%;
+    margin: 0px auto;
+    text-align: center;
+}
+
+textarea.form-control.active {
+    height: 42px !important;
+}
+
+
+/*Text area css ends*/
+
+
+/*Slider css*/
+
+.card-title {
+    color: #58585b;
+    font-size: 12px;
+    font-weight: 400;
+    margin-bottom: 6px;
+}
+
+i.arrow {
+    border: solid #cccccc;
+    border-width: 0 1px 1px 0;
+    background: #ffffff;
+    display: inline-block;
+    padding: 5px;
+    position: absolute;
+    top: -6px;
+    left: 135px;
+}
+
+.arrow.up {
+    transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+    background: #f9f9f9;
+    left: 187px;
+}
+
+.arrow.up.noVal {
+    transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+    background: #f9f9f9;
+    left: 187px;
+}
+
+.arrow.up.val36 {
+    transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+    background: #f9f9f9;
+    left: 2px;
+}
+
+.arrow.up.val60 {
+    transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+    background: #f9f9f9;
+    left: 94px;
+}
+
+.arrow.left {
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+    right: -9px;
+    left: auto;
+    top: 2px;
+}
+
+.tab-panel {
+    border: 1px solid #cccccc;
+    background-color: #f9f9f9;
+    position: relative;
+    margin-top: 15px;
+    padding: 15px;
+    border-radius: 3px;
+}
+
+.selected-val {
+    float: left;
+    margin-right: 10px;
+    color: #999;
+    margin-top: 10px;
+    max-width: 150px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+
+/*Slider css ends*/
+
+
+/*Filter Slider
+===========================*/
+
+::ng-deep .irs-grid-text {
+    font-family: 'CiscoSans';
+    font-size: 10px;
+    font-weight: 100;
+}
+
+.icon-range-slider {
+    display: block;
+    float: left;
+    width: 100%;
+}
+
+::ng-deep .irs-grid {
+    width: 100% !important;
+    left: 0px !important;
+}
+
+::ng-deep .irs-grid-pol {
+    top: -6px;
+    background: #ccc;
+}
+
+::ng-deep .irs-from,
+::ng-deep .irs-to,
+::ng-deep .irs-single,
+::ng-deep .irs-bar,
+.irs-slider {
+    background: #005073 !important;
+}
+
+::ng-deep .irs-line,
+::ng-deep .irs-line-left,
+::ng-deep .irs-line-mid,
+::ng-deep .irs-line-right,
+::ng-deep .irs-bar.irs-bar--single {
+    height: 8px !important;
+    top: 26px;
+    background: #ccc;
+    border-radius: 0px;
+    left: 0px !important;
+}
+
+::ng-deep .irs-from:after,
+::ng-deep .irs-to:after,
+::ng-deep .irs-single:after {
+    position: absolute;
+    display: block;
+    content: "";
+    bottom: -6px;
+    left: 50%;
+    width: 0;
+    height: 0;
+    margin-left: -3px;
+    overflow: hidden;
+    border: 3px solid transparent;
+    border-top-color: transparent;
+}
+
+::ng-deep .irs-slider {
+    width: 16px;
+    height: 18px;
+    top: 22px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+::ng-deep .cover .irs {
+    margin: 0;
+    position: relative;
+}
+
+::ng-deep .cover .irs::before,
+::ng-deep .cover .irs::after {
+    content: '';
+    position: absolute;
+    top: 17px;
+    width: 1px;
+    height: 25px;
+    background: #fff;
+}
+
+::ng-deep .cover .irs::before {
+    left: 0px;
+}
+
+::ng-deep .cover .irs::after {
+    right: -1px;
+}
+
+::ng-deep .irs-from,
+::ng-deep .irs-slider.from {
+    display: none;
+}
+
+::ng-deep .irs-line-left,
+::ng-deep .irs-line-mid,
+::ng-deep .irs-line-right {
+    background-color: #005073;
+    background-image: none;
+}
+
+::ng-deep .irs-slider.to,
+::ng-deep .irs-slider.from,
+::ng-deep .irs-slider.single {
+    background: transparent url('../../../assets/images/slider-knob-indigo.svg') no-repeat;
+    height: 19px;
+    width: 19px;
+    margin-top: 0px;
+    position: relative;
+    top: -19px
+}
+
+::ng-deep .irs-min,
+::ng-deep .irs-max,
+::ng-deep .irs-bar-edge {
+    display: none !important;
+}
+
+::ng-deep .irs-to {
+    background-color: transparent;
+    padding-left: 9px;
+    top: 5px;
+    color: #a3a7aa;
+    font-size: 11px;
+}
+
+::ng-deep .irs-to:after {
+    display: none;
+}
+
+
+/*Slider css ends*/
+
+* {
+    outline: none !important;
+}
+
+.custom-dropdown {
+    position: relative;
+    height: 40px;
+}
+
+.custom-select {
+    background-image: none;
+    background-color: transparent;
+    color: #fff;
+    border-bottom: 1px solid #005073;
+    border: 0;
+    border-radius: 0;
+    padding: 5px 20px 5px 5px;
+}
+
+.custom-dropdown .ico-dropdown {
+    position: absolute;
+    right: 10px;
+    top: 12px;
+    transform: rotate(0deg) !important;
+}
+
+.custom-dropdown .custom-select:focus+label+.ico-dropdown {
+    transform: rotate(180deg);
+}
+
+.custom-select:focus {
+    box-shadow: none !important;
+}
+
+.position-relative .custom-select.myCustomSelect:hover,
+.position-relative .custom-select.myCustomSelect:focus {
+    border-bottom: 1px solid #005073 !important;
+}
+
+
+/*Table delete icon css*/
+
+table tr td i.icon-trash {
+    cursor: pointer;
+}
+
+
+/*Table delete icon css*/
+
+.marginTop10 {
+    margin-top: 5px;
+}

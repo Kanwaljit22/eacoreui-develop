@@ -1,0 +1,14 @@
+<div class="modal-body vNext modal-without-header">
+    <button class="icon-close-btn" type="button" (click)="close()" attr.action-id="{{dataIdConstantsService.unEnrollConfirmation_button_close}}"></button>
+    <!-- End of header -->
+
+    <div class="unenroll-wrap">
+        <div class="icon-wrap"><span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span></div>
+        <h5 class="heading--h5"> {{'price-estimation.ARE_YOU_SURE_YOU_WANT_TO_REMOVE' | localizationPipe : localizationService.localizedkeySet.size}} {{enrollmentName}} ?</h5>
+    </div>
+
+    <div class="text-center d-block pb-4">
+        <button class="btn btn-primary" type="button" (click)="accept()" attr.action-id="{{dataIdConstantsService.unEnrollConfirmation_button_accept}}">{{'common.Yes' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+        <button class="btn btn-secondary" type="button" (click)="close()" attr.action-id="{{dataIdConstantsService.unEnrollConfirmation_button_no}}">{{'common.No' | localizationPipe : localizationService.localizedkeySet.size}}</button>        
+    </div>
+</div>

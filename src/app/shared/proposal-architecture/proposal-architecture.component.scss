@@ -1,0 +1,56 @@
+.mt-25 {
+  margin-top: 25px;
+}
+
+.mt-30 {
+  margin-top: 32px;
+}
+
+.mt-10 {
+  margin-top: 10px;
+}
+
+.mt-15 {
+  margin-top: 15px;
+}
+
+.mb-10 {
+  margin-bottom: 10px;
+}
+
+.mb-30 {
+  margin-bottom: 30px;
+}
+
+.mr-50 {
+  margin-right: 50px;
+}
+
+
+.disabled {
+  cursor: not-allowed;
+}
+
+.ques-answer {
+  padding-top: 15px;
+}
+
+.ques-answer .form--head {
+  padding-bottom: 10px;
+}
+
+.ques-answer .label-check {
+  display       : block;
+  clear         : both;
+  padding-bottom: 15px;
+}
+
+/*New Form styling
+================================*/
+.ques-answer .label-check.active {
+  padding-bottom: 5px;
+}
+
+.ques-answer .an-list {
+  margin-bottom: 15px;
+}

@@ -1,0 +1,19 @@
+<div class="modal-header">
+    <h5 class="modal-title">Manage Service Specialist
+        <!--span class="info-icon">i</span-->
+    </h5>
+    <button type="button" class="icon-close-btn" data-dismiss="modal" aria-label="Close" (click)="close()"></button>
+</div>
+<div class="modal-body">
+    <div class="body-content">
+        <div class="card border-0">
+            <app-cx-specialist [cxSpTeamData]="cxTeamData"  ></app-cx-specialist>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary mr-1" type="button"
+      (click)="close()">Cancel</button>
+    <button class="btn btn-primary mr-1" type="button" [disabled] = "qualService.qualification.cxTeams.length === 0"
+      (click)="continue()">Done</button>
+  </div>

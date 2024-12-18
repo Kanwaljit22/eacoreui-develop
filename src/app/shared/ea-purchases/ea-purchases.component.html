@@ -1,0 +1,15 @@
+<div *ngIf='!utilitiesService.proposalFlow' class="clearfix"></div>
+<div *ngIf='!utilitiesService.proposalFlow' class="alert alert--info">
+    <i class="arrow up"></i>
+    <span class="alert-icon">
+    <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+    </span>
+    <span class="infoTxt custom-lh-qtr">Click 
+        <a class="d-inline" href="javascript:void(0);" (click)="openPurchase()">here</a> 
+        {{message}} 
+    </span>
+</div> 
+<span *ngIf='utilitiesService.proposalFlow'>
+        <a class="d-inline" class="sub-data-inner" href="javascript:void(0);" (click)="openPurchase()">View Authorization</a> 
+    
+</span>

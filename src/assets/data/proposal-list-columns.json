@@ -1,0 +1,177 @@
+[
+    {
+        "headerName": "Proposals",
+        "colId": "name",
+        "field": "name",
+        "width": 290,
+        "minWidth": 60,
+        "pinned": "left",
+        "filter" : false,
+        "suppressMenu": true,
+        "suppressSorting": true
+    },      
+    {
+        "headerName": "Architecture",
+        "colId": "architecture",
+        "field": "architecture",
+        "width": 215,
+        "filter" : false,
+        "minWidth": 60,
+        "suppressMenu": true,
+        "suppressSorting": true
+    },
+    {
+        "headerName": "Proposal Id",
+        "colId": "id",
+        "field": "id",        
+        "width": 100,
+        "filter" : false,
+        "minWidth": 60,
+        "suppressMenu": true,
+        "suppressSorting": true
+    }, 
+    {
+        "headerName": "Proposal Type",
+        "colId": "proposalType",
+        "field": "proposalType",
+        "width": 180,
+        "minWidth": 60,
+        "filter" : false,
+        "suppressMenu": true,
+        "suppressSorting": true
+    },
+    {
+        "headerName": "Status",
+        "colId": "status",
+        "field": "status",
+        "width": 175,
+        "minWidth": 60,
+        "filter" : "agSetColumnFilter",
+        "suppressMenu": true,
+        "suppressSorting": true,
+        "cellClass" : "grid-status"
+    },
+    {
+        "headerName": "Submitted By",
+        "colId": "submittedBy",
+        "field": "submittedBy",
+        "width": 120,
+        "minWidth": 60,
+        "filter" : false,
+        "suppressMenu": true,
+        "suppressSorting": true,
+        "cellClass" : "custom-appr-cell"
+    },
+    {
+        "headerName": "Reviewer Team(s)",
+        "colId": "approverTeamDetails",
+        "field": "approverTeamDetails",
+        "width": 190,
+        "minWidth": 60,
+        "filter" : false,
+        "suppressMenu": true,
+        "suppressSorting": true,
+        "cellClass" : "custom-appr-cell"
+    },
+    {
+        "headerName": "Exception Requested",
+        "colId": "exceptionRequested",
+        "field": "exceptionRequested",
+        "width": 190,
+        "minWidth": 60,
+        "filter" : false,
+        "suppressMenu": true,
+        "suppressSorting": true,
+        "cellClass" : "custom-appr-cell"
+    },
+    {
+        "headerName": "Elapsed Time",
+        "colId": "elapsedTime",
+        "field": "elapsedTime",
+        "width": 110,
+        "minWidth": 60,
+        "filter" : false,
+        "suppressMenu": true,
+        "suppressSorting": true
+    },
+    {
+        "headerName": "Customer Name",
+        "colId": "customerName",
+        "field": "customerName",
+        "width": 190,
+        "minWidth": 60,
+        "filter" : false,
+        "suppressMenu": true,
+        "suppressSorting": true
+    },
+    {
+        "headerName": "Deal Id",
+        "colId": "dealId",
+        "field": "dealId",
+        "width": 100,
+        "minWidth": 60,
+        "filter" : false,
+        "suppressMenu": true,
+        "suppressSorting": true
+    }, 
+    {
+        "headerName": "Qualification Name",
+        "colId": "qualificationName",
+        "field": "qualificationName",
+        "width": 180,
+        "minWidth": 60,
+        "filter" : false,
+        "suppressMenu": true,
+        "suppressSorting": true
+    },  
+    {
+        "headerName": "Suites",
+        "colId": "suites",
+        "field": "suites",
+        "width": 180,
+        "filter" : false,
+        "minWidth": 60,
+        "suppressMenu": true,
+        "suppressSorting": true
+    },
+    {
+        "headerName": "Billing Model Term",
+        "colId": "billingModel",
+        "field": "billingModel",
+        "width": 150,
+        "minWidth": 60,
+        "filter" : false,
+        "suppressMenu": true,
+        "suppressSorting": true
+    },
+    {
+        "headerName": "Country/Region of Transaction",
+        "colId": "countryOfTransaction",
+        "field": "countryOfTransaction",
+        "width": 150,
+        "minWidth": 60,
+        "filter" : false,
+        "suppressMenu": true,
+        "suppressSorting": true
+    },
+    {
+        "headerName": "Requested Start Date",
+        "colId": "eaStartDateDdMmmYyyyStr",
+        "field": "eaStartDateDdMmmYyyyStr",
+        "width": 140,
+        "minWidth": 60,
+        "filter" : false,
+        "suppressMenu": true,
+        "suppressSorting": true
+    },
+    {
+        "headerName": "EA Total Value",
+        "colId": "totalNetPrice",
+        "field": "totalNetPrice",
+        "width": 150,
+        "minWidth": 60,
+        "filter" : false,
+        "suppressMenu": true,
+        "suppressSorting": true
+    }
+]

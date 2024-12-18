@@ -1,0 +1,119 @@
+
+user  nginx;
+worker_processes  auto;
+
+error_log  /var/log/nginx/error.log warn;
+pid        /var/run/nginx.pid;
+
+
+events {
+    worker_connections  1024;
+}
+
+http {
+    include       /etc/nginx/mime.types;
+    default_type  application/octet-stream;
+    
+    client_max_body_size 60M;
+
+
+
+    log_format apm '"$time_local" client=$remote_addr '
+               		'method=$request_method request="$request" '
+               		'request_length=$request_length '
+               		'status=$status bytes_sent=$bytes_sent '
+               		'body_bytes_sent=$body_bytes_sent '
+               		'referer=$http_referer '
+               		'user_agent="$http_user_agent" '
+               		'upstream_addr=$upstream_addr '
+               		'upstream_status=$upstream_status '
+               		'request_time=$request_time '
+               		'upstream_response_time=$upstream_response_time '
+               		'upstream_connect_time=$upstream_connect_time '
+               		'upstream_header_time=$upstream_header_time '
+               		'remote user = $remote_user '                  
+                    'complete request = $request '
+                    '********************************';
+               	
+    log_format main 'app/# block is exicuted';
+
+     log_format locBlock 'location block 1 $scheme://$http_host/';
+
+     log_format locBlock1 'location block 2 $scheme://$http_host/';
+
+     log_format locBlock2 'location block 3 $scheme://$http_host/';
+    
+    access_log  /var/log/nginx/access.log;
+
+    sendfile        on;
+    #tcp_nopush     on;
+
+    keepalive_timeout  480;
+
+    gzip  on;
+    gzip_comp_level 6;
+    gzip_types text/css application/javascript application/octet-stream image/jpeg image/png;
+    gzip_static on;
+
+    # include /etc/nginx/conf.d/*.conf;
+
+    # default root is /etc/nginx/html/
+    root /usr/share/nginx/html/;
+
+    map $sent_http_content_type $expires {
+        default                    off;
+        text/html                  epoch;
+        text/css                   max;
+        application/javascript     max;
+        ~image/                    max;
+    }
+    
+    server {
+        listen 8080;
+        underscores_in_headers on;
+        proxy_pass_header remote_user;
+        error_page 404 = app/;
+        proxy_connect_timeout 605;
+        proxy_send_timeout 605;
+        proxy_read_timeout 605;
+        send_timeout 605;
+        keepalive_timeout 605;
+
+        expires $expires;
+
+        large_client_header_buffers 4 64k;
+
+       location / {
+            root /usr/share/nginx/html;
+            index index.html index.htm;
+            try_files $uri $uri/ /index.html;
+            error_page  404 /not_found.gif;
+        }
+
+        location /app/ {
+            index init.html;
+            alias /usr/share/nginx/html/;
+        }
+ 
+        location /api/ {
+           access_log  /var/log/nginx/api_access.log apm;
+           proxy_pass http://eaccwapi-${CISCO_ENV}${CISCO_BGCOLOR}-${CISCO_DCNAME}-svc:8080/api/;
+           proxy_pass_request_headers on;  
+		   proxy_set_header REMOTE_USER $remote_user;
+        }   
+        location /ngapi/ {
+          access_log  /var/log/nginx/api_access.log apm;
+           proxy_pass http://eainterface-${CISCO_ENV}${CISCO_BGCOLOR}-${CISCO_DCNAME}-svc:8080/ngapi/;
+           proxy_pass_request_headers on;	
+		   proxy_set_header REMOTE_USER $remote_user;
+        } 
+        
+         location /vuingapi/ {
+           access_log  /var/log/nginx/api_access.log apm;
+           proxy_pass http://eainterface-validation-${CISCO_ENV}${CISCO_BGCOLOR}-${CISCO_DCNAME}-svc:8080/ngapi/;
+           proxy_pass_request_headers on;	
+		   proxy_set_header REMOTE_USER $remote_user;
+        } 
+
+    }
+}

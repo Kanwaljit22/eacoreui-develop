@@ -1,0 +1,26 @@
+FROM containers.cisco.com/pmantri/nginx:latest
+
+USER root
+
+#RUN apt-get update && apt-get install sudo && sudo apt-get install apache2-utils
+RUN apt-get update && \
+    apt-get dist-upgrade -y && \
+    apt-get install --no-install-recommends -y apache2-utils && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+#For Basic Authentication on localhost
+RUN mkdir /etc/authdata/
+COPY .htpasswd /etc/authdata/.htpasswd
+RUN chgrp -R nginx /etc/authdata /etc/authdata/.htpasswd
+RUN chmod -R 770 /etc/authdata/ /etc/authdata/.htpasswd
+
+RUN rm -rf /usr/share/nginx/html/*
+
+COPY creui /usr/share/nginx/html
+
+COPY nginx.conf /etc/nginx/nginx.conf
+
+RUN chgrp -R root /var/cache/nginx /var/run /var/log/nginx /etc/nginx/ && \
+    chmod -R 770 /var/cache/nginx /var/run /var/log/nginx /etc/nginx/
+
+CMD ["nginx", "-g", "daemon off;"]

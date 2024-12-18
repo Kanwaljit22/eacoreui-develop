@@ -1,0 +1,17 @@
+<ng-template #totalEntitlements>
+  <b>{{params.displayName}}</b><br>
+  <span>EA Purchased Entitlements + Growth Allowance</span>
+</ng-template>
+<ng-template #totalConsumption>
+  <b>{{params.displayName}}</b><br>
+  <span>Pre-Ea Conssumption + Licenses Generated + Migrated EA Consumption</span>
+</ng-template>
+
+<div class="ag-cell-label-container">
+  <div class="ag-header-cell-label">
+    <span class="ag-header-cell-text" *ngIf="params.displayName ==='Total EA Entitlements'"
+      [ngbTooltip]="totalEntitlements" placement="top-right" container="body">{{params.displayName}}</span>
+    <span class="ag-header-cell-text" *ngIf="params.displayName ==='Total Consumption'" [ngbTooltip]="totalConsumption"
+      placement="top-right" container="body">{{params.displayName}}</span>
+  </div>
+</div>

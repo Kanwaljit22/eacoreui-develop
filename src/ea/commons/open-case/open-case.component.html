@@ -1,0 +1,82 @@
+<div class="custom-flyout-overlay"></div>
+<div class="custom-flyout vNext cust-sm">
+    <div class="heading">
+        <div class="d-flex justify-content-between align-items-center mb-0">
+            <div class="heading-title">
+                <h2 class="heading--h2">{{localizationService.getLocalizedString('common.open-case.OPEN_A_CASE')}}</h2>
+            </div>
+            <div class="d-flex flex-column align-items-end">
+                <div class="d-flex align-items-center">
+                    <button class="icon-close-btn mt-2" type="button" attr.action-id="{{dataIdConstantsService.openCase_button_close}}" (click)="eaStoreService.showOpenCase = false"></button>
+                </div>
+            </div>
+        </div> 
+    </div>
+    <!-- End of Heading -->
+
+    <div class="body">
+        <div>
+            <div class="block-instruction">
+              <h3 class="heading--h3 bold border-bottom solid uppercase mb-2 pb-1">{{localizationService.getLocalizedString('common.open-case.PLEASE_READ_CAREFULLY')}}</h3>
+              <p>{{localizationService.getLocalizedString('common.open-case.PROPOSAL_IS_INACCURATE')}}</p>
+              <ol>
+                <li>{{localizationService.getLocalizedString('common.open-case.APPLICABLE_SUBSIDIARIES')}}</li>
+                <!-- <li>Using the <span class="italic-text">“Credit Overview”</span> page, did you make sure all the licenses, contracts and subscriptions of interest are eligible and active?</li> -->
+              </ol>
+              <p>{{localizationService.getLocalizedString('common.SUPPORT_TEAM')}}</p>
+            </div> 
+        
+            <div class="block-instruction">
+              <p class="mb-2 underline">{{localizationService.getLocalizedString('common.open-case.IB_ASSESSMENT_SUPPORT_TEAM')}}</p>
+              <ul class="flex-list">
+                <li><span class="no-wrap-text dashed-step bold-txt">{{localizationService.getLocalizedString('common.locc.STEP_1')}}</span> {{localizationService.getLocalizedString('common.open-case.NAVIGATE_TO_THE')}} <span class="bold-txt">{{localizationService.getLocalizedString('common.PRICE_ESTIMATION')}}</span> {{localizationService.getLocalizedString('common.open-case.PAGE')}}</li>
+                <li><span class="no-wrap-text dashed-step bold-txt">{{localizationService.getLocalizedString('common.locc.STEP_2')}}</span> {{localizationService.getLocalizedString('common.CLICK_THE')}} <span class="italic-text">{{localizationService.getLocalizedString('common.open-case.PROPOSAL_ACTIONS')}}</span> {{localizationService.getLocalizedString('common.open-case.DROPDOWN_ON_TOP')}}</li>
+                <li><span class="no-wrap-text dashed-step bold-txt">{{localizationService.getLocalizedString('common.locc.STEP_3')}}</span> {{localizationService.getLocalizedString('common.CLICK_THE')}} <span class="italic-text">{{localizationService.getLocalizedString('common.open-case.ENGAGE_SUPPORT_TEAM')}}</span> {{localizationService.getLocalizedString('common.open-case.BUTTON')}}</li>
+                <li><span class="no-wrap-text dashed-step bold-txt">{{localizationService.getLocalizedString('common.open-case.STEP_4')}}</span> {{localizationService.getLocalizedString('common.open-case.FILL_OUT_THE_FORM_AND_CLICK_THE')}} <span class="italic-text">{{localizationService.getLocalizedString('common.DONE')}}</span> {{localizationService.getLocalizedString('common.open-case.ALWAYS_INCLUDE_INFORMATION')}}</li>
+                <li><span class="no-wrap-text dashed-step bold-txt">{{localizationService.getLocalizedString('common.open-case.STEP_5')}}</span> {{localizationService.getLocalizedString('common.open-case.ONCE_YOU’RE_BACK_TO_THE')}} <span class="bold-txt">{{localizationService.getLocalizedString('common.PRICE_ESTIMATION')}}</span> {{localizationService.getLocalizedString('common.open-case.PAGE_CLICK_THE')}} <span class="italic-text">{{localizationService.getLocalizedString('common.open-case.CONTINUE')}}</span> {{localizationService.getLocalizedString('common.multi-error.AND')}} <span class="italic-text">{{localizationService.getLocalizedString('common.open-case.SUBMIT_FOR_APPROVAL')}}</span> {{localizationService.getLocalizedString('common.open-case.BACK_TO_YOU_SHORTLY')}}</li>
+              </ul>
+              <p class="d-none">{{localizationService.getLocalizedString('common.SUPPORT_TEAM')}}</p>
+            </div>
+          </div>
+         <section *ngIf="showDetails" >
+          <h3 class="heading--h3 normal text-center mt-4 before-border mb-3">{{localizationService.getLocalizedString('common.open-case.GENERAL_INQUIRY')}}</h3>
+          <div>
+           <div class="row list-style mb-3"  *ngFor="let case of caseList; let index = index;">
+               <div class="col p-0">
+                   <div  class="list-item--name align-items-center row">
+                       <div  class="col-8 d-flex">
+                         <h3  class="heading ellipsis p-0" *ngIf="(case?.pegaCaseDetails?.CaseNumber)"><a  href="javascript:void(0);" (click)="openCasePortal(case.pegaCaseDetails.URL)" attr.action-id="{{dataIdConstantsService.openCase_link_caseDetails}}{{index}}" >{{case?.pegaCaseDetails?.CaseNumber}} </a></h3>
+                         <h3  class="heading ellipsis p-0" *ngIf="!(case?.pegaCaseDetails?.CaseNumber)">{{localizationService.getLocalizedString('common.open-case.SWINC_XXX')}}</h3>
+                       </div>
+                       <div  class="col-4 text-right">
+                           <ul  class="tile-list">
+                               <li  class="pr-0"><span *ngIf='case?.status !== "Resolved"' class="badge badge-in-progress">{{case.status}}</span>
+                                 <span *ngIf='case?.status === "Resolved"'  class="badge badge-validated">{{case.status}}</span>  
+                               </li> 
+                           </ul>
+                       </div>
+                       <div class="col-12 list-item--val mt-1">
+                           <label>{{case?.subject}}</label>
+                       </div>
+                   </div>
+                   <div  class="list-item border--top solid">
+                       <div  class="list-item--val col-4">
+                           <label >{{localizationService.getLocalizedString('common.open-case.CREATED_BY')}}</label>
+                           <h4  class="label-name">{{case?.createdBy}}</h4>
+                       </div>
+                       <div  class="list-item--val col-4">
+                           <label >{{localizationService.getLocalizedString('common.open-case.TYPE')}}</label>
+                           <h4  class="label-name">{{case?.caseSubType}}</h4>
+                       </div>
+                       <div  class="list-item--val col-4">
+                           <label >{{localizationService.getLocalizedString('common.open-case.CREATED_DATE')}}</label>
+                           <h4 class="label-name">{{case?.createdAtAsString}}</h4>
+                       </div>
+                   </div>
+               </div>
+           </div>
+           </div>  
+         </section> 
+    </div>
+    <!-- End of Body -->
+</div>

@@ -1,0 +1,466 @@
+<div class="modal-header">
+    <h5 class="modal-title">
+        {{headerName}}
+    </h5>
+    <button type="button" class="icon-close-btn" data-dismiss="modal" aria-label="Close" (click)="close()"></button>
+</div>
+<div class="modal-body">
+    <div *ngIf="!(showWarningMessage || showSuccessmessge)">
+        <div class="container-fluid bg-white">
+            <ul class="roadmap-steps">
+                <!--progressbar [value]="percentageComplete"></progressbar-->
+                <li class="step" (click)="showRoadMap(index)" *ngFor="let roadMap of roadMaps; let index=index;"
+                    [ngClass]="{'visited':index < currentStep,'active': index === currentStep}">
+                    <span class="step--icon"><i id="index{{index}}" [ngClass]="{'icon-check2': (index < currentStep)}"></i></span>
+                    <span class="step--label">{{roadMap.name}}</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- <app-loader *ngIf="currentStep === 0  && changeDealid && !isQualDataLoaded"></app-loader> -->
+  
+    <div>
+        <div class="alert alert--info mt-2" *ngIf='currentStep === 0 && changeDealid'>
+            <i class="arrow up"></i>
+            <span class="alert-icon">
+                <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+            </span>
+            <span>
+                {{localeService.getLocalizedString('qual.clone.CHANGE_DEAL_WARNING_MESSAGE')}}
+            </span>
+        </div>
+        <!-- <div class="alert alert--info welcome-info mt-2" *ngIf="showLookUp && isCustomerMatching && amMactching">
+            <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span
+                    class="path3"></span>
+            </span>
+            <span class="txt">{{localeService.getLocalizedString('common.PROSPECT_ASSOCIATE_DEAL')}} {{prospectDetails.prospectName}}.</span>
+        </div> -->
+        <message *ngIf="errorDealID" class="deal-id-lookup"></message>
+        <!-- response message from save and confirm clone/change deal api starts -->
+        <message *ngIf="!errorDealID"></message>
+        <!--response message from save and confirm clone/change deal api ends -->
+        <div class="alert alert--danger" *ngIf="showLookUp && !isCustomerMatching  && !ciscoDealForPartner">
+            <span class="alert-icon">
+                <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+            </span>
+            <span>Customer on this deal {{newQualData.dealId}}, does not match with {{qualObj.customerName}}. Please enter a deal which belongs to same customer</span>
+        </div>
+        <div class="alert alert--danger" *ngIf="showLookUp && ciscoDealForPartner">
+            <span class="alert-icon">
+                <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+            </span>
+            <span>{{newQualData.dealId}} is Cisco deal. Please enter Partner deal of same customer.</span>
+        </div>
+        <div class="alert alert--danger" *ngIf="showLookUp && isBeGeoIdDifferent">
+            <span class="alert-icon">
+                <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+            </span>
+            <span>Partner on current deal {{dealData.dealId}} does not match with partner on new deal id {{newQualData.dealId}}. Please enter deal id of same partner
+            </span>
+        </div>
+        <div class="alert alert--warning mt-2 bg-white" *ngIf="showLookUp && isCustomerMatching && !amMactching && currentStep === 0  && !ciscoDealForPartner">
+            <span class="alert-icon">
+                <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+            </span>
+            <span>Customer on this deal {{newQualData.dealId}} matches with customer {{qualObj.customerName}}. However, account manager on deal {{newQualData.dealId}} does not match with account manager of {{dealData.dealId}}.</span>
+        </div>
+        <!-- for stopping changing deal if deals are same -->
+        <div class="alert alert--danger" *ngIf="sameDeal && currentStep == 0 && changeDealid">
+            <span class="alert-icon">
+                <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+            </span>
+            <span>You have entered current deal of qualification, please enter another deal of same customer.</span>
+        </div>
+
+        <div class="text-right">
+            <button type="button" *ngIf="currentStep === 0 && changeDealid" class="btn btn-secondary"
+            (click)="close()">{{localeService.getLocalizedString('common.CANCEL')}}</button>
+            <button style="margin-left: 10px;" *ngIf="currentStep === 0 && changeDealid" type="button" (click)="continueProposalSelection(1)" class="btn btn-primary"
+            [disabled]="continueSelectionDisable || isQualNameInvalid" data-dismiss="modal">{{localeService.getLocalizedString('qual.clone.CONTINUE_PROPOSAL_SELECTION')}}</button>
+        </div>
+                <div class="createQualification mt-2" *ngIf='currentStep === 0 && changeDealid'>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <h3 class="card-header">{{localeService.getLocalizedString('qual.clone.NEW_DEAL_ID')}}</h3>
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="form-group flex-grow-1 pr-4 m-0" [ngClass]="{'error': errorDealID}">
+                                    <label class="customer-label" for="qualEADealId" (click)="focusInput('qualEADealId')">{{localeService.getLocalizedString('qual.create.DEAL')}} {{localeService.getLocalizedString('qual.create.ID')}} <span
+                                        class="import">*</span></label>
+                                    <input appElementFocus class="form-control ng-pristine ng-invalid ng-touched" id="qualEADealId" [(ngModel)]="qualEADealId" (ngModelChange)="updateDealLookUpID()"
+                                     (keyup.enter)="searchDeal(qualEADealId)"  name="qualEADealId" required="" type="text" [disabled]="!isQualDataLoaded">
+                                     <span class="validate" style="display:none;">{{localeService.getLocalizedString('qual.create.VALIDATION')}}</span></div>
+                                     <span class="validate"><button
+                                        (click)="searchDeal(qualEADealId)" class="btn btn-secondary mt-2" type="button" [disabled]="disableSearch"
+                                        id="QualificationCreate_LOOKUP">{{localeService.getLocalizedString('common.SEARCH')}}</button></span>
+                                        </div>
+                                <div></div>
+                            
+                            <div *ngIf="showLookUp">
+                                <div class="alert alert--success" *ngIf="!continueSelectionDisable">
+                                    <span class="alert-icon">
+                                        <span class="icon-done1"><span class="path1"></span><span class="path2"></span></span>
+                                    </span>
+                                    <span class="txt">{{localeService.getLocalizedString('qual.create.DEAL')}} {{localeService.getLocalizedString('qual.create.ID')}} {{qualEADealId}} {{localeService.getLocalizedString('qual.create.VALIDATED_DEAL')}}</span></div>
+                                <div class="mt-2" [ngClass]="{'activeDeal': !continueSelectionDisable}">
+                                    <table class="primary-table">
+                                        <thead>
+                                            <tr>
+                                                <th width="9%">{{localeService.getLocalizedString('qual.create.DEAL')}} {{localeService.getLocalizedString('qual.create.ID')}}</th>
+                                                <th width="14%" *ngIf="!isPartnerDeal">{{localeService.getLocalizedString('qual.create.OPPORTUNITY')}} {{localeService.getLocalizedString('qual.whoinvolved.NAME')}} </th>
+                                                <th width="15%" *ngIf="isPartnerDeal">{{localeService.getLocalizedString('qual.create.DEAL')}} {{localeService.getLocalizedString('qual.whoinvolved.NAME')}} </th>
+                                                <th width="20%">{{localeService.getLocalizedString('qual.create.ACCOUNT_NAME')}} &amp; {{localeService.getLocalizedString('qual.create.ADDRESS')}}</th>
+                                                <th width="11%" *ngIf="isPartnerDeal">{{localeService.getLocalizedString('common.PARTNER_INFO')}}</th>
+                                                <th width="9%" *ngIf="!isPartnerDeal">{{localeService.getLocalizedString('qual.create.STAGE')}}</th>
+                                                <th width="9%" *ngIf="isPartnerDeal">{{localeService.getLocalizedString('qual.create.OPPORTUNITY')}} {{localeService.getLocalizedString('common.STATUS')}}</th>
+                                                <th width="14%">{{localeService.getLocalizedString('qual.create.EXP_BOOK_DATE')}} </th>
+                                                <th width="12%">{{localeService.getLocalizedString('qualproposallist.ACCOUNT_MANAGER')}} ({{localeService.getLocalizedString('qual.whoinvolved.CEC_ID')}})</th>
+                                                <th width="14%" *ngIf="!isPartnerDeal">{{localeService.getLocalizedString('qual.create.OPPORTUNITY')}} {{localeService.getLocalizedString('qual.create.OWNER')}}</th>
+                                                <th width="9%" *ngIf="isPartnerDeal">{{localeService.getLocalizedString('qual.create.DEAL')}} {{localeService.getLocalizedString('qual.create.OWNER')}}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>{{newQualData.dealId}}</td>
+                                                <td>{{newQualData.optyName}}</td>
+                                                <td><strong>{{newQualData.accountName}}</strong><br />{{newQualData.accountAddress}}
+                                                </td>
+                                                <td *ngIf="isPartnerDeal">{{this.qualService?.qualification?.primaryPartnerName}}</td>
+                                                <td *ngIf="!isPartnerDeal">{{newQualData.stage}}</td>
+                                                <td *ngIf="isPartnerDeal">{{newQualData.dealStatusDesc}}</td>
+                                                <td *ngIf="!isPartnerDeal">{{newQualData.bookDate}}</td>
+                                                <td *ngIf="isPartnerDeal">{{(newQualData.bookDate) ? (newQualData.bookDate  | date:'dd-MMM-yyyy') : '-'}}</td>
+                                                <td *ngIf="newQualData.accountManager && newQualData.accountManager.userId">{{newQualData.accountManager.fullName}} ({{newQualData.accountManager.userId}})</td>
+                                                <td *ngIf="!newQualData.accountManager || !newQualData.accountManager.userId">--</td>
+                                                <td>{{newQualData.optyOwner}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="mt-2">
+                                        <label class="label-check">
+                                            <input (change)="continueSelection($event)" class="form-check-input" type="checkbox" value="" [disabled]="!isCustomerMatching  || ciscoDealForPartner || isBeGeoIdDifferent">
+                                            <span class="custom-checkbox-btn">
+                                                <span class="path1"></span>
+                                                <span class="path2"></span>
+                                            </span>
+                                            <span>{{localeService.getLocalizedString('qual.create.ASSOCIATE')}}
+                                                <strong>{{localeService.getLocalizedString('qual.create.DEAL')}} {{localeService.getLocalizedString('qual.create.ID')}} </strong>{{localeService.getLocalizedString('qual.create.WITH_QUAL')}} {{localeService.getLocalizedString('qual.create.DEAL_CHANGE')}} </span></label>
+                                    </div>
+                                <div class="mt-4" *ngIf="!continueSelectionDisable">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="form-group txt">
+                                              <input [id]="appDataService.createUniqueId('qualEAQualificationName',appDataService.pageContext)"
+                                                class="form-control" maxlength="65" appElementFocus id="qualEAQualificationName"
+                                                [(ngModel)]="qualEAQualificationName" (ngModelChange)="isQualNameBlank()" name="qualEAQualificationName"
+                                                required="" type="text">
+                                              <label class="form-control-placeholder" for="qualEAQualificationName"
+                                                (click)="focusDealIdInput(appDataService.createUniqueId('qualEAQualificationName',appDataService.pageContext))">{{localeService.getLocalizedString('common.QUALIFICATION')}}
+                                                {{localeService.getLocalizedString('qual.whoinvolved.NAME')}}
+                                                <span class="import">*</span>
+                                              </label>
+                                            </div>
+                                          </div>
+                                    </div>
+                                    <!-- <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="form-group mb-3">
+                                              <input [id]="appDataService.createUniqueId('eaQualDescription',appDataService.pageContext)" type="text"
+                                                class="form-control" appElementFocus id="eaQualDescription" [(ngModel)]="eaQualDescription"
+                                                name="eaQualDescription" required="">
+                                              <label class="form-control-placeholder" for="eaQualDescription"
+                                                (click)="focusDealIdInput(appDataService.createUniqueId('eaQualDescription',appDataService.pageContext))">{{localeService.getLocalizedString('qual.create.DESC')}}</label>
+                                            </div>
+                                          </div>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+        <app-loader *ngIf="!isQualDataLoaded"></app-loader>
+        <!-- <div class="alert alert--info welcome-info mt-3" *ngIf="showLookUp && isCustomerMatching && amMactching">
+            <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span
+                    class="path3"></span>
+            </span>
+            <span class="txt">{{localeService.getLocalizedString('common.PROSPECT_ASSOCIATE_DEAL')}} {{prospectDetails.prospectName}}.</span>
+        </div>
+        <div class="alert alert--warning mt-3 bg-white" *ngIf="showLookUp && !isCustomerMatching">
+            <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+            <span>Customer on this deal {{newQualData.dealId}}, does not match with {{qualObj.customerName}}.</span>
+        </div>
+        <div class="alert alert--warning mt-3 bg-white" *ngIf="showLookUp && isCustomerMatching && !amMactching">
+            <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+            <span>Account manager on the new deal {{newQualData.dealId}} does not match with current deal’s {{dealData.dealId}} account manager. Please enter valid deal.</span>
+        </div> -->
+        <div class="createQualification" *ngIf="isQualDataLoaded">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                            <h3 class="card-header">Current {{localeService.getLocalizedString('qual.create.DEAL')}} {{localeService.getLocalizedString('qual.create.ID')}}</h3>
+                        <div class="card-body">
+                            <div class="qualEAQualificationNameResult">
+                                <table class="primary-table">
+                                    <thead>
+                                        <tr>
+                                            <th width="9%">{{localeService.getLocalizedString('qual.create.DEAL')}} {{localeService.getLocalizedString('qual.create.ID')}}</th>
+                                            <th width="14%" *ngIf="!isQualPartnerDeal">{{localeService.getLocalizedString('qual.create.OPPORTUNITY')}} {{localeService.getLocalizedString('qual.whoinvolved.NAME')}} </th>
+                                            <th width="15%" *ngIf="isQualPartnerDeal">{{localeService.getLocalizedString('qual.create.DEAL')}} {{localeService.getLocalizedString('qual.whoinvolved.NAME')}} </th>
+                                            <th width="20%">{{localeService.getLocalizedString('qual.create.ACCOUNT_NAME')}} &amp; {{localeService.getLocalizedString('qual.create.ADDRESS')}}</th>
+                                            <th width="11%" *ngIf="isQualPartnerDeal">{{localeService.getLocalizedString('common.PARTNER_INFO')}}</th>
+                                            <th width="9%" *ngIf="!isQualPartnerDeal">{{localeService.getLocalizedString('qual.create.STAGE')}}</th>
+                                            <th width="9%" *ngIf="isQualPartnerDeal">{{localeService.getLocalizedString('qual.create.DEAL')}} {{localeService.getLocalizedString('common.STATUS')}}</th>
+                                            <th width="14%">{{localeService.getLocalizedString('qual.create.EXP_BOOK_DATE')}} </th>
+                                            <th width="12%">{{localeService.getLocalizedString('qualproposallist.ACCOUNT_MANAGER')}} ({{localeService.getLocalizedString('qual.whoinvolved.CEC_ID')}})</th>
+                                            <th width="14%" *ngIf="!isQualPartnerDeal">{{localeService.getLocalizedString('qual.create.OPPORTUNITY')}} {{localeService.getLocalizedString('qual.create.OWNER')}}</th>
+                                            <th width="9%" *ngIf="isQualPartnerDeal">{{localeService.getLocalizedString('qual.create.DEAL')}} {{localeService.getLocalizedString('qual.create.OWNER')}}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>{{dealData.dealId}}</td>
+                                            <td>{{dealData.optyName}}</td>
+                                            <td><strong>{{dealData.accountName}}</strong><br />{{dealData.accountAddress}}
+                                            </td>
+                                            <td *ngIf="isQualPartnerDeal">{{(dealData.primaryPartner) ? (dealData.primaryPartner) : '-'}}</td>
+                                            <td *ngIf="!isQualPartnerDeal">{{dealData.stage}}</td>
+                                            <td *ngIf="isQualPartnerDeal">{{dealData.dealStatusDesc}}</td>
+                                            <td *ngIf="!isQualPartnerDeal">{{dealData.bookDate}}</td>
+                                            <td *ngIf="isQualPartnerDeal">{{(dealData.bookDate) ? (dealData.bookDate  | date:'dd-MMM-yyyy') : '-'}}</td>
+                                            <td *ngIf="dealData.accountManager && dealData.accountManager.userId">{{dealData.accountManager.fullName}} ({{dealData.accountManager.userId}})</td>
+                                            <td *ngIf="!dealData.accountManager || !dealData.accountManager.userId">--</td>
+                                            <td>{{dealData.optyOwner}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="currentStep === 0 && !changeDealid">
+        <div class="createQualification mt-3">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                            <h3 class="card-header">{{localeService.getLocalizedString('common.QUALIFICATION')}} {{localeService.getLocalizedString('admin.INFO')}}</h3>
+                        <div class="card-body">
+                                <div class="form-group mt-0"><label class="customer-label" for="qualEAQualificationName"
+                                    (click)="focusDealIdInput(appDataService.createUniqueId('qualEAQualificationName',appDataService.pageContext))">
+                                    New Qualification Name
+                                    <span class="import">*</span>
+                                  </label>
+                                    <input [id]="appDataService.createUniqueId('qualEAQualificationName',appDataService.pageContext)" class="form-control ng-pristine ng-invalid ng-touched w-100" maxlength="65" appElementFocus id="qualEAQualificationName"
+                                    [(ngModel)]="qualEAQualificationName" (ngModelChange)="isQualNameBlank()" name="qualEAQualificationName"
+                                    required="" type="text" [disabled] = "!isQualDataLoaded">
+                                    
+                                </div>
+                        </div>
+                    </div>
+                    <div _ngcontent-cva-c19="" class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="createQualification mt-3" *ngIf="currentStep === 1">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                        <h3 class="card-header d-flex justify-content-between"><span *ngIf='changeDealid'>{{localeService.getLocalizedString('qual.clone.SELECT_PROPOSALS_TO_CLONE_NEW_DEAL')}} ({{newQualData.dealId}})</span>
+                            <span *ngIf='!changeDealid'>{{localeService.getLocalizedString('qual.clone.SELECT_PROPOSALS_TO_CLONE')}}</span>
+                            
+                            <div class="globalSwitchWrap look-up text-right mb-2" *ngIf="qualProposals.length > 0">
+                                <ui-switch kdfid="globalView" kdfapp="enterpriseAgreement" kdfpage="enterpriseAgreement"
+                                    [(ngModel)]="globalView" size="small" color="#ABE3F2" switchColor="#00BCEA"
+                                    (change)="globalSwitchChange($event)"></ui-switch>
+                                <span>{{localeService.getLocalizedString('qual.clone.SELECT_NO_PROPOSALS_TOGGLE')}}</span>
+                            </div>
+                        </h3>
+                        <div class="d-flex p-2">
+                            <div class="alert alert--info welcome-info m-0" *ngIf="qualProposals.length === 0">
+                                <span class="alert-icon">
+                                    <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span
+                                            class="path3"></span>
+                                    </span>
+                                </span>
+                                <span class="txt">{{localeService.getLocalizedString('qual.clone.NO_PROPOSALS_PRESENT')}}</span>
+                            </div>
+                        </div>
+                    
+                    <div class="card-body" *ngIf="qualProposals.length > 0">
+                        <div class="qualEAQualificationNameResult">
+                            <table class="primary-table clone-td">
+                                <thead>
+                                    <tr>
+                                        <th width="2%"><label class="label-check"><input class="form-check-input" type="checkbox" [(ngModel)]="selectAll" [disabled]="disableSelection" (change)="updateCheckAll()"
+                                                    value=""><span class="custom-checkbox-btn">
+                                                        <span class="path1"></span>
+                                                        <span class="path2"></span>
+                                                    </span></label></th>
+                                        <th class="pl-0" width="25%">{{localeService.getLocalizedString('common.PROPOSALS')}}</th>
+                                        <th width="19%">{{localeService.getLocalizedString('common.ARCH')}}</th>
+                                        <th width="13%">{{localeService.getLocalizedString('common.STATUS')}}</th>
+                                        
+                                        <th width="25%">{{localeService.getLocalizedString('prospectdetails.SUITES')}}</th>
+                                        <th width="13%" class="text-right">{{localeService.getLocalizedString('qualproposallist.TOTAL_NET_PRICE')}}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let prop of qualProposals">
+                                        <td class="border-right-0"><label class="label-check"><input
+                                                    class="form-check-input" type="checkbox" [disabled]="disableSelection"
+                                                    value="" [(ngModel)]="prop.checked" (change)="allChecked()"><span class="custom-checkbox-btn">
+                                                        <span class="path1"></span>
+                                                        <span class="path2"></span>
+                                                    </span></label></td>
+                                        <td class="pl-0">{{prop.name}} ({{prop.id}})</td>
+                                        <td>
+                                            <span *ngIf="prop.archName === constantsService.DNA" class="d-flex align-items-center"><span
+                                                    class="icon-DNA-new architecture-icon"><span class="path1"></span><span class="path2"></span><span
+                                                        class="path3"></span><span class="path4"></span><span class="path5"></span><span
+                                                        class="path6"></span><span class="path7"></span></span>Cisco DNA</span>
+                                            <span *ngIf="prop.archName === constantsService.DC" class="d-flex align-items-center"><span
+                                                    class="icon-data-center-new architecture-icon"><span class="path1"></span><span class="path2"></span><span
+                                                        class="path3"></span><span class="path4"></span><span class="path5"></span><span
+                                                        class="path6"></span><span class="path7"></span><span class="path8"></span></span>Cisco Data Center</span>
+                                            <span *ngIf="prop.archName === constantsService.SECURITY" class="d-flex align-items-center"><span
+                                                    class="icon-security-new architecture-icon"><span class="path1"></span><span class="path2"></span><span
+                                                        class="path3"></span></span>Cisco Security Choice</span>                
+                                        </td>
+                                        <td class="status-success" *ngIf="prop.status === constantsService.QUALIFICATION_COMPLETE">{{prop.status}}</td>
+                                        <td class="status-warning" *ngIf="prop.status !== constantsService.QUALIFICATION_COMPLETE">{{prop.status}}</td>
+                                        <td>{{(prop.suites) ? (prop.suites) : localeService.getLocalizedString('common.NOT_DEFINED')}}</td>
+                                        <td *ngIf="prop.totalNetPrice" class="text-right">{{prop.currencyCode}} {{utilitiesService.formatWithNoDecimal(prop.totalNetPrice)}}</td>
+                                        <td *ngIf="!prop.totalNetPrice" class="text-right">--</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="createQualification mt-3" *ngIf="currentStep === 2  && !(showWarningMessage || showSuccessmessge)">
+                <div class="row">
+                    <div class="col-12">
+                            <div class="card">
+                                    <h3 class="card-header d-flex align-items-center justify-content-between">
+                                        <a class="ellipsis" href="javascript:void(0);"><span *ngIf="changeDealid">{{localeService.getLocalizedString('qual.create.DEAL')}}
+                                            {{localeService.getLocalizedString('admin.INFO')}}</span>
+                                            <span *ngIf="!changeDealid">Qualification Info</span>
+                                        </a>
+                                        <span (click)="continueProposalSelection(0)" style="cursor: pointer;"
+                                            class="icon-header-edit"></span></h3>
+                                            <div class="card-body row">
+                                                <div *ngIf="changeDealid" class="list-item--val col-2"><label>{{localeService.getLocalizedString('qual.clone.NEW_DEAL_ID')}}</label>
+                                                    <h3 class="label-name" *ngIf="changeDealid"><span class="ellipsis">{{newQualData.dealId}}</span></h3>
+                                                    <h3 class="label-name" *ngIf="!changeDealid"><span class="ellipsis">{{qualObj.dealId}}</span></h3>
+                                                </div>
+                                                <div class="list-item--val col-4">
+                                                    <label><span *ngIf="changeDealid">New </span>{{localeService.getLocalizedString('common.QUALIFICATION')}} {{localeService.getLocalizedString('qual.whoinvolved.NAME')}}</label>
+                                                    <h5 class="label-name"><span class="ellipsis" ngbTooltip="{{qualEAQualificationName}}">{{qualEAQualificationName}}</span></h5>
+                                                </div>
+                                            </div>
+                            </div>
+                    </div>
+                </div>
+
+        <div class="createQualification">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                            <h3 class="card-header user-list-link d-flex align-items-center justify-content-between">
+                                <a class="ellipsis" href="javascript:void(0);"><span *ngIf="changeDealid">{{localeService.getLocalizedString('qual.clone.SELECTED_PROPOSAL_SUMMARY')}}</span>
+                                    <span *ngIf="!changeDealid">Selected Proposal for Cloning for New Qualification</span>
+                                    </a>
+                                    <span (click)="continueProposalSelection(1)" class="icon-header-edit" *ngIf="qualProposals.length > 0" style="cursor: pointer"></span>
+                            </h3>
+                        <div class="alert alert--info welcome-info mt-2 mx-2" *ngIf="qualProposals.length === 0 || selectedProposals.length === 0 ">
+                            <span class="alert-icon">
+                                <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span
+                                        class="path3"></span>
+                                </span>
+                            </span>
+                            <span class="txt" *ngIf="qualProposals.length === 0">{{localeService.getLocalizedString('qual.clone.NO_PROPOSALS_PRESENT')}}</span>
+                            <span class="txt" *ngIf="selectedProposals.length === 0 ">{{localeService.getLocalizedString('qual.clone.NO_PROPOSALS_SELECTED')}}</span>
+                        </div>
+                        <div class="card-body" *ngIf="selectedProposals.length > 0"> 
+                            <div class="qualEAQualificationNameResult">
+                                <table class="primary-table">
+                                    <thead>
+                                        <tr>
+                                            <th width="30%">Proposals</th> 
+                                            <th width="19%">Architecture</th>
+                                            <th width="13%">Status</th>
+                                            <th width="25%">Suites</th>
+                                            <th width="15%" class="text-right">EA Total Value</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let prop of selectedProposals">
+                                            <td>{{prop.name}} ({{prop.id}})</td>
+                                            <td>
+                                                <span *ngIf="prop.archName === constantsService.DNA" class="d-flex align-items-center"><span
+                                                    class="icon-DNA-new architecture-icon"><span class="path1"></span><span class="path2"></span><span
+                                                        class="path3"></span><span class="path4"></span><span class="path5"></span><span
+                                                        class="path6"></span><span class="path7"></span></span>Cisco DNA</span>
+                                            <span *ngIf="prop.archName === constantsService.DC" class="d-flex align-items-center"><span
+                                                    class="icon-data-center-new architecture-icon"><span class="path1"></span><span class="path2"></span><span
+                                                        class="path3"></span><span class="path4"></span><span class="path5"></span><span
+                                                        class="path6"></span><span class="path7"></span><span class="path8"></span></span>Cisco Data Center</span>
+                                            <span *ngIf="prop.archName === constantsService.SECURITY" class="d-flex align-items-center"><span
+                                                    class="icon-security-new architecture-icon"><span class="path1"></span><span class="path2"></span><span
+                                                        class="path3"></span></span>Cisco Security Choice</span> 
+                                            </td>
+                                            <td class="status-success" *ngIf="prop.status === constantsService.QUALIFICATION_COMPLETE">{{prop.status}}</td>
+                                            <td class="status-warning" *ngIf="prop.status !== constantsService.QUALIFICATION_COMPLETE">{{prop.status}}</td>
+                                            <td>{{(prop.suites) ? (prop.suites) : localeService.getLocalizedString('common.NOT_DEFINED')}}</td>
+                                            <td *ngIf="prop.totalNetPrice" class="text-right">{{prop.currencyCode}} {{utilitiesService.formatWithNoDecimal(prop.totalNetPrice)}}</td>
+                                            <td *ngIf="!prop.totalNetPrice" class="text-right">--</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="status-modal" *ngIf="showSuccessmessge">
+        <span class="status--success icon-tick-01"></span>
+        <p class="status--message" *ngIf="selectedProposals.length > 0 && !changeDealid">New Qualification is Cloned with associated Proposal(s) Successfully</p>
+        <p class="status--message" *ngIf="selectedProposals.length === 0 && !changeDealid">New Qualification is Cloned Successfully</p>
+        <p class="status--message" *ngIf="selectedProposals.length > 0 && changeDealid">{{localeService.getLocalizedString('qual.clone.SUCCESS_CLONE_TO_NEW_QUAL_WITH_PROP')}} ({{newQualObj.dealId}}).</p>
+        <p class="status--message" *ngIf="selectedProposals.length === 0 && changeDealid">{{localeService.getLocalizedString('qual.clone.SUCCESS_CLONE_TO_NEW_QUAL')}} ({{newQualObj.dealId}}).</p>
+        <button class="btn btn-primary mb-2" type="button" (click)="goToNewQual()">{{localeService.getLocalizedString('qual.clone.GO_TO_NEW_QUAL')}}</button>
+        <a href="javascript:void(0);" class="d-block" (click)="close()">{{localeService.getLocalizedString('qual.clone.STAY_HERE')}}</a>
+    </div>
+
+    <div class="clearfix"></div>
+</div>
+<div class="modal-footer" *ngIf="!showWarningMessage && !showSuccessmessge">
+    <button  class="btn btn-secondary btn-back mr-auto" type="button" *ngIf="currentStep !== 0" (click)="backToPrevious(currentStep)"><span class="icon-btn-back"></span> <span class="mid-text">{{localeService.getLocalizedString('common.BACK')}}</span></button>
+    <button type="button" class="btn btn-secondary"
+        (click)="close()">{{localeService.getLocalizedString('common.CANCEL')}}</button>
+    <button *ngIf="currentStep === 0" type="button" (click)="continueProposalSelection(1)" class="btn btn-primary"
+        [disabled]="continueSelectionDisable || isQualNameInvalid" data-dismiss="modal">{{localeService.getLocalizedString('qual.clone.CONTINUE_PROPOSAL_SELECTION')}}</button>
+    <button *ngIf="currentStep === 1" type="button" class="btn btn-primary" data-dismiss="modal"
+        (click)="continueProposalSelection(2)">{{localeService.getLocalizedString('common.CONTINUE')}}</button>
+    <button type="button" *ngIf="currentStep === 2" class="btn btn-primary" data-dismiss="modal"
+        (click)="saveAndConfirm()">{{localeService.getLocalizedString('common.SAVE')}} & {{localeService.getLocalizedString('common.CONFIRM')}}</button>
+</div>

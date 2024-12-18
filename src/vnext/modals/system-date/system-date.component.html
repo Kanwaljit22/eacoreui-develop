@@ -1,0 +1,29 @@
+<div class="modal-body vNext modal-without-header">
+    <button class="icon-close-btn" (click)="close()" type="button" attr.action-id="{{dataIdConstantsService.engageSupportTeam_button_closeIcon}}"></button>
+    <h2>{{  localizationService.getLocalizedString('common.sys-date.EDIT_SYSTEM_DATE')}}</h2>
+
+</div>
+
+<div class="modal-body vNext modal-without-header">
+
+    <div class="container">
+
+        <div>
+
+        </div>
+        <label class="customer-label">{{  localizationService.getLocalizedString('common.sys-date.EDIT_DATE')}}
+        </label>
+        <input appElementFocus readonly="true" type="text" class="form-control"
+        #dpFull="bsDatepicker" [(ngModel)]="selectedDate" placement="bottom right"
+        [minDate]="lastSavedDate" bsDatepicker
+        (bsValueChange)="onDateSelection($event)" attr.data-id="{{dataIdConstantsService.createPro_text_datePicker}}"
+        [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY', showWeekNumbers: false, containerClass:'theme-vNext'}">
+    </div>
+    <!-- [maxDate]="expectedMaxDate" -->
+    
+</div>
+
+<div class="modal-footer justify-content-center">
+    <button type="button" class="btn btn-secondary sm cancel-btn" attr.action-id="{{dataIdConstantsService.systemDate_button_closeButton}}" (click)="close()" id="{{elementIdConstantsService.SystemDate_Cancel}}">{{localizationService.getLocalizedString('common.CANCEL')}}</button>
+    <button class="btn btn-primary ml-2" type="button" (click)="saveSystemDate()" attr.action-id="{{dataIdConstantsService.systemDate_button_edit}}" >{{localizationService.getLocalizedString('common.SAVE')}}</button>
+</div>

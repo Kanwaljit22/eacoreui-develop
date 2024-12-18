@@ -1,0 +1,4 @@
+<div  *ngIf="!params.node.rowPinned">
+  <span class="text-link" (click)="onRestore(params)" *ngIf="isAdjusted">Restore</span>
+  <span *ngIf='!isAdjusted'>Restore</span>
+</div>

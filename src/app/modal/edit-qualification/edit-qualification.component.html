@@ -1,0 +1,59 @@
+<div class="modal-header">
+    <h5 *ngIf="appDataService.editModal === constantsService.QUALIFICATIONS " class="modal-title">{{localeService.getLocalizedString('modal.editqual.EDIT_QUAL')}}<!--span class="info-icon">i</span--></h5>
+    <h5 *ngIf="appDataService.editModal === constantsService.PROPOSALS" class="modal-title">{{localeService.getLocalizedString('modal.proposalheader.EDIT_PROPOSAL')}}<!--span class="info-icon">i</span--></h5>
+    <button type="button" class="icon-close-btn" data-dismiss="modal" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+<div class="modal-body">
+    <div class="createQualification">
+    <div  *ngIf="appDataService.editModal === constantsService.QUALIFICATIONS "  class="row card m-0 border-0">
+        <div class="col-lg-12 line-level-alert">
+            <div class="form-group txt m-0" [ngClass]="{'error': qualificationNameError}">
+                <label class="customer-label" for="qualEAQualificationName" (click)="focusInput('qualEAQualificationName')">{{localeService.getLocalizedString('common.QUALIFICATION')}} {{localeService.getLocalizedString('qual.whoinvolved.NAME')}}
+                    <span class="import">*</span></label>
+                <input class="form-control" maxlength="65" appElementFocus id="qualEAQualificationName" maxlength="65" [(ngModel)]="qualifiactionName" name="qualEAQualificationName" required="" type="text" (ngModelChange)="isQualValueChanged($event)">
+            </div>
+            <div class="alert alert--danger" role="alert" *ngIf="qualificationNameError">
+                <span class="alert-icon">
+                    <i class="icon-error-icon"></i>
+                </span>
+                <span>{{errorMessage}}</span>
+            </div>
+        </div>
+    </div>
+    <div  *ngIf="appDataService.editModal === constantsService.PROPOSALS"  class="row m-0 border-0 card">
+        <div class="col-lg-12 line-level-alert">
+            <div class="form-group txt" [ngClass]="{'error': proposalNameError}">
+                <label class="customer-label" for="proposalName" (click)="focusInput('proposalName')">{{localeService.getLocalizedString('proposal.create.PROPOSAL_NAME')}}
+                    <span class="import">*</span></label>
+                <input class="form-control" maxlength="65" appElementFocus id="proposalName" maxlength="65" [(ngModel)]="proposalName" name="propsalName" required="" type="text" (ngModelChange)="isProposalValueChanged($event)">
+            </div>
+            <div class="alert alert--danger" role="alert" *ngIf="proposalNameError">
+                <span class="alert-icon">
+                    <i class="icon-error-icon"></i>
+                </span>
+                <span>{{errorMessage}}</span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- <div class="row">
+        <div class="col-lg-12">
+            <div *ngIf="appDataService.editModal === constantsService.QUALIFICATIONS" class="form-group">
+                <input type="text" class="form-control" appElementFocus id="eaQualDescription" [(ngModel)]="eaQualDescription" name="eaQualDescription" required="" (ngModelChange)="isQualValueChanged($event)">
+                <label class="form-control-placeholder" for="eaQualDescription" (click)="focusInput('eaQualDescription')">{{localeService.getLocalizedString('qual.create.DESC')}}</label>
+            </div>
+            <div  *ngIf="appDataService.editModal === constantsService.PROPOSALS" class="form-group">
+                    <input type="text" class="form-control" appElementFocus id="proposalDescription" [(ngModel)]="proposalDescription" name="proposalDescription" required="" (ngModelChange)="isProposalValueChanged($event)">
+                    <label class="form-control-placeholder" for="proposalDescription">{{localeService.getLocalizedString('qual.create.DESC')}}</label>
+            </div>
+        </div>
+    </div> -->
+
+</div>
+<div class="clearfix"></div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss('Cross click')">{{localeService.getLocalizedString('common.CANCEL')}}</button>
+    <button type="button" class="btn btn-primary" [disabled]="!isUpdate" (click)="updateQualOrProposalFromModal(appDataService.editModal)">{{localeService.getLocalizedString('common.UPDATE')}}</button>
+    
+</div>

@@ -1,0 +1,65 @@
+[
+    {
+        "firstName": "Rajeev",
+        "lastName": "Kedia",
+        "active": true,
+        "roSuperUser": false,
+        "rwSuperUser": false,
+        "authorized": true,
+        "adminUser": false
+    },
+    {
+        "firstName": "Janardhan",
+        "lastName": "Gutta",
+        "active": false,
+        "roSuperUser": false,
+        "rwSuperUser": false,
+        "authorized": true,
+        "adminUser": false
+    },
+    {
+        "firstName": "Pradeep",
+        "lastName": "Guntur",
+        "active": true,
+        "roSuperUser": false,
+        "rwSuperUser": false,
+        "authorized": true,
+        "adminUser": false
+    },
+    {
+        "firstName": "Yogesh",
+        "lastName": "Zope",
+        "active": true,
+        "roSuperUser": false,
+        "rwSuperUser": false,
+        "authorized": true,
+        "adminUser": false
+    },
+    {
+        "firstName": "Nadeem",
+        "lastName": "Ahmad",
+        "active": true,
+        "roSuperUser": false,
+        "rwSuperUser": false,
+        "authorized": true,
+        "adminUser": false
+    },
+    {
+        "firstName": "Gowri Sankar",
+        "lastName": "Ponnusamy",
+        "active": true,
+        "roSuperUser": false,
+        "rwSuperUser": false,
+        "authorized": true,
+        "adminUser": false
+    },
+    {
+        "firstName": "Romesh",
+        "lastName": "Binwani",
+        "active": true,
+        "roSuperUser": false,
+        "rwSuperUser": true,
+        "authorized": true,
+        "adminUser": true
+    }
+]

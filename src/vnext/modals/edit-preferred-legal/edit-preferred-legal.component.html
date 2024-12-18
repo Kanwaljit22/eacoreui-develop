@@ -1,0 +1,118 @@
+<!-- Edit Modal -->
+<div class="modal-body vNext modal-without-header">
+    <button class="icon-close-btn" attr.action-id="{{dataIdConstantsService.editPreferredLegal_button_close}}" (click)="close()" type="button"></button>
+
+    <h2>
+        {{'edit-preferred-legal.EDIT_PREFERRED_LEGAL_NAME' | localizationPipe : localizationService.localizedkeySet.size}}
+    </h2>
+
+</div>
+<form [formGroup]="form" class="modal-body vNext modal-without-header">
+    <app-message></app-message>
+    <div class="px-5">
+        <div class="form-group mt-0 text-left">
+            <label class="customer-label">{{'common.ORGANIZATION_NAME' | localizationPipe : localizationService.localizedkeySet.size}}<sup>*</sup></label>
+            <div class="position-relative w-100 d-flex">
+                <input maxlength="128" class="form-control" name="custPreferredName" formControlName="custPreferredName" type="text"
+                appElementFocus id="companyName" attr.data-id="{{dataIdConstantsService.editCustomeRep_text_custPreferredName}}">
+            </div>
+
+            <small class="text-danger" *ngIf="custPreferredName.invalid && custPreferredName.touched">
+                <i class="icon-error-icon"></i>
+                <span>{{localizationService.getLocalizedString('common.FIELD_REQUIRED')}}</span>
+            </small>
+        </div>
+
+        <!-- <div class="form-group mt-0 text-left">
+            <label class="customer-label">{{localizationService.getLocalizedString('edit-preferred-legal.ADDRESS_LINE_1')}}<sup>*</sup></label>
+            <div class="position-relative w-100 d-flex">
+                <input maxlength="128" class="form-control" name="addressLine1"  type="text"
+                appElementFocus id="companyAddressLine1" formControlName="addressLine1">
+            </div>
+
+            <small class="text-danger" *ngIf="addressLine1.invalid && addressLine1.touched">
+                <i class="icon-error-icon"></i>
+                <span>{{localizationService.getLocalizedString('common.FIELD_REQUIRED')}}</span>
+            </small>
+        </div>
+
+        <div class="form-group mt-0 text-left">
+            <label class="customer-label">{{localizationService.getLocalizedString('edit-preferred-legal.ADDRESS_LINE_2')}}</label>
+            <div class="position-relative w-100 d-flex">
+                <input maxlength="128" class="form-control" name="addressLine2" type="text"
+                appElementFocus id="companyAddressLine2" formControlName="addressLine2" placeholder="{{localizationService.getLocalizedString('edit-preferred-legal.ADD_ADDRESS')}}">
+            </div>
+        </div>
+
+        <div class="d-flex">
+            <div class="form-group w-50 m-0">
+                <label class="form-control-placeholder top mb-2" for="">{{localizationService.getLocalizedString('edit-preferred-legal.Country_Region')}}<sup>*</sup></label>
+                <div class="select-items dropdown" (clickOutside)="showCountryDropDown = false;">
+                    <span class="dropdown--typeAhead__arrow-management">
+                        <button class="btn--text drop-button dropdown-toggle" type="button" (click)="showCountryDropDown = true;">{{country.value}}</button>
+                    </span>
+                    <div class="dropdown-menu" [class.show]="showCountryDropDown">
+                        <ul>
+                            <li class="dropdown-item" *ngFor="let cot of countriesList" (click)="onCountryChange(cot)">
+                                {{cot.countryName}}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group mt-0 text-left w-50 pl-2">
+                <label class="customer-label">{{localizationService.getLocalizedString('edit-preferred-legal.STATE')}}<sup>*</sup></label>
+                <div class="position-relative w-100 d-flex">
+                    <input *ngIf='!stateList.length' appelementfocus="" class="form-control paddingR35" formControlName="state" required="" type="text" id="">
+                    <div *ngIf='stateList.length' class="select-items dropdown" (clickOutside)="showStatedDrop = false;" style="width: inherit;">
+                        <span class="dropdown--typeAhead__arrow-management">
+                            <button class="btn--text drop-button dropdown-toggle" type="button" (click)="showStatedDrop = true;">{{state.value}}</button>
+                        </span>
+                        <div class="dropdown-menu" [class.show]="showStatedDrop">
+                            <ul>
+                                <li class="dropdown-item" *ngFor="let stateObj of stateList" (click)="onStateChange(stateObj)">
+                                    {{stateObj.state}}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            
+                <small class="text-danger" *ngIf="state.invalid && state.touched">
+                    <i class="icon-error-icon"></i>
+                    <span>{{localizationService.getLocalizedString('common.FIELD_REQUIRED')}}</span>
+                </small>
+            </div>
+        </div>
+
+        <div class="d-flex">
+            <div class="form-group w-50">
+                <label class="customer-label">{{localizationService.getLocalizedString('edit-preferred-legal.CITY')}}<sup>*</sup></label>
+                <div class="position-relative w-100 d-flex">
+                    <input maxlength="45" class="form-control" name="city"  type="text" formControlName="city"
+                    appElementFocus id="companyCity">
+                </div>
+                <small class="text-danger" *ngIf="city.invalid && city.touched">
+                    <i class="icon-error-icon"></i>
+                    <span>{{localizationService.getLocalizedString('common.FIELD_REQUIRED')}}</span>
+                </small>
+            </div>   
+
+            <div class="form-group w-50 pl-2">
+                <label class="customer-label">{{localizationService.getLocalizedString('edit-preferred-legal.ZIP')}}<sup>*</sup></label>
+                <div class="position-relative w-100 d-flex">
+                    <input maxlength="45" class="form-control" name="zip" formControlName="zip" type="text"
+                    appElementFocus id="companyZip" (keydown)='utilitiesService.allowAphaNumeric($event)' />
+                </div>
+                <small class="text-danger" *ngIf="zip.invalid && zip.touched">
+                    <i class="icon-error-icon"></i>
+                    <span>{{localizationService.getLocalizedString('common.FIELD_REQUIRED')}}</span>
+                </small>
+            </div>
+        </div> -->
+    </div>
+
+    <div class="text-center d-block pb-4 paddingT10">
+        <button class="btn btn-secondary" type="button" attr.action-id="{{dataIdConstantsService.editPreferredLegal_button_cancel}}" (click)="close()" id="{{elementIdConstantsService.EditPreferredLegal_Cancel}}">{{localizationService.getLocalizedString('common.CANCEL')}}</button>
+        <button class="btn btn-primary ml-3" type="button" (click)="updateLoccCustomerContact()" attr.action-id="{{dataIdConstantsService.editPreferredLegal_button_confirm}}" [disabled]="form.invalid || form.pristine || this.disableUpdate">{{localizationService.getLocalizedString('common.UPDATE')}}</button>
+    </div>
+</form>

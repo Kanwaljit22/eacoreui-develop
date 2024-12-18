@@ -1,0 +1,61 @@
+.input-container {
+    position: relative;
+  }
+  
+.custom-flyout {
+  width: 588px !important;
+}
+
+.services-input {
+    padding-right: 20px;
+    -moz-appearance: textfield;
+}
+
+.services-input::-webkit-outer-spin-button,
+.services-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.input-container.has-value {
+  input[type=number] {
+    padding: 9px 12px;
+    padding-right: 28px;
+  }
+    &::after {
+      content: '%';
+      position: absolute;
+      top: 50%;
+      right: 14px;
+      transform: translateY(-50%);
+      color: #333;
+      font-size: 14px;
+      pointer-events: none;
+    }
+ }
+
+  .percentage-symbol {
+    position: absolute;
+    top: 47%;
+    right: 10px;
+    transform: translateY(-50%);
+    color: #333;
+    font-size: 14px;
+    pointer-events: none;
+  }
+
+  .sw-input::-webkit-outer-spin-button,
+  .sw-input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+  }
+  input[type="number"] {
+    -moz-appearance: textfield; /* For Firefox */
+    appearance: textfield; /* Standard */
+  }
+  
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none; /* For Chrome, Safari, Edge */
+    margin: 0;
+  }

@@ -1,0 +1,120 @@
+$browser-context:16;
+@function rem($pixels, $context: $browser-context) {
+    @return #{$pixels/$context}rem;
+}
+.contact-block {
+    padding: 16px 18px 14px 18px;
+    border:1px solid #e4e4e4;
+    position: relative;
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,0.14);
+    min-width: 280px;
+
+    .contact-block-heading {
+        padding-right: 60px;
+        position: relative;
+        &.mb-70 {
+            margin-bottom: 70px;
+        }
+        &.mb-20 {
+            margin-bottom: 20px;
+        }
+        .heading--h6 {
+            font-size: rem(14);
+            font-weight: 400;
+            color: #6C757D;
+        }
+        .customer-logo {
+            height: 40px;
+            width: 40px;
+            border-radius: 5px; 
+            position: absolute;
+            right: 20px;
+            top: 20px;
+        }
+    }
+
+    .heading--h3 {
+        font-size: rem(16) !important;
+        line-height: 22px;
+        color: #394454;
+        letter-spacing: 0.025em;
+        text-shadow: 0px 0px #394454;
+    }
+    p {
+        font-size: rem(12);
+        line-height: 16px;
+        color: #5d656c;
+    }
+
+    .customer-label {
+        font-weight: 700;
+        font-size: rem(14);
+        line-height: 1;
+        margin-bottom: 0;
+    }
+} 
+
+.heading--h5 {
+    &.light {
+        color: #394454;
+        letter-spacing: 0.025em;
+        line-height: 22px;
+      }
+}
+.fed-badge{
+    font-size: 11px;
+    padding: 4px 8px 3px;
+    color: #6C757D;
+    font-weight: 400;
+    line-height: 1;
+    border: 1px solid #BDC5CF;
+    border-radius: 4px;
+    position: absolute;
+    right: 0;
+    top: -2px;
+}
+.pr-70{
+    padding-right: 70px;
+}
+a {
+    color: #227bb1;
+    font-size: 16px;
+}
+/*--------- Responsive CSS ----------*/
+@media screen and (min-width:1600px){
+    .heading--h5.light {
+        font-size: rem(17);
+    }
+    .contact-block .contact-block-heading .heading--h6 {
+        font-size: rem(15);
+    }
+    .fed-badge {
+        font-size: rem(12);
+    }
+    .contact-block .heading--h3 {
+        font-size: rem(17) !important;
+    }
+    .contact-block p {
+        font-size: rem(13);
+        line-height: 17px;
+    }
+}
+
+@media screen and (min-width:1920px){
+    .heading--h5.light {
+        font-size: rem(18);
+    }
+    .contact-block .contact-block-heading .heading--h6 {
+        font-size: rem(16);
+    }
+    .fed-badge {
+        font-size: rem(13);
+    }
+    .contact-block .heading--h3 {
+        font-size: rem(18) !important;
+    }
+    .contact-block p {
+        font-size: rem(14);
+        line-height: 18px;
+    }
+}

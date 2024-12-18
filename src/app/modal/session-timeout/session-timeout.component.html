@@ -1,0 +1,12 @@
+<div class="modal-header">
+  <h5 class="modal-title">
+   Session Timeout
+  </h5>
+</div>
+<div class="modal-body">
+  You will be timed out in {{(countMinutes !== 0 ? + countMinutes+' Minute'+(countMinutes > 1 ? 's ' : ' ') : '') + countSeconds+' Seconds'}}
+</div>
+ <div class="modal-footer">
+  <button type="button" class="btn btn-primary" (click)="continue()">Continue</button>
+  <!-- <button type="button" class="btn btn-primary" (click)="logout()">Logout</button> -->
+</div> 

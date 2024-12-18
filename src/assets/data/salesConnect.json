@@ -1,0 +1,42 @@
+{
+    "recommendProposal": [
+        {
+            "salesTitle": "Cisco Catalyst 9000 Switching Presentation",
+            "salesValue": "Presentations",
+            "validDate": "23 May 2019",
+            "source": "Marketing"
+        },
+        {
+            "salesTitle": "Catalyst 9000 Switching AAG",
+            "salesValue": "Presentations",
+            "validDate": "23 May 2019",
+            "source": "Marketing"
+        },
+        {
+            "salesTitle": "EN Competitive Landscape Cheatsheet",
+            "salesValue": "Quick Reference Material",
+            "validDate": "23 May 2019",
+            "source": "Marketing"
+        },
+        {
+            "salesTitle": "Cisco Catalyst 9000 Series Switches Software Attach Policy",
+            "salesValue": "Calculators",
+            "validDate": "23 May 2019",
+            "source": "Sales"
+        }
+    ],
+    "salesHub": [
+        {
+            "salesTitle": "Catalyst 9300",
+            "accesslevel": "Partner, Distributor, Employee"
+        },
+        {
+            "salesTitle": "Catalyst Switching",
+            "accesslevel": "Partner, Distributor, Employee"
+        },
+        {
+            "salesTitle": "Encrypted Traffic Analytics",
+            "accesslevel": "Partner, Distributor, Employee"
+        }
+    ]
+}

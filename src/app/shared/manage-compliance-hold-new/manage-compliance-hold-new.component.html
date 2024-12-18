@@ -1,0 +1,44 @@
+<!-- <div class="toggle-grid-list"><a href="javascript:void(0)" style="display: none;"><i class="icon-grid"></i><span>Grid View</span></a>
+  <a href="javascript:void(0)"><i class="icon-list"></i><span>List View</span></a>
+</div> --> 
+
+<!--  EA Orders -- Heading :: Starts here  -->
+<div class="alert alert--info alert-dismissable mb-3 mt-3" *ngIf="!onAccountHealthPage">
+  <span class="alert-icon">
+    <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+  </span>
+  <span class="infoTxt">
+    Only includes enrollments supported by EA Management Platform.
+  </span>
+</div>
+<div class="row mx-0 my-3 header-blue" *ngIf="!onAccountHealthPage">
+  <div class="col text-center py-2">
+    <h4 class="heading--h4">EA Orders on Compliance Hold</h4>
+  </div>
+</div>
+<!--  EA Orders -- Heading :: Ends here  -->
+
+<app-compliance-hold-list [complianceHoldData]="complianceHoldData" *ngIf="complianceHoldData.length"></app-compliance-hold-list>
+
+<div class="text-center mt-5" id="noSearchData" *ngIf="isResponseLoaded && (complianceHoldData.length === 0)">
+  <img src="assets/images/no-data-available.svg">
+  <h6>No Order(s) on Compliance Hold</h6>
+</div>
+
+<!-- EA orders released on hold ends here -->
+
+<!-- EA orders released from hold starts here -->
+<div class="row mx-0 my-3 header-blue" *ngIf="!onAccountHealthPage">
+  <div class="col text-center py-2">
+    <h4 class="heading--h4">EA Orders Released from Compliance Hold</h4>
+  </div>
+</div>
+
+<app-compliance-hold-list [complianceHoldData]="complianceDataReleasedFromHold" *ngIf="!onAccountHealthPage && complianceDataReleasedFromHold.length"></app-compliance-hold-list>
+
+<!-- EA orders released from hold ends here -->
+
+<div class="text-center mt-5" id="noSearchData" *ngIf="!onAccountHealthPage && isResponseLoaded && complianceDataReleasedFromHold.length === 0">
+  <img src="assets/images/no-data-available.svg">
+  <h6>No Order(s) released from Compliance Hold</h6>
+</div>

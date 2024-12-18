@@ -1,0 +1,86 @@
+[
+    {
+        "quarter": "Day 1",
+        "areas": [
+            {
+                "state": "",
+                "freq": {
+                    "EA": 2500,
+                    "C1": 1000,
+                    "BAU": 500,
+                    "Net Price ALC": 200
+                }
+            }
+        ]
+    },
+    {
+        "quarter": "Year 1",
+        "areas": [
+            {
+                "state": "",
+                "freq": {
+                    "EA": 5100,
+                    "C1": 2200,
+                    "BAU": 3000,
+                    "Net Price ALC": 4800
+                }
+            }
+        ]
+    },
+    {
+        "quarter": "Year 2",
+        "areas": [
+            {
+                "state": "",
+                "freq": {
+                    "EA": 7500,
+                    "C1": 1900,
+                    "BAU": 2000,
+                    "Net Price ALC": 4000
+                }
+            }
+        ]
+    },
+    {
+        "quarter": "Year 3",
+        "areas": [
+            {
+                "state": "",
+                "freq": {
+                    "EA": 8200,
+                    "C1": 1500,
+                    "BAU": 2000,
+                    "Net Price ALC": 1000
+                }
+            }
+        ]
+    },
+    {
+        "quarter": "Year 4",
+        "areas": [
+            {
+                "state": "",
+                "freq": {
+                    "EA": 9900,
+                    "C1": 3900,
+                    "BAU": 4000,
+                    "Net Price ALC": 3000
+                }
+            }
+        ]
+    },
+    {
+        "quarter": "Year 5",
+        "areas": [
+            {
+                "state": "",
+                "freq": {
+                    "EA": 14000,
+                    "C1": 5700,
+                    "BAU": 4000,
+                    "Net Price ALC": 3400
+                }
+            }
+        ]
+    }
+]

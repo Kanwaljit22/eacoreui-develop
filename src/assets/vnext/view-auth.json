@@ -1,0 +1,71 @@
+{
+	"rid": "cdbe55f8-c4ea-4b03-b055-88ee4045f7df",
+	"user": "sramakka",
+	"error": false,
+	"data": {
+		"qualifications": [
+			{
+				"code": "EA2_C1ACWN",
+				"desc": "EA Cisco DNA-Switching Wireless Routing",
+				"temporary": true,
+				"atos": [
+					{
+						"name": "DNA Swtching",
+						"desc": "Cisco DNA EA for Switching"
+					},
+					{
+						"name": "DNA Wireless",
+						"desc": "Cisco DNA EA for Wireless"
+					},
+					{
+						"name": "DNA Routing",
+						"desc": "Cisco DNA EA for Routing"
+					},
+					{
+						"name": "Service Swtching",
+						"desc": "Cisco Service EA for Switching"
+					},
+					{
+						"name": "Service Wireless",
+						"desc": "Cisco Service EA for Wireless"
+					},
+					{
+						"name": "Service Routing",
+						"desc": "Cisco Service EA for Routing"
+					}
+				],
+				"active": true,
+				"type": "SUITE",
+				"authorized": true
+			},
+			{
+				"code": "EA2_C1_ECS",
+				"desc": "EA Data Center Cloud",
+				"temporary": true,
+				"atos": [
+					{
+						"name": "EA Intersight",
+						"desc": "Cisco Data Center EA for Intersight"
+					},
+					{
+						"name": "EA Optimization",
+						"desc": "Cisco Data Center EA for Workload Optimization"
+					},
+					{
+						"name": "EA Platform",
+						"desc": "Cisco Data Center EA for Container Platform"
+					},
+					{
+						"name": "EA CloudCenter",
+						"desc": "Cisco Data Center EA for CloudCenter - Self-Hosted"
+					}
+				],
+				"active": true,
+				"type": "SUITE",
+				"authorized": false
+			}
+		],
+		"mspPartner": false
+	},
+	"currentDate": "2021-07-02T00:11:45.799+0000"
+}

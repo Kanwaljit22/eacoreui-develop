@@ -1,0 +1,108 @@
+<table class="primary-table mb-4" *ngIf="displayCxSuiteTable">
+    <thead>
+        <tr>
+            <th>{{'add-suites.SERVICE_SUITES' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+            <th class="text-right">{{'price-estimation.add-services.ATTACH_RATE' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+            <th width="85px">{{'common.OPT_IN' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+        </tr>
+        </thead>
+        <tbody>
+            <ng-container *ngFor = "let pool of cxEnrollmentData?.pools">
+            <ng-container *ngIf="pool.displayPoolForMigration">
+                <tr class="main-row" *ngIf="pool.expand">
+                    <td>{{pool.desc}}</td>
+                    <td colspan="2"></td>
+                </tr>
+                <ng-container *ngFor = "let suite of pool.suites;">
+                <tr class="table-sub-row" *ngIf="suite.migrationSourceAtos">
+                    <td >
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span>{{suite.desc}}
+                               
+                            </span>
+                            <ng-template #opt_hw_tooltip>
+                                {{'add-suites.OPT_HW_TOOLTIP' | localizationPipe : localizationService.localizedkeySet.size}}
+                            </ng-template>
+                            <ul class="inline-listing border-right-li" style="width: 18rem; justify-content: space-between;">
+                                <li class="borderR0">
+                                    <span>
+                                        <span class="mr-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="16" viewBox="0 0 26 16" fill="none">
+                                            <rect x="0.5" y="0.5" width="25" height="15" rx="7.5" fill="#E4E4E4" stroke="#E4E4E4"/>
+                                            <path d="M9.56601 9.855C9.56601 9.591 9.50734 9.382 9.39001 9.228C9.25801 9.04467 9.01601 8.876 8.66401 8.722C8.31201 8.568 7.78034 8.392 7.06901 8.194C6.11568 7.93 5.45934 7.60367 5.10001 7.215C4.80668 6.89967 4.66001 6.478 4.66001 5.95C4.66001 5.312 4.93868 4.806 5.49601 4.432C6.00934 4.08733 6.67668 3.915 7.49801 3.915C8.41468 3.915 9.15901 4.13133 9.73101 4.564C10.2443 4.94533 10.545 5.444 10.633 6.06H9.47801C9.41201 5.642 9.19201 5.33033 8.81801 5.125C8.48801 4.93433 8.04801 4.839 7.49801 4.839C6.88201 4.839 6.42734 4.95633 6.13401 5.191C5.89934 5.37433 5.78201 5.61267 5.78201 5.906C5.78201 6.09667 5.81134 6.25433 5.87001 6.379C5.93601 6.49633 6.04601 6.60267 6.20001 6.698C6.48601 6.88867 7.03968 7.09767 7.86101 7.325C9.00501 7.64767 9.77868 8.01433 10.182 8.425C10.5193 8.76233 10.688 9.22433 10.688 9.811C10.688 10.5077 10.3837 11.0833 9.77501 11.538C9.20301 11.956 8.47701 12.165 7.59701 12.165C6.68034 12.165 5.92134 11.9193 5.32001 11.428C4.79934 11.0027 4.48768 10.4527 4.38501 9.778H5.54001C5.61334 10.262 5.84434 10.6323 6.23301 10.889C6.58501 11.1237 7.03234 11.241 7.57501 11.241C8.24968 11.241 8.76668 11.087 9.12601 10.779C9.41934 10.5297 9.56601 10.2217 9.56601 9.855Z" fill="#394454"/>
+                                            <path d="M20.5831 4.08H21.6171L19.5271 12H18.2291L16.4361 5.29L14.5881 12H13.2131L11.1341 4.08H12.2781L13.9611 10.669L15.7761 4.08H17.1731L18.8891 10.647L20.5831 4.08Z" fill="#394454"/>
+                                            </svg>
+                                        </span>
+                                    <span class="mr-1" *ngIf="suite.cxHwSupportAvailable && suite.cxHwSupportOptional">
+                                        <span class="border--left solid mr-1 ml-1"></span>
+                                            <label class="label-check">
+                                                <input class="form-check-input" type="checkbox" disabled (click)="optionalcxHwSelected(suite)" attr.data-id="{{dataIdConstantsService.migrate_Service_Tier_checkbox_optionalcxHwSelected}}{{suite?.name}}"><span></span><span>&nbsp;</span>
+                                                <span class="custom-checkbox-btn i-vNext-fonts">
+                                                <span class="path1"></span>
+                                                <span class="path2"></span>
+                                                <span class="path3"></span>
+                                            </span>
+                                            </label>
+
+                                            <span class="slider round"></span><span #tooltip="ngbTooltip" [ngbTooltip]="opt_hw_tooltip" placement='top' attr.action-id="{{dataIdConstantsService.migrateServiceTier_slider_optionalcxHwSelected}}{{suite?.name}}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="27" height="16" viewBox="0 0 27 16" fill="none">
+                                            <path d="M0 8C0 3.58172 3.58172 0 8 0H19C23.4183 0 27 3.58172 27 8V8C27 12.4183 23.4183 16 19 16H8C3.58172 16 0 12.4183 0 8V8Z" fill="white"/>
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M19 1H8C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15H19C22.866 15 26 11.866 26 8C26 4.13401 22.866 1 19 1ZM8 0C3.58172 0 0 3.58172 0 8C0 12.4183 3.58172 16 8 16H19C23.4183 16 27 12.4183 27 8C27 3.58172 23.4183 0 19 0H8Z" fill="#C2D1E2"/>
+                                            <path d="M9.81901 4.08H10.952V12H9.81901V8.469H5.94701V12H4.82501V4.08H5.94701V7.523H9.81901V4.08Z" fill="#394454"/>
+                                            <path d="M21.2814 4.08H22.3154L20.2254 12H18.9274L17.1344 5.29L15.2864 12H13.9114L11.8324 4.08H12.9764L14.6594 10.669L16.4744 4.08H17.8714L19.5874 10.647L21.2814 4.08Z" fill="#394454"/>
+                                            </svg> </span></span>
+                                        
+
+                                            <span class="mr-1" *ngIf="suite.cxHwSupportAvailable && !suite.cxHwSupportOptional">
+                                                <span class="border--left solid mr-1 ml-1"></span>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="16" viewBox="0 0 26 16" fill="none">
+                                                    <rect x="0.5" y="0.5" width="25" height="15" rx="7.5" fill="#cce5ea" stroke="#E4E4E4"/>
+                                                    <path d="M0 8C0 3.58172 3.58172 0 8 0H19C23.4183 0 27 3.58172 27 8V8C27 12.4183 23.4183 16 19 16H8C3.58172 16 0 12.4183 0 8V8Z" />
+                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M19 1H8C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15H19C22.866 15 26 11.866 26 8C26 4.13401 22.866 1 19 1ZM8 0C3.58172 0 0 3.58172 0 8C0 12.4183 3.58172 16 8 16H19C23.4183 16 27 12.4183 27 8C27 3.58172 23.4183 0 19 0H8Z" fill="#C2D1E2"/>
+                                                    <path d="M9.81901 4.08H10.952V12H9.81901V8.469H5.94701V12H4.82501V4.08H5.94701V7.523H9.81901V4.08Z" fill="#394454"/>
+                                                    <path d="M21.2814 4.08H22.3154L20.2254 12H18.9274L17.1344 5.29L15.2864 12H13.9114L11.8324 4.08H12.9764L14.6594 10.669L16.4744 4.08H17.8714L19.5874 10.647L21.2814 4.08Z" fill="#394454"/>
+                                                </svg> </span>
+                                    </span>
+                                </li>
+                                <li class="dropdown" [ngClass]="{'disabled': !suite.cxOptIn || suite.disabled || (isPartnerLoggedIn && !proposalStoreService.proposalData.dealInfo?.partnerDeal && !vnextStoreService.loccDetail?.loccSigned)}" *ngIf="suite.cxTierDropdown && suite.cxTierDropdown.length">
+                                    <a href="javascript:void(0)" #tierPopover="ngbPopover" popoverClass="ag-dropdown-wrap" attr.action-id="{{dataIdConstantsService.migrateServiceTier_link_cxTierPopover}}{{suite?.name}}"
+                                        [ngbPopover]="cxTierDropTemplate" placement="bottom" triggers="manual"
+                                        (click)="tierPopover.open();">{{suite.cxUpdatedTier?.desc}}<span *ngIf='suite.cxTierDropdown.length > 1' class="ico-dropdown"></span></a>
+                                    <ng-template #cxTierDropTemplate >
+                                        <ul class="ag-dropdown-menu tp-dropdown-menu">
+                                            <li *ngFor="let tiersObj of suite.cxTierDropdown;let tierIndex=index;"
+                                                (click)="changeCxTierSelection(tiersObj, suite);" attr.data-id="{{dataIdConstantsService.migrateServiceTier_dropdown_changeCxTierSelection}}{{tiersObj?.name}}">
+                                                <a href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.migrateServiceTier_link_cxTierObj}}{{tiersObj?.name}}">{{tiersObj.desc}}</a>
+                                            </li>
+                                        </ul>
+                                    </ng-template>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                    <td class="text-right d-flex justify-content-end">
+                        <ng-container>
+                            <span *ngIf='suite.serviceAttachMandatory' class="i-vNext-help-filled listing-icon float-left" tooltipClass="prices-shown" container="body"
+                                        ngbTooltip="{{'add-suites.qna.SELECT_SERVICE_MANDATORY' | localizationPipe : localizationService.localizedkeySet.size}}"></span>
+                            <input *ngIf="suite.cxHwSupportAvailable" class="form-control text-right" tabindex="1" disabled attr.data-id="{{dataIdConstantsService.migrateServiceTier_number_attachRate}}{{suite?.name}}" [ngClass]="{'disabled': !suite.cxOptIn}" (keyup)="checkValue($event,suite.cxAttachRate)" [ngModel] = "suite.cxAttachRate"  (blur) = 'checkAllAttachRate(suite,$event)' type="number" >
+                        </ng-container>
+                    </td>
+                    <td>
+                        <div class="vNext-switch">
+                            <label class="switch-button"  [ngClass]="{'disabled':suite.serviceAttachMandatory || (isPartnerLoggedIn && !proposalStoreService.proposalData.dealInfo?.partnerDeal && !vnextStoreService.loccDetail?.loccSigned)}">
+                                <input type="checkbox" [checked]="suite.cxOptIn" (click)="updateCxInclusion(suite)" attr.data-id="{{dataIdConstantsService.migrateServiceTier_checkbox_updateCxInclusion}}{{suite?.name}}" [disabled]="suite.serviceAttachMandatory || (isPartnerLoggedIn && !proposalStoreService.proposalData.dealInfo?.partnerDeal && !vnextStoreService.loccDetail?.loccSigned)">
+                                <span class="slider round" attr.action-id=""></span>
+                            </label>
+                        </div>
+                    </td>
+                </tr>
+            </ng-container>
+            </ng-container>
+            </ng-container>
+</table>
+<div class="alert alert--info alert-dismissable mt-2" *ngIf="!displayCxSuiteTable">
+    <span class="alert-icon">
+        <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+    </span>
+    <span>{{'add-suites.NO_MIGRATION_CX_SUITE' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+</div>

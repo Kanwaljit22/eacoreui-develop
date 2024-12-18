@@ -1,0 +1,176 @@
+<div class="custom-flyout-overlay"></div>
+<div class="custom-flyout vNext strategic-offer-flyout" attr.page-id="{{dataIdConstantsService.strategicOffers_page_strategicOffer}}">
+    <div class="heading">
+        <div class="d-flex justify-content-between align-items-center mb-0">
+            <div class="heading-title">
+                <h2 class="heading--h2 mb-3" attr.data-id="{{dataIdConstantsService.strategicOffers_label_selectStrategicOffer}}">{{'strategic-offers.SELECT_STRATEGIC_OFFER' | localizationPipe : localizationService.localizedkeySet.size}}</h2>
+                <p class="d-flex align-items-start">
+                    <span attr.data-id="{{dataIdConstantsService.strategicOffers_label_explorePersonalizedDealsMsg}}">{{'strategic-offers.EXPLORE_PERSONALIZED_STRATEGIC_DEALS' | localizationPipe : localizationService.localizedkeySet.size}}</span></p>
+                <p class="d-flex align-items-start">
+                    <strong>{{'common.NOTE' | localizationPipe : localizationService.localizedkeySet.size}}:</strong><span> {{'strategic-offers.DISCOUNT_WILL_BE_APPLIED' | localizationPipe : localizationService.localizedkeySet.size}}</span></p>
+            </div>
+            <div class="d-flex flex-column align-items-end">
+                <div class="d-flex align-items-center">
+                    <button class="icon-close-btn" (click)="close()" attr.action-id="{{dataIdConstantsService.strategicOffers_button_close}}"  type="button"></button>
+                </div>
+                <div class="mt-4 pt-4 d-flex justify-content-end">
+                    <button (click)='close()' class="btn btn-secondary" attr.action-id="{{dataIdConstantsService.adjustDesiredQty_button_cancel}}" id="{{elementIdConstantsService.StrategicOffer_Cancel}}">{{'common.CANCEL' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                    <button id="{{elementIdConstantsService.Strategic_Offer_Next}}" class="btn btn-primary ml-2" type="button" *ngIf="currentStep === 0" [disabled]="!selectedOffer.length" (click)="next(currentStep)"
+                    attr.action-id="{{dataIdConstantsService.strategicOffers_button_next}}">{{localizationService.getLocalizedString('common.NEXT')}}</button>
+                    <button id="{{elementIdConstantsService.Strategic_Offer_Next}}" class="btn btn-primary ml-2" type="button" *ngIf="currentStep === 1" [disabled]="questionnaireService.mandatoryQuestCount" (click)="next(currentStep)"
+                    attr.action-id="{{dataIdConstantsService.strategicOffers_button_next}}">{{localizationService.getLocalizedString('common.NEXT')}}</button>
+
+                    <button class="btn btn-primary ml-2" type="button" [disabled]="updatedTierCount" *ngIf="currentStep === 2" (click)="saveOffers()" id="{{elementIdConstantsService.StrategicOffer_Apply}}"
+                    attr.action-id="{{dataIdConstantsService.strategicOffers_button_apply}}">{{localizationService.getLocalizedString('common.APPLY')}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="body">
+        <div class="roadmap-wrap mb-3">
+            <ul class="roadmap-steps vNext">
+                <ng-container *ngFor="let steps of roadmapSteps; let i = index">
+                    <li *ngIf="steps.visible" class="step cursor-pointer" attr.action-id="{{dataIdConstantsService.strategicOffers_roadmap_steps}}{{steps.name}}" (click)="goToStep(i)" [ngClass]="{'active': currentStep === i, 'completed': i < currentStep}">
+                        <span class="step--icon"><span class="icon-tick-01"></span></span>
+                        <span class="step--label" attr.data-id="{{dataIdConstantsService.strategicOffers_label_stepName}}{{steps.name}}">{{steps.name}}</span>
+                    </li>
+                </ng-container>
+            </ul>
+        </div>
+        <div class="col-12">
+            <app-message [displayModalMsg]="true"></app-message>
+        </div>
+       
+    <section *ngIf ="currentStep === 0" class="token-box pt-0 pb-0 strategic-offer" >
+        <div class="" style="overflow: hidden; padding: 0px 20px;">
+                <div class="architecture-wrap">
+                    <div class="row architecture-row">
+                        <ul class="select-strategic-offer">
+                            <li *ngFor="let offer of strategicOffers; let i = index;">
+                                <div class="d-flex flex-row justify-content-between">
+                                    <h2 attr.data-id="{{dataIdConstantsService.strategicOffers_label_offerName}}{{offer?.offerName}}">{{offer?.offerName}}</h2>
+                                    <div>
+                                        <label class="label-check" (click)="selectOffer($event, offer)">
+                                            <input class="form-check-input" type="checkbox" [checked]="offer.selected"
+                                                attr.data-id="{{dataIdConstantsService.strategicOffers_checkbox_offerSelected}}{{offer?.offerName}}"><span></span><span>&nbsp;</span>
+                                            <span class="custom-checkbox-btn i-vNext-fonts">
+                                                <span class="path1"></span>
+                                                <span class="path2"></span>
+                                                <span class="path3"></span>
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <h4 attr.data-id="{{dataIdConstantsService.strategicOffers_label_conditionsToApply}}{{offer?.offerName}}">{{'strategic-offers.CONDITION_TO_APPLY' | localizationPipe : localizationService.localizedkeySet.size}}</h4>
+                                <!-- <div class="qualify-message"><span>Cisco DNA Wireless</span>and <span>Secure Access by Duo</span> or (Cisco DNA Switching and Inter-sight)</div>  -->
+                                <div  class="qualify-message" attr.data-id="{{dataIdConstantsService.strategicOffers_label_qualificationName}}{{offer?.offerName}}"><span [innerHTML]="offer.qualificationName | stoTextFormat : offer.atos : offer.atoMap"></span></div> 
+                                <h4 attr.data-id="{{dataIdConstantsService.strategicOffers_label_qualifiedDiscountsMsg}}{{offer?.offerName}}">{{'strategic-offers.STO_QUALIFIED_DISCOUNTS_MSG' | localizationPipe : localizationService.localizedkeySet.size}}</h4>
+                                <div class="qualify-discount-cont">
+                                    <div class="qualify-discount">
+                                        <table width="100%">
+                                            <tr *ngFor="let ato of offer.atos">
+                                                <td width="90%" attr.data-id="{{dataIdConstantsService.strategicOffers_label_atoDesc}}{{offer?.offerName}}{{ato.desc}}">{{ato.desc}}</td>
+                                                <td width="10%" class="text-right" attr.data-id="{{dataIdConstantsService.strategicOffers_label_atoStoDiscount}}{{offer?.offerName}}{{ato.strategicOfferDiscount}}">{{ato.strategicOfferDiscount}}%</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="alert alert--info"><span class="alert-icon"><span class="icon-msg-Info"><span
+                                                class="path1"></span><span class="path2"></span><span
+                                                class="path3"></span></span></span><span>{{'strategic-offers.MAY_QUALIFY_OTD_CONDITIONS_APPLY' | localizationPipe : localizationService.localizedkeySet.size}}</span></div>
+                                <div class="potential-saving">
+                                    {{'strategic-offers.MAXIMINZE_POTENTIAL_SAVINGS' | localizationPipe : localizationService.localizedkeySet.size}}<br />
+                                    {{'strategic-offers.CHOOSE_LIMITED_TIME_ADJUSTMENT' | localizationPipe : localizationService.localizedkeySet.size}}
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div *ngIf="strategicOffers.length"  class="strategic-offer-buttons">
+                    <span class="prev-item" (click)="moveLeft()" [hidden]="start === 0"><span class="icon-arrow-stroke-right" attr.action-id="{{dataIdConstantsService.strategicOffers_icon_offerSwipeRight}}"></span>
+                    </span>
+                    <span class="next-item" (click)="moveRight()" [hidden]="start === start_max"><span
+                            class="icon-arrow-stroke-right" attr.action-id="{{dataIdConstantsService.strategicOffers_icon_offerSwipeLeft}}"></span>
+                    </span>
+                </div>
+            </div>
+        </section>
+        <app-questionnaire *ngIf ="currentStep === 1 && displayQnaWindow" [questions]="questionsArray"></app-questionnaire>
+        <div *ngIf ="currentStep === 2">
+            <!-- <div class="d-flex justify-content-between mt-3">
+                <h5 class="heading--h5 mb-2">Enrollments</h5>
+            </div> -->
+            <table class="primary-table">
+                <thead>
+                    <!-- <tr>
+                        <th>{{'common.SUITES' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                    </tr> -->
+                </thead>
+                <tbody>
+                    
+                    <ng-container>
+                    <div class="eamp-table-layout">
+                        <div class="eamp-tr-group-main ag-fresh vNext ">
+                            <ng-container *ngFor='let enrollment of summrayView;'>
+                                <div class="eamp-th-main"><span (click)='expandEnrollment(enrollment)' [ngClass]="{'ag-icon ag-icon-expanded':!enrollment.hide,'ag-icon ag-icon-contracted':enrollment.hide}"
+                                        ></span><span>{{enrollment.enrollemntName}}</span></div>
+                                        <ng-container *ngIf="!enrollment.hide">
+                                <ng-container *ngFor="let pool of enrollment.pools">
+                                    <div class="eamp-tr-group-minor">
+                                        <div class="eamp-th-minor"><span (click)='expandPool(pool)'
+                                            [ngClass]="{'ag-icon ag-icon-expanded':!pool.hide,'ag-icon ag-icon-contracted':pool.hide}"></span><span>{{pool.poolDesc}}</span></div>
+                                        <ng-container *ngIf="!pool.hide">
+                                        <div *ngFor='let suite of pool.suites;' class="eamp-tr-minor">
+                                            <div class="eamp-tr">
+                                                <div><span>{{suite.desc}}</span>
+                                                    <ng-template #tipContent>
+                                                       Part of {{suite.offerList?.join(', ')}}
+                                                    </ng-template>
+                                                    <span *ngIf="suite.offerList && suite.offerList.length > 1" class="ml-2"><svg width="16" height="17" viewBox="0 0 16 17" fill="none"
+                                                            xmlns="http://www.w3.org/2000/svg" #tooltip="ngbTooltip" [ngbTooltip]="tipContent" placement='top'>
+                                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                d="M8.66667 0.605469C12.7168 0.605469 16 3.88871 16 7.9388H8.66667V0.605469ZM7.33333 16.6055C11.3834 16.6055 14.6667 13.3222 14.6667 9.27214H7.33333V1.9388L7.14106 1.94127C3.17984 2.04323 0 5.28633 0 9.27214C0 13.3222 3.28325 16.6055 7.33333 16.6055Z"
+                                                                fill="#516A93" />
+                                                        </svg>
+                                                    </span>
+                                                </div>
+                                                <div>
+                                                    <ng-container *ngIf="suite.tiers">
+                                                        <ul class="inline-listing border-right-li justify-content-end w-100px ml-3">
+                                                            <li class="dropdown">
+                                                                <a *ngIf="isSelectedTierValid(suite)" href="javascript:void(0)" #p="ngbPopover"
+                                                                    popoverClass="ag-dropdown-wrap" [ngbPopover]="securityTemplate1"
+                                                                    placement="left" [outsideClick]="false"
+                                                                    attr.action-id="{{dataIdConstantsService.strategicOffers_link_selectedTierPopover}}{{suite?.name}}"
+                                                                    (click)="showTierDrop = true;">{{suite?.selectedTier?.desc ?
+                                                                    suite.selectedTier.desc : ('strategic-offers.SELECT_TIER' | localizationPipe
+                                                                    : localizationService.localizedkeySet.size)}}<span
+                                                                        class="ico-dropdown"></span></a>
+                                                                <ng-template #securityTemplate1>
+                                                                    <ul class="ag-dropdown-menu tp-dropdown-menu" *ngIf="showTierDrop">
+                                                                        <ng-container *ngFor="let tierObj of suite?.tiers; let index = index;">
+                                                                            <li (click)="suiteAtoSelection(tierObj, suite); p?.close();"
+                                                                                attr.data-id="{{dataIdConstantsService.strategicOffers_dropdown_suiteAtoSelection}}{{tierObj?.name}}">
+                                                                                <a href="javascript:void(0);"
+                                                                                    attr.action-id="{{dataIdConstantsService.strategicOffers_link_tiersObj}}{{tierObj?.name}}">{{tierObj.desc}}</a>
+                                                                            </li>
+                                                                        </ng-container>
+                                                                    </ul>
+                                                                </ng-template>
+                                                            </li>
+                                                        </ul>
+                                                    </ng-container>
+                                                </div>
+                                            </div>
+                                        </div></ng-container>
+                                    </div>
+                                </ng-container>
+                                </ng-container>
+                            </ng-container>
+                        </div>
+                       </div></ng-container>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

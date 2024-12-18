@@ -1,0 +1,53 @@
+<div class="modal-header" id="discount-modal">
+    <h5 class="modal-title pull-left">Override MSD Suite count</h5>
+    <button [id]="appDataService.createUniqueId('CANCEL_ICON',appDataService.pageContext)" type="button"
+        class="icon-close-btn" aria-label="Close" (click)="bsModalRef.hide()">
+    </button>
+</div>
+
+<div class="modal-body">
+    <span class="noteText pull-right" style="display: none;">Override MSD Suite count</span>
+    <span class="noteText pull-right" style="text-align: right; padding-right: 30px;font-weight: 400;font-size: 13px;color: #585858; display: none;">Override</span>
+    <div class="globalSwitchWrap look-up text-right mb-2" style="border-left: none;">
+        <span>No</span>
+        <ui-switch kdfid="globalView" kdfapp="enterpriseAgreement" kdfpage="enterpriseAgreement"
+            [(ngModel)]="globalView" size="small" color="#ABE3F2" switchColor="#00BCEA"
+            (change)="globalSwitchChange($event)"></ui-switch>
+        <span>Yes</span>
+    </div>
+    <div>
+        <ng-container *ngIf="simpleSlider">
+            <div class="pos-relative" style="min-height: auto;"><label
+                    class="{{simpleSlider.slider.class}} upper mb-0 mt-1">Override MSD</label>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="clearfix position-relative mb-15">
+                <div class="change">
+                    <ion-range-slider #sliderElement [from]="simpleSlider.slider.from" [min]="simpleSlider.slider.min"
+                        [max]="simpleSlider.slider.max" [grid]="simpleSlider.slider.grid"
+                        [grid_num]="simpleSlider.slider.grid_num"
+                        (onChange)="sliderChange($event,simpleSlider.slider.name,simpleSlider.slider.id)"
+                        [disable]="isDisableSlider">
+                    </ion-range-slider>
+                    <span
+                        class="selected-val pos-rel-t5">{{localeService.getLocalizedString('proposal.create.SELECTED_VALUE')}}
+                    </span>
+                    <input class="form-control" [value]="simpleSlider.slider.from" #inputSelected
+                        (keyup)="inputValueChange($event,'',simpleSlider.slider.id)" [disabled]="isDisableSlider">
+
+                </div>
+            </div>
+
+        </ng-container>
+    </div>
+    <div class="clearfix"></div>
+</div>
+<div class="modal-footer">
+    <button [id]="appDataService.createUniqueId('CANCEL',appDataService.pageContext)" type="button"
+        class="btn btn-secondary" (click)="decline()">{{localeService.getLocalizedString('common.CANCEL')}}</button>
+    <button [id]="appDataService.createUniqueId('APPLY',appDataService.pageContext)" [disabled]="isDisableApply"
+        type="button" class="btn btn-primary"
+        (click)="confirm()">{{localeService.getLocalizedString('common.APPLY')}}</button>
+</div>

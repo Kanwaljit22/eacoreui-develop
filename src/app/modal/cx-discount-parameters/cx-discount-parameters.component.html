@@ -1,0 +1,80 @@
+<div class="modal-header cx-modal">
+  <h5 class="modal-title">Discount Parameters</h5>
+  <button class="icon-close-btn" type="button" (click)="close()"></button>
+</div>
+<div class="modal-body">
+  <div class="row">
+    <div class="col">
+      <div class="cx-table scroll-table">
+        <table class="table primary-table">
+          <thead>
+            <tr>
+              <th width="60">Support Type</th>
+              <th width="200">Discount (%)</th>
+              <th width="60">Selected Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let suiteDiscount of cxSuiteDiscounts">
+              <tr class="major-row">
+                <td>
+                  <div class="custom-tree">
+                    <ng-container *ngIf="suiteDiscount.minorRow">
+                      <span class="icon-plus" *ngIf="!suiteDiscount.expand && displayHWSupportOption" (click)="suiteDiscount.expand = true;"></span>
+                      <span class="icon-minus" *ngIf="suiteDiscount.expand && displayHWSupportOption" (click)="suiteDiscount.expand = false;"></span>
+                    </ng-container>
+                    {{suiteDiscount.name}}
+                  </div> 
+                </td>
+                <td>
+                  <!-- <ion-range-slider #sliderElement [from_fixed]="simpleSlider.from_fixed" [type]="simpleSlider.type"
+                    [min]="suiteDiscount.minDiscount" [max]="simpleSlider.max" [grid]="simpleSlider.grid"
+                    [grid_num]="simpleSlider.grid_num"  [to]="suiteDiscount.discountPerTo"
+                    [from]="suiteDiscount.discountPerFrom"(onChange)="sliderChange($event, suiteDiscount)"></ion-range-slider> -->
+                    <div class="custom-rangeSlider mb-4 px-2">
+                      <ngx-slider [(value)]="suiteDiscount.minDiscount" [minLimit]="suiteDiscount.minDiscount" [(highValue)]="suiteDiscount.selectedValue" [options]="suiteDiscount.options"
+                      (userChangeEnd)="sliderChange($event, suiteDiscount)"></ngx-slider>
+                    </div>
+                </td>
+                <td>
+                  <input type="text" [value]="suiteDiscount.selectedValue" class="form-control" (blur)='checkMinValue($event,suiteDiscount)' (keyup)='inputValueChange($event,suiteDiscount)'/>
+                </td>
+              </tr>
+              <ng-container *ngIf="suiteDiscount.expand">
+                <tr class="minor-row" *ngFor="let minorRow of suiteDiscount.minorRow">
+                  <td>{{minorRow.name}}</td>
+                  <td>
+                    <!-- <ion-range-slider #sliderElement [from_fixed]="simpleSlider.from_fixed" [type]="simpleSlider.type"
+                    [min]="minorRow.minDiscount" [max]="simpleSlider.max" [grid]="simpleSlider.grid"
+                    [grid_num]="simpleSlider.grid_num" [to]="minorRow.discountPerTo"
+                    [from]="minorRow.discountPerFrom" (onChange)="sliderChange($event, minorRow)"></ion-range-slider> -->
+                    <div class="custom-rangeSlider mb-4 px-2">
+                      <ngx-slider [(value)]="minorRow.minDiscount" [minLimit]="minorRow.minDiscount" [(highValue)]="minorRow.selectedValue" [options]="minorRow.options"
+                        (userChangeEnd)="sliderChange($event, minorRow)"></ngx-slider>
+                    </div>
+                  </td>
+                  <td> 
+                    <input type="text" [value]="minorRow.selectedValue" class="form-control" (blur)='checkMinValue($event,minorRow)' (keyup)='inputValueChange($event,minorRow)'/>
+                  </td>
+                </tr>
+              </ng-container>
+            </ng-container>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <div class="d-flex justify-content-between wide-100">
+      <div class="tags-info">
+        <p class="info discount">Standard Discount: Discount value can not go below the standard discount</p>
+        <p class="info a-discount">Additional Discount Applied Manually</p>
+      </div>
+      <div class="actions">        
+        <button class="btn btn-secondary" type="button" (click)="close()">Cancel</button>
+        <button class="btn btn-primary" type="button" (click)="applyDiscount()" [disabled]="!numberOfValueUpdated ">Apply</button>
+      </div>
+
+
+    </div>
+  </div>

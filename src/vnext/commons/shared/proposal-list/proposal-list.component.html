@@ -1,0 +1,154 @@
+ <div class="vNext"><div class="container-fluid"><app-message></app-message></div></div> 
+<div class="row">
+    <div class="col-12 marginT20 marginB10 d-flex justify-content-end align-items-center">
+        <ul class="inline-listing border-right-li">
+            <li>
+                <div class="form-group search-wrap my-0 mr-0">
+                    <div class="d-flex w-100">
+                        <input appelementfocus="" placeholder="Search by Proposal ID, Proposal Name" attr.data-id="{{dataIdConstantsService.proposalList_text_searchParam}}"
+                            class="form-control" required="" type="text" [(ngModel)]="searchParam" (keyup.enter)="searchProposals()">
+                        <span  *ngIf  = "searchParam || !isSearchedData" class="i-vNext-search" attr.action-id="{{dataIdConstantsService.proposalList_icon_search}}" [disabled]="!searchParam" (click)="searchProposals()" id="{{elementIdConstantsService.PROJECT_PROPOSAL_LIST_SEARCH_ICON}}"></span>
+                        <span *ngIf  = "isSearchedData && !searchParam" class="i-vNext-close" attr.action-id="{{dataIdConstantsService.proposalList_icon_closeSearch}}" (click)="getProposalListData()" id="{{elementIdConstantsService.PROJECT_PROPOSAL_LIST_CLEAR_SEARCH_ICON}}"></span>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <!-- Table View -- Starts here  -->
+    <div class="col-12" *ngIf="proposalList?.length; else noData">
+        <div [ngClass]="{'scrollable-container': proposalList.length > 10}">
+            <table class="primary-table mx-15">
+                <thead>
+                    <tr>
+                        <th style="width: 30%;">{{localizationService.getLocalizedString('common.PROPOSAL_NAME')}}</th>
+                        <th style="width: 20%;">{{localizationService.getLocalizedString('common.PORTFOLIO')}}</th>
+                        <!-- <th style="width: 15;">Buying Program</th> -->
+                        <th style="width: 15%;">{{localizationService.getLocalizedString('common.sub-header.PROPOSAL_STATUS')}}</th>
+                        <th style="width: 12%;" >{{localizationService.getLocalizedString('common.QUOTE_ID')}}</th>
+                        <th style="width: 13%;" *ngIf="eaService.features.MSEA_REL">{{localizationService.getLocalizedString('common.EA_MOTION')}}</th>
+                        <th class="text-right" style="width: 10%;">
+                            {{ (eaService.isSpnaFlow) ? ('common.SPNA_TOTAL_VALUE' | localizationPipe : localizationService.localizedkeySet.size) :  ('common.EA_TOTAL_VALUE' | localizationPipe : localizationService.localizedkeySet.size) }}
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let proposal of proposalList; let index = index">
+                        <td >
+                            <ng-container>
+                                <div class="d-flex justify-content-between align-items-center" *ngIf="!proposal.editName">
+                                    <a href="javascript:void();"  (click)="goToProposal(proposal)" attr.action-id="{{dataIdConstantsService.proposalList_link_goToProposal}}{{index}}" id="{{elementIdConstantsService.PROJECT_PROPOSAL_LIST_GO_TO_PROPOSAL}}">{{proposal?.name}} ({{proposal?.id}})</a>
+                                <div>
+                                    <ul class="inline-listing border-right-li" >
+                                        <li><span class="proposal-type">{{proposal?.ciscoLed ? 'Cisco' : 'Partner'}}</span></li>
+                                        <li class="dropdown" (clickOutside)="proposal.showDropdown =  false" [ngClass]="{'show':proposal.showDropdown}">
+                                            <a href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.proposalList_link_openDropdown}}{{index}}" (click)="openDropdown(proposal)"><span
+                                                    class="i-vNext-more-vertical" ></span></a>
+                                            <ul class="dropdown-menu right" [ngClass]="{'show':proposal.showDropdown}" >
+                                                <li>
+                                                    <a #downloadZipLink [hidden]="true"></a>
+                                                    <a href="javascript:void(0);" class="dropdown-item" attr.action-id="{{dataIdConstantsService.proposalList_link_downloadExcel}}{{index}}" (click)="downloadExcel(proposal)" id="{{elementIdConstantsService.PROJECT_PROPOSAL_LIST_DOWNLOAD_EXCEL}}">
+                                                    <span class="i-vNext-download listing-icon"></span> {{localizationService.getLocalizedString('common.DOWNLOAD_PRICE_ESTIMATE')}}</a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:void(0);" id="{{elementIdConstantsService.PROJECT_PROPOSAL_LIST_EDIT_PROPOSAL_NAME}}" (click)="editProposalName(proposal)" attr.action-id="{{dataIdConstantsService.proposalList_link_editProposalName}}{{index}}" class="dropdown-item" *ngIf="projectStoreService.projectEditAccess && !isOrderFulfilled; else disableRename">
+                                                        <span class="i-vNext-edit-filled listing-icon"></span> {{localizationService.getLocalizedString('common.RENAME_PROPOSAL')}}</a>
+                                                    <ng-template #disableRename>
+                                                        <a href="javascript:void(0);" class="dropdown-item disabled">
+                                                        <span class="i-vNext-edit-filled listing-icon"></span> {{localizationService.getLocalizedString('common.RENAME_PROPOSAL')}}</a>
+                                                    </ng-template>
+                                                </li>
+                                                <li *ngIf="!(isPartnerAccessingSfdcDeal)">
+                                                    <a href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.proposalList_link_copy}}{{index}}" (click)="copy(proposal)" class="dropdown-item" *ngIf="((projectStoreService.projectEditAccess && !isOrderFulfilled) && !projectStoreService.projectData.dealInfo?.globalDealScope) ; else disableCopy" id="{{elementIdConstantsService.PROJECT_PROPOSAL_LIST_COPY_PROPOSAL}}">
+                                                        <span class="listing-icon i-vNext-copy"></span> {{localizationService.getLocalizedString('common.COPY_PROPOSAL')}}</a>
+                                                    <ng-template #disableCopy>
+                                                        <a href="javascript:void(0);" class="dropdown-item disabled">
+                                                            <span class="listing-icon i-vNext-copy"></span> {{localizationService.getLocalizedString('common.COPY_PROPOSAL')}}</a>
+                                                    </ng-template>
+                                                </li>
+                                                <li  *ngIf="!(isPartnerAccessingSfdcDeal)">
+                                                    <a href="javascript:void(0);" (click)="delete(proposal)" attr.action-id="{{dataIdConstantsService.proposalList_link_delete}}{{index}}" class="dropdown-item" *ngIf="projectStoreService.projectEditAccess && !isOrderFulfilled; else disableDelete" id="{{elementIdConstantsService.PROJECT_PROPOSAL_LIST_DELETE_PROPOSAL}}">
+                                                        <span class="listing-icon i-vNext-trash-bold"></span> {{localizationService.getLocalizedString('common.DELETE')}}</a>
+                                                        <ng-template #disableDelete>
+                                                            <a href="javascript:void(0);" class="dropdown-item disabled">
+                                                                <span class="listing-icon i-vNext-trash-bold"></span> {{localizationService.getLocalizedString('common.DELETE')}}</a>
+                                                        </ng-template>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:void(0);" id="{{elementIdConstantsService.PROJECT_PROPOSAL_LIST_MANAGE_TEAM}}" (click)="openManageTeam(proposal)" attr.action-id="{{dataIdConstantsService.proposalList_link_openManageTeam}}{{index}}" class="dropdown-item" *ngIf="(projectStoreService.projectEditAccess || (projectStoreService.projectManageTeamAccess && isPartnerAccessingSfdcDeal)) && !isOrderFulfilled; else disableManageTeam">
+                                                        <span class="listing-icon i-vNext-customer"></span> {{localizationService.getLocalizedString('common.MANAGE_TEAM')}}</a>
+                                                        <ng-template #disableManageTeam>
+                                                            <a href="javascript:void(0);" class="dropdown-item disabled">
+                                                                <span class="listing-icon i-vNext-customer"></span> {{localizationService.getLocalizedString('common.MANAGE_TEAM')}}</a>
+                                                        </ng-template>
+                                                </li>
+                                            </ul>
+        
+                                        </li> 
+                                    </ul>
+                                </div>
+                                </div>
+                                <div class="d-flex" *ngIf="proposal.editName">
+                                    <textarea 
+                                    class="form-control rename-proposal" type="text" [(ngModel)]="proposalName">
+                                    </textarea>
+                                    <ul class="rename-actions">
+                                        <li [ngClass]="{'disabled': !proposalName || (proposalName && (proposal.name === proposalName.trim())) }">
+                                            <a href="javascript:void(0);" id="{{elementIdConstantsService.PROJECT_PROPOSAL_LIST_SAVE_PROPOSAL_NAME_ICON}}"  (click)="saveUpdatedName(proposal)" attr.action-id="{{dataIdConstantsService.proposalList_link_saveUpdatedName}}{{index}}">
+                                                <span class="i-vNext-Full-1"><span class="path1"></span><span class="path2"></span></span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0);" id="{{elementIdConstantsService.PROJECT_PROPOSAL_LIST_CANCEL_NAME_CHANGE_ICON}}"  (click)="cancelNameChange(proposal)" attr.action-id="{{dataIdConstantsService.proposalList_link_cancelNameChange}}{{index}}">
+                                                <span class="i-vNext-close-circle"></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    </div>
+                            </ng-container>
+                            
+                        </td>
+                        <td>
+                            <span *ngFor="let enrollment of proposal?.enrollments ; let i = index;">{{enrollment}}
+                                <span *ngIf='proposal?.enrollments.length > (i+1)'>, </span>
+                            </span>
+                        </td>
+                        <!-- <td>{{proposal?.buyingProgram}}</td> -->
+                        <td><span class="badge" [ngClass]="{'badge-valid': proposal?.status === 'Complete' , 'badge-in-progress': proposal?.status !== 'Complete'}">{{proposal?.status === 'IN_PROGRESS'? ('common.IN_PROGRESS' | localizationPipe : localizationService.localizedkeySet.size) : proposal?.status}}</span></td>
+                        <td>
+                            <span *ngIf="!proposal?.quoteId">--</span>
+                            <span *ngIf="proposal?.quoteId"><a href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.proposalList_link_openQuoteUrl}}" (click)="openQuoteUrl(proposal)" id="{{elementIdConstantsService.PROJECT_PROPOSAL_LIST_GO_TO_QUOTE}}">{{proposal?.quoteId}}</a></span>
+                        </td>
+                        <td *ngIf="eaService.features.MSEA_REL">
+                            <span *ngIf="proposal?.buyingProgramTransactionType === constantsService.MSEA">{{'common.MSEA' | localizationPipe : localizationService.localizedkeySet.size}} </span>
+                            <span *ngIf="proposal?.buyingProgramTransactionType === constantsService.MSP_EA">
+                                {{'common.EA' | localizationPipe : localizationService.localizedkeySet.size}}
+                            </span>
+                        </td>
+                        <td class="text-right">{{proposal?.totalNet ? eaUtilitiesService.formatValue(eaUtilitiesService.getFloatValue(proposal?.totalNet)) : '--'}}{{proposal?.totalNet? ' ('+ proposal?.currencyCode +')' :''}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <ng-template #noData>
+        <div class="col-12">
+            <div class="alert alert--info alert-dismissable">
+                <span class="alert-icon">
+                    <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                </span>
+                <span>{{localizationService.getLocalizedString('common.NO_PROPOSALS_FOUND')}}</span>
+            </div>
+
+        <!-- Empty State Added -- HTML Starts Here -->
+            <!--div class="d-flex w-100 align-items-center justify-content-center empty-enrollment flex-column">
+                <img src="../../../../assets/images/icons/empty-enrollment.svg">
+                <h4 class="heading--h4">No Proposal was created yet. Please create Proposal</h4>
+            </div-->
+        <!-- Empty State Added -- HTML Ends Here -->
+        </div>
+    </ng-template>
+    <!-- Table View -- Ends here  -->
+    <div *ngIf='paginationObject && proposalList?.length' class="col-12 pr-0">
+        <app-ng-pagination [paginationObject]="paginationObject" (updatedPaginationObject) = "paginationUpdated($event)"></app-ng-pagination>
+    </div>
+</div>

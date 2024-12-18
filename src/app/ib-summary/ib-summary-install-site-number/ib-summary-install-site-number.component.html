@@ -1,0 +1,24 @@
+<div class="main-table eaProspect-table parentTable container-fluid no-padding">
+    <div class="ag-grid-flyout" *ngIf="showGrid">
+        <ag-grid-angular #agGrid id="ag-grid" style="width: 100%;" class="ag-fresh" [domLayout]="domLayout" [gridOptions]="gridOptions" [columnDefs]="columnDefs" [rowData]="installSiteNumberData" [getNodeChildDetails]="getNodeChildDetails" enableColResize
+            enableSorting enableFilter groupHeaders suppressRowClickSelection toolPanelSuppressGroups toolPanelSuppressValues debug rowHeight="30" rowSelection="multiple" (modelUpdated)="onModelUpdated()" (cellClicked)="onCellClicked($event)" (cellDoubleClicked)="onCellDoubleClicked($event)"  [sideBar]="false"
+            (cellContextMenu)="onCellContextMenu($event)" (cellValueChanged)="onCellValueChanged($event)" (cellFocused)="onCellFocused($event)" (rowSelected)="onRowSelected($event)" (selectionChanged)="onSelectionChanged()" (beforeFilterChanged)="onBeforeFilterChanged()"
+            (afterFilterChanged)="onAfterFilterChanged()" (filterModified)="onFilterModified()" (beforeSortChanged)="onBeforeSortChanged()" (afterSortChanged)="onAfterSortChanged()" (virtualRowRemoved)="onVirtualRowRemoved($event)" (rowClicked)="onRowClicked($event)"
+            (gridReady)="onReady($event)" (columnEverythingChanged)="onColumnEvent($event)" (columnRowGroupChanged)="onColumnEvent($event)" (columnValueChanged)="onColumnEvent($event)" (columnMoved)="onColumnEvent($event)" (columnVisible)="onColumnEvent($event)"
+            (columnGroupOpened)="onColumnEvent($event)" (columnResized)="onColumnEvent($event)" (columnPinnedCountChanged)="onColumnEvent($event)">
+        </ag-grid-angular>
+        <!-- <ngb-pagination *ngIf="!ibSummaryService.isSearchAndLocate" [collectionSize]="paginationObject.collectionSize" [(page)]="paginationObject.page" [boundaryLinks]="true" [maxSize]="5" [pageSize]="paginationObject.pageSize" (pageChange)="pageChange()"></ngb-pagination> -->
+        <div class="paginationSize">
+              
+                <div *ngIf="showGrid">
+                    <app-pagination [paginationObject]="paginationObject"></app-pagination>
+                </div>
+            </div>
+    </div>
+    <div *ngIf='!showGrid && isDataLoaded' class="alert alert--info alert-dismissable">
+        <span class="alert-icon">
+            <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+        </span>
+        <span> No data found </span>
+     </div>
+</div>

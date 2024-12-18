@@ -1,0 +1,141 @@
+h5.modal-title .icon-info-line-level {
+    display       : inline-block;
+    transform     : rotate(180deg);
+    vertical-align: middle;
+}
+
+h5.modal-title .icon-info-line-level:before {
+    color: #58585b;
+}
+
+h5.modal-title {
+    margin-bottom : 0;
+    line-height   : 33px;
+    font-size     : 20px;
+    font-weight   : 300;
+    letter-spacing: 0.03em;
+    color         : #fff;
+}
+
+.searchLocate-wrap {
+    margin-top: 33px;
+    position  : relative;
+}
+
+.searchLocate-wrap:focus {
+    border-bottom: 2px solid #000;
+}
+
+.searchLocate-wrap label.form-control-placeholder {
+    top           : -12px;
+    margin        : 0;
+    position      : absolute;
+    font-size     : 11px;
+    text-transform: uppercase;
+    opacity       : 0.8;
+    font-weight   : lighter !important;
+    transform     : translate3d(0, -7px, 0) !important;
+    padding: 0;
+}
+
+.list-inline li .added-item {
+    width      : 100%;
+    max-height : 140px;
+    overflow-x : hidden !important;
+    overflow   : auto;
+    padding-top: 5px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.list-inline li .added-item::after {
+    content: "";
+    display: block;
+    clear  : both;
+    height : 5px;
+}
+.list-inline li .added-item .name-tag {
+    max-width: 100%;
+    display: flex;
+}
+.list-inline li .added-item .name-tag .tag-val {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+}
+.list-inline input {
+    border     : 0px !important;
+    padding    : 0px;
+    box-shadow : none !important;
+    height     : 29px !important;
+    display    : inline-block;
+    width      : auto;
+    font-weight: 100;
+}
+
+.list-inline input:focus+.outline {
+    border-bottom: 2px solid #005073;
+}
+
+.searchLocate-wrap .clear-search {
+    text-transform: uppercase;
+    position      : absolute;
+    top           : -16px;
+    right         : 0px;
+    font-size     : 11px;
+}
+
+/****-------button css---------***/
+.modal-BottomBtn button {
+    padding       : 8px 25px 7px;
+    font-size     : 16px;
+    border-radius : 4px;
+    letter-spacing: 0.5px;
+    font-weight   : 400;
+    margin        : 0 3px;
+    height        : auto !important;
+    line-height   : 24px;
+}
+
+.cancel-btn {
+    background: transparent;
+    border    : 1px solid #005073;
+    color     : #005073;
+    cursor    : pointer;
+}
+
+.locate-btn {
+    background: #005073;
+    color     : #fff;
+    border    : 1px solid #005073;
+    cursor    : pointer;
+}
+
+.disabled {
+    background: #C5C5C5;
+    border    : 0px solid #005073;
+    color     : #999999;
+}
+
+.modal-BottomBtn button.focus,
+.modal-BottomBtn button:focus,
+.modal-BottomBtn button:hover {
+    box-shadow        : 0px 1px 4px 0px rgba(0, 0, 0, 0.5);
+    -webkit-box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.5);
+}
+
+.btn.cancel-btn:active {
+    background  : #ccc;
+    color       : #58585b;
+    border-color: #58585b;
+}
+
+.btn.download-btn:active {
+    background: #006da9;
+    color     : #fff;
+    box-shadow: 0 0 0;
+}
+
+
+/****-------button css---------***/

@@ -1,0 +1,174 @@
+<div class="d-flex w-100 justify-content-between align-items-center">
+    <span *ngIf="params.data.poolName !== 'group'; else group" class="ellipsis">{{params.value}} 
+    </span>
+    <ul class="inline-listing justify-content-end border-right-li">
+        <li *ngIf="params.node.level === 2">
+            <ng-container *ngIf="params.data?.arrayOfErrorMessages?.length">
+                <a href="javascript:void(0)" #popover="ngbPopover" popoverClass="ag-dropdown-wrap hover-navigator" attr.action-id="{{dataIdConstantsService.servicesSuitesCell_link_ErrorMsgspopover}}params.data.ato"
+                    [ngbPopover]="errorTemplate" container="body" placement="bottom" [outsideClick]="true"
+                    triggers="click">
+                    <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                    <ng-template #errorTemplate>
+                        <div class="error-list alert-error">
+                            <div class="alert-head">{{'common.SHOWING' | localizationPipe : localizationService.localizedkeySet.size}}{{params.data.arrayOfErrorMessages.length}} {{'common.ERRORS_OF' | localizationPipe : localizationService.localizedkeySet.size}} {{params.data.arrayOfErrorMessages.length}}</div>
+                            <div class="overflow-hidden">
+                            <div class="alert alert--danger" *ngFor="let message of params.data.arrayOfErrorMessages">
+                                <span class="alert-icon">
+                                    <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                                </span>
+                                <span  [innerHTML]="message | vnextStringToHtml"></span>
+                            </div>
+                            </div>
+                            <!-- <div class="more-errors"><a href="javascript:void(0);">Show more<span class="i-vNext-arrow-down-heavy"></span></a></div> -->
+                        </div>
+                    </ng-template>
+                </a>
+            </ng-container>
+            <span class="icon-msg-error" *ngIf="priceEstimateStoreService.selectedCxEnrollment?.lineInError && !params.node.parent.data.cxHwSupportOptedOut && params.data.pidType === 'CX_HW_SUPPORT' && !proposalStoreService.isReadOnly && !params.data?.arrayOfErrorMessages?.length"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span> 
+        </li>
+        <li *ngIf="params.node.level === 2 && params.data?.arrayOfWarningMessages?.length">
+            <a href="javascript:void(0)" #popover="ngbPopover" popoverClass="ag-dropdown-wrap hover-navigator" attr.action-id="{{dataIdConstantsService.servicesSuitesCell_link_warnMsgspopover}}params.data.ato"
+                [ngbPopover]="warningTemplate" container="body" placement="bottom" [outsideClick]="true"
+                triggers="click">
+                <span class="icon-msg-warning"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                <ng-template #warningTemplate>
+                    <div class="error-list alert-error">
+                        <div class="alert-head">{{'common.SHOWING' | localizationPipe : localizationService.localizedkeySet.size}}{{params.data.arrayOfWarningMessages.length}} {{'common.WARNING_OF' | localizationPipe : localizationService.localizedkeySet.size}} {{params.data.arrayOfWarningMessages.length.length}}</div>
+                        <div class="overflow-hidden">
+                        <div class="alert alert--danger" *ngFor="let message of params.data.arrayOfWarningMessages">
+                            <span class="alert-icon">
+                                <span class="icon-msg-warning"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                            </span>
+                            <span  [innerHTML]="message | vnextStringToHtml"></span>
+                        </div>
+                        </div>
+                        <!-- <div class="more-errors"><a href="javascript:void(0);">Show more<span class="i-vNext-arrow-down-heavy"></span></a></div> -->
+                    </div>
+                </ng-template>
+            </a>
+        </li>
+        <li *ngIf="params.node.level === 2 && params.data.pidType === 'CX_HW_SUPPORT' && !priceEstimateStoreService.selectedCxEnrollment?.lineInError && priceEstimateStoreService.selectedCxEnrollment?.awaitingResponse && !proposalStoreService.isReadOnly">
+            <!-- <span class="icon-error-icon" *ngIf="priceEstimateStoreService.selectedCxEnrollment?.lineInError; else awaitingResponse"></span>
+            <ng-template #awaitingResponse> -->
+                <span class="icon-reload"></span>
+            <!-- </ng-template> -->
+        </li>
+        <li *ngIf="params.node.level === 2 && params.data?.commitInfo" class="pl-0">
+            <ng-template #tipFCContentPid>
+                {{'common.FULL_COMMIT' | localizationPipe : localizationService.localizedkeySet.size}}
+            </ng-template>
+            <span *ngIf='params.data.commitInfo?.committed'>
+                <span class="commited-icon-wrap i-vNext-Full-1" #fcTooltip="ngbTooltip" ngbTooltip=" {{'common.FULL_COMMIT' | localizationPipe : localizationService.localizedkeySet.size}}" placement='top'>
+                    <span class="path1"></span>
+                    <span class="path2"></span>
+                </span>
+            </span>
+            <ng-template #tipPCContentPid>
+                {{'common.PARTIAL_COMMIT' | localizationPipe : localizationService.localizedkeySet.size}}
+            </ng-template>
+            <span *ngIf='!params.data.commitInfo?.committed'>
+                <span class="commited-icon-wrap i-vNext-partially-commited" #pcTooltip="ngbTooltip" [ngbTooltip]="tipPCContentPid" placement='top'></span>
+            </span>
+        </li>
+   </ul>
+    <ng-template #group>
+        <span class="ellipsis"> <b>{{params.value}}</b></span>
+    </ng-template>
+    
+    <ul class="inline-listing justify-content-end border-right-li" *ngIf="params.node.level === 1 && !params.data.disabled">
+        <li class="period" *ngIf="params.data.inclusion">
+            <a href="javascript:void(0);" *ngIf="!proposalStoreService.isReadOnly && !priceEstimateStoreService.viewAllSelected; else disableAtoTier" (click)= "updateCxTier()" attr.action-id="{{dataIdConstantsService.servicesSuitesCell_link_updateCxTier}}params.data.ato">{{params?.data?.atoTierDesc}}</a>
+            <ng-template #disableAtoTier>
+                <a href="javascript:void(0);" class="disabled">{{params?.data?.atoTierDesc}}</a>
+            </ng-template>
+        </li>
+        <!-- <li class="period" (click)= "updateCxTier()" *ngIf="params.data.inclusion" [ngClass]="{'disabled': proposalStoreService.isReadOnly || priceEstimateStoreService.viewAllSelected}"><a href="javascript:void(0);">{{params?.data?.atoTierDesc}}</a></li> -->
+        <li class="period" *ngIf="priceEstimateStoreService.displayExternalConfiguration && !proposalStoreService.isReadOnly && params.data.inclusion"><a href="javascript:void(0);" (click)="configure(params.data)" attr.action-id="{{dataIdConstantsService.servicesSuitesCell_link_configure}}params.data.ato">{{'common.CONFIGURE' | localizationPipe : localizationService.localizedkeySet.size}}</a></li>
+        <li *ngIf="params.data?.arrayOfErrorMessages?.length">
+            <a href="javascript:void(0)" #popover="ngbPopover" popoverClass="ag-dropdown-wrap hover-navigator" attr.action-id="{{dataIdConstantsService.servicesSuitesCell_link_ErrorMsgspopover}}params.data.ato"
+                [ngbPopover]="errorTemplate" [placement]="params.placement" [outsideClick]="true" (click)="openDrop($event, params)"
+                triggers="click">
+                <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                <ng-template #errorTemplate>
+                    <div class="error-list alert-error">
+                        <div class="alert-head">{{'common.SHOWING' | localizationPipe : localizationService.localizedkeySet.size}}{{params.data.arrayOfErrorMessages.length}} {{'common.ERRORS_OF' | localizationPipe : localizationService.localizedkeySet.size}} {{params.data.arrayOfErrorMessages.length}}</div>
+                        <div class="overflow-hidden">
+                        <div class="alert alert--danger" *ngFor="let message of params.data.arrayOfErrorMessages">
+                            <span class="alert-icon">
+                                <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                            </span>
+                            <span  [innerHTML]="message | vnextStringToHtml"></span>
+                        </div>
+                        </div>
+                        <!-- <div class="more-errors"><a href="javascript:void(0);">Show more<span class="i-vNext-arrow-down-heavy"></span></a></div> -->
+                    </div>
+                </ng-template>
+            </a>
+        </li>
+        <li *ngIf="params.data?.arrayOfWarningMessages?.length">
+            <a href="javascript:void(0)" #popover="ngbPopover" popoverClass="ag-dropdown-wrap hover-navigator" attr.action-id="{{dataIdConstantsService.servicesSuitesCell_link_warnMsgspopover}}params.data.ato"
+                [ngbPopover]="warningTemplate" [placement]="params.placement" [outsideClick]="true" (click)="openDrop($event, params)"
+                 triggers="click">
+                <span class="icon-msg-warning"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                <ng-template #warningTemplate>
+                    <div class="error-list alert-error">
+                        <div class="alert-head">{{'common.SHOWING' | localizationPipe : localizationService.localizedkeySet.size}}{{params.data.arrayOfWarningMessages.length}} {{'common.WARNING_OF' | localizationPipe : localizationService.localizedkeySet.size}} {{params.data.arrayOfWarningMessages.length}}</div>
+                        <div class="overflow-hidden">
+                        <div class="alert alert--danger" *ngFor="let message of params.data.arrayOfWarningMessages">
+                            <span class="alert-icon">
+                                <span class="icon-msg-warning"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                            </span>
+                            <span  [innerHTML]="message | vnextStringToHtml"></span>
+                        </div>
+                        </div>
+                        <!-- <div class="more-errors"><a href="javascript:void(0);">Show more<span class="i-vNext-arrow-down-heavy"></span></a></div> -->
+                    </div>
+                </ng-template>
+            </a>
+        </li>
+        <li class="period" *ngIf="params.data.duration">{{utilitiesService.formatValue(utilitiesService.getFloatValue(params.data.duration))}} {{'common.MONTHS' | localizationPipe : localizationService.localizedkeySet.size}}</li> 
+        <li>
+            <ng-template #tipFCContent>
+                {{'common.FULL_COMMIT' | localizationPipe : localizationService.localizedkeySet.size}}
+            </ng-template>
+            <span *ngIf='params.data.inclusion && params.data.commitInfo?.committed'>
+                <span class="commited-icon-wrap i-vNext-Full-1" #tooltip="ngbTooltip" [ngbTooltip]="tipFCContent" placement='top'>
+                    <span class="path1"></span>
+                    <span class="path2"></span>
+                </span>
+            </span>
+            <ng-template #tipPCContent>
+                {{'common.PARTIAL_COMMIT' | localizationPipe : localizationService.localizedkeySet.size}}
+            </ng-template>
+            <span *ngIf='params.data.inclusion && !params.data.commitInfo?.committed'>
+                <span class="commited-icon-wrap i-vNext-partially-commited" #tooltip="ngbTooltip" [ngbTooltip]="tipPCContent" placement='top'></span>
+            </span>
+            <span class="ag-dropdown-wrap ml-1" style="position: unset;"
+                *ngIf='!priceEstimateStoreService.enableRecalculateAll && !proposalStoreService.isReadOnly && !priceEstimateStoreService.viewAllSelected && params.data.inclusion && !eaService.isResellerLoggedIn'>
+                <ng-template #popTemplate>
+                    <ul class="ag-dropdown-menu">
+                        <li>
+                            <a href="javascript:void(0);" (click)="cxApplyDiscount(params.data)" attr.action-id="{{dataIdConstantsService.servicesSuitesCell_link_cxSuiteDiscount}}params.data.ato" [ngClass]="{'disabled': !(priceEstimateStoreService.selectedCxEnrollment?.hardwareLinePricesInSync || priceEstimateStoreService.selectedCxEnrollment?.discountCascadePending) || proposalStoreService.proposalData?.dealInfo?.subscriptionUpgradeDeal}">{{'common.CHANGE_SUITE_DISCOUNT' | localizationPipe : localizationService.localizedkeySet.size}}</a>
+                        </li>
+                        <!-- <li>
+                                    <a href="javascript:void(0);">Request Document</a>
+                                </li> -->
+                    </ul>
+                </ng-template>
+                <span class="i-vNext-more-vertical" #popover="ngbPopover" popoverClass="ag-dropdown-wrap change-discount" attr.action-id="{{dataIdConstantsService.servicesSuitesCell_icon_openDrop}}params.data.ato"
+                    [ngbPopover]="popTemplate"  [placement]="params.placement" [outsideClick]="true" (click)="openDrop($event, params)"></span>
+            </span>
+        </li>
+    </ul>
+    <ul class="inline-listing justify-content-end border-right-li mr-4" *ngIf="params.node.level === 1 && params.data.disabled">
+        <li class="period"><i>{{'common.ALREADY_PURCHASED' | localizationPipe : localizationService.localizedkeySet.size}}</i></li>
+    </ul>
+</div>
+<ng-container *ngIf='priceEstimateStoreService.displayExternalConfiguration'>
+    <div [hidden]="true" style="display: none;">
+        <form ngNoForm  [formGroup]="configFormGrp" [action]="priceEstimateStoreService.externalConfigReq.url" method="POST" #configForm >
+            <textarea name="configUIRequest" [value]="configReqData" attr.data-id="{{dataIdConstantsService.servicesSuitesCell_textarea_configReqData}}"></textarea>
+            <button type="submit" attr.action-id="{{dataIdConstantsService.servicesSuitesCell_button_search}}">{{'common.SEARCH' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+        </form>
+    </div>
+</ng-container>

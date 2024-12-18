@@ -1,0 +1,59 @@
+[
+    {
+        "headerName": "ProposalName & ID",
+        "field": "proposalName",
+        "width": 180,
+        "minWidth": 60,
+        "pinned": true,
+        "suppressMenu": true,
+        "suppressSorting": true
+    },
+    {
+        "headerName": "Deal ID",
+        "field": "dealId",
+        "width": 180,
+        "minWidth": 60,
+        "suppressMenu": true,
+        "suppressSorting": true
+    },
+    {
+        "headerName": "Architecture",
+        "field": "architecture",
+        "width": 180,
+        "minWidth": 60,
+        "suppressMenu": true,
+        "suppressSorting": true
+    },
+    {
+        "headerName": "Term",
+        "field": "term",
+        "width": 180,
+        "minWidth": 60,
+        "suppressMenu": true,
+        "suppressSorting": true
+    },
+    {
+        "headerName": "Billing Model",
+        "field": "billingModel",
+        "width": 180,
+        "minWidth": 60,
+        "suppressMenu": true,
+        "suppressSorting": true
+    },
+    {
+        "headerName": "Price List",
+        "field": "priceList",
+        "width": 180,
+        "minWidth": 60,
+        "suppressMenu": true,
+        "suppressSorting": true
+    },
+    {
+        "headerName": "Country/Region Of Transaction",
+        "field": "countryOfTransaction",
+        "width": 180,
+        "minWidth": 60,
+        "suppressMenu": true,
+        "suppressSorting": true
+    }
+]

@@ -1,0 +1,83 @@
+[
+    {
+        "suite": "Cisco One", "name": "Access-Switching"
+    },
+    {
+        "suite": "Cisco One", "name": "Access-Wireless"
+    },
+    {
+        "suite": "Cisco One", "name": "Data Center-Networking", "isSubcription": true
+    },
+    {
+        "suite": "Cisco One", "name": "WAN", "isSubcription": true
+    },
+    {
+        "suite": "Cisco One", "name": "Access-Wireless", "isSubcription": true
+    },
+    {
+        "suite": "Cisco One", "name": "ECS-Infrastructure Automobile", "isSubcription": true
+    },
+    {
+        "suite": "Cisco One", "name": "ECS-Cloud Management", "isSubcription": true
+    },
+    {
+        "suite": "Cisco One", "name": "ECS-Service Management", "isSubcription": true
+    },
+    {
+        "suite": "Cisco One", "name": "Tetration Analytics", "isSubcription": true
+    },
+    {
+        "suite": "Cisco One1", "name": "Access-Switching"
+    },
+    {
+        "suite": "Cisco One1", "name": "Access-Wireless"
+    },
+    {
+        "suite": "Cisco One1", "name": "Data Center-Networking", "isSubcription": true
+    },
+    {
+        "suite": "Cisco One1", "name": "WAN", "isSubcription": true
+    },
+    {
+        "suite": "Cisco One1", "name": "Access-Wireless", "isSubcription": true
+    },
+    {
+        "suite": "Cisco One1", "name": "ECS-Infrastructure Automobile", "isSubcription": true
+    },
+    {
+        "suite": "Cisco One1", "name": "ECS-Cloud Management", "isSubcription": true
+    },
+    {
+        "suite": "Cisco One1", "name": "ECS-Service Management", "isSubcription": true
+    },
+    {
+        "suite": "Cisco One1", "name": "Tetration Analytics", "isSubcription": true
+    },
+    {
+        "suite": "Cisco One2", "name": "Access-Switching"
+    },
+    {
+        "suite": "Cisco One2", "name": "Access-Wireless"
+    },
+    {
+        "suite": "Cisco One2", "name": "Data Center-Networking", "isSubcription": true
+    },
+    {
+        "suite": "Cisco One2", "name": "WAN", "isSubcription": true
+    },
+    {
+        "suite": "Cisco One2", "name": "Access-Wireless", "isSubcription": true
+    },
+    {
+        "suite": "Cisco One2", "name": "ECS-Infrastructure Automobile", "isSubcription": true
+    },
+    {
+        "suite": "Cisco One2", "name": "ECS-Cloud Management", "isSubcription": true
+    },
+    {
+        "suite": "Cisco One2", "name": "ECS-Service Management", "isSubcription": true
+    },
+    {
+        "suite": "Cisco One2", "name": "Tetration Analytics", "isSubcription": true
+    }
+]

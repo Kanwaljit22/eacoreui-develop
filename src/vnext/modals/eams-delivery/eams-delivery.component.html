@@ -1,0 +1,84 @@
+<div class="modal-body vNext modal-without-header">
+    <button class="icon-close-btn"  (click)="close()" type="button" attr.action-id="{{dataIdConstantsService.eamsDelivery_button_closeIcon}}"></button>
+    <h2>{{localizationService.getLocalizedString('common.EAMS_DELIVERY')}}</h2>
+
+    <div class="row">
+        <div class="col">
+          <p class="eams-text text-center mb-2">{{localizationService.getLocalizedString('eams-delivery.EA_MANAGEMENT_SUPPORT_DELIVERY_TYPE')}}</p>
+          <div class="eams-radio-selection justify-content-center">
+
+                <div class="cisco-selection mr-3" (click)="selectCisco()" >
+                  <input type="radio" id="cisco-eams" name="select-eams" value="cisco" [checked]="selectedCiscoEams" attr.data-id="{{dataIdConstantsService.eamsDelivery_radio_ciscoEams}}" />
+                  <label for="cisco-eams">
+                    <span>{{localizationService.getLocalizedString('common.CISCO')}}</span>
+                  </label>
+                </div>
+            
+          
+              <div class="partner-selection ml-3" (click)="selectEams()">
+                <input type="radio" id="partner-eams" name="select-eams" [checked]="!selectedCiscoEams" value="partner" attr.data-id="{{dataIdConstantsService.eamsDelivery_radio_partnerEams}}" />
+                <label for="partner-eams">
+                <span>{{localizationService.getLocalizedString('common.PARTNER')}}</span>
+              </label>
+              </div>
+           
+          </div>
+        
+        <p *ngIf="!selectedCiscoEams"  class="eams-text text-center py-4">{{localizationService.getLocalizedString('eams-delivery.ADD_PARTNER_CONTACT_INFO')}}</p>
+      </div>
+    </div>
+
+    <div *ngIf="!selectedCiscoEams">
+    <div class="row" >
+        <div class="col-md-12 px-5">
+          <div class="form-group mt-0 mb-3">
+            <label class="customer-label" for="p-patner" >{{localizationService.getLocalizedString('common.PRIMARY_PARTNER')}} <sup>*</sup></label>
+            <input type="text" class="form-control" disabled [(ngModel)]="primaryPartner" attr.data-id="{{dataIdConstantsService.eamsDelivery_text_primaryPartner}}" id="p-patner" placeholder="{{localizationService.getLocalizedString('common.PRIMARY_PARTNER')}}"/>
+        </div>
+        </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 pl-5">
+                <div class="form-group mt-0 mb-3">
+                    <label class="customer-label" for="c-name-partner" >{{localizationService.getLocalizedString('common.CONTACT_NAME')}} <sup>*</sup></label>
+                    <input type="text" class="form-control" [(ngModel)]="partnerContactName" attr.data-id="{{dataIdConstantsService.eamsDelivery_text_partnerContactName}}"  id="c-name-partner" placeholder="{{localizationService.getLocalizedString('common.CONTACT_NAME')}}"/>
+                </div>
+            </div>
+            <div class="col-md-6 pr-5">
+              <div class="form-group mt-0 mb-3">
+                    <label class="customer-label" for="ccid" >{{localizationService.getLocalizedString('common.CCO_ID')}} </label>
+                    <input type="text" class="form-control" [(ngModel)]="partnerCcoId" attr.data-id="{{dataIdConstantsService.eamsDelivery_text_partnerCcoIde}}" id="ccid" placeholder="{{localizationService.getLocalizedString('common.CCO_ID')}}"/>
+                </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 pl-5">
+                <div class="form-group mt-0 mb-3">
+                    <label class="customer-label" for="email" >{{localizationService.getLocalizedString('common.E_MAIL')}} <sup>*</sup></label>
+                    <input type="text" class="form-control" id="email"  [(ngModel)]="partnerEmail" attr.data-id="{{dataIdConstantsService.eamsDelivery_text_partnerEmail}}"  (ngModelChange) = 'emailValidation(partnerEmail)' placeholder="{{localizationService.getLocalizedString('common.E_MAIL')}}"/>
+                    <div class="text-danger mt-1" role="alert" #invalidEmail *ngIf="invalidEmail" >
+                        <i class="icon-error-icon"></i> <span>{{localizationService.getLocalizedString('common.INVALID_EMAIL_ID')}}</span>
+                    </div>
+                </div>
+
+            </div>
+          
+            <div class="col-md-6 pr-5">
+              <div class="form-group mt-0 mb-3" style=" margin-bottom: 0 ">
+                <label class="customer-label w-100" for="">{{localizationService.getLocalizedString('common.CONTACT_NUMBER')}} </label>
+                <input maxlength="16" type="text" class="form-control" id="" (keydown)='allowNumberWithPlus($event)' attr.data-id="{{dataIdConstantsService.eamsDelivery_text_phoneNumber}}" (input)='checkPhoneNumbers($event)' [(ngModel)]="phoneNumber" value="" #phoneNumberField placeholder="{{localizationService.getLocalizedString('eams-delivery.PARTNER_CONTACT_NUMBER')}}" />
+              </div>
+            </div>
+         
+          </div>
+</div>
+  </div>
+
+
+
+<div class="text-center d-block pb-4 paddingT10 vNext">
+    <button class="btn btn-secondary" type="button" (click)="close()" attr.action-id="{{dataIdConstantsService.eamsDelivery_button_cancel}}" id="{{elementIdConstantsService.EamsDelivery_Cancel}}" >{{localizationService.getLocalizedString('common.CANCEL')}}</button>
+    <button class="btn btn-primary ml-2" *ngIf = "selectedCiscoEams"  (click)="saveCiscoEMS()"  type="button" attr.action-id="{{dataIdConstantsService.eamsDelivery_button_done}}">{{localizationService.getLocalizedString('common.DONE')}}</button>
+    <button class="btn btn-primary ml-2" *ngIf = "!selectedCiscoEams" (click)="savePartnerEMS()" attr.action-id="{{dataIdConstantsService.eamsDelivery_button_done}}" [disabled]="invalidEmail || !(primaryPartner && partnerContactName && partnerEmail && partnerContactName && partnerCcoId)" type="button">{{localizationService.getLocalizedString('common.DONE')}}</button>
+
+</div>

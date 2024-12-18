@@ -1,0 +1,6 @@
+
+<div class="d3-wrapper break-down">
+    <div class="d3-chart" #chart></div>
+    <span class="chart-trigger" [ngClass]="{'hide-arrow': start === start_max}" (click)="moveRight()"></span>
+    <span class="chart-trigger-left" [ngClass]="{'hide-arrow': start === 0}" (click)="moveLeft()"></span>
+    </div>

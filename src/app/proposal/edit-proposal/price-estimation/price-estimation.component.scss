@@ -1,0 +1,333 @@
+.edit-config-row {
+    position : absolute;
+    right    : 0;
+    font-size: 11px;
+    cursor   : pointer;
+    color    : #005073;
+    top      : 0px
+}
+
+/************Filter slider Css*********/
+* {
+    outline: none !important;
+}
+
+.create-new_qualification {
+    clear: both;
+    width: 100%;
+    float: left;
+}
+
+::ng-deep .irs-grid-text {
+    font-family: 'CiscoSans';
+    font-size  : 10px;
+    font-weight: 100;
+    color      : #999;
+}
+
+::ng-deep .sidebar-opt-content .irs-grid-text {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.icon-range-slider {
+    display: block;
+    float  : left;
+    width  : 100%;
+}
+
+::ng-deep .pricing-parameter__modal .irs-grid {
+    width: 100% !important;
+    left : 0px !important;
+    top  : 10px;
+}
+
+::ng-deep .irs-grid-pol {
+    top       : -6px;
+    background: #ccc;
+}
+
+::ng-deep .irs-from,
+::ng-deep .irs-to,
+::ng-deep .irs-single,
+::ng-deep .irs-bar,
+.irs-slider {
+    background: #005073 !important;
+}
+
+::ng-deep .irs-line,
+::ng-deep .irs-line-left,
+::ng-deep .irs-line-mid,
+::ng-deep .irs-line-right,
+::ng-deep .irs-bar.irs-bar--single {
+    height       : 8px !important;
+    top          : 25px;
+    background   : #ccc;
+    border-radius: 0px;
+    left         : 0px !important;
+}
+
+::ng-deep .irs-from:after,
+::ng-deep .irs-to:after,
+::ng-deep .irs-single:after {
+    position        : absolute;
+    display         : block;
+    content         : "";
+    bottom          : -6px;
+    left            : 50%;
+    width           : 0;
+    height          : 0;
+    margin-left     : -3px;
+    overflow        : hidden;
+    border          : 3px solid transparent;
+    border-top-color: transparent;
+}
+
+::ng-deep .irs-slider {
+    width        : 16px;
+    height       : 18px;
+    top          : 22px;
+    border-radius: 4px;
+    cursor       : pointer;
+}
+
+::ng-deep .cover .irs {
+    margin  : 0;
+    position: relative;
+}
+
+::ng-deep .cover .irs::before,
+::ng-deep .cover .irs::after {
+    content   : '';
+    position  : absolute;
+    top       : 17px;
+    width     : 1px;
+    height    : 25px;
+    background: #fff;
+}
+
+::ng-deep .cover .irs::before {
+    left: 0px;
+}
+
+::ng-deep .cover .irs::after {
+    right: -1px;
+}
+
+::ng-deep .irs-from,
+::ng-deep .irs-slider.from {
+    display: none;
+}
+
+::ng-deep .irs-line-left,
+::ng-deep .irs-line-mid,
+::ng-deep .irs-line-right {
+    background-color: #049fd9;
+    background-image: none;
+}
+
+::ng-deep .pricing-parameter__modal .irs-slider.to,
+::ng-deep .pricing-parameter__modal .irs-slider.from,
+::ng-deep .pricing-parameter__modal .irs-slider.single {
+    background: #049fd9;
+    height    : 19px;
+    width     : 16px;
+    top       : 0;
+    border    : 1px solid #fff;
+    border-top: 1px solid transparent;
+    margin-top: -15px;
+}
+
+::ng-deep .pricing-parameter__modal .irs-slider.single:before {
+    position   : absolute;
+    content    : '<';
+    top        : 2px;
+    left       : 1px;
+    font-size  : 9px;
+    color      : #fff;
+    text-shadow: 0px 0px;
+}
+
+::ng-deep .pricing-parameter__modal .irs-slider.single:after {
+    position   : absolute;
+    content    : '>';
+    top        : 2px;
+    right      : 1px;
+    font-size  : 9px;
+    color      : #fff;
+    text-shadow: 0px 0px;
+}
+
+::ng-deep .irs-min,
+::ng-deep .irs-max,
+::ng-deep .irs-bar-edge {
+    display: none !important;
+}
+
+::ng-deep .irs-to {
+    background-color: transparent;
+    padding-left    : 9px;
+    top             : 5px;
+    color           : #a3a7aa;
+    font-size       : 11px;
+}
+
+::ng-deep .irs-to:after {
+    display: none;
+}
+
+.proposalSubHeading .icon-apply-proposal {
+    cursor: pointer;
+}
+
+.export {
+    position   : absolute;
+    margin-left: 10px !important;
+}
+
+/*  Alert Danger Message with Errors  */
+.alert .import {
+    display: inline-block;
+}
+
+.alert .import>span {
+    cursor: pointer;
+}
+
+.error-list {
+    display         : none;
+    position        : absolute;
+    z-index         : 99;
+    left            : 0;
+    right           : 0;
+    width           : calc(100% + 0px);
+    background-color: #fff;
+    margin          : 0;
+    padding         : 0;
+    list-style-type : none;
+    top             : calc(100% - 0px);
+}
+
+.alert .import:hover .error-list.alert-error {
+    display: block;
+}
+
+.error-list .alert {
+    border : 0px !important;
+    margin : 0;
+    padding: 7px 10px 0 25px !important;
+    cursor : default;
+}
+
+.error-list .alert:last-child {
+    padding-bottom: 5px !important;
+}
+
+.error-list .alert .icon-alert-error-bg {
+    //display   : none;
+    position  : absolute;
+    top       : 8px;
+    left      : 10px;
+    width     : 18px;
+    height    : 18px;
+    background: url("../../../../assets/images/cross-red.svg") no-repeat;
+}
+
+.error-list.alert-error::before {
+    content            : "";
+    backface-visibility: hidden;
+    position           : absolute;
+    top                : -8px;
+    height             : 9px;
+    width              : 21px;
+    left               : 105px;
+    background         : url("../../../../assets/images/arrow-red.svg") no-repeat;
+}
+
+/*  End of Alert Danger Message with Errors  */
+
+.error-list.warning-list {
+    border-color: #F47421;
+}
+
+.alert-warning-text {
+    color  : #F47421;
+    cursor : pointer;
+    display: inline-block;
+}
+
+.alert-warning-text>span {
+    cursor: pointer;
+}
+
+.alert-warning-text:hover .error-list.warning-list {
+    display: block;
+    z-index: 99991;
+}
+
+.error-list .alert .icon-alert-warning-bg {
+    position  : absolute;
+    top       : 10px;
+    left      : 15px;
+    width     : 18px;
+    height    : 18px;
+    background: url("../../../../assets/images/warning-icon.svg") no-repeat;
+}
+
+.error-list.warning-list:before {
+    content   : "";
+    position  : absolute;
+    top       : -8px;
+    height    : 25px;
+    width     : 36px;
+    left      : 110px;
+    background: url("../../../../assets/images/warning-arrow.svg") no-repeat;
+}
+
+.alert-info .error-list.warning-list:before {
+    content   : "";
+    position  : absolute;
+    top       : -8px;
+    height    : 25px;
+    width     : 36px;
+    left      : 110px;
+    background: url("../../../../assets/images/info-arrow.svg") no-repeat;
+}
+
+/*  End of Alert Warning Message with Errors  */
+
+
+/* start of Info Messages styling */
+.error-list.warning-list.info-list {
+    border-color: #005073;
+}
+
+.alert-info-text {
+    color  : #005073;
+    cursor : pointer;
+    display: inline-block;
+}
+
+.alert-info-text>span {
+    cursor: pointer;
+}
+
+.alert-info-text:hover .error-list.warning-list.info-list {
+    display: block;
+    z-index: 99991;
+}
+
+.alert-info-text:hover .error-list .icon-info-line-level {
+    position : absolute;
+    left     : 15px;
+    font-size: 20px;
+    top      : 5px;
+}
+
+/* end of Info Messages styling */
+
+/* request PA styling */
+.flex-auto {
+    flex: auto;
+}
+
+

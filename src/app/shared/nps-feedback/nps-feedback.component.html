@@ -1,0 +1,89 @@
+<div class="nps-overlay" *ngIf="openForm"></div>
+<div class="nps-feedback-popup" [ngClass]="{'active': openForm}">
+<div class="modal-header" (click)="showForm()">
+  <h4 class="modal-title" id="myModalLabel">{{localeService.getLocalizedMessage('proposal.feedback.HOW_WAS_EXPERIENCE')}}</h4>
+  <h6>{{localeService.getLocalizedMessage('proposal.feedback.SHARE_YOUR_EXPERIENCE')}}</h6>
+  <button class="icon-down-arow-white" *ngIf="!openForm" type="button"></button>
+  <button class="icon-close-btn nps-sep" *ngIf="!openForm" type="button" (click)="appDataService.isShowFeedback = false;"></button>
+  <button class="icon-close-btn" *ngIf="openForm" type="button"></button>
+</div>
+<div class="modal-body" *ngIf="openForm">
+  <div class="alert alert--danger error-msg" style="display: none;">
+    <i></i>
+    <span>{{localeService.getLocalizedMessage('proposal.feedback.SELECT_REQUIRED_INFORMATION')}}</span>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group">
+        <h5>{{localeService.getLocalizedMessage('proposal.feedback.HOW_EASY_CREATE_PROSPECT')}} <span class="required">*</span></h5>
+        <div class="RangeSlider_Points">
+          <progressbar [value]="percentageComplete"></progressbar>
+          <div class="RangeSlider_Point-1 RangeSlider_tick step1" [ngClass]="{'active': selectedDifficulty === b.val}"
+            *ngFor="let b of difficulty; let index=index;"><span class="nps-text" (click)="selectDifficulty(b, index)">
+                <span class="icon {{b.class}}">
+                    <span class="path1"></span>
+                    </span>{{b.val}}</span></div>
+          <!-- <div class="RangeSlider_Point RangeSlider_tick step1" slider-value="0"><span>Extremely Easy</span></div>
+                                          <div class="RangeSlider_Point RangeSlider_tick step2" slider-value="100"><span>Easy</span></div>
+                                          <div class="RangeSlider_Point RangeSlider_tick step3" slider-value="200"><span>Neither Difficult<br>Nor Easy</span></div>
+                                          <div class="RangeSlider_Point RangeSlider_tick step4" slider-value="280"><span>Difficult</span></div>
+                      <div class="RangeSlider_Point RangeSlider_tick step5" slider-value="400"><span>Extremely Difficult</span></div> -->
+        </div><!-- /.RangeSlider_Points -->
+
+      </div>
+      <div class="form-group">
+        <h5>{{localeService.getLocalizedMessage('proposal.feedback.HOW_SATISFIED_WITH_STEPS')}} <span
+            class="required">*</span></h5>
+        <!-- <img src="images/smiley.png" alt="cisco" /> -->
+
+
+        <div class="">
+
+          <ul class="rating-number">
+            <li class="{{a.class}}" [ngClass]="{'active': selectedSatisfaction == a}" *ngFor="let a of satisfied"
+              (click)="selectValue(a)"><a href="javascript:void();"></a><span class="inner-text">{{a.val}}</span></li>
+          </ul>
+          <div class="clearfix"></div>
+          <div class="satisfactory-label">
+            <span class="float-left">{{localeService.getLocalizedString('proposal.feedback.HIGHLY_SATISFIED')}}</span>
+            <span class="float-right">{{localeService.getLocalizedString('proposal.feedback.HIGHLY_UNSATISFIED')}}</span>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <h5>{{localeService.getLocalizedString('common.COMMENTS')}}</h5>
+        <textarea appApptextArea class="form-control" style="width:100%; resize:vertical; max-height:200px"
+          placeholder="Please provide detailed feedback to help us focus on what matters most to you." [(ngModel)]="comments" (ngModelChange) = "commentUpdated()" ></textarea>
+        <div class="text-danger" role="alert" *ngIf="manadatoryComment && (!comments || comments.length ===0)" style="margin-top:5px">
+          <i class="icon-error-icon"></i>
+          <span>{{localeService.getLocalizedString('common.PROVIDE_COMMENT')}}</span>
+      </div>
+      </div>
+      <div class="form-group marginB0" style="margin-top:30px; width:93%;">
+        <h5>{{localeService.getLocalizedMessage('proposal.feedback.MAY_WE_CONTACT')}} </h5>
+        <input type="email" placeholder="Enter Email Address" [(ngModel)]='emailId' (blur)="emailValidation()" class="form-control"
+          style="width:40%;" [attr.disabled]='true'>
+
+        <div class="marginT15">
+          <label class="label-check">
+            <input class="form-check-input" type="checkbox" value="" #contactByEmail (click)="emailContact(contactByEmail)" id="QualificationCreate_DEAL_ID_CHECKBOX">
+            <span class="custom-checkbox-btn">
+              <span class="path1"></span>
+              <span class="path2"></span>
+          </span>
+            <span></span>
+            <span>{{localeService.getLocalizedMessage('proposal.feedback.CISCO_CAN_EMAIL')}}</span>
+          </label>
+        </div>
+        <p class="note marginT5"><em>{{localeService.getLocalizedMessage('proposal.feedback.YOUR_EMAIL_NOT_SHARED')}}</em></p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-footer" *ngIf="openForm">
+  <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="close()">{{localeService.getLocalizedString('common.CANCEL')}}</button>
+  <button type="button" class="btn btn-primary disabled" *ngIf="!selectedDifficulty || !selectedSatisfaction || (manadatoryComment && (!comments || comments.length === 0))">{{localeService.getLocalizedString('common.SUBMIT')}}</button>
+  <button type="button" class="btn btn-primary" *ngIf="selectedDifficulty && selectedSatisfaction && ((manadatoryComment && comments) || !manadatoryComment)" (click)="submit()">{{localeService.getLocalizedString('common.SUBMIT')}}</button>
+</div>
+</div>

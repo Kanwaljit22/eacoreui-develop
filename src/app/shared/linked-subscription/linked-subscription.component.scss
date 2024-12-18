@@ -1,0 +1,16 @@
+.linked-s {
+    width: 640px !important;
+    right: -14px;
+    left: auto;
+    top: calc(100% + 4px);
+}
+.ls-pointer {
+    cursor: pointer;
+}
+
+.mx-160 {
+    max-width: 160px !important;
+    .ellipsis {
+        line-height: 1;
+    }
+}

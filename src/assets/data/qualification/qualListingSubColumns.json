@@ -1,0 +1,86 @@
+[
+
+    {
+        "headerName": "PROPOSAL NAME",
+        "field": "proposalName",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 170,
+        "minWidth": 60,
+        "suppressMenu": true
+    },
+    {
+        "headerName": "",
+        "field": "actionIcon",
+        "suppressSorting": true,
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 40,
+        "minWidth": 30,
+        "cellClass": "action-drop",
+        "cellRenderer": "actionCellRenderer",
+        "suppressMenu": true
+    },
+    {
+        "headerName": "STATUS",
+        "field": "status",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 150,
+        "minWidth": 60,
+        "suppressMenu": true
+    },
+    {
+        "headerName": "TOTAL NET PRICE (USD)",
+        "field": "totalNetPrice",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 150,
+        "minWidth": 60,
+        "suppressMenu": true
+    },
+    {
+        "headerName": "TERM (MONTHS)",
+        "field": "term",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 150,
+        "minWidth": 60,
+        "suppressMenu": true
+    },
+    {
+        "headerName": "START DATE",
+        "field": "startDate",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 150,
+        "minWidth": 60,
+        "suppressMenu": true
+    },
+    {
+        "headerName": "BILLING MODEL",
+        "field": "billingModel",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 150,
+        "minWidth": 60,
+        "suppressMenu": true
+    },
+    {
+        "headerName": "TRANSACTING COUNTRY/REGION",
+        "field": "transactingCountry",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 150,
+        "minWidth": 60,
+        "suppressMenu": true
+    }
+]

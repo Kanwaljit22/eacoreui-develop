@@ -1,0 +1,80 @@
+<ng-container *ngIf="teamMembers?.length">
+        <tr>
+            <td>
+                <span class="expCol-wrap">
+                    <span class="i-vNext-tree-open" attr.action-id="{{dataIdConstantsService.displayTeam_icon_expand}}" *ngIf="!isExpand" (click)="expand()"></span>
+                    <span class="i-vNext-tree-close" attr.action-id="{{dataIdConstantsService.displayTeam_icon_collapse}}" *ngIf="isExpand" (click)="expand()"></span>
+                </span>{{header}} {{constantsService.TEAM}} <span *ngIf="partnerCompany">({{partnerCompany}})</span>
+            </td>
+            <td></td>
+            <td></td>
+            <td class="d-none"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <ng-container *ngIf="isExpand">
+            <tr *ngFor="let team of teamMembers; let index = index" class="table-sub-row">
+                <td attr.data-id="{{dataIdConstantsService.displayTeam_data_name}}{{team?.userId}}">{{team.firstName}} {{team.lastName}}</td>
+                <td attr.data-id="{{dataIdConstantsService.displayTeam_data_userId}}{{team?.userId}}"><span class="ellipsis" placement="top" container="body" ngbTooltip="{{team.userId}}">{{team.userId}}</span></td>
+                <td attr.data-id="{{dataIdConstantsService.displayTeam_data_email}}{{team?.userId}}"><span class="ellipsis" placement="top" container="body" ngbTooltip="{{team.email}}">{{team.email}}</span></td>
+                <td class="d-none">{{team.beGeoName ? team.beGeoName : '--'}}</td>
+                <!-- <td></td> -->
+                <!-- <td><label class="label-check" style="padding-right: 4px;">
+                    <input [checked]="team.notification" (change)="selectTeamCheckbox(team,'notification')"  [(ngModel)]="team.notification" class="form-check-input" type="checkbox">
+                    <span class="custom-checkbox-btn">
+                    <span class="path1"></span>
+                    <span class="path2"></span>
+                    </span>                                               
+                    <span></span>
+                    <span>Email</span>
+                </label></td> -->
+                <td class="text-center"><label  class="label-check" style="padding-right: 4px;">
+                    <input [disabled]="projectStoreService.lockProject || !projectStoreService.projectEditAccess || ((eaService.isDistiOpty || eaService.isResellerOpty || distiDetaiForCiscoDealPresent) && teamType === constantsService.PARTNER_TYPE) || disableWebexTeams" [checked]="team.webexNotification" attr.data-id="{{dataIdConstantsService.displayTeam_checkbox_webexNotification}}{{team.userId}}" (change)="selectTeamCheckbox(team,'webexNotification')" [(ngModel)]="team.webexNotification" class="form-check-input" type="checkbox">
+                    <span class="custom-checkbox-btn i-vNext-fonts">
+                    <span class="path1"></span>
+                    <span class="path2"></span>
+                    <span class="path3"></span>
+                    </span>                                               
+                    <span></span>
+                    <!-- <span>Webex Teams</span> -->
+                </label></td>
+                <td class="text-center"><label  class="label-check" style="padding-right: 4px;">
+                    <input [disabled]="projectStoreService.lockProject || !projectStoreService.projectEditAccess" [checked]="team.notifyByWelcomeKit" (change)="selectTeamCheckbox(team,'notifyByWelcomeKit')" [(ngModel)]="team.notifyByWelcomeKit" attr.data-id="{{dataIdConstantsService.displayTeam_checkbox_notifyByWelcomeKit}}{{team.userId}}" class="form-check-input" type="checkbox">
+                    <span class="custom-checkbox-btn i-vNext-fonts">
+                    <span class="path1"></span>
+                    <span class="path2"></span>
+                    <span class="path3"></span>
+                    </span>                                               
+                    <span></span>
+                    <!-- <span>Welcome Kit</span> -->
+                </label></td>
+
+<!-- 
+                <td><label  class="label-check" style="padding-right: 4px;">
+                    <span class="custom-checkbox-btn">
+                    <span class="path1"></span>
+                    <span class="path2"></span>
+                    </span>                                               
+                    <span></span>
+                    <span>Read-Write</span>
+                </label></td> -->
+
+                <td class="text-center">
+                    <!-- <label class="label-check" style="padding-right: 4px;"> <span class="custom-checkbox-btn">
+                    <span class="path1"></span>
+                    <span class="path2"></span>
+                    </span>                                               
+                    <span></span>
+                    <span>Delete</span></label> -->
+
+                    <a href="javascript:void(0);" [ngClass]='{"disabled": (teamMembers.length === 1 && projectService.isPartnerUserLoggedIn()) || projectStoreService.lockProject || !projectStoreService.projectEditAccess}' (click)="deleteTeamMember(team)" attr.action-id="{{dataIdConstantsService.displayTeam_link_deleteTeamMember}}{{team.userId}}">
+                                <span class="i-vNext-trash-bold" placement="top-left" container="body"></span>
+                    </a>
+                </td>
+<!-- 
+                <td></td>
+                <td></td> -->
+            </tr>
+        </ng-container>
+    </ng-container>

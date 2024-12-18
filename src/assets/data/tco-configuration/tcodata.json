@@ -1,0 +1,200 @@
+{
+    "data":
+    {
+      "objId":"123",
+      "name": "Test TCO",
+
+      "enrollmentsConfig" : [
+        {
+          "id" : 1,
+          "name" : "networking",
+          "displaySeq" : 2
+        },
+        {
+          "id" : 2,
+          "name" : "application",
+          "displaySeq" : 1
+        }
+      ],
+      "savingsInfo": {
+        "percent" : "100",
+        "amount" : "2",
+        "pricing" : {
+          "percent" : "99",
+          "amount" : "00"
+        },
+        "partnerMarkup" : {
+          "percent" : "99",
+          "amount" : "00"
+        },
+        "growthExpenses" : {
+          "percent" : "00",
+          "amount" : "00"
+        },
+        "inflation" : {
+          "percent" : "00",
+          "amount" : "00"
+        },
+    
+        "softwareEnrollments" : {
+          "percent" : "1",
+          "amount" : "1",
+          "enrollments" : [{
+            "id" : 1,
+            "name":"application",
+            "percent" : "1",
+            "amount" : "1"
+          },
+          {
+            "id" : 1,
+            "name":"networking",
+            "percent" : "1",
+            "amount" : "1"
+          }]
+        },
+        "servicesEnrollments" : {
+          "percent" : "01",
+          "amount" : "01",
+          "enrollments" : [{
+            "id" : 1,
+            "name":"networking",
+            "percent" : "01",
+            "amount" : "01"
+          },
+          {
+            "id" : 1,
+            "name":"application",
+            "percent" : "1",
+            "amount" : "1"
+          }]
+        }
+      },
+      "alc" : {
+            "partnerNetPrice" : "101",
+            "customerTCO" : "501",
+            "pricing" : {
+          "sw" : {
+            
+            "residualValue" : "11",
+            "eaBundleDiscount" : "12",
+            "discount" : "13"
+          },
+    
+          "cx" : {
+            "listPrice" : "14",
+            "residualValue" : "15",
+            "mydDiscount" : "16",
+            "discount" : "17"
+          }
+            },
+            "partnerMarkup" : [
+                {
+                    "enrollmentId" : 1,
+                    "swPercent" : "11",
+                    "cxPercent" : "77"
+            
+                }
+            ],
+            "growthExpenses" : [
+                {
+                    "enrollmentId" : 1,
+                    "name":"networking",
+                    "swPercent" : "",
+                    "swCxPercent" : "",
+                    "hwCxPercent" : ""
+                },
+                {
+                    "enrollmentId" : 2,
+            "swPercent" : "",
+                    "swCxPercent" : "",
+                    "hwCxPercent" : ""
+                }
+            ],
+        "inflation" : {
+                "swPercent" : "4",
+                "swCxPercent" : "5",
+                "hwCxPercent" : "6"
+            },
+            "additionalCosts" : [
+                {
+                    "name" : "Operational Inefficiencies",
+                    "id":123,
+                    "swPercent" : "9",
+                    "cxPercent" : "9"
+                },
+                {
+                  "name" : "Operational Inefficiencies 3",
+                  "id":101,
+                  "swPercent" : "9",
+                  "cxPercent" : "9"
+              }
+            ]
+        },
+      "ea" : {
+        "partnerNetPrice" : "1100",
+            "customerTCO" : "5100",
+            "pricing" : {
+          "sw" : {
+            "listPrice" : "21",
+            "residualValue" : "22",
+            "eaBundleDiscount" : "23",
+            "discount" : "24",
+            "rampDiscount" : "25"
+          },
+    
+          "cx" : {
+            "listPrice" : "26",
+            "residualValue" : "27",
+            "mydDiscount" : "28",
+            "discount" : "29"
+          }
+            },
+        "partnerMarkup" : [
+                {
+                    "enrollmentId" : 1,
+            "name":"networking",
+                    "swPercent" : "33",
+                    "cxPercent" : "77"
+                }
+            ],
+        "growthExpenses" : [
+                {
+                    "enrollmentId" : 1,
+                    "name":"networking",
+                    "swPercent" : "1",
+                    "swCxPercent" : "1",
+                    "hwCxPercent" : "1"
+                },
+                {
+                    "enrollmentId" : 2,
+                    "name":"application",
+                    "swPercent" : "2",
+                    "swCxPercent" : "2",
+                    "hwCxPercent" : "2"
+                }
+            ],
+        "inflation" : {
+                "swPercent" : "1",
+                "swCxPercent" : "2",
+                "hwCxPercent" : "3"
+            },
+        "additionalCosts" : [
+          
+          {
+            "name" : "Operational Inefficiencies 1",
+            "id": 213,
+            "swPercent" : "44",
+            "cxPercent" : "44"
+          },
+          {
+            "name" : "Operational Inefficiencies 3",
+            "id":101,
+            "swPercent" : "9",
+            "cxPercent" : "9"
+        }
+        ]
+      }
+    }
+    
+}
+

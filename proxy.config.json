@@ -1,0 +1,20 @@
+{
+    "/api/*": {
+        "target":  "https://eacore-cstg.cisco.com",
+        "secure": false,
+        "logLevel": "debug",
+        "changeOrigin": true
+    },
+    "/ngapi/*": {
+        "target":  "https://eainterface1-ui-cstg.cisco.com",
+        "secure": false,
+        "logLevel": "debug",
+        "changeOrigin": true
+    },
+    "/vuingapi/*": {
+        "target":  "https://eainterface-vui-cstg.cisco.com",
+        "secure": false,
+        "logLevel": "debug",
+        "changeOrigin": true
+    }
+}

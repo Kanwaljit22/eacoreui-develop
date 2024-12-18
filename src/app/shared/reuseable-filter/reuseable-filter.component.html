@@ -1,0 +1,240 @@
+<div id="sidebar-container" [ngClass]="{'active':reuseableFilterService.filterOpen}">
+    <div class="sidebar-header">
+        <ul class="filter-tabs">
+            <li>
+                <a href="javascript:void(0)">Filters</a>
+                <button aria-label="Close" class="icon-close-btn filter-close" type="button"
+                    (click)="reuseableFilterService.activateFilter()"></button>
+            </li>
+        </ul>
+    </div>
+    <div class="sidebar-opt-content">
+        <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
+            <ngb-panel *ngFor="let c of filterData; let i = index;" id="ngb-panel-{{c.name}}">
+                <ng-template ngbPanelTitle>
+                    <div class="card-header filter" *ngIf='c.filters || c.customfilters || c.inputType === "date"'>
+                        <p>{{c.displayName}}</p>
+                        <span style="float: right; margin-right:10px;">
+                        </span>
+                    </div>
+                </ng-template>
+
+                <ng-template ngbPanelContent>
+                    <div class="card-block">
+                        <div class="cover">
+
+                            <div *ngIf='c.inputType === "radio"'>
+                                <div *ngIf='c.filters'>
+                                    <div *ngFor="let item of c.filters; let j = index;" class="mt-1 radio-custom">
+                                        <!-- <div *ngIf='c.inputType === "radio"'> -->
+                                        <ng-container *ngIf='item.name !== "Custom"'>
+                                            <input #radioFilter name="{{c.name}}" [checked]="item.selected" type="radio"
+                                                value="{{item.name}}"
+                                                (change)="updateFilters(c,item,radioFilter.checked)">
+                                            <label>
+                                                <span class='custom-radio-btn'>
+                                                    <span class="path1"></span>
+                                                    <span class="path2"></span>
+                                                </span>
+                                                <span>
+                                                    <span></span>
+                                                </span>{{item.name}} </label>
+                                        </ng-container>
+                                    </div>
+                                </div>
+
+                                <div *ngIf='c.customFilters'>
+                                    <div *ngFor="let item of c.customFilters; let j = index;" class="mt-1 radio-custom">
+                                        <ng-container *ngIf='item.name !== "Custom"'>
+                                            <input name="{{c.name}}" type="radio" #radioCustomFilter
+                                                [checked]="item.selected" value="{{item.name}}"
+                                                (change)="updateFilters(c,item,radioCustomFilter.checked)">
+                                            <label>
+                                                <span class='custom-radio-btn'>
+                                                    <span class="path1"></span>
+                                                    <span class="path2"></span>
+                                                </span>
+                                                <span>
+                                                    <span></span>
+                                                </span> {{item.name}} </label>
+                                        </ng-container>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div *ngIf='c.inputType === "checkbox"'>
+
+                                <div *ngIf='c.filters'>
+                                    <div *ngFor="let item of c.filters; let j = index;" class="mt-1">
+                                        <!-- <div *ngIf='c.inputType === "radio"'> -->
+                                        <label class="label-check">
+                                            <input class="form-check-input" name="{{c.name}}" type="checkbox"
+                                                #checkboxFilter [checked]="item.selected" value="{{item.name}}"
+                                                (change)="updateFilters(c,item,checkboxFilter.checked)"><span></span><span>{{item.name}}</span>
+                                            <span class="custom-checkbox-btn">
+                                                <span class="path1"></span>
+                                                <span class="path2"></span>
+                                            </span>
+                                        </label>
+
+                                    </div>
+                                </div>
+
+                                <div *ngIf='c.customFilters'>
+                                    <div *ngFor="let item of c.customFilters; let j = index;" class="mt-1">
+                                        <label class="label-check">
+                                            <input class="form-check-input" name="{{c.name}}" type="checkbox"
+                                                #checkboxCustomFilter [checked]="item.selected" value="{{item.name}}"
+                                                (change)="updateFilters(c,item,checkboxCustomFilter.checked)"><span></span><span>{{item.name}}</span>
+                                            <span class="custom-checkbox-btn">
+                                                <span class="path1"></span>
+                                                <span class="path2"></span>
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div *ngIf='c.inputType === "date"' (click)="updatedByUser()">
+                                <div>
+                                    <ng-container>
+                                        <div class="custom-date">
+                                            <span>Start Date</span>
+                                            <input appElementFocus readonly="true" type="text" class="form-control"
+                                                #dpFull="bsDatepicker" [(ngModel)]="filterStartDate"
+                                                [minDate]="customMinDate" bsDatepicker
+                                                (bsValueChange)="customeFilterDate($event, 'start',c,{},'')"
+                                                [maxDate]="customMaxDate"
+                                                [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY', showWeekNumbers: false }">
+                                            <span>End Date</span>
+                                            <input appElementFocus readonly="true" type="text" class="form-control"
+                                                #dpFull="bsDatepicker" [(ngModel)]="filterEndDate"
+                                                [minDate]="customMinDate" bsDatepicker placement="right"
+                                                (bsValueChange)="customeFilterDate($event, 'end',c,{},'')"
+                                                [maxDate]="customMaxDate"
+                                                [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY', showWeekNumbers: false }">
+                                            <div *ngIf="showDateErrorMsg">
+                                                <div class="mb-2 alert alert--danger alert-dismissable">
+                                                    <span class="alert-icon">
+                                                        <span class="icon-alert-error"></span>
+                                                    </span>
+                                                    <span>start Date should be less then End Date</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </ng-template>
+            </ngb-panel>
+        </ngb-accordion>
+    </div>
+    <div class="fixed-bottom shadow float-right">
+        <button class="clear-filter btn btn-secondary mr-3" (click)="clearFilters();" [disabled]="reuseableFilterService.appliedFilterCount === 0 && !enableClearAll" [ngClass]="{'disabled':reuseableFilterService.appliedFilterCount === 0 && !enableClearAll}">
+            {{localeService.getLocalizedString('filters.CLEAR_ALL')}}
+        </button>
+         <button class="filled-btn btn btn-primary"  (click)="applyFilters();" [disabled]='reuseableFilterService.appliedFilterCount === 0 || showDateErrorMsg' [ngClass]="{'disabled':reuseableFilterService.appliedFilterCount === 0 || showDateErrorMsg}">
+            {{localeService.getLocalizedString('common.APPLY')}} ({{reuseableFilterService.appliedFilterCount}})
+        </button> 
+    </div>
+</div>
+<!-- <div class="sidebar-opt-content">
+    <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
+        <ngb-panel>
+          <ng-template ngbPanelTitle>
+            <div class="card-header filter" >
+                <p>Eligibility</p>
+                 <span style="float: right; margin-right:10px;"></span>
+            </div>
+        </ng-template>
+        <ng-template ngbPanelContent>
+            <div class="card-block">                        
+                <div class="cover">
+                    <div class="mt-1">
+                    <label class="label-check">
+                        <input class="form-check-input" name="" type="checkbox" ><span></span><span>All</span>
+                        <span class="custom-checkbox-btn">
+                        <span class="path1"></span>
+                        <span class="path2"></span>
+                        </span>
+                    </label>
+                                        
+                       </div>
+                       <div class="mt-1">
+                        <label class="label-check">
+                            <input class="form-check-input" name="" type="checkbox" ><span></span><span>Eligible</span>
+                            <span class="custom-checkbox-btn">
+                            <span class="path1"></span>
+                            <span class="path2"></span>
+                            </span>
+                        </label>
+                                            
+                           </div>
+                           <div class="mt-1">
+                            <label class="label-check">
+                                <input class="form-check-input" name="" type="checkbox" ><span></span><span>Ineligible</span>
+                                <span class="custom-checkbox-btn">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                                </span>
+                            </label>
+                                                
+                               </div>
+                </div>
+            </div>
+        </ng-template>
+        </ngb-panel>
+        <ngb-panel>
+            <ng-template ngbPanelTitle>
+              <div class="card-header filter" >
+                  <p>Eligibility</p>
+                   <span style="float: right; margin-right:10px;"></span>
+              </div>
+          </ng-template>
+          <ng-template ngbPanelContent>
+              <div class="card-block">                        
+                  <div class="cover">
+                    <div class="mt-1 radio-custom">
+                            <ng-container>
+                                <input name="" type="radio" value="" />
+                                <label>
+                                    <span class='custom-radio-btn'>
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                    </span>
+                                    Radio </label>
+                                </ng-container>        
+                       </div>
+                       <div class="mt-1 radio-custom">
+                        <ng-container>
+                            <input name="" type="radio" value="" />
+                            <label>
+                                <span class='custom-radio-btn'>
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                </span>
+                                Radio1 </label>
+                            </ng-container>        
+                   </div>
+                   <div class="mt-1 radio-custom">
+                    <ng-container>
+                        <input name="" type="radio" value="" />
+                        <label>
+                            <span class='custom-radio-btn'>
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                            </span>
+                            Radio 3 </label>
+                        </ng-container>        
+               </div>
+                         
+                  </div>
+              </div>
+          </ng-template>
+          </ngb-panel>
+        </ngb-accordion>
+</div>   -->

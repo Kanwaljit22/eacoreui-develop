@@ -1,0 +1,276 @@
+<div class="financial-summary-block" [ngClass]="{'open':(priceEstimateService.showFinancialSummary || proposalSummaryService.showFinancialSummary || proposalDataService.showFinancialSummary)}">
+  <div class="financial-heading">
+      <h1 *ngIf="appDataService.archName !== 'CX'">{{localeService.getLocalizedString('price.est.financial.EA_FINANCIAL_SUMMARY')}}</h1>
+      <h1 *ngIf="appDataService.archName === 'CX'">{{localeService.getLocalizedString('price.est.financial.EA_SERVICES_FINANCIAL_SUMMARY')}}</h1>
+      <h4>{{localeService.getLocalizedString('price.est.ALL_PRICES')}} {{constantsService.CURRENCY}}</h4>
+      <i class="icon-close-btn" (click)="closeSummary()"></i>
+  </div>
+  <div class="financial-info">
+      <table class="financial-grid" *ngIf="appDataService.archName !== constantsService.SECURITY && appDataService.archName !== 'CX'">
+          <thead>
+              <tr>
+                  <th width="30%"  class="text-left">{{localeService.getLocalizedString('price.est.financial.SUITE')}}</th>
+                  <th width="17.5%" class="text-right">{{localeService.getLocalizedString('price.est.financial.TOTAL_NET_PRICE')}}</th>
+                  <th width="17.5%" class="text-right">{{localeService.getLocalizedString('price.est.financial.NET_SOFTWARE_AMT')}}</th>
+                  <th width="17.5%" class="text-right">{{localeService.getLocalizedString('price.est.financial.NET_SERVICE_AMT')}}</th>
+                  <th width="17.5%" class="text-right">{{localeService.getLocalizedString('price.est.financial.RAMP_PA')}}</th> 
+              </tr>
+          </thead>
+          <tbody *ngFor="let financialSummary of financialSummaryData">
+              <tr class="financial-summary-list border-top" *ngIf= "priceEstimateService.showFinancialSummary">
+                  <td class="text-left">{{financialSummary.name}}</td>
+                  <td class="text-right"><strong>{{(financialSummary.postPurchaseAdjustmentNetTotalAmount === 0) ? "0.00" : this.utilitiesService.formatValue(this.utilitiesService.getFloatValue(financialSummary.postPurchaseAdjustmentNetTotalAmount))}}</strong></td>
+                  <td class="text-right">{{(financialSummary.postPurchaseAdjustmentNetSoftwarePrice === 0) ? "0.00" : this.utilitiesService.formatValue(this.utilitiesService.getFloatValue(financialSummary.postPurchaseAdjustmentNetSoftwarePrice))}}</td>
+                  <td class="text-right">{{(financialSummary.postPurchaseAdjustmentNetServicePrice === 0) ? "0.00" : this.utilitiesService.formatValue(this.utilitiesService.getFloatValue(financialSummary.postPurchaseAdjustmentNetServicePrice))}}</td>
+                  <td class="text-right">-</td>
+              </tr>
+              <tr class="financial-purchase-list" *ngIf= "priceEstimateService.showFinancialSummary">
+                  <td class="text-left">{{localeService.getLocalizedString('price.est.financial.PURCHASE_ADJUSTMENT')}}</td>
+                  <td class="text-right">{{(financialSummary.purchaseAdjustmentNetTotalAmount === 0) ? "0.00" : this.utilitiesService.formatValue(this.utilitiesService.getFloatValue(financialSummary.purchaseAdjustmentNetTotalAmount))}}</td>
+                  <td class="text-right">{{(financialSummary.purchaseAdjustmentNetSoftwarePrice === 0) ? "0.00" : this.utilitiesService.formatValue(this.utilitiesService.getFloatValue(financialSummary.purchaseAdjustmentNetSoftwarePrice))}}</td>
+                  <td class="text-right">{{(financialSummary.purchaseAdjustmentNetServicePrice === 0) ? "0.00" : this.utilitiesService.formatValue(this.utilitiesService.getFloatValue(financialSummary.purchaseAdjustmentNetServicePrice))}}</td>
+                  <td class="text-right">{{(financialSummary.rampPurchaseAdjustment === 0) ? "0.00" : this.utilitiesService.formatValue(this.utilitiesService.getFloatValue(financialSummary.rampPurchaseAdjustment))}}</td>
+              </tr>
+              <tr class="financial-summary-list border-top" *ngIf="proposalSummaryService.showFinancialSummary || proposalDataService.showFinancialSummary">
+                    <td class="text-left">{{financialSummary.name}}</td>
+                    <td class="text-right"><strong>{{(financialSummary.postPurchaseAdjustmentNetTotalPrice === 0) ? "0.00" : (financialSummary.postPurchaseAdjustmentNetTotalPrice)}}</strong></td>
+                    <td class="text-right">{{(financialSummary.postPurchaseAdjustmentNetSoftwarePrice === 0) ? "0.00" : (financialSummary.postPurchaseAdjustmentNetSoftwarePrice)}}</td>
+                    <td class="text-right">{{(financialSummary.postPurchaseAdjustmentNetServicePrice === 0) ? "0.00" : (financialSummary.postPurchaseAdjustmentNetServicePrice)}}</td>
+                    <td class="text-right">-</td>
+                </tr>
+                <tr class="financial-purchase-list" *ngIf="proposalSummaryService.showFinancialSummary || proposalDataService.showFinancialSummary">
+                    <td class="text-left">{{localeService.getLocalizedString('price.est.financial.PURCHASE_ADJUSTMENT')}}</td>
+                    <td class="text-right">{{(financialSummary.purchaseAdjustmentNetTotalAmount === 0) ? "0.00" : (financialSummary.purchaseAdjustmentNetTotalAmount)}}</td>
+                    <td class="text-right">{{(financialSummary.purchaseAdjustmentNetSoftwarePrice === 0) ? "0.00" : (financialSummary.purchaseAdjustmentNetSoftwarePrice)}}</td>
+                    <td class="text-right">{{(financialSummary.purchaseAdjustmentNetServicePrice === 0) ? "0.00" : (financialSummary.purchaseAdjustmentNetServicePrice)}}</td>
+                    <td class="text-right">{{(financialSummary.rampPurchaseAdjustment === 0) ? "0.00" : (financialSummary.rampPurchaseAdjustment)}}</td>
+                </tr>
+          </tbody>
+      </table>
+
+      <!--  Services (CX) architecture -->
+      <table class="financial-grid" *ngIf="appDataService.archName === 'CX'">
+        <thead>
+            <tr>
+                <th width="30%"  class="text-left">{{localeService.getLocalizedString('price.est.financial.SUITE')}}</th>
+                <th width="17.5%" class="text-right">{{localeService.getLocalizedString('price.est.financial.TOTAL_NET_PRICE')}}</th>
+                <th width="17.5%" class="text-right">{{localeService.getLocalizedString('price.est.financial.NET_HW_SUPPORT_AMOUNT')}}</th>
+                <th width="17.5%" class="text-right">{{localeService.getLocalizedString('price.est.financial.NET_SW_SUPPORT_AMOUNT')}}</th> 
+            </tr>
+        </thead>
+        <tbody *ngFor="let financialSummary of financialSummaryData">
+            <tr class="financial-summary-list border-top" *ngIf= "priceEstimateService.showFinancialSummary || proposalSummaryService.showFinancialSummary || proposalDataService.showFinancialSummary">
+                <td class="text-left">{{financialSummary.name}}</td>
+                <td class="text-right"><strong>{{(financialSummary.netTotalServiceAmount == 0 || financialSummary.netTotalServiceAmount == '0.00') ? '-' : financialSummary.netTotalServiceAmount}}</strong></td>
+                <td class="text-right">{{(financialSummary.hwServiceAmount == 0 || financialSummary.hwServiceAmount == '0.00') ? '-' : financialSummary.hwServiceAmount}}</td>
+                <td class="text-right">{{(financialSummary.swServiceAmount == 0 || financialSummary.swServiceAmount == '0.00') ? '-' : financialSummary.swServiceAmount}}</td>
+            </tr>
+            <tr class="financial-purchase-list" *ngIf= "priceEstimateService.showFinancialSummary ||proposalSummaryService.showFinancialSummary || proposalDataService.showFinancialSummary">
+                <td class="text-left">{{localeService.getLocalizedString('price.est.financial.PURCHASE_ADJUSTMENT')}}</td>
+                <td class="text-right">{{(financialSummary.totalPA == 0 || financialSummary.totalPA == '0.00') ? '-' : financialSummary.totalPA}}</td>
+                <td class="text-right">{{(financialSummary.hwSolutionPA == 0 || financialSummary.hwSolutionPA == '0.00') ? '-' : financialSummary.hwSolutionPA}}</td>
+                <td class="text-right">{{(financialSummary.swSolutionPA == 0 || financialSummary.swSolutionPA == '0.00') ? '-' : financialSummary.swSolutionPA}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!--  Services (CX) architecture -->
+     <!-- for security architecture -->
+
+    <table class="financial-grid" *ngIf="appDataService.archName === constantsService.SECURITY">
+        <thead>
+            <tr>
+                
+                <th width="25%" class="text-left">{{localeService.getLocalizedString('price.est.financial.SUITE')}}</th>
+
+                <th width="25%" class="text-right">
+                    {{localeService.getLocalizedString('price.est.financial.NET_TOTAL_AMT_PRE_ADJUSTMENT')}}
+                </th>
+
+                    <th width="20%" class="text-right">{{localeService.getLocalizedString('price.est.financial.PURCHASE_ADJUSTMENT')}}</th>
+
+             
+                <th width="30%" class="text-right">{{localeService.getLocalizedString('price.est.financial.NET_TOTAL_AMT_POST_ADJUSTMENT')}}
+                </th>
+                
+            </tr>
+        </thead>
+        <tbody *ngFor="let financialSummary of financialSummaryData">
+            <tr class="financial-summary-list border-top" *ngIf= "priceEstimateService.showFinancialSummary">
+                <td class="text-left">{{financialSummary.name}}</td>
+
+                <td class="text-right">
+                    <strong>{{(financialSummary.netTcvBeforeAdjustment === 0) ? "0.00" : this.utilitiesService.formatValue(this.utilitiesService.getFloatValue(financialSummary.netTcvBeforeAdjustment))}}</strong>
+                </td>
+
+                <td class="text-right">
+                    <strong>{{(financialSummary.purchaseAdjustment === 0) ? "0.00" : this.utilitiesService.formatValue(this.utilitiesService.getFloatValue(financialSummary.totalPurchaseAdjustment))}}</strong>
+                </td>
+               
+                <td class="text-right">
+                    <strong>{{(financialSummary.netTcvPostAdjustment === 0) ? "0.00" : this.utilitiesService.formatValue(this.utilitiesService.getFloatValue(financialSummary.netTcvPostAdjustment))}}</strong>
+                </td>
+               
+            </tr>
+            <tr class="financial-summary-list border-top" *ngIf="proposalSummaryService.showFinancialSummary || proposalDataService.showFinancialSummary">
+                    <td class="text-left">{{financialSummary.name}}</td>
+
+                    <td class="text-right">
+                        <strong>{{(financialSummary.netTcvBeforeAdjustment === 0) ? "0.00" : (financialSummary.netTcvBeforeAdjustment)}}</strong>
+                    </td>
+
+                    <td class="text-right">
+                        <strong>{{(financialSummary.purchaseAdjustment === 0) ? "0.00" : (financialSummary.purchaseAdjustment)}}</strong>
+                    </td>
+
+                    <td class="text-right">
+                        <strong>{{(financialSummary.postPurchaseAdjustmentNetTotalPrice === 0) ? "0.00" : (financialSummary.postPurchaseAdjustmentNetTotalPrice)}}</strong>
+                    </td>
+
+                </tr>
+            </tbody>
+    </table>
+
+  </div>
+
+
+  <div class="financial-footer">
+            <!-- for security architecture -->
+
+      <table class="financial-grid" *ngIf="appDataService.archName === constantsService.SECURITY">
+          <tbody>
+              <tr class="financial-summary-list" *ngIf= "priceEstimateService.showFinancialSummary">
+                  <td width="25%" class="text-left"><strong>{{localeService.getLocalizedString('qualproposallist.TOTAL_NET_PRICE')}}</strong></td>
+
+                <td width="25%" class="text-right">
+                    <strong>{{(financialSummaryTotalData.netTcvBeforeAdjustment === 0) ? "0.00" :  this.utilitiesService.formatValue(this.utilitiesService.getFloatValue(financialSummaryTotalData.netTcvBeforeAdjustment))}}</strong>
+                </td>
+
+                <td width="20%" class="text-right">
+                <strong> {{(financialSummaryTotalData.purchaseAdjustment === 0) ? "0.00" : this.utilitiesService.formatValue(this.utilitiesService.getFloatValue(financialSummaryTotalData.purchaseAdjustment))}}</strong>
+                </td>
+                
+                  <td width="30%" class="text-right"><strong>{{(financialSummaryTotalData.netTcvPostAdjustment === 0) ? "0.00" :  this.utilitiesService.formatValue(this.utilitiesService.getFloatValue(financialSummaryTotalData.netTcvPostAdjustment))}}</strong></td>
+                   
+
+              </tr>
+              <tr class="financial-summary-list" *ngIf="proposalSummaryService.showFinancialSummary || proposalDataService.showFinancialSummary">
+                <td width="25%" class="text-left">
+                    <strong>{{localeService.getLocalizedString('qualproposallist.TOTAL_NET_PRICE')}}</strong></td>
+            
+                <td width="25%" class="text-right">
+                    <strong>{{(financialSummaryTotalData.netTcvBeforeAdjustment === 0) ? "0.00" : (financialSummaryTotalData.netTcvBeforeAdjustment)}}</strong>
+                </td>
+            
+                <td width="20%" class="text-right">
+                    <strong>
+                        {{(financialSummaryTotalData.purchaseAdjustment === 0) ? "0.00" : (financialSummaryTotalData.purchaseAdjustment)}}</strong>
+                </td>
+            
+                <td width="30%" class="text-right">
+                    <strong>{{(financialSummaryTotalData.postPurchaseAdjustmentNetTotalPrice === 0) ? "0.00" : (financialSummaryTotalData.postPurchaseAdjustmentNetTotalPrice)}}</strong>
+                </td>
+              </tr> 
+          </tbody>
+      </table>
+
+    <table class="financial-grid" *ngIf="appDataService.archName !== constantsService.SECURITY && appDataService.archName !== 'CX'">
+        <tbody *ngIf= "priceEstimateService.showFinancialSummary">
+            <tr class="financial-summary-list">
+                <td width="30%" class="text-left">
+                    <strong>{{localeService.getLocalizedString('qualproposallist.TOTAL_NET_PRICE')}}</strong></td>
+                <td width="17.5%" class="text-right">
+                    <strong>{{(financialSummaryTotalData.postPurchaseAdjustmentNetTotalAmount === 0) ? "0.00" :  this.utilitiesService.formatValue(this.utilitiesService.getFloatValue(financialSummaryTotalData.postPurchaseAdjustmentNetTotalAmount))}}</strong>
+                </td>
+                <td width="17.5%" class="text-right">
+                    {{(financialSummaryTotalData.postPurchaseAdjustmentNetSoftwarePrice === 0) ? "0.00" :  this.utilitiesService.formatValue(this.utilitiesService.getFloatValue(financialSummaryTotalData.postPurchaseAdjustmentNetSoftwarePrice))}}
+                </td>
+                <td width="17.5%" class="text-right">
+                    {{(financialSummaryTotalData.postPurchaseAdjustmentNetServicePrice === 0) ? "0.00" :  this.utilitiesService.formatValue(this.utilitiesService.getFloatValue(financialSummaryTotalData.postPurchaseAdjustmentNetServicePrice))}}
+                </td>
+                <td width="17.5%" class="text-right">-</td>
+            </tr>
+            <tr class="financial-purchase-list">
+                <td width="30%" class="text-left">
+                    {{localeService.getLocalizedString('price.est.financial.PURCHASE_ADJUSTMENT')}}</td>
+                <td width="17.5%" class="text-right">
+                    {{(financialSummaryTotalData.purchaseAdjustmentNetTotalAmount === 0) ? "0.00" : this.utilitiesService.formatValue(this.utilitiesService.getFloatValue(financialSummaryTotalData.purchaseAdjustmentNetTotalAmount))}}
+                </td>
+                <td width="17.5%" class="text-right">
+                    {{(financialSummaryTotalData.purchaseAdjustmentNetSoftwarePrice === 0) ? "0.00" : this.utilitiesService.formatValue(this.utilitiesService.getFloatValue(financialSummaryTotalData.purchaseAdjustmentNetSoftwarePrice))}}
+                </td>
+                <td width="17.5%" class="text-right">
+                    {{(financialSummaryTotalData.purchaseAdjustmentNetServicePrice === 0) ? "0.00" : this.utilitiesService.formatValue(this.utilitiesService.getFloatValue(financialSummaryTotalData.purchaseAdjustmentNetServicePrice))}}
+                </td>
+                <td width="17.5%" class="text-right">
+                    {{(financialSummaryTotalData.rampPurchaseAdjustment === 0) ? "0.00" :  this.utilitiesService.formatValue(this.utilitiesService.getFloatValue(financialSummaryTotalData.rampPurchaseAdjustment))}}
+                </td>
+            </tr>
+        </tbody>
+        <tbody *ngIf="proposalSummaryService.showFinancialSummary || proposalDataService.showFinancialSummary">
+            <tr class="financial-summary-list">
+                <td width="30%" class="text-left">
+                    <strong>{{localeService.getLocalizedString('qualproposallist.TOTAL_NET_PRICE')}}</strong></td>
+                <td width="17.5%" class="text-right">
+                    <strong>{{(financialSummaryTotalData.postPurchaseAdjustmentNetTotalPrice === 0) ? "0.00" : (financialSummaryTotalData.postPurchaseAdjustmentNetTotalPrice)}}</strong>
+                </td>
+                <td width="17.5%" class="text-right">
+                    {{(financialSummaryTotalData.postPurchaseAdjustmentNetSoftwarePrice === 0) ? "0.00" : (financialSummaryTotalData.postPurchaseAdjustmentNetSoftwarePrice)}}
+                </td>
+                <td width="17.5%" class="text-right">
+                    {{(financialSummaryTotalData.postPurchaseAdjustmentNetServicePrice === 0) ? "0.00" : (financialSummaryTotalData.postPurchaseAdjustmentNetServicePrice)}}
+                </td>
+                <td width="17.5%" class="text-right">-</td>
+            </tr>
+            <tr class="financial-purchase-list">
+                <td width="30%" class="text-left">
+                    {{localeService.getLocalizedString('price.est.financial.PURCHASE_ADJUSTMENT')}}</td>
+                <td width="17.5%" class="text-right">
+                    {{(financialSummaryTotalData.purchaseAdjustmentNetTotalAmount === 0) ? "0.00" : (financialSummaryTotalData.purchaseAdjustmentNetTotalAmount)}}
+                </td>
+                <td width="17.5%" class="text-right">
+                    {{(financialSummaryTotalData.purchaseAdjustmentNetSoftwarePrice === 0) ? "0.00" : (financialSummaryTotalData.purchaseAdjustmentNetSoftwarePrice)}}
+                </td>
+                <td width="17.5%" class="text-right">
+                    {{(financialSummaryTotalData.purchaseAdjustmentNetServicePrice === 0) ? "0.00" : (financialSummaryTotalData.purchaseAdjustmentNetServicePrice)}}
+                </td>
+                <td width="17.5%" class="text-right">
+                    {{(financialSummaryTotalData.rampPurchaseAdjustment === 0) ? "0.00" :  (financialSummaryTotalData.rampPurchaseAdjustment)}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table class="financial-grid" *ngIf="appDataService.archName === 'CX'">
+        <tbody *ngIf= "priceEstimateService.showFinancialSummary || proposalSummaryService.showFinancialSummary || proposalDataService.showFinancialSummary">
+            <tr class="financial-summary-list">
+                <td width="30%" class="text-left">
+                    <strong>{{localeService.getLocalizedString('price.est.financial.EA_SERVICES_TOTAL_VALUE')}}</strong></td>
+                <td width="17.5%" class="text-right">
+                    <strong>{{(financialSummaryTotalData.netTotalServiceAmount == 0 || financialSummaryTotalData.netTotalServiceAmount == '0.00') ? '-' : financialSummaryTotalData.netTotalServiceAmount}}</strong>
+                </td>
+                <td width="17.5%" class="text-right">
+                    {{(financialSummaryTotalData.hwServiceAmount == 0 || financialSummaryTotalData.hwServiceAmount == '0.00') ? '-' : financialSummaryTotalData.hwServiceAmount}}
+                </td>
+                <td width="17.5%" class="text-right">
+                    {{(financialSummaryTotalData.swServiceAmount == 0 || financialSummaryTotalData.swServiceAmount == '0.00') ? '-' : financialSummaryTotalData.swServiceAmount}}
+                </td>
+            </tr>
+            <tr class="financial-purchase-list">
+                <td width="30%" class="text-left">
+                    {{localeService.getLocalizedString('price.est.financial.PURCHASE_ADJUSTMENT')}}</td>
+                <td width="17.5%" class="text-right">
+                    {{(financialSummaryTotalData.totalPA == 0 || financialSummaryTotalData.totalPA == '0.00') ? '-' : financialSummaryTotalData.totalPA}}
+                </td>
+                <td width="17.5%" class="text-right">
+                    {{(financialSummaryTotalData.hwSolutionPA == 0 || financialSummaryTotalData.hwSolutionPA == '0.00') ? '-' : financialSummaryTotalData.hwSolutionPA}}
+                </td>
+                <td width="17.5%" class="text-right">
+                    {{(financialSummaryTotalData.swSolutionPA == 0 || financialSummaryTotalData.swSolutionPA == '0.00') ? '-' : financialSummaryTotalData.swSolutionPA}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+  </div>
+</div>

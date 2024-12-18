@@ -1,0 +1,97 @@
+<!-- Below div for display error messages-->
+<div class="clearfix"></div>
+<div *ngIf='!displayModalMsg'>
+<div *ngIf="messageService.messagesObj.errors?.length > 0">
+    <div *ngFor="let message of messageService.messagesObj.errors" class="alert alert--danger alert-dismissable mt-2">
+        <span class="alert-icon">
+            <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+        </span>
+        <span [innerHTML]="message.text | vnextStringToHtml"></span>
+        <!-- <a class="close" style="cursor: pointer;" (click)="removeAlert(message)">&times;</a> -->
+    </div>
+</div>
+
+
+<!-- Below div for display warning  messages-->
+<div *ngIf="messageService.messagesObj.warns.length > 0">
+    <div *ngFor="let message of messageService.messagesObj.warns" class="alert alert--warning alert-dismissable">
+
+        <span class="alert-icon">
+            <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+        </span>
+        <span>{{message.text}}</span>
+        <!-- <a class="close" style="cursor: pointer;" (click)="removeAlert(message)">&times;</a> -->
+    </div>
+</div>
+
+
+<!-- Below div for display info messages-->
+<div *ngIf="messageService.messagesObj.infos.length > 0">
+    <div *ngFor="let message of messageService.messagesObj.infos" class="alert alert--info alert-dismissable">
+        <span class="alert-icon">
+            <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+        </span>
+        <span>{{message.text}}</span>
+        <!-- <a class="close" style="cursor: pointer;" (click)="removeAlert(message)">&times;</a> -->
+    </div>
+</div>
+
+<!-- Below div for display success messages-->
+<div *ngIf="messageService.messagesObj.success.length > 0">
+    <div *ngFor="let message of messageService.messagesObj.success" class="alert alert--success alert-dismissable">
+        <span class="alert-icon">
+            <span class="icon-done1"><span class="path1"></span><span class="path2"></span></span>
+        </span>
+        <span>{{message.text}}</span>
+        <!-- <a class="close" style="cursor: pointer;" (click)="removeAlert(message)">&times;</a> -->
+    </div>
+</div>
+</div>
+
+<div *ngIf='displayModalMsg'>
+    <div *ngIf="messageService.modalMessagesObj.errors?.length > 0">
+        <div *ngFor="let message of messageService.modalMessagesObj.errors" class="alert alert--danger alert-dismissable mt-2">
+            <span class="alert-icon">
+                <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+            </span>
+            <span>{{message.text}}</span>
+            <!-- <a class="close" style="cursor: pointer;" (click)="removeAlert(message)">&times;</a> -->
+        </div>
+    </div>
+    
+    
+    <!-- Below div for display warning  messages-->
+    <div *ngIf="messageService.modalMessagesObj.warns.length > 0">
+        <div *ngFor="let message of messageService.modalMessagesObj.warns" class="alert alert--warning alert-dismissable">
+    
+            <span class="alert-icon">
+                <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+            </span>
+            <span>{{message.text}}</span>
+            <!-- <a class="close" style="cursor: pointer;" (click)="removeAlert(message)">&times;</a> -->
+        </div>
+    </div>
+    
+    
+    <!-- Below div for display info messages-->
+    <div *ngIf="messageService.modalMessagesObj.infos.length > 0">
+        <div *ngFor="let message of messageService.modalMessagesObj.infos" class="alert alert--info alert-dismissable">
+            <span class="alert-icon">
+                <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+            </span>
+            <span>{{message.text}}</span>
+            <!-- <a class="close" style="cursor: pointer;" (click)="removeAlert(message)">&times;</a> -->
+        </div>
+    </div>
+    
+    <!-- Below div for display success messages-->
+    <div *ngIf="messageService.modalMessagesObj.success.length > 0">
+        <div *ngFor="let message of messageService.modalMessagesObj.success" class="alert alert--success alert-dismissable">
+            <span class="alert-icon">
+                <span class="icon-done1"><span class="path1"></span><span class="path2"></span></span>
+            </span>
+            <span>{{message.text}}</span>
+            <!-- <a class="close" style="cursor: pointer;" (click)="removeAlert(message)">&times;</a> -->
+        </div>
+    </div>
+    </div>

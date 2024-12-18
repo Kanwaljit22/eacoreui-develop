@@ -1,0 +1,9 @@
+<app-line-chart [data]="lineData" [active]="active" (onActiveChange)="updateActive($event)"></app-line-chart>
+
+<div class="tco-configuration-outer">
+  <ag-grid-angular #agGrid id="ag-grid" style="width: 100%; height: 200px;" appTableHeight class="ag-fresh"
+  [gridOptions]="gridOptions" [columnDefs]="columnDefs" [rowData]="rowData"
+ enableColResize enableSorting enableFilter groupHeaders suppressRowClickSelection toolPanelSuppressGroups toolPanelSuppressValues
+ debug rowHeight="26">
+ </ag-grid-angular>
+</div>

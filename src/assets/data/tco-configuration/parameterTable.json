@@ -1,0 +1,316 @@
+[
+    {
+        "suite_Name": "Access - Switching",
+        "hwService": "50",
+        "hwServiceDiscount": "23",
+        "tcr": "",
+       "features": "",
+        "children": [
+            {
+                "suite_Name": "ACS-C2900-24",
+                "hwService": "50",
+                "hwServiceDiscount": "23",
+                "tcr": "",
+                "features": ["Fnd-Primelife", "Fnd-Prime Assurance" , "Fnd-StealthWatch"]
+            },
+            {
+                "suite_Name": "ACS-C2900-48",
+                "hwService": "50",
+                "hwServiceDiscount": "23",
+                "tcr": "",
+                "features": ["Fnd-Primelife", "Fnd-Prime Assurance" , "Fnd-StealthWatch"]
+            },
+            {
+                "suite_Name": "ACS-C3560X",
+                "hwService": "50",
+                "hwServiceDiscount": "23",
+                "tcr": "",
+               "features": ["Fnd-Primelife", "Fnd-Prime Assurance" , "Fnd-StealthWatch"]
+            },
+            {
+                "suite_Name": "ACS-C2900-24",
+                "hwService": "50",
+                "hwServiceDiscount": "23",
+                "tcr": "",
+                "features": ["Fnd-Primelife", "Fnd-Prime Assurance" , "Fnd-StealthWatch"]
+            },
+            {
+                "suite_Name": "ACS-C2900-48",
+                "hwService": "50",
+                "hwServiceDiscount": "23",
+                "tcr": "",
+                "features": ["Fnd-Primelife", "Fnd-Prime Assurance" , "Fnd-StealthWatch"]
+            },
+            {
+                "suite_Name": "ACS-C2900-12F",
+                "hwService": "50",
+                "hwServiceDiscount": "23",
+                "tcr": "",
+                "features": ["Fnd-Primelife", "Fnd-Prime Assurance" , "Fnd-StealthWatch"]
+            },
+            {
+                "suite_Name": "ACS-C2900-48F",
+                "hwService": "50",
+                "hwServiceDiscount": "23",
+                "tcr": "",
+               "features": ["Fnd-Primelife", "Fnd-Prime Assurance" , "Fnd-StealthWatch"]
+            },
+            {
+                "suite_Name": "ACS-C2900-16/24",
+                "hwService": "50",
+                "hwServiceDiscount": "23",
+                "tcr": "",
+               "features": ["Fnd-Primelife", "Fnd-Prime Assurance" , "Fnd-StealthWatch"]
+            },
+            {
+                "suite_Name": "ACS-C2900-X-24",
+                "hwService": "50",
+                "hwServiceDiscount": "23",
+                "tcr": "",
+               "features": ["Fnd-Primelife", "Fnd-Prime Assurance" , "Fnd-StealthWatch"]
+            },
+            {
+                "suite_Name": "ACS-C2900-24",
+                "hwService": "50",
+                "hwServiceDiscount": "23",
+                "tcr": "",
+               "features": ["Fnd-Primelife", "Fnd-Prime Assurance" , "Fnd-StealthWatch"]
+            }
+        ]
+    },
+    {
+        "suite_Name": "Access - Wireless",
+        "hwService": "50",
+        "hwServiceDiscount": "23",
+        "children": [
+            {
+                "suite_Name": "ACS-C2900-24",
+                "hwService": "50",
+                "hwServiceDiscount": "23",
+                "tcr": "",
+               "features": ["Fnd-Primelife", "Fnd-Prime Assurance" , "Fnd-StealthWatch"]
+            },
+            {
+                "suite_Name": "ACS-C2900-48",
+                "hwService": "50",
+                "hwServiceDiscount": "23",
+                "tcr": "",
+               "features": ["Fnd-Primelife", "Fnd-Prime Assurance" , "Fnd-StealthWatch"]
+            },
+            {
+                "suite_Name": "ACS-C3560X",
+                "hwService": "50",
+                "hwServiceDiscount": "23",
+                "tcr": "",
+               "features": ["Fnd-Primelife", "Fnd-Prime Assurance" , "Fnd-StealthWatch"]
+            },
+            {
+                "suite_Name": "ACS-C2900-24",
+                "hwService": "50",
+                "hwServiceDiscount": "23",
+                "tcr": "",
+               "features": ["Fnd-Primelife", "Fnd-Prime Assurance" , "Fnd-StealthWatch"]
+            },
+            {
+                "suite_Name": "ACS-C2900-48",
+                "hwService": "50",
+                "hwServiceDiscount": "23",
+                "tcr": "",
+               "features": ["Fnd-Primelife", "Fnd-Prime Assurance" , "Fnd-StealthWatch"]
+            },
+            {
+                "suite_Name": "ACS-C2900-12F",
+                "hwService": "50",
+                "hwServiceDiscount": "23",
+                "tcr": "",
+               "features": ["Fnd-Primelife", "Fnd-Prime Assurance" , "Fnd-StealthWatch"]
+            },
+            {
+                "suite_Name": "ACS-C2900-48F",
+                "hwService": "50",
+                "hwServiceDiscount": "23",
+                "tcr": "",
+               "features": ["Fnd-Primelife", "Fnd-Prime Assurance" , "Fnd-StealthWatch"]
+            },
+            {
+                "suite_Name": "ACS-C2900-16/24",
+                "hwService": "50",
+                "hwServiceDiscount": "23",
+                "tcr": "",
+               "features": ["Fnd-Primelife", "Fnd-Prime Assurance" , "Fnd-StealthWatch"]
+            },
+            {
+                "suite_Name": "ACS-C2900-X-24",
+                "hwService": "50",
+                "hwServiceDiscount": "23",
+                "tcr": "",
+               "features": ["Fnd-Primelife", "Fnd-Prime Assurance" , "Fnd-StealthWatch"]
+            },
+            {
+                "suite_Name": "ACS-C2900-24",
+                "hwService": "50",
+                "hwServiceDiscount": "23",
+                "tcr": "",
+               "features": ["Fnd-Primelife", "Fnd-Prime Assurance" , "Fnd-StealthWatch"]
+            }
+        ]
+    },
+    {
+        "suite_Name": "Data Center - Networking",
+        "hwService": "50",
+        "hwServiceDiscount": "23",
+        "tcr": "",
+       "features": "",
+        "children": [
+            {
+                "suite_Name": "ACS-C2900-24",
+                "hwService": "50",
+                "hwServiceDiscount": "23",
+                "tcr": "",
+               "features": ["Fnd-Primelife", "Fnd-Prime Assurance" , "Fnd-StealthWatch"]
+            },
+            {
+                "suite_Name": "ACS-C2900-48",
+                "hwService": "50",
+                "hwServiceDiscount": "23",
+                "tcr": "",
+               "features": ["Fnd-Primelife", "Fnd-Prime Assurance" , "Fnd-StealthWatch"]
+            },
+            {
+                "suite_Name": "ACS-C3560X",
+                "hwService": "50",
+                "hwServiceDiscount": "23",
+                "tcr": "",
+               "features": ["Fnd-Primelife", "Fnd-Prime Assurance" , "Fnd-StealthWatch"]
+            },
+            {
+                "suite_Name": "ACS-C2900-24",
+                "hwService": "50",
+                "hwServiceDiscount": "23",
+                "tcr": "",
+               "features": ["Fnd-Primelife", "Fnd-Prime Assurance" , "Fnd-StealthWatch"]
+            },
+            {
+                "suite_Name": "ACS-C2900-48",
+                "hwService": "50",
+                "hwServiceDiscount": "23",
+                "tcr": "",
+               "features": ["Fnd-Primelife", "Fnd-Prime Assurance" , "Fnd-StealthWatch"]
+            },
+            {
+                "suite_Name": "ACS-C2900-12F",
+                "hwService": "50",
+                "hwServiceDiscount": "23",
+                "tcr": "",
+               "features": ["Fnd-Primelife", "Fnd-Prime Assurance" , "Fnd-StealthWatch"]
+            },
+            {
+                "suite_Name": "ACS-C2900-48F",
+                "hwService": "50",
+                "hwServiceDiscount": "23",
+                "tcr": "",
+               "features": ["Fnd-Primelife", "Fnd-Prime Assurance" , "Fnd-StealthWatch"]
+            },
+            {
+                "suite_Name": "ACS-C2900-16/24",
+                "hwService": "50",
+                "hwServiceDiscount": "23",
+                "tcr": "",
+               "features": ["Fnd-Primelife", "Fnd-Prime Assurance" , "Fnd-StealthWatch"]
+            },
+            {
+                "suite_Name": "ACS-C2900-X-24",
+                "hwService": "50",
+                "hwServiceDiscount": "23",
+                "tcr": "",
+               "features": ["Fnd-Primelife", "Fnd-Prime Assurance" , "Fnd-StealthWatch"]
+            },
+            {
+                "suite_Name": "ACS-C2900-24",
+                "hwService": "50",
+                "hwServiceDiscount": "23",
+                "tcr": "",
+               "features": ["Fnd-Primelife", "Fnd-Prime Assurance" , "Fnd-StealthWatch"]
+            }
+        ]
+    },
+    {
+        "suite_Name": "WAN",
+        "hwService": "50",
+        "hwServiceDiscount": "23",
+        "tcr": "",
+       "features": "",
+        "children": [
+            {
+                "suite_Name": "ACS-C2900-24",
+                "hwService": "50",
+                "hwServiceDiscount": "23",
+                "tcr": "",
+               "features": ["Fnd-Primelife", "Fnd-Prime Assurance" , "Fnd-StealthWatch"]
+            },
+            {
+                "suite_Name": "ACS-C2900-48",
+                "hwService": "50",
+                "hwServiceDiscount": "23",
+                "tcr": "",
+               "features": ["Fnd-Primelife", "Fnd-Prime Assurance" , "Fnd-StealthWatch"]
+            },
+            {
+                "suite_Name": "ACS-C3560X",
+                "hwService": "50",
+                "hwServiceDiscount": "23",
+                "tcr": "",
+               "features": ["Fnd-Primelife", "Fnd-Prime Assurance" , "Fnd-StealthWatch"]
+            },
+            {
+                "suite_Name": "ACS-C2900-24",
+                "hwService": "50",
+                "hwServiceDiscount": "23",
+                "tcr": "",
+               "features": ["Fnd-Primelife", "Fnd-Prime Assurance" , "Fnd-StealthWatch"]
+            },
+            {
+                "suite_Name": "ACS-C2900-48",
+                "hwService": "50",
+                "hwServiceDiscount": "23",
+                "tcr": "",
+               "features": ["Fnd-Primelife", "Fnd-Prime Assurance" , "Fnd-StealthWatch"]
+            },
+            {
+                "suite_Name": "ACS-C2900-12F",
+                "hwService": "50",
+                "hwServiceDiscount": "23",
+                "tcr": "",
+               "features": ["Fnd-Primelife", "Fnd-Prime Assurance" , "Fnd-StealthWatch"]
+            },
+            {
+                "suite_Name": "ACS-C2900-48F",
+                "hwService": "50",
+                "hwServiceDiscount": "23",
+                "tcr": "",
+               "features": ["Fnd-Primelife", "Fnd-Prime Assurance" , "Fnd-StealthWatch"]
+            },
+            {
+                "suite_Name": "ACS-C2900-16/24",
+                "hwService": "50",
+                "hwServiceDiscount": "23",
+                "tcr": "",
+               "features": ["Fnd-Primelife", "Fnd-Prime Assurance" , "Fnd-StealthWatch"]
+            },
+            {
+                "suite_Name": "ACS-C2900-X-24",
+                "hwService": "50",
+                "hwServiceDiscount": "23",
+                "tcr": "",
+               "features": ["Fnd-Primelife", "Fnd-Prime Assurance" , "Fnd-StealthWatch"]
+            },
+            {
+                "suite_Name": "ACS-C2900-24",
+                "hwService": "50",
+                "hwServiceDiscount": "23",
+                "tcr": "",
+               "features": ["Fnd-Primelife", "Fnd-Prime Assurance" , "Fnd-StealthWatch"]
+            }
+        ]
+    }
+]

@@ -1,0 +1,1177 @@
+<div class="custom-flyout-overlay"></div>
+<div class="custom-flyout vNext w-715">
+    <div class="heading">
+        <div class="d-flex justify-content-between align-items-top">
+            <div class="heading-title">
+                <h2 class="heading--h2 mb-3">{{swEnrollmentData?.name}}</h2>
+                <p class="header-info">
+                    <span class="i-vNext-info mr-2 cursor-pointer"></span>
+                    <a (click)='howItWorks()' href="javascript:void();" attr.action-id="{{dataIdConstantsService.addSuites_link_eaProgramGuide}}">{{'add-suites.EA_PROGRAM_GUIDE' | localizationPipe : localizationService.localizedkeySet.size}}</a>
+                </p>
+            </div>
+            <div class="d-flex flex-column align-items-end">
+                <div class="d-flex align-items-center mb-3">
+                    <button class="icon-close-btn mt-0" (click)="close()" attr.action-id="{{dataIdConstantsService.addSuites_button_close}}" type="button"></button>
+                </div>
+                <div class="mt-4 d-flex justify-content-end" *ngIf="!isRoMode">
+                    <button class="btn btn-secondary" type="button" (click)="close()" attr.action-id="{{dataIdConstantsService.addSuites_button_cancel}}" id="addSuites_cancel">{{'common.CANCEL' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                    <button class="btn btn-primary ml-2" type="button" (click) = "backToQna()" attr.action-id="{{dataIdConstantsService.addSuites_button_back}}" *ngIf = "!serviceInfo && !displayQnaWindow && priceEstimateService.displayQuestionnaire  && !billToTab">{{'common.BACK' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                    <button class="btn btn-primary ml-2" type="button" (click) = "goToSuites('roadMap')" attr.action-id="{{dataIdConstantsService.addSuites_button_back}}" *ngIf = "serviceInfo">{{'common.BACK' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                    <button id="{{elementIdConstantsService.Add_Suites_QNA_Next}}" class="btn btn-primary ml-2" type="button" (click) = "goToSuites('button')" attr.action-id="{{dataIdConstantsService.addSuites_button_next}}" [disabled]='questionnaireService.mandatoryQuestCount || isShowEduTierSelectionMsg' *ngIf = "!serviceInfo && displayQnaWindow">{{'common.NEXT' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                    <button id="{{elementIdConstantsService.Add_Suites_SW_Next}}" class="btn btn-primary ml-2" type="button" [disabled]= '(!numberofSelectedSuite && !enrollment?.includedInChangeSub) || notAllowedHybridSuiteSelection || isShowEduTierSelectionMsg || embeddedHwSupportNotAllowedForPartner || priceEstimateService.isMigrateSuiteError || priceEstimateService.displayErrorForBlockingRules || (showMerakiErrorMessage && eaService.features?.WIFI7_REL)' attr.action-id="{{dataIdConstantsService.addSuites_button_next}}" (click) = "loadServiceInfo()" *ngIf = "!serviceInfo && !displayQnaWindow && !billToTab && eaService.features?.WIFI7_REL">{{'common.NEXT' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                    <button id="{{elementIdConstantsService.Add_Suites_SW_Next}}" class="btn btn-primary ml-2" type="button" [disabled]= '(!numberofSelectedSuite && !enrollment?.includedInChangeSub) || notAllowedHybridSuiteSelection || isShowEduTierSelectionMsg || embeddedHwSupportNotAllowedForPartner || priceEstimateService.isMigrateSuiteError || priceEstimateService.displayErrorForBlockingRules || (showMerakiErrorMessage && eaService.features?.WIFI7_REL)' attr.action-id="{{dataIdConstantsService.addSuites_button_next}}" (click) = "loadServiceInfo()" *ngIf = "!serviceInfo && !displayQnaWindow && !billToTab && !eaService.features?.WIFI7_REL">{{'common.NEXT' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+
+              
+
+                    <ng-container ><!--start -> buttons for sept res-->
+                        
+                    <ng-container *ngIf="!billToIdRequired && serviceInfo"><!--when bill to not required-->
+                        <button class="btn btn-primary ml-2" id="{{elementIdConstantsService.ADD_SUITES_CONTINUE}}" type="button" attr.action-id="{{dataIdConstantsService.addSuites_button_continue}}" *ngIf = "serviceInfo && enrollment.id !== 6 && !isUpgradeFlow" (click)="saveData()">{{'common.CONTINUE' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                       
+                    </ng-container>
+                    <ng-container *ngIf="billToIdRequired && serviceInfo"><!--when bill to is required-->
+                        <button id="{{elementIdConstantsService.Add_Suites_CX_Next}}" class="btn btn-primary ml-2" type="button" [disabled]= 'isCxREquired && (!isAllAttachRateAdded || isPartnerEamsAdded() || (isDnxSelected && (selectedCoverageType.desc === undefined && !isCXCommitSuite)) || (eaService.features?.WIFI7_REL && isUnxSelected && (selectedCoverageTypeForUnx?.desc === undefined && !isCxCommitSuiteForUnx)))' attr.action-id="{{dataIdConstantsService.addSuites_button_continue}}" *ngIf = "serviceInfo && enrollment.id !== 6" (click)="goToBillToTab()">{{'common.NEXT' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                    </ng-container>
+                    <ng-container *ngIf="billToIdRequired && billToTab"><!--when bill to tab is displayed-->
+                        <button class="btn btn-primary ml-2" type="button"  (click) = "backToCxPage()" attr.action-id="{{dataIdConstantsService.addSuites_button_back}}">{{'common.BACK' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                        <button class="btn btn-primary ml-2" type="button" id="{{elementIdConstantsService.ADD_SUITES_CONTINUE}}" [disabled]= 'isBillToAdded() || (isChangeSubFlow && !isBillToIdPresent) || checkToDisableContinueforFlooringBid()' attr.action-id="{{dataIdConstantsService.addSuites_button_continue}}" *ngIf = "enrollment.id !== 6 && !isUpgradeFlow" (click)="saveData()">{{'common.CONTINUE' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                        <!-- <button class="btn btn-primary ml-2" type="button" [disabled]= 'isBillToAdded() || (isChangeSubFlow && !isBillToIdPresent) || checkToDisableContinueforFlooringBid()' attr.action-id="{{dataIdConstantsService.addSuites_button_continue}}" *ngIf = "enrollment.id !== 6 && isUpgradeFlow" (click)="saveUpgradeData()" id="{{elementIdConstantsService.ADD_SUITES_CONTINUE}}">{{'common.CONTINUE' | localizationPipe : localizationService.localizedkeySet.size}}</button> -->
+                    </ng-container>
+                        
+                    </ng-container><!-- end -> buttons for sept res-->
+
+                    <button class="btn btn-primary ml-2" type="button" [disabled]= 'isCxREquired && ( ((isRsdDue || isRsdMax90Days) && !eaService.features.SEP_REL) || isPartnerEamsAdded() || (isChangeSubFlow && !isBillToIdPresent))' *ngIf = "serviceInfo && enrollment.id === 6" (click)="saveData()" id="{{elementIdConstantsService.ADD_SUITES_CONTINUE}}" attr.action-id="{{dataIdConstantsService.addSuites_button_continue}}">{{'common.CONTINUE' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                   
+                </div>
+                <!-- show cancel button only in RO Mode for QNA  -->
+                <div class="mt-4 d-flex justify-content-end" *ngIf="isRoMode">
+                    <button class="btn btn-secondary" type="button" (click)="close()" attr.action-id="{{dataIdConstantsService.addSuites_button_cancel}}" id="{{elementIdConstantsService.AddSuites_Cancel}}">{{'common.CANCEL' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="body">
+        <div class="roadmap-wrap" *ngIf="!isRoMode">
+            <ul class="roadmap-steps vNext">
+                <li *ngIf="priceEstimateService.displayQuestionnaire" class="step cursor-pointer" (click)="backToQna()" attr.action-id="{{dataIdConstantsService.addSuites_link_backToQna}}" [ngClass]="{'active': displayQnaWindow , 'completed': !displayQnaWindow}">
+                    <span class="step--icon"><span class="icon-tick-01"></span></span>
+                    <ng-container>
+                        <span class="step--label" *ngIf="enrollment.id !== 6">{{'add-suites.PORTFOLIO_SETUP_PARAMETERS' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                    </ng-container>
+                    <span class="step--label" *ngIf="enrollment.id === 6">{{'add-suites.PORTFOLIO_SETUP' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                </li>
+                <li class="step cursor-pointer" (click)="goToSuites('roadMap')" attr.action-id="{{dataIdConstantsService.addSuites_link_backToSuites}}" [ngClass]="{'active': !displayQnaWindow , 'completed': serviceInfo || billToTab}">
+                    <span class="step--icon"><span class="icon-tick-01"></span></span>
+                    
+                    <span class="step--label" *ngIf=" !eaService.features.CROSS_SUITE_MIGRATION_REL ">{{'add-suites.SW_SUITE_SELECTION_NEW' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                    <span class="step--label" *ngIf="eaService.features.CROSS_SUITE_MIGRATION_REL && !isUpgradeFlow">{{'add-suites.SW_SUITE_SELECTION_NEW' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                    <span class="step--label" *ngIf="eaService.features.CROSS_SUITE_MIGRATION_REL && isUpgradeFlow">{{'add-suites.SW_SUITE_MIGDATE_UPGRADE_SELECTION' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                </li>
+                <li class="step cursor-pointer" (click)="backToCxPage()" [class.active.completed]="serviceInfo" [ngClass]="{'completed': billToTab}">
+                    <span class="step--icon"><span class="icon-tick-01"></span></span>
+                    
+                    <span class="step--label"  >{{'add-suites.CX_SUITE_SELECTION' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                </li>
+                <li class="step cursor-pointer" *ngIf="billToIdRequired" [class.active.completed]="billToTab">
+                    <span class="step--icon"><span class="icon-tick-01"></span></span>
+                    <span class="step--label">{{'add-suites.BILL_TO_TAB_TITLE' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                </li>
+            </ul>
+        </div>
+        <app-message [displayModalMsg]="true"></app-message>
+        <ng-container *ngIf="isDataLoaded">
+            <div class="mb-3" *ngIf="eaService.features.SPLUNK_SUITE_REL && showSplunkMessage && selectedSplunkSuitesArray?.length && !serviceInfo && !billToTab && !displayQnaWindow">
+                <div class="d-flex justify-content-between align-items-center info-alert-blue bl-3">
+                    <span class="d-flex align-items-center">
+                        <span class="icon-msg-Info mr-3"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                        <span class="pos-rel t-1">{{'common.ENGAGE_SPLUNK_RSM_WHEN_SPLUNK_SUITE_ADDED_TO_PROPOSAL_MESSAGE_1' | localizationPipe : localizationService.localizedkeySet.size}}<a href="mailto:clo-ea-splunk-support@cisco.com">{{'common.CISCO_SUPPORT' | localizationPipe : localizationService.localizedkeySet.size}}</a>{{'common.ENGAGE_SPLUNK_RSM_WHEN_SPLUNK_SUITE_ADDED_TO_PROPOSAL_MESSAGE_2' | localizationPipe : localizationService.localizedkeySet.size}} </span>
+                    </span>
+                    <a href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.addSuite_link_closeInfoMsg}}" (click)='showSplunkMessage = false;' class="lh-1"><span class="icon-close-btn"></span></a>
+                </div>
+            </div>
+
+            <!-- error message for Bonfire meraki suites when ibFound but not selected mandatory -->
+            <div class="alert alert--danger alert-dismissable mt-2" *ngIf="!serviceInfo && !billToTab && showMerakiErrorMessage && eaService.features?.WIFI7_REL && bonfireMandatoryUnselectedSuites.length">
+                <span class="alert-icon">
+                    <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                </span>
+                <span>{{'add-suites.BONFIRE_MERAKI_MANDATORY_FOR_IB_FOUND_ERROR_MESSAGE_1' | localizationPipe : localizationService.localizedkeySet.size}} {{bonfireMandatoryUnselectedSuites.join(' ,')}} {{'add-suites.BONFIRE_MERAKI_MANDATORY_FOR_IB_FOUND_ERROR_MESSAGE_2' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+            </div> 
+
+            <!-- to show error message if eduqna is not selected but edu tiers selected -->
+            <div class="alert alert--danger alert-dismissable mt-2" *ngIf="!serviceInfo && !billToTab && isSecurityPortfolio && checkForSelectedEduTiers()">
+                <span class="alert-icon">
+                    <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                </span>
+                <span>{{'add-suites.EDU_TIER_SELECTION_MSG' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+            </div>
+            <div class="alert alert--danger alert-dismissable mt-2" *ngIf="embeddedHwSupportNotAllowedForPartner">
+                <span class="alert-icon">
+                    <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                </span>
+                <span *ngIf="suite?.eaSuiteType === constantsService.CISCO_NETWORKING_SOLUTION && eaService.features?.WIFI7_REL; else dnxTierNotAllowed">
+                    {{'add-suites.DNX_TIER_NOT_ALLOWED' | localizationPipe : localizationService.localizedkeySet.size}}
+                    <ng-template #dnxTierNotAllowed>
+                        {{'add-suites.UNX_TIER_NOT_ALLOWED' | localizationPipe : localizationService.localizedkeySet.size}}
+                    </ng-template>
+                </span>
+            </div>
+            <app-questionnaire *ngIf ="displayQnaWindow" [questions]="questionsArray"></app-questionnaire>
+            <!--Sw Suite tab start-->
+            <div *ngIf = "!serviceInfo && !displayQnaWindow && !billToTab">
+
+                <div class="col-12 mb-2 alert alert--info alert-dismissable"  *ngIf="selectedMerakiSuitesArray.length && !priceEstimateStoreService.orgIdsArr.length && !isUpgradeFlow">
+                    <span class="alert-icon">
+                        <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                    </span>
+                    <span>{{'common.ENTER_MERAKI_ORG_ID' | localizationPipe : localizationService.localizedkeySet.size}} <a href="javascript:void(0);" (click)="howItWorks()">{{'add-suites.EA_PROGRAM_GUIDE' | localizationPipe : localizationService.localizedkeySet.size}}</a></span>
+                </div>
+    
+    
+                <div class="alert alert--info alert-dismissable justify-content-between mb-3" *ngIf="suitePurchasesInfo">
+                    <div class="d-flex align-items-center">
+                    <span class="alert-icon">
+                        <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span
+                                class="path3"></span></span>
+                    </span>
+                    <span>{{'add-suites.ALL_SUITES_MUST_BE_PURCHASED' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                    </div>
+                    <span>
+                        <button class="btn btn-primary mr-3" (click)="learnMore()" attr.action-id="{{dataIdConstantsService.addSuites_button_learnMore}}">{{'common.LEARN_MORE' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                        <span class="icon-close-btn" (click)="suitePurchasesInfo = false;" attr.action-id="{{dataIdConstantsService.addSuites_icon_suitePurchasesInfo}}"></span>
+                   </span>
+                </div>
+                <div class="alert alert--warning alert-dismissable mt-2 mb-2" *ngIf="swEnrollmentData?.includedInSubscription && swEnrollmentData?.locked && !isUpgradeFlow">
+                    <span class="alert-icon">
+                        <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span
+                                class="path3"></span></span>
+                    </span>
+                    <span>{{'common.CUSTOMER_CONSENT_REQUIRED' | localizationPipe : localizationService.localizedkeySet.size}}
+                        {{'common.VISIT' | localizationPipe : localizationService.localizedkeySet.size}} <a
+                            href="javascript:void(0);" (click)="goToDocCenter()" attr.action-id="{{dataIdConstantsService.addSuites_link_goToDocCenterMsg}}">{{'common.DOCUMENT_CENTER' | localizationPipe :
+                            localizationService.localizedkeySet.size}}</a> {{'common.TO_UPLOAD_E_SIGNATURE' | localizationPipe :
+                        localizationService.localizedkeySet.size}}</span> 
+                </div>
+    
+                <div class="alert alert--info alert-dismissable mb-2" *ngIf="!numberofSelectedSuite && !enrollment?.includedInChangeSub && !suitePurchasesInfo && (!proposalStoreService.proposalData?.scopeInfo?.returningCustomer || (proposalStoreService.proposalData?.scopeInfo?.returningCustomer && proposalStoreService.proposalData.scopeInfo?.newEaidCreated))">
+                    <span class="alert-icon">
+                        <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span
+                                class="path3"></span></span>
+                    </span>
+                    <span>{{'add-suites.SELECT_ATLEAST_ONE_SUITE' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                </div>
+
+                <!--header toggle-->
+                <div class="d-flex justify-content-between mt-3">
+                    <h5 class="heading--h5 mb-2">{{'add-suites.SELECT_SUITE' | localizationPipe : localizationService.localizedkeySet.size}}</h5>
+                    <div class="d-flex">
+                        <div class="d-flex justify-content-center align-center" style="width: 100px;"> 
+                            <label class="switch-button" >
+                            <input type="checkbox" [disabled]="totalSuites.length === 1" attr.data-id="{{dataIdConstantsService.addSuites_checkbox_optAll}}" [indeterminate]= "numberofSelectedSuite > 0 && numberofSelectedSuite !== totalSuites.length" [checked]="numberofSelectedSuite === totalSuites.length" (click)="updateAllSuite($event)">
+                            <span class="slider round" attr.action-id="{{dataIdConstantsService.addSuites_slider_optAll}}"></span>
+                        </label></div>
+                        <div class="d-flex justify-content-center align-center" style="width: 100px;">
+                            <label class="switch-button">
+                                <input type="checkbox">
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                    </div> 
+                </div>
+                <!--header toggle-->
+                <table class="primary-table">
+                    <thead>
+                        <tr>
+                            <th>{{'common.SUITES' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                            <th width="100px" class="text-center">
+                                <span>
+                                    <img src="../../../../../assets/images/tco/cs-sofware.png" class="mb-1" />
+                                    Software(s) Opt-In
+                                </span>
+                            </th>
+                            <th width="100px" class="text-center">
+                                <span>
+                                    <img src="../../../../../assets/images/tco/cs-services.png" class="mb-1" />
+                                    Service(s) Opt-In
+                                </span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ng-container *ngFor='let pool of swEnrollmentData?.pools'>
+                            <tr class="main-row">
+                                <td>{{pool.desc}}</td>
+                                <td></td>
+                                <td colspan="2"></td>
+                            </tr>
+                            <ng-container>
+                                <tr *ngFor='let suite of pool.suites; let suiteIndex = index;'>
+                                    <td>
+                                        <div class="d-flex justify-content-between align-items-center"><span>{{suite.desc}}
+                                            <ng-container *ngIf="suite.onlyCxAllowed">
+                                                <img src="../../../../../assets/images/service-icon.png" class="ml-2" />
+                                            </ng-container>
+                                                <span class="icon-error-icon ml-2 mr-2"
+                                                    *ngIf="showMerakiErrorMessage && eaService.features?.WIFI7_REL && (suite?.eaSuiteType === constantsService.BONFIRE) && !suite?.swSelected && !suite?.disabled && suite?.ibFound"><span
+                                                        class="path1"></span><span class="path2"></span><span
+                                                        class="path3"></span></span>
+                                            </span>
+                                            <span class="d-flex">
+                                                <span
+                                                    *ngIf="!suite.swSelected && suite?.suiteMessage && eaService.features.SEC_SUITE_REL && !(suite.disabled || suite.notAvailable || suite.notAllowedHybridRelated)"
+                                                    class="ellipsis" container="body" placement="top" triggers="manual" #t="ngbTooltip"
+                                                    (mouseenter)="showTooltip(t)" (mouseout)="t.close()"
+                                                    ngbTooltip="{{'add-suites.SECURITY_PROTECTION_INCOMPATIBLE_MSG_2' | localizationPipe : localizationService.localizedkeySet.size}} {{suite?.suiteMessage}}"
+                                                    style="width: 220px;">
+                                                    <i>{{'add-suites.SECURITY_PROTECTION_INCOMPATIBLE_MSG_2' | localizationPipe :
+                                                        localizationService.localizedkeySet.size}} <b>{{suite?.suiteMessage}}</b></i>
+                                                </span>
+                                                <span
+                                                    *ngIf="eaService.features.EAID_REL && suite?.alreadyPurchasedInDiffSubscription && !eaService.features?.WIFI7_REL"
+                                                    class="ellipsis" container="body" placement="top" triggers="manual" #t="ngbTooltip"
+                                                    (mouseenter)="showTooltip(t)" (mouseout)="t.close()"
+                                                    ngbTooltip="{{'add-suites.ONE_OR_MORE_MERAKI_SUITES_PURCHASED_IN_ANOTHER_SUBSCRIPTION' | localizationPipe : localizationService.localizedkeySet.size}}"
+                                                    style="width: 426px;">
+                                                    <i>{{'add-suites.ONE_OR_MORE_MERAKI_SUITES_PURCHASED_IN_ANOTHER_SUBSCRIPTION' |
+                                                        localizationPipe : localizationService.localizedkeySet.size}}</i>
+                                                </span>
+                                                <!-- new messages for bonfire/ unx RC flow -->
+                                                <span
+                                                    *ngIf="eaService.features.EAID_REL && suite?.alreadyPurchasedInDiffSubscription && eaService.features?.WIFI7_REL && suite?.eaSuiteType === constantsService.BONFIRE"
+                                                    class="ellipsis" container="body" placement="top" triggers="manual" #t="ngbTooltip"
+                                                    (mouseenter)="showTooltip(t)" (mouseout)="t.close()"
+                                                    ngbTooltip="{{'add-suites.ALREADY_PURCHASED_IN_SUB_USE_BUY_MORE_MESSAGE_BONFIRE' | localizationPipe : localizationService.localizedkeySet.size}}"
+                                                    style="width: 426px;">
+                                                    <i>{{'add-suites.ALREADY_PURCHASED_IN_SUB_USE_BUY_MORE_MESSAGE_BONFIRE' |
+                                                        localizationPipe : localizationService.localizedkeySet.size}}</i>
+                                                </span>
+
+                                                <span
+                                                    *ngIf="eaService.features.EAID_REL && suite?.alreadyPurchasedInDiffSubscription && eaService.features?.WIFI7_REL && suite?.eaSuiteType === constantsService.CISCO_NETWORKING_SOLUTION"
+                                                    class="ellipsis" container="body" placement="top" triggers="manual" #t="ngbTooltip"
+                                                    (mouseenter)="showTooltip(t)" (mouseout)="t.close()"
+                                                    ngbTooltip="{{'add-suites.ALREADY_PURCHASED_IN_SUB_USE_BUY_MORE_MESSAGE_UNX' | localizationPipe : localizationService.localizedkeySet.size}}"
+                                                    style="width: 426px;">
+                                                    <i>{{'add-suites.ALREADY_PURCHASED_IN_SUB_USE_BUY_MORE_MESSAGE_UNX' |
+                                                        localizationPipe : localizationService.localizedkeySet.size}}</i>
+                                                </span>
+
+                                                <span
+                                                    *ngIf="eaService.features.EAID_REL && suite?.alreadyPurchasedInDiffSubscription && eaService.features?.WIFI7_REL && (suite?.type === constantsService.MERAKI && (!suite?.eaSuiteType ||  suite?.eaSuiteType === constantsService.MERAKI))"
+                                                    class="ellipsis" container="body" placement="top" triggers="manual" #t="ngbTooltip"
+                                                    (mouseenter)="showTooltip(t)" (mouseout)="t.close()"
+                                                    ngbTooltip="{{'add-suites.ONE_OR_MORE_MERAKI_SUITES_PURCHASED_IN_ANOTHER_SUBSCRIPTION' | localizationPipe : localizationService.localizedkeySet.size}}"
+                                                    style="width: 426px;">
+                                                    <i>{{'add-suites.ONE_OR_MORE_MERAKI_SUITES_PURCHASED_IN_ANOTHER_SUBSCRIPTION' |
+                                                        localizationPipe : localizationService.localizedkeySet.size}}</i>
+                                                </span>
+
+                                                <ng-container
+                                                    *ngIf="eaService.features.EAID_REL && (isAnyBonfirePurchasedinRc || isAnyLegacyMerakiPurchasedInRc) && !suite?.swSelected && !changeSubFlow && !suite?.alreadyPurchasedInDiffSubscription && !suite?.disabled && !suite?.notAvailable && !suite?.alreadyPurchasedInDiffEaId && !suite?.isOrgIdOverlapping && eaService.features?.WIFI7_REL && ( suite?.type === constantsService.MERAKI || suite?.eaSuiteType === constantsService.CISCO_NETWORKING_SOLUTION) && projectService.isReturningCustomer(proposalStoreService.proposalData.scopeInfo)">
+                                                    <span
+                                                        *ngIf="(suite?.type === constantsService.MERAKI && (!suite?.eaSuiteType ||  suite?.eaSuiteType === constantsService.MERAKI)) && suite?.isMerakiDisabled && isAnyBonfirePurchasedinRc"
+                                                        class="ellipsis" container="body" placement="top" triggers="manual"
+                                                        #t="ngbTooltip" (mouseenter)="showTooltip(t)" (mouseout)="t.close()"
+                                                        ngbTooltip="{{'add-suites.MERAKI_SUITES_NOT_AVAILABLE_DUE_TO_CISCO_NETWORKING_SUITES_PURCHASED_RC' | localizationPipe : localizationService.localizedkeySet.size}}"
+                                                        style="width: 426px;">
+                                                        <i>{{'add-suites.MERAKI_SUITES_NOT_AVAILABLE_DUE_TO_CISCO_NETWORKING_SUITES_PURCHASED_RC'
+                                                            | localizationPipe : localizationService.localizedkeySet.size}}</i>
+                                                    </span>
+                                                    <span
+                                                        *ngIf="(suite?.eaSuiteType === constantsService.CISCO_NETWORKING_SOLUTION ||  suite?.eaSuiteType === constantsService.BONFIRE) && suite?.isBonfireDisabled && isAnyLegacyMerakiPurchasedInRc"
+                                                        class="ellipsis" container="body" placement="top" triggers="manual"
+                                                        #t="ngbTooltip" (mouseenter)="showTooltip(t)" (mouseout)="t.close()"
+                                                        ngbTooltip="{{'add-suites.CISCO_NETWORKING_SUITES_NOT_AVAILABLE_DUE_TO_MERAKI_SUITES_PURCHASED_RC' | localizationPipe : localizationService.localizedkeySet.size}}"
+                                                        style="width: 426px;">
+                                                        <i>{{'add-suites.CISCO_NETWORKING_SUITES_NOT_AVAILABLE_DUE_TO_MERAKI_SUITES_PURCHASED_RC'
+                                                            | localizationPipe : localizationService.localizedkeySet.size}}</i>
+                                                    </span>
+                                                </ng-container>
+
+                                                <span
+                                                    *ngIf="suite?.changeSubConfig?.noMidTermPurchaseAllowed && isChangeSubFlow && !suite.disabled && !suite.notAllowedHybridRelated"><i>{{'common.NO_MID_TERM_PURCHASE'
+                                                        | localizationPipe : localizationService.localizedkeySet.size}}</i></span>
+                                                <ng-container *ngIf="!eaService.features?.BONFIRE_REL">
+                                                    <span
+                                                        *ngIf="suite.disabled && !isChangeSubFlow && !suite.notAvailable && (!eaService.features.EAID_REL || (eaService.features.EAID_REL && !suite.alreadyPurchasedInDiffEaId && !suite?.alreadyPurchasedInDiffSubscription ))"><i>{{'common.ALREADY_PURCHASED'
+                                                            | localizationPipe : localizationService.localizedkeySet.size}}</i></span>
+                                                </ng-container>
+                                                <ng-container *ngIf="eaService.features?.BONFIRE_REL">
+                                                    <span
+                                                        *ngIf="suite.disabled && !isChangeSubFlow && !suite.notAvailable && (!eaService.features.EAID_REL || (eaService.features.EAID_REL && !suite.alreadyPurchasedInDiffEaId && !suite?.alreadyPurchasedInDiffSubscription && !(eaService.features?.BONFIRE_REL && suite?.isOrgIdOverlapping)))"><i>{{'common.ALREADY_PURCHASED'
+                                                            | localizationPipe : localizationService.localizedkeySet.size}}</i></span>
+                                                    <span
+                                                        *ngIf="suite.disabled && !isChangeSubFlow && !suite.notAvailable && eaService.features?.BONFIRE_REL && suite?.isOrgIdOverlapping"><i>{{'add-suites.ORG_ID_OVERLAP_MSG'
+                                                            | localizationPipe : localizationService.localizedkeySet.size}}</i></span>
+                                                </ng-container>
+                                                <span *ngIf="suite.notAllowedHybridRelated && !suite.disabled && !isChangeSubFlow"><i>{{'add-suites.ALREADY_SELECTED_WITH_HYBRID'
+                                                        | localizationPipe : localizationService.localizedkeySet.size}}</i></span>
+                                                <ul class="inline-listing border-right-li justify-content-end w-100px ml-3"
+                                                    *ngIf="suite?.tiers && !suite.consentRequired && !isUpgradeFlow">
+                                                    <li class="dropdown" [ngClass]="{'disabled': !suite.swSelected || suite.disabled}">
+                                                        <a *ngIf="isSelectedTierValid(suite)" href="javascript:void(0)" #p="ngbPopover"
+                                                            popoverClass="ag-dropdown-wrap" [ngbPopover]="securityTemplate1"
+                                                            placement="bottom" [outsideClick]="false"
+                                                            attr.action-id="{{dataIdConstantsService.addSuites_link_selectedTierPopover}}{{suite?.name}}"
+                                                            (click)="showTierDrop = true;">{{suite?.swSelectedTier?.desc}}<span
+                                                                *ngIf="!suite.disabled && suite?.tiers?.length > 1"
+                                                                class="ico-dropdown"></span></a>
+                                                        <ng-template #securityTemplate1>
+                                                            <ul class="ag-dropdown-menu tp-dropdown-menu"
+                                                                *ngIf="showTierDrop && !suite.disabled">
+                                                                <ng-container *ngFor="let tiersObj of suite?.tiers; let index = index;">
+                                                                    <li *ngIf='isEducationInstitueSelected(tiersObj)'
+                                                                        (click)="suiteAtoSelection(tiersObj, suite); p?.close();"
+                                                                        attr.data-id="{{dataIdConstantsService.addSuites_dropdown_suiteAtoSelection}}{{tiersObj?.name}}">
+                                                                        <a href="javascript:void(0);"
+                                                                            attr.action-id="{{dataIdConstantsService.addSuites_link_tiersObj}}{{tiersObj?.name}}">{{tiersObj.desc}}</a>
+                                                                    </li>
+                                                                </ng-container>
+                                                            </ul>
+                                                        </ng-template>
+                                                    </li>
+                                                </ul>
+                                                <span class="ml-3"
+                                                    *ngIf="suite.prePurchaseInfo && !(isPartnerLoggedIn && !proposalStoreService.proposalData.dealInfo?.partnerDeal )">
+                                                    <i><span *ngIf="suite.prePurchaseInfo?.subRefId">{{'common.SUB_ID' |
+                                                            localizationPipe :
+                                                            localizationService.localizedkeySet.size}} :
+                                                        </span>{{suite.prePurchaseInfo.subRefId}}</i><br>
+                                                    <i><span *ngIf="suite.prePurchaseInfo?.begeoName">{{'common.PARTNER' |
+                                                            localizationPipe :
+                                                            localizationService.localizedkeySet.size}} :
+                                                        </span>{{suite.prePurchaseInfo.begeoName}}</i>
+                                                </span>
+                                                <span class="d-flex ml-4" *ngIf="suite.consentRequired"><i>{{'common.CONSENT_REQUIRED'
+                                                        | localizationPipe : localizationService.localizedkeySet.size}} </i>
+                                                    <div class="changesub-disable ml-1">
+                                                        <span class="i-vNext-info"></span>
+                                                        <div class="tooltip bs-tooltip-top bs-tooltip-top-left">
+                                                            <div class="arrow"></div>
+                                                            <div class="tooltip-inner">
+                                                                <span
+                                                                    class="d-block mb-2">{{'common.CUSTOMER_CONSENT_FOR_SUITE_REQUIRED'
+                                                                    | localizationPipe :
+                                                                    localizationService.localizedkeySet.size}}</span>
+                                                                <span class="d-block">{{'common.VISIT' | localizationPipe :
+                                                                    localizationService.localizedkeySet.size}}
+                                                                    <a href="javascript:void();" (click)="goToDocCenter()"
+                                                                        attr.action-id="{{dataIdConstantsService.addSuites_link_goToDocCenter}}{{suite?.name}}">{{'common.DOCUMENT_CENTER'
+                                                                        | localizationPipe :
+                                                                        localizationService.localizedkeySet.size}}</a>
+                                                                    {{'common.TO_UPLOAD_E_SIGNATURE' |
+                                                                    localizationPipe : localizationService.localizedkeySet.size}}</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </span>
+
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <!--SW toggle-->
+                                    <td *ngIf="!suite.consentRequired" [ngClass]="{'tier-status': suite.isSwTierUpgraded}">
+                                        <ng-container
+                                            *ngIf="(!eaService.features.EAID_REL || (eaService.features.EAID_REL && !suite.alreadyPurchasedInDiffEaId && !suite?.alreadyPurchasedInDiffSubscription ))">
+                                            <ng-container
+                                                *ngIf="!suite.notAvailable && (!eaService.features?.BONFIRE_REL || (eaService.features?.BONFIRE_REL && !suite?.isOrgIdOverlapping))">
+                                                <div class="vNext-switch"
+                                                    [hidden]="((suite?.changeSubConfig?.noMidTermPurchaseAllowed && !suite.disabled && !suite.notAllowedHybridRelated) ||  suite.disabled  || (suite.notAllowedHybridRelated && !suite.disabled)) && isChangeSubFlow">
+                                                    <label class="switch-button">
+                                                        <input type="checkbox" [checked]="suite.swSelected"
+                                                            (click)="updateSuiteInclusion(suite)"
+                                                            attr.data-id="{{dataIdConstantsService.addSuites_checkbox_suiteInclusion}}{{suite?.name}}"
+                                                            [disabled]="(suite.swSelected && numberofSelectedSuite === 1 && !enrollment?.includedInChangeSub) || suite.disabled || suite.disabledFromOtherEnrollmentSuite || swEnrollmentData.externalConfiguration || proposalStoreService.isReadOnly || swEnrollmentData.id === 6 || suite.notAllowedHybridRelated || (suite?.disabledFromOtherSuite && !suite.swSelected && (suite?.suiteMessage || suite?.suitesRemovedFor?.length) && eaService.features.SEC_SUITE_REL) || ( (suite?.type === constantsService.MERAKI && ( ((!suite?.eaSuiteType || (suite?.eaSuiteType === constantsService.MERAKI)) && suite?.isMerakiDisabled) || ((suite?.eaSuiteType === constantsService.BONFIRE || suite?.eaSuiteType === constantsService.CISCO_NETWORKING_SOLUTION) && suite?.isBonfireDisabled) ) ) && eaService.features?.BONFIRE_REL)">
+                                                        <span class="slider round"
+                                                            attr.action-id="{{dataIdConstantsService.addSuites_slider_suiteInclusion}}{{suite?.name}}"></span>
+                                                    </label>
+                                                </div>
+                                            </ng-container>
+                                            <span class="d-flex"><span
+                                                    *ngIf="suite.disabled && isChangeSubFlow && !suite.notAvailable"><i>{{'common.ALREADY_PURCHASED'
+                                                        | localizationPipe :
+                                                        localizationService.localizedkeySet.size}}</i></span></span>
+                                            <span class="d-flex"><span
+                                                    *ngIf="suite.notAllowedHybridRelated && !suite.disabled && isChangeSubFlow"><i>{{'add-suites.ALREADY_SELECTED_WITH_HYBRID'
+                                                        | localizationPipe : localizationService.localizedkeySet.size}}</i></span>
+                                                <span *ngIf="suite.notAvailable"><i>{{'common.NOT_AVAILABLE'
+                                                        | localizationPipe : localizationService.localizedkeySet.size}}</i></span>
+                                            </span>
+                                        </ng-container>
+                                        <span class="d-flex" *ngIf="eaService.features.EAID_REL && suite.alreadyPurchasedInDiffEaId"
+                                            [hidden]="eaService.features.EAID_REL && suite?.alreadyPurchasedInDiffSubscription">
+                                            <span><i>{{'add-suites.ALREADY_PURCHASED_IN_SUBSCRIPTION'
+                                                    | localizationPipe : localizationService.localizedkeySet.size}}</i></span>
+                                        </span>
+                                    </td>
+                                    <!--SW toggle-->
+                                    <!--CX toggle-->
+                                    <td>
+                                        <ng-container *ngIf="(suite?.swSelectedTier?.cxTierOptions?.length ||  suite?.cxTierOptions?.length) else elseBlock">
+                                        <div class="vNext-switch">
+                                            <label class="switch-button">
+                                                <input type="checkbox" [checked]="suite.cxSelected" (click)="updateCxInclusion(suite)" [disabled]="suite.serviceAttachMandatory || suite.swSelectedTier?.serviceAttachMandatory">
+                                                <span class="slider round"></span>
+                                            </label>
+                                        </div>
+                                    </ng-container>
+                                    <ng-template #elseBlock>
+                                        Not Offered
+                                      </ng-template>
+                                    </td>
+                                    <!--CX toggle-->
+                                </tr>
+                            </ng-container>
+
+                        </ng-container>
+                    </tbody>
+                </table>
+            </div>
+            <!--Sw Suite tab end-->
+
+            
+            <ng-container *ngIf='serviceInfo'>
+                <div class="alert alert--info alert-dismissable mt-2 mb-2" *ngIf="!allowServices">
+                    <span class="alert-icon">
+                        <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                    </span>
+                    <span>{{'add-suites.SERVICE_NOT_APPLICABLE' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                </div>
+            
+                <ng-container *ngIf="allowServices">
+                    <h5 class="heading--h5 heading--bordered">{{'add-suites.FILL_INFORMATION_FOR_SERVICES' | localizationPipe :
+                        localizationService.localizedkeySet.size}}</h5>
+                    <!-- HTML for EAMS delivery type starts-->
+                    <div class="row mb-30">
+                        <div class="col-md-12">
+                            <h6 class="mb-2 heading--h5">{{'add-suites.CHOOSE_EAMS_DELIVERY_TYPE' | localizationPipe :
+                                localizationService.localizedkeySet.size}}<sup>*</sup></h6>
+                            <div class="d-flex"
+                                [ngClass]="{'disabled': (isChangeSubFlow && cxEnrollmentData.cxAttached) || isUpgradeFlow || (isPartnerLoggedIn && !proposalStoreService.proposalData.dealInfo?.partnerDeal && !vnextStoreService.loccDetail?.loccSigned )}">
+                                <div class="mr-3 radio-custom" (click)="selectEamsDeliveryOption('cisco')"
+                                    attr.action-id="{{dataIdConstantsService.addSuites_link_selectEamsDeliveryCisco}}">
+                                    <input id="radio36" type="radio" name="delivery_type" [checked]="selectedCiscoEams"
+                                        attr.data-id="{{dataIdConstantsService.addSuites_radio_selectCiscoEams}}"
+                                        [disabled]="isChangeSubFlow && cxEnrollmentData?.eamsDelivery?.partnerDeliverySelected && cxEnrollmentData?.relatedServicesIncludedInEAID">
+                                    <label for="radio36">
+                                        <span class='custom-radio-btn'>
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </span><span><span></span></span>{{'common.CISCO' | localizationPipe :
+                                        localizationService.localizedkeySet.size}}</label>
+                                </div>
+                                <div class="mr-3 radio-custom" (click)="selectEamsDeliveryOption()"
+                                    attr.action-id="{{dataIdConstantsService.addSuites_link_selectEamsDeliveryPartner}}">
+                                    <input id="radio36" type="radio" name="delivery_type" [checked]="!selectedCiscoEams"
+                                        attr.data-id="{{dataIdConstantsService.addSuites_radio_selectPartnerEams}}"
+                                        [disabled]="!isEamsEligibile || (isChangeSubFlow && !cxEnrollmentData?.eamsDelivery?.partnerDeliverySelected && cxEnrollmentData?.relatedServicesIncludedInEAID)">
+                                    <label for="radio36">
+                                        <span class='custom-radio-btn'>
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </span><span><span></span></span>{{'common.PARTNER' | localizationPipe :
+                                        localizationService.localizedkeySet.size}}</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- HTML for EAMS delivery type ends-->
+                
+                    <!-- HTML for partner contact block starts-->
+                    <div class="row mb-30" *ngIf="isEamsEligibile && !selectedCiscoEams">
+                        <div class="col-md-12">
+                            <div class="form-group mt-0 mb-3">
+                                <label class="heading--h5 mb-1">{{'common.PRIMARY_PARTNER' | localizationPipe :
+                                    localizationService.localizedkeySet.size}} <sup>*</sup></label>
+                                <input appElementFocus type="text"
+                                    attr.data-id="{{dataIdConstantsService.addSuites_text_primarypartner}}" disabled
+                                    [(ngModel)]="primaryPartner" class="form-control" id="p-patner" />
+                            </div>
+                        </div>
+                
+                        <div class="col-md-6">
+                            <div class="form-group mt-0 mb-3">
+                                <label class="heading--h5 mb-1">{{'common.CONTACT_NAME' | localizationPipe :
+                                    localizationService.localizedkeySet.size}} <sup>*</sup></label>
+                                <input appElementFocus type="text"
+                                    attr.data-id="{{dataIdConstantsService.addSuites_text_partnerContactName}}"
+                                    [(ngModel)]="partnerContactName" class="form-control" id="c-name-partner" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mt-0 mb-3">
+                                <label class="heading--h5 mb-1">{{'common.CCO_ID' | localizationPipe :
+                                    localizationService.localizedkeySet.size}} </label>
+                                <input appElementFocus type="text" attr.data-id="{{dataIdConstantsService.addSuites_text_partnerCcoId}}"
+                                    [(ngModel)]="partnerCcoId" class="form-control" id="ccid" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mt-0 mb-0">
+                                <label class="heading--h5 mb-1">{{'common.E_MAIL' | localizationPipe :
+                                    localizationService.localizedkeySet.size}} <sup>*</sup></label>
+                                <input appElementFocus type="text" [(ngModel)]="partnerEmail"
+                                    attr.data-id="{{dataIdConstantsService.addSuites_text_partnerEmail}}"
+                                    (change)='emailValidation(partnerEmail)' class="form-control" id="email" />
+                                <div class="text-danger mt-1" role="alert" #invalidEmail *ngIf="invalidEmail">
+                                    <i class="icon-error-icon"></i> <span>{{'common.INVALID_EMAIL_ID' | localizationPipe :
+                                        localizationService.localizedkeySet.size}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mt-0 mb-0">
+                                <label class="heading--h5 mb-1">{{'common.CONTACT_NUMBER' | localizationPipe :
+                                    localizationService.localizedkeySet.size}} <sup>*</sup></label>
+                                <form #f="ngForm" [formGroup]="phoneForm">
+                                    <div class="wrapper">
+                                        <ngx-intl-tel-input [cssClass]="'custom form-control contact-number'"
+                                            [enableAutoCountrySelect]="true" [enablePlaceholder]="false" [searchCountryFlag]="true"
+                                            [searchCountryField]="[
+                                            SearchCountryField.Iso2,
+                                            SearchCountryField.Name
+                                            ]" [selectFirstCountry]="false" [selectedCountryISO]="" [maxLength]="15"
+                                            [phoneValidation]="true" [separateDialCode]="true"
+                                            [numberFormat]="PhoneNumberFormat.National" name="phone" formControlName="phone" id="phone">
+                                        </ngx-intl-tel-input>
+                                        <div class="text-danger mt-1" role="alert"
+                                            *ngIf="contact.invalid && contact.touched && contact.value">
+                                            <i class="icon-error-icon"></i> <span>{{'common.INVALID_CONTACT_NUMBER' | localizationPipe :
+                                                localizationService.localizedkeySet.size}}</span>
+                                        </div>
+                                        <div class="text-danger mt-1" role="alert"
+                                            *ngIf="contact.invalid && contact.touched && !contact.value">
+                                            <i class="icon-error-icon"></i> <span>{{'common.FIELD_REQUIRED' | localizationPipe :
+                                                localizationService.localizedkeySet.size}}</span>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h6 class="mb-2 heading--h5">{{'add-suites.SELECT_SERVICE_SUITE' | localizationPipe : localizationService.localizedkeySet.size}}</h6>
+                    <table class="primary-table"
+                        *ngIf="(displayTierUpgradeTable && eaService.features?.CROSS_SUITE_MIGRATION_REL && cxUpgradeRowPresent && isUpgradeFlow) || !isUpgradeFlow || !eaService.features?.CROSS_SUITE_MIGRATION_REL ">
+                        <thead>
+                            <tr>
+                                <th>{{'add-suites.SERVICE_SUITES' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                    
+                                <th class="text-right" width="170px"><span class="i-vNext-help-filled listing-icon float-left"
+                                        tooltipClass="prices-shown" container="body"
+                                        ngbTooltip="{{'add-suites.ATTACH_RATE_MSG' | localizationPipe : localizationService.localizedkeySet.size}}"></span>{{'price-estimation.add-services.ATTACH_RATE'
+                                    | localizationPipe : localizationService.localizedkeySet.size}}<sup>*</sup></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!--CX table start-->
+                            <ng-container *ngFor="let pool of cxEnrollmentData?.pools">
+                                <ng-container *ngIf="pool?.cxSuitesIncludedInPool">
+                                    <tr class="main-row">
+                                        <td>{{pool.desc}}</td>
+                                        <td></td>
+                                    </tr>
+                                    <ng-container *ngFor="let suite of pool.suites; let cxSuiteIndex = index;">
+                                        <tr class="table-sub-row" *ngIf="suite.cxSelected">
+                                            <td
+                                                *ngIf="suite.cxSelected && (!suite.disabled || (suite.disabled && enrollment?.includedInChangeSub))">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <span>{{suite.desc}}
+                    
+                                                    </span>
+                                                    <ul class="inline-listing border-right-li ml-3"
+                                                        *ngIf="eaService.features.FIRESTORM_REL && suite?.coverageTypes?.length">
+                                                        <li class="dropdown" [ngClass]="{'disabled': suite.disabled || !suite.cxOptIn}">
+                                                            <a href="javascript:void(0)" #coveragePopover="ngbPopover"
+                                                                popoverClass="ag-dropdown-wrap" [ngbPopover]="coverageTemplate"
+                                                                placement="bottom" [outsideClick]="false"
+                                                                attr.action-id="{{dataIdConstantsService.addSuites_link_selectedTierPopover}}{{suite?.name}}"
+                                                                (click)="coverageTierDropClose(suite)">
+                                                                <ng-container
+                                                                    *ngIf="suite?.eaSuiteType === constantsService.CISCO_NETWORKING_SOLUTION && eaService.features?.WIFI7_REL; else forDnxCovergaeDesc">
+                                                                    <span *ngIf="!selectedCoverageTypeForUnx?.desc">
+                                                                        {{'add-suites.CX_SUITE_COMMIT' | localizationPipe :
+                                                                        localizationService.localizedkeySet.size}}
+                                                                        <sup [hidden]="suite.disabled || !suite.cxOptIn">*</sup>
+                                                                    </span>
+                                                                    <span *ngIf="selectedCoverageTypeForUnx?.desc">
+                                                                        {{selectedCoverageTypeForUnx?.desc}} <sup
+                                                                            [hidden]="!suite.cxOptIn">*</sup></span>
+                                                                </ng-container>
+                                                                <ng-template #forDnxCovergaeDesc>
+                                                                    <span *ngIf="!selectedCoverageType?.desc">
+                                                                        {{'add-suites.CX_SUITE_COVERAGE' | localizationPipe :
+                                                                        localizationService.localizedkeySet.size}}
+                                                                        <sup [hidden]="suite.disabled || !suite.cxOptIn">*</sup>
+                                                                    </span>
+                                                                    <span *ngIf="selectedCoverageType?.desc">
+                                                                        {{selectedCoverageType?.desc}} <sup
+                                                                            [hidden]="!suite.cxOptIn">*</sup></span>
+                                                                </ng-template>
+                                                                <span *ngIf="!suite.disabled && suite?.coverageTypes?.length > 1"
+                                                                    class="ico-dropdown"></span></a>
+                                                            <ng-template #coverageTemplate>
+                                                                <ul class="ag-dropdown-menu tp-dropdown-menu"
+                                                                    *ngIf="((showCoverageTierDrop && !eaService.features?.WIFI7_REL) || (suite?.showCoverageTierDrop && eaService.features?.WIFI7_REL)) && !suite.disabled">
+                                                                    <ng-container
+                                                                        *ngFor="let type of suite?.coverageTypes; let index = index;">
+                                                                        <li (click)="cxCoverageTypeSelect(suite, type); coveragePopover?.close();"
+                                                                            attr.data-id="{{dataIdConstantsService.addSuites_dropdown_suiteAtoSelection}}{{type.desc}}">
+                                                                            <a href="javascript:void(0);"
+                                                                                attr.action-id="{{dataIdConstantsService.addSuites_link_tiersObj}}{{type.desc}}">{{type.desc}}</a>
+                                                                        </li>
+                                                                    </ng-container>
+                                                                </ul>
+                                                            </ng-template>
+                                                            <span class="i-vNext-help-filled listing-icon  ml-2" tooltipClass="prices-shown"
+                                                                container="body"
+                                                                *ngIf="suite?.eaSuiteType === constantsService.CISCO_NETWORKING_SOLUTION && eaService.features?.WIFI7_REL; else dnxCoverageTooltip"
+                                                                ngbTooltip="{{'add-suites.COVERAGE_TYPE_INFO_UNX' | localizationPipe : localizationService.localizedkeySet.size}}"></span>
+                                                            <ng-template #dnxCoverageTooltip>
+                                                                <span class="i-vNext-help-filled listing-icon  ml-2"
+                                                                    tooltipClass="prices-shown" container="body"
+                                                                    ngbTooltip="{{'add-suites.COVERAGE_TYPE_INFO' | localizationPipe : localizationService.localizedkeySet.size}}"></span>
+                                                            </ng-template>
+                                                        </li>
+                                                    </ul>
+                                                    <ng-template #opt_hw_tooltip>
+                                                        {{'add-suites.OPT_HW_TOOLTIP' | localizationPipe :
+                                                        localizationService.localizedkeySet.size}}
+                                                    </ng-template>
+                                                    <ul class="inline-listing border-right-li"
+                                                        style="width: 18rem; justify-content: space-between;">
+                                                        <li class="borderR0">
+                                                            <span>
+                                                                <span class="mr-1"
+                                                                    [hidden]="suite?.eaSuiteType === constantsService.CISCO_NETWORKING_SOLUTION">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="16"
+                                                                        viewBox="0 0 26 16" fill="none">
+                                                                        <rect x="0.5" y="0.5" width="25" height="15" rx="7.5" fill="#E4E4E4"
+                                                                            stroke="#E4E4E4" />
+                                                                        <path
+                                                                            d="M9.56601 9.855C9.56601 9.591 9.50734 9.382 9.39001 9.228C9.25801 9.04467 9.01601 8.876 8.66401 8.722C8.31201 8.568 7.78034 8.392 7.06901 8.194C6.11568 7.93 5.45934 7.60367 5.10001 7.215C4.80668 6.89967 4.66001 6.478 4.66001 5.95C4.66001 5.312 4.93868 4.806 5.49601 4.432C6.00934 4.08733 6.67668 3.915 7.49801 3.915C8.41468 3.915 9.15901 4.13133 9.73101 4.564C10.2443 4.94533 10.545 5.444 10.633 6.06H9.47801C9.41201 5.642 9.19201 5.33033 8.81801 5.125C8.48801 4.93433 8.04801 4.839 7.49801 4.839C6.88201 4.839 6.42734 4.95633 6.13401 5.191C5.89934 5.37433 5.78201 5.61267 5.78201 5.906C5.78201 6.09667 5.81134 6.25433 5.87001 6.379C5.93601 6.49633 6.04601 6.60267 6.20001 6.698C6.48601 6.88867 7.03968 7.09767 7.86101 7.325C9.00501 7.64767 9.77868 8.01433 10.182 8.425C10.5193 8.76233 10.688 9.22433 10.688 9.811C10.688 10.5077 10.3837 11.0833 9.77501 11.538C9.20301 11.956 8.47701 12.165 7.59701 12.165C6.68034 12.165 5.92134 11.9193 5.32001 11.428C4.79934 11.0027 4.48768 10.4527 4.38501 9.778H5.54001C5.61334 10.262 5.84434 10.6323 6.23301 10.889C6.58501 11.1237 7.03234 11.241 7.57501 11.241C8.24968 11.241 8.76668 11.087 9.12601 10.779C9.41934 10.5297 9.56601 10.2217 9.56601 9.855Z"
+                                                                            fill="#394454" />
+                                                                        <path
+                                                                            d="M20.5831 4.08H21.6171L19.5271 12H18.2291L16.4361 5.29L14.5881 12H13.2131L11.1341 4.08H12.2781L13.9611 10.669L15.7761 4.08H17.1731L18.8891 10.647L20.5831 4.08Z"
+                                                                            fill="#394454" />
+                                                                    </svg>
+                                                                </span>
+                                                                <span class="mr-1"
+                                                                    *ngIf="suite.cxHwSupportAvailable && suite.cxHwSupportOptional">
+                                                                    <span class="border--left solid mr-1 ml-1"></span>
+                                                                    <!-- <input class="mr-1" type="checkbox" [disabled]="!suite.cxOptIn || suite.disabled" [checked]="!suite.cxHwSupportOptedOut && suite.cxOptIn" (click)="optionalcxHwSelected(suite)" > -->
+                                                                    <label class="label-check"
+                                                                        [hidden]="suite?.eaSuiteType === constantsService.CISCO_NETWORKING_SOLUTION">
+                                                                        <input class="form-check-input" type="checkbox"
+                                                                            [disabled]="!suite.cxOptIn || (suite.disabled && !suite.allowHwSupportOnlyPurchase) || (isPartnerLoggedIn && !proposalStoreService.proposalData.dealInfo?.partnerDeal && !vnextStoreService.loccDetail?.loccSigned)"
+                                                                            [checked]="!suite.cxHwSupportOptedOut && suite.cxOptIn"
+                                                                            (click)="optionalcxHwSelected(suite)"
+                                                                            attr.data-id="{{dataIdConstantsService.addSuites_checkbox_optionalcxHwSelected}}{{suite?.name}}"><span></span><span>&nbsp;</span>
+                                                                        <span class="custom-checkbox-btn i-vNext-fonts">
+                                                                            <span class="path1"></span>
+                                                                            <span class="path2"></span>
+                                                                            <span class="path3"></span>
+                                                                        </span>
+                                                                    </label>
+                    
+                                                                    <span class="slider round"></span><span #tooltip="ngbTooltip"
+                                                                        [ngbTooltip]="opt_hw_tooltip" placement='top'
+                                                                        attr.action-id="{{dataIdConstantsService.addSuites_slider_optionalcxHwSelected}}{{suite?.name}}">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="27" height="16"
+                                                                            viewBox="0 0 27 16" fill="none">
+                                                                            <path
+                                                                                d="M0 8C0 3.58172 3.58172 0 8 0H19C23.4183 0 27 3.58172 27 8V8C27 12.4183 23.4183 16 19 16H8C3.58172 16 0 12.4183 0 8V8Z"
+                                                                                fill="white" />
+                                                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                                d="M19 1H8C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15H19C22.866 15 26 11.866 26 8C26 4.13401 22.866 1 19 1ZM8 0C3.58172 0 0 3.58172 0 8C0 12.4183 3.58172 16 8 16H19C23.4183 16 27 12.4183 27 8C27 3.58172 23.4183 0 19 0H8Z"
+                                                                                fill="#C2D1E2" />
+                                                                            <path
+                                                                                d="M9.81901 4.08H10.952V12H9.81901V8.469H5.94701V12H4.82501V4.08H5.94701V7.523H9.81901V4.08Z"
+                                                                                fill="#394454" />
+                                                                            <path
+                                                                                d="M21.2814 4.08H22.3154L20.2254 12H18.9274L17.1344 5.29L15.2864 12H13.9114L11.8324 4.08H12.9764L14.6594 10.669L16.4744 4.08H17.8714L19.5874 10.647L21.2814 4.08Z"
+                                                                                fill="#394454" />
+                                                                        </svg> </span></span>
+                    
+                    
+                                                                <span class="mr-1"
+                                                                    *ngIf="suite.cxHwSupportAvailable && !suite.cxHwSupportOptional">
+                                                                    <span class="border--left solid mr-1 ml-1"></span>
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="16"
+                                                                        viewBox="0 0 26 16" fill="none">
+                                                                        <rect x="0.5" y="0.5" width="25" height="15" rx="7.5" fill="#cce5ea"
+                                                                            stroke="#E4E4E4" />
+                                                                        <path
+                                                                            d="M0 8C0 3.58172 3.58172 0 8 0H19C23.4183 0 27 3.58172 27 8V8C27 12.4183 23.4183 16 19 16H8C3.58172 16 0 12.4183 0 8V8Z" />
+                                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                            d="M19 1H8C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15H19C22.866 15 26 11.866 26 8C26 4.13401 22.866 1 19 1ZM8 0C3.58172 0 0 3.58172 0 8C0 12.4183 3.58172 16 8 16H19C23.4183 16 27 12.4183 27 8C27 3.58172 23.4183 0 19 0H8Z"
+                                                                            fill="#C2D1E2" />
+                                                                        <path
+                                                                            d="M9.81901 4.08H10.952V12H9.81901V8.469H5.94701V12H4.82501V4.08H5.94701V7.523H9.81901V4.08Z"
+                                                                            fill="#394454" />
+                                                                        <path
+                                                                            d="M21.2814 4.08H22.3154L20.2254 12H18.9274L17.1344 5.29L15.2864 12H13.9114L11.8324 4.08H12.9764L14.6594 10.669L16.4744 4.08H17.8714L19.5874 10.647L21.2814 4.08Z"
+                                                                            fill="#394454" />
+                                                                    </svg> </span>
+                                                            </span>
+                                                        </li>
+                                                        <li class="dropdown"
+                                                            [ngClass]="{'disabled': !suite.cxOptIn || suite.disabled || (isPartnerLoggedIn && !proposalStoreService.proposalData.dealInfo?.partnerDeal && !vnextStoreService.loccDetail?.loccSigned )}"
+                                                            *ngIf="suite.cxTierDropdown && suite.cxTierDropdown.length">
+                                                            <a href="javascript:void(0)" #popover="ngbPopover"
+                                                                popoverClass="ag-dropdown-wrap"
+                                                                attr.action-id="{{dataIdConstantsService.addSuites_link_cxTierPopover}}{{suite?.name}}"
+                                                                [ngbPopover]="securityTemplate" container="body"
+                                                                [placement]="suite.placement" [outsideClick]="true"
+                                                                (click)="openCxTierDropdown($event, suite)">{{suite.cxUpdatedTier?.desc}}<span
+                                                                    *ngIf='suite.cxTierDropdown.length > 1' class="ico-dropdown"></span></a>
+                                                            <ng-template #securityTemplate>
+                                                                <ul class="ag-dropdown-menu tp-dropdown-menu">
+                                                                    <li *ngFor="let tiersObj of suite.cxTierDropdown;let tierIndex=index;"
+                                                                        (click)="changeCxTierSelection(tiersObj, suite); popover.close();"
+                                                                        attr.data-id="{{dataIdConstantsService.addSuites_dropdown_changeCxTierSelection}}{{tiersObj?.name}}">
+                                                                        <a href="javascript:void(0);"
+                                                                            attr.action-id="{{dataIdConstantsService.addSuites_link_cxTierObj}}{{tiersObj?.name}}">{{tiersObj.desc}}</a>
+                                                                    </li>
+                                                                </ul>
+                                                            </ng-template>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                    
+                    
+                                            <td class="text-right"
+                                                *ngIf="suite.cxSelected && enrollment.id !== 6 && (!suite.disabled || (suite.disabled && enrollment.includedInChangeSub))">
+                                                <ng-container *ngIf="!suite.disabled">
+                                                    <span *ngIf='suite.serviceAttachMandatory'
+                                                        class="i-vNext-help-filled listing-icon float-left" tooltipClass="prices-shown"
+                                                        container="body"
+                                                        ngbTooltip="{{'add-suites.qna.SELECT_SERVICE_MANDATORY' | localizationPipe : localizationService.localizedkeySet.size}}"></span>
+                                                    <input *ngIf="suite.cxHwSupportAvailable" class="form-control text-right" tabindex="1"
+                                                        [disabled]="!suite.cxOptIn || (suite.cxHwSupportOptional && suite.cxHwSupportOptedOut) ||(isPartnerLoggedIn && !proposalStoreService.proposalData.dealInfo?.partnerDeal && !vnextStoreService.loccDetail?.loccSigned ) "
+                                                        attr.data-id="{{dataIdConstantsService.addSuites_number_attachRate}}{{suite?.name}}"
+                                                        [ngClass]="{'disabled': !suite.cxOptIn}"
+                                                        (keyup)="checkValue($event,suite.cxAttachRate)" [ngModel]="suite.cxAttachRate"
+                                                        (blur)='checkAllAttachRate(suite,$event)' type="number">
+                                                </ng-container>
+                                                <ng-container
+                                                    *ngIf="(suite.disabled && enrollment.includedInChangeSub) || (!suite.cxHwSupportAvailable)">
+                                                    <!-- enpty -->
+                                                    <ng-container *ngIf="suite.allowHwSupportOnlyPurchase && !suite.cxHwSupportOptedOut">
+                                                        <span *ngIf='suite.serviceAttachMandatory'
+                                                            class="i-vNext-help-filled listing-icon float-left" tooltipClass="prices-shown"
+                                                            container="body"
+                                                            ngbTooltip="{{'add-suites.qna.SELECT_SERVICE_MANDATORY' | localizationPipe : localizationService.localizedkeySet.size}}"></span>
+                                                        <input *ngIf="suite.cxHwSupportAvailable" class="form-control text-right"
+                                                            tabindex="1"
+                                                            [disabled]="!suite.cxOptIn || (suite.cxHwSupportOptional && suite.cxHwSupportOptedOut) || (isPartnerLoggedIn && !proposalStoreService.proposalData.dealInfo?.partnerDeal && !vnextStoreService.loccDetail?.loccSigned )"
+                                                            [ngClass]="{'disabled': !suite.cxOptIn}"
+                                                            attr.data-id="{{dataIdConstantsService.addSuites_number_attachRate}}{{suite?.name}}"
+                                                            (keyup)="checkValue($event,suite.cxAttachRate)" [ngModel]="suite.cxAttachRate"
+                                                            (blur)='checkAllAttachRate(suite,$event)' type="number">
+                                                    </ng-container>
+                                                </ng-container>
+                                                <!-- <span class="danger">*</span> -->
+                                            </td>
+                                        </tr>
+                                    </ng-container>
+                                </ng-container>
+                            </ng-container>
+                            <!--CX table end-->
+                        </tbody>
+                    </table>
+                </ng-container>
+                
+            </ng-container>
+
+            <div *ngIf="billToTab"> 
+                <ng-container *ngIf="checkToDisableContinueforFlooringBid()">
+                    <div class="alert alert--danger alert-dismissable mt-2">
+                        <span class="alert-icon">
+                            <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span
+                                    class="path3"></span></span>
+                        </span>
+                        <span>{{'add-suites.FLOORING_BID_RESTRICTION_ERROR_MESSAGE' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                    </div>
+                </ng-container>
+                <div class="alert alert--danger alert-dismissable mt-2" *ngIf="isChangeSubFlow && !isBillToIdPresent && isCxREquired"> <!--check for this msg sept rel-->
+                    <span class="alert-icon">
+                        <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                    </span>
+                    <span>{{'add-suites.INVALID_BILL_TO_ID_CHANGE_SUB_FLOW' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                </div> 
+                <ng-container *ngIf="enrollment.id !== 6">
+                    <!--start -> this is old block for bill to-->
+                    <ng-container *ngIf="!(eaService.isResellerOpty || eaService.isDistiOpty)">
+                        <h5 class="heading--h5 heading--bordered">{{'add-suites.BILL_TO_INFO_HEADER_HW' | localizationPipe : localizationService.localizedkeySet.size}}</h5>
+                        <h6 *ngIf="!selectedBill; else notSelected" class="heading--h5 marginB10">{{'add-suites.BILL_TO_ADDRESS_HYPHEN' |
+                            localizationPipe : localizationService.localizedkeySet.size}} <sup *ngIf="billToIdRequired">*</sup></h6>
+                        <ng-template #notSelected>
+                            <h6 class="heading--h5 marginB10">{{'add-suites.BILL_TO_ADDRESS_HYPHEN' | localizationPipe :
+                                localizationService.localizedkeySet.size}} <sup *ngIf="billToIdRequired">*</sup> </h6>
+                        </ng-template>
+                        <div *ngIf="!selectedBill" (clickOutside)="clearSearchBillTo()"
+                            class="form-group search-wrap mt-0 mb-30 position-relative" [ngClass]="{'disabled': isChangeSubFlow}">
+                            <div class="d-flex position-relative">
+                                <input appelementfocus=""
+                                    [placeholder]="localizationService.getLocalizedString('add-suites.qna.SEARCH_BY_PARTNER')"
+                                    class="form-control" required="" type="text" [formControl]='searchBillId'
+                                    (focus)="showBillToData()"
+                                    attr.data-id="{{dataIdConstantsService.addSuites_text_searchBillToId}}">
+                                <span class="i-vNext-search" (click)="showBillToData()"
+                                    attr.action-id="{{dataIdConstantsService.addSuites_icon_showBillToData}}"></span>
+                            </div>
+            
+                            <div class="contact-block contact-block-dropdown p-0 w-100"
+                                *ngIf="showSelectionOptions && ((searchBillId.value.length > 2 && !isPartnerLoggedIn) || isPartnerLoggedIn)">
+            
+                                <div class="list-header mb-2">
+                                    <span>{{'common.NAME_GU_ID' | localizationPipe :
+                                        localizationService.localizedkeySet.size}}</span>
+                                    <span>{{'common.ADDRESS' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                                </div>
+            
+                                <ul class="smartsearch-li">
+                                    <li *ngFor='let billData of billDataArray| searchFilter: searchBillId.value: searchArray; let index = index;'
+                                        (click)="selectBill(billData)"
+                                        attr.data-id="{{dataIdConstantsService.addSuites_dropdown_billToId}}{{index}}"
+                                        [ngClass]="{'active':selectedBill?.siteUseId === billData?.siteUseId}">
+                                        <span>{{billData?.name}} <span class="i-vNext-check"></span><span
+                                                class="text-light-heading">({{billData?.siteUseId}})</span></span>
+                                        <span>{{billData?.address1}}<br />{{billData?.city}}
+                                            ,{{billData?.postalCode}}<br>{{billData?.countryName}}</span>
+                                    </li>
+                                </ul>
+            
+                            </div>
+                            <div class="w-100 mt-2" *ngIf="displayNoBillIdMsg">
+                                <p>{{'add-suites.qna.NO_BILL_FOUND' | localizationPipe : localizationService.localizedkeySet.size}}
+                                </p>
+                            </div>
+                        </div>
+                        <div *ngIf="selectedBill" class="contact-block mb-30">
+                            <div class="d-flex w-100 align-items-center">
+                                <h3 class="heading--h3">{{selectedBill.name}}</h3>
+                                <ul class="inline-listing border-right-li ml-2" *ngIf="!isChangeSubFlow">
+                                    <li><a (click)='removeBillToId()' href="javascript:void(0);"
+                                            attr.action-id="{{dataIdConstantsService.addSuites_link_removeBillToId}}"><span
+                                                class="i-vNext-edit-filled"></span></a></li>
+                                </ul>
+                            </div>
+                            <p class="mt-1">{{selectedBill.address1}}<br />{{selectedBill?.city}} ,{{selectedBill?.postalCode}}
+                                ,{{selectedBill?.state}}<br />{{selectedBill.countryName}}</p>
+                            <div class="mt-2">
+                                <ul class="inline-listing flex-wrap">
+                                    <li>
+                                        <div>{{'common.CUSTOMER_NUMBER' | localizationPipe :
+                                            localizationService.localizedkeySet.size}}</div>
+                                        <div>{{selectedBill.customerNumber}}</div>
+                                    </li>
+            
+                                    <li>
+                                        <div>{{'common.BILL_TO_HYPHEN_ID' | localizationPipe : localizationService.localizedkeySet.size}}
+                                        </div>
+                                        <div>{{selectedBill.siteUseId}}</div>
+                                    </li>
+            
+                                    <li>
+                                        <div>{{'common.OPERATING_UNIT' | localizationPipe :
+                                            localizationService.localizedkeySet.size}}</div>
+                                        <div>{{selectedBill.orgId}} <span *ngIf="selectedBill?.orgName">--
+                                                {{selectedBill?.orgName}}</span></div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </ng-container>
+            
+            
+                    <!--Start Disti flow for sept release-->
+                    <ng-container *ngIf="eaService.isResellerOpty || eaService.isDistiOpty">
+                        <h5 class="heading--h5 heading--bordered">{{'add-suites.BILL_TO_INFO_HEADER_HW' | localizationPipe : localizationService.localizedkeySet.size}}</h5>
+                        <ng-container *ngIf="eaService.isDistiOpty">
+                            <h6 class="heading--h5 marginB10">{{'common.DISTI_BILL_TO_ID_LABEL' | localizationPipe :
+                                localizationService.localizedkeySet.size}}<sup *ngIf="billToIdRequired">*</sup> </h6>
+                            <div *ngIf="!selectedDistiBill"
+                                [ngClass]="{'disabled': (eaService.isResellerOpty && !selectedResellerBill) || isChangeSubFlow}"
+                                (clickOutside)="clearSearchDistiBillTo()"
+                                class="form-group search-wrap mt-0 mb-30 position-relative">
+                                <div class="d-flex position-relative" [ngClass]>
+                                    <input placeholder="Search by Partner Name or Bill to ID" class="form-control" type="text"
+                                        attr.data-id="{{dataIdConstantsService.addSuites_text_searchDistiBillTo}}"
+                                        [(ngModel)]="searchDistiBillTo" (ngModelChange)="getDistiBillTo(searchDistiBillTo)">
+                                    <span class="i-vNext-search" (click)="getDistiBillTo(searchDistiBillTo)"
+                                        attr.action-id="{{dataIdConstantsService.addSuites_icon_getDistiBillTo}}"></span>
+                                </div>
+                                <div class="contact-block contact-block-dropdown p-0 w-100" *ngIf="showDistiBillToOptions">
+                                    <div class="list-header mb-2">
+                                        <span>{{'common.NAME_GU_ID' | localizationPipe :
+                                            localizationService.localizedkeySet.size}}</span>
+                                        <span>{{'common.ADDRESS' | localizationPipe :
+                                            localizationService.localizedkeySet.size}}</span>
+                                    </div>
+            
+                                    <ul class="smartsearch-li">
+                                        <li *ngFor='let distiBillData of distiBillDataArray; let index = index;'
+                                            (click)="selectDistiBill(distiBillData)"
+                                            attr.data-id="{{dataIdConstantsService.addSuites_dropdown_selectDistiBill}}{{index}}">
+                                            <span>{{distiBillData?.name}} <span class="i-vNext-check"></span><span
+                                                    class="text-light-heading">({{distiBillData?.siteUseId}})</span></span>
+                                            <span>{{distiBillData?.address1}}<br />{{distiBillData?.city}}
+                                                ,{{distiBillData?.postalCode}}<br>{{distiBillData?.countryName}}</span>
+                                        </li>
+                                    </ul>
+            
+                                </div>
+                                <div class="w-100 mt-2" *ngIf="displayNoDistiBillIdMsg">
+                                    <p *ngIf='eaService.isDistiOpty'>{{'add-suites.qna.NO_BILL_FOUND' | localizationPipe :
+                                        localizationService.localizedkeySet.size}}
+                                    </p>
+                                    <div class="alert alert--danger alert-dismissable mt-2" *ngIf='eaService.isResellerOpty'>
+                                        <span class="alert-icon">
+                                            <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span
+                                                    class="path3"></span></span>
+                                        </span>
+                                        <span>{{'add-suites.DISTI_BILL_TO_ID_MSG' | localizationPipe :
+                                            localizationService.localizedkeySet.size}}</span>
+                                    </div>
+                                </div>
+                                <div class="col-12 mb-2 alert alert--info alert-dismissable" *ngIf="eaService.isResellerLoggedIn && billToIdRequired">
+                                    <span class="alert-icon">
+                                        <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                                    </span>
+                                    <span>{{'add-suites.PLEASE_REACH_OUT_TO_DISTI_AM' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                                </div>
+            
+                                <div class="col-12 mb-2 alert alert--info alert-dismissable" *ngIf="!(eaService.isResellerLoggedIn || eaService.isDistiLoggedIn) && billToIdRequired">
+                                    <span class="alert-icon">
+                                        <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                                    </span>
+                                    <span>{{'add-suites.PLEASE_REACH_OUT_TO_PARTNER_AM' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                                </div>
+                            </div>
+                            <div *ngIf="selectedDistiBill" class="contact-block mb-30">
+                                <div class="d-flex w-100 align-items-center">
+                                    <h3 class="heading--h3">{{selectedDistiBill.name}}</h3>
+                                    <ul class="inline-listing border-right-li ml-2" *ngIf="!isChangeSubFlow">
+                                        <li><a (click)='removeDistiBid()'
+                                                attr.action-id="{{dataIdConstantsService.addSuites_link_removeDistiBillToId}}"
+                                                href="javascript:void(0);"><span class="i-vNext-edit-filled"></span></a></li>
+                                    </ul>
+                                </div>
+                                <p class="mt-1">{{selectedDistiBill.address1}}<br />{{selectedDistiBill?.city}}
+                                    ,{{selectedDistiBill?.postalCode}}
+                                    ,{{selectedDistiBill?.state}}<br />{{selectedDistiBill.countryName}}</p>
+                                <div class="mt-2">
+                                    <ul class="inline-listing flex-wrap">
+                                        <li>
+                                            <div>{{'common.CUSTOMER_NUMBER' | localizationPipe :
+                                                localizationService.localizedkeySet.size}}</div>
+                                            <div>{{selectedDistiBill.customerNumber}}</div>
+                                        </li>
+            
+                                        <li>
+                                            <div>{{'common.BILL_TO_HYPHEN_ID' | localizationPipe :
+                                                localizationService.localizedkeySet.size}}</div>
+                                            <div>{{selectedDistiBill.siteUseId}}</div>
+                                        </li>
+            
+                                        <li>
+                                            <div>{{'common.OPERATING_UNIT' | localizationPipe :
+                                                localizationService.localizedkeySet.size}}</div>
+                                            <div>{{selectedDistiBill.orgId}} <span *ngIf="selectedDistiBill?.orgName">--
+                                                    {{selectedDistiBill?.orgName}}</span></div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </ng-container>
+            
+                        <h6 class="heading--h5 marginB10">{{'common.RESELLER_BILL_TO_ID_LABEL' | localizationPipe :
+                            localizationService.localizedkeySet.size}}<sup *ngIf="billToIdRequired">*</sup> </h6>
+                        <div *ngIf="!selectedResellerBill"
+                            [ngClass]="{'disabled': (eaService.isDistiOpty && !selectedDistiBill) || isChangeSubFlow}"
+                            (clickOutside)="clearSearchResellerBillTo()"
+                            class="form-group search-wrap mt-0 mb-30 position-relative">
+                            <div class="d-flex position-relative">
+                                <input placeholder="Search by Partner Name or Bill to ID" class="form-control" type="text"
+                                    attr.data-id="{{dataIdConstantsService.addSuites_text_searchResellerBillTo}}"
+                                    [(ngModel)]="searchResellerBillTo" (ngModelChange)="getResellerBillTo(searchResellerBillTo)">
+                                <span class="i-vNext-search" (click)="getResellerBillTo(searchResellerBillTo)"
+                                    attr.action-id="{{dataIdConstantsService.addSuites_icon_getResellerBillTo}}"></span>
+                            </div>
+                            <div class="contact-block contact-block-dropdown p-0 w-100" *ngIf="showResellerBillToOptions">
+                                <div class="list-header mb-2">
+                                    <span>{{'common.NAME_GU_ID' | localizationPipe :
+                                        localizationService.localizedkeySet.size}}</span>
+                                    <span>{{'common.ADDRESS' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                                </div>
+            
+                                <ul class="smartsearch-li">
+                                    <li *ngFor='let resellerBillData of resellerBillDataArray; let index = index;'
+                                        (click)="selectResellerBill(resellerBillData)"
+                                        attr.data-id="{{dataIdConstantsService.addSuites_dropdown_selectResellerBill}}">
+                                        <span>{{resellerBillData?.name}} <span class="i-vNext-check"></span><span
+                                                class="text-light-heading">({{resellerBillData?.siteUseId}})</span></span>
+                                        <span>{{resellerBillData?.address1}}<br />{{resellerBillData?.city}}
+                                            ,{{resellerBillData?.postalCode}}<br>{{resellerBillData?.countryName}}</span>
+                                    </li>
+                                </ul>
+            
+                            </div>
+                            <div class="w-100 mt-2" *ngIf="displayNoResellerBillIdMsg">
+                                <span *ngIf='!eaService.isDistiLoggedIn'>{{'add-suites.qna.NO_BILL_FOUND' | localizationPipe :
+                                    localizationService.localizedkeySet.size}}</span>
+                                <div class="alert alert--danger alert-dismissable mt-2" *ngIf='eaService.isDistiLoggedIn'>
+                                    <span class="alert-icon">
+                                        <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span
+                                                class="path3"></span></span>
+                                    </span>
+                                    <span>{{'add-suites.RESELLER_BILL_TO_ID_MSG' | localizationPipe :
+                                        localizationService.localizedkeySet.size}}</span>
+                                </div>
+            
+                            </div>
+                        </div>
+                        <div *ngIf="selectedResellerBill" class="contact-block mb-30">
+                            <div class="d-flex w-100 align-items-center">
+                                <h3 class="heading--h3">{{selectedResellerBill.name}}</h3>
+                                <ul class="inline-listing border-right-li ml-2" *ngIf="!isChangeSubFlow">
+                                    <li><a (click)='removeResellerBid()' href="javascript:void(0);"
+                                            attr.action-id="{{dataIdConstantsService.addSuites_link_removeResellerDisti}}"><span
+                                                class="i-vNext-edit-filled"></span></a></li>
+                                </ul>
+                            </div>
+                            <p class="mt-1">{{selectedResellerBill.address1}}<br />{{selectedResellerBill?.city}}
+                                ,{{selectedResellerBill?.postalCode}}
+                                ,{{selectedResellerBill?.state}}<br />{{selectedResellerBill.countryName}}
+                            </p>
+                            <div class="mt-2">
+                                <ul class="inline-listing flex-wrap">
+                                    <li>
+                                        <div>{{'common.CUSTOMER_NUMBER' | localizationPipe :
+                                            localizationService.localizedkeySet.size}}</div>
+                                        <div>{{selectedResellerBill.customerNumber}}</div>
+                                    </li>
+            
+                                    <li>
+                                        <div>{{'common.BILL_TO_HYPHEN_ID' | localizationPipe : localizationService.localizedkeySet.size}}
+                                        </div>
+                                        <div>{{selectedResellerBill.siteUseId}}</div>
+                                    </li>
+            
+                                    <li>
+                                        <div>{{'common.OPERATING_UNIT' | localizationPipe :
+                                            localizationService.localizedkeySet.size}}</div>
+                                        <div>{{selectedResellerBill.orgId}} <span *ngIf="selectedBill?.orgName">--
+                                                {{selectedResellerBill?.orgName}}</span></div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+            
+                        <ng-container *ngIf="!eaService.isDistiOpty">
+                            <h6 class="heading--h5 marginB10">{{'common.DISTI_BILL_TO_ID_LABEL' | localizationPipe :
+                                localizationService.localizedkeySet.size}}<sup *ngIf="billToIdRequired">*</sup> </h6>
+                            <div *ngIf="!selectedDistiBill"
+                                [ngClass]="{'disabled': (eaService.isResellerOpty && !selectedResellerBill) || isChangeSubFlow}"
+                                (clickOutside)="clearSearchDistiBillTo()"
+                                class="form-group search-wrap mt-0 mb-10 position-relative">
+                                <div class="d-flex position-relative">
+                                    <input
+                                        placeholder="{{'add-suites.SELECT_BILL_TO_ADDRESS' | localizationPipe : localizationService.localizedkeySet.size}}"
+                                        class="form-control" type="text" [(ngModel)]="searchDistiBillTo"
+                                        (ngModelChange)="getDistiBillTo(searchDistiBillTo)"
+                                        attr.data-id="{{dataIdConstantsService.addSuites_text_searchDistiBillTo}}">
+                                    <span class="i-vNext-search" (click)="getDistiBillTo(searchDistiBillTo)"
+                                        attr.action-id="{{dataIdConstantsService.addSuites_icon_getDistiBillTo}}"></span>
+                                </div>
+                                <div class="contact-block contact-block-dropdown p-0 w-100" *ngIf="showDistiBillToOptions">
+                                    <div class="list-header mb-2">
+                                        <span>{{'common.NAME_GU_ID' | localizationPipe :
+                                            localizationService.localizedkeySet.size}}</span>
+                                        <span>{{'common.ADDRESS' | localizationPipe :
+                                            localizationService.localizedkeySet.size}}</span>
+                                    </div>
+            
+                                    <ul class="smartsearch-li">
+                                        <li *ngFor='let distiBillData of distiBillDataArray; let index = index;'
+                                            (click)="selectDistiBill(distiBillData)"
+                                            attr.data-id="{{dataIdConstantsService.addSuites_dropdown_selectDistiBill}}">
+                                            <span>{{distiBillData?.name}} <span class="i-vNext-check"></span><span
+                                                    class="text-light-heading">({{distiBillData?.siteUseId}})</span></span>
+                                            <span>{{distiBillData?.address1}}<br />{{distiBillData?.city}}
+                                                ,{{distiBillData?.postalCode}}<br>{{distiBillData?.countryName}}</span>
+                                        </li>
+                                    </ul>
+            
+                                </div>
+                                <div class="w-100 mt-2" *ngIf="displayNoDistiBillIdMsg">
+                                    <p *ngIf='!eaService.isResellerLoggedIn'>{{'add-suites.qna.NO_BILL_FOUND' | localizationPipe :
+                                        localizationService.localizedkeySet.size}}
+                                    </p>
+                                    <div class="alert alert--danger alert-dismissable mt-2" *ngIf='eaService.isResellerLoggedIn'>
+                                        <span class="alert-icon">
+                                            <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span
+                                                    class="path3"></span></span>
+                                        </span>
+                                        <span>{{'add-suites.DISTI_BILL_TO_ID_MSG' | localizationPipe :
+                                            localizationService.localizedkeySet.size}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 mb-2 alert alert--info alert-dismissable" *ngIf="eaService.isResellerLoggedIn && billToIdRequired && !selectedDistiBill">
+                                <span class="alert-icon">
+                                    <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                                </span>
+                                <span>{{'add-suites.PLEASE_REACH_OUT_TO_DISTI_AM' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                            </div>
+                            <div class="col-12 mb-2 alert alert--info alert-dismissable" *ngIf="!(eaService.isResellerLoggedIn || eaService.isDistiLoggedIn) && billToIdRequired  && !selectedDistiBill">
+                                <span class="alert-icon">
+                                    <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                                </span>
+                                <span>{{'add-suites.PLEASE_REACH_OUT_TO_PARTNER_AM' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                            </div>
+                            <div *ngIf="selectedDistiBill" class="contact-block mb-30">
+                                <div class="d-flex w-100 align-items-center">
+                                    <h3 class="heading--h3">{{selectedDistiBill.name}}</h3>
+                                    <ul class="inline-listing border-right-li ml-2" *ngIf="!isChangeSubFlow">
+                                        <li><a (click)='removeDistiBid()' href="javascript:void(0);"
+                                                attr.action-id="{{dataIdConstantsService.addSuites_link_removeDistiBillToId}}"><span
+                                                    class="i-vNext-edit-filled"></span></a></li>
+                                    </ul>
+                                </div>
+                                <p class="mt-1">{{selectedDistiBill.address1}}<br />{{selectedDistiBill?.city}}
+                                    ,{{selectedDistiBill?.postalCode}}
+                                    ,{{selectedDistiBill?.state}}<br />{{selectedDistiBill.countryName}}</p>
+                                <div class="mt-2">
+                                    <ul class="inline-listing flex-wrap">
+                                        <li>
+                                            <div>{{'common.CUSTOMER_NUMBER' | localizationPipe :
+                                                localizationService.localizedkeySet.size}}</div>
+                                            <div>{{selectedDistiBill.customerNumber}}</div>
+                                        </li>
+            
+                                        <li>
+                                            <div>{{'common.BILL_TO_HYPHEN_ID' | localizationPipe :
+                                                localizationService.localizedkeySet.size}}</div>
+                                            <div>{{selectedDistiBill.siteUseId}}</div>
+                                        </li>
+            
+                                        <li>
+                                            <div>{{'common.OPERATING_UNIT' | localizationPipe :
+                                                localizationService.localizedkeySet.size}}</div>
+                                            <div>{{selectedDistiBill.orgId}} <span *ngIf="selectedBill?.orgName">--
+                                                    {{selectedDistiBill?.orgName}}</span></div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </ng-container>
+                </ng-container>
+            </div>
+        </ng-container>
+    </div>
+</div>

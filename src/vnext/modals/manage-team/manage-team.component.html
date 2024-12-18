@@ -1,0 +1,15 @@
+<div attr.page-id="{{dataIdConstantsService.manageTeam_page_manageTeamModal}}">
+    <div class="modal-body vNext modal-without-header">
+        <button class="icon-close-btn" (click)="close()" type="button" attr.action-id="{{dataIdConstantsService.manageTeam_button_closeModal}}"></button>
+    
+        <h2>{{localizationService.getLocalizedString('manage-team.MANAGE_TEAMS')}}</h2>
+    </div>
+    <div class="modal-body vNext modal-without-header">
+        <app-cisco-team *ngIf = "showTeam" [enableManageTeamEdit]="false" (addRemove)="isAddRemove($event)"></app-cisco-team>
+        <app-ng-partner-team [teamData] = "partnerObject" *ngIf = "showTeam" [enableManageTeamEdit]="false" (addRemove)="isAddRemove($event)"></app-ng-partner-team>
+    </div>
+    
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary sm cancel-btn" (click)="close()" attr.action-id="{{dataIdConstantsService.manageTeam_button_close}}">{{localizationService.getLocalizedString('common.CLOSE')}}</button>
+    </div>
+</div>

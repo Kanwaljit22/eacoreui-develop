@@ -1,0 +1,13 @@
+<div class="modal-body vNext modal-without-header">
+    <button class="icon-close-btn" attr.action-id="{{dataIdConstantsService.subscriptionRenewalConf_button_closeIcon}}" (click)="close()" type="button"></button>
+
+    <h2>{{'create-proposal.SUBSCRIPTION_SELECTION_CONFIRMATION_HEADER' | localizationPipe : localizationService.localizedkeySet.size}}</h2>
+</div>
+<div class="modal-body vNext modal-without-header px-5 py-3">
+    <h5>{{'create-proposal.SUBSCRIPTION_SELECTION_CONFIRMATION_BODY_1' | localizationPipe : localizationService.localizedkeySet.size}}</h5>
+    <!-- <h5 class="mt-1">{{localizationService.getLocalizedString('create-proposal.SUBSCRIPTION_SELECTION_CONFIRMATION_BODY_2')}}</h5> -->
+</div>
+<div class="modal-footer justify-content-center">
+    <button type="button" class="btn btn-secondary sm cancel-btn" attr.action-id="{{dataIdConstantsService.subscriptionRenewalConf_button_closeButton}}" (click)="close()">{{'common.No' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+    <button class="btn btn-primary ml-2" type="button" attr.action-id="{{dataIdConstantsService.subscriptionRenewalConf_button_confirm}}" (click) = "confirm()" >{{'create-proposal.SUBSCRIPTION_SELECTION_CONFIRMATION_YES' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+</div>

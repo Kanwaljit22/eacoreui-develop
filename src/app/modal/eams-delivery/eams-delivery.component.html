@@ -1,0 +1,128 @@
+<div class="modal-header cx-modal">
+    <h5 class="modal-title">EAMS Delivery</h5>
+    <button class="icon-close-btn" type="button" (click)="close()"></button>
+  </div>
+  <div class="modal-body eams-form">
+    <div class="row">
+      <div class="col">
+        <p class="eams-text text-center mb-2">Select EA Management Support delivery type</p>
+        <div class="eams-radio-selection">
+              <!-- if change sub flow and partner EAMS is already present or filled -->
+              <div class="cisco-selection disabled" *ngIf="isChangeSubFlow && proposalCxParams?.partnerEamsDelivery">
+                <input type="radio" id="cisco-eams" name="select-eams" value="cisco" />
+                <label for="cisco-eams">
+                  <span>Cisco</span>
+                </label>
+              </div>
+              <!-- if not change sub flow -->
+              <div class="cisco-selection" (click)="selectCisco()" *ngIf="!(isChangeSubFlow && proposalCxParams?.partnerEamsDelivery)">
+                <input type="radio" id="cisco-eams" name="select-eams" value="cisco" [checked]="selectedCiscoEams" />
+                <label for="cisco-eams">
+                  <span>Cisco</span>
+                </label>
+              </div>
+          
+        
+            <div class="partner-selection"  (click)="selectEams()">
+              <input type="radio" id="partner-eams" name="select-eams" [checked]="!selectedCiscoEams" value="partner" />
+              <label for="partner-eams">
+              <span>Partner</span>
+            </label>
+            </div>
+         
+        </div>
+      
+      <p *ngIf="!selectedCiscoEams" class="eams-text text-center py-4">Great! Add partner contact information before going forward.</p>
+    </div>
+  </div>
+  <ng-container *ngIf="!selectedCiscoEams">
+    <div class="row">
+    <div class="col-md-6">
+      <div class="form-group mt-0">
+        <input appElementFocus type="text" disabled [(ngModel)]="primaryPartner" class="form-control" id="p-patner"/>
+        <label class="customer-label" for="p-patner" >Primary Partner <sup>*</sup></label>
+    </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group mt-0">
+        <input appElementFocus type="text" [(ngModel)]="partnerContactName" class="form-control" id="c-name-partner" />
+        <label class="customer-label" for="c-name-partner" >Partner Contact Name <sup>*</sup></label>
+    </div>
+    </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group mt-0">
+          <input appElementFocus type="text" [(ngModel)]="partnerEmail" (change) = 'emailValidation(partnerEmail)' class="form-control" id="email" />
+          <label class="customer-label" for="email" >E-Mail <sup>*</sup></label>
+      </div>
+      <div class="text-danger" role="alert" #invalidEmail *ngIf="invalidEmail">
+        <i class="icon-error-icon"></i>
+        <span>Invalid Email Id</span>
+      </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group mt-0">
+          <input appElementFocus type="text" [(ngModel)]="partnerCcoId" class="form-control" id="ccid" />
+          <label class="customer-label" for="ccid" >CCO ID </label>
+      </div>
+      </div>
+      </div>
+      <!-- <div class="row">
+      
+        <div class="col-md-8">
+          <div class="form-group eams-tel-num mt-4" style=" margin-bottom: 0 ">
+            <label class="customer-label" for="">
+              Partner Contact Number </label>
+              <input (keydown)='allowNumberWithPlus($event)' (input)='checkPhoneNumbers($event)' [(ngModel)]="phoneNumber" maxlength="16" type="text"
+              class="form-control" id="" value="" #phoneNumberField />
+          
+          </div>
+        </div>
+     
+      </div> -->
+      <div class="row">
+        
+        <div class="col-md-8">
+          <div class="form-group eams-tel-num mt-4" style="margin-bottom: 0;">
+        <label class="customer-label" for="">
+          Partner Contact Number <sup>*</sup></label>
+          <form #formPhone="ngForm" [formGroup]="phoneForm">
+            <div class="wrapper">
+              <ngx-intl-tel-input
+              [cssClass]="'custom form-control contact-number'"
+              [enableAutoCountrySelect]="true"
+              [enablePlaceholder]="false"
+              [searchCountryFlag]="true"
+              [searchCountryField]="[
+                SearchCountryField.Iso2,
+                SearchCountryField.Name
+              ]"
+              [selectFirstCountry]="false"
+              [selectedCountryISO]=""
+              [maxLength]="15"
+              [phoneValidation]="true"
+              [separateDialCode]="true"
+              [numberFormat]="PhoneNumberFormat.National"
+              name="phone"
+              formControlName="phone"
+              >
+              </ngx-intl-tel-input>
+            </div>
+          </form>
+          </div>
+        </div>
+        <div class="text-danger col-md-8 mt-2" role="alert" *ngIf="phone.invalid && phone.value">
+          <i class="icon-error-icon"></i>
+          <span>Please enter valid phone number.</span>
+      </div>
+      </div>
+   
+    </ng-container>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-secondary" type="button" (click)="close()">Cancel</button>
+    <button  *ngIf = "selectedCiscoEams" class="btn btn-primary"  type="button" (click)="saveCiscoEMS()">Done</button>
+    <button *ngIf = "!selectedCiscoEams" class="btn btn-primary"  type="button" (click)="savePartnerEMS()" [disabled]="invalidEmail || phone.invalid || !(primaryPartner && partnerEmail && partnerContactName)">Done</button>
+  </div>
+  

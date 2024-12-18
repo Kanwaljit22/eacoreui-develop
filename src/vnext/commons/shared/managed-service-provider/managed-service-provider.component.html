@@ -1,0 +1,109 @@
+<div class="col-12" *ngIf="!eaService.features.MSEA_REL || (eaService.features.MSEA_REL && isInflightProposal)">
+    <h6 class="heading--h6 bold mb-3">{{'common.MSP_QUESTION' | localizationPipe : localizationService.localizedkeySet.size}}<sup> *</sup></h6>
+    <div class="clearfix"></div>
+    <div class="input-group" [ngClass]="{'disabled': proposalStoreService.isReadOnly}" >
+        <div class="radio-wrapper radio-custom mr-4">
+            <input type="radio" attr.data-id="{{dataIdConstantsService.manageServiceProvider_radio_yes}}"
+                (change)="changeMsp($event);" [checked]="proposalStoreService.mspInfo.mspProposal" name="isSoldMsp" id="yes" value="yes">
+            <label for="yes">
+                <span class='custom-radio-btn'>
+                    <span class="path1"></span>
+                    <span class="path2"></span>
+                </span>
+                <span>{{'common.Yes' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+            </label>
+        </div>
+        <div class="radio-wrapper radio-custom mr-4">
+            <input  type="radio" attr.data-id="{{dataIdConstantsService.manageServiceProvider_radio_no}}" [checked]="!proposalStoreService.mspInfo.mspProposal" (change)="changeMsp($event);" name="isSoldMsp" id="no" value="no">
+            <label for="no">
+                <span class='custom-radio-btn'>
+                    <span class="path1"></span>
+                    <span class="path2"></span>
+                </span>
+                <span>{{'common.No' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+            </label>
+        </div>
+    </div>
+    <div class="alert alert--info alert-dismissable justify-content-between mt-3" *ngIf="showMspInfo || proposalStoreService.mspInfo.mspProposal">
+        <div class="d-flex align-items-center">
+        <span class="alert-icon">
+            <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span
+                    class="path3"></span></span>
+        </span>
+        <span>{{'common.MSP_INFO_MSG' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+        </div>
+        <span class="icon-close-btn" (click)="showMspInfo = false;" attr.action-id="{{dataIdConstantsService.manageTeam_icon_closeMspMsg}}"></span>
+    </div>
+</div>
+<div class="col-12" *ngIf="eaService.features.MSEA_REL && !isInflightProposal">
+    <h6 class="heading--h6 bold mb-2">{{'common.UPDATED_MSP_QUESTION' | localizationPipe : localizationService.localizedkeySet.size}}</h6>
+    <div class="clearfix"></div>
+    <div class="input-group" [ngClass]="{'disabled': (proposalStoreService.isReadOnly || isChangeSubFlow)}" >
+        <div class="radio-wrapper radio-custom mr-4">
+            <input type="radio" attr.data-id="{{dataIdConstantsService.manageServiceProvider_radio_no}}"
+                (change)="changeMsp($event);" [checked]="!proposalStoreService.mspInfo?.managedServicesEaPartner || !isMsea" name="isSoldMsp" id="no" value="no" [ngClass]="{'disabled': proposalStoreService.isReadOnly}" >
+            <label for="no">
+                <span class='custom-radio-btn'>
+                    <span class="path1"></span>
+                    <span class="path2"></span>
+                </span>
+                <span>{{'common.EA' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+            </label>
+        </div>
+        <div class="radio-wrapper radio-custom mr-4">
+            <input  type="radio" attr.data-id="{{dataIdConstantsService.manageServiceProvider_radio_yes}}" [checked]="proposalStoreService.mspInfo?.managedServicesEaPartner" (change)="changeMsp($event);" [disabled]="proposalStoreService.isReadOnly || !isMsea"  name="isSoldMsp" id="yes" value="yes">
+            <label for="yes">
+                <span class='custom-radio-btn'>
+                    <span class="path1"></span>
+                    <span class="path2"></span>
+                </span>
+                <span>{{'common.MSEA' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+            </label>
+        </div>
+    </div>
+    <ng-container *ngIf="proposalStoreService.mspInfo?.managedServicesEaPartner">
+        <h6 class="heading--h6 bold mb-2 mt-3">{{'common.ENTITLEMENT_EA_QUESTION' | localizationPipe : localizationService.localizedkeySet.size}}</h6>
+        <div class="clearfix"></div>
+        <div class="input-group" [ngClass]="{'disabled': (proposalStoreService.isReadOnly || isChangeSubFlow)}" >
+            <div class="radio-wrapper radio-custom mr-4">
+                <input type="radio" attr.data-id="{{dataIdConstantsService.manageServiceProvider_radio_provider}}"
+                    (change)="changeEntitlement($event);" [checked]="proposalStoreService.mspInfo.entitlementType === constantsService.PROVIDER_ENTITLED" name="isProvider" id="provider" value="provider">
+                <label for="yes">
+                    <span class='custom-radio-btn'>
+                        <span class="path1"></span>
+                        <span class="path2"></span>
+                    </span>
+                    <span>{{'common.PROVIDER_ENTITLEMENT' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                </label>
+            </div>
+            <div class="radio-wrapper radio-custom mr-4">
+                <input  type="radio" attr.data-id="{{dataIdConstantsService.manageServiceProvider_radio_manage_Service}}" [checked]="proposalStoreService.mspInfo.entitlementType === constantsService.MANAGED_SERVICES" (change)="changeEntitlement($event);" name="isProvider" id="enduser" value="enduser">
+                <label for="no">
+                    <span class='custom-radio-btn'>
+                        <span class="path1"></span>
+                        <span class="path2"></span>
+                    </span>
+                    <span>{{'common.ENDUSER_ENTITLEMENT' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                </label>
+            </div>
+        </div>
+        <div class="alert alert--info alert-dismissable justify-content-between mt-3">
+            <div class="d-flex align-items-center">
+            <span class="alert-icon">
+                <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span
+                        class="path3"></span></span>
+            </span>
+            <span class="d-flex flex-column">{{'common.PROVIDER_ENTITLEMENT_INFO_MSG' | localizationPipe : localizationService.localizedkeySet.size}}
+                <ul>
+                    <li>
+                        {{'common.PROVIDER_ENTITLED_ACCOUNT' | localizationPipe : localizationService.localizedkeySet.size}} {{'common.PROVIDER_ENTITLED_EMAIL' | localizationPipe : localizationService.localizedkeySet.size}}
+                    </li>
+                    <li>
+                        {{'common.ENDUSER_ENTITLED_ACCOUNT' | localizationPipe : localizationService.localizedkeySet.size}} {{'common.ENDUSER_ENTITLED_EMAIL' | localizationPipe : localizationService.localizedkeySet.size}}
+                    </li>
+                </ul>
+            </span>
+            </div>
+        </div>
+    </ng-container>
+</div>

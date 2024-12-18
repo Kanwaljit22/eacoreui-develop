@@ -1,0 +1,10 @@
+<svg width="34" height="37" viewBox="0 0 34 37" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="7" width="19" height="31" rx="1" fill="#CE8D15"/>
+<rect x="5" y="2" width="23" height="31" rx="1" fill="#E49C17"/>
+<rect x="3" y="5" width="27" height="28" rx="1" fill="#FABB2D"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M10.0175 21.7933C9.91161 20.7743 9.05275 20 8.0282 20H3C1.34315 20 0 21.3431 0 23V34C0 35.6569 1.34315 37 3 37L31 37C32.6569 37 34 35.6569 34 34V23C34 21.3431 32.6569 20 31 20H25.9718C24.9473 20 24.0884 20.7743 23.9825 21.7933L23.8249 23.31C23.6661 24.8386 22.3778 26 20.841 26L13.159 26C11.6222 26 10.3339 24.8386 10.1751 23.31L10.0175 21.7933Z" fill="#3399FF"/>
+<line x1="11.75" y1="12.25" x2="21.25" y2="12.25" stroke="white" stroke-opacity="0.5" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="11.75" y1="16.25" x2="21.25" y2="16.25" stroke="white" stroke-opacity="0.5" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="11.75" y1="20.25" x2="18.0147" y2="20.25" stroke="white" stroke-opacity="0.5" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="12" y1="30" x2="22" y2="30" stroke="#235F9A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

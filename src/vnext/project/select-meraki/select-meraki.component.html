@@ -1,0 +1,47 @@
+<div class="form-group">
+
+    <div class="row align-items-center">
+        <div class="col-12">
+            <div class="alert alert--info alert-dismissable mb-2">
+                <span class="alert-icon">
+                    <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                </span>
+                <span><strong>{{localizationService.getLocalizedString('select-more-bu.TIPS')}}</strong>{{localizationService.getLocalizedString('select-more-bu.TIPS_MSG')}}</span>
+            </div> 
+            <div *ngIf="(showInvalidOrgIdsMsg || isMaxLimitReached) && !isReadOnly" class="alert alert--danger alert-dismissable mb-2">
+                <span class="alert-icon">
+                    <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                </span>
+                <span *ngIf="showInvalidOrgIdsMsg">{{localizationService.getLocalizedString('select-more-bu.INVALID_ORG_ID')}}</span>
+                <span *ngIf="isMaxLimitReached">{{localizationService.getLocalizedString('select-more-bu.MAX_RANGE_FOR_ID')}}</span>
+            </div>
+            <ul class="qualify-btn">
+                <li (click)="backToProject()"><button type="button" attr.action-id="{{dataIdConstantsService.selectMeraki_button_backToProject}}" class="btn btn-secondary sm">{{localizationService.getLocalizedString('common.BACK')}}</button></li>
+                <li>
+                    <button type="button"  class="btn btn-primary" *ngIf="disableSave || isReadOnly; else enableSave" disabled>{{localizationService.getLocalizedString('common.SAVE')}}</button>
+                    <ng-template #enableSave>
+                        <button type="button" attr.action-id="{{dataIdConstantsService.selectMeraki_button_save}}" class="btn btn-primary" (click)="save()" >{{localizationService.getLocalizedString('common.SAVE')}}</button>
+                    </ng-template>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <label class="customer-label">{{localizationService.getLocalizedString('select-more-bu.MERAKI_SAVE_MSG')}}<sup> *</sup></label>
+
+    <textarea placeholder="{{localizationService.getLocalizedString('select-more-bu.ADD_ORG_PLACEHOLDER')}}" class="form-control" (keydown)='isNumberEvent($event)' attr.data-id="{{dataIdConstantsService.selectMeraki_textarea_orgIds}}"
+    [(ngModel)]='orgIds' class="form-control" (blur)="checkorgIds()" [ngClass]="{'disabled': isReadOnly || disableOrgIds || (eaService.isDistiLoggedIn && eaService.isResellerOpty) || (!projectStoreService.projectData.dealInfo?.partnerDeal && isPartnerUserLoggedIn)}"></textarea>
+    <ul class="textarea-footer">
+        <a #downloadZipLink [hidden]="true"></a> 
+        <li (click)="downoloadOrgId()" attr.action-id="{{dataIdConstantsService.selectMeraki_button_downoloadOrgId}}" [ngClass]="{'disabled': !orgIdsArr.length}" class="downloadOrg mr-2"><span class="i-vNext-download"></span>{{localizationService.getLocalizedString('select-more-bu.DOWNLOAD_ORG_ID')}}</li>
+        <li *ngIf="!orgIds || isReadOnly || disableOrgIds; else enableRemove" class="disabled">
+            <span class="i-vNext-trash"></span>{{localizationService.getLocalizedString('select-more-bu.REMOVE_ALL')}}
+        </li>
+        <ng-template #enableRemove>
+            <li (click)="remove()" attr.action-id="{{dataIdConstantsService.selectMeraki_button_remove}}">
+                <span class="i-vNext-trash"></span>{{localizationService.getLocalizedString('select-more-bu.REMOVE_ALL')}}
+            </li>
+        </ng-template>
+    </ul>
+    <small class="text-right">{{localizationService.getLocalizedString('select-more-bu.MAX_RANGE_FOR_ID')}}</small>
+</div>

@@ -1,0 +1,108 @@
+.filter-slide {
+    position:fixed;
+    z-index: 10000;
+    top:0;
+    bottom:0;
+    left:0;
+    width:355px;
+    height:100vh;
+    .filter-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 16px 20px;
+        background-color: #f1f7fd;
+        line-height: 1;
+        height: 60px;
+        .heading--h3 {
+            font-size: 1.25rem;
+            color: #394454;
+            font-weight: 300;
+        }
+    }
+
+    .filter-body {
+        padding-inline: 25px;
+        background-color: #fff;
+        height: calc(100vh - 120px);
+        overflow: auto;
+        .filter-list {
+            border-bottom: 1px solid #e4e4e4;
+            padding:15px 0px;
+            &:last-child {
+                border-bottom: 0;
+            }
+            .f-head {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-bottom: 10px;
+                .heading--h5 {
+                    font-weight: 400;
+                    color: #394454;
+                }
+                a {
+                    color: #227bb1;
+                    font-size: 0.75rem;
+                }
+                .icon-arrow-stroke-right {
+                    position: relative;
+                    transform: rotate(-90deg);
+                    display: inline-block;
+                    line-height: 1;
+                    font-size: 12px;
+                    font-weight: bold;
+                    &::before{
+                        color: #516A93;
+                    }
+                    &.up{
+                        transform: rotate(-270deg);
+                    }
+                }
+            }
+            .f-body {
+                .f-items {
+                    li {
+                        margin-bottom: 10px;
+                        .label-check {
+                            color: #5D656C;
+                            span{
+                                font-size: 0.875rem;
+                                &:last-child {
+                                    position: relative;
+                                    top: 2px;
+                                }
+                            }
+                          }
+                          &:last-child{
+                              margin-bottom: 0;
+                          }
+                    }
+                }                
+            }
+        }
+    }
+
+
+    .filter-footer {
+        background-color: #fff;
+        display: flex;
+        height: 60px;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+}
+
+.custom-flyout-overlay {
+    background: rgba(36, 48, 52, 0.5);
+}
+
+.radio-custom {
+    input[type=radio]+label {
+        cursor: pointer;
+    }
+}

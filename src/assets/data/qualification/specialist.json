@@ -1,0 +1,32 @@
+[
+    {
+        "name": "Alison Martin",
+        "cecId": "alismartin9",
+        "email": "alismartin@cisco.com",
+        "architecture": "Cisco One"
+    },
+    {
+        "name": "Alison Gleeson",
+        "cecId": "alisongleeson",
+        "email": "alisGleeson@cisco.com",
+        "architecture": "Security"
+    },
+    {
+        "name": "Alison Bradley",
+        "cecId": "alisonbrad23",
+        "email": "alisBradley@cisco.com",
+        "architecture": "Collaboration"
+    },
+    {
+        "name": "Alison Falconer",
+        "cecId": "alifalcon",
+        "email": "alisFalconer@cisco.com",
+        "architecture": "Security"
+    },
+    {
+        "name": "Alison Falconer",
+        "cecId": "alifalcon",
+        "email": "alisFalconer@cisco.com",
+        "architecture": "Security"
+    }
+]

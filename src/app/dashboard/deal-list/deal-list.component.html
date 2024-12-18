@@ -1,0 +1,153 @@
+<div *ngIf="appDataService.userDashboardFLow === 'userFlow' && constantsService.DASHBOARDPAGECONTEXT !== appDataService.pageContext ">
+    <app-sub-header></app-sub-header>
+    <div class="container-fluid" id="filter-area" *ngIf="appDataService.userDashboardFLow === appDataService.CONSTANT_USER_DASHBOARD_FLOW" (clickOutside)="onClickedOutside($event)">
+        <div class="row align-items-center justify-content-between">
+            <div class="col-6">
+                <app-dropdown-data-search [searchDropdown]="searchDropdown" [fromPage]="'my_eaDeal'"></app-dropdown-data-search>
+            </div>
+
+            <div class="tiles-toggle d-flex align-items-center justify-content-center deal-list">               
+                <div class="tiles-toggle-txt p-0">I want to view Deals </div>
+                <div class="dropdown select-dropdown">
+                    <button class="dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" (click)="openDealDrop = !openDealDrop"><span>{{selectedDealView}}.</span><i class="icon-arrow-stroke-right"></i>
+                    </button>
+                    <div class="dropdown-menu" *ngIf="openDealDrop">
+                        <a class="dropdown-item" href="javascript:void(0)" [ngClass]="{'active': selectedDealView === c}" *ngFor="let c of DealViewOptions" (click)="selectDeal(c)">{{c}}<span class="icon-tick"></span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div [ngClass]="{'container-fluid clearfix': showFullList}">
+    <div class="col-12 clearfix" *ngIf="dealListService.showFullList && !userDashboard">
+        <div class="list-grid border-none mt-0 pt-2 pb-2"><a *ngIf="!displayGridView" href="javascript:void(0)" (click)="toggleView()"><i class="icon-grid"></i><span>Grid View</span></a>
+            <a *ngIf="displayGridView" href="javascript:void(0)" (click)="toggleView()"><i class="icon-list"></i><span>List View</span></a>
+        </div>  
+    </div>
+    <div [ngClass]="{'main-block-wrapper marginT15 clearfix': showFullList}" style="padding:0px 0px;">
+        <div *ngIf="!displayGridView" [ngClass]="{'row': showFullList}">
+            <div class="col-xl-12" *ngFor="let c of dealData.data | searchFilter: searchDeal: searchArray | createdByTeam : globalView : loggedInUser : userDashboard; let i = index;">
+                <div class="">
+                    <div class="list-style mb-3" [ngClass]="{'active': c.showProposal}">
+                        <div class="col p-0">
+                            <div class="list-item--name align-items-center" [ngClass]="{'myQual2': !isCreatedbyQualView }">
+                                <div class="col-8">
+                                    <h3 class="heading">
+                                        <a [id]='appDataService.createUniqueId(c.name,appDataService.pageContext)' class="ellipsis" (click)='getQualListForDeal(c)' href="javascript:void(0);">{{c.dealName}}</a>
+                                    </h3>
+                                </div>
+                                <div class="col-4 text-right">
+                                    <ul class="tile-list">
+                                        <li>
+                                            <span class="badge badge-approved badge-t3" *ngIf="c.dealStatus === constantsService.APPROVED">{{c.dealStatus}}</span>
+                                            <span class="badge badge-not-submitted badge-t3" *ngIf="c.dealStatus === constantsService.NOT_SUBMITTED">{{c.dealStatus}}</span>
+                                            <span class="badge badge-submitted badge-t3" *ngIf="c.dealStatus === constantsService.SUBMITTED">{{c.dealStatus}}</span>
+                                            <span class="badge badge-reopen badge-t3" *ngIf="c.dealStatus === constantsService.REOPENED">{{c.dealStatus}}</span>
+                                            <span class="badge badge-qualification-progress badge-t3" *ngIf="c.dealStatus === constantsService.QUALIFICATION_IN_PROGRESS">{{c.dealStatus}}</span>
+                                            <span class="badge badge-rejected badge-t3" *ngIf="c.dealStatus === constantsService.REJECTED">{{c.dealStatus}}</span>
+                                            <span class="badge badge-more-info badge-t3" *ngIf="c.dealStatus === constantsService.MORE_INFO_REQUIRED">{{c.dealStatus}}</span>
+                                            <span class="badge badge-submitted badge-t3" *ngIf="c.dealStatus === constantsService.DEAL_QUALIFIED">{{c.dealStatus}}</span>
+                                            <span class="badge badge-submitted badge-t3" *ngIf="c.dealStatus === constantsService.ORDERED">{{c.dealStatus}}</span>
+                                            <span class="badge badge-closed badge-t3" *ngIf="c.dealStatus === constantsService.CLOSED">{{c.dealStatus}}</span>
+                                            <span class="badge badge-expired badge-t3" *ngIf="c.dealStatus === constantsService.EXPIRED">{{c.dealStatus}}</span>
+                                            <span class="badge badge-lost badge-t3" *ngIf="c.dealStatus === constantsService.LOST">{{c.dealStatus}}</span>
+                                            <span class="badge badge-more-info-BOM badge-t3" *ngIf="c.dealStatus === constantsService.MORE_INFO_REQUIRED_BOM">{{c.dealStatus}}</span>
+                                            <span class="badge badge-qualification-progress badge-t3" *ngIf="c.dealStatus === constantsService.APPROVAL_IN_PROGRESS">{{c.dealStatus}}</span>
+                                            <span class="badge badge-submitted badge-t3" *ngIf="c.dealStatus === constantsService.APPROVAL_NOT_READY_TO_ORDER">{{c.dealStatus}}</span>
+                                            <span class="badge badge-closed badge-t3" *ngIf="c.dealStatus === constantsService.CANCELLED">{{c.dealStatus}}</span>
+                                            <span class="badge badge-submitted badge-t3" *ngIf="c.dealStatus === constantsService.REPRICING">{{c.dealStatus}}</span>
+                                            <!-- download icon for LoCC doc starts -->
+                                        </li>
+                                        <li class="pr-0">
+                                            <a #downloadZipLink [hidden]="true"></a>
+                                            <a (click)="downloadLoccDoc(c, downloadZipLink, 'list')" href="javascript:">
+                                                <span class="icon-download-doc" placement="top" container="body" ngbTooltip="Download LoCC"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span>
+                                                <span
+                                                    class="path5"></span>
+                                                    </span>
+                                            </a>
+                                            <!-- download icon for LoCC doc ends -->
+                                        </li>
+                                        <!-- <div class="delete-qual" *ngIf="constantsService.DASHBOARDPAGECONTEXT !== appDataService.pageContext"><span class="icon-delete" [ngClass]="{'disabled': c.userAccessType !== constantsService.USER_READ_WRITE_ACCESS}"  (click)="deleteQual(c , i)"></span></div> -->
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="list-item border--top solid">
+                                <div class="list-item--val col">
+                                    <label>{{localeService.getLocalizedString('qual.create.DEAL')}}
+                                            {{localeService.getLocalizedString('qual.create.ID')}}</label>
+                                    <h4 *ngIf="c.dealID" class="label-name"><span class="ellipsis">{{c.dealID}}</span></h4>
+                                    <h4 class="label-name biggerTxt" *ngIf="!c.dealID"> -- </h4>
+                                </div>
+                                <div class="list-item--val col-2">
+                                    <label>{{localeService.getLocalizedString('qualproposallist.CUSTOMER_NAME')}}</label>
+                                    <h4 class="label-name">
+                                        <span class="ellipsis" placement="top" container="body" ngbTooltip="{{c.endCustomerName}}">{{c.endCustomerName ? c.endCustomerName : constantsService.HYPHEN_VALUE}}</span>
+                                    </h4>
+                                </div>
+                                <div class="list-item--val col">
+                                    <label>{{localeService.getLocalizedString('qual.create.EXP_BOOK_DATE')}}</label>
+                                    <h4 class="label-name">
+                                        {{(c.dealExpectedCloseDate) ? (c.dealExpectedCloseDate | date:'dd-MMM-yyyy') : constantsService.HYPHEN_VALUE }}
+                                    </h4>
+                                </div>
+                                <div class="list-item--val col-2">
+                                    <label>{{localeService.getLocalizedString('qual.create.DEAL')}}
+                                            {{localeService.getLocalizedString('qual.create.OWNER')}}</label>
+                                    <h4 class="label-name">
+                                            <span class="ellipsis" placement="top" container="body" ngbTooltip="{{c.partnerContactFName}} {{c.partnerContactLName}} ({{c.dealCreator}})">{{c.partnerContactFName}} {{c.partnerContactLName}} ({{c.dealCreator}})</span>
+                                    </h4>
+                                </div>
+                                <div class="list-item--val col">
+                                    <label>{{localeService.getLocalizedString('dashboard.AM')}}</label>
+                                    <h4 class="label-name">{{c.amemailID ? c.amemailID : constantsService.HYPHEN_VALUE}}
+                                    </h4>
+                                </div>
+                                <div class="list-item--val col">
+                                    <label>{{localeService.getLocalizedString('dashboard.CAM')}}</label>
+                                    <h4 class="label-name">{{c.camemailID ? c.camemailID : constantsService.HYPHEN_VALUE}}
+                                    </h4>
+                                </div>
+                                <div class="list-item--val col">
+                                    <label>{{localeService.getLocalizedString('dashboard.CREATED_ON')}}</label>
+                                    <h4 class="label-name">{{c.createdOn ? c.createdOn : constantsService.HYPHEN_VALUE}}
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="displayGridView">
+            <div [hidden]="hideDealGrid" class="aggrid-wrapper-list" style="width: 100%; height: calc(100vh - 100px);margin-top:15px;">
+                <ag-grid-angular #agGrid id="ag-grid" style="width: 100%; height: 100%;" appTableHeight class="ag-fresh" (gridReady)="onGridReady($event)" [gridOptions]="gridOptions" [columnDefs]="columnDefs" [rowData]="rowData" [sideBar]="false" enableColResize enableSorting
+                    enableFilter groupHeaders suppressRowClickSelection toolPanelSuppressGroups toolPanelSuppressValues debug rowHeight="30" (cellMouseOver)="utilitiesService.onCellMouseOver($event, 1)" (cellClicked)="onCellClicked($event)">
+                </ag-grid-angular>
+            </div>
+        </div>
+        <div class="clearfix mt-4" id="noSearchData" *ngIf="((dealData.data | searchFilter: searchDeal : searchArray).length === 0 ) && showFullList">
+            <span class="icon-no-result-found">
+            <span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span><span class="path8"></span><span class="path9"></span>
+            <span
+                class="path10"></span><span class="path11"></span>
+                </span>
+                <h6>{{localeService.getLocalizedString('deal.NO_DEAL_FOUND')}}</h6>
+        </div>
+    </div>
+</div>
+<div class="paginationSize" *ngIf='dealListService.showFullList && !userDashboard'>
+    <div>
+        <label>View</label>
+        <select (change)="onPageSizeChanged(paginationObject.pageSize)" [(ngModel)]="paginationObject.pageSize">
+                    <option [ngValue]="50" [selected]>50</option>
+                    <option [ngValue]="100">100</option>
+                    <option [ngValue]="150">150</option>
+                    <option [ngValue]="200">200</option>                   
+                </select>
+    </div>
+    <div *ngIf="dealData.data">
+        <ngb-pagination [collectionSize]="paginationObject.collectionSize" [(page)]="paginationObject.page" [boundaryLinks]="true" [maxSize]="5" [pageSize]="paginationObject.pageSize" (pageChange)="pageChange()"></ngb-pagination>
+    </div>
+</div>

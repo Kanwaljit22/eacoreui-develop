@@ -1,0 +1,20 @@
+{
+    "app": [
+        {
+            "name": "Cisco Ready Connected Experience",
+            "description": "Provides a comprehensive view and analytic to Sales Leaders and Sales Teams on their Installed Base Opportunities and Performance related to Product Refresh, Services Renew and Attach"
+        },
+        {
+            "name": "SFDC Competitive Dashboard",
+            "description": "Provides Sales leadership the ability to quickly inspect the SFDC competitive landscape"
+        },
+        {
+            "name": "Services Leadership Dashboard",
+            "description": "Provides a comprehensive view of Services installed base Opportunities for TS Renew &amp; TS Attach."
+        },
+        {
+            "name": "Reporting Center",
+            "description": "Provides fast and easy way to request Smart IB for Customer, Partner or Distributor."
+        }
+    ]
+}

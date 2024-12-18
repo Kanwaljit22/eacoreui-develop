@@ -1,0 +1,166 @@
+.noteText.pull-right {
+    position     : absolute;
+    right        : 0px;
+    top          : 6px;
+    text-align   : right;
+    padding-right: 15px;
+}
+
+/************Filter slider Css*********/
+* {
+    outline: none !important;
+}
+
+::ng-deep .irs-grid-text {
+    font-family: 'CiscoSans';
+    font-size  : 10px;
+    font-weight: 100;
+    color      : #999;
+}
+
+::ng-deep .sidebar-opt-content .irs-grid-text {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.icon-range-slider {
+    display: block;
+    float  : left;
+    width  : 100%;
+}
+
+::ng-deep .discount-component__modal .irs-grid {
+    width: 100% !important;
+    left : 0px !important;
+    top  : 10px;
+}
+
+::ng-deep .irs-grid-pol {
+    top       : -6px;
+    background: #ccc;
+}
+
+::ng-deep .irs-from,
+::ng-deep .irs-to,
+::ng-deep .irs-single,
+::ng-deep .irs-bar,
+.irs-slider {
+    background: #005073 !important;
+}
+
+::ng-deep .irs-line,
+::ng-deep .irs-line-left,
+::ng-deep .irs-line-mid,
+::ng-deep .irs-line-right,
+::ng-deep .irs-bar.irs-bar--single {
+    height       : 8px !important;
+    top          : 25px;
+    background   : #ccc;
+    border-radius: 0px;
+    left         : 0px !important;
+}
+
+::ng-deep .irs-from:after,
+::ng-deep .irs-to:after,
+::ng-deep .irs-single:after {
+    position        : absolute;
+    display         : block;
+    content         : "";
+    bottom          : -6px;
+    left            : 50%;
+    width           : 0;
+    height          : 0;
+    margin-left     : -3px;
+    overflow        : hidden;
+    border          : 3px solid transparent;
+    border-top-color: transparent;
+}
+
+::ng-deep .irs-slider {
+    width        : 16px;
+    height       : 18px;
+    top          : 22px;
+    border-radius: 4px;
+    cursor       : pointer;
+}
+
+::ng-deep .cover .irs {
+    margin  : 0;
+    position: relative;
+}
+
+::ng-deep .cover .irs::before,
+::ng-deep .cover .irs::after {
+    content   : '';
+    position  : absolute;
+    top       : 17px;
+    width     : 1px;
+    height    : 25px;
+    background: #fff;
+}
+
+::ng-deep .cover .irs::before {
+    left: 0px;
+}
+
+::ng-deep .cover .irs::after {
+    right: -1px;
+}
+
+::ng-deep .irs-from,
+::ng-deep .irs-slider.from {
+    display: none;
+}
+
+::ng-deep .irs-line-left,
+::ng-deep .irs-line-mid,
+::ng-deep .irs-line-right {
+    background-color: #005073;
+    background-image: none;
+}
+
+::ng-deep .discount-component__modal .irs-slider.to,
+::ng-deep .discount-component__modal .irs-slider.from,
+::ng-deep .discount-component__modal .irs-slider.single {
+    background: #005073;
+    height    : 19px;
+    width     : 16px;
+    margin-top: 0px !important;
+    border    : 1px solid #fff;
+    position  : absolute;
+}
+
+::ng-deep .discount-component__modal .irs-slider.single:before {
+    position : absolute;
+    content  : '<';
+    top      : 2px;
+    left     : 1px;
+    font-size: 9px;
+    color    : #fff;
+}
+
+::ng-deep .discount-component__modal .irs-slider.single:after {
+    position : absolute;
+    content  : '>';
+    top      : 2px;
+    right    : 1px;
+    font-size: 9px;
+    color    : #fff;
+}
+
+::ng-deep .irs-min,
+::ng-deep .irs-max,
+::ng-deep .irs-bar-edge {
+    display: none !important;
+}
+
+::ng-deep .irs-to {
+    background-color: transparent;
+    padding-left    : 9px;
+    top             : 5px;
+    color           : #a3a7aa;
+    font-size       : 11px;
+}
+
+::ng-deep .irs-to:after {
+    display: none;
+}

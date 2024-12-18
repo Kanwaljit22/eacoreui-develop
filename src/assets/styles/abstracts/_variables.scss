@@ -1,0 +1,44 @@
+
+$main-font-family:CiscoSans;
+ 
+$white-color:#fff;
+$primary-text: #333;
+$secondary-text: #666;
+$border-color: #e4e4e4;
+$primary-bg: #f3f3f3;
+$black-color: #000;
+$light-grey: #ccc;
+$primary-bg-dark: #f8f8f8;
+$no-color: transparent;
+$row-even-bg: #fcfdfe;
+$row-odd-bg: $white-color;
+$row-hover-bg: #ecf0f1;
+$theme-color: #005073;
+$link-color: $theme-color;
+$grid-header-font-size: rem(13);
+$grid-body-font-size: rem(13);
+$grid-header-font-color: $primary-text;
+$grid-body-font-color: $primary-text;
+$tile-bg-header: #f8f8f8;
+$placeholder-text: #707070;
+$disable-border: #e5e5e5;
+$disable-fill: #efefef;
+$selected-tile: #f9fdff;
+$sorted-cell: #effafd;
+
+
+$info: #085172;
+$success: #6CC04A;
+$warning: #F47421;
+$danger: #E2231A;
+
+
+$no-spacing: 0;
+$qtr-spacing: 5px;
+$half-spacing: 10px;
+$triqtr-spacing: 15px;
+$base-spacing: 20px;
+
+
+
+$outset-shadow: 2px 2px 6px rgba(0, 0, 0, 0.15);

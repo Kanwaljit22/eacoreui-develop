@@ -1,0 +1,631 @@
+.enterprospect-heading {
+    padding: 8px 16px 0px;
+}
+
+.enterprise-prospects,
+.enterprospect-heading h1 {
+    font-size: 30px;
+    font-weight: 100;
+    margin: 0px;
+    text-indent: -3px;
+}
+
+.link-border {
+    border-bottom: 1px solid #005073;
+}
+
+.enterprise-prospects:hover .enterprise.dropdown-menu {
+    display: block;
+}
+
+.enterprise-agreement-prospects {
+    /*border-radius   :3px;*/
+    background-color: #fff;
+    -webkit-box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.05);
+    -moz-box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.05);
+    box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.05);
+    padding: 0;
+    transition: all .4s ease-in-out;
+    float: left;
+    width: 100%;
+    height: 67px;
+    overflow: hidden;
+    margin-left: 0px;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.enterprise-agreement-prospects.active {
+    -webkit-box-shadow: 0px 4px 20px -9px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: 0px 4px 20px -9px rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 4px 20px -9px rgba(0, 0, 0, 0.5);
+    cursor: auto;
+}
+
+.enterprise-agreement-prospects:hover {
+    transform: scale(1.078);
+    -webkit-transform: scale(1.078);
+}
+
+.enterprise-agreement-prospects [class^="icon-"],
+[class*=" icon-"] {
+    font-size: 44px;
+    vertical-align: middle;
+    display: inline-block;
+    position: relative;
+    top: -2px;
+}
+
+.icon-cisco-one {
+    font-size: 24.39px !important;
+}
+
+.icon-infra-dna {
+    font-size: 18px !important;
+}
+
+.enterprise-agreement-prospects .icon-DNA {
+    top: 24px;
+}
+
+.icon-collaboration {
+    font-size: 19.9px !important;
+}
+
+.enterprise-agreement-prospects h2:before {
+    content: "";
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%;
+}
+
+.enterprise-agreement-prospects h2 {
+    font-weight: 500;
+    line-height: 15px;
+    padding: 0px;
+    margin: 0px;
+    width: 50%;
+    float: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    overflow-wrap: break-word;
+    position: relative;
+    height: 100%;
+}
+
+.enterprise-agreement-prospects h2 .label {
+    font-size: 18px;
+    margin-left: 0px;
+    font-weight: 400;
+    color: #005073;
+    letter-spacing: 0.01;
+    vertical-align: middle;
+    display: inline-block;
+    width: 125px;
+    line-height: 20px;
+    padding-top: 0px
+}
+
+.enterprise-agreement-prospects ul {
+    display: block;
+    margin: 0px;
+    padding: 15px 12px 12px 15px;
+    float: left;
+    width: 50%;
+    position: relative;
+    background-color: #FBFBFB;
+    cursor: pointer;
+}
+
+.enterprise-agreement-prospects.active ul {
+    cursor: text;
+}
+
+.enterprise-agreement-prospects ul:before {
+    content: "";
+    border-right: 1px dashed #ccc;
+    height: 67px;
+    position: absolute;
+    left: -1px;
+    top: 0px;
+}
+
+.enterprise-agreement-prospects ul li {
+    display: inline-block;
+    width: 47%;
+}
+
+.enterprise-agreement-prospects ul li:first-child {
+    text-align: left;
+    float: left;
+}
+
+.enterprise-agreement-prospects ul li:last-child {
+    text-align: left;
+    float: right;
+}
+
+.enterprise-agreement-prospects ul li.coming-soon {
+    float: none;
+    width: 100%;
+    padding: 14px 0px;
+    text-align: center;
+}
+
+.enterprise-agreement-prospects ul li.coming-soon label {
+    font-size: 16px;
+    color: #ccc;
+    font-weight: 100;
+    text-transform: none;
+}
+
+.enterprise-agreement-prospects ul li label {
+    font-size: 11px;
+    color: #999;
+    display: block;
+    margin: 0px;
+    letter-spacing: 0.05em;
+    line-height: 11px;
+    padding: 0px 0px 5px;
+}
+
+.enterprise-agreement-prospects ul li span {
+    font-size: 20px;
+    color: #58585b;
+    letter-spacing: 0em;
+    line-height: 24px;
+    font-family: 'CiscoSans';
+}
+
+.enterprise-agreement-prospects ul li span .smallText {
+    font-size: 13px;
+    letter-spacing: 0;
+    line-height: 15px;
+}
+
+.enterprise.dropdown-menu {
+    top: 34px;
+    right: -18px;
+    left: auto;
+    border-radius: 0px !important;
+    box-shadow: 2px 6px 46px -1px rgba(0, 0, 0, 0.10);
+    border: 1px solid #005073;
+}
+
+.enterprise.dropdown-menu .tipsy {
+    margin-top: -26px;
+}
+
+
+/*  My Task  */
+
+.taskFlagWrap {
+    float: left;
+    width: 28px;
+    height: 28px;
+    background-color: transparent;
+    border-radius: 50px;
+    padding: 6px 8px;
+    box-sizing: border-box;
+    position: absolute;
+    top: 2px;
+    left: -3px;
+}
+
+.taskFlagWrap .icon-flag {
+    position: relative;
+    margin: 0 !important;
+}
+
+.flagged.active .taskFlagWrap .icon-flag-checked::before {
+    color: #005073;
+    transition: all 0.5s ease 0s;
+}
+
+.flagged.active span.count {
+    display: none;
+    transition: all 0.5s ease 0s;
+}
+
+@keyframes bounce {
+    from,
+    20%,
+    53%,
+    80%,
+    to {
+        animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+        transform: translate3d(0, 0, 0);
+    }
+    40%,
+    43% {
+        animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+        transform: translate3d(0, -8px, 0);
+    }
+    70% {
+        animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+        transform: translate3d(0, -4px, 0);
+    }
+    90% {
+        transform: translate3d(0, -1px, 0);
+    }
+}
+
+.bounce {
+    animation-name: bounce;
+    transform-origin: center bottom;
+}
+
+.animated {
+    animation-duration: 1s;
+    animation-fill-mode: both;
+}
+
+
+/*  My Task  */
+
+.tooltip-custom .iconFlagWrap.selected .icon-flag-checked {
+    font-size: 14px;
+}
+
+.taskFlagWrap .icon-flag-checked {
+    font-size: 17px;
+}
+
+.customer-popup span:hover .tooltip-custom .tooltip-right {
+    visibility: visible;
+    margin-top: -55px;
+    margin-left: -0.8%;
+}
+
+.customer-popup span:hover .arrow-right {
+    visibility: visible;
+    left: 42% !important;
+}
+
+.tooltip-custom .tooltip-right {
+    border: 1px solid #0E9BD6;
+    box-shadow: 0px 1px 6px 0px rgba(14, 155, 214, 1);
+}
+
+.arrow-right,
+.arrow-right:after {
+    position: absolute;
+    display: block;
+    width: 0;
+    height: 0;
+    border-color: transparent;
+    border-style: solid;
+}
+
+.tooltip-custom .tooltip-right .arrow-right:after {
+    content: "";
+    border-width: 6px;
+    top: -6px;
+    left: 1px;
+    border-right-color: #fff;
+    border-left-width: 0;
+}
+
+.tooltip-custom .tooltip-right .arrow-right {
+    bottom: -12px;
+    left: 84px;
+    margin-top: 15px;
+    border-right-color: #0E9BD6;
+    border-left-width: 0;
+    border-width: 6px;
+    opacity: 1;
+    transform: rotate(270deg);
+}
+
+.tooltip-custom .tooltip-right {
+    margin-top: -40px;
+    margin-left: -86px;
+}
+
+.rating-slope .digit {
+    font-size: 30px;
+    color: #58585B;
+    font-weight: 100;
+    padding-top: 18px;
+}
+
+.rating-slope .customers {
+    font-size: 10px;
+    color: #999999;
+    padding-top: 4px;
+}
+
+.rating-slope .price {
+    font-size: 18px;
+    font-weight: 100;
+}
+
+.rating-slope .sub {
+    font-size: 12px;
+}
+
+.rating-slope .percentage {
+    font-size: 12px;
+    color: #8EC900;
+    clear: both;
+    margin-bottom: 18px;
+}
+
+
+/*****data-row*****/
+
+.data-row {
+    margin: 0px 4px;
+    border-top: 2px solid #E7E7E7;
+    border-bottom: 2px solid #E7E7E7;
+    margin-bottom: 30px;
+    padding: 10px 0px;
+}
+
+.data-row .cross-architecture {
+    font-size: 18px;
+    color: #666666;
+    line-height: 24px;
+}
+
+.data-row .customer,
+.data-row .amount {
+    color: #666666;
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: bold;
+}
+
+.count {
+    color: #666666;
+    font-size: 22px;
+    padding-left: 20px;
+    font-weight: 100 !important;
+}
+
+.enterprise-agreement-prospects .cisco-one {
+    cursor: pointer;
+}
+
+.blank-label {
+    float: right;
+    position: absolute;
+    left: 308px;
+}
+
+.downloadTask {
+    display: block;
+    float: right;
+    margin-top: 4px;
+}
+
+.downloadTask:hover .icon-download:before {
+    color: #005073;
+}
+
+.downloadTask .icon-download {
+    font-size: 21px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.downloadTask span {
+    font-size: 16px;
+    font-weight: 300;
+    vertical-align: top;
+    cursor: pointer;
+}
+
+.flagged {
+    display: inline-block;
+    top: -2px;
+    float: right;
+    position: relative;
+    margin-left: 30px;
+    cursor: pointer;
+    font-size: 16px;
+    color: #58585b;
+    font-weight: 300;
+    padding: 8px 8px 2px 30px;
+    border-radius: 4px;
+}
+
+
+/*.flagged.active{ background: #e6e7e8;}*/
+
+.flagged span+span {
+    display: inline-block;
+    position: relative;
+    top: -1px;
+}
+
+.flagged .iconFlagWrap {
+    float: left;
+    width: 28px;
+    height: 28px;
+    background-color: transparent;
+    border-radius: 50px;
+    padding: 6px 8px;
+    box-sizing: border-box;
+    position: absolute;
+    top: -7px;
+    left: 0;
+}
+
+.iconFlagWrap .icon-flag {
+    font-size: 17px;
+}
+
+.flagged .count {
+    border-radius: 50px;
+    background: #6cc04a;
+    color: #fff;
+    font-size: 10px;
+    padding: 6px 0 0 0;
+    line-height: 9px;
+    position: absolute;
+    top: -12px;
+    left: -19px;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+}
+
+.globalSwitchWrap.my-prospects {
+    float: none;
+    position: inherit;
+    padding-left: 10px;
+    margin-left: 10px;
+    border-left: 1px solid #d6d6d6;
+}
+
+.globalSwitchWrap .switch-small {
+    width: 30px !important;
+    height: 8px !important;
+}
+
+.globalSwitchWrap .switch-small small {
+    width: 17px !important;
+    height: 17px !important;
+}
+
+.globalSwitchWrap .switch-small.checked small {
+    left: 16px !important;
+    top: -5px;
+    background-color: #005073 !important;
+}
+
+.globalSwitchWrap .switch.switch-small.checked {
+    background-color: rgb(171, 227, 242) !important
+}
+
+.globalSwitchWrap .switch-small small {
+    top: -5px !important;
+    left: 0 !important;
+    box-shadow: none !important;
+}
+
+.shareDiv .icon-arow-down {
+    font-size: 6px;
+    display: inline-block;
+}
+
+.carousel {
+    min-height: 85px;
+}
+
+.carousel-item {
+    padding-top: 6px;
+}
+
+.carousel:focus {
+    outline: none;
+}
+
+.carousel .carousel-indicators {
+    display: none;
+}
+
+.carousel .carousel-inner {
+    overflow: visible;
+}
+
+.carousel-control-next,
+.carousel-control-prev {
+    position: absolute;
+    width: 20px;
+    top: 22px;
+    height: 32px;
+}
+
+.carousel-control-prev {
+    left: -30px;
+}
+
+.carousel-control-next {
+    right: -7px;
+}
+
+a.carousel-control-next[disabled] .carousel-control-next-icon:before,
+a.carousel-control-prev[disabled] .carousel-control-prev-icon:before,
+a.carousel-control-next[disabled],
+a.carousel-control-prev[disabled] {
+    color: #ccc;
+    cursor: not-allowed;
+}
+
+.carousel-control-next-icon:before {
+    font-family: 'enterpriseAgreement' !important;
+    content: "\e977";
+    color: #005073;
+}
+
+.carousel-control-next-icon,
+.carousel-control-prev-icon {
+    background: transparent;
+    font-size: 18px !important;
+    cursor: pointer;
+    height: 32px;
+    line-height: 32px;
+}
+
+.carousel-control-prev-icon:before {
+    font-family: 'enterpriseAgreement' !important;
+    content: "\e977";
+    color: #005073;
+    transform: rotate(180deg);
+    display: inline-block;
+}
+
+#searchResult {
+    overflow: hidden;
+}
+
+.align-to-right {
+    text-align: right;
+}
+
+.hide {
+    border-top: 0px !important;
+}
+
+.main-table.eaProspect-table {
+    position: relative;
+}
+
+.no-filter {
+    position: absolute;
+    top: 140px;
+    text-align: center;
+    width: 100%;
+}
+
+.no-filter>span.icon-no-favorites {
+    font-size: 80px;
+}
+
+.no-filter>span+span {
+    display: block;
+    font-size: 18px;
+    margin-top: 20px;
+}
+
+.disableButton .carousel-control-next span:before {
+    background-color: transparent;
+    color: #ccc;
+}
+
+.carousel-control-prev span:before {
+    background-color: transparent;
+    color: #ccc;
+}
+
+.disableButton .carousel-control-prev span:before {
+    background-color: transparent;
+    color: #005073;
+}
+
+.favorite-grid .statusRenderer {
+    color: #6DB9DC !important;
+    border-right: 0px !important;
+}

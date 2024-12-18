@@ -1,0 +1,78 @@
+[
+    {
+        "proposalName": "EA - C1 - Adobe - 5 year option (4 suites)",
+        "state1": true,
+        "state2": false,
+        "sales": "disabled",
+        "document" : "disabled",
+        "generate": true,
+        "innerData": [
+            {
+                "heading": "Proposal ID",
+                "value": "P93742967"
+            },
+            {
+                "heading": "Total net price (USD IN K)",
+                "value": "1,700"
+            },
+            {
+                "heading": "Billing Model",
+                "value": "Annual"
+            },
+            {
+                "heading": "PriceList",
+                "value": "Global Pricelist in USD"
+            },
+            {
+                "heading": "Term",
+                "value": "3 years"
+            },
+            {
+                "heading": "EXPECTED START DATE",
+                "value": "23-May-2018"
+            },
+            {
+                "heading": "Partner",
+                "value": "World Wide Technology"
+            }
+        ]
+    },
+    {
+        "proposalName": "EA - Security - Adobe - 3 year option (1 suite)",
+        "state2": true,
+        "state1": false,
+        "sales": "",
+        "document" : "",
+        "generate": false,
+        "innerData": [
+            {
+                "heading": "Proposal ID",
+                "value": "P93742967"
+            },
+            {
+                "heading": "Total net price (USD IN K)",
+                "value": "1,700"
+            },
+            {
+                "heading": "Billing Model",
+                "value": "Annual"
+            },
+            {
+                "heading": "PriceList",
+                "value": "Global Pricelist in USD"
+            },
+            {
+                "heading": "Term",
+                "value": "3 years"
+            },
+            {
+                "heading": "EXPECTED START DATE",
+                "value": "23-May-2018"
+            },
+            {
+                "heading": "Partner",
+                "value": "World Wide Technology"
+            }
+        ]
+    }
+]   

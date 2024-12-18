@@ -1,0 +1,42 @@
+{
+    "rid": "EAMP1627033950861",
+    "user": "rbinwani",
+    "error": false,
+    "data": [
+      {
+        "cavName": "THE FACEBOOK INC",
+        "cavId": 107207,
+        "bus": [
+          {
+            "buId": 107519,
+            "buName": "FACEBOOK US",
+            "selected" : "P"
+          },
+          {
+            "buId": 107600,
+            "buName": "Amazon IN",
+            "selected" : "F",
+            "dealCrPartyBU": true
+          },
+          {
+            "buId": 107511,
+            "buName": "Google US",
+            "selected" : "F"
+          },
+          {
+            "buId": 107512,
+            "buName": "FACEBOOK IN"
+          },
+          {
+            "buId": 107513,
+            "buName": "FACEBOOK US",
+            "selected" : "N"
+          },{
+            "buId": 107514,
+            "buName": "Microsoft US"
+          }
+        ]
+      }
+    ],
+    "currentDate": "2021-07-23T11:13:59.206+0000"
+  }

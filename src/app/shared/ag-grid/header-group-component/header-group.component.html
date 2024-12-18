@@ -1,0 +1,13 @@
+<div *ngIf="params.displayName !== 'One Time Discount'">
+    <div class="customHeaderLabel"> {{this.params.displayName}}</div>
+    <div (click)="expandOrCollapse()" class="{{'customExpandButton' + (this.expanded ?  ' expanded': ' collapsed')}}"><i class="fa fa-arrow-right" ></i></div>
+</div>
+
+<div class="ag-cell-label-container pos-ab-t10" role="presentation" *ngIf="params.displayName === 'One Time Discount'">   
+    <div ref="eLabel" class="ag-header-cell-label justify-content-center" role="presentation" unselectable="on"> 
+       <span ref="eText" class="ag-header-cell-text" role="columnheader" unselectable="on" aria-colindex="4">{{params.displayName}}
+         <span class=" cxEligibleSuites icon-alert-info1" placement="top-right" container="body"
+         ngbTooltip="This is one time incentive given only for initial enrollment"></span>
+       </span>   
+     </div>
+ </div>

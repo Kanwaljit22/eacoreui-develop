@@ -1,0 +1,38 @@
+<div class="manage-columns" (click)="showHideManagerColumns()"><span
+  class="icon-manage-columns"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span
+    class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span><span
+    class="path8"></span></span><span class="manage-filter-text">Manage
+  Columns</span>
+</div>
+<div *ngIf='displayManageColumns' class="manage-columns-flyout">
+  <div class="manage-columns-header">
+    <h3>Choose columns to display</h3>
+    <span class="icon-close-btn" (click) = "showHideManagerColumns()"></span>
+  </div>
+  <div class="manage-columns-subheader">
+    <label class="label-check">
+      <input class="form-check-input" type="checkbox" [checked]="selectAllColumns" (click)="changeSelectionOfAllColumns()"><span></span><span>Select All</span>
+      <span class="custom-checkbox-btn">
+        <span class="path1"></span>
+        <span class="path2"></span>
+    </span>
+    </label>
+    <button type="button" class="btn btn-primary" [disabled]='!selectedColumnCount' (click) = "changeGridView()">Apply</button>
+  </div>
+  <!-- <div class="manage-columns-search">
+    <input type="text" placeholder="Search"> 
+    <span class="icon-search"></span>
+  </div> -->
+  <ul>
+    <li *ngFor="let col of columnList">
+      <span class="icon-drag-drop"></span>
+      <label class="label-check">
+        <input class="form-check-input" [checked] = "col.checked" (click)="changeColumnStatus(col)"  type="checkbox"><span></span><span>{{col.colName}}</span>
+        <span class="custom-checkbox-btn">
+          <span class="path1"></span>
+          <span class="path2"></span>
+      </span>
+      </label>
+    </li>     
+  </ul>
+</div> 

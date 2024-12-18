@@ -1,0 +1,110 @@
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+-webkit-appearance: none;
+margin: 0;
+}
+input[type=number] {
+-appearance: textfield;
+}
+
+.custom-flyout {
+    width: 796px;
+    .body {
+        .radio-custom {
+            &.active-arrow {
+                &::before {
+                    top:28px;
+                    left: 13px;
+                    border-bottom: 10px solid rgba(0, 0, 0, 0.1);
+                }
+                &::after {
+                    content: "";
+                    width: 0;
+                    height: 0;
+                    border-left: 9px solid transparent;
+                    border-right: 9px solid transparent;
+                    border-bottom: 10px solid #fff;
+                    font-size: 0;
+                    line-height: 0;
+                    position: absolute;
+                    left: 14px;
+                    top: 29px;
+                    z-index: 9;
+                }
+            }
+
+            label {
+                color: #394454;
+                font-weight: 400;
+                font-size: 0.875rem;
+            }
+        }
+
+        .customer-label, .heading--h6 {
+            color: #394454;
+            font-size: 0.875rem;
+        }
+    }
+}
+
+.customer-label {
+    font-weight: 600;
+}
+
+.highlightRed{
+    border: 2px solid red !important;
+}
+
+.cal-wrap {
+    position: absolute;
+    bottom: 12px;
+    right: 13px;
+    width: 12px;
+    font-size: 12px;
+    line-height: 1;
+    .i-vNext-calendar {
+        &::before {
+            color: #059fd9;
+        }
+    }
+}
+
+.i-vNext-info {
+    &::before {
+        color: #a4b9d1;
+    }
+}
+
+.disable-arrow {
+    &::after {
+        display: none;
+    }
+    &.drop-button {
+        &:focus {
+            border-inline-color: transparent !important;
+            border-top-color: transparent !important;
+        }
+    }
+}
+// .datePicker{
+//     .form-control{
+//         color:#879098;
+//         ;
+//     }
+// }
+
+@media screen and (min-width:1600px) {
+    .cal-wrap {
+        font-size: 13px;
+    }
+}
+@media screen and (min-width:1920px) {
+    .cal-wrap {
+        font-size: 14px;
+    }
+}
+@media screen and (max-width:1370px){
+    .custom-flyout .body {
+        max-height: calc(100% - 110px);
+    }
+}

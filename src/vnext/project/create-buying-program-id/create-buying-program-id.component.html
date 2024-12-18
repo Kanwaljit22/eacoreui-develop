@@ -1,0 +1,95 @@
+<div class="custom-flyout-overlay"></div>
+<div class="custom-flyout vNext">
+    <div class="heading">
+        <div class="d-flex justify-content-between align-items-top">
+            <div class="heading-title">
+                <h2 class="heading--h2">{{'common.CREATE_BUYING_PROGRAM_ID' | localizationPipe : localizationService.localizedkeySet.size}}</h2>
+            </div>
+            <div class="d-flex flex-column align-items-end">
+                <div class="d-flex align-items-center mb-3">
+                <button class="icon-close-btn mt-0" (click)="close()" type="button" attr.action-id="{{dataIdConstantsService.createBpId_button_close}}"></button>
+                </div>
+                <div class="mt-4 d-flex justify-content-end">
+                    <button class="btn btn-secondary" type="button"  (click)="close()" attr.action-id="{{dataIdConstantsService.createBpId_button_cancel}}" id="{{elementIdConstantsService.CreateBPId_Cancel}}">{{'common.CANCEL' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                    <button class="btn btn-primary ml-2" type="button" [disabled]="!selectedReasons.length || (selectedReasons.length && enterOtherReason && !reasonDetail.trim()) || (eaService.features?.RENEWAL_SEPT_REL && isCreateNewScope && !isExistingIdSelected)" (click)="createNewBpId()" attr.action-id="{{dataIdConstantsService.createBpId_button_create}}" >{{'common.CREATE_BUYING_PROGRAM_ID' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="body">
+        <div class="row">
+            <div class="col-12">
+                <app-message [displayModalMsg]="true"></app-message>
+            </div>
+            <div class="col-12 d-flex">
+                <div class="w-50">
+                    <div class="select-items dropdown my-1">
+                        <label class="customer-label">Select Reason Code<sup>*</sup></label>
+                        <span class="dropdown--typeAhead__arrow-management">
+                            <button *ngIf="!selectedReasons.length" class="btn--text drop-button dropdown-toggle" type="button"
+                            attr.action-id="{{dataIdConstantsService.createBpId_dropdown_selectedReason_select}}"
+                            (click)="showReasons = !showReasons">Select</button>
+                            <button *ngIf="selectedReasons.length" class="btn--text drop-button dropdown-toggle" type="button"
+                                attr.action-id="{{dataIdConstantsService.createBpId_dropdown_selectedReason_all}}"
+                                (click)="showReasons = !showReasons">
+                                <span *ngFor="let reason of selectedReasons ; let i = index;">{{reason.desc}}
+                                    <span *ngIf='selectedReasons.length > (i+1)'>, </span>
+                                </span></button>
+                        </span>
+                        <div class="dropdown-menu" [class.show]="showReasons">
+                            <ul>
+                                <li [class.active]="option.selected" *ngFor="let option of reasonsList;let index = index;" (click)="selectReason(option)"
+                                    attr.action-id="{{dataIdConstantsService.createBpId_dropdown_selectReason}}{{option.id}}">
+                                    {{option.desc}}</li>
+                                <!-- <li (click)="selectReason('Others')" class="others"
+                                    attr.action-id="{{dataIdConstantsService.createBpId_dropdown_selectReason_other}}"> Others
+                                </li> -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 mt-2" *ngIf="eaService.features?.RENEWAL_SEPT_REL">
+                <h6 class="heading--h6 bold mb-2">{{'common.CREATE_OR_USE_QUESTION' | localizationPipe : localizationService.localizedkeySet.size}}</h6>
+                <div class="clearfix"></div>
+                <div class="input-group">
+                    <div class="radio-wrapper radio-custom mr-4">
+                        <input type="radio" attr.data-id="{{dataIdConstantsService.CREATEBPID_RADIO_YES}}"
+                            (change)="changeBpIDQues($event);" [checked]="isCreateNewScope" name="isCreateNewBpId" id="yes" value="yes" >
+                        <label for="yes">
+                            <span class='custom-radio-btn'>
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                            </span>
+                            <span>{{'common.Yes' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                        </label>
+                    </div>
+                    <div class="radio-wrapper radio-custom mr-4">
+                        <input  type="radio" attr.data-id="{{dataIdConstantsService.CREATEBPID_RADIO_NO}}" [checked]="!isCreateNewScope" (change)="changeBpIDQues($event);" name="isCreateNewBpId" id="no" value="no">
+                        <label for="no">
+                            <span class='custom-radio-btn'>
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                            </span>
+                            <span>{{'common.No' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="mt-2" *ngIf="isCreateNewScope">
+                    <app-bpids-list [allBpIDs]="allBpIDs"  style="width: 100%;" [isCreateNewBpFlyout]="true" (selectedId)="selectedId($event)"></app-bpids-list>
+                </div>
+
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-12 d-flex">
+                <div class="form-group w-50" *ngIf="enterOtherReason">
+                    <label class="customer-label">Enter Reason Details<sup>*</sup></label>
+                    <input appelementfocus="" placeholder="Textbox" [(ngModel)]='reasonDetail'
+                        class="form-control" required="" type="text"  id="" attr.data-id="{{dataIdConstantsService.createBpId_text_reasonDetail}}">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

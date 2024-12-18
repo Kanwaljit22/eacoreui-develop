@@ -1,0 +1,128 @@
+<div class="row">
+
+    <div class="col-12 marginT20 marginB10 d-flex align-items-center justify-content-end">
+        <div class="">
+            <a class="filters" href="javascript:void(0);" (click)="eaStoreService.showHideFilterMenu = true;" attr.action-id="{{dataIdConstantsService.dashboarPendingApprovals_link_pendingExceptionsFilter}}">
+                <span class="i-vNext-filter"></span>
+                Filters
+            </a>
+        </div>
+        <div class="form-group search-wrap my-0 mr-0 marginL15">
+            <div class="d-flex w-100">
+                <input appelementfocus="" placeholder="{{localizationService.getLocalizedString('common.SEARCH_PENDING_APPROVAL_PLACEHOLDER')}}"
+                    class="form-control" required="" type="text" [(ngModel)]="searchParam" (keyup.enter)="searchExceptions()" attr.data-id="{{dataIdConstantsService.dashboarPendingApprovals_text_searchExceptions}}"> 
+                    <span *ngIf  = "isSearchedData; else noSearchedData" class="i-vNext-close" (click)="getProposalListData() ;isSearchedData =  false"></span>
+                    <ng-template #noSearchedData>
+                        <span class="i-vNext-search" [disabled]="!searchParam" (click)="searchExceptions()"></span>
+                    </ng-template>
+            </div>
+        </div>
+
+        <ul class="inline-listing d-flex justify-content-end flex-grow-1">
+            <li class="dropdown">
+                <!-- <label class="created-label mb-0">Pending My:</label> -->
+                <a href="javascript:void(0);" class="ml-2" (click)="openDrop = !openDrop"  attr.action-id="{{dataIdConstantsService.dashboarPendingApprovals_link_pendingExceptionsViewDrop}}" (clickOutside)="openDrop = false;">{{selectedView}}<span class="i-vNext-arrow-down-heavy ml-1"></span></a>
+                <ul class="dropdown-menu right" [class.show]="openDrop">
+                    <li *ngFor="let a of viewOptions; let index = index;">
+                        <a href="javascript:void(0);" class="dropdown-item" attr.action-id="{{dataIdConstantsService.dashboarPendingApprovals_link_dropdown_pendingExceptionsView}}{{index}}" [ngClass]="{'active': selectedQualView === a}" (click)="selectedCreatedBy(a)">{{a}}</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <!-- Table View -- Starts here  -->
+    <ng-container *ngIf='displayGrid'>
+    <div class="col-12 table-wrapper" *ngIf="pendingApprovalsData?.length; else noData" >
+        <table class="primary-table mx-15 mb-0">
+            <thead>
+                <tr>
+                    <th>{{'common.PROPOSAL_NAME' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                    <th>{{'ea_dashboard.SUBMITED_BY' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                    <th style="width: 13%;">{{'ea_dashboard.CUSTOMER_NAME' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                    <th>{{'common.BUYING_PROGRAM' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                    <th>{{'ea_dashboard.REVIEW_TEAMS' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                    <th>{{'ea_dashboard.EXCEPTION_REQUESTED' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                    <th class="text-right">{{'ea_dashboard.ELAPSED_TIME' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let proposal of pendingApprovalsData; let index = index;">
+                    <td>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <a href="javascript:void();" id="{{elementIdConstantsService.DASHBOARD_PENDING_APPROVAL_LIST_GO_TO_PROPOSAL}}" (click)="goToProposal(proposal)" attr.action-id="{{dataIdConstantsService.dashboarPendingApprovals_link_goToProposal}}{{index}}">{{proposal?.proposalNm}} ({{proposal?.proposalId}})</a>
+                            <ul class="inline-listing border-right-li">
+                                <li><span class="proposal-type">{{(proposal?.dealTyp === constantsService.CISCO) ? localizationService.getLocalizedString('common.CISCO') : localizationService.getLocalizedString('common.PARTNER')}}</span></li>
+                            </ul>
+                        </div>
+                    </td>
+                    <td>{{proposal.requestedBy}}</td>
+                    <td>{{proposal?.endCustNm}}</td>
+                    <td>
+                        <span *ngIf="proposal?.buyingProgram else noBuyingprogram">
+                            <span *ngIf="proposal?.buyingProgram === '2.0'">
+                                {{'common.EA2_LABEL' | localizationPipe : localizationService.localizedkeySet.size}}
+                            </span>
+                            <span *ngIf="proposal?.buyingProgram === '3.0'">
+                                {{'common.EA3_LABEL' | localizationPipe : localizationService.localizedkeySet.size}}
+                            </span>
+                            <span *ngIf="proposal?.buyingProgram === 'spna'">
+                                {{'common.SPNA_LABEL' | localizationPipe : localizationService.localizedkeySet.size}}
+                            </span>
+                        </span>
+                        <ng-template #noBuyingprogram>
+                            -
+                        </ng-template>
+                    </td>
+                    <td>
+                        <span class="dropdown select-dropdown custom-appr-dropdown">
+                            <span [attachOutsideOnClick]=true (clickOutside)="approverTeamDropOutside($event, proposal)" attr.action-id="{{dataIdConstantsService.dashboarPendingApprovals_icon_exceptionsTeamDropdown}}{{index}}" (click)="proposal.showApproverTeamDropdown = !proposal.showApproverTeamDropdown" class="dropdown-toggle pr-3">{{proposal.teamName}}<span class="icon-arrow-stroke-right"></span></span>
+                            <span *ngIf="proposal?.showApproverTeamDropdown" class="dropdown-menu custom-appr-dropdown-menu">
+                                <div class="smart-list-scroll">  
+                                    <table class="primary-table fixed-header">
+                                        <thead>
+                                            <tr>
+                                                <th width="40%">{{'ea_dashboard.REVIEW_TEAMS' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                                                <th width="20%">{{'common.STATUS' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                                                <th width="40%">{{'ea_dashboard.TIME_TAKEN' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <!--<td *ngIf="approverTeam.exceptionStatus === 'Pending'">{{approverTeam.approverTeamName}}</td>-->
+                                                <td>{{proposal.teamName}}</td>
+                                                <td *ngIf="proposal.status ==='Pending'"><span style='color:#f49c56'>{{proposal.status}}</span></td>
+                                                <td *ngIf="proposal.status ==='Rejected'"><span style='color:#f49c56'>{{proposal.status}}</span></td>
+                                                <td *ngIf="proposal.status ==='Approved'"><span style='color:#88cb6c'>{{proposal.status}}</span></td>
+                                                <td *ngIf="proposal.status ==='Complete'"><span style='color:#88cb6c'>{{proposal.status}}</span></td>
+                                                <td *ngIf="proposal.status != 'Pending' && proposal.status != 'Approved' && proposal.status != 'Rejected' && proposal.status != 'Complete'">{{proposal.status}}</td>
+                                                <td *ngIf="proposal.elapsedTime">{{proposal.elapsedTime}}</td>
+                                                <td *ngIf="!proposal.elapsedTime">--</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </span>
+                        </span>
+                    </td>
+                    <td>{{proposal?.exceptionName ? proposal.exceptionName : '--'}}</td>
+                    <td class="text-right"><span class="no-wrap">{{proposal.timeTaken}}</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <ng-template #noData>
+        <div class="col-12">
+            <div class="alert alert--info alert-dismissable">
+                <span class="alert-icon">
+                    <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                </span>
+                <span>{{'ea_dashboard.NO_PENDING_APPROVAL_PROPOSALS_FOUND' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+            </div>
+        </div>
+    </ng-template>
+    </ng-container>
+    <!-- Table View -- Ends here  -->
+    <div *ngIf='paginationObject && pendingApprovalsData?.length' class="col-12">
+        <app-ea-ng-pagination [paginationObject]="paginationObject" (updatedPaginationObject) = "paginationUpdated($event)" [pageType]="pageType"></app-ea-ng-pagination>
+    </div>
+</div>

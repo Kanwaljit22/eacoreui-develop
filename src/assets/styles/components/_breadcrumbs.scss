@@ -1,0 +1,48 @@
+.breadcrumbWrapper {
+    float: left;
+    width: 100%;
+    background: $theme-color;
+    .breadcrumb{
+        background: $theme-color;
+        padding: 7px 0 $qtr-spacing;
+        margin: $no-spacing;
+        .breadcrumb-item {
+            font-size: rem(11);
+            letter-spacing: .03em;
+            line-height: rem(15);
+            font-weight: 300;
+            text-transform: uppercase;
+            text-shadow: 0px 0px;
+            &.active {
+                opacity: 0.8;
+                color: $white-color !important;
+                font-size: rem(11);
+            }
+            &:before{
+                color: $white-color; 
+                padding-right: 4px;
+            }
+            a{
+                color: $white-color;
+                cursor: pointer;
+                &:hover {
+                color: $white-color;
+                }
+            }
+        }
+    }
+    &.no-breadcrumb {
+        display: none;
+        .breadcrumb {
+            visibility: hidden;
+            pointer-events: none;
+        }
+    }
+}
+.breadcrumbWrapper .breadcrumb > li + li::before {
+    background: none;
+    width: auto;
+    margin: 0;
+    height: auto;
+    top: 0;
+}

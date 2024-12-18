@@ -1,0 +1,7 @@
+<div class="clearfix"></div>
+
+<!-- <app-sub-header [subHeaderData]="qualService.qualification"></app-sub-header> -->
+<app-sub-header></app-sub-header>
+<div >
+    <app-road-map *ngIf="roadMapGrid" [roadMapGrid]="roadMapGrid" [componentNumToLoad]="componentNumToLoad"></app-road-map>
+</div>

@@ -1,0 +1,691 @@
+{
+    "rid": "EAMP1633448641323",
+    "user": "prguntur",
+    "error": false,
+    "data": {
+      "proposal": {
+        "objId": "615c70859fd6b37e240518ae",
+        "id": 20000069,
+        "projectObjId": "614c9356e5c642705a44e2bd",
+        "projectId": 2000014,
+        "name": "Copy of Test prop",
+        "billingTerm": {
+          "rsd": "20210930",
+          "billingModel": "Prepaid",
+          "term": 36
+        },
+        "countryOfTransaction": "US",
+        "priceList": {
+          "id": "1109",
+          "name": "Global Price List - US"
+        },
+        "currencyCode": "USD",
+        "partnerInfo": {
+          "beGeoId": 639324,
+          "beId": 586064,
+          "beGeoName": "ConvergeOne, Inc.",
+          "pgtmvBeGeoId": 272241792,
+          "countryCode": "US"
+        },
+        "customer": {
+          "accountName": "FACEBOOK",
+          "customerGuId": "38939101",
+          "customerGuName": "THE FACEBOOK INC",
+          "preferredLegalName": "FACEBOOK",
+          "preferredLegalAddress": {
+            "addressLine1": "408 SOCIAL CIR",
+            "city": "FOREST CITY",
+            "state": "NC",
+            "zip": "28043",
+            "country": "UNITED STATES"
+          },
+          "customerReps": [
+            {
+              "id": 0,
+              "title": "BA",
+              "firstName": "Test",
+              "lastName": "test1",
+              "name": "Test test1",
+              "email": "test@cisco.com"
+            }
+          ],
+          "federalCustomer": false,
+          "countryCode": "UNITED STATES",
+          "duoCustomerType": {
+            "federalCustomer": true,
+            "legacyCustomer": true,
+            "subscriptionLines": false,
+            "hwTokenLines": false
+          },
+          "legacyCustomer": true
+        },
+        "dealInfo": {
+          "id": "52547274",
+          "statusDesc": "Qualified",
+          "optyOwner": "mariar",
+          "buyMethodDisti": false,
+          "type": "PARTNER",
+          "dealScope": 3,
+          "dealSource": 0,
+          "dealType": 3,
+          "crPartyId": "195804147",
+          "distiDeal": false,
+          "partnerDeal": true
+        },
+        "buyingProgram": "BUYING_PGRM_3",
+        "locked": false,
+        "status": "IN_PROGRESS",
+        "initiatedBy": {
+          "type": "CISCO",
+          "distiInitiated": false,
+          "ciscoInitiated": true
+        },
+        "audit": {
+          "createdBy": "prguntur",
+          "createdAt": "2021-10-05T15:34:29.707+0000",
+          "updatedBy": "prguntur",
+          "updatedAt": "2021-10-05T15:34:38.910+0000"
+        },
+        "priceInfo": {
+          "extendedList": 6723573.12,
+          "unitNet": 0,
+          "originalExtendedList": 0,
+          "originalUnitList": 0,
+          "totalNet": 3361786.56,
+          "totalNetBeforeCredit": 3361786.56,
+          "totalNetAfterIBCredit": 0,
+          "unitListMRC": 0,
+          "unitNetMRC": 0
+        },
+        "commitInfo": {
+          "committed": true,
+          "threshold": 100000,
+          "fullCommitTcv": 3361786.56
+        },
+        "forceAllowCompletion": false,
+        "quoteInfo": {},
+        "originalProposalId": 20000057,
+        "originalProposalObjId": "6155b6ac51503962cb1406fc",
+        "programEligibility": {
+          "eligible": true,
+          "nonEligiblePrimaryEnrollments": [],
+          "nonEligibleSecondaryEnrollments": [],
+          "eligiblePrimaryEnrollments": [],
+          "eligibleSecondaryEnrollments": []
+        },
+        "syncStatus": {
+          "configDirty": true,
+          "priceDirty": false,
+          "hanaDirty": false,
+          "quoteInSync": false,
+          "ruleDirty": false,
+          "cxCcwrPriceDirty": false
+        },
+        "deleted": false,
+        "scopeInfo": {
+          "scopeId": 1430,
+          "masterAgreementId": "EA1304",
+          "returningCustomer": false
+        },
+        "statusDesc": "In Progress",
+        "allowCompletion": false,
+        "summaryViewAllowed": false
+      },
+      "enrollments": [
+        {
+          "id": 5,
+          "name": "Services",
+          "primary": false,
+          "enrolled": true,
+          "displayQnA": false,
+          "displaySeq": 5,
+          "billingTerm": {
+            "rsd": "20211015",
+            "billingModel": "Prepaid",
+            "term": 36
+          },
+          "commitInfo": {
+            "committed": false,
+            "fcSuiteCount": 1,
+            "pcSuiteCount": 0,
+            "fcTcv": 0
+          },
+          "pools": [
+            {
+              "name": "Networking_Services",
+              "desc": "Networking Support & Lifecycle Services",
+              "displaySeq": 1,
+              "display": true,
+              "suites": [
+                {
+                  "name": "Cisco Services Portfolio: DNA Switching T1",
+                  "desc": "Cisco Services Portfolio: DNA Switching T1",
+                  "ato": "E3-AS-SVS1",
+                  "displaySeq": 1,
+                  "displayGroup": false,
+                  "disabled": false,
+                  "active": true
+                },
+                {
+                  "name": "Cisco Services Portfolio: DNA Wireless",
+                  "desc": "Cisco Services Portfolio: DNA Wireless",
+                  "ato": "E3-AIR-SVS1",
+                  "inclusion": true,
+                  "displaySeq": 1,
+                  "discount": {
+                    "subsDisc": 0,
+                    "servDisc": 0,
+                    "multiProgramDesc": {
+                      "msd": 0,
+                      "mpd": 0,
+                      "med": 0,
+                      "bundleDiscount": 0
+                    }
+                  },
+                  "billingTerm": {
+                    "rsd": "20210930",
+                    "billingModel": "Prepaid",
+                    "term": 36
+                  },
+                  "commitInfo": {
+                    "committed": true,
+                    "fcSuiteCount": 0,
+                    "pcSuiteCount": 0
+                  },
+                  "groups": [
+                    {
+                      "id": 1,
+                      "name": "H/w Support Options",
+                      "displaySeq": 1
+                    },
+                    {
+                      "id": 2,
+                      "name": "Support Options",
+                      "displaySeq": 2
+                    },
+                    {
+                      "id": 3,
+                      "name": "Delivery Support Options",
+                      "displaySeq": 3
+                    }
+                  ],
+                  "displayGroup": false,
+                  "pids": [
+                    {
+                      "name": "E3-CX-AIR-T1NC",
+                      "desc": "SVCS Portfolio T1 8x7xNCD Wireless Support",
+                      "groupId": 1,
+                      "priceInfo": {},
+                      "credit": {},
+                      "type": "CX_HW_SUPPORT",
+                      "cxIbQty": {},
+                      "supportPid": true
+                    },
+                    {
+                      "name": "E3-CX-AIR-T1NT",
+                      "desc": "SVCS Portfolio T1 8x5xNBD Wireless Support",
+                      "groupId": 1,
+                      "priceInfo": {},
+                      "credit": {},
+                      "type": "CX_HW_SUPPORT",
+                      "cxIbQty": {},
+                      "supportPid": true
+                    },
+                    {
+                      "name": "E3-CX-AIR-T1S4P",
+                      "desc": "SVCS Portfolio T1 24x7x4 OS Wireless Support",
+                      "groupId": 1,
+                      "priceInfo": {},
+                      "credit": {},
+                      "type": "CX_HW_SUPPORT",
+                      "cxIbQty": {},
+                      "supportPid": true
+                    },
+                    {
+                      "name": "E3-CX-AIR-T1SWC",
+                      "desc": "SVCS Portfolio T1 Wireless Cloud SW Support",
+                      "groupId": 2,
+                      "type": "CX_SOLUTION_SUPPORT",
+                      "supportPid": true
+                    },
+                    {
+                      "name": "E3-CX-AIR-T1NP",
+                      "desc": "SVCS Portfolio T1 24x7x4 Wireless Support",
+                      "groupId": 1,
+                      "priceInfo": {},
+                      "credit": {},
+                      "type": "CX_HW_SUPPORT",
+                      "cxIbQty": {},
+                      "supportPid": true
+                    },
+                    {
+                      "name": "E2N-CXE-EAMSC",
+                      "desc": "SVCS Portfolio EA Management Service Cisco",
+                      "groupId": 3,
+                      "dtls": [
+                        {
+                          "qty": 1
+                        }
+                      ],
+                      "type": "CX_EAMS",
+                      "supportPid": true
+                    },
+                    {
+                      "name": "E2N-CXE-AIR-T1SWP",
+                      "desc": "SVCS Portfolio T1 Wireless On-Prem SW Support",
+                      "groupId": 2,
+                      "dtls": [
+                        {
+                          "qty": 1
+                        }
+                      ],
+                      "type": "CX_SOLUTION_SUPPORT",
+                      "supportPid": true
+                    },
+                    {
+                      "name": "E2N-CXE-EAMSP",
+                      "desc": "SVCS Portfolio EA Management Service Partner",
+                      "groupId": 3,
+                      "type": "CX_EAMS",
+                      "supportPid": true
+                    }
+                  ],
+                  "priceInfo": {
+                    "extendedList": 0,
+                    "unitNet": 0,
+                    "totalNet": 0,
+                    "totalNetBeforeCredit": 0
+                  },
+                  "ncPriceInfo": {
+                    "extendedList": 0,
+                    "unitNet": 0,
+                    "totalNet": 0,
+                    "totalNetBeforeCredit": 0
+                  },
+                  "disabled": false,
+                  "active": true,
+                  "atoTier": "TIER_1",
+                  "atoTierOptions": [
+                    {
+                      "name": "TIER_1",
+                      "desc": "Tier 1",
+                      "displaySeq": 1,
+                      "defaultTier": true
+                    }
+                  ],
+                  "cxAttachRate": 78.22
+                },
+                {
+                  "name": "Cisco Services Portfolio: DNA Routing & SD-WAN",
+                  "desc": "Cisco Services Portfolio: DNA Routing & SD-WAN",
+                  "ato": "E3-ENTWAN-SVS1",
+                  "displaySeq": 1,
+                  "displayGroup": false,
+                  "disabled": false,
+                  "active": true
+                },
+                {
+                  "name": "Cisco Services Portfolio:  FedRamp SD-WAN",
+                  "desc": "Cisco Services Portfolio:  FedRamp SD-WAN",
+                  "ato": "E3-FR-SDWAN-SVS1",
+                  "displaySeq": 1,
+                  "displayGroup": false,
+                  "disabled": false,
+                  "active": true
+                },
+                {
+                  "name": "Cisco Services Portfolio: DC Networking T1",
+                  "desc": "Cisco Services Portfolio: DC Networking T1",
+                  "ato": "E3-DCN-SVS1",
+                  "displaySeq": 1,
+                  "displayGroup": false,
+                  "disabled": false,
+                  "active": true
+                },
+                {
+                  "name": "Cisco Services Portfolio: DC MDS",
+                  "desc": "Cisco Services Portfolio: DC MDS",
+                  "ato": "E3-MDS-SVS1",
+                  "displaySeq": 1,
+                  "displayGroup": false,
+                  "disabled": false,
+                  "active": true
+                },
+                {
+                  "name": "Cisco Services Portfolio: DNA Spaces (DNAS)",
+                  "desc": "Cisco Services Portfolio: DNA Spaces (DNAS)",
+                  "ato": "E3-DNAS-SVS1",
+                  "displaySeq": 1,
+                  "displayGroup": false,
+                  "disabled": false,
+                  "active": true
+                }
+              ]
+            },
+            {
+              "name": "Applications_Services",
+              "desc": "Applications Services",
+              "displaySeq": 2,
+              "display": true,
+              "suites": [
+                {
+                  "name": "Cisco Services Portfolio: Hyperflex",
+                  "desc": "Cisco Services Portfolio: Cisco Services Portfolio: Hyperflex",
+                  "ato": "E3-HXDP-SVS1",
+                  "displaySeq": 1,
+                  "displayGroup": false,
+                  "disabled": false,
+                  "active": true
+                },
+                {
+                  "name": "Cisco Services Portfolio: Intersight",
+                  "desc": "Cisco Services Portfolio: Cisco Services Portfolio: Intersight",
+                  "ato": "E3-INT-SVS1",
+                  "displaySeq": 1,
+                  "displayGroup": false,
+                  "disabled": false,
+                  "active": true
+                }
+              ]
+            },
+            {
+              "name": "Security_Services",
+              "desc": "Security Services",
+              "displaySeq": 3,
+              "display": true,
+              "suites": [
+                {
+                  "name": "Cisco Services Portfolio: Secure Access by Duo Access T3",
+                  "desc": "Cisco Services Portfolio: Secure Access by Duo Access T3",
+                  "ato": "E3-DUO-ACS-SVS3",
+                  "displaySeq": 1,
+                  "displayGroup": false,
+                  "disabled": false,
+                  "active": true
+                },
+                {
+                  "name": "Cisco Services Portfolio: Secure Access by Duo Beyond T3",
+                  "desc": "Cisco Services Portfolio: Secure Access by Duo Beyond T3",
+                  "ato": "E3-DUO-BYD-SVS3",
+                  "displaySeq": 1,
+                  "displayGroup": false,
+                  "disabled": false,
+                  "active": true
+                },
+                {
+                  "name": "Cisco Services Portfolio: Secure Access by Duo Fed Access T3",
+                  "desc": "Cisco Services Portfolio: Secure Access by Duo Fed Access T3",
+                  "ato": "E3-DUO-FEDA-SVS3",
+                  "displaySeq": 1,
+                  "displayGroup": false,
+                  "disabled": false,
+                  "active": true
+                },
+                {
+                  "name": "Cisco Services Portfolio: Secure Access by Duo MFA T3",
+                  "desc": "Cisco Services Portfolio: Secure Access by Duo MFA T3",
+                  "ato": "E3-DUO-MFA-SVS3",
+                  "displaySeq": 1,
+                  "displayGroup": false,
+                  "disabled": false,
+                  "active": true
+                },
+                {
+                  "name": "Cisco Services Portfolio: Secure Access by Duo Fed MFA T3",
+                  "desc": "Cisco Services Portfolio: Secure Access by Duo Fed MFA T3",
+                  "ato": "E3-DUO-FEDM-SVS3",
+                  "displaySeq": 1,
+                  "displayGroup": false,
+                  "disabled": false,
+                  "active": true
+                },
+                {
+                  "name": "Cisco Services Portfolio: Secure Access by Duo EDU Access T3",
+                  "desc": "Cisco Services Portfolio: Secure Access by Duo EDU Access T3",
+                  "ato": "E3-DUO-EDUA-SVS3",
+                  "displaySeq": 1,
+                  "displayGroup": false,
+                  "disabled": false,
+                  "active": true
+                },
+                {
+                  "name": "Cisco Services Portfolio: Secure Access by Duo EDU Beyond T3",
+                  "desc": "Cisco Services Portfolio: Secure Access by Duo EDU Beyond T3",
+                  "ato": "E3-DUO-EDUB-SVS3",
+                  "displaySeq": 1,
+                  "displayGroup": false,
+                  "disabled": false,
+                  "active": true
+                },
+                {
+                  "name": "Cisco Services Portfolio: Identity Services Engine T1",
+                  "desc": "Cisco Services Portfolio: Identity Services Engine T1",
+                  "ato": "E3-ISE-SVS1",
+                  "displaySeq": 1,
+                  "displayGroup": false,
+                  "disabled": false,
+                  "active": true
+                },
+                {
+                  "name": "Cisco Services Portfolio: Secure Workload T1",
+                  "desc": "Cisco Services Portfolio: Secure Workload T1",
+                  "ato": "E3-WKLD-SVS1",
+                  "displaySeq": 1,
+                  "displayGroup": false,
+                  "disabled": false,
+                  "active": true
+                },
+                {
+                  "name": "Cisco Services Portfolio: Umbrella DNS Advantage T2",
+                  "desc": "Cisco Services Portfolio: Umbrella DNS Advantage T2",
+                  "ato": "E3-UMBDNSA-SVS2",
+                  "displaySeq": 1,
+                  "displayGroup": false,
+                  "disabled": false,
+                  "active": true
+                },
+                {
+                  "name": "Cisco Services Portfolio: Umbrella DNS Essentials T2",
+                  "desc": "Cisco Services Portfolio: Umbrella DNS Essentials T2",
+                  "ato": "E3-UMBDNSE-SVS2",
+                  "displaySeq": 1,
+                  "displayGroup": false,
+                  "disabled": false,
+                  "active": true
+                },
+                {
+                  "name": "Cisco Services Portfolio: Umbrella EDU T2",
+                  "desc": "Cisco Services Portfolio: Umbrella EDU T2",
+                  "ato": "E3-UMBEDU-SVS2",
+                  "displaySeq": 1,
+                  "displayGroup": false,
+                  "disabled": false,
+                  "active": true
+                },
+                {
+                  "name": "Cisco Services Portfolio: Umbrella SIG Advantage T2",
+                  "desc": "Cisco Services Portfolio: Umbrella SIG Advantage T2",
+                  "ato": "E3-UMBSIGA-SVS2",
+                  "displaySeq": 1,
+                  "displayGroup": false,
+                  "disabled": false,
+                  "active": true
+                },
+                {
+                  "name": "Cisco Services Portfolio: Secure Firewall T1",
+                  "desc": "Cisco Services Portfolio: Secure Firewall T1",
+                  "ato": "E3-SFW-SVS1",
+                  "displaySeq": 1,
+                  "displayGroup": false,
+                  "disabled": false,
+                  "active": true
+                },
+                {
+                  "name": "Cisco Services Portfolio: Secure Web T1",
+                  "desc": "Cisco Services Portfolio: Secure Web T1",
+                  "ato": "E3-WEB-SVS1",
+                  "displaySeq": 1,
+                  "displayGroup": false,
+                  "disabled": false,
+                  "active": true
+                },
+                {
+                  "name": "Cisco Services Portfolio: Cloudlock T2",
+                  "desc": "Cisco Services Portfolio: Cloudlock T2",
+                  "ato": "E3-CLDK-SVS2",
+                  "displaySeq": 1,
+                  "displayGroup": false,
+                  "disabled": false,
+                  "active": true
+                },
+                {
+                  "name": "Cisco Services Portfolio: Secure Email Essentials T1",
+                  "desc": "Cisco Services Portfolio: Secure Email Essentials T1",
+                  "ato": "E3-ES-ESS-SVS1",
+                  "displaySeq": 1,
+                  "displayGroup": false,
+                  "disabled": false,
+                  "active": true
+                },
+                {
+                  "name": "Cisco Services Portfolio: Secure Email Advantage T1",
+                  "desc": "Cisco Services Portfolio: Secure Email Advantage T1",
+                  "ato": "E3-ES-ADV-SVS1",
+                  "displaySeq": 1,
+                  "displayGroup": false,
+                  "disabled": false,
+                  "active": true
+                },
+                {
+                  "name": "Cisco Services Portfolio: Secure CLD MLBX Defense T2",
+                  "desc": "Cisco Services Portfolio: Secure CLD MLBX Defense T2",
+                  "ato": "E3-ES-CMD-SVS2",
+                  "displaySeq": 1,
+                  "displayGroup": false,
+                  "disabled": false,
+                  "active": true
+                },
+                {
+                  "name": "Cisco Services Portfolio: Secure Endpoints Essentials T1",
+                  "desc": "Cisco Services Portfolio: Secure Endpoints Essentials T1",
+                  "ato": "E3-EP-ESS-SVS1",
+                  "displaySeq": 1,
+                  "displayGroup": false,
+                  "disabled": false,
+                  "active": true
+                },
+                {
+                  "name": "Cisco Services Portfolio: Secure Endpoints Advantage T1",
+                  "desc": "Cisco Services Portfolio: Secure Endpoints Advantage T1",
+                  "ato": "E3-EP-ADV-SVS1",
+                  "displaySeq": 1,
+                  "displayGroup": false,
+                  "disabled": false,
+                  "active": true
+                },
+                {
+                  "name": "Cisco Services Portfolio: Secure Endpoints Premier T1",
+                  "desc": "Cisco Services Portfolio: Secure Endpoints Premier T1",
+                  "ato": "E3-EP-PRM-SVS1",
+                  "displaySeq": 1,
+                  "displayGroup": false,
+                  "disabled": false,
+                  "active": true
+                },
+                {
+                  "name": "Cisco Services Portfolio: Secure Network Analytics T1",
+                  "desc": "Cisco Services Portfolio: Secure Network Analytics T1",
+                  "ato": "E3-NWA-SVS1",
+                  "displaySeq": 1,
+                  "displayGroup": false,
+                  "disabled": false,
+                  "active": true
+                },
+                {
+                  "name": "Cisco Services Portfolio: Secure Addons T1",
+                  "desc": "Cisco Services Portfolio: Secure Addons T1",
+                  "ato": "E3-ADDONS-SVS1",
+                  "displaySeq": 1,
+                  "displayGroup": false,
+                  "disabled": false,
+                  "active": true
+                },
+                {
+                  "name": "Cisco Services Portfolio: Secure Malware Analytics",
+                  "desc": "Cisco Services Portfolio: Secure Malware Analytics",
+                  "ato": "E3-SMA-SVS",
+                  "displaySeq": 1,
+                  "displayGroup": false,
+                  "disabled": false,
+                  "active": true
+                },
+                {
+                  "name": "Cisco Services Portfolio: Cisco Defense Orchestrator",
+                  "desc": "Cisco Services Portfolio: Cisco Defense Orchestrator",
+                  "ato": "E3-CDO-SVS",
+                  "displaySeq": 1,
+                  "displayGroup": false,
+                  "disabled": false,
+                  "active": true
+                },
+                {
+                  "name": "Cisco Services Portfolio: Security Anal Logging Essentials",
+                  "desc": "Cisco Services Portfolio: Security Anal Logging Essentials",
+                  "ato": "E3-SAL-ESS-SVS",
+                  "displaySeq": 1,
+                  "displayGroup": false,
+                  "disabled": false,
+                  "active": true
+                },
+                {
+                  "name": "Cisco Services Portfolio: Security Anal Logging Advantage",
+                  "desc": "Cisco Services Portfolio: Security Anal Logging Advantage",
+                  "ato": "E3-SAL-ADV-SVS",
+                  "displaySeq": 1,
+                  "displayGroup": false,
+                  "disabled": false,
+                  "active": true
+                },
+                {
+                  "name": "Cisco Services Portfolio: Security Anal Logging Premier",
+                  "desc": "Cisco Services Portfolio: Security Anal Logging Premier",
+                  "ato": "E3-SAL-PRM-SVS",
+                  "displaySeq": 1,
+                  "displayGroup": false,
+                  "disabled": false,
+                  "active": true
+                }
+              ]
+            }
+          ],
+          "priceInfo": {
+            "extendedList": 0,
+            "unitNet": 0,
+            "totalNet": 0,
+            "totalNetBeforeCredit": 0
+          },
+          "ncPriceInfo": {
+            "extendedList": 0,
+            "unitNet": 0,
+            "totalNet": 0,
+            "totalNetBeforeCredit": 0
+          },
+          "disabled": false,
+          "active": true,
+          "externalConfiguration": false,
+          "cxOptInAllowed": false,
+          "cxAttached": true,
+          "service": true,
+          "eamsDelivery": {
+            "partnerDeliverySelected": false,
+            "partnerDeliveryEligible": false
+          },
+          "awaitingResponse": true,
+          "lineInError": false,
+          "discountCascadePending": false,
+          "hardwareLinePricesInSync": false
+        }
+      ]
+    },
+    "currentDate": "2021-10-05T15:44:02.209+0000"
+  }

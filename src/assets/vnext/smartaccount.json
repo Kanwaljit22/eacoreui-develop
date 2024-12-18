@@ -1,0 +1,32 @@
+{
+  "rid": "e2a8c9d0-fa79-44b0-bb54-3fa6d38bc22b",
+  "user": "rbinwani",
+  "error": false,
+  "data": [
+    {
+      "smartAccountId": "129620",
+      "smartAccountName": "160TH SOAR",
+      "smartAccountDomainId": "soar.army.mil",
+      "status": "ACTIVE",
+      "linked": false,
+      "active": false
+    },
+    {
+      "smartAccountId": "154958",
+      "smartAccountName": "163AF.163AW.ACC.AF.MIL",
+      "smartAccountDomainId": "163af.163aw.acc.af.mil",
+      "status": "ACTIVE",
+      "linked": false,
+      "active": true
+    },
+    {
+      "smartAccountId": "124151",
+      "smartAccountName": "1st CIG",
+      "smartAccountDomainId": "dodcrp08.org",
+      "status": "ACTIVE",
+      "linked": false,
+      "active": false
+    }
+  ],
+  "currentDate": "2021-07-26T04:34:46.830+0000"
+}

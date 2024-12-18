@@ -1,0 +1,75 @@
+.slide-flyout--overlay {
+    background: rgba(255, 255, 255, 0.8);
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+}
+
+.slide-flyout {
+    position: fixed;
+    top: 0px;
+    height: 100%;
+    background: #fff;
+    border-left: 3px solid $theme-color;
+    z-index: 99991;
+    -webkit-transition: all 0.2s ease 0.2s;
+    transition: all 0.2s ease 0.2s;
+
+    &.sm {
+        right: -600px;
+        width: 600px;
+
+        &.open {
+            right: 0;
+        }
+    }
+    &.md {
+        &.open {
+            right: 0;
+        }
+    }
+    &.lg {
+        right: -100%;
+        width: 100%;
+        &.open {
+            right: 0;
+        }
+    }
+
+    &--header {
+        display: flex;
+        background: #EAEAEA;
+        font-size: rem(30);
+        font-weight: 100;
+        padding: $base-spacing $base-spacing;
+        
+        h1 {
+            display: flex;
+            line-height: 1;
+            padding-right: $base-spacing + $qtr-spacing;
+            position: relative;
+            width: 100%;
+        }
+
+        .close {
+            position: absolute;
+            right: $qtr-spacing;
+            font-size: rem(16);
+            top: $qtr-spacing;
+        }
+    }
+
+    &--body {
+        padding: $half-spacing $base-spacing + $qtr-spacing;
+        position: relative;
+        height: calc(100vh - 72px);
+        overflow: auto;
+    }
+
+    &--footer {
+
+    }
+}

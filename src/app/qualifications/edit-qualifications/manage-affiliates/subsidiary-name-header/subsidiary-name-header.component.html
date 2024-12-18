@@ -1,0 +1,14 @@
+<div class="ag-header-group-cell-label border-none">
+    <div class="custom-check">
+        <label class="label-check">
+            <input class="form-check-input" type="checkbox" value="" name="xyz" id="xyz" [(ngModel)]="isChecked"  [disabled] = 'disableCheckBox'>
+            <span class="custom-checkbox-btn" (click)="checkValue($event)">
+              <span class="path1"></span>
+              <span class="path2"></span>
+          </span>
+            <!-- <span class="ag-icon ag-icon-checkbox-checked"></span> -->
+          </label>
+      <label class="customHeaderLabel text-left" for="xyz">{{params.displayName}}
+      </label>
+    </div>
+  </div>

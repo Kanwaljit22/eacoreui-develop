@@ -1,0 +1,30 @@
+<span>
+    <span *ngIf="approverTeamDetails && checkProposalStatus()" class="dropdown select-dropdown custom-appr-dropdown">
+        <span class="dropdown-toggle">{{selectedApproverTeamName}} <span class="icon-arrow-stroke-right"></span></span>
+        <span class="dropdown-menu custom-appr-dropdown-menu">
+            <div class="smart-list-scroll">
+                <table class="primary-table fixed-header">
+                    <thead>
+                        <tr>
+                            <th width="40%">Reviewer Team(s)</th>
+                            <th width="20%">Status</th>
+                            <th width="40%">Time Taken</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let approverTeam of approverTeamDetails">
+                            <td>{{displayApproverTeamName(approverTeam)}}</td>
+                            <td *ngIf="approverTeam.exceptionStatus ==='Pending'"><span style='color:#f49c56'>{{approverTeam.exceptionStatus}}</span></td>
+                            <td *ngIf="approverTeam.exceptionStatus ==='Rejected'"><span style='color:#f49c56'>{{approverTeam.exceptionStatus}}</span></td>
+                            <td *ngIf="approverTeam.exceptionStatus ==='Approved'"><span style='color:#88cb6c'>{{approverTeam.exceptionStatus}}</span></td>
+                            <td *ngIf="approverTeam.exceptionStatus ==='Complete'"><span style='color:#88cb6c'>{{approverTeam.exceptionStatus}}</span></td>
+                            <td *ngIf="approverTeam.exceptionStatus != 'Pending' && approverTeam.exceptionStatus != 'Approved' && approverTeam.exceptionStatus != 'Rejected' && approverTeam.exceptionStatus != 'Complete'">{{approverTeam.exceptionStatus}}</td>
+                            <td *ngIf="approverTeam.timeElapsed">{{approverTeam.timeElapsed}}</td>
+                            <td *ngIf="!approverTeam.timeElapsed">--</td>
+                        </tr>                        
+                    </tbody>
+                </table>
+            </div>
+        </span>
+    </span>
+</span>

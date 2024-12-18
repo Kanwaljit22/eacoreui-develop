@@ -1,0 +1,33 @@
+<div class="searchbar" [ngClass]="{'with--dropdown' : searchDropdown.length}" (clickOutside)="showDropDown = false" >
+  <span *ngIf="searchDropdown.length" class="icon-search-dropdown" (click)="showDropDownWindow()"></span>
+  <input (keyup)="onKeypress()" [id]="appDataService.createUniqueId('searchInput',appDataService.pageContext)" kdfid="searchInput"
+    kdfapp="enterpriseAgreement" kdfpage="enterpriseAgreement" class="form-control"
+    [ngClass]="{'active':activeLabel}" name="searchInput" [(ngModel)]="searchInput" type="text"
+    (keyup.enter)="onQuickFilterChanged()" class="form-control check" required="" appElementFocus />
+
+  <label *ngIf="searchDropdown.length && !searchInput && appDataService.pageContext !== 'ProposalPriceEstimateStep'" for="searchInput" class="form-control-placeholder"
+    (click)="focusSearchInput(appDataService.createUniqueId('searchInput',appDataService.pageContext))" style="padding-left: 42px!important;">{{placeholder}}
+    {{selectedSearchParam.name}}</label>
+
+    <label *ngIf="searchDropdown.length && !searchInput && appDataService.pageContext === 'ProposalPriceEstimateStep' && selectedSearchParam.id === 'searchAll'" for="searchInput" class="form-control-placeholder"
+    (click)="focusSearchInput(appDataService.createUniqueId('searchInput',appDataService.pageContext))" style="padding-left: 42px!important;">{{localeService.getLocalizedString('report.center.SEARCH_BY')}}
+    {{selectedSearchParam.name}}</label>
+
+    <label *ngIf="searchDropdown.length && !searchInput && appDataService.pageContext === 'ProposalPriceEstimateStep' && selectedSearchParam.id !== 'searchAll'" for="searchInput" class="form-control-placeholder"
+    (click)="focusSearchInput(appDataService.createUniqueId('searchInput',appDataService.pageContext))" style="padding-left: 42px!important;">{{selectedSearchParam.name}}:</label>
+
+    <label *ngIf="!searchDropdown.length && !searchInput" for="searchInput" class="form-control-placeholder"
+    (click)="focusSearchInput(appDataService.createUniqueId('searchInput',appDataService.pageContext))">
+    {{placeholder}}<i *ngIf="!searchInput" class="icon-search"></i></label>
+    
+    <button [id]="appDataService.createUniqueId('CLOSE',appDataService.pageContext)" id="close" kdfid="close"
+      kdfapp="enterpriseAgreement" kdfpage="enterpriseAgreement" *ngIf="searchInput || fromPage === 'creditOverviewPage'" (click)="clearInput()"
+      aria-label="Close" class="icon-close-btn" type="button">
+    </button>
+    <div class="dropdown-menu" [ngClass]="{active : showDropDown}" *ngIf="showDropDown">
+      <ul>
+        <li *ngFor='let item of searchDropdown'><a class="dropdown-item" (click)="updateSearch(item)"
+            href="javascript:void(0)">{{item.name}}</a></li>
+      </ul>
+    </div>
+  </div>

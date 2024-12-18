@@ -1,0 +1,77 @@
+{
+    "data": [
+  
+      {
+        "name": "CDW",
+        "geoId": "44",
+        "ccoId": "ccoId1",
+        "country": "USA",
+        "beId": "1003",
+        "type": "DVAR"
+      },
+      {
+        "name": "CDW",
+        "geoId": "44",
+        "ccoId": "ccoId2",
+        "country": "USA",
+        "beId": "1003",
+        "type": "DVAR"
+      },
+      {
+        "name": "CDW",
+        "geoId": "44",
+        "ccoId": "ccoId3",
+        "country": "USA",
+        "beId": "1003",
+        "type": "DVAR"
+      },
+      {
+        "name": "PRESIDIO NETWORKED SOLUTIONS",
+        "geoId": "4129",
+        "ccoId": "ccoId4",
+        "country": "USA",
+        "beId": "1367",
+        "type": "DVAR"
+      },
+      {
+        "name": "WORLD WIDE TECHNOLOGY, INC",
+        "geoId": "16079",
+        "ccoId": "ccoId5",
+        "country": "USA",
+        "beId": "2433",
+        "type": "DVAR"
+      },
+      {
+        "name": "EPLUS TECHNOLOGY, INC",
+        "geoId": "20573",
+        "ccoId": "ccoId6",
+        "country": "USA",
+        "beId": "28359",
+        "type": "DVAR"
+      },
+      {
+        "name": "DIMENSION DATA NORTH AMERICA INC",
+        "geoId": "29533",
+        "ccoId": "ccoId7",
+        "country": "USA",
+        "beId": "3636",
+        "type": "DVAR"
+      },
+      {
+        "name": "INSIGHT DIRECT USA INC",
+        "geoId": "27786",
+        "ccoId": "ccoId8",
+        "country": "USA",
+        "beId": "52729",
+        "type": "DVAR"
+      },
+      {
+        "name": "LASALLE",
+        "geoId": "7269",
+        "ccoId": "ccoId9",
+        "country": "USA",
+        "beId": "16479",
+        "type": "DVAR"
+      }
+    ]
+  }

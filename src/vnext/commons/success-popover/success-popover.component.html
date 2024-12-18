@@ -1,0 +1,127 @@
+<div class="info-flyout success" *ngIf="vnextStoreService.toastMsgObject.loccSuccess">
+    <a href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.successPopover_link_closeSuccessMessage}}" (click)="vnextStoreService.toastMsgObject.loccSuccess = false;"><span class="icon-close-btn"></span></a>
+    <h5 class="heading--h5">{{localizationService.getLocalizedString('common.successPopover.SUCCESS')}}</h5>
+    <p>{{localizationService.getLocalizedString('common.successPopover.LOCC_SENT_SUCCESS_MESSAGE')}}</p>
+</div>
+<!-- <div class="info-flyout success d-none">
+    <a href="javascript:void(0);"><span class="icon-close-btn"></span></a>
+    <h5 class="heading--h5">Collaboration portfolio is eligible</h5>
+    <p>Collaboration is now eligible because system detected that one of the suite is committed as per your Install
+        Base.</p>
+</div>
+<div class="info-flyout warning d-none">
+    <a href="javascript:void(0);"><span class="icon-close-btn"></span></a>
+    <h5 class="heading--h5">Security Portfolio attached</h5>
+    <p>You have Successfully attached the Security portfolio. To get better benefits commit one of the suites under it.
+    </p>
+</div> -->
+<div class="info-flyout success" *ngIf="vnextStoreService.toastMsgObject.paExceptionRequested">
+    <a href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.successPopover_link_closeSuccessMessage}}" (click)="vnextStoreService.toastMsgObject.paExceptionRequested = false;"><span class="icon-close-btn"></span></a>
+    <h5 class="heading--h5">{{localizationService.getLocalizedString('common.successPopover.SUCCESS')}}</h5>
+
+    <p>{{'common.successPopover.EXCEPTION_REQUEST_SAVED' | localizationPipe : localizationService.localizedkeySet.size}}</p><b>{{'common.successPopover.SUPPORT_INITIATE' | localizationPipe : localizationService.localizedkeySet.size}}</b>
+    <!-- </ng-container> -->
+</div>
+<div class="info-flyout success" *ngIf="vnextStoreService.toastMsgObject.paExceptionWithdrawn">
+    <a href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.successPopover_link_closeSuccessMessage}}" (click)="vnextStoreService.toastMsgObject.paExceptionWithdrawn = false;"><span class="icon-close-btn"></span></a>
+    <h5 class="heading--h5">{{localizationService.getLocalizedString('common.successPopover.SUCCESS')}}</h5>
+    <p>{{localizationService.getLocalizedString('common.successPopover.ENGAGE_SUPPORT_WITHDRAWN_SUCCESSFULLY')}}</p>
+</div>
+<div class="info-flyout success" *ngIf="vnextStoreService.toastMsgObject.exceptionsSubmitted">
+    <a href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.successPopover_link_closeSuccessMessage}}" (click)="vnextStoreService.toastMsgObject.exceptionsSubmitted = false;"><span class="icon-close-btn"></span></a>
+    <h5 class="heading--h5">{{localizationService.getLocalizedString('common.successPopover.SUCCESS')}}</h5>
+    <p>{{localizationService.getLocalizedString('common.successPopover.APPROVE_EXCEPTION_REQUEST_SENT')}}</p>
+</div>
+<div class="info-flyout success" *ngIf="vnextStoreService.toastMsgObject.exceptionsWithdrawn">
+    <a href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.successPopover_link_closeSuccessMessage}}" (click)="vnextStoreService.toastMsgObject.exceptionsWithdrawn = false;"><span class="icon-close-btn"></span></a>
+    <h5 class="heading--h5">{{localizationService.getLocalizedString('common.successPopover.SUCCESS')}}</h5>
+    <p>{{localizationService.getLocalizedString('common.successPopover.WITHDRAWN_EXCEPTION_REQUEST_SUCCCESS')}}</p>
+</div>
+<div class="info-flyout success" *ngIf="vnextStoreService.toastMsgObject.isBecameReviewer">
+    <a href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.successPopover_link_closeSuccessMessage}}" (click)="vnextStoreService.toastMsgObject.isBecameReviewer = false;"><span class="icon-close-btn"></span></a>
+    <h5 class="heading--h5">{{localizationService.getLocalizedString('common.successPopover.SUCCESS')}}</h5>
+    <p>{{localizationService.getLocalizedString('common.successPopover.CLAIMED_APPROVER_SUCCESS_SUBMIT_DECISION')}}</p>
+</div>
+<div class="info-flyout success" *ngIf="vnextStoreService.toastMsgObject.isBecameReviewerForPA">
+    <a href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.successPopover_link_closeSuccessMessage}}" (click)="vnextStoreService.toastMsgObject.isBecameReviewerForPA = false;"><span class="icon-close-btn"></span></a>
+    <h5 class="heading--h5">{{localizationService.getLocalizedString('common.successPopover.SUCCESS')}}</h5>
+    <p>{{localizationService.getLocalizedString('common.successPopover.CLAIMED_APPROVER_SUCCESS_PRICE_ESTIMATION_PAGE')}}</p>
+</div>
+<div class="info-flyout" *ngIf="vnextStoreService.toastMsgObject.programEligible">
+    <a href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.successPopover_link_closeMessage}}"><span class="icon-close-btn"></span></a>
+    <h5 class="heading--h5">{{localizationService.getLocalizedString('common.successPopover.PROGRAM_ELIGIBLE')}}</h5>
+    <p>{{localizationService.getLocalizedString('common.successPopover.THRESHOLD_LABEL_1')}} {{vnextStoreService.toastMsgValueObject[0]}} {{localizationService.getLocalizedString('common.successPopover.THRESHOLD_LABEL_2')}}</p>
+</div>
+<div class="info-flyout success" *ngIf="vnextStoreService.toastMsgObject.isBuExcelRequested">
+    <a href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.successPopover_link_closeSuccessMessage}}" (click)="vnextStoreService.toastMsgObject.isBuExcelRequested = false;"><span class="icon-close-btn"></span></a>
+    <h5 class="heading--h5">{{localizationService.getLocalizedString('common.successPopover.EXCEL_REQUESTED')}}</h5>
+    <p>{{localizationService.getLocalizedString('common.successPopover.SITE_REPORT_SENT')}}</p>
+</div>
+<div class="info-flyout success" *ngIf="vnextStoreService.toastMsgObject.isSelectedBuSaved">
+    <a href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.successPopover_link_closeSuccessMessage}}" (click)="vnextStoreService.toastMsgObject.isSelectedBuSaved = false;"><span class="icon-close-btn"></span></a>
+    <h5 class="heading--h5">{{localizationService.getLocalizedString('common.successPopover.CHANGES_SAVED')}}</h5>
+    <p>{{localizationService.getLocalizedString('common.successPopover.ALL_CHANGES_SAVED')}}</p>
+</div>
+<!-- <div class="info-flyout error d-none">
+    <a href="javascript:void(0);"><span class="icon-close-btn"></span></a>
+    <h5 class="heading--h5">Applications portfolio is not Eligible</h5>
+    <p>Applications is not Eligible to buy as you don’t have any suite commited under this Portfolio.</p>
+    <div class="text-center d-block">
+        <button class="btn btn-primary sm">More Details</button>
+    </div>
+</div> -->
+<div class="info-flyout error" *ngIf="vnextStoreService.toastMsgObject.suiteDeselected">
+    <a href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.successPopover_link_closeErrorMessage}}"><span class="icon-close-btn"></span></a>
+    <h5 class="heading--h5">{{vnextStoreService.toastMsgValueObject[0]}} {{localizationService.getLocalizedString('common.successPopover.SUITE_DESELECTED')}}</h5>
+    <p>{{localizationService.getLocalizedString('common.successPopover.SUITE_DESELECTED_MESSAGE')}}</p>
+</div>
+<div class="info-flyout error" *ngIf="vnextStoreService.toastMsgObject.isExceptionRejected">
+    <a href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.successPopover_link_closeErrorMessage}}"><span class="icon-close-btn" (click)="vnextStoreService.toastMsgObject.isExceptionRejected = false;"></span></a>
+    <p>{{localizationService.getLocalizedString('common.successPopover.REJECTED_EXCEPTION_MESSAGE')}}</p>
+</div>
+<div class="info-flyout success" *ngIf="vnextStoreService.toastMsgObject.copyProposal">
+    <a href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.successPopover_link_closeSuccessMessage}}" (click)="vnextStoreService.toastMsgObject.copyProposal = false;"><span class="icon-close-btn"></span></a>
+    <h5 class="heading--h5">{{localizationService.getLocalizedString('common.successPopover.PROPSAL_COPIED_SUCCESS')}}</h5>
+    <p>{{localizationService.getLocalizedString('common.successPopover.PROPSAL_COPIED_SUCCESS_MESSAGE_1')}} '{{vnextStoreService.toastMsgCopiedProposalData?.name}}' {{localizationService.getLocalizedString('common.successPopover.PROPSAL_COPIED_SUCCESS_MESSAGE_2')}}</p>
+     <div class="text-center d-block">
+        <button class="btn btn-primary sm" attr.action-id="{{dataIdConstantsService.successPopover_button_goToCopiedProposal}}" (click)="goToCopiedProposal(vnextStoreService.toastMsgCopiedProposalData)">{{localizationService.getLocalizedString('common.successPopover.GO_TO_NEWLY_CREATED_PROPOSAL')}}</button>
+    </div>
+</div>
+<div class="info-flyout success" *ngIf="vnextStoreService.toastMsgObject.ibReportReequested">
+    <a href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.successPopover_link_closeSuccessMessage}}" (click)="vnextStoreService.toastMsgObject.ibReportReequested = false;"><span class="icon-close-btn" style="top: 9px !important;"></span></a>
+    <!-- <h5 class="heading--h5">Proposal Copied Successfully</h5> -->
+    <p>{{localizationService.getLocalizedString('common.successPopover.CUSTOMER_IB_REPORT_SENT_SUCCESS')}}</p>
+</div>
+<div class="info-flyout success" *ngIf="vnextStoreService.toastMsgObject.lockProject">
+    <a (click)="vnextStoreService.toastMsgObject.lockProject = false;" attr.action-id="{{dataIdConstantsService.successPopover_link_closeSuccessMessage}}" href="javascript:void(0);"><span class="icon-close-btn"></span></a>
+    <h5 class="heading--h5">{{localizationService.getLocalizedString('common.successPopover.PROJECT_CREATED_SUCCESS')}}</h5>
+    <p>{{localizationService.getLocalizedString('common.successPopover.PROJECT_COMPLETED_PROPSOALS_CAN_BE_CREATED')}}
+        {{localizationService.getLocalizedString('common.successPopover.BUYING_PROGRAM_ID')}}<b>{{projectStoreService.projectData?.scopeInfo?.masterAgreementId}}</b>{{localizationService.getLocalizedString('common.successPopover.BUYING_PROGRAM_ID_1')}}
+    </p>
+    <!-- <h5 style="padding-top: 5px;"><b>{{projectStoreService.projectData?.scopeInfo?.masterAgreementId}}</b> </h5> -->
+
+    <!-- <h5>{{vnextStoreService.toastMsgValueObject[0]}}</h5> -->
+  <!--  <div class="text-center d-block">
+        <button class="btn btn-primary sm">No, I want to keep it</button>
+    </div> -->
+</div>
+
+<div class="info-flyout req-commit-popover" *ngIf="vnextStoreService.toastMsgObject.isCommitOverrideRequested">
+    <a href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.successPopover_link_closeMessage}}"><span class="icon-close-btn" (click)="vnextStoreService.toastMsgObject.isCommitOverrideRequested = false;"></span></a>
+    <h5 class="heading--h5">  {{localizationService.getLocalizedString('common.successPopover.COMMIT_OVERRIDE_SAVED')}}</h5>
+    <span>  {{localizationService.getLocalizedString('common.successPopover.THE_BUSINESS_UNIT_REVIEW')}}</span><br>
+    <span> {{localizationService.getLocalizedString('common.successPopover.OVERRIDE_REMAINS_IN_FORCE')}}</span>
+</div>
+
+<div class="info-flyout req-commit-popover" *ngIf="vnextStoreService.toastMsgObject.isCommitOverrideRequestWithdrawn">
+    <a href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.successPopover_link_closeMessage}}"><span class="icon-close-btn" (click)="vnextStoreService.toastMsgObject.isCommitOverrideRequestWithdrawn = false;"></span></a>
+    <h5 class="heading--h5">  {{localizationService.getLocalizedString('common.successPopover.COMMIT_OVERRIDE_WITHDRAWN')}}</h5>
+    <span>  {{localizationService.getLocalizedString('common.successPopover.COMMIT_OVERRIDE_WITHDRAWN_DETERMINATION')}}</span><br>
+</div>
+
+<div class="info-flyout ib-fetch-popover" *ngIf="vnextStoreService.toastMsgObject.isIbFetchCompleted">
+    <a href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.successPopover_link_closeMessage}}"><span class="icon-close-btn" (click)="vnextStoreService.toastMsgObject.isIbFetchCompleted = false;"></span></a>
+    <h5 class="heading--h5">{{'common.successPopover.HARDWARE_IB_FETCH' | localizationPipe : localizationService.localizedkeySet.size}}</h5>
+    <span>{{'common.successPopover.THANKS_FOR_YOUR_PATIENCE' | localizationPipe : localizationService.localizedkeySet.size}}</span><br>
+</div>
+

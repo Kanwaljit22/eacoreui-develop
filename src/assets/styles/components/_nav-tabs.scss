@@ -1,0 +1,96 @@
+.nav-tabs{
+    &.wborder-tab { 
+        border-bottom: 0;
+        margin-top: $qtr-spacing;
+        .nav-link{ 
+            font-size: rem(16);
+        }
+    }
+    &.bborder-tab { 
+        border-bottom: 1px solid $border-color; 
+        margin: $triqtr-spacing calc(#{$half-spacing} * -2.5) 0; 
+        padding: 0px calc(#{$half-spacing} * 2.5);
+        .nav-link{ 
+            font-size: rem(14);
+        }
+    }
+    &.bborder-tab , &.wborder-tab {
+        .nav-link {  
+            padding: $qtr-spacing 0px; 
+            border-bottom: 3px solid transparent; 
+            background: transparent; 
+            border: 0; 
+            color: $primary-text; 
+            &.active {  
+                border-bottom: 3px solid $theme-color; 
+                color: $link-color; 
+            }
+            &:hover {  
+                border-right:0; 
+                border-bottom: 3px solid $link-color; 
+                border-left:0; 
+            }
+        }
+        .nav-item { 
+            padding-right: calc(#{$base-spacing} * 2);
+            margin-bottom: 0;
+        }
+    }
+}
+
+
+/* Tabs styling
+=====================================*/
+
+.tab-style {
+    width: auto;
+    
+    .nav {
+    border: 1px solid #005073;
+    padding: 0;
+    border-radius: 6px;
+
+    li {
+        font-size: rem(13);
+
+        a {
+            color: #005073;
+            padding: $qtr-spacing + 2px $triqtr-spacing;
+            line-height: 1;
+            border-left: 1px solid $theme-color;
+            background: $white-color;
+            text-shadow: $no-spacing $no-spacing;
+
+            &:focus, &:hover, &.active {
+                background-color: $theme-color;
+                color: $white-color;
+                -webkit-transition: all 0.5s ease 0s;
+                transition: all 0.5s ease 0s;
+                cursor: pointer;
+            }
+        }
+
+        &:first-child {
+            a {
+                @include border-radius(5px 0 0 5px);
+                border-left: $no-spacing;
+            }
+        }
+
+        &:last-child {
+            a {
+                @include border-radius(0 5px 5px 0);
+            }
+        }
+    }
+
+    }
+    label {
+        margin-bottom: 0;
+        margin-right: 10px;
+        font-weight: 300;
+        font-size: rem(20);
+        color: #333333;
+    
+    }
+}

@@ -1,0 +1,22 @@
+<div class="modal-body vNext modal-without-header">
+    <button class="icon-close-btn" (click)="close()" attr.action-id="{{dataIdConstantsService.proxyUser_button_close}}" type="button"></button>
+
+    <h2>{{localizationService.getLocalizedString('common.PROXY_USER')}}</h2>
+</div>
+<div class="modal-body vNext modal-without-header">
+    <div *ngIf="displayMsg" class="alert alert--danger alert-dismissable mt-2">
+        <span class="alert-icon">
+            <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+        </span>
+        <span>{{displayMsg}}</span>
+    </div>
+    <div class="form-group txt m-0">
+        <label class="customer-label" for="cecId" >{{localizationService.getLocalizedString('common.CEC_ID_NEW')}}</label>
+        <input class="form-control" id="cecId" maxlength="65" [(ngModel)]="cecId" name="cecId" attr.data-id="{{dataIdConstantsService.proxyUser_text_cecId}}"
+          required type="text" (keyup.enter)="switchToProxy()">
+      </div>
+</div>
+
+<div class="text-center d-block pb-4 paddingT10 vNext">
+    <button class="btn btn-primary" type="button" attr.action-id="{{dataIdConstantsService.proxyUser_button_apply}}" (click) = "switchToProxy()" id="{{elementIdConstantsService.Proxy_Apply}}">{{localizationService.getLocalizedString('common.APPLY')}}</button>
+</div>

@@ -1,0 +1,53 @@
+
+        <!-- Co-term -- Choose Subscription for Co-Term -- Starts here -->
+        <section class="co-term-table" *ngIf="cotermSelected">
+            <div class="row">
+                <div class="col-12 d-flex align-items-center justify-content-between">
+                    <h6 class="card-title heading--h6 bolder my-2">{{isChangeSubFlow ? ('common.SUBSCRIPTION_FOR_COTERM' | localizationPipe : localizationService.localizedkeySet.size) : ('common.subscription.CHOOSE_SUBSCRIPTION_FOR_COTERM' | localizationPipe : localizationService.localizedkeySet.size)}}<sup>*</sup></h6>
+                    <button class="btn btn-secondary sm mb-2"  (click) = "lookupSubscription()" attr.action-id="{{dataIdConstantsService.subscriptionList_button_lookupSubscription}}" *ngIf="!isChangeSubFlow && !isEnrollmentSub && !isReadOnly && !eaService.features?.COTERM_SEPT_REL">{{'common.LOOKUP_SUBSCRIPTION' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                </div>
+                <div class="col-12" *ngIf="subscriptionList?.length; else noData">
+                    <table class="primary-table">
+                        <thead>
+                            <tr>
+                                <th>{{'common.SUBSCRIPTION_ID' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                                <th width="350px" *ngIf="isChangeSubFlow">{{'common.ENROLLMENT_OR_ARCHITECTURE_HEADER' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                                <th width="" *ngIf="isChangeSubFlow">{{'common.SAMRT_ACCOUNT' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                                <!-- <th>Subscription Name</th> -->
+                                 <!-- <th>Smart Account</th> -->
+                                <th width="15%">{{'common.START_DATE' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                                <th width="15%">{{'common.END_DATE' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                                <th width="15%">{{'common.AGREEMENT_STATUS' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                                <th width="15%">{{'common.ACTION' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor = "let subscription of subscriptionList; let index = index" >
+                                <td>{{subscription.subRefId}}</td>
+                                <td *ngIf="isChangeSubFlow">{{subscription.enrollments?.join()}}</td>
+                                <td *ngIf="isChangeSubFlow">{{projectStoreService.projectData?.smartAccount?.smrtAccntName ? projectStoreService.projectData?.smartAccount?.smrtAccntName : '--'}}</td>
+                                <!-- <td>{{subscription?.subscriptionName ?  subscription?.subscriptionName : '--'}} </td> -->
+                                <!-- <td>{{subscription?.smart ? subscription?.smart :  '--'}}</td> -->
+                                <td>{{subscription?.subscriptionStart | date:"dd-MMM-yyyy"}}</td>
+                                <td>{{subscription?.subscriptionEnd | date:"dd-MMM-yyyy"}}</td>
+                                <td><span class="badge badge-valid rounded">{{'common.ACTIVE' | localizationPipe : localizationService.localizedkeySet.size}}</span></td>
+                                <td *ngIf  = "selectedSubscription && selectedSubscription?.subRefId ===  subscription.subRefId && (!isChangeSubFlow && !isEnrollmentSub)"><button class="btn btn-secondary sm" attr.action-id="{{dataIdConstantsService.subscriptionList_button_deselectSubscription}}{{index}}" (click) = "deselectSubscription()" [ngClass]="{'disabled': isReadOnly}">{{'common.DESELECT' | localizationPipe : localizationService.localizedkeySet.size}}</button></td>
+                                <td *ngIf  = "selectedSubscription && selectedSubscription?.subRefId ===  subscription.subRefId && (isChangeSubFlow || isEnrollmentSub)"><button class="btn btn-secondary sm" [disabled]="isChangeSubFlow || isEnrollmentSub || isReadOnly">{{'common.SELECTED' | localizationPipe : localizationService.localizedkeySet.size}}</button></td>
+                                <td *ngIf  = " selectedSubscription?.subRefId !==  subscription.subRefId && !isEnrollmentSub"><button class="btn btn-primary sm"  (click) = "selectSubscription(subscription)" attr.action-id="{{dataIdConstantsService.subscriptionList_button_selectSubscription}}{{index}}" [ngClass]="{'disabled': isReadOnly}">{{'common.SELECT' | localizationPipe : localizationService.localizedkeySet.size}}</button></td>
+                                <td *ngIf  = "selectedSubscription?.subRefId !==  subscription.subRefId && cotermSelected && isEnrollmentSub"> <button class="btn btn-primary sm" [disabled]="cotermSelected || isEnrollmentSub || isReadOnly" attr.action-id="{{dataIdConstantsService.subscriptionList_button_selectSubscription}}{{index}}">{{'common.SELECT' | localizationPipe : localizationService.localizedkeySet.size}}</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+    <ng-template #noData>
+        <div class="col-12">
+            <div class="alert alert--info alert-dismissable">
+                <span class="alert-icon">
+                    <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                </span>
+                <span>{{'common.subscription.NO_SUBSCRIPTIONS_AVAILABLE' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+            </div>
+        </div>
+    </ng-template>
+            </div>
+        </section>

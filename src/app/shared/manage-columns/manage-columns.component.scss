@@ -1,0 +1,126 @@
+.manage-columns .icon-manage-columns {
+    font-size: 23px;
+    vertical-align: middle;
+    padding-right: 6px;
+}
+
+.manage-columns .icon-Export-Vector {
+    font-size: 18px;
+    vertical-align: middle;
+    padding-right: 6px;
+}
+
+.manage-columns .icon-full-screen,
+.manage-columns .icon-exit-full-screen {
+    vertical-align: middle;
+    padding-right: 6px;
+}
+
+.manage-columns .manage-filter-text {
+    vertical-align: middle;
+    color: #005073;
+    cursor: pointer;
+}
+
+.manage-columns.border-right {
+    border-right: 1px solid #d6d6d6;
+}
+
+.manage-columns-flyout {
+    background: #FFFFFF;
+    border-radius: 5px;
+    box-shadow: 6px 6px 20px rgba(0, 0, 0, 0.3);
+    position: absolute;
+    right: 0;
+    z-index: 99;
+    width: 420px;
+    top: 130px;
+    height: calc(100vh - 150px);
+    overflow: hidden;
+}
+
+.manage-columns-header h3 {
+    font-size: 22px;
+    color: #333;
+    line-height: 1;
+}
+
+.manage-columns-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    border-bottom: 1px solid #d6d6d6;
+}
+
+.manage-columns-header .icon-close-btn {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.manage-columns-subheader {
+    padding: 15px;
+    border-bottom: 1px dashed #d6d6d6;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.manage-columns-flyout .label-check span+span {
+    font-size: 16px;
+    color: #333;
+}
+
+.manage-columns-flyout ul li {
+    display: flex;
+    padding: 5px 15px;
+    align-items: center;
+}
+
+.manage-columns-flyout ul li .icon-drag-drop {
+    font-size: 18px;
+    margin-right: 10px;
+}
+
+.manage-columns-flyout ul {
+    max-height: calc(100vh - 310px);
+    overflow-y: scroll;
+}
+
+.manage-columns-search input {
+    width: 100%;
+    border: 1px solid #666666;
+    height: 40px;
+    border-radius: 5px;
+    padding: 11px 40px 11px 15px;
+    font-size: 14px;
+    color: #666666;
+}
+
+.manage-columns-search {
+    padding: 15px;
+    position: relative;
+}
+
+.manage-columns-search .icon-search {
+    font-size: 16px;
+    position: absolute;
+    right: 30px;
+    top: 25px;
+}
+
+.checkbox-slider-wrap {
+    width: 100%;
+    float: left;
+}
+
+.checkbox-Left {
+    float: left;
+    width: 45%;
+    top: 22px;
+    position: relative;
+}
+
+.customer-scope .radio-wrap input[type="radio"]:not(old)+label {
+    font-size: 13px;
+}

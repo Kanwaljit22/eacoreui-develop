@@ -1,0 +1,191 @@
+<div id="filter-area" class="container-fluid mb-3"><app-title-with-buttons [titleWithButton]="titleWithButton"></app-title-with-buttons>
+</div>
+<div id="main-container" class="container-fluid clearfix">
+
+    <message class="define-error-quote"></message>
+    <!-- <app-ea-purchases *ngIf="proposalSummaryService.showCiscoEaAuth && !proposalDataService.cxProposalFlow"></app-ea-purchases> -->
+
+<div class="clearfix"></div>
+<!-- CX suites messages starts here  -->
+
+<div class="alert alert--cx-info" *ngIf="(proposalDataService.cxEligible || proposalDataService.cxProposalFlow ) && !appDataService.roadMapPath && !proposalDataService.cxNotAllowedMsg && (cxSuitesData.length && (cxSuitesDataAlreadyPurchased.length !== cxSuitesData.length))">
+    <div class="cx-msg">
+        <p class="msg">
+         <span class="icon-msg-Info yellow">
+             <span class="path1"></span>
+             <span class="path2"></span>
+             <span class="path3"></span>
+         </span>   
+         {{localeService.getLocalizedMessage('proposal.pe.CX_ENTER_CUSTOMER_ATTACH_RATE')}}
+
+         <!-- Suites in this proposal are eligible to get Services support so we have <b>"auto attached"</b> but you can opt-out by deselecting Services suites. -->
+        </p>
+    </div>
+ </div>
+
+<!-- CX suites messages ends here  -->
+<div class="alert alert--info" *ngIf="isChangeSubFlow && !appDataService.roadMapPath">
+    <i class="arrow up"></i>
+    <span class="alert-icon">
+    <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+    </span>
+    <span class="infoTxt">{{localeService.getLocalizedString('proposal.managesuites.SUITES_UNDER_SELECTED_SUBSCRIPTION')}}</span>
+</div>
+
+<div class="alert alert--info" *ngIf="isChangeSubFlow && manageSuitesService.suitesData.length === 0 && appDataService.archName === constantsService.SECURITY">
+    <i class="arrow up"></i>
+    <span class="alert-icon">
+    <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+    </span>
+
+    <span class="infoTxt">{{localeService.getLocalizedMessage('proposal.managesuites.CHANGE_SUB_ERROR')}} <a  href="{{constantsService.CHANGE_SUB_DETAIL_URL}}{{qualService.subRefID}}" target="_blank">{{constantsService.CHANGE_SUB_DETAIL_URL}}{{qualService.subRefID}}</a> </span>
+
+</div>
+
+    <div class="no-border"
+        *ngIf="proposalDataService.proposalDataObject.proposalData.archName === constantsService.SECURITY">
+        <div class="alert alert--info alert-dismissable" *ngIf="enableMinSuitesMsg">
+            <span class="alert-icon">
+                <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+            </span>
+            <span class="infoTxt">
+                {{localeService.getLocalizedString('proposal.managesuites.SUITES_MANDATORY')}} {{appDataService.noOfMandatorySuitesrequired}} {{localeService.getLocalizedString('proposal.managesuites.SUITES_SELECTION')}} {{exceptionSuitesMessage}}
+            </span>
+        </div>
+    </div>
+     <!-- <div id="filter-area" class="no-border error1"
+        *ngIf="isChangeSubFlow && !appDataService.roadMapPath">
+        <div class="alert alert--info alert-dismissable">
+            <span class="alert-icon">
+                <span class="icon-msg-Info"><span class="pathxa1"></span><span class="path2"></span><span class="path3"></span></span>
+            </span>
+            <span class="infoTxt">
+                You cannot select suites which are already present under selected subscription
+            </span>
+        </div>
+    </div>  -->
+    <div  class="no-border">
+        <div class="alert alert--warning alert-dismissable mb-2 mt-3" *ngIf="partnerLedFlow && showAuthMessage && !appDataService.roadMapPath">
+            <span class="alert-icon">
+                <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+            </span>
+            <span class="infoTxt">
+                {{localeService.getLocalizedString('proposal.PARTNER_NOT_AUTHORIZED_SUITES')}}
+            </span>
+        </div>
+    </div>
+    <div  class="no-border">
+        <div class="alert alert--warning alert-dismissable mb-2 mt-3" *ngIf="!partnerLedFlow && showAuthMessage && proposalDataService.proposalDataObject.proposalData.partner.partnerId && !appDataService.roadMapPath">
+            <span class="alert-icon">
+                <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+            </span>
+            <span class="infoTxt">
+                {{localeService.getLocalizedString('proposal.CISCO_LEAD_PARTNER_NOT_AUTHORIZED_SUITES')}}
+            </span>
+        </div>
+    </div>
+
+    <!--Error message if proposal request date is due-->
+    <div class="alert alert--danger alert-dismissable clearfix" *ngIf='isRequestStartDateDue && (appDataService.isReadWriteAccess || (appDataService.userInfo.roSuperUser && !appDataService.isReadWriteAccess))'
+                    style="width: 100%;">
+                    <span class="alert-icon">
+                        <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                    </span>
+            <!--span class="icon-alert-warning-bg"></span-->
+            <span>{{localeService.getLocalizedString('proposal.REOPEN_NOT_ALLOWED_DUE_REQUEST_START_DATE')}}</span>
+    </div>
+   
+    <!--Error message if proposal has any legacy suite-->
+    <div class="alert alert--danger alert-dismissable clearfix" *ngIf='proposalDataService.hasLegacySuites && (appDataService.isReadWriteAccess || (appDataService.userInfo.roSuperUser && !appDataService.isReadWriteAccess))'
+                    style="width: 100%;">
+                    <span class="alert-icon">
+                        <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                    </span>
+            <!--span class="icon-alert-warning-bg"></span-->
+            <span *ngIf='proposalDataService.proposalDataObject.proposalData.status === constantsService.COMPLETE_STATUS '>{{localeService.getLocalizedString('proposal.managesuites.LEGACY_SUITE_COMPLETED')}}</span>
+            <span *ngIf='proposalDataService.proposalDataObject.proposalData.status != constantsService.COMPLETE_STATUS'>{{localeService.getLocalizedString('proposal.managesuites.LEGACY_SUITE_IN_PROGRESS')}}</span>
+    </div>
+   
+</div>
+<div class="container-fluid">
+ <div class="alert alert--warning alert-dismissable clearfix mb-2 mt-3" *ngIf='(proposalDataService.cxEligible || proposalDataService.cxProposalFlow) && !appDataService.roadMapPath && proposalDataService.cxNotAllowedMsg'>
+                    <span class="alert-icon">
+                        <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                    </span>
+            <!--span class="icon-alert-warning-bg"></span-->
+            <span>{{proposalDataService.cxNotAllowedMsg}}</span>
+</div>
+</div>
+
+<div class="container-fluid" *ngIf = "(proposalDataService.cxEligible || proposalDataService.cxProposalFlow) && !appDataService.roadMapPath && this.proposalDataService.cxNotAllowedReasonCode === constantsService.LOCC_NOT_SIGNED ">
+ <app-letter-of-cc ></app-letter-of-cc>
+</div>
+<app-locc-flyout *ngIf="partnerDealCreationService.showLoccFlyout"></app-locc-flyout>
+
+
+<div class="container-fluid">
+    <div class="alert alert--success" *ngIf="showLOCCConfirmationMessage">
+        <span class="alert-icon">
+                <span class="icon-done1"><span class="path1"></span><span class="path2"></span></span>
+        </span>
+        <span class="txt">{{localeService.getLocalizedMessage('partner.LOA_LETTER_OF_AUTHORIZATION_CONFIRMATION_1')}} {{todaysDate | date:'dd-MMM-yyyy'}}</span>
+    </div>
+</div>
+
+<div class="container-fluid d-none" *ngIf="(proposalDataService.cxEligible || proposalDataService.cxProposalFlow) && !appDataService.roadMapPath && !proposalDataService.cxNotAllowedMsg">
+    <div class="alert alert--cx-info">
+       <div class="cx-msg">
+           <p class="msg">
+            <span class="icon-msg-Info yellow">
+                <span class="path1"></span>
+                <span class="path2"></span>
+                <span class="path3"></span>
+            </span>   
+            Your are eligible to get Service support hence it is “auto attached” with proposal. Please read & agree to 
+               <a href="javascript:void(0);" class="link" (click)="openModal();" >terms & conditions.</a>
+           </p>
+           <label class="label-check">
+               <input class="form-check-input" type="checkbox">
+               <span class="custom-checkbox-btn">
+                   <span class="path1"></span>
+                   <span class="path2"></span>
+               </span>
+               <span></span>
+               <span>No, I dont want to auto attach Service Support</span>
+           </label>
+       </div>
+    </div>
+</div>
+<div class="main-table summaryView-table container-fluid" >
+    <!-- <div class="flexible-div main-content-heading" *ngIf="isChangeSubFlow">
+        <div class="col-xs-12 col-md-5 paddingL0">
+            <h1>Suite(s) available for purchase</h1>
+        </div>
+    </div> -->
+    <div *ngIf='suitesOfExistingSubscription.length && (isChangeSubFlow || appDataService.isRenewal)'>
+        <div class="content-title">
+            <span *ngIf='suitesOfExistingSubscription.length && isChangeSubFlow' >{{localeService.getLocalizedString('proposal.managesuites.SUITES_PURCHASED_UNDER_SELECTED_SUBSCRIPTION')}}</span>
+            <span *ngIf='suitesOfExistingSubscription.length && appDataService.isRenewal' >{{localeService.getLocalizedString('proposal.managesuites.RENEWAL_SUITES_PURCHASED_UNDER_SELECTED_SUBSCRIPTION')}}</span>
+        </div>
+        <ag-grid-angular class="ag-fresh grid-dropdown manage-suites-grid" id="myGrid" #agGrid [gridOptions]="gridOptionsForExistingSub" [columnDefs]="colData" [rowData]="suitesOfExistingSubscription"  [domLayout]="domLayout"  rowHeight="30"></ag-grid-angular>
+    </div>
+    <div>
+        <div class="content-title mt-4">
+            <span *ngIf='!appDataService.isRenewal'>{{localeService.getLocalizedString('proposal.managesuites.SUITES_FOR_PURCHASE')}}</span>
+            <span *ngIf='appDataService.isRenewal'>{{localeService.getLocalizedString('proposal.managesuites.RENEWAL_SUITES_FOR_PURCHASE')}}</span>
+        </div>
+        <ag-grid-angular class="ag-fresh grid-dropdown manage-suites-grid" id="myGrid" #agGrid [gridOptions]="gridOptions"  [domLayout]="domLayout" (selectionChanged)="onSelectionChanged()" (rowSelected)="rowSelected($event)" [overlayNoRowsTemplate]="noRowsTemplate" rowHeight="30"></ag-grid-angular>
+    </div>
+</div>
+
+<!-- <div *ngIf="displayConfigXaasUI">
+   
+    <iframe  id="an_iframe" frameBorder="0" name="an_iframe"
+       src="https://cortst-wstg.cloudapps.cisco.com/cortst/public/config/ConfigUIInterface/storagebyid/process/xaas?payloadId=5f197397ce13c80001fc19e9"
+                 style="margin-top: 20px; height : 400px"
+                allowfullscreen> </iframe> 
+<iframe  id="an_iframe" frameBorder="0" name="an_iframe"
+       [src]='urlSafe'
+                 style="margin-top: 20px; height : 600px; width : 1505px"
+                allowfullscreen> </iframe>
+</div> -->

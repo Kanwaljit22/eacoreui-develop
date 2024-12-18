@@ -1,0 +1,126 @@
+<div>
+    <div class="deal-info alert alert--info mt-3" *ngIf="state !== constantsService.CREATE_QUAL">
+      <span class="alert-icon">
+        <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+      </span>
+      <p>{{localeService.getLocalizedString('common.PROSPECT_ASSOCIATE_DEAL')}} {{prospectDetailsData.prospectName}}.
+      </p>
+
+      <a href="javascript:void(0);" (click)="goToAllArchView()">View Prospect Dashboard</a>
+    </div> 
+    <div class="deal-info alert alert--info mt-3" *ngIf="(state === constantsService.CREATE_QUAL) && (matching || isSwitched)">
+      <span class="alert-icon">
+        <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+      </span>
+      <p>{{localeService.getLocalizedString('common.PROSPECT_ASSOCIATE_DEAL')}} {{prospectDetailsData.prospectName}}.
+      </p>
+    </div>
+    <div class="deal-info alert alert--warning mt-3" *ngIf="(state === constantsService.CREATE_QUAL) && !matching && !isSwitched">
+      <span class="alert-icon">
+        <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+      </span>
+      <span>{{localeService.getLocalizedString('common.DEAL_MATCH')}} {{appDataService.customerName}}, {{localeService.getLocalizedString('common.DEAL_SWITCH')}} {{prospectDetailsData.prospectName}}?</span>
+      <a href="javascript:void(0);" (click)="switchCustomer()">{{localeService.getLocalizedString('common.SWITCH_CUSTOMER')}}</a>
+    </div>
+    <div class="secondary-main-block main-block-inner active mb-3 mt-3">
+      <div class="secondary-flex  myPros align-items-center">
+        <div class="col-4">
+          <h3>
+            <a class="ellipsis" container="body" href="javascript:void(0);" placement="top" >{{prospectDetailsData.prospectName}}</a>
+          </h3>
+        </div>
+        <div class="col w200">
+          <label>{{localeService.getLocalizedString('dashboard.prospect.NUMBER_OF_ARCHS')}}</label>
+          <h4 class="label-name">{{prospectDetailsData.archCount}}</h4>
+        </div>
+        <div class="col">
+          <label>{{localeService.getLocalizedString('dashboard.prospect.LIST_OF_ARCHS')}}</label>
+          <h4 class="label-name">
+            <span class="ellipsis">{{prospectDetailsData.archs}}</span>
+          </h4>
+        </div>
+      </div>
+
+      <div class="expanded-content">
+        <div class="proposal-bg">
+          <div class="expanded-content-title">
+            <h4>{{localeService.getLocalizedString('dashboard.prospect.ARCHITECTURES')}}</h4>
+          </div>
+          <div class="boxshadow-none">
+
+            
+          <!-- Start of Prospects -->
+            <div class="secondary-main-block main-block-inner" *ngFor="let archs of prospectDetailsData.archsDetail">
+              <div class="secondary-flex  myPros align-items-center">
+                <div class="col-4">
+                  <h3>
+                    <span *ngIf="archs.archId === constantsService.DNA" class="icon-dna-indigo"><span class="path1"></span><span
+                        class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span
+                        class="path6"></span><span class="path7"></span></span>
+                    <span *ngIf="archs.archId === constantsService.DC"
+                      class="icon-data-center-indigo"><span class="path1"></span><span class="path2"></span><span
+                        class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span
+                        class="path7"></span><span class="path8"></span><span class="path9"></span><span class="path10"></span><span
+                        class="path11"></span><span class="path12"></span><span class="path13"></span><span
+                        class="path14"></span><span class="path15"></span><span class="path16"></span></span>
+                    <span *ngIf="archs.archId === constantsService.SECURITY" class="icon-security"><span class="path1"></span><span
+                        class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span
+                        class="path6"></span><span class="path7"></span><span class="path8"></span><span class="path9"></span><span
+                        class="path10"></span><span class="path11"></span><span class="path12"></span><span
+                        class="path13"></span><span class="path14"></span><span class="path15"></span><span
+                        class="path16"></span></span>
+                    <a class="ellipsis" placement="top" container="body"
+                      ngbTooltip={{archs.name}} href="javascript:void(0);">{{archs.name}}</a></h3>
+                </div>
+                <div class="col w200 pl-0">
+                  <label>{{localeService.getLocalizedString('dashboard.prospect.EA_TCV')}}</label>
+                  <h4 class="label-name" *ngIf="archs.tcv > 0">{{constantsService.USD}}
+                    {{utilitiesService.formatWithNoDecimalForDashboard(archs.tcv)}}</h4>
+                  <h4 class="label-name" *ngIf="!archs.tcv">{{constantsService.USD}}
+                    {{constantsService.ZERO_VALUE}}</h4>
+                </div>
+                <div class="col pl-0">
+                  <label>{{localeService.getLocalizedString('dashboard.prospect.SUITES_TCV')}}</label>
+                  <h4 class="label-name">
+                    <span class="ellipsis" *ngIf="archs.suites?.length > 0">{{archs.suites}}</span>
+                    <span class="ellipsis" *ngIf="!archs.suites">{{'--'}}</span>
+                    <span class="linkText-wrap">
+                      <a  href="javascript:void(0)"
+                        *ngIf="archs.suites?.length > 0">{{localeService.getLocalizedString('dashboard.prospect.MORE_INFO')}}</a>
+                      <div class="dropdown-menu"><span class="icon-arrow-up"><span class="path1"></span><span
+                            class="path2"></span></span>
+                        <div class="more-info-wrap">
+                          <div class="more-info-title">
+                            <div class="col-7 p-0">
+                              <label>{{localeService.getLocalizedString('dashboard.prospect.SUITE')}}</label>
+                            </div>
+                            <div class="col-auto p-0">
+                              <label>{{localeService.getLocalizedString('dashboard.prospect.TCV')}}</label>
+                            </div>
+                          </div>
+                          <div class="more-info-content">
+                            <div class="more-info-content-row" *ngFor="let b of archs.suitesDetail">
+                              <div class="col-7 ellipsis p-0" placement="top" container="body"
+                              ngbTooltip={{b.name}}>{{b.name}}</div>
+                              <div class="col-auto pr-0" *ngIf="b.tcv > 0">{{constantsService.USD}}
+                                {{utilitiesService.formatWithNoDecimalForDashboard(b.tcv)}}</div>
+                              <div class="col-auto pr-0" *ngIf="!b.tcv">{{constantsService.USD}}
+                                {{constantsService.ZERO_VALUE}}</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </span>
+                  </h4>
+                </div>
+              </div>
+              <!--End Flex-->
+            
+            
+            </div>
+          <!-- End of Prospects  -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

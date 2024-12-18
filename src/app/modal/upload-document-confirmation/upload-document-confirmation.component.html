@@ -1,0 +1,71 @@
+
+<div class="modal-header">
+    <h5 class="modal-title">Confirmation</h5>
+    <button aria-label="Close" class="icon-close-btn" (click)="close()" data-dismiss="modal" type="button"></button>
+  </div>
+  <div class="modal-body confirm-modal">
+    <div class="body-content">
+        <h2 class="conf-text">{{localeService.getLocalizedString('common.HELLO')}} {{qualService.appDataService.userInfo.firstName}},</h2>
+
+        <div class="conf-text mt-4">You are required to indicate the dates when the legal documents were signed by the authorized end-customer representative.</div>
+        <!-- <div class="conf-text mt-4" *ngIf="docData?.isLegalPackagePresent">Please confirm that you are uploading signed Legal Package (which includes End User Information Form, EA Program terms and Letter of Agreement as a single file.</div>
+        <div class="conf-text mt-4" *ngIf="docData?.isEuifPresent && !docData?.isLoaPresent">Please confirm that you are uploading signed End User Information Form (EUIF).</div>
+        <div class="conf-text mt-4" *ngIf="docData?.isLoaPresent && !docData?.isEuifPresent">Please confirm that you are uploading signed Letter of Agreement (LOA).</div>
+        <div class="conf-text mt-4" *ngIf="docData?.isEuifPresent && docData?.isLoaPresent">Please confirm that you are uploading signed End User Information Form (EUIF) and Letter of Agreement (LOA) as two different files.</div> -->
+
+        <div class="row mt-4">
+            <div class="col-md-12" *ngIf="docData?.isEuifPresent || docData?.isLegalPackagePresent">
+                <div class="form-group datePicker mt-0">
+                    <label class="confirm-label" *ngIf="docData?.isEuifPresent && !docData?.isLegalPackagePresent">When did you get EUIF signed?
+                    <sup>*</sup>
+                </label>
+                <label class="confirm-label" *ngIf="docData?.isLegalPackagePresent && !docData?.isEuifPresent">When did you get Legal Package signed?
+                    <sup>*</sup>
+                </label>
+                <input appElementFocus readonly="true" type="text" class="form-control" #dpFull="bsDatepicker"  placeholder="Select Date"
+                [(ngModel)]="signedDate" [minDate]="" [maxDate]="todaysDate" bsDatepicker
+                (bsValueChange)="onDateSelection($event)"  [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY', showWeekNumbers: false }">
+            
+                    <span class="calender-date" (click)="dpFull.toggle()" [attr.aria-expanded]="dpFull.isOpen"></span>
+            
+                </div>
+            </div>
+            <div class="col-md-12 mt-2" *ngIf="docData?.isLoaPresent">
+                <div class="form-group datePicker mt-0">
+                    <label class="confirm-label">When did you get LOA signed?
+                    <sup>*</sup>
+                </label>
+                    <input appElementFocus readonly="true" type="text" class="form-control" #dpFull="bsDatepicker"  placeholder="Select Date"
+                    [(ngModel)]="loaSignedDate" [minDate]="" [maxDate]="todaysDate" bsDatepicker
+                    (bsValueChange)="onDateSelectionForLoa($event)"  [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY', showWeekNumbers: false }">
+            
+                    <span class="calender-date" (click)="dpFull.toggle()" [attr.aria-expanded]="dpFull.isOpen"></span>
+            
+                </div>
+            </div>
+
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="acknowldge-div">
+                <label  class="label-check">
+                    <input  class="form-check-input" type="checkbox" (change)="review()" [disabled]="disableCheckBox" />
+                    <span  class="custom-checkbox-btn">
+                    <span  class="path1"></span>
+                    <span  class="path2"></span>
+                    </span>
+                    <span>Yes, I acknowledge that the uploaded file(s) are signed by the authorized end-customer representative(s) on the date(s) mentioned above.</span>
+                    <!-- <span *ngIf="docData?.isLegalPackagePresent" >Yes, I acknowledge that the legal package which contains End user information form and the Letter of agreement in the file.</span>
+                    <span *ngIf="docData?.isEuifPresent && !docData?.isLoaPresent" >Yes, I acknowledge that the EUIF is signed.</span>
+                    <span *ngIf="docData?.isLoaPresent && !docData?.isEuifPresent" >Yes, I acknowledge that the Letter of agreement is signed.</span>
+                    <span *ngIf="docData?.isEuifPresent && docData?.isLoaPresent" >Yes, I acknowledge that the EUIF is signed and Letter of agreement is signed.</span> -->
+                </label>
+            </div>
+        </div>
+    </div>
+    </div>
+  </div>
+  <div class="modal-footer" >
+    <button class="btn btn-secondary mr-1" (click)="close()"  type="button">{{localeService.getLocalizedString('common.CANCEL')}}</button>
+    <button class="btn btn-primary mr-1" type="button"  (click)="confirm()" [disabled]="disableConfirm">Confirm</button>
+  </div>

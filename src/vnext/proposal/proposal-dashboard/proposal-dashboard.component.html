@@ -1,0 +1,355 @@
+<section class="vNext" attr.page-id="{{dataIdConstantsService.proposalDashboard_page_proposalDashboardPage}}">
+        <div class="d-flex w-100">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col-12">
+                        <app-message></app-message>
+                    </div>
+                </div>
+                <div id="filter-area" class="vNext mb-3">
+                    <div class="row align-items-center">
+                        <div class="col-md-5 my-0">
+                            <h2 attr.data-id="{{dataIdConstantsService.proposalDashboard_label_proposalDashboardPage}}">{{'proposal-dashboard.PROPOSAL_DASHBOARD' | localizationPipe : localizationService.localizedkeySet.size}}</h2>
+                        </div>
+                        
+                        <div *ngIf='proposalStoreService.proposalEditAccess || proposalStoreService.proposalViewAccess' class="col-md-7 d-flex justify-content-end">
+                            <button class="btn btn-secondary sm" type="button" id="{{elementIdConstantsService.PROPOSAL_DASHBOARD_REOPEN_PROPOSAL}}"  (click)="reopenProposal()" attr.action-id="{{dataIdConstantsService.proposalDashboard_button_reopenProposal}}" *ngIf='proposalStoreService.proposalReopenAccess' [ngClass]="{'disabled': (proposalStoreService.isPartnerAccessingSfdcDeal && eaStoreService.userInfo?.distiUser && !eaService.features?.PARTNER_SUPER_USER_REL)}">{{'proposal-dashboard.REOPEN_PROPOSAL' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                            <button class="btn btn-secondary sm ml-2" (click)="backToPe($event)" attr.action-id="{{dataIdConstantsService.proposalDashboard_button_backToPePage}}" *ngIf="proposalStoreService.proposalEditAccess || proposalStoreService.proposalViewAccess" id="{{elementIdConstantsService.Proposal_Dashboard_Back_To_Proposal}}">{{'proposal-dashboard.BACK_TO_PROPOSAL' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                        </div>
+                    </div>
+                </div>
+            <!-- End of Filter Row -->
+            
+            <!-- show initiate locc message -->
+            <app-initiate-locc-message></app-initiate-locc-message>
+
+            <!-- info message to show when splunk suites are added on the proposal -->
+            <div class="mb-3" *ngIf="eaService.features.SPLUNK_SUITE_REL && showSplunkMessage && proposalStoreService.proposalData?.isSplunkSuitesAdded">
+                <div class="d-flex justify-content-between align-items-center info-alert-blue bl-3">
+                    <span class="d-flex align-items-center">
+                        <span class="icon-msg-Info mr-3"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                        <span class="pos-rel t-1">{{'common.SPLUNK_ADDED_TO_PROPOSAL_ENGAGE_SPLUNK_RSM_SUPPORT_MESSAGE_1' | localizationPipe : localizationService.localizedkeySet.size}}<a href="mailto:clo-ea-splunk-support@cisco.com">{{'common.CISCO_SUPPORT' | localizationPipe : localizationService.localizedkeySet.size}}</a>{{'common.SPLUNK_ADDED_TO_PROPOSAL_ENGAGE_SPLUNK_RSM_SUPPORT_MESSAGE_2' | localizationPipe : localizationService.localizedkeySet.size}} </span>
+                    </span>
+                    <a href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.proposalDashboard_link_closeInfoMsg}}" (click)='showSplunkMessage = false;' class="lh-1"><span class="icon-close-btn"></span></a>
+                </div>
+            </div>
+
+            <div *ngIf="displayCopyError" class="alert alert--danger alert-dismissable mt-2">
+                <span class="alert-icon">
+                    <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                </span>
+                <span>{{'common.GLOBAL_DEAL_PROPOSAL_ERROR_MSG' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+            </div>
+
+            <!-- start of ccw quote message -->
+            <div *ngIf="proposalStoreService.proposalData?.scopeChangeInProgress && eaService.features.EDIT_EAID_REL" class="alert alert--warning alert-dismissable mt-2">
+                <span class="alert-icon d-flex">
+                <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                </span>
+               <span>{{'common.CUSTOMER_SCOPE_CHANGE_INPROGRESS_MSG' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+            </div>
+            <div *ngIf="(proposalStoreService.proposalData?.scopeIdMismatch && eaService.features.EDIT_EAID_REL)" class="alert alert--warning alert-dismissable mt-2">
+                <span class="alert-icon d-flex">
+                <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                </span>
+               <span>{{'common.CUSTOMER_SCOPE_CHANGE_UPDATE_REVALIDATED_COMPLETE' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+            </div>
+            <div class="col-12 alert alert--info alert-dismissable" *ngIf="!proposalStoreService.proposalData.dealInfo?.subscriptionUpgradeDeal">
+                <span class="alert-icon">
+                    <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                </span>
+                <span attr.data-id="{{dataIdConstantsService.proposalDashboard_msg_rsdQuoteNotExceeds90Days}}">{{'proposal-dashboard.RSD_IN_QUOTE_NOT_EXCEED_90_DAYS' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+            </div>
+            <div class="col-12 alert alert--info alert-dismissable" *ngIf="eaService.features?.IRONCLAD_C2A && !eaStoreService.changeSubFlow && !projectStoreService.projectData?.scopeInfo?.returningCustomer">
+                <span class="alert-icon">
+                    <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                </span>
+                <span attr.data-id="{{dataIdConstantsService.proposalDashboard_msg_programTermMsg}}">{{'proposal-dashboard.PROGRAM_TERM_CLICK_TO_ACCEPT_MSG' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+            </div>
+            <div class="col-12 alert alert--info alert-dismissable" *ngIf="displayApprovalHistory && displayException">
+                <span class="alert-icon">
+                    <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                </span>
+                <span attr.data-id="{{dataIdConstantsService.proposalDashboard_msg_exceptionInfoMsgForExceptionApproval}}">{{'proposalDashboard.EXCEPTION_INFO_MSG_FOR_PROPOSAL_APPROVAL' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+            </div>
+            <ng-container *ngIf="proposalStoreService.proposalData.dealInfo?.subscriptionUpgradeDeal">
+                <div class="col-12 alert alert--info alert-dismissable">
+                    <span class="alert-icon">
+                        <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                    </span>
+                    <span attr.data-id="{{dataIdConstantsService.proposalDashboard_msg_rsdQuoteNotExceeds30Days}}">{{'proposal-dashboard.RSD_IN_QUOTE_NOT_EXCEED_30_DAYS' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                </div>
+            </ng-container>
+            <div class="col-12 alert alert--info alert-dismissable" *ngIf="proposalStoreService.proposalData?.renewalInfo?.id">
+                <span class="alert-icon">
+                    <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                </span>
+                <span attr.data-id="{{dataIdConstantsService.proposalDashboard_msg_renewalMigrationInfo}}">{{'proposal-dashboard.RENEWAL_MIGRATION_INFO_MSG' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+            </div>
+
+            <div class="alert alert--warning alert-dismissable" *ngIf="eaService.features.WIFI7_REL && proposalStoreService.proposalData.nonStandardTermDetails?.eligible">
+                
+                <span class="alert-icon">
+                    <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                </span>
+                <span>{{'proposal-dashboard.GTC_WARNING_MSG' | localizationPipe : localizationService.localizedkeySet.size : {value : ((proposalStoreService.proposalData?.nonStandardTermDetails?.threshold) ? proposalStoreService.proposalData.nonStandardTermDetails.threshold : 5) } }}</span>
+            </div>
+            <div class="alert alert--warning alert-dismissable" *ngIf="!proposalStoreService.proposalData.dealInfo?.partnerDeal && proposalStoreService.proposalData?.partnerInfo?.beGeoId && !vnextStoreService.loccDetail?.loccSigned  && isPartnerUserLoggedIn">
+                
+                <span class="alert-icon">
+                    <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                </span>
+                <span attr.data-id="{{dataIdConstantsService.proposalDashboard_msg_locc_for_partner}}">{{'common.LOCC_REQUIRED_FOR_PARTNER' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+            </div>
+            <ng-container *ngIf="!proposalStoreService.proposalData.dealInfo?.subscriptionUpgradeDeal">
+                <div *ngIf="allowedDNAC">
+                    <div class="alert alert--warning alert-dismissable">
+                
+                        <span class="alert-icon">
+                            <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                        </span>
+                        <span attr.data-id="{{dataIdConstantsService.proposalDashboard_msg_proposalQualifiesDnacAppliance}}">{{'proposal-dashboard.PROPOSAL_QUALIFIES_FOR_FREE_DNA-C_APPLIANCE' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                    </div>
+                </div>
+                <div *ngIf="allowedAciSolnStarter">
+                    <div class="alert alert--warning alert-dismissable">
+                
+                        <span class="alert-icon">
+                            <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                        </span>
+                        <span attr.data-id="{{dataIdConstantsService.proposalDashboard_msg_proposalQualifiesDcnSolStarter}}">{{'proposal-dashboard.PROPOSAL_QUALIFIES_FOR_FREE_DCN_SOLUTION_STARTER' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                    </div>
+                </div>
+            </ng-container>
+            <!-- end of ccw quote message -->
+            <div class="col-12 alert alert--info alert-dismissable" *ngIf="copiedProposalData?.id">
+                <span class="alert-icon">
+                    <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                </span>
+                <span attr.data-id="{{dataIdConstantsService.proposalDashboard_msg_proposalCopySuccess}}">{{'proposal-dashboard.PROPOSAL_SUCCESSFULLY_COPIED' | localizationPipe : localizationService.localizedkeySet.size}} {{copiedProposalData?.name}} <a href="javascript:void(0);" (click)="goToCopiedProposal()" id="{{elementIdConstantsService.PROPOSAL_DASHBOARD_GO_TO_COPIED_PROPOSAL}}" attr.action-id="{{dataIdConstantsService.proposalDashboard_link_goToCopiedProposal}}">({{copiedProposalData?.id}})</a></span>
+            </div>
+        </div>
+        <!-- End of PageTitle Area -->
+    </div>
+    
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-9">
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <div class="dashboad-tile">
+                                <h5 class="heading--h5 mb-4" attr.data-id="{{dataIdConstantsService.proposalDashboard_label_lifecycle}}">
+                                    {{'proposal-dashboard.LIFECYCLE' | localizationPipe : localizationService.localizedkeySet.size}}
+                                </h5>
+                                <div class="dashboard-roadmap">
+                                    <ul class="roadmap-steps vNext">
+                                        <li *ngFor='let lifeCycle of lifeCycleData' class="step" [ngClass]="{'active': lifeCycle.status === 'COMPLETED'}">
+                                            <span class="step--icon"></span>
+                                            <span class="step--label" attr.data-id="{{dataIdConstantsService.proposalDashboard_data_lifecycleName}}{{lifeCycle.name}}">{{lifeCycle.name}}
+                                            <span *ngIf = 'lifeCycle.status=== "COMPLETED"' class="on-active" attr.data-id="{{dataIdConstantsService.proposalDashboard_data_lifecycleStatus}}{{lifeCycle.name}}">{{lifeCycle.status}}</span> 
+                                            </span>
+                                          </li>
+                                      <!-- <li class="step active">
+                                        <span class="step--icon"></span>
+                                        <span class="step--label">Scoping
+                                           
+                                        </span>
+                                      </li>
+                                      <li class="step active">
+                                        <span class="step--icon"></span>
+                                        <span class="step--label">Proposal
+                                           
+                                        </span>
+                                      </li>
+                                      <li class="step">
+                                        <span class="step--icon"></span>
+                                        <span class="step--label">Quote
+                                           
+                                        </span>
+                                      </li>
+                                      <li class="step">
+                                        <span class="step--icon"></span>
+                                        <span class="step--label">Order
+                                          
+                                        </span>
+                                      </li>
+                                      <li class="step">
+                                        <span class="step--icon"></span>
+                                        <span class="step--label">Fulfillment
+                                           
+                                        </span>
+                                      </li> -->
+                                    </ul>
+                                  </div>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="row">
+                        <div class="col-12">
+                                
+                                <p class='text-right' attr.data-id="{{dataIdConstantsService.proposalDashboard_label_allPricesShow}}"><small>{{'common.ALL_PRICES_SHOW' | localizationPipe : localizationService.localizedkeySet.size}} {{proposalStoreService.proposalData.currencyCode}}</small></p>
+                                
+                            <div class="dashboad-tile"> 
+                                <div class="dashboard-sub-tiles">
+                                    <div class="d-flex justify-content-between align-items-end mb-2">
+                                        <h4 class="heading--h4" attr.data-id="{{dataIdConstantsService.proposalDashboard_label_netSwValue}}">{{'proposal-dashboard.NET_SOFTWARE_VALUE' | localizationPipe : localizationService.localizedkeySet.size}} <small attr.data-id="{{dataIdConstantsService.proposalDashboard_label_netSwPreOtd}}">{{'common.PRE_OTD' | localizationPipe : localizationService.localizedkeySet.size}}</small></h4>
+                                        <div class="total-value" attr.data-id="{{dataIdConstantsService.proposalDashboard_data_netSwValue}}">{{(!priceInfo?.totalSwNetBeforeCredit || eaService.isResellerLoggedIn) ? '--' :  utilitiesService.formatValue(utilitiesService.getFloatValue(priceInfo.totalSwNetBeforeCredit))}} </div>
+                                        
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <h6 class="heading--h6" attr.data-id="{{dataIdConstantsService.proposalDashboard_label_swOtd}}">{{'common.OTD' | localizationPipe : localizationService.localizedkeySet.size}}</h6>
+                                        <div class="total-value" attr.data-id="{{dataIdConstantsService.proposalDashboard_data_swOtd}}"><small>{{priceInfo?.swPurchaseAdjustment ? '-' + utilitiesService.formatValue(utilitiesService.getFloatValue(priceInfo.swPurchaseAdjustment)) : '--'}}</small></div>
+                                    </div>
+                                </div>
+                                <hr class="weight-1">
+    
+                                <div class="dashboard-sub-tiles">
+                                    <div class="d-flex justify-content-between align-items-end mb-2">
+                                        <h4 class="heading--h4" attr.data-id="{{dataIdConstantsService.proposalDashboard_label_netServiceValue}}">{{'proposal-dashboard.NET_SERVICE_VALUE' | localizationPipe : localizationService.localizedkeySet.size}} <small attr.data-id="{{dataIdConstantsService.proposalDashboard_label_servicesPreOtd}}">{{'common.PRE_OTD' | localizationPipe : localizationService.localizedkeySet.size}}</small></h4>
+                                        
+                                        <div class="total-value" attr.data-id="{{dataIdConstantsService.proposalDashboard_data_netServiceValue}}">{{(!priceInfo?.totalSrvcNetBeforeCredit || eaService.isResellerLoggedIn) ? '--' :  utilitiesService.formatValue(utilitiesService.getFloatValue(priceInfo.totalSrvcNetBeforeCredit))}} </div>
+
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <h6 class="heading--h6" attr.data-id="{{dataIdConstantsService.proposalDashboard_label_serviceOtd}}">{{'common.OTD' | localizationPipe : localizationService.localizedkeySet.size}}</h6>
+                                        <div class="total-value" attr.data-id="{{dataIdConstantsService.proposalDashboard_data_serviceOtd}}"><small>{{priceInfo?.srvcPurchaseAdjustment ? '-' + utilitiesService.formatValue(utilitiesService.getFloatValue(priceInfo.srvcPurchaseAdjustment)) : '--'}}</small></div>
+                                    </div>
+                                </div>
+                                <hr class="weight-1">
+    
+                                <div class="dashboard-sub-tiles total">
+                                    <div class="d-flex justify-content-between align-items-end mb-1"> 
+                                        <h2 class="heading--h2" attr.data-id="{{dataIdConstantsService.proposalDashboard_label_eaTotalValue}}">{{ (eaService.isSpnaFlow) ? ('common.SPNA_TOTAL_VALUE' | localizationPipe : localizationService.localizedkeySet.size) :  ('common.EA_TOTAL_VALUE' | localizationPipe : localizationService.localizedkeySet.size) }} <small class="total-small-value" attr.data-id="{{dataIdConstantsService.proposalDashboard_label_postOtd}}">{{'common.POST_OTD' | localizationPipe : localizationService.localizedkeySet.size}}</small></h2>
+                                        <div class="total-value" attr.data-id="{{dataIdConstantsService.proposalDashboard_data_eaTotalValue}}">{{(!priceInfo?.totalNet || eaService.isResellerLoggedIn) ? '--' :  utilitiesService.formatValue(utilitiesService.getFloatValue(priceInfo.totalNet))}} </div>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <!-- <h6 class="heading--h6">{{proposalStoreService.proposalData.currencyCode}} --</h6> -->
+                                        <!-- <div class="total-value"><small>--</small></div> -->
+                                    </div>
+                                </div>
+                                <div class="dashboard-sub-tiles">
+                                   
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <h6 class="heading--h6" attr.data-id="{{dataIdConstantsService.proposalDashboard_label_totalOtd}}">{{'common.OTD' | localizationPipe : localizationService.localizedkeySet.size}}</h6>
+                                        <div class="total-value" attr.data-id="{{dataIdConstantsService.proposalDashboard_data_totalOtd}}"><small>{{priceInfo?.purchaseAdjustment ? '-' + utilitiesService.formatValue(utilitiesService.getFloatValue(priceInfo.purchaseAdjustment)) : '--'}}</small></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <app-exception *ngIf='displayException' [isApprovalFlow]="false" [exceptionActivities]="proposalStoreService.proposalData.exception.exceptionActivities" [exceptionApprovalHistory]="exceptionApprovalHistory" [displayApprovalHistory]="displayApprovalHistory" (isSummaryReloadEmitter)="reloadSummaryForExceptions($event)" [groupExceptionApproverHistory] = "exceptionApprovalHistory" ></app-exception>
+                        </div>
+                    </div>
+                </div>
+                <!-- End of Left Section -->
+    
+                <div class="col-3">
+                    <div class="vNext-actions--outer">
+                        <!-- <div class="vNext-actions-initiate mb-3">
+                            <div class='overlay-blur'>
+                            <div class="vNext-action-icon-wrap mt-3">
+                                <span class="i-vNext-success-journey"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span><span class="path8"></span><span class="path9"></span><span class="path10"></span><span class="path11"></span><span class="path12"></span></span>
+                            </div>
+                            <h5 class="heading--h5 mb-2">Complete items for successful Journey</h5>
+                            <p class="mb-3">Here is a list of actions which leads to journey completion.</p>
+    
+                            <ul class="vNext-action-listing d-inline-block">
+                                <li>Partner Authorization<sup>*</sup></li>
+                                <li>LOCC<sup>*</sup></li>
+                                <li>Legal Package</li>
+                                <li>Smart Account Active</li>
+                            </ul>
+                        </div>
+                        </div> -->
+    
+                        <div class="vNext-actions mb-3">
+                            <h5 class="heading--h5 lh-1 mb-3" attr.data-id="{{dataIdConstantsService.proposalDashboard_label_suggestedActions}}"> {{'common.SUGGESTED_ACTIONS_FOR_NAVIGATION' | localizationPipe : localizationService.localizedkeySet.size}}</h5>
+                            <a href="javascript:void(0);" id="{{elementIdConstantsService.PROPOSAL_DASHBOARD_GO_TO_QUOTE}}" (click)="goToQuote()" >
+                                <div class="d-flex align-items-center vNext-actions-inner highlight mb-2" attr.action-id="{{dataIdConstantsService.proposalDashboard_link_actions_goToQuote}}" *ngIf="isQuotePresent && !eaService.features.SEP_REL">
+                                    <div class="img-wrap">
+                                        <span class="i-vNext-covert-quote"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span><span class="path8"></span><span class="path9"></span><span class="path10"></span><span class="path11"></span><span class="path12"></span><span class="path13"></span><span class="path14"></span><span class="path15"></span><span class="path16"></span><span class="path17"></span></span>
+                                    </div>
+                                    <div class="text-wrap">
+                                        <h6 class="heading--h6" attr.data-id="{{dataIdConstantsService.proposalDashboard_label_goToQuote}}">{{'proposal-dashboard.GO_TO_QUOTE' | localizationPipe : localizationService.localizedkeySet.size}}</h6>
+                                        <p attr.data-id="{{dataIdConstantsService.proposalDashboard_label_goToFinalStep}}">{{'proposal-dashboard.GO_TO_FINAL_STEP' | localizationPipe : localizationService.localizedkeySet.size}}</p>
+                                        </div>
+                                </div>
+                             </a>
+                                <a href="javascript:void(0);" id="{{elementIdConstantsService.PROPOSAL_DASHBOARD_CONVERT_TO_QUOTE}}" (click)="convertToQuote()">
+                                    <div  class="d-flex align-items-center vNext-actions-inner highlight mb-2"  attr.action-id="{{dataIdConstantsService.proposalDashboard_link_actions_convertToQuote}}" [class.disabled]="(!vnextStoreService?.loccDetail.loccSigned && (proposalStoreService.isPartnerAccessingSfdcDeal)) || (proposalStoreService.isPartnerAccessingSfdcDeal  && eaStoreService.userInfo?.distiUser && !eaService.features.PARTNER_SUPER_USER_REL) || (eaService.features.PARTNER_SUPER_USER_REL && !proposalStoreService?.proposalConverToQuoteAccess)">
+                                        <div class="img-wrap">
+                                            <span class="i-vNext-covert-quote"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span><span class="path8"></span><span class="path9"></span><span class="path10"></span><span class="path11"></span><span class="path12"></span><span class="path13"></span><span class="path14"></span><span class="path15"></span><span class="path16"></span><span class="path17"></span></span>
+                                        </div>
+                                        
+                                        <div class="text-wrap">
+                                            <h6 class="heading--h6" attr.data-id="{{dataIdConstantsService.proposalDashboard_label_convertToQuote}}">{{'common.CONVERT_TO_QUOTE' | localizationPipe : localizationService.localizedkeySet.size}}</h6>
+                                            <p attr.data-id="{{dataIdConstantsService.proposalDashboard_label_convertToFinalStep}}">{{'proposal-dashboard.CONVERT_TO_FINAL_STEP' | localizationPipe : localizationService.localizedkeySet.size}}</p>
+                                        </div>
+                                    </div>
+                                </a>                     
+                            <!--  End of Action -- 1  -->
+                            <a href="javascript:void(0);" id="{{elementIdConstantsService.PROPOSAL_DASHBOARD_INIATE_LEGAL_PACKAGE}}" (click)="gotoDocument(true)">
+                            <div class="d-flex align-items-center vNext-actions-inner highlight"  attr.action-id="{{dataIdConstantsService.proposalDashboard_link_actions_initiateLegalPackage}}">
+                                <div class="img-wrap">
+                                    <span class="i-vNext-legal-package"><span class="path1"></span><span class="path2"></span></span>
+                                </div>
+                                <div class="text-wrap">
+                                    <h6 class="heading--h6" attr.data-id="{{dataIdConstantsService.proposalDashboard_label_initiateLegalPackage}}">{{'proposal-dashboard.INITIATE_LEGAL_PACKAGE' | localizationPipe : localizationService.localizedkeySet.size}}</h6>
+                                    <p attr.data-id="{{dataIdConstantsService.proposalDashboard_label_completeLegalpackage}}">{{'proposal-dashboard.COMPLETE_LEGAL_PACKAGE' | localizationPipe : localizationService.localizedkeySet.size}}</p>
+                                </div>
+                            </div>
+                            </a>
+                            <!--  End of Action -- 2  -->
+                    
+                            <hr class="weight-1 my-3">
+
+                            
+                            <a href="javascript:void(0);" id="{{elementIdConstantsService.PROPOSAL_DASHBOARD_GO_TO_DOCUMENT_CENTER}}" (click)="gotoDocument(false)">
+                            <div class="d-flex align-items-center vNext-actions-inner mb-2"  attr.action-id="{{dataIdConstantsService.proposalDashboard_link_actions_goToDocumentCenter}}">
+                                <div class="img-wrap">
+                                    <span class="i-vNext-document-center"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span></span>
+                                </div>
+                                <div class="text-wrap">
+                                    <h6 class="heading--h6" attr.data-id="{{dataIdConstantsService.proposalDashboard_label_docCenter}}">{{'common.DOCUMENT_CENTER' | localizationPipe : localizationService.localizedkeySet.size}}</h6>
+                                    <p attr.data-id="{{dataIdConstantsService.proposalDashboard_label_generateIbReport}}">{{'proposal-dashboard.GENERATE_PROPOSAL_TCV_IB_REPORT' | localizationPipe : localizationService.localizedkeySet.size}}</p>
+                                </div>
+                            </div>
+                            </a>
+                            <!--  End of Action -- 3  -->
+                            <a href="javascript:void(0);" id="{{elementIdConstantsService.PROPOSAL_DASHBOARD_COPY_PROPOSAL}}" (click)='copyProposal()'>
+                            <div class="d-flex align-items-center vNext-actions-inner mb-2"  attr.action-id="{{dataIdConstantsService.proposalDashboard_link_actions_copyProposal}}" [ngClass]="{'disabled': !(proposalStoreService.proposalEditAccess || (eaService.isDistiOpty && eaService.isDistiLoggedIn) || (eaService.isResellerOpty && eaService.isResellerLoggedIn)) || (proposalStoreService.isPartnerAccessingSfdcDeal ) || (eaService.features.PARTNER_SUPER_USER_REL && !proposalStoreService?.proposalCloneAccess)}">
+                                <div class="img-wrap">
+                                    <span class="i-vNext-copy-proposal"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span><span class="path8"></span><span class="path9"></span><span class="path10"></span><span class="path11"></span><span class="path12"></span><span class="path13"></span></span>
+                                </div>
+                                <div class="text-wrap">
+                                    <h6 class="heading--h6" attr.data-id="{{dataIdConstantsService.proposalDashboard_label_copyProposal}}">{{'common.COPY_PROPOSAL' | localizationPipe : localizationService.localizedkeySet.size}}</h6>
+                                    <p attr.data-id="{{dataIdConstantsService.proposalDashboard_label_diffRsd}}">
+                                        {{(eaService.isSpnaFlow) ? ('proposal-dashboard.DIFFERENT_SPNA_TERM_AND_START_DATE' | localizationPipe : localizationService.localizedkeySet.size) : ('proposal-dashboard.DIFFERENT_EA_TERM_AND_START_DATE' | localizationPipe : localizationService.localizedkeySet.size)}}
+                                    </p>
+                                </div>
+                            </div>
+                            </a>
+                            <!--  End of Action -- 4  -->
+                            <a href="javascript:void(0);" id="{{elementIdConstantsService.PROPOSAL_DASHBOARD_GO_TO_PROPOSAL_LIST}}" (click)='viewProposalList()'>
+                             <div class="d-flex align-items-center vNext-actions-inner"  attr.action-id="{{dataIdConstantsService.proposalDashboard_link_actions_viewProposalList}}">
+                                <div class="img-wrap">
+                                    <span class="i-vNext-proposal-list"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span></span>
+                                </div>
+                    
+                                <div class="text-wrap">
+                                    <h6 class="heading--h6" attr.data-id="{{dataIdConstantsService.proposalDashboard_label_goToProposalList}}">{{'proposal-dashboard.GO_TO_PROPOSAL_LIST' | localizationPipe : localizationService.localizedkeySet.size}}</h6>
+                                    <p attr.data-id="{{dataIdConstantsService.proposalDashboard_label_otherProposalsAttached}}">{{'proposal-dashboard.NAVIGATE_TO_OTHER_PROPOSALS_ASSOCIATED' | localizationPipe : localizationService.localizedkeySet.size}}</p>
+                                </div>
+                            </div> 
+                            </a>
+                            <!--  End of Action -- 5  -->
+                        </div>
+                    </div>                
+                </div>
+                <!-- End of Right Section -->
+            </div>
+        </div>
+    </section>

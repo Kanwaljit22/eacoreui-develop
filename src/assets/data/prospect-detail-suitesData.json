@@ -1,0 +1,221 @@
+[
+    {
+        "suite_Name": "Access - Switching",
+        "eaQty": "102,593",
+        "netEaLicenseAmount": "152,469,372",
+        "licenseDiscount": "50",
+        "netEaServiceAmount": "152,469,372",
+        "serviceDiscount": "23",
+        "netC1credit": "-76,373.00",
+        "netAnchorcredit": "-76.373.00",
+        "residualAmount": "-60.245.00",
+        "children": [
+            {
+                "suite_Name": "ACS-C2900-24",
+                "eaQty": "17,520",
+                "netEaLicenseAmount": "8,130,600",
+                "licenseDiscount": "50",
+                "netEaServiceAmount": "8,130,600",
+                "serviceDiscount": "23",
+                "netC1credit": "-1,809,608",
+                "netAnchorcredit": "-1,809,608",
+                "residualAmount": "-1,809,608"
+            },
+            {
+                "suite_Name": "ACS-C2900-48",
+                "eaQty": "17,520",
+                "netEaLicenseAmount": "8,130,600",
+                "licenseDiscount": "50",
+                "netEaServiceAmount": "8,130,600",
+                "serviceDiscount": "23",
+                "netC1credit": "-1,809,608",
+                "netAnchorcredit": "-1,809,608",
+                "residualAmount": "-1,809,608"
+            },
+            {
+                "suite_Name": "ACS-C3560X",
+                "eaQty": "17,520",
+                "netEaLicenseAmount": "8,130,600",
+                "licenseDiscount": "50",
+                "netEaServiceAmount": "8,130,600",
+                "serviceDiscount": "23",
+                "netC1credit": "-1,809,608",
+                "netAnchorcredit": "-1,809,608",
+                "residualAmount": "-1,809,608"
+            },
+            {
+                "suite_Name": "ACS-C2900-24",
+                "eaQty": "17,520",
+                "netEaLicenseAmount": "8,130,600",
+                "licenseDiscount": "50",
+                "netEaServiceAmount": "8,130,600",
+                "serviceDiscount": "23",
+                "netC1credit": "-1,809,608",
+                "netAnchorcredit": "-1,809,608",
+                "residualAmount": "-1,809,608"
+            },
+            {
+                "suite_Name": "ACS-C2900-48",
+                "eaQty": "17,520",
+                "netEaLicenseAmount": "8,130,600",
+                "licenseDiscount": "50",
+                "netEaServiceAmount": "8,130,600",
+                "serviceDiscount": "23",
+                "netC1credit": "-1,809,608",
+                "netAnchorcredit": "-1,809,608",
+                "residualAmount": "-1,809,608"
+            },
+            {
+                "suite_Name": "ACS-C2900-12F",
+                "eaQty": "17,520",
+                "netEaLicenseAmount": "8,130,600",
+                "licenseDiscount": "50",
+                "netEaServiceAmount": "8,130,600",
+                "serviceDiscount": "23",
+                "netC1credit": "-1,809,608",
+                "netAnchorcredit": "-1,809,608",
+                "residualAmount": "-1,809,608"
+            },
+            {
+                "suite_Name": "ACS-C2900-48F",
+                "eaQty": "17,520",
+                "netEaLicenseAmount": "8,130,600",
+                "licenseDiscount": "50",
+                "netEaServiceAmount": "8,130,600",
+                "serviceDiscount": "23",
+                "netC1credit": "-1,809,608",
+                "netAnchorcredit": "-1,809,608",
+                "residualAmount": "-1,809,608"
+            },
+            {
+                "suite_Name": "ACS-C2900-16/24",
+                "eaQty": "17,520",
+                "netEaLicenseAmount": "8,130,600",
+                "licenseDiscount": "50",
+                "netEaServiceAmount": "8,130,600",
+                "serviceDiscount": "23",
+                "netC1credit": "-1,809,608",
+                "netAnchorcredit": "-1,809,608",
+                "residualAmount": "-1,809,608"
+            },
+            {
+                "suite_Name": "ACS-C2900-X-24",
+                "eaQty": "17,520",
+                "netEaLicenseAmount": "8,130,600",
+                "licenseDiscount": "50",
+                "netEaServiceAmount": "8,130,600",
+                "serviceDiscount": "23",
+                "netC1credit": "-1,809,608",
+                "netAnchorcredit": "-1,809,608",
+                "residualAmount": "-1,809,608"
+            },
+            {
+                "suite_Name": "ACS-C2900-24",
+                "eaQty": "17,520",
+                "netEaLicenseAmount": "8,130,600",
+                "licenseDiscount": "50",
+                "netEaServiceAmount": "8,130,600",
+                "serviceDiscount": "23",
+                "netC1credit": "-1,809,608",
+                "netAnchorcredit": "-1,809,608",
+                "residualAmount": "-1,809,608"
+            }
+        ]
+    },
+    {
+        "suite_Name": "Access - Wireless",
+        "eaQty": "47.00",
+        "netEaLicenseAmount": "5,593.00",
+        "licenseDiscount": "50",
+        "netEaServiceAmount": "3,909,00",
+        "serviceDiscount": "23",
+        "netC1credit": "0",
+        "netAnchorcredit": "0",
+        "residualAmount": "-3.909.00",
+        "children": [
+            {
+                "suite_Name": "Access - Wireless",
+                "eaQty": "47.00",
+                "netEaLicenseAmount": "5,593.00",
+                "licenseDiscount": "50",
+                "netEaServiceAmount": "3,909,00",
+                "serviceDiscount": "23",
+                "netC1credit": "0",
+                "netAnchorcredit": "0",
+                "residualAmount": "-3.909.00"
+            }
+        ]
+    },
+    {
+        "suite_Name": "Data Center - Compute",
+        "eaQty": "134.00",
+        "netEaLicenseAmount": "0",
+        "licenseDiscount": "50",
+        "netEaServiceAmount": "0",
+        "serviceDiscount": "23",
+        "netC1credit": "0",
+        "netAnchorcredit": "0",
+        "residualAmount": "0",
+        "children": [
+            {
+                "suite_Name": "Data Center - Compute",
+                "eaQty": "134.00",
+                "netEaLicenseAmount": "0",
+                "licenseDiscount": "50",
+                "netEaServiceAmount": "0",
+                "serviceDiscount": "23",
+                "netC1credit": "0",
+                "netAnchorcredit": "0",
+                "residualAmount": "0"
+            }
+        ]
+    },
+    {
+        "suite_Name": "Data Center - Networking",
+        "eaQty": "25.00",
+        "netEaLicenseAmount": "223,550.00",
+        "licenseDiscount": "50",
+        "netEaServiceAmount": "154,923.00",
+        "serviceDiscount": "23",
+        "netC1credit": "0",
+        "netAnchorcredit": "0",
+        "residualAmount": "0",
+        "children": [
+            {
+                "suite_Name": "Data Center - Networking",
+                "eaQty": "25.00",
+                "netEaLicenseAmount": "223,550.00",
+                "licenseDiscount": "50",
+                "netEaServiceAmount": "154,923.00",
+                "serviceDiscount": "23",
+                "netC1credit": "0",
+                "netAnchorcredit": "0",
+                "residualAmount": "0"
+            }
+        ]
+    },
+    {
+        "suite_Name": "WAN",
+        "eaQty": "33.00",
+        "netEaLicenseAmount": "65,063.00",
+        "licenseDiscount": "50",
+        "netEaServiceAmount": "46,318.00",
+        "serviceDiscount": "23",
+        "netC1credit": "0",
+        "netAnchorcredit": "0",
+        "residualAmount": "-3,987.00",
+        "children": [
+            {
+                "suite_Name": "WAN",
+                "eaQty": "33.00",
+                "netEaLicenseAmount": "65,063.00",
+                "licenseDiscount": "50",
+                "netEaServiceAmount": "46,318.00",
+                "serviceDiscount": "23",
+                "netC1credit": "0",
+                "netAnchorcredit": "0",
+                "residualAmount": "-3,987.00"
+            }
+        ]
+    }
+]

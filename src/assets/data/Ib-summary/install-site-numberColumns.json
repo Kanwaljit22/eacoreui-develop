@@ -1,0 +1,175 @@
+[
+    {
+        "headerName": "INSTALL SITE ID",
+        "field": "installSitesId",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 180,
+        "minWidth": 60,
+        "suppressMenu": true
+    },
+    {
+        "headerName": "INSTALL SITE NAME",
+        "field": "installSitesName",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 120,
+        "minWidth": 60,
+        "suppressMenu": true
+    },
+    {
+        "headerName": "ADDRESS 1",
+        "field": "installAddress1",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 100,
+        "minWidth": 60,
+        "suppressMenu": true
+    },
+    {
+        "headerName": "ADDRESS 2",
+        "field": "installAddress2",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 100,
+        "minWidth": 60,
+        "suppressMenu": true
+    },
+    {
+        "headerName": "ADDRESS 3",
+        "field": "installAddress3",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 100,
+        "minWidth": 60,
+        "suppressMenu": true
+    },
+    {
+        "headerName": "ADDRESS 4",
+        "field": "installAddress4",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 100,
+        "minWidth": 60,
+        "suppressMenu": true
+    },
+    {
+        "headerName": "CITY",
+        "field": "installCity",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 100,
+        "minWidth": 60,
+        "suppressMenu": true
+    },
+    {
+        "headerName": "COUNTRY/REGION",
+        "field": "country",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 100,
+        "minWidth": 60,
+        "suppressMenu": true
+    },
+    {
+        "headerName": "INSTALLED QUANTITY",
+        "field": "installQuantity",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 100,
+        "minWidth": 60,
+        "suppressMenu": true
+    },
+    {
+        "headerName": "TOTAL NET PRICE (USD)",
+        "field": "totalNetPrice",
+        "cellClass": "text-right",
+        "headerClass": "text-right",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 190,
+        
+        "minWidth": 60,
+        "suppressMenu": true
+    },
+    {
+        "headerName": "NET SERVICE AMOUNT",
+        "field": "netService",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 130,
+        "minWidth": 60,
+        "suppressMenu": true
+    },
+    {
+        "headerName": "CR Party ID",
+        "field": "crPartyId",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 190,
+        "minWidth": 60,
+        "suppressMenu": true
+    },
+    {
+        "headerName": "CR Party Name",
+        "field": "crPartyName",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 190,
+        "minWidth": 60,
+        "suppressMenu": true
+    },
+    {
+        "headerName": "HQ ID",
+        "field": "hqId",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 190,
+        "minWidth": 60,
+        "suppressMenu": true
+    },
+    {
+        "headerName": "HQ Name",
+        "field": "hqName",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 190,
+        "minWidth": 60,
+        "suppressMenu": true
+    },
+    {
+        "headerName": "GU ID",
+        "field": "guId",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 190,
+        "minWidth": 60,
+        "suppressMenu": true
+    },
+    {
+        "headerName": "GU Name",
+        "field": "guName",
+        "filterParams": {
+            "cellHeight": 20
+        },
+        "width": 190,
+        "minWidth": 60,
+        "suppressMenu": true
+    }
+]

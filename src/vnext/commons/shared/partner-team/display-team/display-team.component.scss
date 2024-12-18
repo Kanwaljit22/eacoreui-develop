@@ -1,0 +1,101 @@
+$browser-context:16;
+@function rem($pixels, $context: $browser-context) {
+    @return #{$pixels/$context}rem;
+}
+/*  Table Styling -- Starts Here  */
+tr {
+    background-color: #fff !important;
+    border-bottom: 1px solid #e4e4e4;
+    &:nth-child(2n+1) {
+        background-color: #fff; 
+    }
+    &:hover {
+        background-color: #fff;
+    }
+
+    &.main-row {
+        background-color: #f3f3f3;
+
+        td {
+            color: #6c757d;
+            font-weight: 700;
+        }
+    }
+    &.table-sub-row {
+        td {
+            &:first-child {
+                padding-left: 36px;
+            }  
+        }
+    }
+    
+    td {
+    color: #394454;
+    font-size: rem(13);
+    font-weight: 400;
+    border-right: 1px dashed #e4e4e4;
+
+    .form-control {
+        padding: 7px 6px;
+        text-align: right;
+        line-height: 1;
+    }
+
+    .i-vNext-trash-bold {
+        font-size: 0.9375rem;
+        &::before {
+            color: #059fd9;
+        }
+    }
+}
+}
+
+
+.empty-table-data {
+    text-align: center;
+    padding: 10px;
+}
+
+tfoot {
+    td {
+        padding: 8px 10px;
+        font-weight: 700;
+        color: #394454;
+        border-right: 1px dashed #e4e4e4;
+        border-bottom: 1px solid #e4e4e4;
+
+        &:last-child {
+            border-right:0;
+        }
+    }
+}
+
+.expCol-wrap {
+    position: relative;
+    top: 2px;
+    margin-right: 10px;
+    cursor: pointer;
+    font-size: rem(16);
+}
+
+.badge {
+    font-size: rem(10);
+    border-radius: 30px;
+    &.fill {
+        &.hq {
+            background-color: #069697;
+            color: #fff;
+        }
+
+        &.br {
+            background-color: #4f91ff;
+            color: #fff;
+        }
+    }
+}
+
+@media screen and (max-width:1400px) {
+    td,td .label-check span {
+        font-size: 12px !important;
+    }
+}

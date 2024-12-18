@@ -1,0 +1,91 @@
+<div class="modal-body vNext modal-without-header">
+    <button class="icon-close-btn" type="button" (click)="close()" attr.action-id="{{dataIdConstantsService.migrateEligibleReasons_button_closeIcon}}"></button>
+    <h2 class="mb-5">{{'common.MIGRATE_UPGRADE_UNAVAILABLE' | localizationPipe : localizationService.localizedkeySet.size}}</h2>
+    <div class="modal-body vNext modal-without-header">
+        <div class="section-content">
+            <div class="row">
+                <div class="col-12">
+                    <nav>
+                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                          <button (click)="showUpgradeSuitesTab = false;" [class.active]="!showUpgradeSuitesTab" class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true" attr.action-id="{{dataIdConstantsService.migrateEligibleReasons_button_showMigrationTab}}">Migration</button>
+                          <!-- <button  (click)="showUpgradeSuitesTab = true;" [class.active]="showUpgradeSuitesTab" class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Upgrade</button> -->
+                        </div>
+                    </nav>
+                    <div class="alert alert--info alert-dismissable mb-2 mt-2">
+                        <span class="alert-icon d-flex">
+                        <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                        </span>
+                        <span *ngIf="showUpgradeSuitesTab">{{'common.UPGRADE_UNAVAILABLE_INFO' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                        <span *ngIf="!showUpgradeSuitesTab">{{'common.MIGRATE_UNAVAILABLE_INFO' | localizationPipe : localizationService.localizedkeySet.size}}</span> 
+                    </div>
+                    <table class="primary-table mt-3" *ngIf="displayData">
+                        <thead>
+                            <tr *ngIf="!showUpgradeSuitesTab">
+                                <th>Source Suite Name</th>
+                                <th>Target Suite Name</th>
+                                <th>Reason</th>
+                            </tr>
+                            <tr  *ngIf="showUpgradeSuitesTab">
+                                <th>Suite Name</th>
+                                <th>Upgrade Tier Name</th>
+                                <th>Reason</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <ng-container *ngFor='let enrollment of enrollmentData'>
+                            <ng-container *ngIf='enrollment.displayEnrollment'>
+                                <tr class="main-row">
+                                    <td>
+                                    <span class="expCol-wrap">
+                                        <span class="mr-2" [ngClass]="{'i-vNext-tree-close': !enrollment.collapse, 'i-vNext-tree-open': enrollment.collapse}" (click)="enrollment.collapse = !enrollment.collapse" attr.action-id="{{dataIdConstantsService.migrateEligibleReasons_icon_collapseExpandEnrollment}}{{enrollment.name}}"></span>
+                                    </span>{{enrollment.name}}</td>
+                                    <td colspan="2" ></td>
+                                </tr>
+                                <ng-container *ngFor='let pool of enrollment?.pools'>
+                                <ng-container *ngIf='pool?.displayPool'>
+                                <ng-container *ngFor='let suite of pool?.suites'>
+                                    <ng-container *ngIf='(!suite.eligibleForMigration && !suite.migrated && suite.migrateToSuites?.length) || suite.displaySuiteforTarget'>
+                                    <!-- <tr *ngIf="!enrollment.collapse">
+                                        <td class="first-col">{{suite.desc}}
+                                        </td>
+                                        <td>{{suite.targetSuitesDesc?.join(', ')}}</td>
+                                        <td>
+                                            <ul>
+                                                <li *ngFor="let reason of suite.notEligibleForMigrationReasons">
+                                                    {{reason.text}}
+                                                </li>
+                                            </ul>
+                                        </td>
+                                    </tr> -->
+                                    <ng-container *ngIf="!enrollment.collapse">
+                                    <tr *ngFor='let migrateToSuite of suite.migrateToSuites;let index = index;'>
+                                        
+                                        <td class="first-col" *ngIf="index === 0" [attr.rowspan]="suite.migrateToSuites.length">{{suite.desc}}
+                                        </td>
+                                        <!-- <td *ngIf="index > suite.migrateToSuites.length"></td> -->
+                                        <ng-container *ngIf="migrateToSuite.notEligibleForMigrationReasons?.length">
+                                            <td>{{migrateToSuite.desc}}</td>
+                                        <td>
+                                            <ul>
+                                                <li *ngFor="let reason of migrateToSuite.notEligibleForMigrationReasons">
+                                                    {{reason.text}}
+                                                </li>
+                                            </ul>
+                                        </td>
+                                    </ng-container>
+                                        
+                                    </tr>
+                                </ng-container>
+                                </ng-container>
+                                </ng-container>
+                            </ng-container>
+                        </ng-container>
+                            </ng-container>
+                        </ng-container>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

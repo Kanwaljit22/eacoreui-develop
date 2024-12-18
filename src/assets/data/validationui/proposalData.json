@@ -1,0 +1,175 @@
+{
+    "rid": "EAMP1694510821608",
+    "user": "trzope",
+    "error": false,
+    "data": {
+        "objId": "65002b4fe7226173c51cd9d0",
+        "id": 9042486,
+        "projectObjId": "64e8cf363a2bae451d528e9b",
+        "projectId": 78812,
+        "name": "Validation Proposal",
+        "billingTerm": {
+            "rsd": "20230912",
+            "billingModel": "Prepaid",
+            "term": 36,
+            "eaEndDate": 1789110000000,
+            "eaEndDateStr": "20260911"
+        },
+        "countryOfTransaction": "US",
+        "priceList": {
+            "id": "1108",
+            "name": "Global Price List"
+        },
+        "currencyCode": "USD",
+        "partnerInfo": {
+            "beGeoId": 639324,
+            "beGeoName": "ConvergeOne, Inc.",
+            "pgtmvBeGeoId": 272241792
+        },
+        "customer": {
+            "accountName": "FIRST SOLAR INC",
+            "customerGuId": "5548777",
+            "customerGuName": "FIRST SOLAR INC",
+            "preferredLegalName": "FIRST SOLAR INC",
+            "preferredLegalAddress": {
+                "addressLine1": "4050 E COTTON CENTER BLVD",
+                "addressLine2": "BLVD - STE 68",
+                "city": "PHOENIX",
+                "state": "AZ",
+                "zip": "85040",
+                "country": "USA"
+            },
+            "federalCustomer": false,
+            "countryCode": "USA",
+            "duoCustomerType": {
+                "federalCustomer": true,
+                "legacyCustomer": false,
+                "subscriptionLines": false,
+                "hwTokenLines": false
+            },
+            "legacyCustomer": false
+        },
+        "dealInfo": {
+            "expectedBookDate": "07-Sep-2023",
+            "id": "61122018",
+            "statusDesc": "Not Submitted",
+            "optyOwner": "gresimmo",
+            "buyMethodDisti": false,
+            "directRTM": false,
+            "dealScope": 3,
+            "dealSource": 0,
+            "dealType": 1,
+            "sfdcOptyId": "0067X00000FK5pKQAT",
+            "crPartyId": "90051268",
+            "distiDeal": false,
+            "partnerDeal": false,
+            "changeSusbcriptionDeal": false
+        },
+        "buyingProgram": "BUYING_PGRM_3",
+        "locked": false,
+        "status": "IN_PROGRESS",
+        "initiatedBy": {
+            "type": "CISCO",
+            "distiInitiated": false,
+            "resellerInitiated": false,
+            "ciscoInitiated": true
+        },
+        "audit": {
+            "createdBy": "trzope",
+            "createdAt": 1694509903590,
+            "updatedBy": "trzope",
+            "updatedAt": 1694510366872
+        },
+        "priceInfo": {
+            "extendedList": 0,
+            "unitNet": 0,
+            "originalExtendedList": 0,
+            "originalUnitList": 0,
+            "totalNet": 0,
+            "totalNetBeforeCredit": 0,
+            "totalNetAfterIBCredit": 0,
+            "unitListMRC": 0,
+            "unitNetMRC": 0,
+            "listPrice": 0
+        },
+        "forceAllowCompletion": false,
+        "programEligibility": {
+            "eligible": false
+        },
+        "syncStatus": {
+            "configDirty": false,
+            "priceDirty": true,
+            "hanaDirty": true,
+            "quoteInSync": false,
+            "ruleDirty": true,
+            "cxCcwrPriceDirty": false
+        },
+        "deleted": false,
+        "scopeInfo": {
+            "scopeId": 8689,
+            "masterAgreementId": "EA8490",
+            "returningCustomer": false
+        },
+        "permissions": {
+            "featureAccess": [
+                {
+                    "name": "proposal.edit_name",
+                    "description": "Proposal Edit Name",
+                    "disabled": false,
+                    "defaulted": false
+                },
+                {
+                    "name": "proposal.duplicate",
+                    "description": "Proposal Duplicate",
+                    "disabled": false,
+                    "defaulted": false
+                },
+                {
+                    "name": "project.manage_team",
+                    "description": "Project Manage Team",
+                    "disabled": false,
+                    "defaulted": false
+                },
+                {
+                    "name": "proposal.view",
+                    "description": "Proposal View",
+                    "disabled": false,
+                    "defaulted": false
+                },
+                {
+                    "name": "proposal.request.documents",
+                    "description": "Permission to access price Estimate Request Documents",
+                    "disabled": false,
+                    "defaulted": false
+                },
+                {
+                    "name": "proposal.delete",
+                    "description": "Proposal Delete",
+                    "disabled": false,
+                    "defaulted": false
+                },
+                {
+                    "name": "proposal.edit",
+                    "description": "Proposal Edit",
+                    "disabled": false,
+                    "defaulted": false
+                },
+                {
+                    "name": "proposal.create",
+                    "description": "Proposal Create",
+                    "disabled": false,
+                    "defaulted": false
+                }
+            ]
+        },
+        "projectStatus": "COMPLETE",
+        "sharedWithDistributor": false,
+        "summaryViewAllowed": false,
+        "changeSubBuyMoreSuiteDeal": false,
+        "allowCompletion": false,
+        "statusDesc": "In Progress",
+        "changeSubDeal": false
+    },
+    "buildVersion": "NOV 11-14-2021 09:53 EST RELEASE",
+    "currentDate": 1694510823476
+}

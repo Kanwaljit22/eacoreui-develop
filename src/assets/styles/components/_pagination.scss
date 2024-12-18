@@ -1,0 +1,138 @@
+.paginationSize {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    right: 0px;
+    height: 40px;
+    padding: $qtr-spacing calc(#{$base-spacing} * 2);
+    background: $primary-bg;
+    z-index: 95;
+    border-top: 2px solid $border-color;
+    transition: all 0.5s ease 0s;
+    &.filter-open {
+        left: 382px;
+        width: calc(100% - 382px);
+        border-left: 2px solid #d6d6d6;
+    }
+    label {
+        margin: 0;
+        font-size: rem(14);
+        color: $secondary-text;
+        font-weight: 400;
+    }
+    select {
+        padding: 3px;
+        text-indent: 0;
+        background: transparent;
+        border: none;
+        color: $secondary-text;
+        font-size: rem(14);
+        font-weight: 400;
+        border-bottom: 1px solid $secondary-text;
+    }
+}
+
+.pagination {
+    right: 40px;
+    position: fixed;
+    bottom: 5px;
+    background-color: $primary-bg;
+    .page-item {
+        a {
+            position: relative;
+            color: $link-color;
+            font-size: rem(12);
+            background-color: transparent;
+            border: 0;
+            padding: 6px;
+        }
+        &.disabled a, &.disabled a span:before , &.disabled:hover a{
+            background-color: transparent;
+            color: $primary-text !important;
+        }
+        &:hover a, &.active a{
+            background-color: transparent !important;
+            color: $primary-text;
+        }
+        &:first-child a span , &:nth-child(2) a span , &:nth-last-child(2) a span , &:last-child a span{
+            color: transparent;
+            text-shadow: 0px 0px 0px;
+            &:before {
+                color: $theme-color;
+            }
+        }
+        &:first-child a {
+            color: $theme-color;
+            width: 25px;
+            span::before {
+                content: "\e923";
+                font-family: 'enterpriseAgreement' !important;
+            }
+        }
+        &:nth-child(2) a span::before {
+            content: "\e934";
+            font-family: 'enterpriseAgreement' !important;
+        }
+        &:nth-last-child(2) a span::before {
+            content: "\e935";
+            font-family: 'enterpriseAgreement' !important;
+        }
+        &:last-child a {
+            color: $theme-color;
+            width: 25px;
+            span::before {
+                content: "\e927";
+                font-family: 'enterpriseAgreement' !important;
+            }
+        }
+        &:nth-child(2) a::before {
+            content: 'Previous';
+            position: absolute;
+            left: 22px;
+        }
+        &:nth-child(2) a {
+            width: 75px;
+            color: $theme-color;
+        }
+        &:nth-last-child(2) a::before {
+            content: 'Next';
+            position: absolute;
+            left: 5px;
+        }
+        &:nth-last-child(2) a {
+            width: 57px;
+            text-align: right;
+            background-color: transparent;
+            color: $theme-color;
+        }
+        & +.page-item+.page-item+.page-item.disabled:nth-child(4) a{
+            width: 57px;
+            text-align: right;
+            background-color: transparent;
+            color: $theme-color;
+            &::before {
+                content: 'Next';
+                position: absolute;
+                left: 5px;
+            }
+        }
+    }
+}
+
+.smart-account-pagination .pagination .page-item + .page-item + .page-item + .page-item.disabled:nth-child(4) a::before {
+    content: '';
+}
+
+.smart-account-pagination .pagination li.page-item:nth-last-child(2) a::before {
+    content: 'Next' !important;
+}
+
+.right-flyout {
+    .paginationSize { 
+        left:25.25%;
+        padding: $qtr-spacing calc(#{$half-spacing} * 2.5);
+    }
+    .pagination{
+        right: 25px;
+    }
+}

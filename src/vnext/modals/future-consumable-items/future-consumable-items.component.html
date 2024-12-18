@@ -1,0 +1,50 @@
+<div class="modal-body vNext modal-without-header">
+        <button class="icon-close-btn" (click)="close()" attr.action-id="{{dataIdConstantsService.futureConsumableItems_button_closeIcon}}" type="button"></button>
+        <h2>{{'future-consumable-items.FUTURE_CONSUMABLE_ITEMS' | localizationPipe : localizationService.localizedkeySet.size}}</h2>
+        <div class="px-5">
+            <h5 class="heading--h5 mb-4">{{'future-consumable-items.SUITES_FOR_FUTURE_DOWNLOADS' | localizationPipe : localizationService.localizedkeySet.size}}</h5>
+    
+            <h4 class="heading--h4 mb-2">{{'future-consumable-items.DOWNLOAD_THE_LICENSE' | localizationPipe : localizationService.localizedkeySet.size}}</h4>
+            <table class="primary-table">
+                <thead>
+                    <tr>
+                        <th width="600">{{'common.SUITE' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                        <th>{{'future-consumable-items.DOWNLOAD_LICENSE_OPTIONS' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container  *ngFor="let enrollment of enrollmentData">
+                        <ng-container *ngFor = "let pools of enrollment.pools; let index = index;">
+                            <tr class="main-row-tr">
+                                <td colspan="2">
+                                    <span  class="expCol-wrap">
+                                        <span class="i-vNext-tree-close" *ngIf="!pools.hideSuites" (click)="expand(pools)" attr.action-id="{{dataIdConstantsService.futureConsumableItems_icon_expandPool}}{{index}}"></span>
+                                        <span class="i-vNext-tree-open"  *ngIf="pools.hideSuites" (click)="expand(pools)" attr.action-id="{{dataIdConstantsService.futureConsumableItems_icon_collapsePool}}{{index}}"></span>
+                                    </span>
+                                    {{pools.name}}
+                                </td>
+                            </tr>
+                            <ng-container *ngIf="!pools.hideSuites">
+                                <tr class="table-sub-row" *ngFor="let suites of pools.suites; let j = index;">
+                                    <ng-container *ngIf="suites?.optIn">
+                                        <td>{{suites.desc}}</td>
+                                        <td>
+                                            <div class="smart-switch-wrapper">
+                                                <span class="label" (click)="toggleSelection(suites, 'CISCO')" attr.action-id="{{dataIdConstantsService.futureConsumableItems_button_toggleCisco}}{{j}}">{{'common.CISCO' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                                                <span class="smart-switch" (click)="toggleSelection(suites, null)" attr.action-id="{{dataIdConstantsService.futureConsumableItems_button_togglePartnerInfo}}{{j}}" [class.active]="suites.partner" [disabled]="!proposalStoreService.proposalData?.partnerInfo"></span>
+                                                <span class="label" (click)="toggleSelection(suites, 'PARTNER')" attr.action-id="{{dataIdConstantsService.futureConsumableItems_button_togglePartner}}{{j}}">{{'common.PARTNER' | localizationPipe : localizationService.localizedkeySet.size}}</span>
+                                            </div>
+                                        </td>
+                                    </ng-container>
+                                </tr>
+                            </ng-container>
+                        </ng-container>
+                    </ng-container>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="text-center d-block pb-4 paddingT10">
+        <button class="btn btn-secondary sm" type="button" (click)="close()" attr.action-id="{{dataIdConstantsService.futureConsumableItems_button_cancel}}" id="{{elementIdConstantsService.FutureConsumableItems_Cancel}}">{{'common.CANCEL' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+        <button class="btn btn-primary sm ml-3" type="button" (click)="updateFulFillmentType()" attr.action-id="{{dataIdConstantsService.futureConsumableItems_button_continue}}" id="{{elementIdConstantsService.FUTURE_CONSUMABLE_ITEMS_CONTINUE}}">{{'common.CONTINUE' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+    </div>

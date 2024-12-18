@@ -1,0 +1,16 @@
+<div class="modal-body vNext modal-without-header">
+    <button class="icon-close-btn" type="button" attr.action-id="{{dataIdConstantsService.withdrawException_button_closeIcon}}" (click)="close()"></button>
+
+
+    <div class="unenroll-wrap">
+        <div class="icon-wrap"><span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span></div>
+        <h5 class="heading--h5"> {{localizationService.getLocalizedString('withdraw-exception.RECALL_THIS_SUBMITTED_PROPOSAL')}}</h5>
+    </div>
+
+    <div class="text-center d-block pb-4">
+        <button class="btn btn-primary" type="button" attr.action-id="{{dataIdConstantsService.withdrawException_button_confirm}}" (click)="accept()">{{localizationService.getLocalizedString('common.CONFIRM')}}
+</button>
+        <button class="btn btn-secondary" type="button" attr.action-id="{{dataIdConstantsService.withdrawException_button_closeButton}}" (click)="close()" id="{{elementIdConstantsService.WithdrawException_Cancel}}">{{localizationService.getLocalizedString('common.CANCEL')}}
+</button>        
+    </div>
+</div>

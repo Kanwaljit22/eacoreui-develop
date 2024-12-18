@@ -1,0 +1,465 @@
+.tab-footer {
+    border-top: 1px dashed #cccccc;
+    padding   : 20px;
+}
+
+.bg-blue {
+    background: #edfafe;
+}
+
+.upload-section {
+    display: inline-block;
+    margin : -20px;
+    padding: 20px;
+}
+
+.tab-footer ul li {
+    float        : left;
+    margin-right : 20px;
+    padding-right: 20px;
+    border-right : 1px solid #cccccc;
+}
+
+.tab-footer ul li:first-child {
+    max-width: 160px;
+}
+
+.tab-footer ul li:last-child {
+    padding-right: 0px;
+    margin-right : 0px;
+}
+
+.tab-footer button {
+    margin: 10px 20px 10px 0;
+}
+
+.mandatory-info {
+    font-weight   : 400;
+    font-size     : 12px;
+    padding       : 18px 0 18px 40px;
+    display       : inline-block;
+    vertical-align: middle;
+}
+
+.caret {
+    padding: 10px;
+}
+
+.uploaded-file-info {
+    padding: 0;
+}
+
+.uploaded-file-info ul {
+    padding: 15px 20px;
+}
+
+.uploaded-file-info button {
+    margin: 13px 20px 13px 0;
+}
+
+.file-wrap .lbl-desc {
+    font-size: 11px;
+}
+
+.file-wrap .icon-wrap {
+    position    : absolute;
+    right       : 20px;
+    top         : 0;
+    bottom      : 0;
+    border-left : 1px solid #cccccc;
+    padding-left: 20px;
+    padding-top : 20px;
+}
+
+.file-wrap .icon-delete,
+.file-wrap .icon-download {
+    cursor   : pointer;
+    font-size: 16px;
+}
+
+.file-wrap .icon-pdf-2,
+.file-wrap .icon-xls-2,
+.file-wrap .icon-ppt-2 {
+    font-size   : 30px;
+    float       : left;
+    margin-right: 10px;
+    margin-top  : 3px;
+}
+
+.file-name {
+    font-size     : 14px;
+    font-weight   : 300;
+    max-width     : 150px;
+    overflow      : hidden;
+    text-overflow : ellipsis;
+    white-space   : nowrap;
+    display       : inline-block;
+    vertical-align: middle;
+}
+
+.badge {
+    font-size     : 11px;
+    font-weight   : 400;
+    width         : auto;
+    height        : auto;
+    padding       : 3px 4px;
+    vertical-align: middle;
+    text-transform: uppercase;
+    max-width     : 195px;
+    overflow      : hidden;
+    text-overflow : ellipsis;
+    white-space   : nowrap;
+}
+
+.badge-info {
+    background: #e74c3c;
+}
+
+.doc-header .icon-pdf-2,
+.doc-header .icon-xls-2,
+.doc-header .icon-ppt-2 {
+    background   : #FBFBFB;
+    border-radius: 50%;
+    float        : left;
+    margin-right : 15px;
+    font-size    : 20px;
+    width        : 30px;
+    height       : 30px;
+    text-align   : center;
+    padding-top  : 5px;
+}
+
+.noFilesUploaded {
+    color     : #aaaaaa;
+    padding   : 0 10px 10px 10px;
+    text-align: center;
+}
+
+
+/*---------- Create new Qualification CSS starts ------------*/
+
+.create-new_qualification .bg-wrapper {
+    background   : #eaeaea;
+    padding      : 25px;
+    margin-bottom: 16px;
+}
+
+.create-new_qualification .sm-heading {
+    font-size  : 18px;
+    color      : #333333;
+    font-weight: 400;
+    line-height: 25px;
+    margin     : 0;
+}
+
+.create-new_qualification a {
+    font-size    : 14px;
+    color        : #005073;
+    font-weight  : 400;
+    margin-bottom: 10px;
+    display      : block;
+}
+
+.create-new_qualification .primary-text {
+    font-size  : 16px;
+    color      : #666666;
+    font-weight: 400;
+    line-height: 22px;
+}
+
+.create-new_qualification .border-right {
+    border-right: 1px solid #d6d6d6;
+}
+
+.create-new_qualification .border-bottom {
+    border-bottom: 1px solid #d6d6d6;
+}
+
+.create-new_qualification .tile {
+    background: #FFFFFF;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.16);
+}
+
+.create-new_qualification .tile .row {
+    padding: 25px;
+}
+
+.create-new_qualification .functionality-area {
+    background    : #F8F8F8;
+    position      : relative;
+    border-top    : 1px solid #cccccc;
+    border-bottom : 1px solid #cccccc;
+    padding-bottom: 70px;
+}
+
+.create-new_qualification .functionality-area:before {
+    content    : '';
+    width      : 14px;
+    height     : 14px;
+    background : #f8f8f8;
+    position   : absolute;
+    top        : -7.5px;
+    left       : 50px;
+    transform  : rotate(45deg);
+    border-top : 1px solid #cccccc;
+    border-left: 1px solid #cccccc;
+}
+
+.create-new_qualification .icon-pdf1 {
+    font-size: 32px;
+}
+
+.create-new_qualification .input-group {
+    margin-top: 5px;
+    display   : flex !important;
+}
+
+.create-new_qualification label.active {
+    color: #005073;
+}
+
+.create-new_qualification .radio-icon {
+    display      : inline-block;
+    width        : 14px;
+    height       : 14px;
+    border-radius: 100%;
+    border       : 1.2px solid #999999;
+    margin-right : 8px;
+}
+
+.create-new_qualification .icon-btn-continue {
+    font-size  : 10px;
+    margin-left: 5px;
+}
+
+.create-new_qualification .icon-btn-back {
+    font-size   : 10px;
+    margin-right: 5px;
+}
+
+.create-new_qualification .secondary-text {
+    font-size: 14px;
+    color    : #666666;
+}
+
+.create-new_qualification .light-text {
+    font-size: 14px;
+    color    : #999999;
+}
+
+.create-new_qualification .info-wrap li:last-child {
+    padding-right: 0;
+    border       : 0;
+}
+
+.create-new_qualification .info-wrap li:first-child {
+    padding-left: 0;
+}
+
+.create-new_qualification .info-wrap li {
+    width        : auto;
+    float        : left;
+    padding-right: 60px;
+    padding-left : 15px;
+    border-right : 1px solid #cccccc;
+}
+
+.create-new_qualification .small-text {
+    font-size: 12px;
+}
+
+.create-new_qualification .icon-box {
+    font-size   : 24px;
+    float       : left;
+    margin-right: 10px;
+}
+
+.create-new_qualification .upload-signature::before {
+    left: 340px !important;
+}
+
+.upload-signature .input-group {
+    /* background  : #F2FBFD;
+    border         : 1px dashed #0E709E;
+    border-radius  : 4px;
+    display        : flex;
+    align-items    : center;
+    justify-content: center;
+    padding        : 50px 0; */
+}
+
+.upload-signature .input-group label {
+    color    : #005073;
+    cursor   : pointer;
+    display  : inline;
+    font-size: inherit;
+    margin   : 0;
+}
+
+.input-group.uploading {
+    background   : rgba(0, 188, 235, 0.2);
+    border       : 1px solid #0E709E;
+    border-radius: 4px;
+}
+
+.input-group.uploading .sm-heading {
+    color: rgba(153, 153, 153, 0.5);
+}
+
+.input-group.uploading .sm-heading label {
+    color: rgba(153, 153, 153, 0.5);
+}
+
+.create-new_qualification .attached-file {
+    background   : #E7F8FF;
+    border       : 1px solid #005073;
+    border-radius: 5px;
+    font-size    : 14px;
+    line-height  : 19px;
+    color        : #333333;
+    padding      : 0 10px;
+    height       : 30px;
+    margin-right : 5px;
+    margin-bottom: 5px;
+}
+
+.create-new_qualification .icon-close-btn {
+    font-size  : 9px;
+    color      : #333333;
+    font-weight: 700;
+}
+
+.create-new_qualification button span.icon-download {
+    font-size     : 13px;
+    margin        : 0 5px 0 7px;
+    vertical-align: middle;
+    cursor        : pointer;
+}
+
+/*---------- Create new Qualification CSS ends ------------*/
+/* CSS for datepicker starts */
+
+.datePicker .input-group-append {
+    padding-top  : 15px;
+    border-bottom: 1px solid #cccccc;
+}
+
+.datePicker .input-group-append .icon-calender {
+    cursor: pointer;
+}
+
+/*Drag & Drop
+============================*/
+.my-drop-zone {
+    background     : #F2FBFD;
+    border         : 1px dashed #0E709E;
+    border-radius  : 4px;
+    display        : flex;
+    align-items    : center;
+    justify-content: center;
+    padding        : 50px 0;
+    width          : 100%;
+}
+
+.my-drop-zone .icon-close-btn {
+    margin-left: 8px;
+    position   : relative;
+    right      : 0;
+    top        : -4px;
+    width      : 20px;
+}
+
+.my-drop-zone div {
+    line-height: 10px;
+}
+
+.my-drop-zone div>div>span {
+    position    : relative;
+    padding-left: 35px;
+    margin-top  : 0;
+    display     : inline-block;
+    top         : 5px;
+    width       : 100%
+}
+
+.my-drop-zone div>div>span .icon-pdf1 {
+    position : absolute;
+    left     : 0px;
+    top      : 0;
+    font-size: 21px;
+}
+
+.my-drop-zone .wrap-text {
+    width     : 100%;
+    text-align: left;
+}
+
+.drag-drop-text {
+    display      : inline-block;
+    overflow     : hidden;
+    white-space  : nowrap;
+    max-width    : calc(100% - 35px);
+    text-align   : left;
+    line-height  : 20px;
+    text-overflow: ellipsis;
+}
+
+
+.dragDropRemove {
+    background: transparent;
+    padding   : 0px;
+    border    : 0px;
+}
+
+.fileUploadWrap {
+    display: none;
+}
+
+.nv-file-over {
+    border          : dashed 1px #6cc04a;
+    background-color: #6cc04a1a;
+    margin-bottom   : 10px;
+    padding-right   : 50px;
+    position        : relative;
+}
+
+.my-drop-zone.file-format-error {
+    border-color    : #c82439;
+    background-color: #fdf4f5;
+    margin-bottom   : 10px;
+}
+
+.my-drop-zone.file-format-error .icon-close-btn {
+    position: relative;
+    top     : 2px;
+    left    : 10px;
+}
+
+.my-drop-zone.file-format-error .file-name {
+    font-size      : 13px;
+    max-width      : 280px;
+    overflow       : hidden;
+    /*text-overflow: ellipsis;*/
+    display        : inline-block;
+    position       : relative;
+    padding-right  : 25px;
+}
+
+.my-drop-zone.file-format-error .icon-file {
+    font-size: 40px;
+    display  : block;
+    margin   : 0px auto 15px;
+    width    : 30px;
+}
+
+.my-drop-zone.file-format-error .file-name button {
+    position: absolute;
+    top     : 2px;
+    right   : 2px;
+}
+
+.my-drop-zone.file-format-error .incorrect-format {
+    font-size: 13px;
+    color    : #58585b;
+    display  : block;
+}

@@ -1,0 +1,60 @@
+<section class="token-box pt-0 pb-0 bpIDs" style="width: 100%;">
+    <div class="" style="overflow: hidden; padding: 0px 20px;">
+        <div class="architecture-wrap">
+            <div class="row architecture-row">
+                <div class="col-4" *ngFor="let id of bpIDList; let i = index">
+                    <div class="ea-wrap" [ngClass]="{'active': selectedBpID?.eaId === id?.eaId, 'project-list': !isCreateNewBpFlyout}">
+                        <label class="label-check" (click)="checkBoxSelectBpid(id)" *ngIf="isCreateNewBpFlyout"
+                            attr.data-id="{{dataIdConstantsService.BPIDLIST_CHECKBOX_BPID_SELECT}}{{i}}">
+                            <input class="form-check-input" type="checkbox" [checked]="id.selected"
+                                attr.data-id="{{dataIdConstantsService.createBpId_checkbox_bpId_select}}{{i}}">
+                            <span class="custom-checkbox-btn i-vNext-fonts">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                                <span class="path3"></span>
+                            </span>
+                        </label>
+                        <label class="bpId-radio" *ngIf="!isCreateNewBpFlyout" (click)="selectBpId($event,id)">
+                            <input type="radio"  name="bpID" id="bpID" value="{{id?.eaId}}"  [checked]="selectedRadioBpId?.eaId === id?.eaId" attr.data-id="{{dataIdConstantsService.BPIDLIST_RADIO_BPID_SELECTION}}{{id.eaId}}">
+                            <span class='custom-radio-btn'>
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                            </span>
+                        </label>
+                        <h4>{{localizationService.getLocalizedString('create-project.subsidiaries.EA_BUYING_PROGRAM_ID')}}
+                        </h4>
+                        <h5 *ngIf='isCreateNewBpFlyout'><a class="mr-1" href="javascript:void(0);">
+
+                                {{id?.eaId}} </a>
+                               
+                        </h5>
+                        <h5 class="d-flex align-items-center" *ngIf='!isCreateNewBpFlyout' (click)="openBpIdDetails(id)" attr.action-id="{{dataIdConstantsService.BPIDLIST_LINK_BPIDDETAILS}}{{id.eaId}}"><a class="mr-1" href="javascript:void(0);">
+
+                            {{id?.eaId}} </a>
+                            <span class="icon-bp-id-details ml-2"  placement="right" container="body" tooltip="Click here to view subscription information and scope details" containerClass="subsc-details-tip" >
+
+                            </span></h5>
+                        <ul class="inline-listing border-right-li">
+                            <li *ngIf="id?.enrollmentCount">
+                                {{localizationService.getLocalizedString('create-project.subsidiaries.PORTFOLIO')}}
+                                {{id.enrollmentCount}} </li>
+                            <li *ngIf="id?.suiteCount">
+                                {{localizationService.getLocalizedString('create-project.subsidiaries.SUITES')}}
+                                {{id.suiteCount}}</li>
+                            <li *ngIf="eaService.features?.RENEWAL_SEPT_REL && id?.subscriptionCount">
+                                {{localizationService.getLocalizedString('common.SUBSCRIPTION')}}
+                                {{id.subscriptionCount}}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="bpIDList.length"  class="strategic-offer-buttons">
+            <span class="prev-item bpId" (click)="moveLeft()" [hidden]="start === 0"><span class="icon-arrow-stroke-right" attr.action-id="{{dataIdConstantsService.BPIDLIST_ICON_OFFERSWIPERIGHT}}"></span>
+            </span>
+            <span class="next-item bpId" (click)="moveRight()" [hidden]="start === start_max"><span
+                    class="icon-arrow-stroke-right" attr.action-id="{{dataIdConstantsService.BPIDLIST_ICON_OFFERSWIPELEFT}}"></span>
+            </span>
+        </div>
+    </div>
+</section>

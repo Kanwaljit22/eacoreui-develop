@@ -1,0 +1,13 @@
+<div  class="select-reason--items" (clickOutside)="onClickedOutside($event)" *ngIf="!params.node.rowPinned">
+    <span class="dropdown--typeAhead__arrow-management">
+        <span class="btn--text"  #cellValue  [ngbTooltip]="tipContent" placement='left' container="body"triggers="click:blur" #t="ngbTooltip">
+            {{selectedReason}} <span class='icon-arow-down'></span> </span>
+    </span>
+    <ng-template #tipContent>
+    <div class="custom--tooltip__block-reason">
+        <ul>
+            <li class="dropdown-custom-item" *ngFor="let a of this.arrayOfReasons" (click)="changeReason(a, params)" [value]="a.code">{{a.description}}</li>
+        </ul>
+    </div>
+    </ng-template>
+</div>

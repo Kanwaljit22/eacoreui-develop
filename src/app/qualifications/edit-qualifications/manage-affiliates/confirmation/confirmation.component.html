@@ -1,0 +1,17 @@
+
+<div class="modal-header">
+        <h5 class="modal-title">Alert</h5>
+        <button class="icon-close-btn" type="button" (click)="close()"></button>
+      </div>
+      <div class="modal-body">
+        <div class="body-content info-alert-message">
+          <div class="info-txt">
+                You have selected parties outside of your GU, If you need to include the parties outside of your GU in this qualification,
+                 please open a case with the support team.
+          </div>    
+      </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" type="button" (click)="close()">Cancel</button>
+        <button class="btn btn-primary btn-continue" (click)="continue()" type="button"><span class="mid-text">Continue</span> <span class="icon-btn-continue"></span></button>
+      </div>

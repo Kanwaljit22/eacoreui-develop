@@ -1,0 +1,54 @@
+[{
+        "headerName": "Suites/HW Models",
+        "field": "suite_Name",
+        "width": 120,
+        "minWidth": 60,
+        "suppressMenu": true,
+        "cellRenderer": "group",
+        "cellClass": "expandable-header"
+    },
+    {
+        "headerName": "",
+        "field": "parameterIcon",
+        "width": 90,
+        "minWidth": 60,
+        "suppressMenu": true,
+        "cellRenderer": "iconRenderer"
+    },
+    {
+        "headerName": "Features",
+        "field": "features",
+        "width": 230,
+        "minWidth": 60,
+        "suppressMenu": true,
+        "cellRenderer": "featureGroup"
+    },
+    {
+        "headerName": "HW Discount (%)",
+        "field": "hwDiscount",
+        "width": 50,
+        "minWidth": 40,
+        "suppressMenu": true,
+        "cellRenderer": "hwGroup",
+        "cellClass": "cellClassValue"
+    },
+    {
+        "headerName": "HW Service Discount (%)",
+        "field": "hwServiceDiscount",
+        "width": 60,
+        "minWidth": 40,
+        "suppressMenu": true,
+        "cellRenderer": "hwGroup",
+        "cellClass": "cellClassValue"
+    },
+    {
+        "headerName": "TCO Growth Rate (%)",
+        "field": "tcoGrowthRate",
+        "width": 60,
+        "minWidth": 40,
+        "suppressMenu": true,
+        "cellRenderer": "hwGroup",
+        "cellClass": "cellClassValue"
+    }
+
+]

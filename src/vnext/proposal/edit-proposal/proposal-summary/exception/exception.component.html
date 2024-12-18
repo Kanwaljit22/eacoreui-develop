@@ -1,0 +1,634 @@
+<div class="exception-approval marginT20 marginB0 row"
+    *ngIf="(exceptionActivities?.length > 0) || (groupExceptionApproverHistory?.length > 0)">
+    <ul class="nav nav-tabs col px-0 mx-3" id="myTab" role="tablist">
+    
+            <li class="nav-item mr-4" *ngIf="exceptionActivities?.length > 0" [ngClass]='{"active": !displayApprovalHistory}'>
+                <a aria-controls="profile" aria-selected="false" class="nav-link appovar-tab active" data-toggle="tab"
+                    href="javascript:" id="docusign-tab" role="tab" ng-reflect-klass="nav-link "
+                    ng-reflect-ng-class="[object Object]" (click)='switchShowStatus(false)' attr.action-id="{{dataIdConstantsService.exception_link_statusOfRequestedExceptions}}"
+                    [ngClass]='{"active": !displayApprovalHistory}'>{{isApprovalFlow? ('exception.APPROVING_TEAM_INFORMATION' | localizationPipe : localizationService.localizedkeySet.size) : ('exception.STATUS_OF_REQUESTED_EXCEPTIONS' | localizationPipe : localizationService.localizedkeySet.size)}}</a>
+            </li>
+            <li class="nav-item" [ngClass]='{"active": displayApprovalHistory}' *ngIf="(groupExceptionApproverHistory?.length > 0)">
+                <a aria-controls="home" aria-selected="true" class="nav-link" data-toggle="tab" href="javascript:"
+                    id="upload-tab" role="tab" ng-reflect-klass="nav-link appovar-tab" (click)='switchShowStatus(true)' attr.action-id="{{dataIdConstantsService.exception_link_approvalHistory}}"
+                    [ngClass]='{"active": displayApprovalHistory}'>{{'exception.APPROVAL_HISTORY' | localizationPipe : localizationService.localizedkeySet.size}}</a>
+            </li>
+       <!-- </ng-container> -->
+    </ul>
+    
+    <div class="col-auto mb-1 pos-absolute right-0" *ngIf='!displayApprovalHistory && isApprovalFlow'>
+        <button type="button" [ngClass]="{'disabled': disableApprover || showSubmitDecision}" (click)="callPreBecomeApporover()" attr.action-id="{{dataIdConstantsService.exception_button_becomeReviewer}}" class="btn btn-primary">{{'exception.BECOME_REVIEWER' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+    </div>
+</div>
+
+<div *ngIf="!displayApprovalHistory && exceptionActivities?.length > 0">
+
+    <section *ngIf="!isApprovalFlow; else approverFlow">
+        <div class="row vNext"
+            *ngIf='isExceptionStatusNew; else displayWithdrawSection'>
+            <!-- <div class="col-12 mt-3 mb-1 d-flex justify-content-between">
+                <h5 class="heading--h5">
+                    Status of your requested Exception(s)
+                </h5>
+            </div> -->
+            <div class="col-12">
+                <table class="primary-table">
+                    <thead>
+                        <tr>
+                            <th>{{'common.EXCEPTION_REQUESTED' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                            <th class="">{{'common.TEAM_NAME' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let exception of exceptionActivities; let index = index;">
+                            <td attr.data-id="{{dataIdConstantsService.exception_label_exceptionName}}{{exception?.exceptionType}}">{{exception.exceptionName}}</td>
+                           
+                                <td class=""><span class="link-txt pos-relative d-inline py-2"
+                                    href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.exception_link_teamName}}{{exception?.exceptionType}}">{{exception.teamName}}
+                                    <div class="exp-tooltip abc exp-tooltip-right">
+                                        <div style="overflow-y:scroll; height:200px;">
+                                            <table class="primary-table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>{{'common.NAME' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                                                        <th><div class="d-flex justify-content-between">{{'common.CEC_ID' | localizationPipe : localizationService.localizedkeySet.size}} <span class="i-vNext-copy" (click)="copy(exception.teamMembers)" attr.action-id="{{dataIdConstantsService.exception_icon_copy}}{{exception?.exceptionType}}"></span></div></th>
+                                                        <th>{{'common.REGION_NAME' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                                                        <th>{{'common.REVIEWER_TYPE' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor='let team of exception.teamMembers'>
+                                                        <td>{{team.name}}</td>
+                                                        <td>{{team.cecId}}</td>
+                                                        <td *ngIf="team.regions; else noRegion">
+                                                            {{convertRegionToString(team.regions)}} </td>
+                                                        <ng-template #noRegion>
+                                                            <td>--</td>
+                                                        </ng-template>
+                                                        <td *ngIf="team.primary; else notPrimary"><span
+                                                                class="team-member">{{'common.PRIMARY' | localizationPipe : localizationService.localizedkeySet.size}}</span></td>
+                                                        <ng-template #notPrimary>
+                                                            <td>--</td>
+                                                        </ng-template>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <ng-template #displayWithdrawSection>
+            <div class="row vNext" *ngIf="!displayApprovalHistory">
+                <!-- <div class="col-12 mt-3 mb-1 d-flex justify-content-between">
+                    <h5 class="heading--h5">
+                        Status of your requested Exception(s)
+                    </h5>
+                </div> -->
+                <div class="col-12">
+                    <table class="primary-table">
+                        <thead>
+                            <tr>
+                                <th>{{'common.EXCEPTION_REQUESTED' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                                <th class="">{{'common.TEAM_NAME' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                                <th class="">{{'common.SELLER_JUSTIFICATION' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                                <th class="">{{'exception.REVIEWER_CEC_ID' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                                <th class="">{{'common.DECISION' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                                <th class="">{{'exception.DATE_TIME' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                                <th class="">{{'common.TIME_TAKEN' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let exception of exceptionActivities; let index = index;">
+                                <td class="d-flex"><label class="label-check no-input">
+                                        <!-- <input class="form-check-input" type="checkbox"> -->
+                                        <span class="custom-checkbox-btn i-vNext-fonts"><span class="path1"></span><span
+                                                class="path2"></span><span
+                                                class="path3"></span></span><span></span><span attr.data-id="{{dataIdConstantsService.exception_label_exceptionName}}{{exception?.exceptionType}}">{{exception.exceptionName}}</span>
+                                    </label>
+                                    <span
+                                        style="padding:0 10px; margin-left:5px; margin-right:5px; border-left: 1px solid #d6d6d6; "
+                                        *ngIf="exception.exceptionType === 'PURCHASE_ADJUSTMENT_REQUEST' && exception.sourceRefId">{{'common.CASE_NUMBER' | localizationPipe : localizationService.localizedkeySet.size}}:
+                                        {{exception.sourceRefId}}</span>
+                                        <a #downloadZipLink [hidden]="true"></a>
+                                    <a *ngIf="exception.documents" (click)="downloadPADocument(exception)"
+                                        href="javascript:" style="position: absolute;right: 0px;" attr.action-id="{{dataIdConstantsService.exception_link_downloadPaDocument}}{{exception?.exceptionType}}"
+                                        [ngClass]="{'assign-case': exception.exceptionType === 'PURCHASE_ADJUSTMENT_REQUEST' && exception.sourceRefId }"><span
+                                            class="icon-download-doc" placement="top" container="body"
+                                            ngbTooltip="{{'common.VIEW_UPLOADED_DOCUMENTS' | localizationPipe : localizationService.localizedkeySet.size}}"><span class="path1"></span><span
+                                                class="path2"></span><span class="path3"></span><span
+                                                class="path4"></span><span class="path5"></span></span></a>
+
+                                </td>
+                               
+                                <td class="" ><span class="link-txt pos-relative d-inline py-2"
+                                    href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.exception_link_teamName}}{{exception?.exceptionType}}">{{exception.teamName}}
+                                    <div class="exp-tooltip abc exp-tooltip-right">
+                                        <div style="overflow-y:scroll; height:200px;">
+                                            <table class="primary-table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>{{'common.NAME' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                                                        <th><div class="d-flex justify-content-between">{{'common.CEC_ID' | localizationPipe : localizationService.localizedkeySet.size}} <span class="i-vNext-copy" (click)="copy(exception.teamMembers)" attr.action-id="{{dataIdConstantsService.exception_icon_copy}}{{exception?.exceptionType}}"></span></div></th>
+                                                        <th>{{'common.REGION_NAME' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                                                        <th>{{'common.REVIEWER_TYPE' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor='let team of exception.teamMembers'>
+                                                        <td>{{team.name}}</td>
+                                                        <td>{{team.cecId}}</td>
+                                                        <td *ngIf="!team.regions; else noRegion">
+                                                            {{convertRegionToString(team.regions)}} </td>
+                                                        <ng-template #noRegion>
+                                                            <td>--</td>
+                                                        </ng-template>
+                                                        <td *ngIf="team.primary; else notPrimary"><span
+                                                                class="team-member">{{'common.PRIMARY' | localizationPipe : localizationService.localizedkeySet.size}}</span></td>
+                                                        <ng-template #notPrimary>
+                                                            <td>--</td>
+                                                        </ng-template>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </span></td>
+                                <td class=""><span class="link-txt pos-relative py-2" href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.exception_link_viewDetails}}{{exception?.exceptionType}}">{{'common.VIEW_DETAILS' | localizationPipe : localizationService.localizedkeySet.size}}
+                                        <div class="exp-tooltip txt-block">
+                                            <div class="text-block">
+                                                <div class="title">{{'common.REASON_CODE' | localizationPipe : localizationService.localizedkeySet.size}}</div>
+                                                <p><strong *ngIf="!exception.requestReasons">-</strong>
+                                                    <strong *ngIf="exception.requestReasons">
+                                                        <span
+                                                            *ngFor="let reason of exception?.requestReasons ; let i = index;">{{reason
+                                                            ? reason : '--'}}
+                                                            <span *ngIf='exception?.requestReasons.length > (i+1)'>,
+                                                            </span>
+                                                        </span>
+                                                    </strong>
+                                                </p>
+                                            </div>
+                                            <div class="text-block">
+                                                <div class="title">{{'common.JUSTIFICATION' | localizationPipe : localizationService.localizedkeySet.size}}</div>
+                                                <p><strong>{{(exception.requestComment) ? (exception.requestComment) :
+                                                        "--"}}</strong></p>
+                                            </div>
+                                        </div>
+                                    </span></td>
+                                <td *ngIf="exception.actionedBy">{{exception.approverName}} ({{exception.actionedBy}})
+                                </td>
+
+                                <td *ngIf="!exception.actionedBy">--</td>
+
+                                <td>{{(exception.decision) ? (exception.decision) : "--"}}</td>
+                                <td class=""><span>{{exception?.requestedAt |
+                                    date:"dd-MMM-yyyy"}}, {{exception?.requestedAt | date:"HH:mm
+                                    aa"}}</span></td>
+                                <td class="">
+                                    <div
+                                        *ngIf="(exception.requestedAt || exception.actionedAt || exception.approverAssignedAt) && exception.cycleTimeStr">
+                                        <a class="link-txt pos-relative" attr.action-id="{{dataIdConstantsService.exception_link_cycleTime}}{{exception?.exceptionType}}"
+                                            href="javascript:void(0);">{{exception.cycleTimeStr}}
+                                            <div class="exp-tooltip text-block time-block">
+                                                <div class="text-block">
+                                                    <div class="title">{{'common.REQUESTED_AT' | localizationPipe : localizationService.localizedkeySet.size}}</div>
+                                                    <p *ngIf="exception?.requestedAt"><strong>{{exception?.requestedAt |
+                                                            date:"dd-MMM-yyyy"}}, {{exception?.requestedAt | date:"HH:mm
+                                                            aa"}}</strong></p>
+                                                    <p *ngIf="!exception?.requestedAt">-</p>
+                                                </div>
+                                                <div class="text-block">
+                                                    <div class="title">{{'common.WORKED_AT' | localizationPipe : localizationService.localizedkeySet.size}}</div>
+                                                    <p *ngIf="exception?.approverAssignedAt">
+                                                        <strong>{{exception?.approverAssignedAt | date:"dd-MMM-yyyy"}},
+                                                            {{exception?.approverAssignedAt | date:"HH:mm aa"}}</strong>
+                                                    </p>
+                                                    <p *ngIf="!exception?.approverAssignedAt">-</p>
+                                                </div>
+                                                <div class="text-block">
+                                                    <div class="title">{{'common.COMPLETED_AT' | localizationPipe : localizationService.localizedkeySet.size}}</div>
+                                                    <p *ngIf="exception?.actionedAt"><strong>{{exception?.actionedAt |
+                                                            date:"dd-MMM-yyyy"}}, {{exception?.actionedAt | date:"HH:mm
+                                                            aa"}}</strong></p>
+                                                    <p *ngIf="!exception?.actionedAt">-</p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div
+                                        *ngIf="!(exception.requestedAt || exception.actionedAt) || !exception.cycleTimeStr">
+                                        {{(exception.cycleTimeStr) ? (exception.cycleTimeStr) : '-'}}</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </ng-template>
+    </section>
+    <!-- start of approval flow  -->
+    <ng-template #approverFlow>
+        <div class="row vNext">
+            <!-- <div class="col-12 mt-3 mb-1 d-flex justify-content-between">
+                <h5 class="heading--h5">
+                    Approving Team Information
+                </h5>
+                <div>
+                    <button type="button" class="btn btn-primary"
+                        [ngClass]="{'disabled': disableApprover || showSubmitDecision}"
+                        (click)="callPreBecomeApporover()">Become Reviewer</button>
+                </div>
+            </div> -->
+            <div class="col-12">
+                <table class="primary-table">
+                    <thead>
+                        <tr>
+                            <th>{{'common.EXCEPTION_REQUESTED' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                            <th class="">{{'common.TEAM_NAME' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                            <th class="">{{'common.SELLER_JUSTIFICATION' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                            <th class="">{{'exception.REVIEWER_CEC_ID' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                            <th class="">{{'common.DECISION' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                            <th class="">{{'common.TIME_TAKEN' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let exception of exceptionActivities; let index = index;">
+                            <td><label class="label-check"><input class="form-check-input" type="checkbox" attr.data-id="{{dataIdConstantsService.exception_checkbox_selectException}}{{exception?.exceptionType}}"
+                                        [checked]="exception.selected == true || (exception.allowedToBecomeApprover && exception.decision ==='Pending')"
+                                        disabled><span class="custom-checkbox-btn i-vNext-fonts"><span
+                                            class="path1"></span><span class="path2"></span><span
+                                            class="path3"></span></span><span></span><span attr.data-id="{{dataIdConstantsService.exception_label_exceptionName}}{{exception?.exceptionType}}">{{exception.exceptionName}}</span></label>
+                                <a #downloadZipLink [hidden]="true"></a>
+                                <span
+                                    style="padding:0 10px; margin-left:5px; margin-right:5px; border-left: 1px solid #d6d6d6; "
+                                    *ngIf="exception.exceptionType === 'PURCHASE_ADJUSTMENT_REQUEST' && exception.sourceRefId">{{'common.CASE_NUMBER' | localizationPipe : localizationService.localizedkeySet.size}}:
+                                    {{exception.sourceRefId}}</span>
+                                <span
+                                    style="padding:0 10px; margin-left:5px; margin-right:5px; border-left: 1px solid #d6d6d6;"
+                                    *ngIf="isRequestPaPresent && exception.exceptionType === 'PURCHASE_ADJUSTMENT_REQUEST' && exception.allowedToBecomeApprover && !exception.sourceRefId"><a
+                                        href="javascript:void(0);" (click)="addCaseNumber('approverTable')" attr.action-id="{{dataIdConstantsService.exception_link_assignCase}}{{exception?.exceptionType}}">{{'common.ASSIGN_CASE' | localizationPipe : localizationService.localizedkeySet.size}}</a></span>
+                                <a *ngIf="exception.documents" (click)="downloadPADocument(exception)"
+                                    href="javascript:" style="position: absolute;right: 0px;" attr.action-id="{{dataIdConstantsService.exception_link_downloadPaDocument}}{{exception?.exceptionType}}"
+                                    [ngClass]="{'assign-case': exception.exceptionType === 'PURCHASE_ADJUSTMENT_REQUEST' && exception.sourceRefId }"><span
+                                        class="icon-download-doc" placement="top" container="body"
+                                        ngbTooltip="{{'common.VIEW_UPLOADED_DOCUMENTS' | localizationPipe : localizationService.localizedkeySet.size}}"><span class="path1"></span><span
+                                            class="path2"></span><span class="path3"></span><span
+                                            class="path4"></span><span class="path5"></span></span></a>
+                            </td>
+                           
+                                <td class=""><span class="link-txt pos-relative d-inline py-2" attr.action-id="{{dataIdConstantsService.exception_link_teamName}}{{exception?.exceptionType}}"
+                                    >{{exception.teamName}}
+                                    <div class="exp-tooltip abc exp-tooltip-right">
+                                        <div style="overflow-y:scroll; height:200px;">
+                                            <table class="primary-table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>{{'common.NAME' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                                                        <th><div class="d-flex justify-content-between">{{'common.CEC_ID' | localizationPipe : localizationService.localizedkeySet.size}} <span class="i-vNext-copy" (click)="copy(exception.teamMembers)" attr.action-id="{{dataIdConstantsService.exception_icon_copy}}{{index}}"></span></div></th>
+                                                        <th>{{'common.REGION_NAME' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                                                        <th>{{'common.REVIEWER_TYPE' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor='let team of exception.teamMembers'>
+                                                        <td>{{team.name}}</td>
+                                                        <td class="team-info">{{team.cecId}}</td>
+                                                        <td *ngIf="!team.regions; else noRegion">
+                                                            {{convertRegionToString(team.regions)}} </td>
+                                                        <ng-template #noRegion>
+                                                            <td>--</td>
+                                                        </ng-template>
+                                                        <td *ngIf="team.primary; else notPrimary"><span
+                                                                class="team-member">{{'common.PRIMARY' | localizationPipe : localizationService.localizedkeySet.size}}</span></td>
+                                                        <ng-template #notPrimary>
+                                                            <td>--</td>
+                                                        </ng-template>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </span></td>
+                            <td class=""><a class="link-txt pos-relative" href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.exception_link_viewDetails}}{{exception?.exceptionType}}">{{'common.VIEW_DETAILS' | localizationPipe : localizationService.localizedkeySet.size}}
+                                    <div class="exp-tooltip txt-block">
+                                        <div class="text-block">
+                                            <div class="title">{{'common.REASON_CODE' | localizationPipe : localizationService.localizedkeySet.size}}</div>
+                                            <p><strong *ngIf="!exception.requestReasons">-</strong>
+                                                <strong *ngIf="exception.requestReasons">
+                                                    <span
+                                                        *ngFor="let reason of exception?.requestReasons ; let i = index;">{{reason}}
+                                                        <span *ngIf='exception?.requestReasons.length > (i+1)'>, </span>
+                                                    </span>
+                                                </strong>
+                                            </p>
+                                        </div>
+                                        <div class="text-block">
+                                            <div class="title">{{'common.JUSTIFICATION' | localizationPipe : localizationService.localizedkeySet.size}}</div>
+                                            <p><strong>{{(exception.requestComment) ? (exception.requestComment) :
+                                                    "-"}}</strong></p>
+                                        </div>
+                                    </div>
+                                </a></td>
+                            <td *ngIf="exception.actionedBy">{{exception.approverName}} ({{exception.actionedBy}})</td>
+
+                            <td *ngIf="!exception.actionedBy">--</td>
+
+                            <td>{{(exception.decision) ? (exception.decision) : "--"}}</td>
+                            <!-- <td class=""><span>{{exception.date}}</span></td> -->
+                            <td class="">
+                                <div
+                                    *ngIf="(exception.requestedAt || exception.actionedAt || exception.approverAssignedAt) && exception.cycleTimeStr">
+                                    <a class="link-txt pos-relative" attr.action-id="{{dataIdConstantsService.exception_link_cycleTime}}{{exception?.exceptionType}}"
+                                        href="javascript:void(0);">{{exception.cycleTimeStr}}
+                                        <div class="exp-tooltip text-block time-block">
+                                            <div class="text-block">
+                                                <div class="title">{{'common.REQUESTED_AT' | localizationPipe : localizationService.localizedkeySet.size}}</div>
+                                                <p *ngIf="exception?.requestedAt"><strong>{{exception?.requestedAt |
+                                                        date:"dd-MMM-yyyy"}},
+                                                        {{exception?.requestedAt | date:"HH:mm aa"}}</strong></p>
+                                                <p *ngIf="!exception?.requestedAt">-</p>
+                                            </div>
+                                            <div class="text-block">
+                                                <div class="title">{{'common.WORKED_AT' | localizationPipe : localizationService.localizedkeySet.size}}</div>
+                                                <p *ngIf="exception?.approverAssignedAt">
+                                                    <strong>{{exception?.approverAssignedAt |
+                                                        date:"dd-MMM-yyyy"}}, {{exception?.approverAssignedAt |
+                                                        date:"HH:mm aa"}}</strong></p>
+                                                <p *ngIf="!exception?.approverAssignedAt">-</p>
+                                            </div>
+                                            <div class="text-block">
+                                                <div class="title">{{'common.COMPLETED_AT' | localizationPipe : localizationService.localizedkeySet.size}}</div>
+                                                <p *ngIf="exception?.actionedAt"><strong>{{exception?.actionedAt |
+                                                        date:"dd-MMM-yyyy"}},
+                                                        {{exception?.actionedAt | date:"HH:mm aa"}}</strong></p>
+                                                <p *ngIf="!exception?.actionedAt">-</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div
+                                    *ngIf="!(exception.requestedAt || exception.actionedAt) || !exception.cycleTimeStr">
+                                    {{(exception.cycleTimeStr)
+                                    ? (exception.cycleTimeStr) : '-'}}</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </ng-template>
+    <!-- start of submit decision table  -->
+    <section *ngIf="isApprovalFlow && showSubmitDecision && !isApproverDecisionSubmitted" class="col-12">
+        <div class="row vNext">
+            <div class="col-12 mt-3 mb-1 d-flex justify-content-between">
+                <h5 class="heading--h5">
+                    {{'exception.SUBMIT_YOUR_DECISION' | localizationPipe : localizationService.localizedkeySet.size}}
+                </h5>
+                <div>
+                    <button type="button" class="btn btn-primary" attr.action-id="{{dataIdConstantsService.exception_button_submit}}" [ngClass]="{'disabled': !isEnableSubmit}"
+                        (click)="submitDecision()">{{'common.SUBMIT' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+                </div>
+            </div>
+            <div class="col-12">
+                <table class="primary-table">
+                    <thead>
+                        <tr>
+                            <th width="15%">{{'common.EXCEPTION_REQUESTED' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                            <th width="8%" *ngIf="showSYD">{{'exception.UPSELL_DOWNSELL' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                            <th width="8%" *ngIf="showSYD">{{'exception.TCV_OF_SUB_CANCELLED' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                            <th width="8%" *ngIf="showSYD">{{'exception.ESTIMATED_CREDIT' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                            <th width="15%" class="" *ngIf="exceptionDecisionData.length && exceptionDecisionData[0].exceptionId === 'PURCHASE_ADJUSTMENT_REQUEST'">{{'common.ACTION' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                            <th width="20%" class="">{{'exception.APPROVAL_DECISION' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                            <th width="50%" class="">{{'exception.GIVE_REASON' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                            <th width="15%" class="">{{'common.JUSTIFICATION' | localizationPipe : localizationService.localizedkeySet.size}}<sup class="import" *ngIf="justificationMandatory">*</sup></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let exception of exceptionDecisionData; let index = index;">
+                            <td attr.data-id="{{dataIdConstantsService.exception_label_exceptionName}}{{exception?.exceptionId}}">{{exception.exceptionName}}
+                            </td>
+                            <td *ngIf="exception.exceptionId === 'EARLY_RENEWAL_CHECK' && exception.opportunityType; else NoOpportunityType">{{exception.opportunityType}}</td>
+                            <ng-template #NoOpportunityType>
+                            <td *ngIf="showSYD">{{'common.NA' | localizationPipe : localizationService.localizedkeySet.size}}</td>
+                            </ng-template>
+                            <td *ngIf="exception.exceptionId === 'EARLY_RENEWAL_CHECK' && exception.tcvOfEarlyFollowOn; else NoTcvOfEarlyFollowOn">{{utilitiesService.formatValue(utilitiesService.getFloatValue(exception.tcvOfEarlyFollowOn))}}</td>
+                            <ng-template #NoTcvOfEarlyFollowOn>
+                            <td *ngIf="showSYD">{{'common.NA' | localizationPipe : localizationService.localizedkeySet.size}}</td>
+                            </ng-template>
+                            <td *ngIf="exception.exceptionId === 'EARLY_RENEWAL_CHECK' && (exception.estimatedCredit>= 0); else NoEstimatedCredit">{{utilitiesService.formatValue(utilitiesService.getFloatValue(exception.estimatedCredit))}}</td>
+                            <ng-template #NoEstimatedCredit>
+                            <td *ngIf="showSYD">{{'common.NA' | localizationPipe : localizationService.localizedkeySet.size}}</td>
+                            </ng-template>
+                            <!-- <td *ngIf="!justificationMandatory">Exception</td> -->
+                            <td *ngIf="exceptionDecisionData.length && exception.exceptionId === 'PURCHASE_ADJUSTMENT_REQUEST'"><a href="javascript:void(0);" attr.action-id="{{dataIdConstantsService.exception_link_backToPe}}{{exception?.exceptionType}}" (click)="backToPe()">{{'exception.UPDATE_OTD' | localizationPipe : localizationService.localizedkeySet.size}}</a></td> 
+                            <td>
+                                <div class="select-items dropdown" (clickOutside)="exception.decisionDrop = false;">
+                                    <span class="dropdown--typeAhead__arrow-management">
+                                        <button class="btn--text drop-button dropdown-toggle"
+                                            (click)="dropDecision(exception)" attr.action-id="{{dataIdConstantsService.exception_button_selectedDecision}}{{exception?.exceptionId}}"
+                                            type="button">{{(exception.selectedDecision?.decisionType) ?
+                                            (exception.selectedDecision?.decisionType) : selectedDecision }}</button>
+                                    </span>
+                                    <div class="dropdown-menu" [class.show]="exception?.decisionDrop">
+                                        <ul>
+                                            <li class="dropdown-item" *ngFor="let item of approvalDecision; let j = index;" attr.action-id="{{dataIdConstantsService.exception_dropdown_selectDecision}}{{item}}"
+                                                (click)="selectDecision(item, exception)">{{item}}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="select-items dropdown" (clickOutside)="exception.reasonDrop = false;">
+                                    <span class="dropdown--typeAhead__arrow-management">
+                                        <button class="btn--text drop-button dropdown-toggle" attr.action-id="{{dataIdConstantsService.exception_button_selectedReason}}{{exception?.exceptionId}}"
+                                            (click)="dropReason(exception)" type="button">{{(exception?.selectedReason)
+                                            ? (exception?.selectedReason) : selectedReason}}</button>
+                                    </span>
+                                    <div class="dropdown-menu" [class.show]="exception?.reasonDrop">
+                                        <ul>
+                                            <li class="dropdown-item" *ngFor="let item of giveReason; let k = index;"
+                                                (click)="selectReason(item, exception)" attr.action-id="{{dataIdConstantsService.exception_dropdown_selectReason}}{{k}}">
+                                                {{item}}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <input placeholder="{{'exception.WRITE_JUSTIFICATION' | localizationPipe : localizationService.localizedkeySet.size}}" required="" type="text" id=""
+                                    class="form-control ng-pristine ng-invalid ng-touched w-100 text-left h-40"
+                                    ng-reflect-required="" ng-reflect-model="" attr.data-id="{{dataIdConstantsService.exception_checkbox_reviewerJustification}}{{exception?.exceptionId}}"
+                                    (blur)="approverCommentAdded($event, exception)" style="height:40px;">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </section>
+    <!-- End of approval flow  -->
+
+</div>
+
+
+<div *ngIf=" displayApprovalHistory && groupExceptionApproverHistory?.length > 0">
+    <div class="card" *ngFor="let data of groupExceptionApproverHistory">
+        <h5 class="card-header">{{data?.groupName}}
+            <span *ngIf="data.cycleTime" class="price-usd float-right">{{'common.OVER_ALL_TIME_TAKEN' | localizationPipe : localizationService.localizedkeySet.size}}: {{data.cycleTime}}</span>
+        </h5>
+        <div class="card-body" *ngIf="(data.proposalExceptionActivities.length > 0)">
+            <table class="primary-table">
+                <thead>
+                    <tr>
+                        <th width="24%">{{'common.EXCEPTION_REQUESTED' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                        <th width="15%">{{'common.TEAM_NAME' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                        <th width="10%">{{'common.SELLER_JUSTIFICATION' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                        <th width="13%">{{'exception.REVIEWER_CEC_ID' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                        <th width="8%">{{'common.DECISION' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                        <th width="15%">{{'exception.REVIEWERS_JUSTIFICATION' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                        <th width="15%">{{'common.TIME_TAKEN' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                    </tr>
+                </thead>
+                <!-- start of approval history -->
+                <tbody>
+                    <tr *ngFor="let exception of data.proposalExceptionActivities; let index = index;">
+                        <td attr.data-id="{{dataIdConstantsService.exception_label_exceptionName}}{{exception?.exceptionType}}">{{exception.exceptionName}}
+                            <a #downloadZipLink [hidden]="true"></a>
+                            <span
+                                style="padding:0 10px; margin-left:5px; margin-right:5px; border-left: 1px solid #d6d6d6; "
+                                *ngIf="exception.exceptionType === 'PURCHASE_ADJUSTMENT_REQUEST' && exception.sourceRefId">{{'common.CASE_NUMBER' | localizationPipe : localizationService.localizedkeySet.size}}:
+                                {{exception.sourceRefId}}</span>
+                            <span
+                                style="padding:0 10px; margin-left:5px; margin-right:5px; border-left: 1px solid #d6d6d6;"
+                                *ngIf="isRequestPaPresent && exception.exceptionType === 'PURCHASE_ADJUSTMENT_REQUEST' && exception.allowedToBecomeApprover && !exception.sourceRefId"><a
+                                    href="javascript:void(0);" (click)="addCaseNumber('approverTable')" attr.action-id="{{dataIdConstantsService.exception_link_approvalHistory_assignCase}}{{exception?.exceptionType}}">{{'common.ASSIGN' | localizationPipe : localizationService.localizedkeySet.size}}
+                                    Case</a></span>
+                            <a *ngIf="exception.documents" (click)="downloadPADocument(exception)" href="javascript:"
+                                style="position: absolute;right: 0px;" attr.action-id="{{dataIdConstantsService.exception_link_approvalHistory_downloadPaDocument}}{{exception?.exceptionType}}"
+                                [ngClass]="{'assign-case': exception.exceptionType === 'PURCHASE_ADJUSTMENT_REQUEST' && exception.sourceRefId }"><span
+                                    class="icon-download-doc" placement="top" container="body"
+                                    ngbTooltip="{{'common.VIEW_UPLOADED_DOCUMENTS' | localizationPipe : localizationService.localizedkeySet.size}}"><span class="path1"></span><span
+                                        class="path2"></span><span class="path3"></span><span class="path4"></span><span
+                                        class="path5"></span></span></a>
+                        </td>
+                        
+                            <td class=""><span class="link-txt pos-relative d-inline py-2" attr.action-id="{{dataIdConstantsService.exception_link_teamName}}{{exception?.exceptionType}}"
+                                >{{exception.teamName}}
+                                 <div class="exp-tooltip abc exp-tooltip-right">
+                                     <div style="overflow-y:scroll; height:200px;">
+                                         <table class="primary-table">
+                                             <thead>
+                                                 <tr>
+                                                     <th>{{'common.NAME' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                                                     <th><div class="d-flex justify-content-between">{{'common.CEC_ID' | localizationPipe : localizationService.localizedkeySet.size}}<span class="i-vNext-copy" (click)="copy(exception.teamMembers)" attr.action-id="{{dataIdConstantsService.exception_icon_approvalHistory_copy}}{{exception?.exceptionType}}" ></span></div></th>
+                                                     <th>{{'common.REGION_NAME' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                                                     <th>{{'common.REVIEWER_TYPE' | localizationPipe : localizationService.localizedkeySet.size}}</th>
+                                                 </tr>
+                                             </thead>
+                                             <tbody>
+                                                 <tr *ngFor='let team of exception.teamMembers'>
+                                                     <td>{{team.name}}</td>
+                                                     <td>{{team.cecId}}</td>
+                                                     <td *ngIf="!team.regions; else noRegion">
+                                                         {{convertRegionToString(team.regions)}} </td>
+                                                     <ng-template #noRegion>
+                                                         <td>--</td>
+                                                     </ng-template>
+                                                     <td *ngIf="team.primary; else notPrimary"><span
+                                                             class="team-member">{{'common.PRIMARY' | localizationPipe : localizationService.localizedkeySet.size}}</span></td>
+                                                     <ng-template #notPrimary>
+                                                         <td>--</td>
+                                                     </ng-template>
+                                                 </tr>
+                                             </tbody>
+                                         </table>
+                                     </div>
+                                 </div>
+                             </span></td>
+                        <td class=""><a class="link-txt pos-relative" attr.action-id="{{dataIdConstantsService.exception_link_approvalHistory_viewDetails}}{{exception?.exceptionType}}" href="javascript:void(0);">{{'common.VIEW_DETAILS' | localizationPipe : localizationService.localizedkeySet.size}}
+                                <div class="exp-tooltip txt-block">
+                                    <div class="text-block">
+                                        <div class="title">{{'common.REASON_CODE' | localizationPipe : localizationService.localizedkeySet.size}}</div>
+                                        <p><strong *ngIf="!exception.requestReasons">-</strong>
+                                            <strong *ngIf="exception.requestReasons">
+                                                <span
+                                                    *ngFor="let reason of exception?.requestReasons ; let i = index;">{{reason}}
+                                                    <span *ngIf='exception?.requestReasons.length > (i+1)'>, </span>
+                                                </span>
+                                            </strong>
+                                        </p>
+                                    </div>
+                                    <div class="text-block">
+                                        <div class="title">{{'common.JUSTIFICATION' | localizationPipe : localizationService.localizedkeySet.size}}</div>
+                                        <p><strong>{{(exception.requestComment) ? (exception.requestComment) :
+                                                "-"}}</strong></p>
+                                    </div>
+                                </div>
+                            </a></td>
+                        <td *ngIf="exception.actionedBy">{{exception.approverName}} ({{exception.actionedBy}})</td>
+                        <td *ngIf="!exception.actionedBy">--</td>
+                        <td>{{(exception.decision) ? (exception.decision) : "--"}}</td>
+                        <td class="">
+                            <div *ngIf="(exception.actionReason || exception.actionComment)">
+                                <a class="link-txt pos-relative" attr.action-id="{{dataIdConstantsService.exception_link_approvalHistory_viewDetails}}{{exception?.exceptionType}}" href="javascript:void(0);">{{'common.VIEW_DETAILS' | localizationPipe : localizationService.localizedkeySet.size}}
+                                    <div class="exp-tooltip txt-block">
+                                        <div class="text-block">
+                                            <div class="title">{{'common.REASON_CODE' | localizationPipe : localizationService.localizedkeySet.size}}</div>
+                                            <p><strong>{{(exception.actionReason) ? (exception.actionReason) :
+                                                    "-"}}</strong></p>
+                                        </div>
+                                        <div class="text-block">
+                                            <div class="title">{{'common.JUSTIFICATION' | localizationPipe : localizationService.localizedkeySet.size}}</div>
+                                            <p><strong>{{(exception.actionComment) ? (exception.actionComment) :
+                                                    "-"}}</strong></p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div *ngIf="!(exception.actionReason || exception.actionComment)">-</div>
+                        </td>
+                        <td class="">
+                            <div
+                                *ngIf="(exception.requestedAt || exception.actionedAt || exception.approverAssignedAt) && exception.cycleTimeStr">
+                                <a class="link-txt pos-relative" attr.action-id="{{dataIdConstantsService.exception_link_approvalHistory_cycleTime}}{{exception?.exceptionType}}" href="javascript:void(0);">{{exception.cycleTimeStr}}
+                                    <div class="exp-tooltip text-block time-block">
+                                        <div class="text-block">
+                                            <div class="title">{{'common.REQUESTED_AT' | localizationPipe : localizationService.localizedkeySet.size}}</div>
+                                            <p *ngIf="exception?.requestedAt"><strong>{{exception?.requestedAt |
+                                                    date:"dd-MMM-yyyy"}},
+                                                    {{exception?.requestedAt | date:"HH:mm aa"}}</strong></p>
+                                            <p *ngIf="!exception?.requestedAt">-</p>
+                                        </div>
+                                        <div class="text-block">
+                                            <div class="title">{{'common.WORKED_AT' | localizationPipe : localizationService.localizedkeySet.size}}</div>
+                                            <p *ngIf="exception?.approverAssignedAt">
+                                                <strong>{{exception?.approverAssignedAt |
+                                                    date:"dd-MMM-yyyy"}}, {{exception?.approverAssignedAt | date:"HH:mm
+                                                    aa"}}</strong></p>
+                                            <p *ngIf="!exception?.approverAssignedAt">-</p>
+                                        </div>
+                                        <div class="text-block">
+                                            <div class="title">{{'common.COMPLETED_AT' | localizationPipe : localizationService.localizedkeySet.size}}</div>
+                                            <p *ngIf="exception?.actionedAt"><strong>{{exception?.actionedAt |
+                                                    date:"dd-MMM-yyyy"}},
+                                                    {{exception?.actionedAt | date:"HH:mm aa"}}</strong></p>
+                                            <p *ngIf="!exception?.actionedAt">-</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div *ngIf="!(exception.requestedAt || exception.actionedAt) || !exception.cycleTimeStr">
+                                {{(exception.cycleTimeStr)
+                                ? (exception.cycleTimeStr) : '-'}}</div>
+                        </td>
+                    </tr>
+                </tbody>
+                <!-- end of approval history -->
+            </table>
+        </div>
+    </div>
+</div>

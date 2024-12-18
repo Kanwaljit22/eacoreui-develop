@@ -1,0 +1,9 @@
+<div class="ag-cell-label-container" role="presentation">
+    <div ref="eLabel" class="ag-header-cell-label" role="presentation">
+        <span ref="eText" class="ag-header-cell-text" role="columnheader">{{params.displayName}}
+        </span>
+        <span class="ml-4" *ngIf="((proposalStoreService.proposalData?.renewalInfo?.id && priceEstimateStoreService.selectedEnrollment?.migration) || (proposalStoreService.proposalData?.dealInfo?.subscriptionUpgradeDeal && priceEstimateStoreService.selectedEnrollment?.enrolled)) && proposalStoreService.proposalData.status !== 'COMPLETE' && !priceEstimateStoreService.viewAllSelected && !(priceEstimateStoreService.selectedEnrollment.id === 4 || priceEstimateStoreService.selectedEnrollment.id === 6)">
+            <button class="btn btn-secondary" attr.action-id="{{dataIdConstantsService.pe_button_reProcessIb}}" (click)="reProcessIb()"><span class="i-vNext-scanning mr-2"></span>{{'common.REFRESH_CONSUMPTION_LABEL' | localizationPipe : localizationService.localizedkeySet.size}}</button>
+        </span>
+    </div>
+</div>

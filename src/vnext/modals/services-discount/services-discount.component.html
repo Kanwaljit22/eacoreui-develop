@@ -1,0 +1,85 @@
+<div class="modal-body vNext modal-without-header">
+    <button class="icon-close-btn" (click)="close()" attr.action-id="{{dataIdConstantsService.servicesDiscount_button_close}}" type="button"></button>
+
+    <h2>{{localizationService.getLocalizedString('common.CHANGE_SUITE_DISCOUNT')}}</h2> 
+</div>
+<div class="modal-body vNext modal-without-header">
+    
+    <!-- <div class="col-12 d-flex mb-3" *ngFor="let discount of discountArr; let last = last;" [class.disable]="last">
+        <div class="w-81 vNext-rageSlider">
+            <h6 class="card-title heading--h6 mb-1">{{discount.name}}</h6>
+            <span class="noteText pull-right">Values are in Percentages</span>
+            <ngx-slider [(value)]="discount.value" [options]="discount.options" (userChangeEnd)="sliderChange(discount.value, discount)">
+            </ngx-slider>
+        </div>
+
+        <div class="w-19">
+            <div class="form-group mt-0">
+                <h6 class="form-label mb-1">Selected Value</h6>
+                <input type="text" appelementfocus="" class="form-control" 
+                    [value]="discount.value" (blur)="updateDiscount($event, discount)" (keyup)='inputValueChange($event, discount)'>
+            </div>
+        </div>
+    </div> -->
+
+    <div class="row">
+        <div class="col">
+          <div class="scroll-table">
+            <table class="table primary-table">
+              <thead>
+                <tr>
+                  <th>{{localizationService.getLocalizedString('services-discount.SUPPORT_TYPE')}}</th>
+                  <th width="350px">{{localizationService.getLocalizedString('common.DISCOUNT')}} (%)</th>
+                  <th width="130px" class="text-right">{{localizationService.getLocalizedString('common.SELECTED_VALUE')}}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-container *ngFor="let suiteDiscount of cxSuiteDiscounts; let index = index;">
+                  <tr class="table-sub-row">
+                    <td>
+                      <span class="expCol-wrap mr-2">
+                        <ng-container *ngIf="suiteDiscount.minorRow">
+                          <span class="i-vNext-tree-open" *ngIf="!suiteDiscount.expand && displayHWSupportOption" (click)="suiteDiscount.expand = true;" attr.action-id="{{dataIdConstantsService.servicesDiscount_icon_expand}}{{index}}"></span>
+                          <span class="i-vNext-tree-close" *ngIf="suiteDiscount.expand && displayHWSupportOption" (click)="suiteDiscount.expand = false;" attr.action-id="{{dataIdConstantsService.servicesDiscount_icon_collapse}}{{index}}"></span>
+                        </ng-container>
+                      </span> 
+                      <span>{{suiteDiscount.name}}</span>
+                    </td>
+                    <td style="padding: 5px 40px;">
+                        <div class="vNext-rageSlider vNext-rageSlider-minmax mb-4 px-0">
+                          <ngx-slider [(value)]="suiteDiscount.minDiscount" [minLimit]="suiteDiscount.minDiscount" [(highValue)]="suiteDiscount.selectedValue" [options]="suiteDiscount.options"
+                          (userChangeEnd)="sliderChange($event, suiteDiscount)"></ngx-slider>
+                        </div>
+                    </td>
+                    <td class="text-right">
+                      <input type="text" [value]="suiteDiscount.selectedValue" class="form-control text-right" (blur)='checkMinValue($event,suiteDiscount)' (keyup)='inputValueChange($event,suiteDiscount)' attr.data-id="{{dataIdConstantsService.servicesDiscount_text_suiteDiscountValue}}{{index}}"/>
+                    </td>
+                  </tr>
+                  <ng-container *ngIf="suiteDiscount.expand">
+                    <tr class="table-sub-row level-2" *ngFor="let minorRow of suiteDiscount.minorRow; let minorRowIndex = index;">
+                      <td>{{minorRow.name}}</td>
+                      <td style="padding: 5px 40px;">
+                        <div class="vNext-rageSlider vNext-rageSlider-minmax mb-4 px-0">
+                          <ngx-slider [(value)]="minorRow.minDiscount" [minLimit]="minorRow.minDiscount" [(highValue)]="minorRow.selectedValue" [options]="minorRow.options"
+                            (userChangeEnd)="sliderChange($event, minorRow)"></ngx-slider>
+                        </div>
+                      </td>
+                      <td class="text-right"> 
+                        <input type="text" [value]="minorRow.selectedValue" class="form-control text-right" (blur)='checkMinValue($event,minorRow)' (keyup)='inputValueChange($event,minorRow)' attr.data-id="{{dataIdConstantsService.servicesDiscount_text_minorRowDiscountValue}}{{minorRowIndex}}"/>
+                      </td>
+                    </tr>
+                  </ng-container>
+                </ng-container>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+
+</div>
+
+<div class="text-center d-block pb-4 paddingT10 vNext">
+    <button class="btn btn-secondary" type="button" (click)="close()" attr.action-id="{{dataIdConstantsService.servicesDiscount_button_cancel}}" id="{{elementIdConstantsService.ServicesDiscount_Cancel}}">{{localizationService.getLocalizedString('common.CANCEL')}}</button>
+    <button class="btn btn-primary ml-2" type="button" (click) = "applyDiscount()" attr.action-id="{{dataIdConstantsService.servicesDiscount_button_apply}}" [disabled]="!numberOfValueUpdated" id="{{elementIdConstantsService.ServicesDiscount_Apply}}">{{localizationService.getLocalizedString('common.APPLY')}}</button>
+</div>

@@ -1,0 +1,561 @@
+<div class="clearfix"></div>
+
+<div *ngIf='displayHTML' class="float-left w-100">
+    <div *ngIf="appDataService.userDashboardFLow === 'userFlow' && !partnerCreateFlow">
+        <app-sub-header></app-sub-header>
+
+        <!--Begin Filter Section-->
+        <div class="container-fluid" id="filter-area" *ngIf="appDataService.userDashboardFLow === appDataService.CONSTANT_USER_DASHBOARD_FLOW" (clickOutside)="onClickedOutside($event)">
+            <div class="row">
+                <div class="col-6">
+                    <div class="searchbar">
+                        <input [id]='appDataService.createUniqueId("QUAL_SEARCH",appDataService.pageContext)' class="form-control" id="searchQualBy" maxlength="65" name="searchQualBy" [(ngModel)]="searchQualBy" type="text" required appElementFocus />
+                        <label class="form-control-placeholder" for="searchQualBy" (click)="focusDealIdInput(appDataService.createUniqueId('QUAL_SEARCH',appDataService.pageContext))">{{localeService.getLocalizedString('qual.create.QUAL_SEARCH')}}
+                <i class="icon-search"></i>
+            </label>
+
+                    </div>
+                </div>
+                <div class="tiles-toggle col-6">
+                    <div class="tiles-toggle-txt">I want to view Qualifications</div>
+                    <div class="dropdown select-dropdown" (clickOutside)="onViewDrop($event)">
+                        <button class="dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" (click)="openQualDrop = !openQualDrop"><span>{{selectedQualView}}.</span><i class="icon-arrow-stroke-right"></i>
+               </button>
+                        <div class="dropdown-menu" *ngIf="openQualDrop">
+                            <a class="dropdown-item" href="javascript:void(0)" [ngClass]="{'active': selectedQualView === a}" *ngFor="let a of QualViewoptions" (click)="selectQual(a)">{{a}}<span class="icon-tick"></span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--End Filter Section-->
+
+
+        <div class="container-fluid">
+            <message></message>
+            <div class="main-block-wrapper">
+                <div class="row align-items-center">
+                    <div class="col-xl-9">
+                    </div>
+                    <!-- End of Block Title  -->
+                    <div class="col-xl-12 preloader" style="display:none">
+                        <img src="assets/images/tile-loader.gif" />
+                    </div>
+                    <div class="col-12" *ngIf="!displayGridView">
+                        <app-qual-list [qualData]="qualData" [searchQual]="searchQualBy" [changedData]="qualData.data"></app-qual-list>
+                    </div>
+                    <span *ngIf="displayGridView" style="width: 100%; height: 100vh;">
+            <ag-grid-angular #agGrid id="ag-grid" style="width: 100%; height: 100%;" appTableHeight class="ag-fresh" (gridReady)="onGridReady($event)"
+            [gridOptions]="gridOptions" [columnDefs]="columnDefs" [rowData]="rowData"
+           enableColResize enableSorting enableFilter groupHeaders suppressRowClickSelection toolPanelSuppressGroups toolPanelSuppressValues (cellMouseOver)="utilitiesService.onCellMouseOver($event, 1)"
+           debug rowHeight="30" (cellClicked)="onCellClicked($event)"> 
+           </ag-grid-angular>
+        </span>
+                    <!-- End of 1st Row -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- End of Conatiner Fluid -->
+
+    <!-- <div class="clearfix"></div> -->
+    <app-sub-header *ngIf="appDataService.userDashboardFLow !== 'userFlow'"></app-sub-header>
+
+
+    <div *ngIf="appDataService.userDashboardFLow !== 'userFlow'" id="filter-area" [ngClass]="{'p-0': !showQualList}">
+        <div class="container-fluid">
+            <message *ngIf="!createQualification && !partnerLedFlow"></message>
+            <div class="row align-items-center" *ngIf="!createQualification && !partnerLedFlow && !isSubUiFlow">
+                <div class="col-md-5">
+                    <h2>{{localeService.getLocalizedString('qual.create.CUST_OVERVIEW')}}</h2>
+                </div>
+
+                <div class="col-md-7">
+                    <ul class="qualify-btn">
+                        <li (click)="goToSummary()">
+                            <button [id]="appDataService.createUniqueId('VIEW_IB_SUMM',appDataService.pageContext)" type="button" class="btn btn-secondary">{{localeService.getLocalizedString('common.VIEW_IB_SUMM')}}</button>
+                        </li>
+                        <li (click)="goToBookingSummary()">
+                            <button [id]="appDataService.createUniqueId('VIEW_BOOKING_SUMM',appDataService.pageContext)" type="button" class="btn btn-secondary">{{localeService.getLocalizedString('common.VIEW_BOOKING_SUMM')}}</button>
+                        </li>
+                        <li (click)="goToProspect()">
+                            <button [id]="appDataService.createUniqueId('VIEW_PROSPECT_DETAILS',appDataService.pageContext)" type="button" class="btn btn-primary">{{localeService.getLocalizedString('common.VIEW_PROSPECT_DETAILS')}}</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row align-items-center" *ngIf="!createQualification && partnerLedFlow && !partnerLandingFlow">
+                <div class="col-md-5">
+                    <h2> {{localeService.getLocalizedString('qual.create.QUAL_FOR_DEAL')}}</h2>
+                </div>
+                <message *ngIf="isDisableCreate"></message>
+                <div class="col-md-7" *ngIf="!isDisableCreate">
+                    <ul class="qualify-btn">
+                        <div class="create-new">
+                            <button [id]="appDataService.createUniqueId('CREATE_NEW',appDataService.pageContext)" class="btn btn-primary btn-sm" type="button" (click)="createNewMyDeals()">{{localeService.getLocalizedString('qual.create.CREATE_NEW')}}</button>
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="filter-area" [ngClass]="createQualification ? 'container-fluid': ''" *ngIf="showCreateQual && this.qualService.isShowDealLookUp">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <h2 *ngIf="createQualification">{{localeService.getLocalizedString('qual.create.CREATE_NEW_QUAL')}}</h2>
+            </div>
+            <div class="col-md-4">
+                <ul class="qualify-btn">
+                    <!-- <li class="back">
+                        <button [id]="appDataService.createUniqueId('OPEN_VNEXT',appDataService.pageContext)" type="button" class="btn btn-secondary" (click)="openVnext()">{{localeService.getLocalizedString('common.VNEXT')}}</button>
+                    </li>  -->
+                    <li class="back">
+                        <button [id]="appDataService.createUniqueId('CANCEL',appDataService.pageContext)" type="button" class="btn btn-secondary" *ngIf="createQualification" (click)="cancel()">{{localeService.getLocalizedString('common.CANCEL')}}</button>
+                    </li>
+                    <li class="saveConfirm" (click)="createQual()" *ngIf="createQualification && !isChangeSubSelected">
+                        <button [id]="appDataService.createUniqueId('CREATE',appDataService.pageContext)" type="button" [disabled]="!resultMatch || isQualNameInvalid" class="btn btn-primary">{{localeService.getLocalizedString('common.CREATE')}}</button>
+                    </li>
+                    <li class="saveConfirm" (click)="continueWithSubId()" *ngIf="createQualification && isChangeSubSelected">
+                        <button [id]="appDataService.createUniqueId('CANCEL',appDataService.pageContext)" type="button" [disabled]="!isSubIdSelected || qualService.disabledContinueButton" class="btn btn-primary">{{localeService.getLocalizedString('common.CONTINUE')}}</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="filter-area" class="white-bg no-border" *ngIf="showQualList">
+        <div class="container-fluid">
+            <!-- Code below is commented for future work -->
+
+            <!-- Subscription Section 1-->
+            <!-- <div class="row clearfix">
+              <div class="col-xs-12 col-sm-8 col-md-12 marginT20">
+              <div class="row">
+                <div class="col-xs-12 col-sm-8 col-md-12">
+                  <div class="detail-section">
+                  <div class="subscription-block">
+                <span class="subscription-id">Subscription Id</span><span class="subscription-num">348754582</span>
+                <span class="badge badge-success marginL10 floatL">Success</span>
+                <div class="clearfix"></div>
+              </div>
+              <div class="account-block">
+                  <ul>
+                    <li><span class="head">ACCOUNT NAME</span><span class="value">Adobe System Inc.</span></li>
+                    <li><span class="head">ARCHITECTURES</span><span class="value">Cisco One, Security, <span class="more-items">1 more</span></span></li>
+                    <li><span class="head">SUITES</span><span class="value">Access Switching, <span class="more-items">7 more</span></span></li>
+                    <li><span class="head">START DATE</span><span class="value">Jul 1, 2018</span></li>
+                    <li><span class="head">END DATE</span><span class="value">Jul 1, 2021</span></li>
+                  </ul>
+     
+                 </div>
+                 <div class="recommend-block">
+                 <a href="javascript:void(0);">Hide Recommendations</a>
+                 <div class="clearfix"></div>
+                 <div class="recommend-list">
+                   <ul>
+                     <li><i></i><div class="recommend-info"><span class="head">1/3 Active Architectures</span><span class="value">Initiate qual. with Security
+                        architecture</span></div><div class="initate-box marginL10"><button class="btn btn-secondary" type="button">Initiate</button></div></li>
+                        <li><i></i><div class="recommend-info"><span class="head">1/3 Active Architectures</span><span class="value">Initiate qual. with Collaboration
+                          architectures</span></div><div class="initate-box marginL10"><button class="btn btn-secondary" type="button">Initiate</button></div></li>
+                            <li><i></i><div class="recommend-info"><span class="head">2/5 ActiveSuites</span><span class="value">Initiate qual. with 3 additional
+                              suites</span></div><div class="initate-box marginL10"><button class="btn btn-secondary" type="button">Initiate</button></div></li>
+                                <li><i></i><div class="recommend-info"><span class="head">1/3 Active Architectures</span><span class="value">Initiate qual. with Security
+                                    architecture</span></div><div class="initate-box marginL10"><button class="btn btn-secondary" type="button">Initiate</button></div></li>
+                                    <li><i></i><div class="recommend-info"><span class="head">1/3 Active Architectures</span><span class="value">Initiate qual. with Security
+                                        architecture</span></div><div class="initate-box marginL10"><button class="btn btn-secondary" type="button">Initiate</button></div></li>
+                                        <li><i></i><div class="recommend-info"><span class="head">1/3 Active Architectures</span><span class="value">Initiate qual. with Security
+                                            architecture</span></div><div class="initate-box marginL10"><button class="btn btn-secondary" type="button">Initiate</button></div></li>
+                   </ul>
+                 </div>
+                 <div class="clearfix"></div>
+                 </div>
+                 </div>
+                </div>
+              </div>
+              
+              
+              </div>
+                  </div> -->
+            <!-- Subscription Section 1 ends-->
+
+
+            <!-- Subscription Section 2-->
+            <!-- <div class="row clearfix">
+        <div class="col-xs-12 col-sm-8 col-md-12 marginT20">
+        <div class="row">
+          <div class="col-xs-12 col-sm-8 col-md-12">
+            <div class="detail-section">
+            <div class="subscription-block">
+          <span class="subscription-id">Subscription Id</span><span class="subscription-num">348754582</span>
+          <span class="badge badge-success marginL10 floatL">Success</span>
+          <div class="clearfix"></div>
+        </div>
+        <div class="account-block">
+            <ul>
+              <li><span class="head">ACCOUNT NAME</span><span class="value">Adobe System Inc.</span></li>
+              <li><span class="head">ARCHITECTURES</span><span class="value">Cisco One, Security, <span class="more-items">1 more</span></span></li>
+              <li><span class="head">SUITES</span><span class="value">Access Switching, <span class="more-items">7 more</span></span></li>
+              <li><span class="head">START DATE</span><span class="value">Jul 1, 2018</span></li>
+              <li><span class="head">END DATE</span><span class="value">Jul 1, 2021</span></li>
+            </ul>
+  
+           </div>
+           <div class="recommend-block">
+           <a href="javascript:void(0);">Show Recommendations</a>
+           <div class="clearfix"></div>
+           <div class="recommend-list" style="display: none;">
+             <ul>
+               <li><i></i><div class="recommend-info"><span class="head">1/3 Active Architectures</span><span class="value">Initiate qual. with Security
+                  architecture</span></div><div class="initate-box marginL10"><button class="btn btn-secondary" type="button">Initiate</button></div></li>
+                  <li><i></i><div class="recommend-info"><span class="head">1/3 Active Architectures</span><span class="value">Initiate qual. with Collaboration
+                    architectures</span></div><div class="initate-box marginL10"><button class="btn btn-secondary" type="button">Initiate</button></div></li>
+                      <li><i></i><div class="recommend-info"><span class="head">2/5 ActiveSuites</span><span class="value">Initiate qual. with 3 additional
+                        suites</span></div><div class="initate-box marginL10"><button class="btn btn-secondary" type="button">Initiate</button></div></li>
+                          <li><i></i><div class="recommend-info"><span class="head">1/3 Active Architectures</span><span class="value">Initiate qual. with Security
+                              architecture</span></div><div class="initate-box marginL10"><button class="btn btn-secondary" type="button">Initiate</button></div></li>
+                              <li><i></i><div class="recommend-info"><span class="head">1/3 Active Architectures</span><span class="value">Initiate qual. with Security
+                                  architecture</span></div><div class="initate-box marginL10"><button class="btn btn-secondary" type="button">Initiate</button></div></li>
+                                  <li><i></i><div class="recommend-info"><span class="head">1/3 Active Architectures</span><span class="value">Initiate qual. with Security
+                                      architecture</span></div><div class="initate-box marginL10"><button class="btn btn-secondary" type="button">Initiate</button></div></li>
+             </ul>
+           </div>
+           <div class="clearfix"></div>
+           </div>
+           </div>
+          </div>
+        </div>
+        
+        
+        </div>
+            </div> -->
+            <!-- Subscription Section 2 ends -->
+
+            <!-- Sub Heading 2-->
+            <div class="row clearfix" *ngIf="!partnerLedFlow">
+                <div class="col-12">
+                    <message></message>
+                    <div class="sub-heaing">
+                        <h3 class="qual-sub-heading">{{localeService.getLocalizedString('qual.create.QUALIFICATIONS')}}</h3>
+                        <div class="create-new">
+                            <button [id]="appDataService.createUniqueId('CREATE_NEW',appDataService.pageContext)" class="btn btn-primary btn-sm" type="button" (click)="createNew()">{{localeService.getLocalizedString('qual.create.CREATE_NEW')}}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Sub Heading 2 ends-->
+            <div class="row clearfix">
+                <div class="col-md-12">
+                    <div class="viewn-n-create with-search" style="overflow: visible;">
+                        <div class="view-box" *ngIf="!partnerLedFlow">
+                            <label>{{localeService.getLocalizedString('qual.create.VIEW_BY')}}</label>
+                            <div class="btn-group view-by" role="group" aria-label="Basic example">
+                                <button type="button" class="btn btn-secondary active">{{localeService.getLocalizedString('qual.create.ACTIVE')}}</button>
+                                <button type="button" class="btn btn-secondary">{{localeService.getLocalizedString('qual.create.CLOSED')}}</button>
+                            </div>
+                        </div>
+
+                        <div class="row align-items-center justify-content-between">
+                            <div class="col-6">
+                                <div class="searchbar">
+                                    <input [id]='appDataService.createUniqueId("QUAL_SEARCH",appDataService.pageContext)' class="form-control" id="searchQualBy" maxlength="65" name="searchQualBy" [(ngModel)]="searchQualBy" type="text" required appElementFocus />
+                                    <label class="form-control-placeholder" for="searchQualBy" (click)="focusDealIdInput(appDataService.createUniqueId('QUAL_SEARCH',appDataService.pageContext))">{{localeService.getLocalizedString('qual.create.QUAL_SEARCH')}}
+                                   <i class="icon-search"></i>
+                               </label>
+
+                                </div>
+                            </div>
+                            <div class="tiles-toggle pr-3">
+                                <div class="tiles-toggle-txt">I want to view Qualifications</div>
+                                <div class="dropdown select-dropdown" (clickOutside)="onViewDrop($event)">
+                                    <button class="dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" (click)="openQualDrop = !openQualDrop"><span>{{selectedQualView}}.</span><i class="icon-arrow-stroke-right"></i>
+                                  </button>
+                                    <div class="dropdown-menu" *ngIf="openQualDrop">
+                                        <a class="dropdown-item" href="javascript:void(0)" [ngClass]="{'active': selectedQualView === a}" *ngFor="let a of QualViewoptions" (click)="selectQual(a)">{{a}}<span class="icon-tick"></span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Qualification Sections -->
+
+            <div class="row clearfix marginB20">
+                <div class="col-md-12">
+                <app-qual-list *ngIf="!displayGridView" [qualData]="qualData" [searchQual]="searchQualBy" [changedData]="qualData.data"></app-qual-list>
+                <div class="marginB20"></div>
+                <span *ngIf="displayGridView" style="width: 100%; height: 100vh;">
+                <ag-grid-angular #agGrid id="ag-grid" style="width: 100%; height: 100%;" appTableHeight class="ag-fresh" (gridReady)="onGridReady($event)"
+                    [gridOptions]="gridOptions" [columnDefs]="columnDefs" [rowData]="rowData"
+                   enableColResize enableSorting enableFilter groupHeaders suppressRowClickSelection toolPanelSuppressGroups toolPanelSuppressValues (cellMouseOver)="utilitiesService.onCellMouseOver($event, 1)"
+                   debug rowHeight="30" (cellClicked)="onCellClicked($event)"> 
+                </ag-grid-angular>
+            </span>
+        </div>
+            </div>
+            </div>
+        </div>
+    </div>
+    <div class="marginB20 w-100 float-left"></div>
+    
+    <div *ngIf="showCreateQual">
+        <div class="blank-state" *ngIf="!createQualification">
+            <div class="main-content-heading">
+                <h1>{{localeService.getLocalizedString('qual.create.EXISTING_AGREEMENTS')}}</h1>
+            </div>
+            <h1 class="mt-5" style="float: left; width: 100%">{{localeService.getLocalizedString('qual.create.NO_ACTIVE_AGREEMENTS')}}</h1>
+            <p *ngIf="!partnerLedFlow">{{localeService.getLocalizedString('qual.create.CREATE_VALIDATE_QUAL_MESSAGE')}}</p>
+            <button type="button" class="btn btn-primary" (click)="createNew()" *ngIf="!partnerLedFlow">{{localeService.getLocalizedString('qual.create.CREATE_NEW_QUAL')}}</button>
+            <button class="btn btn-primary" type="button" (click)="createNewMyDeals()" *ngIf="partnerLedFlow && qualService.changeSubscriptionDeal" style="margin-top: 6px;">{{localeService.getLocalizedString('qual.create.CREATE_NEW_QUAL')}}</button>
+        </div>
+    </div>
+    <section class="create-new_qualification" *ngIf="partnerLedFlow && createQualification && this.qualService.isShowDealLookUp">
+        <div class="container-fluid">
+            <div class="mt-3 mb-3">
+                <app-ea-purchases></app-ea-purchases>
+            </div>
+            <app-letter-of-cc [hidden]="(isGreenfiled || isBrownField) && !this.qualService.qualification?.loaSigned"></app-letter-of-cc>
+        </div>
+    </section>
+    <div *ngIf="appDataService.userDashboardFLow !== 'userFlow'" class="container-fluid clearfix">
+        <!-- start of response messages from api to get existing subs -->
+        <message *ngIf="isChangeSubSelected"></message> 
+        <!-- end of response messages from api to get existing subs -->
+        <!-- start of radio button selection for cisco led flow to select look up deal and change sub -->
+        <div *ngIf="createQualification && !partnerLedFlow && !isSubUiFlow && appDataService.displayChangeSub && (!appDataService.changeSubInLimitedMode || appDataService.allowChangSub)" class="pb-2">
+            <div class="alert alert--info dismissible" *ngIf="isChangeSubSelected">
+                <span class="alert-icon">
+                  <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                </span>
+                <span class="txt">Please make sure to first select the Smart Account using the menu above to view your customer's active Cisco EA subscription(s). </span>
+              </div>
+              <div class="marginB20 w-100 float-left"></div>
+            <div>Please Select an Option:
+                <div class="row">
+                <div class="col-12">
+                    <div class="input-group">
+                        <div class="radio-wrapper radio-custom mr-4">
+                            <input type="radio" name="authorization" value="changeSub" [checked]="isChangeSubSelected"
+                                (change)="selectDealLookUp($event)">
+                            <label>
+                                <span class='custom-radio-btn'>
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                </span>
+                                <span>Change an existing Cisco EA subscription</span>
+                            </label>
+                        </div>
+                        <div class="radio-wrapper radio-custom mr-4">
+                            <input type="radio" [checked]="!isChangeSubSelected" name="authorization" value="lookup"
+                                (change)="selectDealLookUp($event)">
+                            <label>
+                                <span class='custom-radio-btn'>
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                </span>
+                                <span>Create a new Cisco EA subscription</span>
+                            </label>
+                        </div>
+                    
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+
+        <!-- Info message to be shown after user selects subId -->
+        <div class="alert alert--info" *ngIf="!partnerLedFlow && createQualification && isSubIdSelected">
+            <i class="arrow up"></i>
+            <span class="alert-icon">
+            <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+            </span>
+            <span class="infoTxt">{{localeService.getLocalizedString('qual.change.subscription.ACCESS_MSG')}}</span>
+        </div>
+
+        <!-- Info message to show if data loaded but subscriptions are not present -->
+        <!-- <div class="alert alert--info" *ngIf="!partnerLedFlow && createQualification && isChangeSubSelected && subscriptionList.length === 0 && issubscriptionDataLoaded">
+            <i class="arrow up"></i>
+            <span class="alert-icon">
+            <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+            </span>
+            <span class="infoTxt">No eligible active subscription found for {{appDataService.customerName}}</span>
+        </div> -->
+        <!-- End of radio button selection for cisco led flow to select look up deal and change sub -->
+
+        <!-- locc message for cisco led with partner deal if locc not signed or nor initiated yet  -->
+        <div class="alert alert--warning" *ngIf="createQualification && this.qualService.isShowDealLookUp && resultFound && showLoccMsg && isProspectFound">
+            <i class="arrow up"></i>
+            <span class="alert-icon">
+            <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+            </span>
+            <span class="infoTxt">{{localeService.getLocalizedMessage('partner.LOA_LETTER_OF_AUTHORIZATION')}}{{localeService.getLocalizedMessage('partner.LOA_CISCO_LED_MESSAGE')}}</span>
+        </div>
+        <!-- No Locc Required Message for Greenfield Customers -->
+        <div class="alert alert--info" *ngIf="partnerLedFlow && createQualification && this.qualService.isShowDealLookUp && isGreenfiled && !isBrownField  && !this.qualService.qualification?.loaSigned">
+            <i class="arrow up"></i>
+            <span class="alert-icon">
+            <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+            </span>
+            <span class="infoTxt">{{localeService.getLocalizedMessage('partner.LOCC_NOT_REQUIRED_GREENFIELD')}}</span>
+        </div>
+        <div class="alert alert-info" *ngIf="partnerLedFlow && createQualification && this.qualService.isShowDealLookUp && !isGreenfiled && isBrownField && !this.qualService.qualification?.loaSigned">
+            <i class="arrow up"></i>
+            <span class="icon-msg-Info"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+            <span class="infoTxt">{{localeService.getLocalizedMessage('partner.LOCC_NOT_REQUIRED_BROWNFIELD')}}</span>
+        </div>
+        <!-- end of locc message -->
+        <!-- show no prospects found message -->
+        <div *ngIf="!partnerLedFlow && createQualification && this.qualService.isShowDealLookUp && resultFound && !isProspectFound && !isSubUiFlow" class="alert alert--danger alert-dismissable clearfix">
+            <span class="alert-icon">
+            <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span></span>
+            </span>
+            <span>{{localeService.getLocalizedString('deal.NO_PROSPECTS_FOUND')}}</span>
+        </div>
+        <!-- end of no prospects found message -->
+        <div *ngIf="createQualification && this.qualService.isShowDealLookUp && !isChangeSubSelected">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <h3 class="card-header" *ngIf="partnerLedFlow || isPartnerDeal">{{localeService.getLocalizedString('qual.create.DEAL')}}</h3>
+                        <h3 class="card-header" *ngIf="!partnerLedFlow && !isPartnerDeal">{{localeService.getLocalizedString('qual.create.OPPORTUNITY')}}</h3>
+                        <div class="card-body">
+                            <div>
+                                <div class="d-flex align-items-center" [ngClass]="{'error': errorDealID}" *ngIf="!partnerLedFlow">
+                                    <div class="flex-grow-1 pr-4 form-group m-0">
+                                        <label class="customer-label" for="qualEADealId" (click)="focusDealIdInput(appDataService.createUniqueId('qualEADealId',appDataService.pageContext))">{{localeService.getLocalizedString('qual.create.DEAL')}}
+                                    {{localeService.getLocalizedString('qual.create.ID')}}
+                                    <span class="import">*</span></label>
+                                        <input appElementFocus class="form-control" (keyup.enter)="showLookup(qualEADealId)" id="qualEADealId" (ngModelChange)="updateDealLookUpID()" [(ngModel)]="qualEADealId" name="qualEADealId" required="" type="text" [disabled]="isSubUiFlow">
+                                        <span class="validate" style="display:none;">{{localeService.getLocalizedString('qual.create.VALIDATION')}}</span>
+                                    </div>
+                                    <span class="validate">
+                                    <button [id]="appDataService.createUniqueId('LOOKUP',appDataService.pageContext)"
+                                        type="button" [disabled]="!qualEADealId || isSubUiFlow" class="btn btn-secondary" (click)="showLookup(qualEADealId)">{{localeService.getLocalizedString('qual.create.LOOKUP')}}</button>
+                                </span>
+                                </div>
+                                <div class="form-group mt-0 pt-0" *ngIf="partnerLedFlow">
+                                    <label class="placeholder-readonly mb-0" for="qualEADealId" (click)="focusDealIdInput(appDataService.createUniqueId('qualEADealId',appDataService.pageContext))">{{localeService.getLocalizedString('qual.create.DEAL')}}
+                                    {{localeService.getLocalizedString('qual.create.ID')}}
+                                    <span class="import">*</span>
+                                </label>
+                                    <div>
+                                        <span class="value-readonly">
+                                        {{qualEADealId}}
+                                    </span>
+                                    </div>
+                                </div>
+
+
+                                <div>
+                                    <div class="alert alert--success dealId-alert mt-2" role="alert" *ngIf="resultMatch && resultFound">
+                                        <span class="alert-icon">
+                                        <span class="icon-done1"><span class="path1"></span><span class="path2"></span></span>
+                                        </span>
+                                        <span id="VALIDATED_DEAL_MSG">{{localeService.getLocalizedString('qual.create.DEAL')}}
+                                        {{localeService.getLocalizedString('qual.create.ID')}} {{qualEADealId}}
+                                        {{localeService.getLocalizedString('qual.create.VALIDATED_DEAL')}}</span>
+                                    </div>
+                                    <message *ngIf="errorDealID && !partnerLedFlow"></message>
+                                </div>
+                                <div class="qualEAQualificationNameResult" [ngClass]="{'activeDeal': resultMatch}" *ngIf="resultFound">
+                                    <table class="primary-table table-custom-border">
+                                        <thead>
+                                            <tr>
+                                                <th width="10%">{{localeService.getLocalizedString('qual.create.DEAL')}} {{localeService.getLocalizedString('qual.create.ID')}}
+                                                </th>
+                                                <th width="20%" *ngIf="!partnerLedFlow && !isPartnerDeal">{{localeService.getLocalizedString('qual.create.OPPORTUNITY')}} Name
+                                                </th>
+                                                <th width="20%" *ngIf="partnerLedFlow || isPartnerDeal">{{localeService.getLocalizedString('qual.create.DEAL')}} Name
+                                                </th>
+                                                <th width="23%">{{localeService.getLocalizedString('qual.create.ACCOUNT_NAME')}} & {{localeService.getLocalizedString('qual.create.ADDRESS')}}</th>
+                                                <th width="13%" *ngIf="partnerLedFlow  || isPartnerDeal">{{localeService.getLocalizedString('common.PARTNER_INFO')}}</th>
+                                                <th width="10%" *ngIf="partnerLedFlow  || isPartnerDeal">{{localeService.getLocalizedString('qual.create.DEAL')}} {{localeService.getLocalizedString('common.STATUS')}}</th>
+                                                <th width="15%" *ngIf="!partnerLedFlow && !isPartnerDeal">{{localeService.getLocalizedString('qual.create.STAGE')}}</th>
+                                                <th width="13%">{{localeService.getLocalizedString('qual.create.EXP_BOOK_DATE')}}</th>
+                                                <th width="19%" *ngIf="!partnerLedFlow && !isPartnerDeal">{{localeService.getLocalizedString('qual.create.OPPORTUNITY')}} {{localeService.getLocalizedString('qual.create.OWNER')}}
+                                                </th>
+                                                <th width="16%" *ngIf="partnerLedFlow  || isPartnerDeal">{{localeService.getLocalizedString('qual.create.DEAL')}} {{localeService.getLocalizedString('qual.create.OWNER')}}
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody *ngIf="!partnerLedFlow && !isPartnerDeal">
+                                            <tr>
+                                                <td>{{newQualData.dealId}}</td>
+                                                <td>{{newQualData.optyName}}</td>
+                                                <td>
+                                                    <strong>{{newQualData.accountName}}</strong>
+                                                    <br />{{newQualData.accountAddress}}</td>
+                                                <td>{{newQualData.stage}}</td>
+                                                <td *ngIf='newQualData.bookDate'>{{newQualData.bookDate}}</td>
+                                                <td *ngIf='!newQualData.bookDate'>--</td>
+                                                <td>{{newQualData.optyOwner}}</td>
+                                            </tr>
+                                        </tbody>
+                                        <tbody *ngIf="partnerLedFlow  || isPartnerDeal">
+                                            <tr>
+                                                <td>{{newQualData.dealId}}</td>
+                                                <td>{{newQualData.optyName}}</td>
+                                                <td>
+                                                    <strong>{{newQualData.accountName}}</strong>
+                                                    <br />{{newQualData.accountAddress}}</td>
+                                                <td>{{this.qualService?.qualification?.primaryPartnerName}}</td>
+                                                <td>{{newQualData?.dealStatusDesc}}</td>
+                                                <td *ngIf='newQualData.bookDate'>{{newQualData.bookDate | date:'dd-MMM-yyyy'}}</td>
+                                                <td *ngIf='!newQualData.bookDate'>--</td>
+                                                <td>{{newQualData.optyOwner}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="lookingFor">
+                                        <label class="label-check" style="width: 100%;">
+                                        <input [id]="appDataService.createUniqueId('DEAL_ID_CHECKBOX',appDataService.pageContext)"
+                                            class="form-check-input" type="checkbox" value="" [checked] = 'resultMatch' (change)="matchDealId()" [disabled]="(!partnerLedFlow && !isCustomerMatching) || showLoccMsg || !isProspectFound || isSubUiFlow">
+                                            <span class="custom-checkbox-btn">
+                                                <span class="path1"></span>
+                                                <span class="path2"></span>
+                                            </span>
+                                        <span class="check-text" [id]="appDataService.createUniqueId('DEAL_ID_CHECKBOX_LABEL',appDataService.pageContext)">{{localeService.getLocalizedString('qual.create.ASSOCIATE')}}
+                                            <strong>{{localeService.getLocalizedString('qual.create.DEAL')}}
+                                                {{localeService.getLocalizedString('qual.create.ID')}} </strong>{{localeService.getLocalizedString('qual.create.WITH_QUAL')}} {{localeService.getLocalizedString('qual.create.DEAL_CHANGE')}}</span>
+                                    </label>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="row" *ngIf="resultMatch && resultFound">
+                                    <div class="col-lg-12">
+                                        <div class="form-group txt mt-0">
+                                            <label class="form-control-placeholder mb-0" for="qualEAQualificationName" (click)="focusDealIdInput(appDataService.createUniqueId('qualEAQualificationName',appDataService.pageContext))">{{localeService.getLocalizedString('common.QUALIFICATION')}}
+                                            {{localeService.getLocalizedString('qual.whoinvolved.NAME')}}
+                                            <span class="import">*</span>
+                                        </label>
+                                            <input [id]="appDataService.createUniqueId('qualEAQualificationName',appDataService.pageContext)" class="form-control" maxlength="65" appElementFocus id="qualEAQualificationName" [(ngModel)]="qualEAQualificationName" (ngModelChange)="isQualNameBlank()"
+                                                name="qualEAQualificationName" required="" type="text">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <app-prospect-architectures (routePage)="goToOverview()" (closeDealModal)="customerSwitched()" [prospectDetailsData]="prospectDetails" [matching]="isCustomerMatching" *ngIf="!partnerLedFlow && !isSubUiFlow && resultFound && !showLoccMsg && isProspectFound" [state]="state"
+                        [hidden]="isSwitched"></app-prospect-architectures>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <div style="height:50px;" *ngIf="!isSubUiFlow"></div>
+        </div>
+        <!-- subscription comp to show subscriptions list and look up subscriptions starts -->
+        <!-- load the compoent only if data is loaded and data is present -->
+        <div class="row mx-0" [hidden]="isSubUiFlow && !isSubUiLandingDataLoaded">
+            <div class="col-12 p-0">
+                <app-coterm-subscription *ngIf="(createQualification && !partnerLedFlow && isChangeSubSelected) || isSubUiFlow" (selectedSub)='selectSubscription($event)' (continueWithSlectedSubId)="conntiueWithSubFromLookUp($event)" [createQualPage]='true' [subscriptionList]='subscriptionList' [readOnlyMode] = 'isSubUiFlow'></app-coterm-subscription>
+            </div>
+        </div>
+        <!-- subscription comp to show subscriptions list and look up subscriptions ends -->
+    </div>
+    <div *ngIf="partnerLedFlow && partnerCreateFlow && !this.qualService.isShowDealLookUp">
+        <app-partner-deal-creation></app-partner-deal-creation>
+    </div>

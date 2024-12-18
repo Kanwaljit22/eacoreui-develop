@@ -1,0 +1,48 @@
+[
+    {
+        "qualName": "Cisco EA for Cisco ONE-Adobe-WW-FY18",
+        "state": "In Progress",
+        "innerData": [
+            {
+                "heading": "ACCOUNT NAME",
+                "value": "Adobe System Inc.",
+                "more": ""
+            },
+            {
+                "heading": "DEAL ID",
+                "value": "12345678"
+            },
+            {
+                "heading": "CISCO ACCOUNT MANAGER",
+                "value": "Paul Sorge"
+            },
+            {
+                "heading": "PARTNER",
+                "value": "World Wide Technology"
+            }
+        ]
+    },
+    {
+        "qualName": "Cisco EA for Collab & Security-Adobe-WW-FY18",
+        "state": "In Progress",
+        "innerData": [
+            {
+                "heading": "ACCOUNT NAME",
+                "value": "Adobe System Inc.",
+                "more": ""
+            },
+            {
+                "heading": "DEAL ID",
+                "value": "12345678"
+            },
+            {
+                "heading": "CISCO ACCOUNT MANAGER",
+                "value": "Paul Sorge"
+            },
+            {
+                "heading": "PARTNER",
+                "value": "World Wide Technology"
+            }
+        ]
+    }
+]

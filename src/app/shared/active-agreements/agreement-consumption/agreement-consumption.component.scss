@@ -1,0 +1,27 @@
+.active_agreements.nav-type.b-grey {
+    background-color: #f3f3f3;
+    padding         : 10px 0;
+}
+
+.active_agreements.nav-type {
+    margin: 0 -35px;
+}
+
+.active_agreements {
+    font-size: 16px;
+}
+
+.active_agreements h3 {
+    font-size  : 20px;
+    font-weight: 600;
+}
+
+.globalSwitchWrap {
+    position: absolute;
+    right   : 10px
+}
+
+.active_agreements .globalSwitchWrap {
+    right: -10px;
+    top  : -3px;
+}

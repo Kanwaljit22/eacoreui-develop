@@ -1,0 +1,14 @@
+{
+    "data": [
+      {
+        "id": "",
+        "type": "THREATGRID",
+        "minRange": 100,
+        "maxRange": 9999,
+        "threeYr": 40500,
+        "fiveYr": 67500,
+        "monthly": 67500
+      }
+    ]
+  }
+  

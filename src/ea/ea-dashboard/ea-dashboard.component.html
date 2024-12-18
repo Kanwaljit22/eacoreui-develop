@@ -1,0 +1,100 @@
+<!-- <section class="vNext body-grey-bg">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col graph-tile">
+                <div class="body">
+
+                </div>
+                <footer class="footer">
+                    <h6 class="heading--h6">Proposal Status</h6>
+                </footer>
+            </div>
+
+            <div class="col graph-tile">
+                <div class="body">                    
+                    <div class="graph-progress blue">
+                        <span class="progress-left">
+                            <span class="progress-bar"></span>
+                        </span>
+                        <span class="progress-right">
+                            <span class="progress-bar"></span>
+                        </span>
+                        <div class="progress-value">45<small>%</small></div>
+                    </div>
+                    <span class="graph-text left">
+                        Pending Exception Approvals Status
+                    </span>
+                </div>
+                <footer class="footer">
+                    <h6 class="heading--h6">Pending exception Approvals</h6>
+                </footer>
+            </div>
+
+            <div class="col graph-tile">
+                <div class="body">
+                    
+                </div>
+                <footer class="footer">
+                    <h6 class="heading--h6">EA Lifecycle</h6>
+                </footer>                
+            </div>
+
+            <div class="col graph-tile">
+                <div class="body">
+                    <div class="hero-heading">
+                        <div class="d-flex w-100 flex-wrap justify-content-center">
+                            <span class="text">30</span>
+                            <span class="i-vNext-arrow-down-heavy"></span>
+                        </div>
+                    </div>
+                </div>
+                <footer class="footer">
+                    <h6 class="heading--h6">Deals on Compliance Hold</h6>
+                </footer>
+            </div>
+        </div>
+    </div>
+</section> -->
+<!-- End of Graph Tiles -->
+
+<div class="d-flex vNext" *ngIf="!eaStoreService.maintainanceObj?.underMaintainance" attr.page-id="{{dataIdConstantsService.eaDashboard_page_eaDashboardPage}}">
+<app-filter-menu *ngIf="eaStoreService.showHideFilterMenu" [filterMetaData] = "filterMetaData" [isPartnerLoggedIn]="isPartnerLoggedIn"></app-filter-menu>
+<div class="w-100">
+<section class="vNext">
+    <div class="container-fluid body-grey-bg py-0">
+        <div class="row">
+            <div class="col-12 search-by-wrap">
+                <h4 class="heading--h4">{{'ea_dashboard.SHOW_RESULTS_BY' | localizationPipe : localizationService.localizedkeySet.size}}</h4>
+                <ul class="inline-listing">
+                    <li [class.active]="selectedTab === 'deals'" (click)="selectTabToShow('deals')" attr.action-id="{{dataIdConstantsService.eaDashboard_link_tab_deals}}">
+                        <a href="javascript:void(0);">{{(eaService.features.SPNA_REL) ? ('ea_dashboard.BP_DEAL_PROPOSAL' | localizationPipe : localizationService.localizedkeySet.size) : ('ea_dashboard.EA_DEALS' | localizationPipe : localizationService.localizedkeySet.size)}}</a>
+                    </li>
+
+                    <!-- <li (click)="selectTabToShow('projects')" [class.active]="selectedTab === 'projects'">
+                        <a href="javascript:void(0);">{{localizationService.getLocalizedString('dashboard.PROJECTS_QUALIFICATIONS')}}</a>
+                    </li>
+
+                    <li (click)="selectTabToShow('proposals')" [class.active]="selectedTab === 'proposals'">
+                        <a href="javascript:void(0);">{{localizationService.getLocalizedString('dashboard.PROPOSALS')}}</a>
+                    </li> -->
+
+                    <li (click)="selectTabToShow('pendingApprovals')" attr.action-id="{{dataIdConstantsService.eaDashboard_link_tab_penndingApprovals}}" [class.active]="selectedTab === 'pendingApprovals'" *ngIf="eaStoreService.isExceptionApprover">
+                        <a href="javascript:void(0);">{{'ea_dashboard.PENDING_EXCEPTIONS' | localizationPipe : localizationService.localizedkeySet.size}}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End of Show Results By tabs-->
+
+<section class="vNext">
+    <div class="container-fluid borderR-3">
+            <app-dashboard-deal-list *ngIf="selectedTab === 'deals'"></app-dashboard-deal-list>
+            <!-- <app-dashboard-project-list *ngIf="selectedTab === 'projects'"></app-dashboard-project-list>
+            <app-dashboard-proposal-list *ngIf="selectedTab === 'proposals'"></app-dashboard-proposal-list> -->
+            <app-dashboard-pending-approvals-list *ngIf="selectedTab === 'pendingApprovals'" (selectedListView)="selectedPendingListView($event)"></app-dashboard-pending-approvals-list> 
+    </div>
+</section>
+</div>
+</div>

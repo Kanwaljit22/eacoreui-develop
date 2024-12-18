@@ -1,0 +1,37 @@
+<div class="modal-body vNext modal-without-header">
+    <button class="icon-close-btn" type="button" (click)="close()"></button>
+    <h2 class="mb-5">{{'select-more-bu.MISSING_PARTY_ID' | localizationPipe : localizationService.localizedkeySet.size}}
+    </h2>
+    <!-- End of header -->
+
+    <div class="vNext-lookup-desc pb-2 px-5">
+
+        <p class="mb-2">
+
+            {{'select-more-bu.MISSING_PARTY_ID_DESC' | localizationPipe : localizationService.localizedkeySet.size}}
+        </p>
+        <div class="alert alert--warning alert-dismissable mb-2">
+            <span class="alert-icon">
+                <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span
+                        class="path3"></span></span>
+            </span>
+            <span>{{missingPartyIds.length}} {{'select-more-bu.MISSING_PARTY_ID_WARN_MSG' | localizationPipe :
+                localizationService.localizedkeySet.size}}</span>
+        </div>
+
+
+        <div class="missing-search-result" *ngIf="displayData.length">
+            <table>
+                <tr *ngFor="let rowData of displayData">
+                    <td *ngFor="let id of rowData">{{id}}</td>
+                </tr>
+            </table>
+        </div>
+
+
+    </div>
+    <div class="text-center d-block pb-4">
+        <button class="btn btn-primary ml-1" type="button" (click)="close()">{{'common.CLOSE' | localizationPipe :
+            localizationService.localizedkeySet.size}}</button>
+    </div>
+</div>

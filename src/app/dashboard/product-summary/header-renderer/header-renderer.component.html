@@ -1,0 +1,18 @@
+<div class="ag-header-cell ag-header-cell-sortable">
+    <div ref="eResize" class="ag-header-cell-resize"></div>
+    <div class="ag-cell-label-container ag-header-cell-sorted-none">
+        <div ref="eLabel" class="ag-header-cell-label">
+             <span ref="eText"
+            class="ag-header-cell-text">{{params.displayName}}</span>
+            <span *ngIf='!productSummaryService.viewFavorites' ref="eSortAsc" (click)="setSorting('desc', params)" [class.ag-hidden]="sortIcon !== 'asc'"
+            class="ag-header-icon ag-sort-ascending-icon ag-hidden"><span
+                class="ag-icon ag-icon-asc" ></span></span> 
+                <span *ngIf='!productSummaryService.viewFavorites' ref="eSortDesc"  (click)="setSorting('asc', params)" [class.ag-hidden]="sortIcon !== 'desc'"
+            class="ag-header-icon ag-sort-descending-icon ag-hidden"><span
+                class="ag-icon ag-icon-desc" ></span></span> 
+                <span *ngIf='!productSummaryService.viewFavorites'  ref="eSortNone" (click)="setSorting('desc', params)" [class.ag-hidden]="!unSortIcon"
+            class="ag-header-icon ag-sort-none-icon"><span class="ag-icon ag-icon-none"
+                ></span></span> 
+        </div>
+    </div>
+</div>

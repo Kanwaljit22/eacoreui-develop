@@ -1,0 +1,82 @@
+
+<!-- <app-breadcrumbs></app-breadcrumbs> -->
+<app-sub-header [subHeaderData]="subHeaderData" > </app-sub-header>
+
+<div class="container-fluid">
+<message *ngIf='!messageService.hideParentErrorMsg'></message>
+</div>
+
+<div class="container-fluid" *ngIf="isInternalUser" [ngClass]="{'border--bottom solid' : selectedTab === 'compliance'}">
+  <ul class="nav nav-tabs wborder-tab">
+      <li class="nav-item" (click)="onSelectAccountHealth('accounthealth')">
+          <a class="nav-link" [class.active]="selectedTab==='accounthealth'" href="javascript:void(0);">{{localeService.getLocalizedString('prospect.360.header.ACCOUNT_HEALTH_INSIGHTS')}}</a>
+      </li>
+      <li class="nav-item" (click)="onSelectQual('qualifications')">
+          <a class="nav-link" [class.active]="selectedTab==='qualifications'" href="javascript:void(0);">{{localeService.getLocalizedString('prospect.360.header.QUALIFICATION')}}</a>
+      </li>
+      <li class="nav-item" (click)="onSelectProposal('proposals')">
+          <a class="nav-link" [class.active]="selectedTab==='proposals'" href="javascript:void(0);">{{localeService.getLocalizedString('common.PROPOSALS')}}</a>
+      </li>
+      <li class="nav-item" (click)="onSelectAgreement('agreements')">
+          <a class="nav-link" [class.active]="selectedTab==='agreements'" href="javascript:void(0);">{{localeService.getLocalizedString('prospect.360.header.AGREEMENT_SUBSCRIPTION')}}</a>
+      </li>
+      <li class="nav-item" (click)="onSelectCompliance('compliance')">
+        <a class="nav-link" [class.active]="selectedTab ==='compliance'" href="javascript:void(0);">{{localeService.getLocalizedString('prospect.360.header.COMPLIANCE_hold')}}</a>
+    </li>
+  </ul>
+
+  
+
+</div>
+
+<div class="tab-content" *ngIf="isInternalUser">
+    <div *ngIf="selectedTab !== 'compliance'">
+        <!--common top portion-->
+            <div class="container-fluid" id="filter-area" *ngIf="selectedTab!=='accounthealth' && selectedTab!=='agreements' && allArchitectureViewService.searchDropDown">
+                    <div class="row">
+                    <div class="col-6"> </div>
+                    <div class="col-6 d-flex justify-content-end">                      
+                            <app-dropdown-data-search 
+                                    [placeholder]="placeholder"
+                                    [pipeSearch] = "true" 
+                                    (onSearch)= "getSearchText($event)">
+                            </app-dropdown-data-search>
+                            <ul class="qualify-btn" *ngIf="selectedTab==='qualifications'">      
+                                    <li class="btn-sep">
+                                        <button class="btn btn-primary" type="button" (click)="createNewQual()" >{{localeService.getLocalizedString('qual.create.CREATE_NEW_QUAL')}}</button>
+                                    </li>
+                            </ul>
+                    </div>
+                    </div>
+        </div>   
+        <!--// common top portion-->
+    </div>
+
+    <div *ngIf="selectedTab === 'accounthealth'"> 
+      <app-account-health-insight></app-account-health-insight>
+     </div>
+  
+    <div *ngIf="selectedTab === 'qualifications' && showQualList" class="container-fluid">
+        <app-qual-list [qualData]="qualData" [searchQual] = "searchText" [changedData]="qualData.data" ></app-qual-list>
+    </div>
+  
+    <div *ngIf="selectedTab === 'proposals' && showProposalList" class="container-fluid">
+        <app-proposal-list class="proposals-tiles" [proposalData]="proposalData" [changedData]="proposalData.data" [searchProposal] = "searchText" style="width:100%;"></app-proposal-list>
+    </div> 
+  
+    <div *ngIf="selectedTab === 'agreements'">
+        <div class="container-fluid" id="filter-area" *ngIf='appDataService.linkedSmartAccountObj.name !== "Not Assigned"'>
+        <h2>{{localeService.getLocalizedString('prospect.360.ACTIVE_AGREEMENTS_FOR')}} 
+        <span *ngIf="appDataService.smartAccountData">{{appDataService.linkedSmartAccountObj.name}}</span> 
+        </h2>
+        </div>
+        <diV class="container-fluid">
+        <app-active-agreements class="d-block" fromPage='agreementTab' [activeAgreementData]="activeAgreementData" [searchAgreement]="searchText" > </app-active-agreements>
+        </diV>
+    </div>
+
+    <div class="container-fluid" *ngIf="selectedTab === 'compliance'"> 
+       <app-manage-compliance-hold-new></app-manage-compliance-hold-new>
+    </div>
+    
+  </div>

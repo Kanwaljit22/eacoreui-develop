@@ -1,0 +1,333 @@
+[
+    {
+        "colId": "releaseHold",
+        "headerName": "Action",
+        "pinned": "left",
+        "suppressMenu": true,
+        "suppressSorting": true,
+        "width": 100,
+        "minWidth": 60
+    },
+    {
+        "colId": "customerName",
+        "headerName": "Customer Name",
+        "field": "complianceHold.customerName",
+        "suppressMenu": true,
+        "suppressSorting": true,
+        "width": 195,
+        "minWidth": 100,
+        "pinned": "left"
+    },
+    {
+        "colId": "proposalId",
+        "headerName": "Proposal ID",
+        "field": "proposalId",
+        "suppressMenu": true,
+        "suppressSorting": true,
+        "width": 70,
+        "minWidth": 60,
+        "pinned": "left"
+    },
+    {
+        "colId": "dealId",
+        "headerName": "Deal ID",
+        "field": "complianceHold.dealId",
+        "suppressMenu": true,
+        "suppressSorting": true,
+        "width": 90,
+        "minWidth": 60,
+        "pinned": "left"
+        
+    },
+    {
+        "colId": "webOrderId",
+        "headerName": "Web Order ID",
+        "field": "complianceHold.webOrderId",
+        "suppressMenu": true,
+        "suppressSorting": true,
+        "width": 85,
+        "minWidth": 60,
+        "pinned": "left"
+    },
+    {
+        "colId": "euifSigned",
+        "headerName": "EUIF Signed",
+        "field": "complianceHold.euifSigned",
+        "suppressMenu": true,
+        "suppressSorting": true,
+        "width": 65
+    },
+    {
+        "colId": "loaRequired",
+        "headerName": "LOA Required",
+        "field": "complianceHold.loaRequired",
+        "suppressMenu": true,
+        "suppressSorting": true,
+        "width": 65
+    },
+    {
+        "colId": "loaSigned",
+        "headerName": "LOA Signed",
+        "field": "complianceHold.loaSigned",
+        "suppressMenu": true,
+        "suppressSorting": true,
+        "width": 65
+    },
+    {
+        "colId": "smartAccountActive",
+        "headerName": "Smart Account Active",
+        "field": "complianceHold.smartAccountActive",
+        "suppressMenu": true,
+        "suppressSorting": true,
+        "width": 115
+    },
+    {
+        "colId": "allVAsCreated",
+        "headerName": "Virtual Accounts Created",
+        "field": "complianceHold.allVAsCreated",
+        "suppressMenu": true,
+        "suppressSorting": true,
+        "width": 125
+    },
+    {
+        "colId": "purchaseAuthorized",
+        "headerName": "Partner Authorized",
+        "field": "complianceHold.purchaseAuthorized",
+        "suppressMenu": true,
+        "suppressSorting": true,
+        "width": 90
+    },
+    {
+        "colId": "status",
+        "headerName": "Hold Released",
+        "field": "complianceHold.status",
+        "suppressMenu": true,
+        "suppressSorting": true,
+        "width": 80
+    },
+    {
+        "colId": "mlbSmartAccountNames",
+        "headerName": "Smart Account Names",
+        "field": "complianceHold.mlbSmartAccountNames",
+        "suppressMenu": true,
+        "suppressSorting": true,
+        "width": 235
+    },
+    {
+        "colId": "virtualAccountNames",
+        "headerName": "Virtual Account Names",
+        "field": "complianceHold.virtualAccountNames",
+        "suppressMenu": true,
+        "suppressSorting": true,
+        "width": 235
+    },
+    {
+        "colId": "releaseType",
+        "headerName": "Release Type",
+        "field": "complianceHold.releaseType",
+        "suppressMenu": true,
+        "suppressSorting": true,
+        "width": 105,
+        "minWidth": 60
+    },
+    {
+        "colId": "orderSubmittedAtAsStr",
+        "headerName": "Order Submitted At",
+        "field": "complianceHold.orderSubmittedAtAsStr",
+        "suppressMenu": true,
+        "suppressSorting": true,
+        "width": 110,
+        "minWidth": 60
+    },
+    {
+        "colId": "mlbsRequestedStartDateStr",
+        "headerName": "Requested Start Date",
+        "field": "complianceHold.mlbsRequestedStartDateStr",
+        "suppressMenu": true,
+        "suppressSorting": true,
+        "width": 175,
+        "minWidth": 60
+    },
+    {
+        "colId": "completedAtAsString",
+        "headerName": "Order Released On",
+        "field": "complianceHold.completedAtAsString",
+        "suppressMenu": true,
+        "suppressSorting": true,
+        "width": 105,
+        "minWidth": 60
+    },
+    {
+        "colId": "dealType",
+        "headerName": "Deal Type",
+        "field": "complianceHold.dealType",
+        "suppressMenu": true,
+        "suppressSorting": true,
+        "width": 95,
+        "minWidth": 60
+    },
+    {
+        "colId": "ciscoAccountManager",
+        "headerName": "Account Manager",
+        "field": "complianceHold.ciscoAccountManager",
+        "suppressMenu": true,
+        "suppressSorting": true,
+        "width": 210,
+        "minWidth": 60
+    },
+    {
+        "colId": "dedicatedSoftwareSalesSpecialist",
+        "headerName": "Dedicated Software Specialist",
+        "field": "complianceHold.dedicatedSoftwareSalesSpecialist",
+        "suppressMenu": true,
+        "suppressSorting": true,
+        "width": 200,
+        "minWidth": 60
+    },
+    {
+        "colId": "countryOftransaction",
+        "headerName": "Country/Region of Transaction",
+        "field": "complianceHold.countryOftransaction",
+        "suppressMenu": true,
+        "suppressSorting": true,
+        "width": 95,
+        "minWidth": 60
+    },
+    {
+        "colId": "complianceHoldCycleTime",
+        "headerName": "Compliance Hold Cycle Time",
+        "field": "complianceHold.complianceHoldCycleTime",
+        "suppressMenu": true,
+        "suppressSorting": true,
+        "width": 165,
+        "minWidth": 60
+    },
+    {
+        "colId": "lastLoaCheckedAtStr",
+        "headerName": "Last LOA Check",
+        "field": "complianceHold.lastLoaCheckedAtStr",
+        "suppressMenu": true,
+        "suppressSorting": true,
+        "width": 110
+    },
+    {
+        "colId": "loaRequiredCheckCompletedAtStr",
+        "headerName": "Last LOA Required Check",
+        "field": "complianceHold.loaRequiredCheckCompletedAtStr",
+        "suppressMenu": true,
+        "suppressSorting": true,
+        "width": 125
+    },
+    {
+        "colId": "loaSignedCheckCompletedAtStr",
+        "headerName": "Last LOA Signed Check",
+        "field": "complianceHold.loaSignedCheckCompletedAtStr",
+        "suppressMenu": true,
+        "suppressSorting": true,
+        "width": 110
+    },
+    {
+        "colId": "lastEuifSignedCheckedAtStr",
+        "headerName": "Last EUIF Check",
+        "field": "complianceHold.lastEuifSignedCheckedAtStr",
+        "suppressMenu": true,
+        "suppressSorting": true,
+        "width": 110
+    },
+    {
+        "colId": "euifSignedCheckCompletedAtStr",
+        "headerName": "Last EUIF Completed Check",
+        "field": "complianceHold.euifSignedCheckCompletedAtStr",
+        "suppressMenu": true,
+        "suppressSorting": true,
+        "width": 135
+    },
+    {
+        "colId": "lastPurchaseAuthorizedCheckedAtStr",
+        "headerName": "Last Partner Authorization Check",
+        "field": "complianceHold.lastPurchaseAuthorizedCheckedAtStr",
+        "suppressMenu": true,
+        "suppressSorting": true,
+        "width": 155
+    },
+    {
+        "colId": "purchaseAuthorizedCheckCompletedAtStr",
+        "headerName": "Last Partner Authorization Complete Check",
+        "field": "complianceHold.purchaseAuthorizedCheckCompletedAtStr",
+        "suppressMenu": true,
+        "suppressSorting": true,
+        "width": 190
+    },
+    {
+        "colId": "lastSmartAccountActiveCheckedAtStr",
+        "headerName": "Last Smart Account Active Check",
+        "field": "complianceHold.lastSmartAccountActiveCheckedAtStr",
+        "suppressMenu": true,
+        "suppressSorting": true,
+        "width": 150
+    },
+    {
+        "colId": "smartAccountCheckCompletedAtStr",
+        "headerName": "Last Smart Account Completed Check",
+        "field": "complianceHold.smartAccountCheckCompletedAtStr",
+        "suppressMenu": true,
+        "suppressSorting": true,
+        "width": 150
+    },
+    {
+        "colId": "level0Node",
+        "headerName": "Sales Level 0",
+        "field": "complianceHold.level0Node",
+        "suppressMenu": true,
+        "suppressSorting": true,
+        "width": 110
+    },
+    {
+        "colId": "level1Node",
+        "headerName": "Sales Level 1",
+        "field": "complianceHold.level1Node",
+        "suppressMenu": true,
+        "suppressSorting": true,
+        "width": 110
+    },
+    {
+        "colId": "level2Node",
+        "headerName": "Sales Level 2",
+        "field": "complianceHold.level2Node",
+        "suppressMenu": true,
+        "suppressSorting": true,
+        "width": 245
+    },
+    {
+        "colId": "level3Node",
+        "headerName": "Sales Level 3",
+        "field": "complianceHold.level3Node",
+        "suppressMenu": true,
+        "suppressSorting": true,
+        "width": 320
+    },
+    {
+        "colId": "level4Node",
+        "headerName": "Sales Level 4",
+        "field": "complianceHold.level4Node",
+        "suppressMenu": true,
+        "suppressSorting": true,
+        "width": 265
+    },
+    {
+        "colId": "level5Node",
+        "headerName": "Sales Level 5",
+        "field": "complianceHold.level5Node",
+        "suppressMenu": true,
+        "suppressSorting": true,
+        "width": 260
+    },
+    {
+        "colId": "level6Node",
+        "headerName": "Sales Level 6",
+        "field": "complianceHold.level6Node",
+        "suppressMenu": true,
+        "suppressSorting": true,
+        "width": 360
+    } 
+]

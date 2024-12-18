@@ -1,0 +1,271 @@
+<div [ngClass]="{'flyOut-overlay':show}"></div>
+
+<div class="flyOut full c-overview" [ngClass]="{'open':priceEstimationService.showCredits}">
+    <div class="flyOut-heading" id="heading">
+        <div class="flyOut-heading--header">        
+            <h2> {{localeService.getLocalizedString('credit.CREDITOVERVIEW')}}</h2>
+        </div>
+        <span class="close-btn-flyout"  (click)="close()"><span class="icon-down-arow-white co-back-arrow"></span>{{localeService.getLocalizedString('credit.BackToPriceEst')}}</span>
+    </div>
+    <!-- End of Flyout Header -->
+
+    <div class="flyOut-body p-0 height-flyOut">
+        <div class="d-flex flex-column full-wide height-flyOut">
+            <div id ="subHeaderWrap-credit">
+                <app-sub-header [creditOverviewPage] = 'true'></app-sub-header>
+             </div> 
+             <div class="c-overview-container container-fluid border-bottom" id="actions-container-credit">
+                <div  class="tab-style d-flex align-items-center">
+                    <label>{{localeService.getLocalizedString('credit.CREDITOVERVIEWBY')}}</label>
+                    <ul  class="nav">
+                        <li *ngIf="appDataService.archName !== 'SEC'"  class="nav-item" (click)='changeView("IB")'>
+                            <a  class="nav-link" [ngClass]="{'active': !isSubscriptionsSelected}" >{{localeService.getLocalizedString('credit.INSTALLBASE')}}</a>
+                        </li>
+                        <li *ngIf="appDataService.archName === 'SEC'"  class="nav-item" (click)='changeView("BOOKINGS")'>
+                            <a  class="nav-link" [ngClass]="{'active': !isSubscriptionsSelected}" >{{localeService.getLocalizedString('credit.BOOKINGSUMMARY')}}</a>
+                        </li>
+                        <li  *ngIf="appDataService.archName !== 'SEC'"  class="nav-item" (click)='changeView("SBP")'>
+                            <a  class="nav-link" [ngClass]="{'active': isSubscriptionsSelected} ">{{localeService.getLocalizedString('credit.SUBSCRIPTIONS')}}</a>
+                        </li>
+                    </ul>
+                    </div>
+                <div class="actions-c-overview">
+                    <button *ngIf="!requestPa && showSupportButton" [disabled] = "readOnlyMode" class="btn btn-secondary mr-2" (click)="engageSupport()" type="button">{{localeService.getLocalizedString('credit.ENGAGETEAM')}}</button>
+                    <button *ngIf="requestPa && showSupportButton" [disabled] = "readOnlyMode"  class="btn btn-secondary mr-2" (click)="removeEngageSupport()" type="button">{{localeService.getLocalizedString('credit.WITHDRAWSUPPORT')}}</button>
+
+
+                    
+                    <button class="btn btn-primary" (click)="openDownloadModal()" type="button" *ngIf="!partnerLedFlow">{{localeService.getLocalizedString('credit.REQUESTDOCS')}}</button>
+                    
+                </div>
+            </div>
+            
+            <!-- <div class="container-fluid mt-2">
+               <message></message> 
+            </div>-->
+            
+            <div class="c-overview-container container-fluid  gray-background border-bottom" id="filter-area-credit">
+                <div class="disable-c-overview-actions"></div>
+                <div class="slide-wrap" [ngClass]="{'filter-open':reuseableFilterService.filterOpen}">
+                <div class="c-overview--left">
+                    <div class="filter--button" (click)="reuseableFilterService.activateFilter()">
+                        <span class="icon-filter"></span>
+                        <span class="text">Filters ({{reuseableFilterService.appliedFilterCount}}) </span>
+                    </div>
+                    
+                    <div class="smart-search">
+                        <app-dropdown-data-search [searchDropdown]="searchDropdown" [placeholder]="placeholder" (onSearch)= "getSearchText($event)" [fromPage] = "fromPage"></app-dropdown-data-search>
+                        <div class="clearfix"></div>
+                    </div> 
+
+                    <span  class="text">{{localeService.getLocalizedString('credit.I_WANT_TO_VIEW')}}</span> 
+                    <div ngbDropdown class="d-inline-block custom-dropdown dropdown ml-0">
+                        <button class="btn btn-outline-primary ml-0" id="dropdownBasic2" ngbDropdownToggle placement="bottom-right">{{selectedViewLabel}}</button>
+                        <div ngbDropdownMenu aria-labelledby="dropdownBasic2">
+                            <button ngbDropdownItem *ngFor="let Label of identifierDropDown?.filters" (click)="ChangeviewLabel(Label, identifierDropDown)"[ngClass]="{'active':selectedViewLabel === Label.name}">{{Label.name}}</button>  
+                        </div>  
+                    </div>
+                    <span class="text" *ngIf="!partnerLedFlow">{{localeService.getLocalizedString('credit.THAT_ARE')}}</span>
+                    <div ngbDropdown class="d-inline-block custom-dropdown dropdown ml-0" *ngIf="!partnerLedFlow">
+                        <button class="btn btn-outline-primary ml-0" id="dropdownBasic3" ngbDropdownToggle placement="bottom-right">{{selectedEligibilityLabel}}</button>
+                        <div ngbDropdownMenu aria-labelledby="dropdownBasic3">
+                            <button ngbDropdownItem *ngFor="let Label of eligibilityDropDown?.filters" (click)="ChangeeligibilityLabel(Label, eligibilityDropDown)"[ngClass]="{'active':selectedEligibilityLabel === Label.name}">{{Label.name}}</button>  
+                        </div>  
+                    </div>  
+                    <span  class="text" *ngIf="!partnerLedFlow">and </span>
+                    <div ngbDropdown class="d-inline-block custom-dropdown dropdown ml-0" *ngIf="!partnerLedFlow">
+                        <button class="btn btn-outline-primary ml-0" id="dropdownBasic4" ngbDropdownToggle placement="bottom-right">{{selectedCreditLabel}}</button>
+                        <div ngbDropdownMenu aria-labelledby="dropdownBasic4">
+                            <button ngbDropdownItem *ngFor="let Label of creditStatusDropDown?.filters" (click)="ChangecreditLabel(Label, creditStatusDropDown)"[ngClass]="{'active':selectedCreditLabel === Label.name}">{{Label.name}}</button>  
+                        </div>  
+                    </div>
+                    <div  ngbDropdown class="custom-dropdown dropdown" *ngIf="!partnerLedFlow">
+                    <span class="icon-info-line-level" ngbDropdownToggle  id="dropdownBasic5"></span>
+                    <div ngbDropdownMenu aria-labelledby="dropdownBasic5">
+                        <p class="info-heading"> {{localeService.getLocalizedString('credit.FAQS')}}</p>
+                        <div class="faqs">
+                            <label class="ques">{{localeService.getLocalizedString('credit.ELIGIBLE_CRITERIA')}}</label>
+                            <p class="answer">{{localeService.getLocalizedString('credit.ELIGIBLE_DESC')}}</p>
+                            <label class="ques">{{localeService.getLocalizedString('credit.CREDIT_APPLIED')}}</label>
+                            <p class="answer">{{localeService.getLocalizedString('credit.CREDIT_DESC')}}</p>
+                        </div>
+                        <!-- <div class="formula-container">
+                            <p>Residual Days x Daily Service Rate x Quantity = Credit Value</p>
+                        </div> -->
+                    </div>
+                    </div>
+                    </div>
+                    <!-- End of Left Section -->
+                    <!-- hiding the manage columns for further use (05/11)-->
+                    <div class="c-overview--right" style="display: none;">
+                            <app-manage-columns [columnDefs] = 'columnDefs'></app-manage-columns>      
+                    </div>
+                    <!-- End of Right Section -->
+            </div>
+            </div>
+
+            
+    <!-- start of message to show if no data present inthe api -->
+    <div class="c-overview-container container-fluid" *ngIf="(isDataLoaded && !isDataPresent)">
+        <div class="slide-wrap" [ngClass]="{'filter-open':reuseableFilterService.filterOpen}">
+            <div class="alert alert--warning alert-dismissable mb-2 mt-3">
+                <span class="alert-icon">
+                    <span class="icon-warning1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+                </span>
+                <span class="infoTxt" *ngIf="!partnerLedFlow">{{localeService.getLocalizedString('credit.POLICY_RESTRICTIONS_TO_ACCESS_DATA')}}</span>
+                <span class="infoTxt" *ngIf="partnerLedFlow">{{localeService.getLocalizedString('credit.NO_DATA_FOUND_THIS_MAY_BE_DUE_TO_LOCC_NOT_SIGNED')}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid" *ngIf = 'errorInResponse'>
+        <div  class="alert alert--danger alert-dismissable mb-2 mt-3">
+            <span class="alert-icon">
+                <span class="icon-msg-error"><span class="path1"></span><span class="path2"></span></span>
+            </span>
+            <span>{{localeService.getLocalizedString('credit.WE_HAVE_ENCOUNTERED_SOME_UNEXPECTED_ISSUE')}}</span>
+            <!-- <a class="close" style="cursor: pointer;" (click)="removeAlert(message)">&times;</a> -->
+        </div>
+    </div>
+    <!-- end of message to show if no data present in the api -->
+            
+            <div>
+                <div id="search-Content">
+                    <div class="c-overview-container container-fluid border-bottom white-bg"  *ngIf="rowData?.length">
+                        <div class="slide-wrap" [ngClass]="{'filter-open':reuseableFilterService.filterOpen}">
+                            <div class="c-overview--left">
+                                <label class="result-info" ><strong>{{paginationObject.collectionSize}} Results</strong> ({{localeService.getLocalizedString('credit.REFINE_YOUR_SEARCH')}})</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="rowData?.length" class="c-overview-container container-fluid">
+                        <div *ngIf="isSearchApplied" class="slide-wrap" [ngClass]="{'filter-open':reuseableFilterService.filterOpen}">
+                            <div class="row flex-nowrap w-100 align-items-center mt-1">
+                                <div class="col-auto">
+                                    <div class="max-460">
+                                        <h4 class="heading--h4">Your search results for {{searchObj?.searchName}} is:</h4>
+                                    </div>
+                                </div>
+
+                                <div class="col">
+                                    <div class="box-bordered approved-cell-grey">
+                                        <label class="label-check">
+                                            <input class="mr-1" type="checkbox" value="" (change)="updateSearch('withinProposalScope', $event)" [checked]="true" />
+                                            <span class="custom-checkbox-btn">
+                                                <span class="path1"></span>
+                                                <span class="path2"></span>
+                                            </span>
+                                        </label>
+                                        <span>{{localeService.getLocalizedString('credit.MATCHED_WITHIN_PROPOSAL')}} </span> 
+                                    </div>
+
+                                    <div class="box-bordered approved-cell-matched">
+                                        <label class="label-check">
+                                            <input class="mr-1" type="checkbox" (change)="updateSearch('outsideProposalScope', $event)" [checked]="true" value="" />
+                                            <span class="custom-checkbox-btn">
+                                                <span class="path1"></span>
+                                                <span class="path2"></span>
+                                            </span>
+                                        </label>
+                                        <span>{{localeService.getLocalizedString('credit.MATCHED_WITHIN_GU')}}</span> 
+                                    </div>
+
+                                    <div class="box-bordered rejected-cell-matched">
+                                        <label class="label-check">
+                                            <input class="mr-1" type="checkbox" value="" (change)="updateSearch('outsideGUScope', $event)" [checked]="true" />
+                                            <span class="custom-checkbox-btn">
+                                                <span class="path1"></span>
+                                                <span class="path2"></span>
+                                            </span>
+                                        </label>
+                                        <span>{{localeService.getLocalizedString('MATCHED_OUTSIDE_GU')}} </span> 
+                                    </div>
+
+                                    <!--div class="box-bordered">
+                                        <label class="label-check">
+                                            <input class="mr-1" type="checkbox" value="" />
+                                            <span class="custom-checkbox-btn">
+                                                <span class="path1"></span>
+                                                <span class="path2"></span>
+                                            </span>
+                                        </label>
+                                        <span>Not Available:</span> 
+                                    </div-->
+
+                                    <div ngbDropdown class="d-inline-block custom-dropdown dropdown-md">
+                                    <span class="icon-info-line-level" ngbDropdownToggle  id="dropdownBasic5"></span>
+                                    <div ngbDropdownMenu aria-labelledby="dropdownBasic5">
+                                        <div class="faqs">
+                                            <label class="ques">{{localeService.getLocalizedString('credit.MATCHED_WITHIN_PROPOSAL')}}:</label>
+                                            <p class="answer">{{localeService.getLocalizedString('credit.MATCHED_WITHIN_SELECTED_SCOPE_OF_PROPOSAL')}}</p>
+                                            <label class="ques">{{localeService.getLocalizedString('credit.MATCHED_WITHIN_GU')}}:</label>
+                                            <p class="answer">{{localeService.getLocalizedString('credit.MATCHED_WITHIN_SELECTED_CUSTOMER_BUT_OUTSIDE_SELECTED_SCOPE_OF_PROPOSAL')}}</p>
+                                            <label class="ques">{{localeService.getLocalizedString('MATCHED_OUTSIDE_GU')}}:</label>
+                                            <p class="answer">{{localeService.getLocalizedString('credit.SEARCH_CRITERIA_IS_NOT_AVAILABLE_UNDER_SELECTED_CUSTOMER')}}</p>
+                                            <label *ngIf="partnerLedFlow" class="ques">{{localeService.getLocalizedString('credit.NOT_AVAILABLE')}}</label>
+                                            <p *ngIf="partnerLedFlow" class="answer">{{localeService.getLocalizedString('credit.DO_NOT_HAVE_ACCESS_TO_DATA')}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                                
+
+                                <!--div class="col-1 text-right">
+                                    <a href="javascript:void(0)">Clear All</a>
+                                </div-->
+                            </div>
+    
+                        </div>
+                        <div class="container-fluid currency"  *ngIf="rowData?.length">
+                            {{localeService.getLocalizedString('price.est.ALL_PRICES')}} <strong>{{this.constantsService.CURRENCY}}</strong>
+                        </div>
+                    </div>
+                   
+                </div>
+                <div class="main-table eaProspect-table container-fluid dashboard " [ngClass]="{'filter-open':reuseableFilterService.filterOpen}" >
+                    <app-reuseable-filter [filterData] = 'leftFilterData' *ngIf="isFilterDataLoaded"></app-reuseable-filter>
+                    <!-- <div *ngIf="isSearchApplied" style="display: none;">Your search results for {{searchObj?.searchName}} is:
+                        <label class="label-check">
+                            <input class="form-check-input" type="checkbox" (click)="withInProposal()" [checked]="isWithinProposal"
+                                style="opacity: 1;">
+                    
+                            <span>Matched Within Proposal</span>
+                        </label>
+                        <label class="label-check">
+                            <input class="form-check-input" type="checkbox" (click)="withInGu()" [checked]="isWithinGu" style="opacity: 1;">
+                    
+                            <span>Matched Within GU</span>
+                        </label>
+                        <label class="label-check">
+                            <input class="form-check-input" type="checkbox" (click)="OutsideGu()" [checked]="isOutsideGu"
+                                style="opacity: 1;">
+                    
+                            <span>Matched Outside GU</span>
+                        </label>
+                    </div> -->
+                    <div class="grid" *ngIf="rowData?.length">
+                        <ag-grid-angular id="ag-grid-credit" style="width: 100%;" [ngClass]="{'ib_grid': type === 'IB' && !partnerLedFlow}"
+                        class="ag-fresh" (gridReady)="onGridReady($event)" #agGrid [gridOptions]="gridOptions" [columnDefs]="columnDefs" [rowData]="rowData" rowHeight="30" [sideBar]="false" (columnGroupOpened)="onColumnEvent($event)" [enableCellTextSelection]="true">
+                        </ag-grid-angular>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="paginationSize" *ngIf="rowData?.length">
+        <div>
+            <label>View</label>
+            <select (change)="onPageSizeChanged(paginationObject.pageSize)" [(ngModel)]="paginationObject.pageSize">
+                <option [ngValue]="50" [selected]>50</option>
+                <option [ngValue]="100">100</option>
+                <option [ngValue]="150">150</option>
+                <option [ngValue]="200">200</option>                   
+            </select>
+        </div>
+        <div *ngIf="this.rowData">
+            <ngb-pagination [collectionSize]="paginationObject.collectionSize" [(page)]="paginationObject.page" [boundaryLinks]="true" [maxSize]="5" [pageSize]="paginationObject.pageSize" (pageChange)="pageChange()"></ngb-pagination>
+        </div>
+    </div>
+    <!--End of Pagination -->
+</div>
+

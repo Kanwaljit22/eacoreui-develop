@@ -1,0 +1,79 @@
+<div class="modal-header">
+    <h5 class="modal-title" *ngIf="!cancelOrderMode">
+        {{localeService.getLocalizedString('modal.manual.compliance-release')}}
+    </h5>
+    <h5 class="modal-title" *ngIf="cancelOrderMode">
+        {{localeService.getLocalizedString('modal.cancel-order')}}
+    </h5>
+    <button type="button" class="icon-close-btn" data-dismiss="modal" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+<div class="modal-body architecture-details border-bottom-0" *ngIf="complianceFieldReleaseData">
+    <div class="deal-summary">
+        <div class="row">
+
+            <div class="col-3">
+                <label>Proposal Id</label>
+                <span class="ellipsis">{{complianceFieldReleaseData['proposalGroupId']}}</span>
+            </div>
+            <div class="col-3">
+                <label>Deal Id</label>
+                <span class="ellipsis">{{complianceFieldReleaseData['dealId']}}</span>
+            </div>
+            <div class="col-3">
+                <label>Web Order Id</label>
+                <span class="ellipsis">{{complianceFieldReleaseData['webOrderId']}}</span>
+            </div>
+            <div class="col-3">
+                <label>Order Status</label>
+                <span class="ellipsis">{{complianceFieldReleaseData['orderState']}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="sales-readiness" *ngIf="!cancelOrderMode">
+        <div class="sales-grid">
+            <table class="t-grid" width="100%">
+                <thead>
+                    <tr>
+                        <th>Stage</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let stage of stageList">
+                        <td>
+                            <span>{{stage['name']}}</span>
+                        </td>
+                        <td>
+                            <span>{{stage['status']}}</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div *ngIf="!cancelOrderMode">
+        <label>Please Provide Justification <sup>*</sup></label>
+        <div>
+            <textarea [(ngModel)]="justificationContent" style="min-width: 100%"></textarea>
+        </div> 
+    </div>
+
+    <div class="info-alert-message" *ngIf="cancelOrderMode">
+        <div class="info-txt">Are you sure you want stop compliance hold monitoring for this order?</div>
+    </div>
+    
+</div>
+<div *ngIf="!complianceFieldReleaseData">
+   <div class="alert alert--danger">
+        <span class="alert-icon">
+            <span class="icon-alert-error"></span>
+        </span>
+        <span> No Compliance Data Found For This Proposal.</span>
+    </div>
+</div>
+<div class="modal-footer mt-4">
+    <button class="btn btn-secondary" type="button" (click)="activeModal.dismiss('Cross click')">{{localeService.getLocalizedString('common.CANCEL')}}</button>
+    <button class="btn btn-primary" [disabled]="justificationContent === ''" type="button" (click)="submit()" *ngIf="!cancelOrderMode">Release Hold</button>
+    <button class="btn btn-primary" type="button" (click)="cancelOrder()" *ngIf="cancelOrderMode">Yes</button>
+</div>

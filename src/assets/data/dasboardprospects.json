@@ -1,0 +1,32 @@
+[
+    {
+        "prospectName": "Adobe Systems Inc.",
+        "tcv": 123456,
+        "suites": "WAN, Access Switching",
+        "suitesDetail": [
+            {
+                "name": "WAN",
+                "tcv": 12345
+            },
+            {
+                "name": "Access Switching",
+                "tcv": 1
+            }
+        ]
+    },
+    {
+        "prospectName": "Amazon Corp",
+        "tcv": 123457,
+        "suites": "WAN, Access Switching",
+        "suitesDetail": [
+            {
+                "name": "WAN",
+                "tcv": 12345
+            },
+            {
+                "name": "Access Switching",
+                "tcv": 2
+            }
+        ]
+    }
+]

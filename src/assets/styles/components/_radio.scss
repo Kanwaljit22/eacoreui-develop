@@ -1,0 +1,60 @@
+.radio-custom{
+    display: inline-block;
+
+input[type="radio"]{
+    position: absolute;
+    z-index: 11;
+    width: 18px;
+    height: 18px;
+    opacity: 0;
+    cursor: pointer;
+    &+label {
+    height: auto;
+    display: inline-block;
+    vertical-align: middle;
+    font-family: "ciscoSans";
+    padding-left: 24px;
+    position: relative;
+    margin-bottom: 0;
+    font-size: rem(15);
+            .custom-radio-btn{
+                position: absolute;
+                left:0;
+            font-family: 'enterpriseAgreement';
+            @extend .icon-radio-btn;
+        }
+}
+&:checked{
+    &+label {
+
+        .custom-radio-btn{ 
+            @extend .icon-radio-selected;
+            .path1,.path2{ display:none;}
+        }
+    }
+    &:disabled{
+        &+label {
+
+            .custom-radio-btn{ 
+                @extend .icon-radio-selected;
+                &:before{ color:#999;}
+                .path1,.path2{ display:none;}
+            }
+        }
+
+    }
+}
+&:disabled{
+    &+label {
+
+        .custom-radio-btn{ 
+            @extend .icon-radio-disable;
+        }
+    }
+}
+
+}
+}
+.Federal-radio {
+    padding: 15px;
+}

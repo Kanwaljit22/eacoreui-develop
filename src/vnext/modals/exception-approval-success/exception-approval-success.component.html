@@ -1,0 +1,13 @@
+<div class="modal-body vNext modal-without-header">
+    <button class="icon-close-btn" (click)="close()" attr.action-id="{{dataIdConstantsService.exceptionApprovalSuccess_button_closeIcon}}" type="button"></button>
+    <h2>{{localizationService.getLocalizedString('common.ALL_SET_TO_GO')}}</h2>
+
+    <div class="content-security">
+        <div class="icon-animation-wrap"><img src="../../../assets/images/icons/security-service.gif"></div>
+        <h5 class="heading--h5">{{localizationService.getLocalizedString('exception-approval-success.proposal.APPROVED_THE_PROPOSAL')}}</h5>
+    </div>
+
+    <div class="justify-content-center d-flex pb-4 paddingT10">
+        <button class="btn btn-primary sm" (click)="close()" attr.action-id="{{dataIdConstantsService.exceptionApprovalSuccess_button_closeButton}}">{{localizationService.getLocalizedString('common.DONE')}}</button>
+    </div>
+</div>

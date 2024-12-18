@@ -1,0 +1,69 @@
+
+<div class="vNext">
+  
+<!-- <section class="d-flex w-100" *ngIf='!proposalStoreService.showProposalDashboard'>
+  <div class="container-fluid bg-white">
+    <div class="row">
+      <div class="col-12">
+
+        <ul class="roadmap-steps vNext">
+          <li class="step completed cursor-pointer"  (click)="redirectoProject()">
+            <span class="step--icon"><span class="icon-tick-01"></span></span>
+            <span class="step--label">{{localizationService.getLocalizedString('common.PROJECT')}}</span>
+          </li>
+          <li class="step cursor-pointer active" (click)="proposalStoreService.showPriceEstimate = true; proposalStoreService.showProposalSummary = false;" [class.completed]="proposalStoreService.showProposalSummary">
+            <span class="step--icon"><span class="icon-tick-01"></span></span>
+            <span class="step--label">{{localizationService.getLocalizedString('common.PRICE_ESTIMATION')}}</span>
+          </li>
+          <li class="step cursor-pointer"  (click)="goToSummary()" [class.active]="proposalStoreService.showProposalSummary || (proposalStoreService.isReadOnly && proposalStoreService.proposalData.status === 'COMPLETE')" >
+            <span class="step--icon"><span class="icon-tick-01"></span></span>
+            <span class="step--label">{{localizationService.getLocalizedString('common.PROPOSAL_SUMMARY')}}</span>
+          </li>
+        </ul>
+
+        <hr class="border--bottom solid weight-1 mb-0 mt-2">
+      </div>
+    </div>
+  </div>
+</section> -->
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+        <app-message></app-message>
+        <app-pe-progressbar *ngIf="eaStoreService.isPePageLoad"></app-pe-progressbar>
+    </div>
+  </div>
+</div>
+  <app-price-estimation *ngIf="proposalStoreService.showPriceEstimate && !eaService.isSpnaFlow"></app-price-estimation>
+  <app-spna-price-estimation *ngIf="proposalStoreService.showPriceEstimate && eaService.isSpnaFlow"></app-spna-price-estimation>
+  <app-proposal-summary *ngIf="proposalStoreService.showProposalSummary"></app-proposal-summary> 
+  <app-proposal-dashboard *ngIf="proposalStoreService.showProposalDashboard"></app-proposal-dashboard>
+  <app-financial-summary *ngIf="proposalStoreService.showFinancialSummary"></app-financial-summary>
+  
+
+  <!--<aside class="aside--right">
+    <div class="aside--head">
+      <span class="aside-icon-wrap">
+        <span class="icon-warning1 mb-3 d-block"><span class="path1"></span><span class="path2"></span><span class="path3"></span></span>
+        <span class="noti-number-badge badge--danger">2</span>
+      </span>        
+        <span class="aside-icon-wrap">
+          <img src="assets/images/icons/notifications.svg">
+          <span class="noti-number-badge badge--success">1</span>
+        </span>
+    </div>
+    <div class="aside--footer">
+        <div class=" d-block">
+          <span class="aside-icon-wrap">
+            <img src="assets/images/icons/notifications.svg">
+          </span>
+        </div>
+        <div class=" d-block">
+          <span class="aside-icon-wrap">
+            <img src="assets/images/icons/notifications.svg">
+          </span>
+        </div>
+    </div>
+  </aside> -->
+</div>
